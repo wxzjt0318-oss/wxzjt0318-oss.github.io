@@ -292,6 +292,23 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
           </div>
         </div>
         
+        <!-- 搜索框 -->
+        <div class="search-container mb-6">
+          <div class="relative">
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="搜索番剧名称、类型、制作方..."
+              class="w-full px-4 py-3 pl-12 rounded-[var(--radius-large)] border border-[var(--line-divider)] bg-[var(--card-bg)] text-[var(--text-body)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
+            />
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
         <!-- 过滤按钮 - 参考Firefly设计 -->
         <div class="mb-6">
           <div class="filter-container flex flex-wrap gap-2">
@@ -351,7 +368,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
               const progressPercent = anime.totalEpisodes > 0 ? (anime.progress / anime.totalEpisodes) * 100 : 0;
               
               return (
-                <div class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]" data-anime-status={anime.status}>
+                <div class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]" data-anime-status={anime.status} data-anime-title={anime.title.toLowerCase()} data-anime-studio={anime.studio.toLowerCase()} data-anime-genre={anime.genre.map(g => g.toLowerCase()).join(' ')}>
                   <!-- 封面区域 - 竖屏比例 -->
                   <div class="relative aspect-[2/3] overflow-hidden">
                     <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
@@ -833,6 +850,29 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       color: white;
       border-color: var(--primary);
     }
+    
+    /* 搜索框样式 */
+    .search-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    #search-input {
+      padding-left: 2.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    #search-input:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* 搜索结果高亮样式 */
+    .search-highlight {
+      background-color: #fef3c7;
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+      font-weight: 600;
+    }
   </style>
 
   <!-- 过滤功能脚本 -->
@@ -1065,6 +1105,46 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       updatePagination();
     }
     
+    // 搜索功能
+    function searchAnime(searchTerm) {
+      const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
+      const filteredItems = [];
+      
+      // 如果搜索词为空，显示所有项目
+      if (!searchTerm.trim()) {
+        allItems.forEach(item => {
+          item.style.display = 'block';
+          item.classList.remove('anime-hidden');
+        });
+        return allItems;
+      }
+      
+      const searchTermLower = searchTerm.toLowerCase();
+      
+      allItems.forEach(item => {
+        const title = item.getAttribute('data-anime-title') || '';
+        const studio = item.getAttribute('data-anime-studio') || '';
+        const genre = item.getAttribute('data-anime-genre') || '';
+        const status = item.getAttribute('data-anime-status') || '';
+        
+        const matchesSearch = title.includes(searchTermLower) || 
+                             studio.includes(searchTermLower) || 
+                             genre.includes(searchTermLower) ||
+                             status.includes(searchTermLower);
+        
+        if (matchesSearch) {
+          item.style.display = 'block';
+          item.classList.remove('anime-hidden');
+          filteredItems.push(item);
+        } else {
+          item.style.display = 'none';
+          item.classList.add('anime-hidden');
+        }
+      });
+      
+      return filteredItems;
+    }
+    
     // 页面加载时初始化
     document.addEventListener('DOMContentLoaded', () => {
       initFilterButtons();
@@ -1093,6 +1173,38 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
           showPage(currentPage);
           updatePagination();
         }
+      });
+      
+      // 添加搜索功能
+      const searchInput = document.getElementById('search-input');
+      let searchTimeout;
+      
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        
+        // 防抖：延迟300ms执行搜索
+        searchTimeout = setTimeout(() => {
+          const searchTerm = this.value;
+          const activeFilter = document.querySelector('.filter-tag.active').getAttribute('data-status');
+          
+          // 执行搜索
+          const results = searchAnime(searchTerm);
+          
+          // 如果有激活的过滤器，进一步过滤结果
+          if (activeFilter !== 'all') {
+            results.forEach(item => {
+              const itemStatus = item.getAttribute('data-anime-status');
+              if (itemStatus !== activeFilter) {
+                item.style.display = 'none';
+              }
+            });
+          }
+          
+          // 更新分页
+          filteredItems = results;
+          currentPage = 1;
+          updatePagination();
+        }, 300);
       });
     });
     
