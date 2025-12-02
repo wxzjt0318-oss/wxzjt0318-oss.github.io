@@ -273,27 +273,27 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       <!-- 页面标题 -->
       <div class="relative w-full mb-8">
         <div class="mb-6">
-          <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
+          <h1 class="text-4xl font-bold text黑/90 dark:text白/90 mb-2 relative
                     before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
                     before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
             {i18n(I18nKey.animeTitle)}
           </h1>
-          <p class="text-black/75 dark:text-white/75">{i18n(I18nKey.animeSubtitle)}</p>
+          <p class="text黑/75 dark:text白/75">{i18n(I18nKey.animeSubtitle)}</p>
         </div>
         
         <!-- 统计信息卡片 -->
         <div class="stats-container grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text-black/60 dark:text-white/60 mb-1">总数</div>
+            <div class="text-xs text黑/60 dark:text白/60 mb-1">总数</div>
             <div class="text-2xl font-bold text-[var(--primary)]">{stats.total}</div>
           </div>
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text-black/60 dark:text-white/60 mb-1">综合评分</div>
+            <div class="text-xs text黑/60 dark:text白/60 mb-1">综合评分</div>
             <div class="text-2xl font-bold text-blue-500">{stats.avgRating}</div>
           </div>
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text-black/60 dark:text-white/60 mb-1">最后更新时间</div>
-            <div class="text-sm font-medium text-black/80 dark:text-white/80">{lastUpdated}</div>
+            <div class="text-xs text黑/60 dark:text白/60 mb-1">最后更新时间</div>
+            <div class="text-sm font-medium text黑/80 dark:text白/80">{lastUpdated}</div>
           </div>
         </div>
         
@@ -592,12 +592,9 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
         animeItems.forEach(item => {
           const first = firstPositions.get(item);
           const last = lastPositions.get(item);
-          
           if (first && last) {
             const deltaX = first.left - last.left;
             const deltaY = first.top - last.top;
-            
-            // 立即应用反向变换（不使用过渡）
             item.style.transition = 'none';
             item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
           }
@@ -606,24 +603,19 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
         // Play: 触发动画
         requestAnimationFrame(() => {
           animeItems.forEach((item, index) => {
-            // 错开动画开始时间，创建波浪效果
             setTimeout(() => {
               item.classList.add('anime-animating');
-              
-              // 移动到最终位置
               item.style.transition = '';
               item.style.transform = '';
-            }, index * 20); // 每个卡片延迟20ms
+            }, index * 20);
           });
-          
-          // 动画完成后清理
           setTimeout(() => {
             animeItems.forEach(item => {
               item.classList.remove('anime-animating');
               item.style.transition = '';
               item.style.transform = '';
             });
-          }, 500 + animeItems.length * 20); // 等待所有动画完成
+          }, 500 + animeItems.length * 20);
         });
       });
     }
@@ -667,11 +659,9 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       @container (min-width: 900px) {
         grid-template-columns: repeat(5, 1fr);
       }
-      
       @container (min-width: 600px) and (max-width: 899px) {
         grid-template-columns: repeat(3, 1fr);
       }
-      
       @container (max-width: 599px) {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -714,6 +704,9 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     }
     [data-anime-status].anime-fade-in { opacity: 0; transform: scale(0.8); }
     [data-anime-status].anime-fade-in-active { opacity: 1; transform: scale(1); }
+
+    /* 新增：淡出动画类，配合原有过渡，避免“瞬间消失” */
+    [data-anime-status].anime-fade-out { opacity: 0; transform: scale(0.96); }
     
     .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
     .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
@@ -741,9 +734,9 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
   </style>
 
-  <!-- 过滤与分页脚本：修复 Swup 初始化时机 + 搜索未分页 -->
+  <!-- 过滤功能脚本（保留原动画流畅度），并修复分页偶发缺失 -->
   <script is:inline>
-    // 事件监听器存储，用于防止重复绑定（filter-tag）
+    // 事件监听器存储，用于防止重复绑定
     if (typeof window.animeFilterEventListeners === 'undefined') {
       window.animeFilterEventListeners = [];
     }
@@ -793,7 +786,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       });
     }
 
-    // 从当前可见性（非 anime-hidden）重建分页（配合 FLIP 动画完成后使用）
+    // 从当前可见性重建分页（动画结束/搜索后使用）
     function rebuildPaginationFromVisibility() {
       const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
       filteredItems = allItems.filter(item => !item.classList.contains('anime-hidden'));
@@ -802,11 +795,11 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       updatePagination();
     }
     
-    // 过滤功能 - 带 FLIP 动画
+    // 过滤功能 - 使用 FLIP 技术实现洗牌动画（保持原有流畅度）
     function initFilterButtons() {
       const filterTags = document.querySelectorAll('.filter-tag');
       
-      // 移除之前的事件监听器（只针对 filter-tag 动画处理）
+      // 移除之前的事件监听器
       window.animeFilterEventListeners.forEach(listener => {
         const [element, type, handler] = listener;
         element.removeEventListener(type, handler);
@@ -908,7 +901,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                   }, index * 20);
                 });
                 
-                // 动画完成后清理并重建分页（关键修复）
+                // 动画完成后清理并重建分页（关键修复，保持流畅）
                 setTimeout(() => {
                   allItems.forEach(item => {
                     item.classList.remove('anime-animating', 'anime-fade-in-active');
@@ -916,7 +909,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                     item.style.transform = '';
                     item.style.opacity = '';
                   });
-                  // 根据可见项重建分页
                   rebuildPaginationFromVisibility();
                 }, 500 + allItems.length * 20);
               });
@@ -931,7 +923,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       console.log('Filter buttons initialized with', filterTags.length, 'buttons');
     }
     
-    // 基于过滤器计算（非 FLIP 路径，如初始进入）
+    // 基于当前激活过滤器的初始化分页（首次进入/Swup后）
     function updateFilteredItems() {
       const active = document.querySelector('.filter-tag.active');
       const activeFilter = active ? active.getAttribute('data-status') : 'all';
@@ -946,10 +938,11 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       updatePagination();
     }
     
-    // 搜索功能
+    // 搜索功能（保留原交互，补上分页处理）
     function searchAnime(searchTerm) {
       const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
       const result = [];
+      
       if (!searchTerm.trim()) {
         allItems.forEach(item => {
           item.style.display = 'block';
@@ -957,6 +950,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
         });
         return allItems;
       }
+      
       const q = searchTerm.toLowerCase();
       allItems.forEach(item => {
         const title = item.getAttribute('data-anime-title') || '';
@@ -976,11 +970,18 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       return result;
     }
 
-    // 统一初始化（关键修复：DOM 初次 + Swup 切换后都要调用）
+    // 统一初始化：首次进入和每次 Swup 切换后都调用
     function initAnimePage() {
+      // 确保容器存在后再初始化，避免偶发时序问题
+      const container = document.getElementById('anime-list-container');
+      const pagination = document.getElementById('pagination-container');
+      if (!container || !pagination) {
+        // 双层 rAF，确保 DOM 完整渲染后再尝试
+        requestAnimationFrame(() => requestAnimationFrame(initAnimePage));
+        return;
+      }
+
       initFilterButtons();
-      
-      // 初始化分页与事件
       updateFilteredItems();
       
       const prevBtn = document.getElementById('prev-page');
@@ -1017,39 +1018,38 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
             const activeFilter = active ? active.getAttribute('data-status') : 'all';
             
             const results = searchAnime(this.value);
-            
             // 如果有激活的过滤器，进一步过滤结果
             if (activeFilter !== 'all') {
               results.forEach(item => {
                 const itemStatus = item.getAttribute('data-anime-status');
                 if (itemStatus !== activeFilter) {
                   item.style.display = 'none';
+                  item.classList.add('anime-hidden');
                 }
               });
             }
-            
-            // 搜索后也按页显示（关键修复）
-            filteredItems = results;
-            currentPage = 1;
-            showPage(currentPage);
-            updatePagination();
+            // 搜索后基于可见项重建分页（关键修复）
+            rebuildPaginationFromVisibility();
           }, 300);
         });
         searchInput.__bound = true;
       }
     }
     
-    // 页面加载时初始化
-    document.addEventListener('DOMContentLoaded', initAnimePage);
+    // 初次加载
+    document.addEventListener('DOMContentLoaded', () => {
+      // rAF 确保渲染完成，避免偶发分页容器未就绪
+      requestAnimationFrame(initAnimePage);
+    });
     
-    // Swup页面切换后重新初始化（关键修复：保证每次切换后都重建分页与事件）
+    // Swup 页面切换后重新初始化
     function setupSwupListeners() {
       if (!window.swup) return;
-      window.swup.hooks.on('content:replace', () => setTimeout(initAnimePage, 150));
-      window.swup.hooks.on('page:view', () => setTimeout(initAnimePage, 150));
-      window.swup.hooks.on('animation:in:end', () => setTimeout(initAnimePage, 200));
+      const reinit = () => requestAnimationFrame(() => setTimeout(initAnimePage, 100));
+      window.swup.hooks.on('content:replace', reinit);
+      window.swup.hooks.on('page:view', reinit);
+      window.swup.hooks.on('animation:in:end', reinit);
     }
-    
     if (typeof window !== 'undefined') {
       if (window.swup) setupSwupListeners();
       else document.addEventListener('swup:enable', setupSwupListeners);
