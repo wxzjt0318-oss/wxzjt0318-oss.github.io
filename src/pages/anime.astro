@@ -50,7 +50,6 @@ function pickFirstUsefulValue(v: any): string | undefined {
     return undefined;
   }
   if (typeof v === 'object') {
-    // 常见结构：{ v: 'xxxx' } 或 { value: 'xxxx' }
     if (typeof v.v === 'string') return v.v.trim() || undefined;
     if (typeof v.value === 'string') return v.value.trim() || undefined;
   }
@@ -79,14 +78,13 @@ function getStartDateFromInfobox(subject: any): string | undefined {
 function toDisplayYearOrYearMonth(input?: string): string {
   if (!input) return 'Unknown';
   const s = input.trim();
-  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;   // YYYY-MM-DD
-  const ym = /^(\d{4})-(\d{2})$/;            // YYYY-MM
-  const y = /^(\d{4})$/;                     // YYYY
-  if (ymd.test(s)) return s;                 // 优先显示 YYYY-MM-DD
-  if (ym.test(s)) return s;                  // 次选 YYYY-MM
-  if (y.test(s)) return s;                   // 再次 YYYY
+  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;
+  const ym = /^(\d{4})-(\d{2})$/;
+  const y = /^(\d{4})$/;
+  if (ymd.test(s)) return s;
+  if (ym.test(s)) return s;
+  if (y.test(s)) return s;
 
-  // 兜底抓取
   const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
   if (mYMD) {
     const year = mYMD[1];
@@ -403,7 +401,7 @@ void isBothSidebarMode;
       <!-- 页面标题 -->
       <div class="relative w-full mb-8">
         <div class="mb-6">
-          <h1 class="text-4xl font-bold text黑/90 dark:text-white/90 mb-2 relative
+          <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
                     before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
                     before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
             {i18n(I18nKey.animeTitle)}
@@ -418,7 +416,7 @@ void isBothSidebarMode;
             <div class="text-2xl font-bold text-[var(--primary)]">{stats.total}</div>
           </div>
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text黑/60 dark:text白/60 mb-1">综合评分</div>
+            <div class="text-xs text-black/60 dark:text-white/60 mb-1">综合评分</div>
             <div class="text-2xl font-bold text-blue-500">{stats.avgRating}</div>
           </div>
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
@@ -467,11 +465,11 @@ void isBothSidebarMode;
               <>
                 <button class="filter-tag" data-status="onhold">
                   {i18n(I18nKey.animeStatusOnHold)} 
-                  <span class="ml-1 bg-purple-500 text白 text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'onhold').length})</span>
+                  <span class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'onhold').length})</span>
                 </button>
                 <button class="filter-tag" data-status="dropped">
                   {i18n(I18nKey.animeStatusDropped)} 
-                  <span class="ml-1 bg-red-500 text白 text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'dropped').length})</span>
+                  <span class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'dropped').length})</span>
                 </button>
               </>
             )}
@@ -484,10 +482,10 @@ void isBothSidebarMode;
         {ANIME_MODE !== 'local' && !isValidUserId ? (
           <div class="text-center py-12">
             <div class="text-5xl mb-4">😢</div>
-            <h3 class="text-xl font-medium text-black/80 dark:text白/80 mb-2">
+            <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.animeEmpty)}
             </h3>
-            <p class="text-black/60 dark:text白/60">
+            <p class="text-black/60 dark:text-white/60">
               请在 src/config.ts 文件中设置你的 Bangumi 用户ID
             </p>
           </div>
@@ -517,7 +515,7 @@ void isBothSidebarMode;
                       />
                       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div class="absolute inset-0 flex items-center justify-center">
-                          <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
+                          <div class="w-12 h-12 rounded-full bg-white/90 flex items中心 justify-center">
                             <svg class="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                               <path d="M8 5v14l11-7z"/>
                             </svg>
@@ -545,7 +543,7 @@ void isBothSidebarMode;
                     <!-- 进度条 -->
                     {anime.status === 'watching' && (
                       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                        <div class="w-full bg白/20 rounded-full h-1.5 mb-1">
+                        <div class="w-full bg-white/20 rounded-full h-1.5 mb-1">
                           <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-all duration-300" style={`width: ${progressPercent}%`}></div>
                         </div>
                         <div class="text-white text-xs font-medium">
@@ -557,21 +555,21 @@ void isBothSidebarMode;
                   
                   <!-- 内容 -->
                   <div class="p-3">
-                    <h3 class="text-sm font-bold text-black/90 dark:text白/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
-                    <p class="text-black/60 dark:text白/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
+                    <h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
+                    <p class="text-black/60 dark:text-white/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
                     
                     <div class="space-y-1 text-xs">
                       <div class="flex justify-between">
-                        <span class="text-black/50 dark:text白/50">{i18n(I18nKey.animeYear)}</span>
-                        <span class="text-black/70 dark:text白/70">{anime.displayDate}</span>
+                        <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
+                        <span class="text-black/70 dark:text-white/70">{anime.displayDate}</span>
                       </div>
                       <div class="flex justify-between">
-                        <span class="text-black/50 dark:text白/50">{i18n(I18nKey.animeStudio)}</span>
-                        <span class="text-black/70 dark:text白/70 truncate ml-2">{anime.studio}</span>
+                        <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
+                        <span class="text-black/70 dark:text-white/70 truncate ml-2">{anime.studio}</span>
                       </div>
                       <div class="flex flex-wrap gap-1 mt-2">
                         {(anime.genre || []).map(g => (
-                          <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text白/70 rounded text-xs">{g}</span>
+                          <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
                         ))}
                       </div>
                     </div>
@@ -583,10 +581,10 @@ void isBothSidebarMode;
         ) : (
           <div class="text-center py-12">
             <div class="text-5xl mb-4">😢</div>
-            <h3 class="text-xl font-medium text-black/80 dark:text白/80 mb-2">
+            <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.animeEmpty)}
             </h3>
-            <p class="text-black/60 dark:text白/60">
+            <p class="text-black/60 dark:text-white/60">
               {ANIME_MODE === 'local' ? i18n(I18nKey.animeEmptyLocal) : i18n(I18nKey.animeEmptyBangumi)}
             </p>
           </div>
@@ -613,7 +611,7 @@ void isBothSidebarMode;
   </div>
 
   <script is:inline define:vars={{ isBothSidebarMode }}>
-  // 动画列表布局切换脚本（仅用 grid-mode/list-mode 控制布局；保持你现有逻辑）
+  // 布局切换动画（保持原逻辑）
   (function() {
     setTimeout(() => {
       const animeListContainer = document.getElementById("anime-list-container");
@@ -739,9 +737,9 @@ void isBothSidebarMode;
     body, h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select, a { font-family: var(--anime-font) !important; }
     .card-base { container-type: inline-size; }
     
-    /* 仅通过模式类控制布局：固定列数
-       - grid-mode：每行5列
-       - list-mode：每行4列（由原“一个大卡片”改为4列） */
+    /* 布局固定列数
+       - grid-mode：每行5列（结合分页每页10个）
+       - list-mode：每行4列（结合分页每页8个） */
     .anime-grid-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     .anime-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
     .anime-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -802,7 +800,7 @@ void isBothSidebarMode;
     .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
   </style>
 
-  <!-- 过滤功能脚本（保持原有联动与只刷新一次分页/去重监听逻辑） -->
+  <!-- 过滤功能脚本（保留原联动与去重监听；仅按布局切换每页条数：grid=10，list=8） -->
   <script is:inline>
     // 事件监听器存储，用于防止重复绑定
     if (typeof window.animeFilterEventListeners === 'undefined') {
@@ -933,14 +931,23 @@ void isBothSidebarMode;
       console.log('Filter buttons initialized with', filterTags.length, 'buttons');
     }
     
-    // 分页
+    // 分页（每页数量根据布局确定：grid=10，list=8）
     let currentPage = 1;
-    const itemsPerPage = 12; // 保持原逻辑不变
+    let itemsPerPage = 8; // 初始按 list-mode 预估，首次分页时会根据容器类修正
     let filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
     let pageWindowStart = 1;
     const windowSize = 5;
+
+    function getItemsPerPageByLayout() {
+      const container = document.getElementById('anime-list-container');
+      if (container && container.classList.contains('grid-mode')) return 10;
+      return 8;
+    }
     
     function updatePagination() {
+      // 动态按当前布局设置每页数量
+      itemsPerPage = getItemsPerPageByLayout();
+
       const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
       const pageNumbersContainer = document.getElementById('page-numbers');
       pageNumbersContainer.innerHTML = '';
@@ -982,6 +989,9 @@ void isBothSidebarMode;
     }
     
     function showPage(page) {
+      // 动态按当前布局设置每页数量
+      itemsPerPage = getItemsPerPageByLayout();
+
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
@@ -1051,7 +1061,7 @@ void isBothSidebarMode;
       
       // 分页按钮
       document.getElementById('first-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+        const totalPages = Math.ceil(filteredItems.length / getItemsPerPageByLayout());
         if (currentPage !== 1 && totalPages > 0) {
           currentPage = 1;
           pageWindowStart = 1;
@@ -1068,7 +1078,7 @@ void isBothSidebarMode;
         }
       });
       document.getElementById('next-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+        const totalPages = Math.ceil(filteredItems.length / getItemsPerPageByLayout());
         if (currentPage < totalPages) {
           currentPage++;
           const maxStart = Math.max(1, totalPages - windowSize + 1);
@@ -1078,7 +1088,7 @@ void isBothSidebarMode;
         }
       });
       document.getElementById('last-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+        const totalPages = Math.ceil(filteredItems.length / getItemsPerPageByLayout());
         if (totalPages > 0 && currentPage !== totalPages) {
           currentPage = totalPages;
           pageWindowStart = Math.max(1, totalPages - windowSize + 1);
