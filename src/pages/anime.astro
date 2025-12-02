@@ -9,7 +9,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 // 扩展状态类型，包含 onhold、dropped，解决 TS 比较错误
 type LocalAnimeItem = (typeof localAnimeList)[number];
 type AnimeStatus = 'watching' | 'completed' | 'planned' | 'onhold' | 'dropped';
-type AnimeItem = Omit<LocalAnimeItem, 'status'> & { status: AnimeStatus; updatedAt?: string; displayDate?: string };
+type AnimeItem = Omit<LocalAnimeItem, 'status'> & { status: AnimeStatus; updatedAt?: string };
 
 // 检查番剧页面是否启用（去重）
 if (!siteConfig.featurePages.anime) {
@@ -26,117 +26,6 @@ const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
 
 // 获取番剧数据模式(不需要更改，请在主配置src/config.ts中修改)
 const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
-
-// 安全解析日期为时间戳
-function toTime(input?: string) {
-  if (!input) return 0;
-  const t = Date.parse(input);
-  return Number.isNaN(t) ? 0 : t;
-}
-
-/**
- * 解析可能不完整的日期字符串：
- * 支持：
- *  - YYYY
- *  - YYYY-MM
- *  - YYYY-MM-DD
- *  - 使用 / 作为分隔
- *  - 中文格式：YYYY年MM月DD日 / YYYY年MM月 / YYYY年
- *  - 忽略未知部分：00 或 ??（例如：YYYY-00-00 => 仅年；YYYY-07-00 => 年+月）
- */
-function parsePartialDate(dateStr?: string): { year?: number; month?: number; day?: number } {
-  if (!dateStr) return {};
-  let s = String(dateStr).trim();
-  if (!s) return {};
-
-  // 规范化：中文分隔符 -> -, / -> -, 去掉末尾的分隔符
-  s = s
-    .replace(/[./]/g, "-")
-    .replace(/年|月/g, "-")
-    .replace(/日/g, "")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-
-  // 完整或部分带年份：YYYY, YYYY-MM, YYYY-MM-DD（允许 00 或 ??）
-  const m = s.match(/^(\d{4})(?:-([0-1]?\d|00|\?\?))?(?:-([0-3]?\d|00|\?\?))?$/);
-  if (m) {
-    const year = Number(m[1]);
-    const rawMonth = m[2];
-    const rawDay = m[3];
-
-    const month =
-      rawMonth && rawMonth !== "00" && rawMonth !== "??"
-        ? Math.min(12, Math.max(1, Number(rawMonth)))
-        : undefined;
-
-    const day =
-      rawDay && rawDay !== "00" && rawDay !== "??"
-        ? Math.min(31, Math.max(1, Number(rawDay)))
-        : undefined;
-
-    return { year, month, day };
-  }
-
-  // 仅月或月-日：MM 或 MM-DD
-  const monthOnly = s.match(/^(\d{1,2})(?:-(\d{1,2}))?$/);
-  if (monthOnly) {
-    const month = Math.min(12, Math.max(1, Number(monthOnly[1])));
-    const day = monthOnly[2] ? Math.min(31, Math.max(1, Number(monthOnly[2]))) : undefined;
-    return { month, day };
-  }
-
-  // 无法识别
-  return {};
-}
-
-/**
- * 生成展示用日期字符串：
- * - 年月都有 => "YYYY-MM"
- * - 只有年 => "YYYY"
- * - 只有月 => "MM"
- * - 都没有 => "Unknown"
- */
-function displayDateFromInfo(info: { year?: number; month?: number }): string {
-  if (info.year && info.month) {
-    const mm = String(info.month).padStart(2, "0");
-    return `${info.year}-${mm}`;
-  }
-  if (info.year) return String(info.year);
-  if (info.month) return String(info.month).padStart(2, "0");
-  return "Unknown";
-}
-
-// 计算排序时间戳：
-// 1) 优先 updatedAt；
-// 2) 其次使用 startDate（若有年按年, 否则按月用当前年补齐）；
-// 3) 再尝试 year 字段（同策略）；
-// 4) 退回 endDate；
-// 5) 最后 0。
-function computeSortKey(anime: AnimeItem): number {
-  const nowYear = new Date().getUTCFullYear();
-
-  const u = toTime((anime as any).updatedAt);
-  if (u) return u;
-
-  const startInfo = parsePartialDate((anime as any).startDate || "");
-  if (startInfo.year) {
-    return Date.UTC(startInfo.year, (startInfo.month ?? 1) - 1, 1);
-  } else if (startInfo.month) {
-    return Date.UTC(nowYear, startInfo.month - 1, 1);
-  }
-
-  const yearInfo = parsePartialDate((anime as any).year || "");
-  if (yearInfo.year) {
-    return Date.UTC(yearInfo.year, (yearInfo.month ?? 1) - 1, 1);
-  } else if (yearInfo.month) {
-    return Date.UTC(nowYear, yearInfo.month - 1, 1);
-  }
-
-  const e = toTime((anime as any).endDate);
-  if (e) return e;
-
-  return 0;
-}
 
 // 获取单个条目相关人员信息
 async function fetchSubjectPersons(subjectId: number) {
@@ -187,13 +76,9 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
       // 相关人员信息（用于找制作方）
       const subjectPersons = await fetchSubjectPersons(item.subject_id);
 
-      // 源日期字符串
-      const rawDate: string = (item.subject?.date || "").trim();
-
-      // 解析日期并生成展示用日期：优先年+月；否则年；否则月；否则 Unknown
-      const dateInfo = parsePartialDate(rawDate);
-      const displayDate = displayDateFromInfo(dateInfo);
-
+      const fullDate = item.subject?.date || "";
+      // 修改：year 字段改为完整日期显示（若无则 Unknown）
+      const year = fullDate || "Unknown";
       const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
       const progress = item.ep_status || 0;
       const totalEpisodes =
@@ -225,15 +110,13 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
         cover: item.subject?.images?.medium || "/assets/anime/default.webp",
         description: (item.subject?.short_summary || item.subject?.name_cn || "").trimStart(),
         episodes: `${totalEpisodes} episodes`,
-        // year 字段用于展示（兼容本地数据），displayDate 用于优先展示
-        year: displayDate,
-        displayDate,
+        year, // 现在为完整日期（如 2024-07-05），不再仅年
         genre: item.subject?.tags ? item.subject.tags.slice(0, 3).map((tag: any) => tag.name) : ["Unknown"],
         studio,
         link: item.subject?.id ? `https://bgm.tv/subject/${item.subject.id}` : "#",
         progress,
         totalEpisodes,
-        startDate: rawDate,
+        startDate: item.subject?.date || "",
         endDate: "",
         updatedAt,
       } as AnimeItem;
@@ -334,10 +217,17 @@ const lastUpdated = new Date().toLocaleString("zh-CN", {
   timeZone: "Asia/Shanghai",
 });
 
-// 按更新时间/开始时间排序（增强：支持仅月排序；有年按年排，无年按月排；实在没有为 Unknown）
+// 安全解析日期为时间戳
+function toTime(input?: string) {
+  if (!input) return 0;
+  const t = Date.parse(input);
+  return Number.isNaN(t) ? 0 : t;
+}
+
+// 按更新时间/开始时间排序（修复原先依赖 endDate 的排序无效问题）
 const sortedAnimeList = [...animeList].sort((a, b) => {
-  const aTime = computeSortKey(a);
-  const bTime = computeSortKey(b);
+  const aTime = toTime((a as any).updatedAt) || toTime(a.endDate) || toTime(a.startDate);
+  const bTime = toTime((b as any).updatedAt) || toTime(b.endDate) || toTime(b.startDate);
   return bTime - aTime;
 });
 
@@ -513,9 +403,7 @@ void isBothSidebarMode;
                     <div class="space-y-1 text-xs">
                       <div class="flex justify-between">
                         <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
-                        <span class="text-black/70 dark:text-white/70">
-                          {(anime as any).displayDate || (anime as any).startDate || (anime as any).year}
-                        </span>
+                        <span class="text-black/70 dark:text-white/70">{anime.startDate || anime.year}</span>
                       </div>
                       <div class="flex justify-between">
                         <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
