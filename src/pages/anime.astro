@@ -15,6 +15,11 @@ type AnimeItem = Omit<LocalAnimeItem, 'status'> & {
   // 新增：展示与原始日期（更稳的排序与显示）
   startDate?: string;      // 原始放送开始时间（尽量 YYYY-MM-DD，兜底为空）
   displayDate?: string;    // UI 展示用：YYYY 或 YYYY-MM 或 Unknown
+  // 新增：模板实际使用到的字段，补齐类型，避免 TS/运行时报错
+  genre: string[];         // 统一为数组，兜底 []
+  progress?: number;       // 进度
+  totalEpisodes?: number;  // 总集数
+  episodes?: string;       // 可选：保留文案用
 };
 
 // 检查番剧页面是否启用（去重）
@@ -207,17 +212,32 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
         }
       }
 
+      // 尝试从 subject.tags 提取类型标签（兜底为空数组）
+      const genre: string[] = Array.isArray(subject?.tags)
+        ? subject.tags
+            .slice(0, 4)
+            .map((t: any) => {
+              if (typeof t === 'string') return t.trim();
+              if (t && typeof t.name === 'string') return t.name.trim();
+              return '';
+            })
+            .filter(Boolean)
+        : [];
+
       // 尝试使用条目更新时间；若无则退回到条目本身日期
       const updatedAt: string | undefined =
         item.updated_at || item.comment_updated_at || item.created_at || subject?.date || undefined;
 
+      const cover = subject?.images?.medium || "/assets/anime/default.webp";
+
+      const title = subject?.name_cn || subject?.name || "Unknown Title";
+
       return {
-        title: subject?.name_cn || subject?.name || "Unknown Title",
+        title,
         status,
         rating,
-        cover: subject?.images?.medium || "/assets/anime/default.webp",
+        cover,
         description: (subject?.short_summary || subject?.name_cn || "").trimStart(),
-        episodes: `${totalEpisodes} episodes`,
         // year 字段历史保留，但实际 UI 用 displayDate
         year: displayDate,
         displayDate,
@@ -228,6 +248,10 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
         startDate: startDate || "", // 保留原始起始日期（尽量完整），用于排序
         endDate: "",
         updatedAt,
+        // 新增：确保模板中的 genre 始终存在
+        genre,
+        // 可选：文案字段
+        episodes: `${totalEpisodes || 0} episodes`,
       } as AnimeItem;
     }),
   );
@@ -239,7 +263,8 @@ let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
   animeList = (localAnimeList as AnimeItem[]).map(a => ({
     ...a,
-    displayDate: toDisplayYearOrYearMonth(a.startDate || a.year)
+    displayDate: toDisplayYearOrYearMonth(a.startDate || a.year),
+    genre: Array.isArray((a as any).genre) ? (a as any).genre : [],
   }));
 } else if (!isValidUserId) {
   // 未设置有效 userId：不调用任何 API，留给前端提示
@@ -331,8 +356,8 @@ const lastUpdated = new Date().toLocaleString("zh-CN", {
 
 // 按更新时间/开始时间排序（修复原先依赖 endDate 的排序无效问题）
 const sortedAnimeList = [...animeList].sort((a, b) => {
-  const aTime = toTime((a as any).updatedAt) || toTime(a.startDate) || toTime(a.displayDate);
-  const bTime = toTime((b as any).updatedAt) || toTime(b.startDate) || toTime(b.displayDate);
+  const aTime = toTime(a.updatedAt) || toTime(a.startDate) || toTime(a.displayDate);
+  const bTime = toTime(b.updatedAt) || toTime(b.startDate) || toTime(b.displayDate);
   return bTime - aTime;
 });
 
@@ -447,10 +472,18 @@ void isBothSidebarMode;
           }`}>
             {sortedAnimeList.map(anime => {
               const statusInfo = getStatusInfo(anime.status);
-              const progressPercent = anime.totalEpisodes > 0 ? (anime.progress / anime.totalEpisodes) * 100 : 0;
+              const total = typeof anime.totalEpisodes === 'number' ? anime.totalEpisodes : 0;
+              const progress = typeof anime.progress === 'number' ? anime.progress : 0;
+              const progressPercent = total > 0 ? (progress / total) * 100 : 0;
               
               return (
-                <div class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]" data-anime-status={anime.status} data-anime-title={anime.title.toLowerCase()} data-anime-studio={anime.studio.toLowerCase()} data-anime-genre={anime.genre.map(g => g.toLowerCase()).join(' ')}>
+                <div
+                  class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                  data-anime-status={anime.status}
+                  data-anime-title={String(anime.title || '').toLowerCase()}
+                  data-anime-studio={String(anime.studio || '').toLowerCase()}
+                  data-anime-genre={(anime.genre || []).map(g => String(g || '').toLowerCase()).join(' ')}
+                >
                   <!-- 封面区域 - 竖屏比例 -->
                   <div class="relative aspect-[2/3] overflow-hidden">
                     <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
@@ -493,7 +526,7 @@ void isBothSidebarMode;
                           <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-all duration-300" style={`width: ${progressPercent}%`}></div>
                         </div>
                         <div class="text-white text-xs font-medium">
-                          {anime.progress}/{anime.totalEpisodes} ({Math.round(progressPercent)}%)
+                          {progress}/{total} ({Math.round(progressPercent)}%)
                         </div>
                       </div>
                     )}
@@ -515,7 +548,7 @@ void isBothSidebarMode;
                         <span class="text-black/70 dark:text-white/70 truncate ml-2">{anime.studio}</span>
                       </div>
                       <div class="flex flex-wrap gap-1 mt-2">
-                        {anime.genre.map(g => (
+                        {(anime.genre || []).map(g => (
                           <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
                         ))}
                       </div>
@@ -1083,7 +1116,7 @@ void isBothSidebarMode;
     // 搜索功能
     function searchAnime(searchTerm) {
       const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      const filteredItems = [];
+      const matched = [];
       
       // 如果搜索词为空，显示所有项目
       if (!searchTerm.trim()) {
@@ -1110,14 +1143,14 @@ void isBothSidebarMode;
         if (matchesSearch) {
           item.style.display = 'block';
           item.classList.remove('anime-hidden');
-          filteredItems.push(item);
+          matched.push(item);
         } else {
           item.style.display = 'none';
           item.classList.add('anime-hidden');
         }
       });
       
-      return filteredItems;
+      return matched;
     }
     
     // 页面加载时初始化
