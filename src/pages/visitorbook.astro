@@ -1,0 +1,134 @@
+---
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { siteConfig } from "../config";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
+const pageTitle = i18n(I18nKey.guestbook) || "留言版";
+const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，分享你的想法";
+---
+
+<MainGridLayout title={pageTitle} description={pageSubtitle}>
+  <!-- Hero 区（昼夜自适应 + 文字清晰） -->
+  <div class="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] text-gray-900 dark:text-white py-6 mb-6 rounded-t-[var(--radius-large)]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold leading-tight drop-shadow-sm dark:drop-shadow-md">{pageTitle}</h1>
+      <p class="mt-2 opacity-90 text-sm md:text-base drop-shadow-sm dark:drop-shadow-md">{pageSubtitle}</p>
+    </div>
+  </div>
+
+  <!-- 主内容区 -->
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-4 py-4 md:px-6 md:py-5 relative w-full">
+      <div class="relative max-w-4xl mx-auto">
+
+        <div class="visitorbook-header mb-6">
+          <h2 class="text-xl md:text-2xl font-bold text-90 mb-2">💬 留言板</h2>
+          <p class="subtitle text-sm md:text-base text-75 mb-3">欢迎来到留言板！这里是一个自由交流的空间，你可以：</p>
+
+          <ul class="features-list space-y-2 mb-4 list-none">
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 分享你的想法和观点</li>
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 留下你的建议和反馈</li>
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 记录你的心情和故事</li>
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 与其他访客互动交流</li>
+          </ul>
+
+          <p class="welcome-text text-75">无论你想说什么，都欢迎在下方评论区留言！</p>
+        </div>
+
+        <div class="notice-section mb-6 p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--line-divider)]">
+          <h3 class="notice-title text-base font-semibold text-90 mb-2">温馨提示：</h3>
+          <ul class="notice-list space-y-1 text-sm text-75 list-none">
+            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 请保持友善和尊重，营造良好的交流氛围</li>
+            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 欢迎分享你的想法，也可以提出对网站的建议</li>
+            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 你的每一条留言都是对我最大的支持 ✨</li>
+          </ul>
+        </div>
+
+        <div class="divider h-px bg-gradient-to-r from-transparent via-[var(--line-divider)] to-transparent my-6"></div>
+
+        <!-- Twikoo 评论容器 -->
+        <div id="twikoo" class="w-full mt-4"></div>
+
+      </div>
+    </div>
+  </div>
+</MainGridLayout>
+
+<script>
+  let twikooInit = false; // Flag to prevent multiple initializations
+
+  const initTwikoo = async () => {
+    if (twikooInit) return; // Prevent re-initialization
+    twikooInit = true;
+
+    const container = document.getElementById('twikoo');
+    if (!container) {
+      console.warn('Twikoo container not found.');
+      return;
+    }
+
+    try {
+      // Dynamically import Twikoo
+      const { default: twikoo } = await import('https://cdn.jsdelivr.net/npm/twikoo@latest/dist/twikoo.es.min.js');
+
+      twikoo.init({
+        envId: "https://twikoo-api-gmgc.vercel.app/", // Your Twikoo API endpoint
+        el: '#twikoo',  // The CSS selector for the comment container
+        path: '/guestbook', // The unique path for this page
+        lang: 'zh-CN' // Language of the comments
+      });
+    } catch (error) {
+      console.error('Failed to initialize Twikoo:', error);
+      twikooInit = false; // Reset the flag for potential retries.
+      container.textContent = "Failed to load comments. Please try again later."; // Display a user-friendly message
+    }
+  };
+
+  // Initialize Twikoo when the component mounts
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTwikoo);
+    } else {
+      initTwikoo();
+    }
+  }
+
+  // Astro navigation support.  Use requestAnimationFrame and setTimeout to allow
+  // Astro to render the page before Twikoo is initialized.  Also check if Twikoo
+  // has already been initialized to prevent re-initialization.
+  document.addEventListener('astro:page-load', () => {
+    if (!twikooInit) {
+      requestAnimationFrame(() => {
+        setTimeout(initTwikoo, 100);
+      });
+    }
+  });
+</script>
+
+<style>
+  .visitorbook-header h2 {
+    text-align: left;
+  }
+
+  .features-list,
+  .notice-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .emoji {
+    font-size: 1rem;
+  }
+
+  #twikoo {
+    min-height: 300px;
+  }
+
+  @media (max-width: 640px) {
+    .card-base {
+      margin: 0 -0.5rem;
+      border-radius: 0;
+    }
+  }
+</style>
