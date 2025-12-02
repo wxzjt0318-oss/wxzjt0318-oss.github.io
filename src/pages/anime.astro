@@ -9,18 +9,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 // 扩展状态类型，包含 onhold、dropped，解决 TS 比较错误
 type LocalAnimeItem = (typeof localAnimeList)[number];
 type AnimeStatus = 'watching' | 'completed' | 'planned' | 'onhold' | 'dropped';
-type AnimeItem = Omit<LocalAnimeItem, 'status'> & {
-  status: AnimeStatus;
-  updatedAt?: string;
-  // 展示与原始日期
-  startDate?: string;
-  displayDate?: string;
-  // 模板依赖字段
-  genre: string[];
-  progress?: number;
-  totalEpisodes?: number;
-  episodes?: string;
-};
+type AnimeItem = Omit<LocalAnimeItem, 'status'> & { status: AnimeStatus; updatedAt?: string };
 
 // 检查番剧页面是否启用（去重）
 if (!siteConfig.featurePages.anime) {
@@ -31,229 +20,121 @@ if (!siteConfig.featurePages.anime) {
 const isBothSidebarMode = sidebarLayoutConfig.position === "both";
 
 // Bangumi API配置
-const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
+const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id"; // 用户ID
 const BANGUMI_API_BASE = "https://api.bgm.tv";
 const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
 
-// 获取番剧数据模式
+// 获取番剧数据模式(不需要更改，请在主配置src/config.ts中修改)
 const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
 
-// 兼容地从 infobox/多种来源提取键值
-function pickFirstUsefulValue(v: any): string | undefined {
-  if (v == null) return undefined;
-  if (typeof v === 'string') return v.trim() || undefined;
-  if (Array.isArray(v)) {
-    for (const it of v) {
-      const got = pickFirstUsefulValue(it);
-      if (got) return got;
-    }
-    return undefined;
-  }
-  if (typeof v === 'object') {
-    if (typeof v.v === 'string') return v.v.trim() || undefined;
-    if (typeof v.value === 'string') return v.value.trim() || undefined;
-  }
-  return undefined;
-}
-
-// 从 subject.infobox 提取可能的“放送开始时间”
-function getStartDateFromInfobox(subject: any): string | undefined {
-  const keys = [
-    '放送开始','放送開始','首播','首映','首播日期','上映日期','上映年度','上映时间',
-    '发售日','開始','開始日','开始','開始時間','开始时间','开播','首播时间'
-  ];
-  const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) return undefined;
-  for (const k of keys) {
-    const entry = infobox.find((x: any) => x?.key === k);
-    if (!entry) continue;
-    const v = pickFirstUsefulValue(entry?.value);
-    if (v) return v;
-  }
-  return undefined;
-}
-
-// 只用于 UI 展示：优先 YYYY-MM-DD，其次 YYYY-MM，再次 YYYY
-function toDisplayYearOrYearMonth(input?: string): string {
-  if (!input) return 'Unknown';
-  const s = input.trim();
-  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-  if (/^\d{4}-\d{2}$/.test(s)) return s;
-  if (/^\d{4}$/.test(s)) return s;
-
-  const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
-  if (mYMD) {
-    const year = mYMD[1];
-    const mm = String(mYMD[2]).padStart(2, '0');
-    const dd = String(mYMD[3]).padStart(2, '0');
-    return `${year}-${mm}-${dd}`;
-  }
-  const mYM = s.match(/(\d{4})[-/年](\d{1,2})/);
-  if (mYM) {
-    const year = mYM[1];
-    const mm = String(mYM[2]).padStart(2, '0');
-    return `${year}-${mm}`;
-  }
-  const mY = s.match(/(\d{4})/);
-  if (mY) return mY[1];
-  return 'Unknown';
-}
-
-// 安全解析日期为时间戳
-function toTime(input?: string) {
-  if (!input) return 0;
-  const s = input.trim();
-  if (/^\d{4}$/.test(s)) return Date.parse(`${s}-01-01T00:00:00Z`);
-  if (/^\d{4}-\d{2}$/.test(s)) return Date.parse(`${s}-01T00:00:00Z`);
-  const t = Date.parse(s);
-  return Number.isNaN(t) ? 0 : t;
-}
-
-// API
+// 获取单个条目相关人员信息
 async function fetchSubjectPersons(subjectId: number) {
   try {
-    const r = await fetch(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
-    const data = await r.json();
+    const response = await fetch(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
+    const data = await response.json();
     return Array.isArray(data) ? data : [];
-  } catch {
+  } catch (error) {
+    console.error(`Error fetching subject ${subjectId} persons:`, error);
     return [];
   }
 }
-async function fetchSubjectDetail(subjectId: number) {
-  try {
-    const r = await fetch(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`);
-    if (!r.ok) throw new Error();
-    return await r.json();
-  } catch {
-    return null;
-  }
-}
-const subjectDetailCache = new Map<number, any>();
-const subjectPersonsCache = new Map<number, any[]>();
-async function fetchSubjectDetailCached(id: number) {
-  if (subjectDetailCache.has(id)) return subjectDetailCache.get(id);
-  const d = await fetchSubjectDetail(id);
-  subjectDetailCache.set(id, d);
-  return d;
-}
-async function fetchSubjectPersonsCached(id: number) {
-  if (subjectPersonsCache.has(id)) return subjectPersonsCache.get(id);
-  const p = await fetchSubjectPersons(id);
-  subjectPersonsCache.set(id, p);
-  return p;
-}
 
-async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T, idx: number) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let i = 0;
-  const runners = new Array(Math.min(limit, items.length)).fill(0).map(async () => {
-    while (true) {
-      const idx = i++;
-      if (idx >= items.length) return;
-      results[idx] = await fn(items[idx], idx);
-    }
-  });
-  await Promise.all(runners);
-  return results;
-}
-
+// 获取Bangumi收藏列表
 async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
   try {
     let allData: any[] = [];
     let offset = 0;
     const limit = 50;
     let hasMore = true;
+
     while (hasMore) {
-      const r = await fetch(`${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${limit}&offset=${offset}`);
-      if (!r.ok) throw new Error();
-      const data = await r.json();
-      if (data.data && data.data.length > 0) allData = allData.concat(data.data);
+      const response = await fetch(
+        `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${limit}&offset=${offset}`,
+      );
+      if (!response.ok) throw new Error(`Bangumi API error: ${response.status}`);
+
+      const data = await response.json();
+      if (data.data && data.data.length > 0) allData = [...allData, ...data.data];
       hasMore = !!(data.data && data.data.length === limit);
       offset += hasMore ? limit : 0;
-      await new Promise(res => setTimeout(res, 100));
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
     return { data: allData };
-  } catch {
+  } catch (error) {
+    console.error("Error fetching Bangumi data:", error);
     return null;
   }
 }
 
-// 转换为页面数据
+// 获取Bangumi数据转换为页面所需格式
 async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
   if (!data || !data.data) return [];
-  const items: any[] = data.data;
-  const detailedItems = await mapWithConcurrency(items, 6, async (item: any) => {
-    const subjectId = item.subject_id;
-    const subject = item.subject || {};
 
-    const subjectPersons = await fetchSubjectPersonsCached(subjectId);
+  const detailedItems = await Promise.all(
+    data.data.map(async (item: any) => {
+      // 相关人员信息（用于找制作方）
+      const subjectPersons = await fetchSubjectPersons(item.subject_id);
 
-    const rawDate = (subject?.date || '').trim();
-    const isUnknown = !rawDate || /^unknown$/i.test(rawDate) || rawDate === '0000-00-00';
-    let startDate: string | undefined = rawDate || undefined;
-    if (isUnknown) {
-      const detail = await fetchSubjectDetailCached(subjectId);
-      const detailDate = (detail?.date || '').trim();
-      const infoboxStart = getStartDateFromInfobox(detail);
-      startDate = (detailDate || infoboxStart || undefined);
-    }
+      const fullDate = item.subject?.date || "";
+      // 修改：year 字段改为完整日期显示（若无则 Unknown）
+      const year = fullDate || "Unknown";
+      const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
+      const progress = item.ep_status || 0;
+      const totalEpisodes =
+        typeof item.subject?.eps === "number" && item.subject?.eps > 0
+          ? item.subject.eps
+          : progress;
 
-    const displayDate = toDisplayYearOrYearMonth(startDate);
-    const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
-    const progress = item.ep_status || 0;
-    const totalEpisodes = (typeof subject?.eps === "number" && subject?.eps > 0) ? subject.eps : progress;
-
-    let studio = "Unknown";
-    if (Array.isArray(subjectPersons)) {
-      const priorities = ["动画制作", "製作", "制作"];
-      for (const relation of priorities) {
-        const match = subjectPersons.find((person) => person.relation === relation);
-        if (match?.name) { studio = match.name; break; }
+      // 从相关人员中获取制作方信息
+      let studio = "Unknown";
+      if (Array.isArray(subjectPersons)) {
+        const priorities = ["动画制作", "製作", "制作"];
+        for (const relation of priorities) {
+          const match = subjectPersons.find((person) => person.relation === relation);
+          if (match?.name) {
+            studio = match.name;
+            break;
+          }
+        }
       }
-    }
 
-    const genre: string[] = Array.isArray(subject?.tags)
-      ? subject.tags.slice(0, 4).map((t: any) => (typeof t === 'string' ? t.trim() : (t?.name || '').trim())).filter(Boolean)
-      : [];
+      // 尝试使用条目更新时间；若无则退回到条目本身日期
+      const updatedAt: string | undefined =
+        item.updated_at || item.comment_updated_at || item.created_at || item.subject?.date || undefined;
 
-    const updatedAt: string | undefined = item.updated_at || item.comment_updated_at || item.created_at || subject?.date || undefined;
-    const cover = subject?.images?.medium || "/assets/anime/default.webp";
-    const title = subject?.name_cn || subject?.name || "Unknown Title";
-
-    return {
-      title,
-      status,
-      rating,
-      cover,
-      description: (subject?.short_summary || subject?.name_cn || "").trimStart(),
-      year: displayDate,
-      displayDate,
-      studio,
-      link: subject?.id ? `https://bgm.tv/subject/${subject.id}` : "#",
-      progress,
-      totalEpisodes,
-      startDate: startDate || "",
-      endDate: "",
-      updatedAt,
-      genre,
-      episodes: `${totalEpisodes || 0} episodes`,
-    } as AnimeItem;
-  });
-
+      return {
+        title: item.subject?.name_cn || item.subject?.name || "Unknown Title",
+        status,
+        rating,
+        cover: item.subject?.images?.medium || "/assets/anime/default.webp",
+        description: (item.subject?.short_summary || item.subject?.name_cn || "").trimStart(),
+        episodes: `${totalEpisodes} episodes`,
+        year, // 现在为完整日期（如 2024-07-05），不再仅年
+        genre: item.subject?.tags ? item.subject.tags.slice(0, 3).map((tag: any) => tag.name) : ["Unknown"],
+        studio,
+        link: item.subject?.id ? `https://bgm.tv/subject/${item.subject.id}` : "#",
+        progress,
+        totalEpisodes,
+        startDate: item.subject?.date || "",
+        endDate: "",
+        updatedAt,
+      } as AnimeItem;
+    }),
+  );
   return detailedItems as AnimeItem[];
 }
 
-// 根据模式获取番剧列表
+// 根据模式获取番剧列表（修复：当 userId 未设置时不调用 API）
 let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
-  animeList = (localAnimeList as AnimeItem[]).map(a => ({
-    ...a,
-    displayDate: toDisplayYearOrYearMonth(a.startDate || a.year),
-    genre: Array.isArray((a as any).genre) ? (a as any).genre : [],
-  }));
+  animeList = localAnimeList as AnimeItem[];
 } else if (!isValidUserId) {
+  // 未设置有效 userId：不调用任何 API，留给前端提示
   animeList = [];
 } else {
+  // 使用Bangumi API（默认模式）
+  // 获取与处理在看（3）、想看（1）、看过（2）、搁置（4）、抛弃（5）
   const [watchingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
     fetchBangumiCollection(BANGUMI_USER_ID, 2, 3),
     fetchBangumiCollection(BANGUMI_USER_ID, 2, 1),
@@ -275,46 +156,87 @@ if (ANIME_MODE === "local") {
 function getStatusInfo(status: string) {
   switch (status) {
     case "watching":
-      return { text: i18n(I18nKey.animeStatusWatching), class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300", icon: "▶" };
+      return {
+        text: i18n(I18nKey.animeStatusWatching),
+        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+        icon: "▶",
+      };
     case "completed":
-      return { text: i18n(I18nKey.animeStatusCompleted), class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300", icon: "✓" };
+      return {
+        text: i18n(I18nKey.animeStatusCompleted),
+        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+        icon: "✓",
+      };
     case "planned":
-      return { text: i18n(I18nKey.animeStatusPlanned), class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300", icon: "⏰" };
+      return {
+        text: i18n(I18nKey.animeStatusPlanned),
+        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+        icon: "⏰",
+      };
     case "onhold":
-      return { text: i18n(I18nKey.animeStatusOnHold), class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300", icon: "⏸" };
+      return {
+        text: i18n(I18nKey.animeStatusOnHold),
+        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+        icon: "⏸",
+      };
     case "dropped":
-      return { text: i18n(I18nKey.animeStatusDropped), class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300", icon: "✗" };
+      return {
+        text: i18n(I18nKey.animeStatusDropped),
+        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+        icon: "✗",
+      };
     default:
-      return { text: status, class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300", icon: "?" };
+      return {
+        text: status,
+        class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+        icon: "?",
+      };
   }
 }
 
-// 统计
+// 计算统计数据
 const stats = {
   total: animeList.length,
   watching: animeList.filter((anime) => anime.status === "watching").length,
   completed: animeList.filter((anime) => anime.status === "completed").length,
   avgRating: (() => {
-    const ratedAnime = animeList.filter((anime) => (anime.rating || 0) > 0);
+    const ratedAnime = animeList.filter((anime) => anime.rating > 0);
     if (ratedAnime.length === 0) return "0.0";
-    return (ratedAnime.reduce((sum, anime) => sum + (anime.rating || 0), 0) / ratedAnime.length).toFixed(1);
+    return (ratedAnime.reduce((sum, anime) => sum + anime.rating, 0) / ratedAnime.length).toFixed(1);
   })(),
 };
 
-// 最后更新时间
+// 获取最后修改时间（当前时间，使用北京时间）
 const lastUpdated = new Date().toLocaleString("zh-CN", {
-  year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Shanghai",
 });
 
-// 排序
+// 安全解析日期为时间戳
+function toTime(input?: string) {
+  if (!input) return 0;
+  const t = Date.parse(input);
+  return Number.isNaN(t) ? 0 : t;
+}
+
+// 按更新时间/开始时间排序（修复原先依赖 endDate 的排序无效问题）
 const sortedAnimeList = [...animeList].sort((a, b) => {
-  const aTime = toTime(a.updatedAt) || toTime(a.startDate) || toTime(a.displayDate);
-  const bTime = toTime(b.updatedAt) || toTime(b.startDate) || toTime(b.displayDate);
+  const aTime = toTime((a as any).updatedAt) || toTime(a.endDate) || toTime(a.startDate);
+  const bTime = toTime((b as any).updatedAt) || toTime(b.endDate) || toTime(b.startDate);
   return bTime - aTime;
 });
 
-// 标记为已读
-void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothSidebarMode;
+// 修复 TS(6133): 在模板中使用到的变量在前置脚本中显式标记为已读
+void animeList;
+void stats;
+void lastUpdated;
+void sortedAnimeList;
+void isBothSidebarMode;
 ---
 
 <MainGridLayout title={i18n(I18nKey.anime)} description={i18n(I18nKey.animeSubtitle)}>
@@ -364,7 +286,7 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
           </div>
         </div>
         
-        <!-- 过滤按钮 -->
+        <!-- 过滤按钮 - 参考Firefly设计 -->
         <div class="mb-6">
           <div class="filter-container flex flex-wrap gap-2">
             <button class="filter-tag active" data-status="all">
@@ -401,7 +323,8 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
 
       <!-- 动漫列表 -->
       <div class="mb-8">
-        {ANIME_MODE !== 'local' && !isValidUserId ? (
+        
+        {ANIME_MODE !== 'local' && BANGUMI_USER_ID === 'your-user-id' ? (
           <div class="text-center py-12">
             <div class="text-5xl mb-4">😢</div>
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
@@ -412,30 +335,34 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
             </p>
           </div>
         ) : animeList.length > 0 ? (
-          <div id="anime-list-container" class={`anime-grid-container gap-4 md:gap-6 list-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
+          <div id="anime-list-container" class={`anime-grid-container grid gap-4 md:gap-6 list-mode ${
+            isBothSidebarMode 
+              ? "both-sidebar" 
+              : "single-sidebar"
+          }`}>
             {sortedAnimeList.map(anime => {
               const statusInfo = getStatusInfo(anime.status);
-              const total = typeof anime.totalEpisodes === 'number' ? anime.totalEpisodes : 0;
-              const progress = typeof anime.progress === 'number' ? anime.progress : 0;
-              const progressPercent = total > 0 ? (progress / total) * 100 : 0;
+              const progressPercent = anime.totalEpisodes > 0 ? (anime.progress / anime.totalEpisodes) * 100 : 0;
               
               return (
-                <div
-                  class="anime-card group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg"
-                  data-anime-status={anime.status}
-                  data-anime-title={String(anime.title || '').toLowerCase()}
-                  data-anime-studio={String(anime.studio || '').toLowerCase()}
-                  data-anime-genre={(anime.genre || []).map(g => String(g || '').toLowerCase()).join(' ')}
-                >
-                  <!-- 封面区域 -->
+                <div class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]" data-anime-status={anime.status} data-anime-title={anime.title.toLowerCase()} data-anime-studio={anime.studio.toLowerCase()} data-anime-genre={anime.genre.map(g => g.toLowerCase()).join(' ')}>
+                  <!-- 封面区域 - 竖屏比例 -->
                   <div class="relative aspect-[2/3] overflow-hidden">
                     <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
                       <ImageWrapper 
                         src={anime.cover} 
                         alt={anime.title}
-                        class="w-full h-full object-cover image-zoom"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       />
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none sm:pointer-events-auto"></div>
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
                     </a>
                     
                     <!-- 状态标签 -->
@@ -444,7 +371,7 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
                       <span>{statusInfo.text}</span>
                     </div>
                     
-                    <!-- 评分 -->
+                    <!-- 评分小方框 -->
                     <div class="absolute top-2 right-2">
                       <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
                         <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -454,36 +381,37 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
                       </div>
                     </div>
                     
-                    <!-- 进度条 -->
+                    <!-- 进度条 - 在封面底部 -->
                     {anime.status === 'watching' && (
                       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                         <div class="w-full bg-white/20 rounded-full h-1.5 mb-1">
                           <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-all duration-300" style={`width: ${progressPercent}%`}></div>
                         </div>
                         <div class="text-white text-xs font-medium">
-                          {progress}/{total} ({Math.round(progressPercent)}%)
+                          {anime.progress}/{anime.totalEpisodes} ({Math.round(progressPercent)}%)
                         </div>
                       </div>
                     )}
                   </div>
                   
-                  <!-- 内容 -->
-                  <div class="p-3 sm:p-4">
-                    <h3 class="title text-sm sm:text-base font-bold text-black/90 dark:text-white/90 mb-1 sm:mb-2 leading-snug sm:leading-normal line-clamp-3 sm:line-clamp-2">{anime.title}</h3>
-                    <p class="desc text-[13px] sm:text-sm text-black/70 dark:text-white/70 mb-2 sm:mb-3 leading-relaxed sm:leading-relaxed line-clamp-3 sm:line-clamp-2">{anime.description}</p>
+                    <!-- 内容区域 - 紧凑设计 -->
+                  <div class="p-3">
+                    <h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
+                    <p class="text-black/60 dark:text-white/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
                     
-                    <div class="space-y-1 text-xs sm:text-sm">
-                      <div class="flex justify-between gap-3">
+                    <!-- 详细信息 - 更紧凑 -->
+                    <div class="space-y-1 text-xs">
+                      <div class="flex justify-between">
                         <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
-                        <span class="text-black/80 dark:text-white/80">{anime.displayDate}</span>
+                        <span class="text-black/70 dark:text-white/70">{anime.startDate || anime.year}</span>
                       </div>
-                      <div class="flex justify-between gap-3">
+                      <div class="flex justify-between">
                         <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
-                        <span class="text-black/80 dark:text-white/80 truncate ml-2">{anime.studio}</span>
+                        <span class="text-black/70 dark:text-white/70 truncate ml-2">{anime.studio}</span>
                       </div>
-                      <div class="flex flex-wrap gap-1.5 mt-2 -ml-0.5">
-                        {(anime.genre || []).map(g => (
-                          <span class="px-1.5 py-0.5 sm:px-2 sm:py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-[11px] sm:text-xs">{g}</span>
+                      <div class="flex flex-wrap gap-1 mt-2">
+                        {anime.genre.map(g => (
+                          <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
                         ))}
                       </div>
                     </div>
@@ -507,17 +435,17 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
       
       <!-- 分页控件 -->
       <div id="pagination-container" class="pagination-container flex justify-center items-center gap-2 mt-8">
-        <button id="first-page" class="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
+        <button id="first-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
           « 首页
         </button>
-        <button id="prev-page" class="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
+        <button id="prev-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
           &lt; {i18n(I18nKey.prevPage)}
         </button>
         <div id="page-numbers" class="flex gap-1"></div>
-        <button id="next-page" class="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
+        <button id="next-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
           {i18n(I18nKey.nextPage)} &gt;
         </button>
-        <button id="last-page" class="pagination-btn px-3 py-2 sm:px-4 sm:py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
+        <button id="last-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
           尾页 »
         </button>
       </div>
@@ -525,8 +453,9 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
   </div>
 
   <script is:inline define:vars={{ isBothSidebarMode }}>
-  // 布局切换动画（保持原逻辑）
+  // 动画列表布局切换脚本
   (function() {
+    // 延迟执行以确保DOM已完全加载
     setTimeout(() => {
       const animeListContainer = document.getElementById("anime-list-container");
       if (!animeListContainer) {
@@ -534,17 +463,27 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
         return;
       }
 
+      // 初始化布局管理器
       if (typeof window.layoutManager !== 'undefined') {
         window.layoutManager.init(isBothSidebarMode);
+        
+        // 根据当前布局状态添加CSS类
         const currentLayout = window.layoutManager.getLayout();
         updateAnimeListLayout(currentLayout);
+        
+        // 检查屏幕尺寸并调整布局
         window.layoutManager.checkScreenSizeAndAdjust();
       } else {
+        // 如果布局管理器还未加载，延迟初始化
         setTimeout(() => {
           if (typeof window.layoutManager !== 'undefined') {
             window.layoutManager.init(isBothSidebarMode);
+            
+            // 根据当前布局状态添加CSS类
             const currentLayout = window.layoutManager.getLayout();
             updateAnimeListLayout(currentLayout);
+            
+            // 检查屏幕尺寸并调整布局
             window.layoutManager.checkScreenSizeAndAdjust();
           }
         }, 300);
@@ -555,6 +494,8 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
       const animeListContainer = document.getElementById("anime-list-container");
       if (!animeListContainer) return;
 
+      // FLIP 动画技术实现布局切换动画
+      // First: 记录所有卡片的初始位置
       const animeItems = Array.from(document.querySelectorAll('[data-anime-status]'));
       const firstPositions = new Map();
       animeItems.forEach(item => {
@@ -567,158 +508,214 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
         });
       });
       
+      // 移除现有布局类
       animeListContainer.classList.remove("list-mode", "grid-mode");
+      
+      // 添加新布局类
       if (layout === "grid") {
         animeListContainer.classList.add("grid-mode");
+        // 网格模式：双列布局
+        animeListContainer.classList.add("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3");
+        animeListContainer.classList.remove("flex", "flex-col");
+        
+        // 在 grid 模式下隐藏右侧边栏
         const rightSidebar = document.querySelector('.right-sidebar-container');
         if (rightSidebar) {
-          (rightSidebar).style.display = 'none';
+          rightSidebar.style.display = 'none';
           rightSidebar.classList.add('hidden-in-grid-mode');
         }
+        
+        // 调整主网格布局以使用更多空间
         const mainGrid = document.getElementById('main-grid');
         if (mainGrid) {
-          (mainGrid).style.gridTemplateColumns = '17.5rem 1fr';
+          mainGrid.style.gridTemplateColumns = '17.5rem 1fr';
           mainGrid.classList.add('two-column-layout');
           mainGrid.setAttribute('data-layout-mode', 'grid');
         }
       } else {
         animeListContainer.classList.add("list-mode");
+        // 列表模式：单列布局
+        animeListContainer.classList.add("flex", "flex-col");
+        animeListContainer.classList.remove("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3");
+        
+        // 在 list 模式下显示右侧边栏
         const rightSidebar = document.querySelector('.right-sidebar-container');
         if (rightSidebar) {
-          (rightSidebar).style.display = '';
+          rightSidebar.style.display = '';
           rightSidebar.classList.remove('hidden-in-grid-mode');
         }
+        
+        // 恢复主网格布局
         const mainGrid = document.getElementById('main-grid');
         if (mainGrid) {
-          (mainGrid).style.gridTemplateColumns = '';
+          mainGrid.style.gridTemplateColumns = '';
           mainGrid.classList.remove('two-column-layout');
           mainGrid.setAttribute('data-layout-mode', 'list');
         }
       }
 
+      // 等待布局更新
       requestAnimationFrame(() => {
+        // Last: 记录所有卡片的最终位置
         const lastPositions = new Map();
         animeItems.forEach(item => {
           const rect = item.getBoundingClientRect();
-          lastPositions.set(item, { left: rect.left, top: rect.top });
+          lastPositions.set(item, {
+            left: rect.left,
+            top: rect.top
+          });
         });
         
+        // Invert: 应用反向变换
         animeItems.forEach(item => {
           const first = firstPositions.get(item);
           const last = lastPositions.get(item);
+          
           if (first && last) {
             const deltaX = first.left - last.left;
             const deltaY = first.top - last.top;
+            
+            // 立即应用反向变换（不使用过渡）
             item.style.transition = 'none';
             item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
           }
         });
         
+        // Play: 触发动画
         requestAnimationFrame(() => {
           animeItems.forEach((item, index) => {
+            // 错开动画开始时间，创建波浪效果
             setTimeout(() => {
               item.classList.add('anime-animating');
+              
+              // 移动到最终位置
               item.style.transition = '';
               item.style.transform = '';
-            }, index * 20);
+            }, index * 20); // 每个卡片延迟20ms
           });
           
+          // 动画完成后清理
           setTimeout(() => {
             animeItems.forEach(item => {
               item.classList.remove('anime-animating');
               item.style.transition = '';
               item.style.transform = '';
             });
-          }, 500 + animeItems.length * 20);
+          }, 500 + animeItems.length * 20); // 等待所有动画完成
         });
       });
     }
 
+    // 监听布局变化事件
     window.addEventListener("layoutChange", (event) => {
       updateAnimeListLayout(event.detail.layout);
     });
   })();
 </script>
 
+<!-- 过滤按钮样式 -->
   <style>
-    /* 字体与容器 */
-    :root { --anime-font: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
-    html.dark { --anime-font: 'Noto Sans SC', 'Hiragino Sans GB', 'PingFang SC', 'Microsoft YaHei UI', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
-    body, h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select, a { font-family: var(--anime-font) !important; }
-    .card-base { container-type: inline-size; }
-    
-    /* 固定列数：grid=5/row，list=4/row */
-    .anime-grid-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-    .anime-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
-    .anime-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
-    
-    /* 移动端与平板：增大封面与触控目标；PC 保持原风格 */
-    .anime-card { min-width: 0; }
-    @media (max-width: 640px) {
-      .anime-grid-container.grid-mode { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
-      .anime-grid-container.list-mode { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
-      .anime-card .image-zoom { transform: none !important; } /* Android 端禁用 hover 放大，避免抖动 */
+    /* 明暗自适应字体变量 */
+    :root {
+      --anime-font: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
     }
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .anime-grid-container.grid-mode { grid-template-columns: repeat(3, 1fr); }
-      .anime-grid-container.list-mode { grid-template-columns: repeat(3, 1fr); }
+    html.dark {
+      --anime-font: 'Noto Sans SC', 'Hiragino Sans GB', 'PingFang SC', 'Microsoft YaHei UI', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
     }
-
+    /* 应用可爱字体到整个页面（随明暗模式切换） */
+    body, h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select, a {
+      font-family: var(--anime-font) !important;
+    }
+    
+    /* 容器查询支持 */
+    .card-base {
+      container-type: inline-size;
+    }
+    
+    /* 番剧网格容器 - 使用容器查询实现响应式列数 */
+    .anime-grid-container {
+      /* 基础配置 - 移动端 */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* 单侧栏模式 - 所有情况下都显示5列 */
+    .anime-grid-container.single-sidebar {
+      @container (min-width: 900px) {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      
+      @container (min-width: 600px) and (max-width: 899px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      @container (max-width: 599px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    /* 双侧栏模式 */
+    /* list模式显示4列，grid模式显示5列 */
+    .anime-grid-container.both-sidebar {
+      @container (min-width: 950px) { grid-template-columns: repeat(5, 1fr); }
+      @container (min-width: 650px) and (max-width: 949px) { grid-template-columns: repeat(4, 1fr); }
+      @container (min-width: 480px) and (max-width: 649px) { grid-template-columns: repeat(3, 1fr); }
+      @container (max-width: 479px) { grid-template-columns: repeat(2, 1fr); }
+    }
+    
     .filter-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .filter-tag {
-      padding: 0.6rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; display: flex; align-items: center;
-      min-height: 40px;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; display: flex; align-items: center;
     }
     .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
     .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
     .filter-tag.active:hover { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; transform: translateY(-1px); }
     
-    /* 卡片动画与悬浮（PC） */
+    /* 动画卡片样式 - 使用 FLIP 动画技术实现洗牌效果 */
+    [data-anime-status] { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     #anime-list-container.grid-mode [data-anime-status]:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
-      z-index: 10; transition: all 0.25s ease;
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      z-index: 10; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     #anime-list-container.list-mode [data-anime-status]:hover {
-      transform: translateX(6px) scale(1.01);
-      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
-      z-index: 10; transition: all 0.25s ease;
+      transform: translateX(8px) scale(1.01);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      z-index: 10; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    @media (pointer: coarse) {
-      #anime-list-container [data-anime-status]:hover { transform: none !important; box-shadow: none !important; }
-    }
-    .image-zoom { transition: transform 0.3s ease; }
-    .group:hover .image-zoom { transform: scale(1.06); }
-    @media (pointer: coarse) {
-      .group:hover .image-zoom { transform: none !important; }
-    }
-
     [data-anime-status].anime-hidden { display: none; }
-    [data-anime-status].anime-animating { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    [data-anime-status].anime-animating {
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     [data-anime-status].anime-fade-in { opacity: 0; transform: scale(0.8); }
     [data-anime-status].anime-fade-in-active { opacity: 1; transform: scale(1); }
-    [data-anime-status].anime-fade-out { opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; }
+
+    /* 新增：淡出/缩小规则，配合脚本中的 anime-fade-out 使用 */
+    [data-anime-status].anime-fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
     
     .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
     .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
     
     .pagination-container { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
     .pagination-btn {
-      padding: 0.6rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.25rem;
-      min-height: 40px;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.25rem;
     }
-    .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); }
+    .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
     .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     
     .page-number {
-      padding: 0.6rem 0.8rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      padding: 0.5rem 0.75rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-      min-height: 40px; min-width: 40px;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease;
     }
     .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
     .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
@@ -726,18 +723,17 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
     .search-container { position: relative; margin-bottom: 1.5rem; }
     #search-input { padding-left: 2.5rem; transition: all 0.3s ease; }
     #search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-    .title { letter-spacing: 0.1px; }
-    .desc { letter-spacing: 0.1px; }
+    .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
   </style>
 
-  <!-- 过滤功能脚本（保留原联动与去重监听；按布局切换每页条数：grid=10，list=8） -->
+  <!-- 过滤功能脚本 -->
   <script is:inline>
     // 事件监听器存储，用于防止重复绑定
     if (typeof window.animeFilterEventListeners === 'undefined') {
       window.animeFilterEventListeners = [];
     }
     
-    // 初始化过滤功能（原有 FLIP 动画）
+    // 初始化过滤功能
     function initFilterButtons() {
       const filterTags = document.querySelectorAll('.filter-tag');
       
@@ -748,16 +744,22 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
       });
       window.animeFilterEventListeners = [];
       
+      // 过滤功能 - 使用 FLIP 技术实现洗牌动画
       filterTags.forEach(tag => {
         const clickHandler = function() {
+          // 防止重复点击
           if (this.classList.contains('active')) return;
+          
+          // 移除所有active类
           filterTags.forEach(t => t.classList.remove('active'));
+          // 添加active类到当前点击的标签
           this.classList.add('active');
           
           const status = this.getAttribute('data-status');
           const animeItems = Array.from(document.querySelectorAll('[data-anime-status]'));
           
-          // FLIP：First
+          // FLIP 动画技术
+          // First: 记录所有卡片的初始位置
           const firstPositions = new Map();
           animeItems.forEach(item => {
             const rect = item.getBoundingClientRect();
@@ -769,6 +771,7 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
             });
           });
           
+          // 分类卡片
           const itemsToHide = [];
           const itemsToShow = [];
           const itemsToKeep = [];
@@ -779,21 +782,32 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
             const isCurrentlyVisible = !item.classList.contains('anime-hidden');
             
             if (shouldShow) {
-              if (isCurrentlyVisible) itemsToKeep.push(item);
-              else itemsToShow.push(item);
+              if (isCurrentlyVisible) {
+                itemsToKeep.push(item);
+              } else {
+                itemsToShow.push(item);
+              }
             } else {
-              if (isCurrentlyVisible) itemsToHide.push(item);
+              if (isCurrentlyVisible) {
+                itemsToHide.push(item);
+              }
             }
           });
           
-          itemsToHide.forEach(item => item.classList.add('anime-fade-out'));
+          // 为要隐藏的卡片添加淡出效果
+          itemsToHide.forEach(item => {
+            item.classList.add('anime-fade-out');
+          });
           
+          // 等待淡出完成
           setTimeout(() => {
-            // Last
+            // Last: 完全隐藏要移除的卡片
             itemsToHide.forEach(item => {
               item.classList.add('anime-hidden');
               item.classList.remove('anime-fade-out');
             });
+            
+            // 显示新卡片但先设为透明和缩小（在它们的最终位置）
             itemsToShow.forEach(item => {
               item.classList.remove('anime-hidden');
               item.classList.add('anime-fade-in');
@@ -802,35 +816,49 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
               item.style.transition = 'none';
             });
             
+            // 等待布局更新
             requestAnimationFrame(() => {
+              // 记录所有卡片的最终位置（包括新显示的卡片）
               const lastPositions = new Map();
               [...itemsToKeep, ...itemsToShow].forEach(item => {
                 const rect = item.getBoundingClientRect();
-                lastPositions.set(item, { left: rect.left, top: rect.top });
+                lastPositions.set(item, {
+                  left: rect.left,
+                  top: rect.top
+                });
               });
               
-              // Invert
+              // Invert: 只对保持显示的卡片应用反向变换
               itemsToKeep.forEach(item => {
                 const first = firstPositions.get(item);
                 const last = lastPositions.get(item);
+                
                 if (first && last) {
                   const deltaX = first.left - last.left;
                   const deltaY = first.top - last.top;
+                  
+                  // 立即应用反向变换（不使用过渡）
                   item.style.transition = 'none';
                   item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
                 }
               });
               
-              // Play
+              // Play: 触发动画
               requestAnimationFrame(() => {
                 const allItems = [...itemsToKeep, ...itemsToShow];
+                
                 allItems.forEach((item, index) => {
+                  // 错开动画开始时间，创建波浪效果
                   setTimeout(() => {
                     item.classList.add('anime-animating');
+                    
+                    // 保持显示的卡片：移动到最终位置
                     if (itemsToKeep.includes(item)) {
                       item.style.transition = '';
                       item.style.transform = '';
                     }
+                    
+                    // 新显示的卡片：在当前位置淡入并放大
                     if (itemsToShow.includes(item)) {
                       item.classList.remove('anime-fade-in');
                       item.classList.add('anime-fade-in-active');
@@ -838,9 +866,10 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
                       item.style.opacity = '1';
                       item.style.transform = 'scale(1)';
                     }
-                  }, index * 20);
+                  }, index * 20); // 每个卡片延迟20ms
                 });
                 
+                // 动画完成后清理
                 setTimeout(() => {
                   allItems.forEach(item => {
                     item.classList.remove('anime-animating', 'anime-fade-in-active');
@@ -848,10 +877,10 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
                     item.style.transform = '';
                     item.style.opacity = '';
                   });
-                }, 500 + allItems.length * 20);
+                }, 500 + allItems.length * 20); // 等待所有动画完成
               });
             });
-          }, 300);
+          }, 300); // 等待淡出动画完成
         };
         
         tag.addEventListener('click', clickHandler);
@@ -861,27 +890,20 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
       console.log('Filter buttons initialized with', filterTags.length, 'buttons');
     }
     
-    // 分页（每页数量根据布局确定：grid=10，list=8）
+    // 分页功能
     let currentPage = 1;
-    let itemsPerPage = 8; // 初始按 list-mode 预估，首次分页时会根据容器类修正
+    const itemsPerPage = 12;
     let filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
+    // 新增：页码窗口起点与固定窗口大小
     let pageWindowStart = 1;
     const windowSize = 5;
-
-    function getItemsPerPageByLayout() {
-      const container = document.getElementById('anime-list-container');
-      if (container && container.classList.contains('grid-mode')) return 10;
-      return 8;
-    }
     
     function updatePagination() {
-      // 动态按当前布局设置每页数量
-      itemsPerPage = getItemsPerPageByLayout();
-
       const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
       const pageNumbersContainer = document.getElementById('page-numbers');
       pageNumbersContainer.innerHTML = '';
       
+      // 纠正边界
       if (totalPages === 0) {
         currentPage = 1;
         pageWindowStart = 1;
@@ -900,16 +922,18 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
         if (i === currentPage) pageNum.classList.add('active');
         pageNum.addEventListener('click', () => {
           currentPage = i;
+          // 数字点击不移动窗口
           showPage(currentPage);
           updatePagination();
         });
         pageNumbersContainer.appendChild(pageNum);
       }
       
-      const firstBtn = document.getElementById('first-page') as HTMLButtonElement;
-      const prevBtn = document.getElementById('prev-page') as HTMLButtonElement;
-      const nextBtn = document.getElementById('next-page') as HTMLButtonElement;
-      const lastBtn = document.getElementById('last-page') as HTMLButtonElement;
+      // 更新按钮状态
+      const firstBtn = document.getElementById('first-page');
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+      const lastBtn = document.getElementById('last-page');
       const onFirst = currentPage === 1 || totalPages === 0;
       const onLast = currentPage === totalPages || totalPages === 0;
       firstBtn.disabled = onFirst;
@@ -918,70 +942,84 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
       lastBtn.disabled = onLast;
     }
     
-    function showPage(page: number) {
-      // 动态按当前布局设置每页数量
-      itemsPerPage = getItemsPerPageByLayout();
-
+    function showPage(page) {
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
       
-      document.querySelectorAll('[data-anime-status]').forEach((item: any) => {
+      // 隐藏所有项目
+      document.querySelectorAll('[data-anime-status]').forEach(item => {
         item.style.display = 'none';
       });
-      itemsToShow.forEach((item: any) => {
+      
+      // 显示当前页项目
+      itemsToShow.forEach(item => {
         item.style.display = 'block';
       });
     }
     
     function updateFilteredItems() {
       const activeFilter = document.querySelector('.filter-tag.active')?.getAttribute('data-status') || 'all';
+      
       if (activeFilter === 'all') {
         filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
       } else {
         filteredItems = Array.from(document.querySelectorAll(`[data-anime-status="${activeFilter}"]`));
       }
+      
       currentPage = 1;
-      pageWindowStart = 1;
+      pageWindowStart = 1; // 重置窗口
       showPage(currentPage);
       updatePagination();
     }
+    // 标记为已读，避免 TS 6133 提示
     void updateFilteredItems;
     
-    // 搜索（保持与过滤/分页同步的原逻辑）
-    function searchAnime(searchTerm: string) {
+    // 搜索功能
+    function searchAnime(searchTerm) {
       const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      const matched: HTMLElement[] = [];
+      const filteredItems = [];
+      
+      // 如果搜索词为空，显示所有项目
       if (!searchTerm.trim()) {
-        allItems.forEach((item: any) => {
+        allItems.forEach(item => {
           item.style.display = 'block';
           item.classList.remove('anime-hidden');
         });
-        return allItems as unknown as HTMLElement[];
+        return allItems;
       }
+      
       const searchTermLower = searchTerm.toLowerCase();
-      allItems.forEach((item: any) => {
+      
+      allItems.forEach(item => {
         const title = item.getAttribute('data-anime-title') || '';
         const studio = item.getAttribute('data-anime-studio') || '';
         const genre = item.getAttribute('data-anime-genre') || '';
         const status = item.getAttribute('data-anime-status') || '';
-        const matchesSearch = title.includes(searchTermLower) || studio.includes(searchTermLower) || genre.includes(searchTermLower) || status.includes(searchTermLower);
+        
+        const matchesSearch = title.includes(searchTermLower) || 
+                             studio.includes(searchTermLower) || 
+                             genre.includes(searchTermLower) ||
+                             status.includes(searchTermLower);
+        
         if (matchesSearch) {
           item.style.display = 'block';
           item.classList.remove('anime-hidden');
-          matched.push(item);
+          filteredItems.push(item);
         } else {
           item.style.display = 'none';
           item.classList.add('anime-hidden');
         }
       });
-      return matched;
+      
+      return filteredItems;
     }
     
+    // 页面加载时初始化
     document.addEventListener('DOMContentLoaded', () => {
       initFilterButtons();
       
-      // 绑定过滤按钮到分页刷新（保持你原来的方式）
+      // 添加过滤按钮事件监听器
       document.querySelectorAll('.filter-tag').forEach(tag => {
         tag.addEventListener('click', updateFilteredItems);
       });
@@ -989,9 +1027,9 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
       // 初始化分页
       updateFilteredItems();
       
-      // 分页按钮
-      document.getElementById('first-page')?.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / getItemsPerPageByLayout());
+      // 首页
+      document.getElementById('first-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage !== 1 && totalPages > 0) {
           currentPage = 1;
           pageWindowStart = 1;
@@ -999,7 +1037,9 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
           updatePagination();
         }
       });
-      document.getElementById('prev-page')?.addEventListener('click', () => {
+
+      // 上一页：窗口整体左移一格
+      document.getElementById('prev-page').addEventListener('click', () => {
         if (currentPage > 1) {
           currentPage--;
           pageWindowStart = Math.max(1, pageWindowStart - 1);
@@ -1007,8 +1047,10 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
           updatePagination();
         }
       });
-      document.getElementById('next-page')?.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / getItemsPerPageByLayout());
+      
+      // 下一页：窗口整体右移一格
+      document.getElementById('next-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage < totalPages) {
           currentPage++;
           const maxStart = Math.max(1, totalPages - windowSize + 1);
@@ -1017,8 +1059,10 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
           updatePagination();
         }
       });
-      document.getElementById('last-page')?.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / getItemsPerPageByLayout());
+
+      // 尾页
+      document.getElementById('last-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (totalPages > 0 && currentPage !== totalPages) {
           currentPage = totalPages;
           pageWindowStart = Math.max(1, totalPages - windowSize + 1);
@@ -1027,53 +1071,69 @@ void animeList; void stats; void lastUpdated; void sortedAnimeList; void isBothS
         }
       });
       
-      // 搜索功能（保持与过滤联动）
-      const searchInput = document.getElementById('search-input') as HTMLInputElement;
-      let searchTimeout: any;
-      searchInput?.addEventListener('input', function() {
+      // 添加搜索功能
+      const searchInput = document.getElementById('search-input');
+      let searchTimeout;
+      
+      searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
+        
+        // 防抖：延迟300ms执行搜索
         searchTimeout = setTimeout(() => {
           const searchTerm = this.value;
-          const activeFilter = document.querySelector('.filter-tag.active')?.getAttribute('data-status') || 'all';
-          let results = searchAnime(searchTerm);
+          const activeFilter = document.querySelector('.filter-tag.active').getAttribute('data-status');
+          
+          // 执行搜索
+          const results = searchAnime(searchTerm);
+          
+          // 如果有激活的过滤器，进一步过滤结果
           if (activeFilter !== 'all') {
-            results = (results as any).filter((item: any) => item.getAttribute('data-anime-status') === activeFilter);
+            results.forEach(item => {
+              const itemStatus = item.getAttribute('data-anime-status');
+              if (itemStatus !== activeFilter) {
+                item.style.display = 'none';
+              }
+            });
           }
-          const allItems = Array.from(document.querySelectorAll('[data-anime-status]')) as HTMLElement[];
-          allItems.forEach(item => {
-            const shouldShow = (results as any).includes(item);
-            item.style.display = shouldShow ? 'block' : 'none';
-            item.classList.toggle('anime-hidden', !shouldShow);
-          });
-          filteredItems = results as any;
+          
+          // 更新分页
+          filteredItems = results;
           currentPage = 1;
-          pageWindowStart = 1;
-          showPage(currentPage);
+          pageWindowStart = 1; // 搜索后重置窗口
           updatePagination();
         }, 300);
       });
     });
     
-    // Swup 重新初始化
+    // Swup页面切换后重新初始化
     function setupSwupListeners() {
       if (window.swup) {
+        // 使用Swup hooks监听页面切换事件
         window.swup.hooks.on('content:replace', function() {
+          console.log('Swup content replaced - reinitializing filter buttons');
           setTimeout(initFilterButtons, 150);
         });
+        
         window.swup.hooks.on('page:view', function() {
+          console.log('Swup page view - reinitializing filter buttons');
           setTimeout(initFilterButtons, 150);
         });
+        
         window.swup.hooks.on('animation:in:end', function() {
+          console.log('Swup animation ended - reinitializing filter buttons');
           setTimeout(initFilterButtons, 200);
         });
       }
     }
     
+    // 初始化Swup监听器
     if (typeof window !== 'undefined') {
       if (window.swup) {
         setupSwupListeners();
       } else {
+        // 如果Swup尚未初始化，监听启用事件
         document.addEventListener('swup:enable', function() {
+          console.log('Swup enabled - setting up listeners');
           setupSwupListeners();
         });
       }
