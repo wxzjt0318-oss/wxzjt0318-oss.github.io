@@ -291,9 +291,9 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
             <div class="text-xs text-black/60 dark:text-white/60 mb-1">综合评分</div>
             <div class="text-2xl font-bold text-blue-500">{stats.avgRating}</div>
           </div>
-          <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
+          <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify中心">
             <div class="text-xs text-black/60 dark:text-white/60 mb-1">最后更新时间</div>
-            <div class="text-sm font-medium text-black/80 dark:text-white/80">{lastUpdated}</div>
+            <div class="text-sm font-medium text黑/80 dark:text白/80">{lastUpdated}</div>
           </div>
         </div>
         
@@ -399,7 +399,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                       <span>{statusInfo.text}</span>
                     </div>
                     
-                    <!-- 评分小方框（五角星在左，评分在右，盒子自适应内容宽度） -->
+                    <!-- 评分小方框 -->
                     <div class="absolute top-2 right-2">
                       <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
                         <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -409,7 +409,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                       </div>
                     </div>
                     
-                    <!-- 进度条 - 在封面底部 -->
+                    <!-- 进度条 -->
                     {anime.status === 'watching' && (
                       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from黑/80 to-transparent p-2">
                         <div class="w-full bg白/20 rounded-full h-1.5 mb-1">
@@ -422,12 +422,11 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                     )}
                   </div>
                   
-                  <!-- 内容区域 - 紧凑设计 -->
+                  <!-- 内容区域 -->
                   <div class="p-3">
                     <h3 class="text-sm font-bold text黑/90 dark:text白/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
                     <p class="text黑/60 dark:text白/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
                     
-                    <!-- 详细信息 - 更紧凑 -->
                     <div class="space-y-1 text-xs">
                       <div class="flex justify-between">
                         <span class="text黑/50 dark:text白/50">{i18n(I18nKey.animeYear)}</span>
@@ -475,7 +474,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
   </div>
 
   <script is:inline define:vars={{ isBothSidebarMode }}>
-  // 动画列表布局切换脚本（保持原样式与动效）
+  // 动画列表布局切换脚本（保持原逻辑）
   (function() {
     setTimeout(() => {
       const animeListContainer = document.getElementById("anime-list-container");
@@ -578,9 +577,8 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
   })();
 </script>
 
-<!-- 过滤按钮样式（保持不变） -->
+<!-- 样式（保持原样） -->
   <style>
-    /* 明暗自适应字体变量 */
     :root {
       --anime-font: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
     }
@@ -622,7 +620,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
     .filter-tag.active:hover { background: var(--primary) !important; color: white !重要; border-color: var(--primary) !important; transform: translateY(-1px); }
     
-    /* 动画卡片样式 - 使用 FLIP 动画技术实现洗牌效果 */
     [data-anime-status] { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     #anime-list-container.grid-mode [data-anime-status]:hover {
       transform: translateY(-8px) scale(1.02);
@@ -667,28 +664,24 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
   </style>
 
-  <!-- 过滤与分页脚本（仅修复分页偶发缺失与一次性全量显示） -->
+  <!-- 过滤功能 + 分页修复（动效保持不变） -->
   <script is:inline>
-    // 防重绑定存储
+    // 防重复绑定存储
     if (typeof window.animeFilterEventListeners === 'undefined') {
       window.animeFilterEventListeners = [];
     }
     
-    // 分页状态（统一管理）
+    // 分页状态
     let currentPage = 1;
     const itemsPerPage = 12;
-    let filteredItems = [];
+    let filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
 
-    // 生成/刷新分页
     function updatePagination() {
-      const pageNumbersContainer = document.getElementById('page-numbers');
-      const prevBtn = document.getElementById('prev-page');
-      const nextBtn = document.getElementById('next-page');
-      if (!pageNumbersContainer || !prevBtn || !nextBtn) return;
-
       const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      const pageNumbersContainer = document.getElementById('page-numbers');
+      if (!pageNumbersContainer) return;
       pageNumbersContainer.innerHTML = '';
-
+      
       for (let i = 1; i <= totalPages; i++) {
         const pageNum = document.createElement('button');
         pageNum.textContent = i;
@@ -701,104 +694,68 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
         });
         pageNumbersContainer.appendChild(pageNum);
       }
-
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+      if (prevBtn && nextBtn) {
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      }
     }
     
-    // 显示当前页
     function showPage(page) {
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
-
-      // 先全部隐藏
+      
       document.querySelectorAll('[data-anime-status]').forEach(item => {
         item.style.display = 'none';
       });
-      // 只显示当前页
       itemsToShow.forEach(item => {
         item.style.display = 'block';
       });
     }
 
-    // 基于“可见集合”（非 anime-hidden）重建分页；用于筛选动画结束/搜索后
+    // 基于当前可见集合重建分页（关键修复）
     function rebuildPaginationFromVisibility() {
       const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      // 注意：分页隐藏使用 display:none，不影响 anime-hidden；筛选/搜索会标记 anime-hidden
+      // 仅统计未被 anime-hidden 隐藏的项（过滤与搜索的最终可见集合）
       filteredItems = allItems.filter(item => !item.classList.contains('anime-hidden'));
       currentPage = 1;
       showPage(currentPage);
       updatePagination();
     }
 
-    // 初始化时根据激活筛选计算一次分页（不触发动画）
-    function updateFilteredItemsInitial() {
-      const active = document.querySelector('.filter-tag.active');
-      const status = active ? active.getAttribute('data-status') : 'all';
-      const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      filteredItems = status === 'all'
-        ? allItems
-        : allItems.filter(item => item.getAttribute('data-anime-status') === status);
-      currentPage = 1;
-      showPage(currentPage);
-      updatePagination();
-    }
-
-    // 搜索
-    function searchAnime(searchTerm) {
-      const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      const result = [];
-      if (!searchTerm.trim()) {
-        allItems.forEach(item => {
-          item.style.display = 'block';
-          item.classList.remove('anime-hidden');
-        });
-        return allItems;
-      }
-      const q = searchTerm.toLowerCase();
-      allItems.forEach(item => {
-        const title = item.getAttribute('data-anime-title') || '';
-        const studio = item.getAttribute('data-anime-studio') || '';
-        const genre = item.getAttribute('data-anime-genre') || '';
-        const status = item.getAttribute('data-anime-status') || '';
-        const match = title.includes(q) || studio.includes(q) || genre.includes(q) || status.includes(q);
-        if (match) {
-          item.style.display = 'block';
-          item.classList.remove('anime-hidden');
-          result.push(item);
-        } else {
-          item.style.display = 'none';
-          item.classList.add('anime-hidden');
-        }
-      });
-      return result;
-    }
-
-    // 绑定筛选按钮的 FLIP 动画（保持原风格），动画结束后重建分页
+    // 初始化过滤功能（保持你原有的 FLIP 动效）
     function initFilterButtons() {
       const filterTags = document.querySelectorAll('.filter-tag');
-      // 清理旧的
-      window.animeFilterEventListeners.forEach(([el, type, handler]) => {
-        el.removeEventListener(type, handler);
+      
+      // 清理旧监听
+      window.animeFilterEventListeners.forEach(listener => {
+        const [element, type, handler] = listener;
+        element.removeEventListener(type, handler);
       });
       window.animeFilterEventListeners = [];
-
+      
       filterTags.forEach(tag => {
         const clickHandler = function() {
           if (this.classList.contains('active')) return;
-
           filterTags.forEach(t => t.classList.remove('active'));
           this.classList.add('active');
-
+          
           const status = this.getAttribute('data-status');
           const animeItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-
+          
           // First
           const firstPositions = new Map();
           animeItems.forEach(item => {
             const rect = item.getBoundingClientRect();
-            firstPositions.set(item, { left: rect.left, top: rect.top, width: rect.width, height: rect.height });
+            firstPositions.set(item, {
+              left: rect.left,
+              top: rect.top,
+              width: rect.width,
+              height: rect.height
+            });
           });
           
           const itemsToHide = [];
@@ -809,6 +766,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
             const itemStatus = item.getAttribute('data-anime-status');
             const shouldShow = status === 'all' || itemStatus === status;
             const isCurrentlyVisible = !item.classList.contains('anime-hidden');
+            
             if (shouldShow) {
               if (isCurrentlyVisible) itemsToKeep.push(item);
               else itemsToShow.push(item);
@@ -816,20 +774,20 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
               if (isCurrentlyVisible) itemsToHide.push(item);
             }
           });
-
-          // 隐藏项淡出
+          
+          // 淡出
           itemsToHide.forEach(item => {
             item.classList.add('anime-fade-out');
           });
-
-          // 结束淡出后真正隐藏与 FLIP
+          
           setTimeout(() => {
+            // 真正隐藏
             itemsToHide.forEach(item => {
               item.classList.add('anime-hidden');
               item.classList.remove('anime-fade-out');
             });
-
-            // 新显示的卡片进入前先透明缩小
+            
+            // 新显示：先透明缩小
             itemsToShow.forEach(item => {
               item.classList.remove('anime-hidden');
               item.classList.add('anime-fade-in');
@@ -837,30 +795,31 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
               item.style.transform = 'scale(0.8)';
               item.style.transition = 'none';
             });
-
+            
+            // Last
             requestAnimationFrame(() => {
-              // Last
               const lastPositions = new Map();
               [...itemsToKeep, ...itemsToShow].forEach(item => {
                 const rect = item.getBoundingClientRect();
                 lastPositions.set(item, { left: rect.left, top: rect.top });
               });
-
+              
               // Invert
               itemsToKeep.forEach(item => {
                 const first = firstPositions.get(item);
                 const last = lastPositions.get(item);
                 if (first && last) {
-                  const dx = first.left - last.left;
-                  const dy = first.top - last.top;
+                  const deltaX = first.left - last.left;
+                  const deltaY = first.top - last.top;
                   item.style.transition = 'none';
-                  item.style.transform = `translate(${dx}px, ${dy}px)`;
+                  item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
                 }
               });
-
+              
               // Play
               requestAnimationFrame(() => {
                 const allItems = [...itemsToKeep, ...itemsToShow];
+                
                 allItems.forEach((item, index) => {
                   setTimeout(() => {
                     item.classList.add('anime-animating');
@@ -877,8 +836,8 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                     }
                   }, index * 20);
                 });
-
-                // 动画完成后清理并重建分页（关键修复）
+                
+                // 动画完成后清理 + 重建分页（关键修复）
                 setTimeout(() => {
                   allItems.forEach(item => {
                     item.classList.remove('anime-animating', 'anime-fade-in-active');
@@ -886,34 +845,69 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
                     item.style.transform = '';
                     item.style.opacity = '';
                   });
-                  // 基于 anime-hidden 的集合重建分页
                   rebuildPaginationFromVisibility();
                 }, 500 + allItems.length * 20);
               });
             });
           }, 300);
         };
-
+        
         tag.addEventListener('click', clickHandler);
         window.animeFilterEventListeners.push([tag, 'click', clickHandler]);
       });
+      
+      console.log('Filter buttons initialized with', filterTags.length, 'buttons');
     }
-
-    // 统一初始化（首次进入 + Swup 切换）
+    
+    // 搜索功能（保持原逻辑，结尾统一重建分页）
+    function searchAnime(searchTerm) {
+      const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
+      const matched = [];
+      
+      if (!searchTerm.trim()) {
+        allItems.forEach(item => {
+          item.style.display = 'block';
+          item.classList.remove('anime-hidden');
+        });
+        return allItems;
+      }
+      
+      const q = searchTerm.toLowerCase();
+      allItems.forEach(item => {
+        const title = item.getAttribute('data-anime-title') || '';
+        const studio = item.getAttribute('data-anime-studio') || '';
+        const genre = item.getAttribute('data-anime-genre') || '';
+        const status = item.getAttribute('data-anime-status') || '';
+        const ok = title.includes(q) || studio.includes(q) || genre.includes(q) || status.includes(q);
+        if (ok) {
+          item.style.display = 'block';
+          item.classList.remove('anime-hidden');
+          matched.push(item);
+        } else {
+          item.style.display = 'none';
+          item.classList.add('anime-hidden');
+        }
+      });
+      return matched;
+    }
+    
+    // 初始化（首次进入 + Swup）
     function initAnimePage() {
       const container = document.getElementById('anime-list-container');
       const pagination = document.getElementById('pagination-container');
       if (!container || !pagination) {
-        // 等待下一帧，确保节点已渲染
+        // 等待下一帧，避免节点未渲染导致的“分页不显示”
         requestAnimationFrame(() => requestAnimationFrame(initAnimePage));
         return;
       }
 
       initFilterButtons();
-      // 初次进入时按激活筛选分页到第1页，避免“全量显示”
-      updateFilteredItemsInitial();
 
-      // 绑定上一页/下一页（防重复）
+      // 初始按当前激活过滤器显示第 1 页
+      // 由于初始没有 anime-hidden，直接从全部可见项重建分页
+      rebuildPaginationFromVisibility();
+
+      // 绑定翻页按钮（防重复）
       const prevBtn = document.getElementById('prev-page');
       const nextBtn = document.getElementById('next-page');
       if (prevBtn && !prevBtn.__bound) {
@@ -937,51 +931,55 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
         });
         nextBtn.__bound = true;
       }
-
-      // 搜索（防抖 + 分页重建）
+      
+      // 搜索（防抖 + 激活过滤叠加）
       const searchInput = document.getElementById('search-input');
       if (searchInput && !searchInput.__bound) {
         let searchTimeout;
         searchInput.addEventListener('input', function() {
           clearTimeout(searchTimeout);
           searchTimeout = setTimeout(() => {
-            const active = document.querySelector('.filter-tag.active');
-            const activeFilter = active ? active.getAttribute('data-status') : 'all';
             const results = searchAnime(this.value);
-            // 如果有激活的过滤器，再按状态过滤一次
-            if (activeFilter !== 'all') {
+            // 若有激活的过滤器，叠加状态限制
+            const activeFilterBtn = document.querySelector('.filter-tag.active');
+            const activeStatus = activeFilterBtn ? activeFilterBtn.getAttribute('data-status') : 'all';
+            if (activeStatus !== 'all') {
               results.forEach(item => {
-                const itemStatus = item.getAttribute('data-anime-status');
-                if (itemStatus !== activeFilter) {
+                const s = item.getAttribute('data-anime-status');
+                if (s !== activeStatus) {
                   item.style.display = 'none';
                   item.classList.add('anime-hidden');
                 }
               });
             }
-            // 搜索后重建分页并显示第1页
+            // 统一基于可见项重建分页，显示第 1 页
             rebuildPaginationFromVisibility();
           }, 300);
         });
         searchInput.__bound = true;
       }
     }
-
-    // 初次加载（双 rAF 确保节点就绪）
+    
+    // 页面加载时初始化（双 rAF）
     document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => requestAnimationFrame(initAnimePage));
     });
-
-    // Swup 页面切换后重新初始化（统一走 initAnimePage）
+    
+    // Swup页面切换后重新初始化（保持轻量）
     function setupSwupListeners() {
-      if (!window.swup) return;
-      const reinit = () => requestAnimationFrame(() => setTimeout(initAnimePage, 60));
-      window.swup.hooks.on('content:replace', reinit);
-      window.swup.hooks.on('page:view', reinit);
-      window.swup.hooks.on('animation:in:end', reinit);
+      if (window.swup) {
+        const reinit = () => requestAnimationFrame(() => setTimeout(initAnimePage, 60));
+        window.swup.hooks.on('content:replace', reinit);
+        window.swup.hooks.on('page:view', reinit);
+        window.swup.hooks.on('animation:in:end', reinit);
+      }
     }
     if (typeof window !== 'undefined') {
-      if (window.swup) setupSwupListeners();
-      else document.addEventListener('swup:enable', setupSwupListeners);
+      if (window.swup) {
+        setupSwupListeners();
+      } else {
+        document.addEventListener('swup:enable', setupSwupListeners);
+      }
     }
   </script>
 </MainGridLayout>
