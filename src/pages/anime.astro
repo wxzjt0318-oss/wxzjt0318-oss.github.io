@@ -9,16 +9,11 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 // 扩展状态类型，包含 onhold、dropped，解决 TS 比较错误
 type LocalAnimeItem = (typeof localAnimeList)[number];
 type AnimeStatus = 'watching' | 'completed' | 'planned' | 'onhold' | 'dropped';
-type AnimeItem = Omit<LocalAnimeItem, 'status'> & { status: AnimeStatus };
+type AnimeItem = Omit<LocalAnimeItem, 'status'> & { status: AnimeStatus; updatedAt?: string };
 
-// 检查番剧页面是否启用
+// 检查番剧页面是否启用（去重）
 if (!siteConfig.featurePages.anime) {
-    return Astro.redirect("/404/");
-}
-
-// 检查番剧页面是否启用
-if (!siteConfig.featurePages.anime) {
-    return Astro.redirect("/404/");
+  return Astro.redirect("/404/");
 }
 
 // 检查是否为双侧边栏模式
@@ -27,243 +22,213 @@ const isBothSidebarMode = sidebarLayoutConfig.position === "both";
 // Bangumi API配置
 const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id"; // 用户ID
 const BANGUMI_API_BASE = "https://api.bgm.tv";
+const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
 
 // 获取番剧数据模式(不需要更改，请在主配置src/config.ts中修改)
 const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
 
 // 获取单个条目相关人员信息
 async function fetchSubjectPersons(subjectId: number) {
-    try {
-        const response = await fetch(
-            `${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`,
-        );
-        const data = await response.json();
-        return Array.isArray(data) ? data : [];
-    } catch (error) {
-        console.error(`Error fetching subject ${subjectId} persons:`, error);
-        return [];
-    }
+  try {
+    const response = await fetch(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error(`Error fetching subject ${subjectId} persons:`, error);
+    return [];
+  }
 }
 
 // 获取Bangumi收藏列表
-async function fetchBangumiCollection(
-    userId: string,
-    subjectType: number,
-    type: number,
-) {
-    try {
-        let allData: any[] = [];
-        let offset = 0;
-        const limit = 50; // 每页获取的数量
-        let hasMore = true;
+async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
+  try {
+    let allData: any[] = [];
+    let offset = 0;
+    const limit = 50;
+    let hasMore = true;
 
-        // 循环获取所有数据
-        while (hasMore) {
-            const response = await fetch(
-                `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${limit}&offset=${offset}`,
-            );
-            if (!response.ok) {
-                throw new Error(`Bangumi API error: ${response.status}`);
-            }
-            const data = await response.json();
+    while (hasMore) {
+      const response = await fetch(
+        `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${limit}&offset=${offset}`,
+      );
+      if (!response.ok) throw new Error(`Bangumi API error: ${response.status}`);
 
-            // 添加当前页数据到总数据中
-            if (data.data && data.data.length > 0) {
-                allData = [...allData, ...data.data];
-            }
-            if (!data.data || data.data.length < limit) {
-                hasMore = false;
-            } else {
-                offset += limit;
-            }
-            // 防止请求过于频繁
-            await new Promise((resolve) => setTimeout(resolve, 100));
-        }
-        return { data: allData };
-    } catch (error) {
-        console.error("Error fetching Bangumi data:", error);
-        return null;
+      const data = await response.json();
+      if (data.data && data.data.length > 0) allData = [...allData, ...data.data];
+      hasMore = !!(data.data && data.data.length === limit);
+      offset += hasMore ? limit : 0;
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
+    return { data: allData };
+  } catch (error) {
+    console.error("Error fetching Bangumi data:", error);
+    return null;
+  }
 }
 
 // 获取Bangumi数据转换为页面所需格式
 async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
-    if (!data || !data.data) return [];
+  if (!data || !data.data) return [];
 
-    // 为每个条目获取详细信息
-    const detailedItems = await Promise.all(
-        data.data.map(async (item: any) => {
-            // 获取相关人员信息
-            const subjectPersons = await fetchSubjectPersons(item.subject_id);
-            // 获取年份信息
-            const year = item.subject?.date || "Unknown";
-            // 获取评分
-            const rating = item.rate ? Number.parseFloat(item.rate.toFixed(1)) : 0;
-            // 获取进度信息
-            const progress = item.ep_status || 0;
-            const totalEpisodes = item.subject?.eps || progress;
-            // 从相关人员中获取制作方信息
-            let studio = "Unknown";
-            if (Array.isArray(subjectPersons)) {
-                // 定义筛选优先级顺序
-                const priorities = ["动画制作", "製作", "制作"];
-                for (const relation of priorities) {
-                    const match = subjectPersons.find(
-                        (person) => person.relation === relation,
-                    );
-                    if (match?.name) {
-                        studio = match.name;
-                        break;
-                    }
-                }
-            }
+  const detailedItems = await Promise.all(
+    data.data.map(async (item: any) => {
+      // 相关人员信息（用于找制作方）
+      const subjectPersons = await fetchSubjectPersons(item.subject_id);
 
-            return {
-                title: item.subject?.name_cn || item.subject?.name || "Unknown Title",
-                status: status,
-                rating: rating,
-                cover: item.subject?.images?.medium || "/assets/anime/default.webp",
-                description: (
-                    item.subject?.short_summary ||
-                    item.subject?.name_cn ||
-                    ""
-                ).trimStart(),
-                episodes: `${totalEpisodes} episodes`,
-                year: year,
-                genre: item.subject?.tags
-                    ? item.subject.tags.slice(0, 3).map((tag: any) => tag.name)
-                    : ["Unknown"],
-                studio: studio,
-                link: item.subject?.id
-                    ? `https://bgm.tv/subject/${item.subject.id}`
-                    : "#",
-                progress: progress,
-                totalEpisodes: totalEpisodes,
-                startDate: item.subject?.date || "",
-                endDate: item.subject?.date || "",
-            } as AnimeItem;
-        }),
-    );
-    return detailedItems as AnimeItem[];
+      const fullDate = item.subject?.date || "";
+      // 修改：year 字段改为完整日期显示（若无则 Unknown）
+      const year = fullDate || "Unknown";
+      const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
+      const progress = item.ep_status || 0;
+      const totalEpisodes =
+        typeof item.subject?.eps === "number" && item.subject?.eps > 0
+          ? item.subject.eps
+          : progress;
+
+      // 从相关人员中获取制作方信息
+      let studio = "Unknown";
+      if (Array.isArray(subjectPersons)) {
+        const priorities = ["动画制作", "製作", "制作"];
+        for (const relation of priorities) {
+          const match = subjectPersons.find((person) => person.relation === relation);
+          if (match?.name) {
+            studio = match.name;
+            break;
+          }
+        }
+      }
+
+      // 尝试使用条目更新时间；若无则退回到条目本身日期
+      const updatedAt: string | undefined =
+        item.updated_at || item.comment_updated_at || item.created_at || item.subject?.date || undefined;
+
+      return {
+        title: item.subject?.name_cn || item.subject?.name || "Unknown Title",
+        status,
+        rating,
+        cover: item.subject?.images?.medium || "/assets/anime/default.webp",
+        description: (item.subject?.short_summary || item.subject?.name_cn || "").trimStart(),
+        episodes: `${totalEpisodes} episodes`,
+        year, // 现在为完整日期（如 2024-07-05），不再仅年
+        genre: item.subject?.tags ? item.subject.tags.slice(0, 3).map((tag: any) => tag.name) : ["Unknown"],
+        studio,
+        link: item.subject?.id ? `https://bgm.tv/subject/${item.subject.id}` : "#",
+        progress,
+        totalEpisodes,
+        startDate: item.subject?.date || "",
+        endDate: "",
+        updatedAt,
+      } as AnimeItem;
+    }),
+  );
+  return detailedItems as AnimeItem[];
 }
 
-// 根据模式获取番剧列表
+// 根据模式获取番剧列表（修复：当 userId 未设置时不调用 API）
 let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
-    // 使用本地配置
-    animeList = localAnimeList as AnimeItem[];
+  animeList = localAnimeList as AnimeItem[];
+} else if (!isValidUserId) {
+  // 未设置有效 userId：不调用任何 API，留给前端提示
+  animeList = [];
 } else {
-    // 使用Bangumi API（默认模式）
-    // 获取与处理在看列表（type=3）想看列表（type=1）看过列表（type=2）搁置列表（type=4）抛弃列表（type=5）
-    const watchingData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 3);
-    const plannedData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 1);
-    const completedData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 2);
-    const onHoldData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 4);
-    const droppedData = await fetchBangumiCollection(BANGUMI_USER_ID, 2, 5);
+  // 使用Bangumi API（默认模式）
+  // 获取与处理在看（3）、想看（1）、看过（2）、搁置（4）、抛弃（5）
+  const [watchingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 3),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 1),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 2),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 4),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 5),
+  ]);
 
-    const watchingList = watchingData
-        ? await processBangumiData(watchingData, "watching")
-        : [];
-    const plannedList = plannedData
-        ? await processBangumiData(plannedData, "planned")
-        : [];
-    const completedList = completedData
-        ? await processBangumiData(completedData, "completed")
-        : [];
-    const onHoldList = onHoldData
-        ? await processBangumiData(onHoldData, "onhold")
-        : [];
-    const droppedList = droppedData
-        ? await processBangumiData(droppedData, "dropped")
-        : [];
+  const watchingList = watchingData ? await processBangumiData(watchingData, "watching") : [];
+  const plannedList = plannedData ? await processBangumiData(plannedData, "planned") : [];
+  const completedList = completedData ? await processBangumiData(completedData, "completed") : [];
+  const onHoldList = onHoldData ? await processBangumiData(onHoldData, "onhold") : [];
+  const droppedList = droppedData ? await processBangumiData(droppedData, "dropped") : [];
 
-    animeList = [
-        ...watchingList,
-        ...plannedList,
-        ...completedList,
-        ...onHoldList,
-        ...droppedList,
-    ];
+  animeList = [...watchingList, ...plannedList, ...completedList, ...onHoldList, ...droppedList];
 }
 
 // 获取状态的翻译文本和样式
 function getStatusInfo(status: string) {
-    switch (status) {
-        case "watching":
-            return {
-                text: i18n(I18nKey.animeStatusWatching),
-                class:
-                    "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
-                icon: "▶",
-            };
-        case "completed":
-            return {
-                text: i18n(I18nKey.animeStatusCompleted),
-                class:
-                    "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
-                icon: "✓",
-            };
-        case "planned":
-            return {
-                text: i18n(I18nKey.animeStatusPlanned),
-                class:
-                    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
-                icon: "⏰",
-            };
-        case "onhold":
-            return {
-                text: i18n(I18nKey.animeStatusOnHold),
-                class:
-                    "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
-                icon: "⏸",
-            };
-        case "dropped":
-            return {
-                text: i18n(I18nKey.animeStatusDropped),
-                class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
-                icon: "✗",
-            };
-        default:
-            return {
-                text: status,
-                class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-                icon: "?",
-            };
-    }
+  switch (status) {
+    case "watching":
+      return {
+        text: i18n(I18nKey.animeStatusWatching),
+        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+        icon: "▶",
+      };
+    case "completed":
+      return {
+        text: i18n(I18nKey.animeStatusCompleted),
+        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+        icon: "✓",
+      };
+    case "planned":
+      return {
+        text: i18n(I18nKey.animeStatusPlanned),
+        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+        icon: "⏰",
+      };
+    case "onhold":
+      return {
+        text: i18n(I18nKey.animeStatusOnHold),
+        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+        icon: "⏸",
+      };
+    case "dropped":
+      return {
+        text: i18n(I18nKey.animeStatusDropped),
+        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+        icon: "✗",
+      };
+    default:
+      return {
+        text: status,
+        class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+        icon: "?",
+      };
+  }
 }
 
 // 计算统计数据
 const stats = {
-    total: animeList.length,
-    watching: animeList.filter((anime) => anime.status === "watching").length,
-    completed: animeList.filter((anime) => anime.status === "completed").length,
-    avgRating: (() => {
-        const ratedAnime = animeList.filter((anime) => anime.rating > 0);
-        if (ratedAnime.length === 0) return "0.0";
-        return (
-            ratedAnime.reduce((sum, anime) => sum + anime.rating, 0) /
-            ratedAnime.length
-        ).toFixed(1);
-    })(),
+  total: animeList.length,
+  watching: animeList.filter((anime) => anime.status === "watching").length,
+  completed: animeList.filter((anime) => anime.status === "completed").length,
+  avgRating: (() => {
+    const ratedAnime = animeList.filter((anime) => anime.rating > 0);
+    if (ratedAnime.length === 0) return "0.0";
+    return (ratedAnime.reduce((sum, anime) => sum + anime.rating, 0) / ratedAnime.length).toFixed(1);
+  })(),
 };
 
 // 获取最后修改时间（当前时间，使用北京时间）
-const lastUpdated = new Date().toLocaleString('zh-CN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-    timeZone: 'Asia/Shanghai'
+const lastUpdated = new Date().toLocaleString("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Shanghai",
 });
 
-// 按最后修改时间排序（假设Bangumi数据有更新时间）
+// 安全解析日期为时间戳
+function toTime(input?: string) {
+  if (!input) return 0;
+  const t = Date.parse(input);
+  return Number.isNaN(t) ? 0 : t;
+}
+
+// 按更新时间/开始时间排序（修复原先依赖 endDate 的排序无效问题）
 const sortedAnimeList = [...animeList].sort((a, b) => {
-    if (a.endDate && b.endDate) {
-        return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
-    }
-    return 0;
+  const aTime = toTime((a as any).updatedAt) || toTime(a.endDate) || toTime(a.startDate);
+  const bTime = toTime((b as any).updatedAt) || toTime(b.endDate) || toTime(b.startDate);
+  return bTime - aTime;
 });
 
 // 修复 TS(6133): 在模板中使用到的变量在前置脚本中显式标记为已读
@@ -406,7 +371,7 @@ void isBothSidebarMode;
                       <span>{statusInfo.text}</span>
                     </div>
                     
-                    <!-- 评分小方框（五角星在左，评分在右，盒子自适应内容宽度） -->
+                    <!-- 评分小方框 -->
                     <div class="absolute top-2 right-2">
                       <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
                         <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -429,7 +394,7 @@ void isBothSidebarMode;
                     )}
                   </div>
                   
-                  <!-- 内容区域 - 紧凑设计 -->
+                    <!-- 内容区域 - 紧凑设计 -->
                   <div class="p-3">
                     <h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
                     <p class="text-black/60 dark:text-white/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
@@ -438,7 +403,7 @@ void isBothSidebarMode;
                     <div class="space-y-1 text-xs">
                       <div class="flex justify-between">
                         <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
-                        <span class="text-black/70 dark:text-white/70">{anime.year}</span>
+                        <span class="text-black/70 dark:text-white/70">{anime.startDate || anime.year}</span>
                       </div>
                       <div class="flex justify-between">
                         <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
@@ -727,8 +692,13 @@ void isBothSidebarMode;
     }
     [data-anime-status].anime-fade-in { opacity: 0; transform: scale(0.8); }
     [data-anime-status].anime-fade-in-active { opacity: 1; transform: scale(1); }
-    /* 补上淡出样式，配合 itemsToHide 添加的类名 */
-    [data-anime-status].anime-fade-out { opacity: 0; transform: scale(0.95); }
+
+    /* 新增：淡出/缩小规则，配合脚本中的 anime-fade-out 使用 */
+    [data-anime-status].anime-fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
     
     .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
     .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
@@ -899,7 +869,7 @@ void isBothSidebarMode;
                   }, index * 20); // 每个卡片延迟20ms
                 });
                 
-                // 动画完成后清理，并刷新分页集合（重要：与搜索词共同作用）
+                // 动画完成后清理
                 setTimeout(() => {
                   allItems.forEach(item => {
                     item.classList.remove('anime-animating', 'anime-fade-in-active');
@@ -907,8 +877,6 @@ void isBothSidebarMode;
                     item.style.transform = '';
                     item.style.opacity = '';
                   });
-                  // 完成筛选动画后，基于当前筛选+搜索词更新分页集合
-                  updateFilteredItems();
                 }, 500 + allItems.length * 20); // 等待所有动画完成
               });
             });
@@ -925,7 +893,7 @@ void isBothSidebarMode;
     // 分页功能
     let currentPage = 1;
     const itemsPerPage = 12;
-    let filteredItems = []; // 作为分页的唯一数据源
+    let filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
     // 新增：页码窗口起点与固定窗口大小
     let pageWindowStart = 1;
     const windowSize = 5;
@@ -975,17 +943,16 @@ void isBothSidebarMode;
     }
     
     function showPage(page) {
-      const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      // 先隐藏所有项目（分页专用控制）
-      allItems.forEach(item => {
-        item.style.display = 'none';
-      });
-
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const itemsToShow = filteredItems.slice(startIndex, endIndex);
       
-      // 显示当前页项目（使用 inline 样式确保不会被类选择器覆盖）
+      // 隐藏所有项目
+      document.querySelectorAll('[data-anime-status]').forEach(item => {
+        item.style.display = 'none';
+      });
+      
+      // 显示当前页项目
       itemsToShow.forEach(item => {
         item.style.display = 'block';
       });
@@ -993,22 +960,13 @@ void isBothSidebarMode;
     
     function updateFilteredItems() {
       const activeFilter = document.querySelector('.filter-tag.active')?.getAttribute('data-status') || 'all';
-      const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
       
-      // 基于筛选按钮的基础集合
-      let base = activeFilter === 'all' 
-        ? allItems 
-        : Array.from(document.querySelectorAll(`[data-anime-status="${activeFilter}"]`));
-      
-      // 叠加搜索词（不直接改DOM，交给分页统一控制显示）
-      const searchTerm = (document.getElementById('search-input')?.value || '').trim();
-      if (searchTerm) {
-        const results = searchAnime(searchTerm); // 仅计算结果
-        const set = new Set(results);
-        base = base.filter(item => set.has(item));
+      if (activeFilter === 'all') {
+        filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
+      } else {
+        filteredItems = Array.from(document.querySelectorAll(`[data-anime-status="${activeFilter}"]`));
       }
       
-      filteredItems = base;
       currentPage = 1;
       pageWindowStart = 1; // 重置窗口
       showPage(currentPage);
@@ -1017,17 +975,21 @@ void isBothSidebarMode;
     // 标记为已读，避免 TS 6133 提示
     void updateFilteredItems;
     
-    // 搜索功能（只返回匹配项，不直接操作DOM）
+    // 搜索功能
     function searchAnime(searchTerm) {
       const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
+      const filteredItems = [];
       
-      // 空搜索：返回全部，保留现有显示状态
+      // 如果搜索词为空，显示所有项目
       if (!searchTerm.trim()) {
+        allItems.forEach(item => {
+          item.style.display = 'block';
+          item.classList.remove('anime-hidden');
+        });
         return allItems;
       }
       
       const searchTermLower = searchTerm.toLowerCase();
-      const results = [];
       
       allItems.forEach(item => {
         const title = item.getAttribute('data-anime-title') || '';
@@ -1041,18 +1003,28 @@ void isBothSidebarMode;
                              status.includes(searchTermLower);
         
         if (matchesSearch) {
-          results.push(item);
+          item.style.display = 'block';
+          item.classList.remove('anime-hidden');
+          filteredItems.push(item);
+        } else {
+          item.style.display = 'none';
+          item.classList.add('anime-hidden');
         }
       });
       
-      return results;
+      return filteredItems;
     }
     
     // 页面加载时初始化
     document.addEventListener('DOMContentLoaded', () => {
       initFilterButtons();
       
-      // 初始化分页（基于默认 active=all 且搜索为空）
+      // 添加过滤按钮事件监听器
+      document.querySelectorAll('.filter-tag').forEach(tag => {
+        tag.addEventListener('click', updateFilteredItems);
+      });
+      
+      // 初始化分页
       updateFilteredItems();
       
       // 首页
@@ -1099,15 +1071,36 @@ void isBothSidebarMode;
         }
       });
       
-      // 搜索框：只触发集合更新，显示交给分页
+      // 添加搜索功能
       const searchInput = document.getElementById('search-input');
       let searchTimeout;
       
       searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
-        // 防抖：延迟300ms执行（基于当前筛选 + 搜索）
+        
+        // 防抖：延迟300ms执行搜索
         searchTimeout = setTimeout(() => {
-          updateFilteredItems();
+          const searchTerm = this.value;
+          const activeFilter = document.querySelector('.filter-tag.active').getAttribute('data-status');
+          
+          // 执行搜索
+          const results = searchAnime(searchTerm);
+          
+          // 如果有激活的过滤器，进一步过滤结果
+          if (activeFilter !== 'all') {
+            results.forEach(item => {
+              const itemStatus = item.getAttribute('data-anime-status');
+              if (itemStatus !== activeFilter) {
+                item.style.display = 'none';
+              }
+            });
+          }
+          
+          // 更新分页
+          filteredItems = results;
+          currentPage = 1;
+          pageWindowStart = 1; // 搜索后重置窗口
+          updatePagination();
         }, 300);
       });
     });
@@ -1118,17 +1111,17 @@ void isBothSidebarMode;
         // 使用Swup hooks监听页面切换事件
         window.swup.hooks.on('content:replace', function() {
           console.log('Swup content replaced - reinitializing filter buttons');
-          setTimeout(() => { initFilterButtons(); updateFilteredItems(); }, 150);
+          setTimeout(initFilterButtons, 150);
         });
         
         window.swup.hooks.on('page:view', function() {
           console.log('Swup page view - reinitializing filter buttons');
-          setTimeout(() => { initFilterButtons(); updateFilteredItems(); }, 150);
+          setTimeout(initFilterButtons, 150);
         });
         
         window.swup.hooks.on('animation:in:end', function() {
           console.log('Swup animation ended - reinitializing filter buttons');
-          setTimeout(() => { initFilterButtons(); updateFilteredItems(); }, 200);
+          setTimeout(initFilterButtons, 200);
         });
       }
     }
