@@ -6,6 +6,11 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
+// 扩展状态类型，包含 onhold、dropped，解决 TS 比较错误
+type LocalAnimeItem = (typeof localAnimeList)[number];
+type AnimeStatus = 'watching' | 'completed' | 'planned' | 'onhold' | 'dropped';
+type AnimeItem = Omit<LocalAnimeItem, 'status'> & { status: AnimeStatus };
+
 // 检查番剧页面是否启用
 if (!siteConfig.featurePages.anime) {
     return Astro.redirect("/404/");
@@ -82,7 +87,7 @@ async function fetchBangumiCollection(
 }
 
 // 获取Bangumi数据转换为页面所需格式
-async function processBangumiData(data: any, status: string) {
+async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
     if (!data || !data.data) return [];
 
     // 为每个条目获取详细信息
@@ -136,17 +141,17 @@ async function processBangumiData(data: any, status: string) {
                 totalEpisodes: totalEpisodes,
                 startDate: item.subject?.date || "",
                 endDate: item.subject?.date || "",
-            };
+            } as AnimeItem;
         }),
     );
-    return detailedItems;
+    return detailedItems as AnimeItem[];
 }
 
 // 根据模式获取番剧列表
-let animeList: typeof localAnimeList = [];
+let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
     // 使用本地配置
-    animeList = localAnimeList;
+    animeList = localAnimeList as AnimeItem[];
 } else {
     // 使用Bangumi API（默认模式）
     // 获取与处理在看列表（type=3）想看列表（type=1）看过列表（type=2）搁置列表（type=4）抛弃列表（type=5）
@@ -903,7 +908,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     // 分页功能
     let currentPage = 1;
     const itemsPerPage = 12;
-    let currentFilter = 'all';
     let filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
     
     function updatePagination() {

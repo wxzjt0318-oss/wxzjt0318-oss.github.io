@@ -1,6 +1,5 @@
 ---
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-import { siteConfig } from "../config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
@@ -56,7 +55,7 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
 </MainGridLayout>
 
 <!-- 只保留一次 SDK 引入，固定版本，避免 latest 带来的不确定性 -->
-<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js" defer crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js" defer crossorigin="anonymous" is:inline></script>
 
 <!-- 初始化（兼容 Astro 客户端导航） -->
 <script>
@@ -72,27 +71,20 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
       container.innerHTML = "";
 
       try {
-        window.twikoo.init({
-          envId: ENV_ID,
-          el: "#twikoo",
-          path: window.location.pathname,
-          lang: "zh-CN"
-        });
+        if (window.twikoo && window.twikoo.init) {
+          window.twikoo.init({
+            envId: ENV_ID,
+            el: "#twikoo",
+            path: window.location.pathname,
+            lang: "zh-CN"
+          });
+        }
       } catch (err) {
         console.error("[Twikoo] init error:", err);
       }
     }
 
-    // 等待 DOM 与 SDK 就绪
-    function ready(fn) {
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", fn, { once: true });
-      } else {
-        fn();
-      }
-    }
-
-    ready(function () {
+    function onReady() {
       if (window.twikoo) {
         initTwikoo();
       } else {
@@ -108,7 +100,14 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
           }
         }, 50);
       }
-    });
+    }
+
+    // 等待 DOM 与 SDK 就绪（无隐式 any）
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", onReady, { once: true });
+    } else {
+      onReady();
+    }
 
     // Astro 客户端导航：每次进入页面重新挂载
     if (typeof window !== "undefined") {
