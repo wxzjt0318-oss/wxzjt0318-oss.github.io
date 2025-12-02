@@ -927,6 +927,7 @@ void isBothSidebarMode;
     const windowSize = 5;
     
     function updatePagination() {
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
       const pageNumbersContainer = document.getElementById('page-numbers');
       pageNumbersContainer.innerHTML = '';
       
@@ -1056,6 +1057,7 @@ void isBothSidebarMode;
       
       // 首页
       document.getElementById('first-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage !== 1 && totalPages > 0) {
           currentPage = 1;
           pageWindowStart = 1;
@@ -1076,6 +1078,7 @@ void isBothSidebarMode;
       
       // 下一页：窗口整体右移一格
       document.getElementById('next-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage < totalPages) {
           currentPage++;
           const maxStart = Math.max(1, totalPages - windowSize + 1);
@@ -1087,6 +1090,7 @@ void isBothSidebarMode;
 
       // 尾页
       document.getElementById('last-page').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (totalPages > 0 && currentPage !== totalPages) {
           currentPage = totalPages;
           pageWindowStart = Math.max(1, totalPages - windowSize + 1);
