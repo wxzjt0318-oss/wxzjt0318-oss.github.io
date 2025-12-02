@@ -265,6 +265,13 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     }
     return 0;
 });
+
+// 修复 TS(6133): 在模板中使用到的变量在前置脚本中显式标记为已读
+void animeList;
+void stats;
+void lastUpdated;
+void sortedAnimeList;
+void isBothSidebarMode;
 ---
 
 <MainGridLayout title={i18n(I18nKey.anime)} description={i18n(I18nKey.animeSubtitle)}>
@@ -920,7 +927,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     const windowSize = 5;
     
     function updatePagination() {
-      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
       const pageNumbersContainer = document.getElementById('page-numbers');
       pageNumbersContainer.innerHTML = '';
       
@@ -1050,7 +1056,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       
       // 首页
       document.getElementById('first-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage !== 1 && totalPages > 0) {
           currentPage = 1;
           pageWindowStart = 1;
@@ -1061,7 +1066,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
 
       // 上一页：窗口整体左移一格
       document.getElementById('prev-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage > 1) {
           currentPage--;
           pageWindowStart = Math.max(1, pageWindowStart - 1);
@@ -1072,7 +1076,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       
       // 下一页：窗口整体右移一格
       document.getElementById('next-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage < totalPages) {
           currentPage++;
           const maxStart = Math.max(1, totalPages - windowSize + 1);
@@ -1084,7 +1087,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
 
       // 尾页
       document.getElementById('last-page').addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (totalPages > 0 && currentPage !== totalPages) {
           currentPage = totalPages;
           pageWindowStart = Math.max(1, totalPages - windowSize + 1);
