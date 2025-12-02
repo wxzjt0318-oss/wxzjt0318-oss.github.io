@@ -6,26 +6,24 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-// i18n helpers with safe fallbacks
+// 本地文案兜底
 const T = {
-  unknown: i18n((I18nKey as any).animeUnknown ?? "animeUnknown") || "Unknown",
-  episodes: i18n((I18nKey as any).animeEpisodes ?? "animeEpisodes") || "episodes",
-  paginationFirst: i18n((I18nKey as any).paginationFirst ?? "paginationFirst") || "First",
-  paginationLast: i18n((I18nKey as any).paginationLast ?? "paginationLast") || "Last",
-  searchAnimePlaceholder:
-    i18n((I18nKey as any).searchAnimePlaceholder ?? "searchAnimePlaceholder") ||
-    "Search by title, genre, studio...",
-  statsTotal: i18n((I18nKey as any).animeStatsTotal ?? "animeStatsTotal") || "Total",
-  statsAvgRating: i18n((I18nKey as any).animeStatsAvgRating ?? "animeStatsAvgRating") || "Average Rating",
-  statsLastUpdated: i18n((I18nKey as any).animeStatsLastUpdated ?? "animeStatsLastUpdated") || "Last Updated",
+  unknown: "Unknown",
+  episodes: "episodes",
+  paginationFirst: "First",
+  paginationLast: "Last",
+  searchAnimePlaceholder: "Search by title, genre, studio...",
+  statsTotal: "Total",
+  statsAvgRating: "Average Rating",
+  statsLastUpdated: "Last Updated",
 };
 
-// 扩展状态类型，包含 onhold、dropped
+// 扩展状态类型
 type LocalAnimeItem = (typeof localAnimeList)[number];
 type AnimeStatus = "watching" | "completed" | "planned" | "onhold" | "dropped";
 type AnimeItem = Omit<LocalAnimeItem, "status"> & {
   status: AnimeStatus;
-  updatedAt?: string;
+  updatedAt?: string; // ISO
   startDate?: string;
   displayDate?: string;
   genre: string[];
@@ -56,7 +54,7 @@ const animeCfg = (siteConfig.anime || {}) as AnimeConfigExt;
 const MAX_ITEMS = Number(animeCfg.maxItems) > 0 ? Number(animeCfg.maxItems) : Infinity;
 const CACHE_TTL_HOURS = Number(animeCfg.cacheTtlHours) >= 0 ? Number(animeCfg.cacheTtlHours) : 24;
 
-// 简易磁盘持久缓存（Node 端有效）；支持通过 env 禁用
+// 简易磁盘持久缓存（Node 端有效）
 type CacheEntry<T> = { ts: number; data: T };
 const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
 const DISK_CACHE = isNode && !(process as any).env?.BANGUMI_DISABLE_DISK_CACHE;
@@ -71,27 +69,26 @@ if (isNode && DISK_CACHE) {
 }
 
 const cacheRoot = isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
+if (isNode && DISK_CACHE && fs && path && cacheRoot) {
+  await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+}
 
 async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
   if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) return null;
   try {
-    await fs.mkdir(cacheRoot, { recursive: true });
     const file = path.resolve(cacheRoot, `${key}.json`);
-    const buf = await fs.readFile(file, { encoding: "utf8" as any });
-    const jsonStr =
-      typeof buf === "string" ? buf : new TextDecoder("utf-8").decode(buf as unknown as BufferSource);
+    // 修复：readFile 返回 Buffer，统一转 utf8 字符串后再 parse
+    const raw = await fs.readFile(file);
+    const jsonStr = raw.toString("utf8");
     const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
     const ageHours = (Date.now() - parsed.ts) / 3.6e6;
     if (ageHours <= ttlHours) return parsed.data;
-    return null;
-  } catch {
-    return null;
-  }
+  } catch {}
+  return null;
 }
 async function diskCacheSet<T>(key: string, data: T): Promise<void> {
   if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) return;
   try {
-    await fs.mkdir(cacheRoot, { recursive: true });
     const file = path.resolve(cacheRoot, `${key}.json`);
     const payload: CacheEntry<T> = { ts: Date.now(), data };
     await fs.writeFile(file, JSON.stringify(payload), { encoding: "utf8" });
@@ -100,28 +97,33 @@ async function diskCacheSet<T>(key: string, data: T): Promise<void> {
   }
 }
 
-// fetch 带重试与 429/5xx 退避
+// fetch 带重试与 429/5xx 退避；非可重试错误直接抛出
 async function fetchWithRetry(url: string, init?: RequestInit, retries = 4, baseDelayMs = 400): Promise<Response> {
+  let lastErr: unknown = null;
   for (let attempt = 0; attempt <= retries; attempt++) {
-    const res = await fetch(url, init).catch(() => null);
-    if (res && res.ok) return res as Response;
+    let res: Response | null = null;
+    try {
+      res = (await fetch(url, init)) as Response;
+    } catch (e) {
+      lastErr = e;
+    }
+    if (res && res.ok) return res;
 
     const status = res?.status ?? 0;
-    if (attempt < retries && (status === 429 || (status >= 500 && status <= 599))) {
+    const retryable = status === 429 || (status >= 500 && status <= 599);
+    if (attempt < retries && retryable) {
       let delay = baseDelayMs * Math.pow(2, attempt);
-      const retryAfter = res?.headers?.get("Retry-After");
-      if (retryAfter) {
-        const seconds = Number(retryAfter);
-        if (!Number.isNaN(seconds) && seconds > 0) delay = seconds * 1000;
-      }
-      delay += Math.floor(Math.random() * 200); // jitter
+      const ra = res?.headers?.get("Retry-After");
+      const s = ra ? Number(ra) : NaN;
+      if (!Number.isNaN(s) && s > 0) delay = s * 1000;
+      delay += Math.floor(Math.random() * 200);
       await new Promise((r) => setTimeout(r, delay));
       continue;
     }
-    if (res) return res;
-    throw new Error("Network error");
+    if (res) throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
+    throw new Error(`Network error: ${String(lastErr)}`);
   }
-  throw new Error("fetchWithRetry exhausted");
+  throw new Error(`fetchWithRetry exhausted for ${url}`);
 }
 
 // 安全提取 infobox
@@ -136,8 +138,8 @@ function pickFirstUsefulValue(v: any): string | undefined {
     return undefined;
   }
   if (typeof v === "object") {
-    if (typeof v.v === "string") return v.v.trim() || undefined;
-    if (typeof v.value === "string") return v.value.trim() || undefined;
+    if (typeof (v as any).v === "string") return (v as any).v.trim() || undefined;
+    if (typeof (v as any).value === "string") return (v as any).value.trim() || undefined;
   }
   return undefined;
 }
@@ -170,7 +172,7 @@ function getStudioFromInfobox(subject: any): string | undefined {
   return undefined;
 }
 
-// 展示日期：优先 YYYY-MM-DD/ YYYY-MM / YYYY
+// 展示日期：优先 YYYY-MM-DD / YYYY-MM / YYYY
 function toDisplayYearOrYearMonth(input?: string): string {
   if (!input) return T.unknown;
   const s = input.trim();
@@ -197,29 +199,38 @@ function toDisplayYearOrYearMonth(input?: string): string {
 
   return T.unknown;
 }
+
+// 仅对规范化格式求时间戳，避免本地化 Date.parse 误差
 function toTime(input?: string) {
   if (!input) return 0;
   const s = input.trim();
   if (/^\d{4}$/.test(s)) return Date.parse(`${s}-01-01T00:00:00Z`);
-  if (/^\d{4}-\d{2}$/.test(s)) return Date.parse(`${s}-01T00:00:00Z`);
-  const t = Date.parse(s);
-  return Number.isNaN(t) ? 0 : t;
+  if (/^\d{4}-\d{2}$/.test(s)) return Date.parse(`${s}-01-01T00:00:00Z`);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return Date.parse(`${s}T00:00:00Z`);
+  if (/^\d{4}-\d{2}-\d{2}T/.test(s)) {
+    const t = Date.parse(s);
+    return Number.isNaN(t) ? 0 : t;
+  }
+  return 0;
 }
 
 // 人员与详情 API
 async function fetchSubjectPersonsRaw(subjectId: number) {
-  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
-  if (!res.ok) return [];
-  const ct = res.headers.get('content-type') || '';
-  if (!ct.includes('application/json')) return [];
-  const data = await res.json().catch(() => []);
-  return Array.isArray(data) ? data : [];
+  try {
+    const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
+    const ct = res.headers.get("content-type") || "";
+    if (!ct.includes("application/json")) return [];
+    const data = await res.json().catch(() => []);
+    return Array.isArray(data) ? data : [];
+  } catch (e) {
+    console.error(`Error fetching persons for subject ${subjectId}:`, e);
+    return [];
+  }
 }
 async function fetchSubjectDetailRaw(subjectId: number) {
   const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`);
-  if (!res.ok) throw new Error(`Bangumi subject ${subjectId} error: ${res.status}`);
-  const ct = res.headers.get('content-type') || '';
-  if (!ct.includes('application/json')) throw new Error(`Bangumi subject ${subjectId} non-JSON`);
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) throw new Error(`Bangumi subject ${subjectId} non-JSON`);
   return await res.json();
 }
 
@@ -251,10 +262,7 @@ async function fetchSubjectPersonsCached(id: number) {
     subjectPersonsCache.set(id, disk);
     return disk;
   }
-  const p = await fetchSubjectPersonsRaw(id).catch((e) => {
-    console.error(`Error fetching subject ${id} persons:`, e);
-    return [];
-  });
+  const p = await fetchSubjectPersonsRaw(id).catch(() => []);
   subjectPersonsCache.set(id, p);
   if (p?.length) await diskCacheSet(diskKey, p);
   return p;
@@ -293,8 +301,6 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
     while (true) {
       const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
       const response = await fetchWithRetry(url);
-      if (!response.ok) throw new Error(`Bangumi API error: ${response.status}`);
-
       const data = await response.json();
       const batch = data.data || [];
       if (batch.length > 0) allData = [...allData, ...batch];
@@ -308,7 +314,7 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
       if (!hasMore) break;
       offset += pageLimit;
 
-      await new Promise((resolve) => setTimeout(resolve, 100)); // 节流
+      await new Promise((resolve) => setTimeout(resolve, 120)); // 轻微节流
     }
 
     const payload = { data: allData };
@@ -321,8 +327,7 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
 }
 
 // 统一 episodes 文案
-const episodesText = (n?: number) =>
-  typeof n === "number" && n > 0 ? `${n} ${T.episodes}` : T.unknown;
+const episodesText = (n?: number) => (typeof n === "number" && n > 0 ? `${n} ${T.episodes}` : T.unknown);
 
 // 转换为页面数据（总是取一次 detail；优先 detail.infobox）
 async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
@@ -332,21 +337,19 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
   const detailedItems = await mapWithConcurrency(items, 6, async (item: any) => {
     const subjectId = item.subject_id;
     const subject = item.subject || {};
-
     const detail = await fetchSubjectDetailCached(subjectId);
 
     const rawDate = (subject?.date || "").trim();
     const isUnknown = !rawDate || /^unknown$/i.test(rawDate) || rawDate === "0000-00-00";
     const detailDate = (detail?.date || "").trim();
     const infoboxStart = getStartDateFromInfobox(detail);
-    const startCandidate = !isUnknown ? rawDate : (detailDate || infoboxStart || "");
+    const startCandidate = !isUnknown ? rawDate : detailDate || infoboxStart || "";
     const startDate = startCandidate || undefined;
     const displayDate = toDisplayYearOrYearMonth(startDate);
 
     const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
     const progress = item.ep_status || 0;
-    const totalEpisodes =
-      typeof subject?.eps === "number" && subject?.eps > 0 ? subject.eps : progress;
+    const totalEpisodes = typeof subject?.eps === "number" && subject?.eps > 0 ? subject.eps : progress;
 
     let studio = getStudioFromInfobox(detail) || T.unknown;
     if (!studio || studio === T.unknown) {
@@ -355,7 +358,10 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
         const priorities = ["动画制作", "製作", "制作"];
         for (const relation of priorities) {
           const match = subjectPersons.find((person) => person.relation === relation);
-          if (match?.name) { studio = match.name; break; }
+          if (match?.name) {
+            studio = match.name;
+            break;
+          }
         }
       }
       if (!studio) studio = T.unknown;
@@ -372,8 +378,10 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
           .filter(Boolean)
       : [];
 
-    const updatedAt: string | undefined =
-      item.updated_at || item.comment_updated_at || item.created_at || subject?.date || undefined;
+    // Normalize to ISO, fall back chain
+    const updatedAtRaw =
+      item.updated_at || item.comment_updated_at || item.created_at || detail?.date || subject?.date || "";
+    const updatedAt = updatedAtRaw ? new Date(updatedAtRaw).toISOString() : undefined;
 
     const cover = subject?.images?.medium || "/assets/anime/default.webp";
     const title = subject?.name_cn || subject?.name || T.unknown;
@@ -384,14 +392,12 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
       rating,
       cover,
       description: (subject?.short_summary || subject?.name_cn || "").trimStart(),
-      year: displayDate,
       displayDate,
       studio,
       link: `https://bgm.tv/subject/${subjectId}`,
       progress,
       totalEpisodes,
       startDate: startDate || "",
-      endDate: "",
       updatedAt,
       genre,
       episodes: episodesText(totalEpisodes),
@@ -406,10 +412,11 @@ let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
   animeList = (localAnimeList as AnimeItem[]).map((a) => ({
     ...a,
-    displayDate: toDisplayYearOrYearMonth(a.startDate || a.year),
-    genre: Array.isArray((a as any).genre) ? (a as any).genre : [],
+    displayDate: toDisplayYearOrYearMonth(a.startDate || (a as any).year),
+    genre: Array.isArray((a as any).genre) ? (a as any).genre.slice(0, 4) : [],
     episodes: episodesText(a.totalEpisodes as any),
     link: `https://bgm.tv/subject/${(a as any).id || (a as any).subjectId || ""}`,
+    updatedAt: a.updatedAt ? new Date(a.updatedAt).toISOString() : undefined,
   }));
 } else if (!isValidUserId) {
   animeList = [];
@@ -434,49 +441,7 @@ if (ANIME_MODE === "local") {
   }
 }
 
-// 状态信息
-function getStatusInfo(status: string) {
-  switch (status) {
-    case "watching":
-      return {
-        text: i18n(I18nKey.animeStatusWatching),
-        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
-        icon: "▶",
-      };
-    case "completed":
-      return {
-        text: i18n(I18nKey.animeStatusCompleted),
-        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
-        icon: "✓",
-      };
-    case "planned":
-      return {
-        text: i18n(I18nKey.animeStatusPlanned),
-        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
-        icon: "⏰",
-      };
-    case "onhold":
-      return {
-        text: i18n(I18nKey.animeStatusOnHold),
-        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
-        icon: "⏸",
-      };
-    case "dropped":
-      return {
-        text: i18n(I18nKey.animeStatusDropped),
-        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
-        icon: "✗",
-      };
-    default:
-      return {
-        text: status,
-        class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-        icon: "?",
-      };
-  }
-}
-
-// 统计
+// 统计（总集）
 const stats = {
   total: animeList.length,
   watching: animeList.filter((anime) => anime.status === "watching").length,
@@ -484,9 +449,7 @@ const stats = {
   avgRating: (() => {
     const ratedAnime = animeList.filter((anime) => (anime.rating || 0) > 0);
     if (ratedAnime.length === 0) return "0.0";
-    return (
-      ratedAnime.reduce((sum, anime) => sum + (anime.rating || 0), 0) / ratedAnime.length
-    ).toFixed(1);
+    return (ratedAnime.reduce((sum, anime) => sum + (anime.rating || 0), 0) / ratedAnime.length).toFixed(1);
   })(),
 };
 
@@ -501,23 +464,16 @@ const lastUpdated = new Date().toLocaleString("zh-CN", {
   timeZone: "Asia/Shanghai",
 });
 
-// 排序
+// 排序（优先 updatedAt ISO，再 startDate/displayDate）
 const sortedAnimeList = [...animeList].sort((a, b) => {
   const aTime = toTime(a.updatedAt) || toTime(a.startDate) || toTime(a.displayDate);
   const bTime = toTime(b.updatedAt) || toTime(b.startDate) || toTime(b.displayDate);
   return bTime - aTime;
 });
-
-// 避免未使用告警
-void animeList;
-void stats;
-void lastUpdated;
-void sortedAnimeList;
-void isBothSidebarMode;
 ---
 
 <MainGridLayout title={i18n(I18nKey.anime)} description={i18n(I18nKey.animeSubtitle)}>
-  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+  <div class="anime-page flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-9 py-6 relative w-full">
       <!-- 页面标题 -->
       <div class="relative w-full mb-8">
@@ -545,6 +501,9 @@ void isBothSidebarMode;
             <div class="text-sm font-medium text-black/80 dark:text-white/80">{lastUpdated}</div>
           </div>
         </div>
+
+        <!-- 屏幕阅读器可读结果公告 -->
+        <div id="list-announce" aria-live="polite" class="visually-hidden"></div>
         
         <!-- 搜索框 -->
         <div class="search-container mb-6">
@@ -564,34 +523,34 @@ void isBothSidebarMode;
           </div>
         </div>
         
-        <!-- 过滤按钮 -->
+        <!-- 过滤按钮（计数会根据搜索更新） -->
         <div class="mb-6">
           <div class="filter-container flex flex-wrap gap-2">
-            <button class="filter-tag active" data-status="all" role="button" aria-pressed="true">
+            <button class="filter-tag active" data-status="all" aria-pressed="true">
               {i18n(I18nKey.animeFilterAll)} 
-              <span class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({animeList.length})</span>
+              <span id="count-all" class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({animeList.length})</span>
             </button>
-            <button class="filter-tag" data-status="watching" role="button" aria-pressed="false">
+            <button class="filter-tag" data-status="watching" aria-pressed="false">
               {i18n(I18nKey.animeStatusWatching)} 
-              <span class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'watching').length})</span>
+              <span id="count-watching" class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'watching').length})</span>
             </button>
-            <button class="filter-tag" data-status="planned" role="button" aria-pressed="false">
+            <button class="filter-tag" data-status="planned" aria-pressed="false">
               {i18n(I18nKey.animeStatusPlanned)} 
-              <span class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'planned').length})</span>
+              <span id="count-planned" class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'planned').length})</span>
             </button>
-            <button class="filter-tag" data-status="completed" role="button" aria-pressed="false">
+            <button class="filter-tag" data-status="completed" aria-pressed="false">
               {i18n(I18nKey.animeStatusCompleted)} 
-              <span class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'completed').length})</span>
+              <span id="count-completed" class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'completed').length})</span>
             </button>
             {ANIME_MODE === 'bangumi' && (
               <>
-                <button class="filter-tag" data-status="onhold" role="button" aria-pressed="false">
+                <button class="filter-tag" data-status="onhold" aria-pressed="false">
                   {i18n(I18nKey.animeStatusOnHold)} 
-                  <span class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'onhold').length})</span>
+                  <span id="count-onhold" class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'onhold').length})</span>
                 </button>
-                <button class="filter-tag" data-status="dropped" role="button" aria-pressed="false">
+                <button class="filter-tag" data-status="dropped" aria-pressed="false">
                   {i18n(I18nKey.animeStatusDropped)} 
-                  <span class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'dropped').length})</span>
+                  <span id="count-dropped" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'dropped').length})</span>
                 </button>
               </>
             )}
@@ -603,7 +562,7 @@ void isBothSidebarMode;
       <div class="mb-8">
         {ANIME_MODE !== 'local' && !isValidUserId ? (
           <div class="text-center py-12">
-            <div class="text-5xl mb-4">😢</div>
+            <div class="text-5xl mb-4" aria-hidden="true">😢</div>
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.animeEmpty)}
             </h3>
@@ -614,14 +573,37 @@ void isBothSidebarMode;
         ) : animeList.length > 0 ? (
           <div id="anime-list-container" class={`anime-grid-container gap-4 md:gap-6 list-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
             {sortedAnimeList.map(anime => {
-              const statusInfo = getStatusInfo(anime.status);
+              const status = anime.status;
+              const statusText =
+                status === 'watching' ? i18n(I18nKey.animeStatusWatching)
+                : status === 'completed' ? i18n(I18nKey.animeStatusCompleted)
+                : status === 'planned' ? i18n(I18nKey.animeStatusPlanned)
+                : status === 'onhold' ? i18n(I18nKey.animeStatusOnHold)
+                : status === 'dropped' ? i18n(I18nKey.animeStatusDropped)
+                : status;
+              const statusInfo = (() => {
+                switch (status) {
+                  case "watching":
+                    return { class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300", icon: "▶" };
+                  case "completed":
+                    return { class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300", icon: "✓" };
+                  case "planned":
+                    return { class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300", icon: "⏰" };
+                  case "onhold":
+                    return { class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300", icon: "⏸" };
+                  case "dropped":
+                    return { class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300", icon: "✗" };
+                  default:
+                    return { class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300", icon: "?" };
+                }
+              })();
               const total = typeof anime.totalEpisodes === 'number' ? anime.totalEpisodes : 0;
               const progress = typeof anime.progress === 'number' ? anime.progress : 0;
               const progressPercent = total > 0 ? (progress / total) * 100 : 0;
-              
+
               return (
                 <div
-                  class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                  class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-transform duration-300 hover:shadow-lg hover:scale-[1.02]"
                   data-anime-status={anime.status}
                   data-anime-title={String(anime.title || '').toLowerCase()}
                   data-anime-studio={String(anime.studio || '').toLowerCase()}
@@ -629,7 +611,7 @@ void isBothSidebarMode;
                 >
                   <!-- 封面区域 -->
                   <div class="relative aspect-[2/3] overflow-hidden">
-                    <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
+                    <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full" aria-label={`Open ${anime.title} on Bangumi`}>
                       <ImageWrapper 
                         src={anime.cover} 
                         alt={anime.title}
@@ -647,16 +629,16 @@ void isBothSidebarMode;
                     </a>
                     
                     <!-- 状态标签 -->
-                    <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`}>
+                    <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`} aria-label={`Status: ${statusText}`}>
                       <span class="mr-1" aria-hidden="true">{statusInfo.icon}</span>
-                      <span>{statusInfo.text}</span>
+                      <span>{statusText}</span>
                     </div>
                     
                     <!-- 评分 -->
-                    <div class="absolute top-2 right-2">
+                    <div class="absolute top-2 right-2" aria-label={`Rating ${anime.rating || 0}`}>
                       <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
                         <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-0.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
                         </svg>
                         <span class="text-[10px] font-semibold leading-none">{anime.rating}</span>
                       </div>
@@ -666,7 +648,7 @@ void isBothSidebarMode;
                     {anime.status === 'watching' && total > 0 && (
                       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                         <div class="w-full bg-white/20 rounded-full h-1.5 mb-1" role="progressbar" aria-valuemin="0" aria-valuemax={total} aria-valuenow={progress}>
-                          <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-all duration-300" style={`width: ${progressPercent}%`}></div>
+                          <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-[width] duration-300" style={`width: ${progressPercent}%`}></div>
                         </div>
                         <div class="text-white text-xs font-medium">
                           {progress}/{total} ({Math.round(progressPercent)}%)
@@ -702,7 +684,7 @@ void isBothSidebarMode;
           </div>
         ) : (
           <div class="text-center py-12">
-            <div class="text-5xl mb-4">😢</div>
+            <div class="text-5xl mb-4" aria-hidden="true">😢</div>
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.animeEmpty)}
             </h3>
@@ -721,7 +703,7 @@ void isBothSidebarMode;
         <button id="prev-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.prevPage)}>
           &lt; {i18n(I18nKey.prevPage)}
         </button>
-        <div id="page-numbers" class="flex gap-1"></div>
+        <div id="page-numbers" class="flex gap-1" aria-live="polite"></div>
         <button id="next-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.nextPage)}>
           {i18n(I18nKey.nextPage)} &gt;
         </button>
@@ -733,7 +715,7 @@ void isBothSidebarMode;
   </div>
 
   <script is:inline define:vars={{ isBothSidebarMode }}>
-  // 布局切换动画（保持原逻辑）
+  // 布局切换动画（保持原逻辑），纯 JS 无 TS 语法
   (function() {
     setTimeout(() => {
       const animeListContainer = document.getElementById("anime-list-container");
@@ -852,17 +834,23 @@ void isBothSidebarMode;
       }
     });
   })();
-</script>
+  </script>
 
   <style>
-    /* 字体与容器 */
-    :root { --anime-font: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
-    html.dark { --anime-font: 'Noto Sans SC', 'Hiragino Sans GB', 'PingFang SC', 'Microsoft YaHei UI', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
-    body, h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select, a { font-family: var(--anime-font) !important; }
+    /* 仅此页字体覆盖，避免全局影响 */
+    .anime-page { --anime-font: 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+    .anime-page, .anime-page * { font-family: var(--anime-font); }
     .card-base { container-type: inline-size; }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important; height: 1px !important;
+      padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important;
+    }
     
     /* 布局固定列数（电脑：grid 5 列 / list 4 列；手机降到 2 列） */
-    .anime-grid-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .anime-grid-container { transition: grid-template-columns 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     .anime-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
     .anime-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
     
@@ -870,23 +858,23 @@ void isBothSidebarMode;
     .filter-tag {
       padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; display: flex; align-items: center;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; white-space: nowrap; display: flex; align-items: center;
     }
     .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
     .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
     .filter-tag.active:hover { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; transform: translateY(-1px); }
     
     /* 卡片动画与悬浮 */
-    [data-anime-status] { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); contain: content; }
+    [data-anime-status] { transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; contain: content; will-change: transform; }
     #anime-list-container.grid-mode [data-anime-status]:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-      z-index: 10; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
     }
     #anime-list-container.list-mode [data-anime-status]:hover {
       transform: translateX(8px) scale(1.01);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      z-index: 10; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
     }
 
     /* 统一可见性：仅通过类控制 */
@@ -907,7 +895,8 @@ void isBothSidebarMode;
     .pagination-btn {
       padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.25rem;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+      display: flex; align-items: center; gap: 0.25rem;
     }
     .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); }
     .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -915,15 +904,21 @@ void isBothSidebarMode;
     .page-number {
       padding: 0.5rem 0.75rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
     }
     .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
     .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
     
     .search-container { position: relative; margin-bottom: 1.5rem; }
-    #search-input { padding-left: 2.5rem; transition: all 0.3s ease; }
+    #search-input { padding-left: 2.5rem; transition: box-shadow 0.3s ease; }
     #search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
     .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
+
+    /* 减少动画偏好 */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+      #anime-list-container [data-anime-status] { transform: none !important; }
+    }
 
     /* 移动端优化 */
     @media (max-width: 640px) {
@@ -941,7 +936,7 @@ void isBothSidebarMode;
     }
   </style>
 
-  <!-- 单一 init + teardown，Swup 生命周期安全重绑 -->
+  <!-- 单一 init + teardown，Swup 生命周期安全重绑（纯 JS 无 TS 语法） -->
   <script is:inline>
     (function() {
       window.__animePage = window.__animePage || {};
@@ -955,6 +950,7 @@ void isBothSidebarMode;
           listeners: [],
           searchDebounce: 0,
           lastFiltered: [],
+          reduceMotion: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false,
         };
 
         const container = document.getElementById('anime-list-container');
@@ -966,12 +962,32 @@ void isBothSidebarMode;
         const prevBtn = document.getElementById('prev-page');
         const nextBtn = document.getElementById('next-page');
         const lastBtn = document.getElementById('last-page');
+        const announce = document.getElementById('list-announce');
+
+        // filter counts
+        const countEls = {
+          all: document.getElementById('count-all'),
+          watching: document.getElementById('count-watching'),
+          planned: document.getElementById('count-planned'),
+          completed: document.getElementById('count-completed'),
+          onhold: document.getElementById('count-onhold'),
+          dropped: document.getElementById('count-dropped'),
+        };
 
         function getItemsPerPageByLayout() {
           if (!container) return 10;
           const cols = (getComputedStyle(container).gridTemplateColumns || '').split(' ').filter(Boolean).length || 4;
-          const rows = window.matchMedia('(min-width: 768px)').matches ? 2 : 2;
+          const rows = window.matchMedia && window.matchMedia('(min-width: 768px)').matches ? 2 : 2; // stable rows
           return cols * rows;
+        }
+
+        function matchesSearch(item, term) {
+          if (!term) return true;
+          const title = item.getAttribute('data-anime-title') || '';
+          const studio = item.getAttribute('data-anime-studio') || '';
+          const genre = item.getAttribute('data-anime-genre') || '';
+          const status = item.getAttribute('data-anime-status') || '';
+          return title.includes(term) || studio.includes(term) || genre.includes(term) || status.includes(term);
         }
 
         function computeFiltered() {
@@ -982,13 +998,8 @@ void isBothSidebarMode;
           return allItems.filter((item) => {
             const itemStatus = item.getAttribute('data-anime-status') || '';
             const byStatus = (activeStatus === 'all') || (itemStatus === activeStatus);
-            if (!term) return byStatus;
-
-            const title = item.getAttribute('data-anime-title') || '';
-            const studio = item.getAttribute('data-anime-studio') || '';
-            const genre = item.getAttribute('data-anime-genre') || '';
-            const matches = title.includes(term) || studio.includes(term) || genre.includes(term) || itemStatus.includes(term);
-            return byStatus && matches;
+            const bySearch = matchesSearch(item, term);
+            return byStatus && bySearch;
           });
         }
 
@@ -999,6 +1010,12 @@ void isBothSidebarMode;
         }
 
         function flipAnimate(keep, show, hide) {
+          if (state.reduceMotion) {
+            hide.forEach((el) => el.classList.add('is-filtered-out'));
+            show.forEach((el) => el.classList.remove('is-filtered-out', 'is-searched-out'));
+            return;
+          }
+
           const first = new Map();
           [...keep, ...show].forEach((el) => {
             const rect = el.getBoundingClientRect();
@@ -1016,9 +1033,11 @@ void isBothSidebarMode;
             show.forEach((el) => {
               el.classList.remove('is-filtered-out', 'is-searched-out');
               el.classList.add('anime-fade-in');
-              el.style.opacity = '0';
-              el.style.transform = 'scale(0.8)';
-              el.style.transition = 'none';
+              if (el instanceof HTMLElement) {
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0.8)';
+                el.style.transition = 'none';
+              }
             });
 
             requestAnimationFrame(() => {
@@ -1031,7 +1050,7 @@ void isBothSidebarMode;
               keep.forEach((el) => {
                 const a = first.get(el);
                 const b = last.get(el);
-                if (a && b) {
+                if (a && b && el instanceof HTMLElement) {
                   const dx = a.left - b.left;
                   const dy = a.top - b.top;
                   el.style.transition = 'none';
@@ -1044,11 +1063,11 @@ void isBothSidebarMode;
                 all.forEach((el, i) => {
                   setTimeout(() => {
                     el.classList.add('anime-animating');
-                    if (keep.includes(el)) {
+                    if (keep.includes(el) && el instanceof HTMLElement) {
                       el.style.transition = '';
                       el.style.transform = '';
                     }
-                    if (show.includes(el)) {
+                    if (show.includes(el) && el instanceof HTMLElement) {
                       el.classList.remove('anime-fade-in');
                       el.classList.add('anime-fade-in-active');
                       el.style.transition = '';
@@ -1061,14 +1080,40 @@ void isBothSidebarMode;
                 setTimeout(() => {
                   all.forEach((el) => {
                     el.classList.remove('anime-animating', 'anime-fade-in-active');
-                    el.style.transition = '';
-                    el.style.transform = '';
-                    el.style.opacity = '';
+                    if (el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                      el.style.opacity = '';
+                    }
                   });
                 }, 500 + all.length * 20);
               });
             });
-          }, 200);
+          }, 120);
+        }
+
+        function updateCountsForSearch() {
+          const term = ((searchInput && searchInput.value) || '').trim().toLowerCase();
+          const matches = allItems.filter((it) => matchesSearch(it, term));
+          const countAll = matches.length;
+          const countsByStatus = {};
+          matches.forEach((it) => {
+            const s = it.getAttribute('data-anime-status') || 'unknown';
+            countsByStatus[s] = (countsByStatus[s] || 0) + 1;
+          });
+
+          if (countEls.all) countEls.all.textContent = `(${countAll})`;
+          ['watching', 'planned', 'completed', 'onhold', 'dropped'].forEach((s) => {
+            if (countEls[s]) countEls[s].textContent = `(${countsByStatus[s] || 0})`;
+          });
+
+          if (announce) {
+            const activeStatusEl = document.querySelector('.filter-tag.active');
+            const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+            const showing = computeFiltered().length;
+            const label = activeStatus === 'all' ? 'All' : activeStatus;
+            announce.textContent = `Showing ${showing} item(s) for "${label}"${term ? ` with search "${term}"` : ''}.`;
+          }
         }
 
         function updatePaginationUI(totalItems) {
@@ -1092,6 +1137,7 @@ void isBothSidebarMode;
             const btn = document.createElement('button');
             btn.textContent = String(i);
             btn.classList.add('page-number');
+            btn.setAttribute('aria-label', `Go to page ${i}`);
             if (i === state.currentPage) btn.classList.add('active');
             btn.addEventListener('click', () => {
               state.currentPage = i;
@@ -1147,6 +1193,7 @@ void isBothSidebarMode;
             state.pageWindowStart = 1;
             applyPagination(filtered);
             updatePaginationUI(filtered.length);
+            updateCountsForSearch();
 
             if (triggerFLIP) {
               const afterVisible = allItems.filter(el => !el.classList.contains('is-filtered-out') && !el.classList.contains('is-searched-out'));
@@ -1163,6 +1210,7 @@ void isBothSidebarMode;
           const handler = () => {
             if (tag.classList.contains('active')) return;
             filterTags.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false'); });
+            tag.addEventListener;
             tag.classList.add('active'); tag.setAttribute('aria-pressed','true');
             refreshAll(true);
           };
@@ -1184,6 +1232,7 @@ void isBothSidebarMode;
               const filtered = computeFiltered();
               state.currentPage = 1; state.pageWindowStart = 1;
               applyPagination(filtered); updatePaginationUI(filtered.length);
+              updateCountsForSearch();
             }
           };
           searchInput.addEventListener('input', inputHandler);
@@ -1248,10 +1297,9 @@ void isBothSidebarMode;
           state.listeners.forEach(({ el, type, handler }) => el.removeEventListener(type, handler));
           state.listeners = [];
           clearTimeout(state.searchDebounce);
-          delete window.__animePage.updateAfterLayout;
+          if (window.__animePage) delete window.__animePage.updateAfterLayout;
 
-          // 如果 Swup hooks 支持 off，解绑事件
-          if (window.__animePage.__swup && window.swup?.hooks?.off) {
+          if (window.__animePage.__swup && window.swup && window.swup.hooks && window.swup.hooks.off) {
             const reinit = window.__animePage.__swup.reinit;
             window.swup.hooks.off('content:replace', reinit);
             window.swup.hooks.off('page:view', reinit);
