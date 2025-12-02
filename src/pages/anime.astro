@@ -920,7 +920,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       let start = 1;
       if (totalPages > windowSize) {
         const half = Math.floor(windowSize / 2); // 2
-        // 确保窗口落在 [1, totalPages - windowSize + 1] 范围
         start = Math.max(1, Math.min(currentPage - half, totalPages - windowSize + 1));
       }
       const end = Math.min(totalPages, start + windowSize - 1);
@@ -965,7 +964,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
     }
     
     function updateFilteredItems() {
-      const activeFilter = document.querySelector('.filter-tag.active').getAttribute('data-status');
+      const activeFilter = document.querySelector('.filter-tag.active')?.getAttribute('data-status') || 'all';
       
       if (activeFilter === 'all') {
         filteredItems = Array.from(document.querySelectorAll('[data-anime-status]'));
@@ -977,6 +976,8 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
       showPage(currentPage);
       updatePagination();
     }
+    // 标记为已读，避免 TS 6133 提示
+    void updateFilteredItems;
     
     // 搜索功能
     function searchAnime(searchTerm) {
@@ -1073,7 +1074,7 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
             });
           }
           
-          // 更新分页（保持原有行为）
+          // 更新分页
           filteredItems = results;
           currentPage = 1;
           updatePagination();
