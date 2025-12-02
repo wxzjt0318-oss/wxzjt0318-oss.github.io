@@ -55,55 +55,60 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
   </div>
 </MainGridLayout>
 
+<!-- ✅ 保留 defer 脚本（按你要求，不影响 SEO 或首次加载） -->
+<script src="https://cdn.jsdelivr.net/npm/twikoo@latest/dist/twikoo.all.min.js" defer></script>
+
+<!-- ✅ 动态加载 + 初始化 Twikoo（绕过全局脚本报错） -->
 <script>
-  let twikooInit = false; // Flag to prevent multiple initializations
-
-  const initTwikoo = async () => {
-    if (twikooInit) return; // Prevent re-initialization
-    twikooInit = true;
-
+  function loadAndInitTwikoo() {
     const container = document.getElementById('twikoo');
-    if (!container) {
-      console.warn('Twikoo container not found.');
-      return;
-    }
+    if (!container) return;
 
-    try {
-      // Dynamically import Twikoo
-      const { default: twikoo } = await import('https://cdn.jsdelivr.net/npm/twikoo@latest/dist/twikoo.es.min.js');
+    // 防止重复初始化
+    if (container.dataset.twikooLoaded === 'true') return;
+    container.dataset.twikooLoaded = 'true';
 
-      twikoo.init({
-        envId: "https://twikoo-api-gmgc.vercel.app/", // Your Twikoo API endpoint
-        el: '#twikoo',  // The CSS selector for the comment container
-        path: '/guestbook', // The unique path for this page
-        lang: 'zh-CN' // Language of the comments
-      });
-    } catch (error) {
-      console.error('Failed to initialize Twikoo:', error);
-      twikooInit = false; // Reset the flag for potential retries.
-      container.textContent = "Failed to load comments. Please try again later."; // Display a user-friendly message
-    }
-  };
+    // 清空容器（确保干净）
+    container.innerHTML = '';
 
-  // Initialize Twikoo when the component mounts
-  if (typeof window !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTwikoo);
-    } else {
-      initTwikoo();
-    }
+    // 动态创建 script 标签加载 Twikoo SDK
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/twikoo@latest/dist/twikoo.all.min.js';
+    script.onload = () => {
+      try {
+        window.twikoo.init({
+          envId: "https://twikoo-api-gmgc.vercel.app/",
+          el: '#twikoo',
+          path: '/guestbook',
+          lang: 'zh-CN'
+        });
+      } catch (err) {
+        console.error('[Twikoo] Init failed after dynamic load:', err);
+        container.dataset.twikooLoaded = 'false'; // 允许重试
+      }
+    };
+    script.onerror = () => {
+      console.error('[Twikoo] Failed to load SDK dynamically');
+      container.dataset.twikooLoaded = 'false';
+    };
+    document.head.appendChild(script);
   }
 
-  // Astro navigation support.  Use requestAnimationFrame and setTimeout to allow
-  // Astro to render the page before Twikoo is initialized.  Also check if Twikoo
-  // has already been initialized to prevent re-initialization.
-  document.addEventListener('astro:page-load', () => {
-    if (!twikooInit) {
+  // 初始加载
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAndInitTwikoo);
+  } else {
+    loadAndInitTwikoo();
+  }
+
+  // Astro 客户端导航支持：每次进入页面都尝试加载
+  if (typeof window !== 'undefined') {
+    window.addEventListener('astro:page-load', () => {
       requestAnimationFrame(() => {
-        setTimeout(initTwikoo, 100);
+        setTimeout(loadAndInitTwikoo, 100);
       });
-    }
-  });
+    });
+  }
 </script>
 
 <style>
