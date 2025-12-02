@@ -1,32 +1,48 @@
 ---
-import ImageWrapper from "../components/misc/ImageWrapper.astro";
+/**
+ * Anime Page (Bangumi + Local, SSR/CSR safe)
+ * - Node 端提供 .cache/bangumi 持久缓存（可用 BANGUMI_DISABLE_DISK_CACHE=1 关闭）
+ * - 搜索与状态筛选在前端执行；无额外依赖
+ */
+
 import { sidebarLayoutConfig, siteConfig } from "../config";
 import localAnimeList from "../data/anime";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-// i18n helpers with safe fallbacks (avoid TS errors if keys not defined yet)
+// i18n helpers with safe fallbacks
 const T = {
   unknown: i18n((I18nKey as any).animeUnknown ?? "animeUnknown") || "Unknown",
   episodes: i18n((I18nKey as any).animeEpisodes ?? "animeEpisodes") || "episodes",
-  paginationFirst: i18n((I18nKey as any).paginationFirst ?? "paginationFirst") || "First",
-  paginationLast: i18n((I18nKey as any).paginationLast ?? "paginationLast") || "Last",
+  paginationFirst:
+    i18n((I18nKey as any).paginationFirst ?? "paginationFirst") || "First",
+  paginationLast:
+    i18n((I18nKey as any).paginationLast ?? "paginationLast") || "Last",
   searchAnimePlaceholder:
     i18n((I18nKey as any).searchAnimePlaceholder ?? "searchAnimePlaceholder") ||
     "Search by title, genre, studio...",
+  totalLabel:
+    i18n((I18nKey as any).animeTotalLabel ?? "animeTotalLabel") || "Total",
+  avgRatingLabel:
+    i18n((I18nKey as any).animeAvgRatingLabel ?? "animeAvgRatingLabel") ||
+    "Average Rating",
+  lastUpdatedLabel:
+    i18n((I18nKey as any).animeLastUpdatedLabel ?? "animeLastUpdatedLabel") ||
+    "Last Updated",
 };
 
-// 扩展状态类型，包含 onhold、dropped，解决 TS 比较错误
+const episodesText = (n?: number) =>
+  typeof n === "number" && n > 0 ? `${n} ${T.episodes}` : T.unknown;
+
+// 类型
 type LocalAnimeItem = (typeof localAnimeList)[number];
 type AnimeStatus = "watching" | "completed" | "planned" | "onhold" | "dropped";
 type AnimeItem = Omit<LocalAnimeItem, "status"> & {
   status: AnimeStatus;
   updatedAt?: string;
-  // 原始放送开始 + 展示日期
   startDate?: string;
   displayDate?: string;
-  // 模板使用到的字段
   genre: string[];
   progress?: number;
   totalEpisodes?: number;
@@ -46,20 +62,24 @@ const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
 const BANGUMI_API_BASE = "https://api.bgm.tv";
 const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
 
-// 获取模式（在 src/config.ts 配置）
+// 模式
 const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
 
-// 可选项目上限与缓存 TTL（小时）- 使用本地扩展类型以消除 TS 报错
-type AnimeConfigExt = { mode?: "bangumi" | "local"; maxItems?: number; cacheTtlHours?: number };
+// 上限与缓存 TTL（小时）
+type AnimeConfigExt = {
+  mode?: "bangumi" | "local";
+  maxItems?: number;
+  cacheTtlHours?: number;
+};
 const animeCfg = (siteConfig.anime || {}) as AnimeConfigExt;
-const MAX_ITEMS =
-  Number(animeCfg.maxItems) > 0 ? Number(animeCfg.maxItems) : Infinity;
+const MAX_ITEMS = Number(animeCfg.maxItems) > 0 ? Number(animeCfg.maxItems) : Infinity;
 const CACHE_TTL_HOURS =
-  Number(animeCfg.cacheTtlHours) > 0 ? Number(animeCfg.cacheTtlHours) : 24;
+  Number(animeCfg.cacheTtlHours) >= 0 ? Number(animeCfg.cacheTtlHours) : 24;
 
-// 简易磁盘持久缓存（Node 端有效）；SSR/构建期间复用，浏览器端静默跳过
+// 简易磁盘持久缓存（Node 端有效）；支持环境变量禁用
 type CacheEntry<T> = { ts: number; data: T };
-const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
+const isNode =
+  typeof process !== "undefined" && !!(process as any).versions?.node;
 let fs: typeof import("fs/promises") | null = null;
 let path: typeof import("path") | null = null;
 if (isNode) {
@@ -69,17 +89,28 @@ if (isNode) {
   path = pathMod;
 }
 
-const cacheRoot = isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
+const cacheRoot =
+  isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
+const DISK_CACHE_DISABLED =
+  isNode &&
+  (process.env.BANGUMI_DISABLE_DISK_CACHE === "1" ||
+    process.env.BANGUMI_DISABLE_DISK_CACHE === "true" ||
+    CACHE_TTL_HOURS === 0);
+const CAN_USE_DISK_CACHE = isNode && !DISK_CACHE_DISABLED;
 
-async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
-  if (!isNode || !fs || !path) return null;
+async function diskCacheGet<T>(
+  key: string,
+  ttlHours: number,
+): Promise<T | null> {
+  if (!CAN_USE_DISK_CACHE || !fs || !path) return null;
   try {
     await fs.mkdir(cacheRoot, { recursive: true });
     const file = path.resolve(cacheRoot, `${key}.json`);
     const buf = await fs.readFile(file, { encoding: "utf8" as any });
-    // 兼容类型推断为非 string 的情况（如 NonSharedBuffer）
     const jsonStr =
-      typeof buf === "string" ? buf : new TextDecoder("utf-8").decode(buf as unknown as BufferSource);
+      typeof buf === "string"
+        ? buf
+        : new TextDecoder("utf-8").decode(buf as unknown as BufferSource);
     const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
     const ageHours = (Date.now() - parsed.ts) / 3.6e6;
     if (ageHours <= ttlHours) return parsed.data;
@@ -89,7 +120,7 @@ async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null>
   }
 }
 async function diskCacheSet<T>(key: string, data: T): Promise<void> {
-  if (!isNode || !fs || !path) return;
+  if (!CAN_USE_DISK_CACHE || !fs || !path) return;
   try {
     await fs.mkdir(cacheRoot, { recursive: true });
     const file = path.resolve(cacheRoot, `${key}.json`);
@@ -101,14 +132,21 @@ async function diskCacheSet<T>(key: string, data: T): Promise<void> {
 }
 
 // fetch 带重试与 429/5xx 退避
-async function fetchWithRetry(url: string, init?: RequestInit, retries = 4, baseDelayMs = 400): Promise<Response> {
+async function fetchWithRetry(
+  url: string,
+  init?: RequestInit,
+  retries = 4,
+  baseDelayMs = 400,
+): Promise<Response> {
   for (let attempt = 0; attempt <= retries; attempt++) {
     const res = await fetch(url, init).catch(() => null);
     if (res && res.ok) return res as Response;
 
-    // 429 或 5xx: 指数退避 + 随机抖动，且尊重 Retry-After
     const status = res?.status ?? 0;
-    if (attempt < retries && (status === 429 || (status >= 500 && status <= 599))) {
+    if (
+      attempt < retries &&
+      (status === 429 || (status >= 500 && status <= 599))
+    ) {
       let delay = baseDelayMs * Math.pow(2, attempt);
       const retryAfter = res?.headers?.get("Retry-After");
       if (retryAfter) {
@@ -143,7 +181,7 @@ function pickFirstUsefulValue(v: any): string | undefined {
   return undefined;
 }
 
-// 从 subject.infobox 提取“放送开始时间”
+// 从 subject.infobox 提取开播日期
 function getStartDateFromInfobox(subject: any): string | undefined {
   const keys = [
     "放送开始",
@@ -175,9 +213,17 @@ function getStartDateFromInfobox(subject: any): string | undefined {
   return undefined;
 }
 
-// 从 subject.infobox 提取“动画制作/制作/Studio”等（比人员更可靠）
+// 从 subject.infobox 提取制作公司
 function getStudioFromInfobox(subject: any): string | undefined {
-  const keys = ["动画制作", "製作", "制作", "动画公司", "Studio", "制作公司", "制作スタジオ"];
+  const keys = [
+    "动画制作",
+    "製作",
+    "制作",
+    "动画公司",
+    "Studio",
+    "制作公司",
+    "制作スタジオ",
+  ];
   const infobox = subject?.infobox;
   if (!Array.isArray(infobox)) return undefined;
 
@@ -220,7 +266,7 @@ function toDisplayYearOrYearMonth(input?: string): string {
   return T.unknown;
 }
 
-// 安全解析日期为时间戳（支持 YYYY / YYYY-MM / YYYY-MM-DD）
+// 安全解析日期为时间戳
 function toTime(input?: string) {
   if (!input) return 0;
   const s = input.trim();
@@ -230,15 +276,23 @@ function toTime(input?: string) {
   return Number.isNaN(t) ? 0 : t;
 }
 
-// 获取单个条目相关人员信息（缓存 + 退避）
+// 人员接口
 async function fetchSubjectPersonsRaw(subjectId: number) {
-  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
-  const data = await res.json();
+  const res = await fetchWithRetry(
+    `${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`,
+  );
+  if (!res.ok) return [];
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) return [];
+  const data = await res.json().catch(() => []);
   return Array.isArray(data) ? data : [];
 }
 async function fetchSubjectDetailRaw(subjectId: number) {
-  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`);
-  if (!res.ok) throw new Error(`Bangumi subject ${subjectId} error: ${res.status}`);
+  const res = await fetchWithRetry(
+    `${BANGUMI_API_BASE}/v0/subjects/${subjectId}`,
+  );
+  if (!res.ok)
+    throw new Error(`Bangumi subject ${subjectId} error: ${res.status}`);
   return await res.json();
 }
 
@@ -298,8 +352,12 @@ async function mapWithConcurrency<T, R>(
   return results;
 }
 
-// 获取 Bangumi 收藏列表（分页抓取 + 可选项目上限 + 磁盘持久缓存）
-async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
+// 获取 Bangumi 收藏列表（分页抓取 + 可选上限 + 磁盘缓存）
+async function fetchBangumiCollection(
+  userId: string,
+  subjectType: number,
+  type: number,
+) {
   const cacheKey = `collection-${userId}-${subjectType}-${type}`;
   const cached = await diskCacheGet<{ data: any[] }>(cacheKey, CACHE_TTL_HOURS);
   if (cached && cached.data?.length) return cached;
@@ -340,87 +398,108 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
 }
 
 // 转换为页面数据
-async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
+async function processBangumiData(
+  data: any,
+  status: AnimeStatus,
+): Promise<AnimeItem[]> {
   if (!data || !data.data) return [];
   const items: any[] = data.data;
 
-  const detailedItems = await mapWithConcurrency(items, 6, async (item: any) => {
-    const subjectId = item.subject_id;
-    const subject = item.subject || {};
+  const detailedItems = await mapWithConcurrency(
+    items,
+    6,
+    async (item: any) => {
+      const subjectId = item.subject_id;
+      const subject = item.subject || {};
 
-    // 先尝试 subject 自带的 date，否则 detail/infobox 兜底
-    const rawDate = (subject?.date || "").trim();
-    const isUnknown = !rawDate || /^unknown$/i.test(rawDate) || rawDate === "0000-00-00";
-    let startDate: string | undefined = rawDate || undefined;
-
-    if (isUnknown) {
+      // detail 总是拿一次（有缓存/并发限制）
       const detail = await fetchSubjectDetailCached(subjectId);
+
+      // 起始日期：优先 subject.date（若非 Unknown），否则 detail.date 或 detail.infobox
+      const rawDate = (subject?.date || "").trim();
+      const isUnknown =
+        !rawDate || /^unknown$/i.test(rawDate) || rawDate === "0000-00-00";
       const detailDate = (detail?.date || "").trim();
       const infoboxStart = getStartDateFromInfobox(detail);
-      const candidate = detailDate || infoboxStart || "";
-      startDate = candidate || undefined;
-    }
+      const startDate = (isUnknown ? (detailDate || infoboxStart || "") : rawDate) || undefined;
 
-    const displayDate = toDisplayYearOrYearMonth(startDate);
+      const displayDate = toDisplayYearOrYearMonth(startDate);
 
-    const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
-    const progress = item.ep_status || 0;
-    const totalEpisodes =
-      typeof subject?.eps === "number" && subject?.eps > 0 ? subject.eps : progress;
+      // 评分/进度
+      const rating =
+        typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
+      const progress = item.ep_status || 0;
+      const totalEpisodes =
+        typeof subject?.eps === "number" && subject?.eps > 0
+          ? subject.eps
+          : progress;
 
-    // Studio 优先从 infobox 取；没有再回退到人员
-    let studio = getStudioFromInfobox(subject) || T.unknown;
-    if (!studio || studio === T.unknown) {
-      const subjectPersons = await fetchSubjectPersonsCached(subjectId);
-      if (Array.isArray(subjectPersons)) {
-        const priorities = ["动画制作", "製作", "制作"];
-        for (const relation of priorities) {
-          const match = subjectPersons.find((person) => person.relation === relation);
-          if (match?.name) {
-            studio = match.name;
-            break;
+      // Studio：优先 detail.infobox，其次 persons
+      let studio = getStudioFromInfobox(detail) || T.unknown;
+      if (!studio || studio === T.unknown) {
+        const subjectPersons = await fetchSubjectPersonsCached(subjectId);
+        if (Array.isArray(subjectPersons)) {
+          const priorities = ["动画制作", "製作", "制作"];
+          for (const relation of priorities) {
+            const match = subjectPersons.find(
+              (person) => person.relation === relation,
+            );
+            if (match?.name) {
+              studio = match.name;
+              break;
+            }
           }
         }
+        if (!studio) studio = T.unknown;
       }
-      if (!studio) studio = T.unknown;
-    }
 
-    const genre: string[] = Array.isArray(subject?.tags)
-      ? subject.tags
-          .slice(0, 4)
-          .map((t: any) => {
-            if (typeof t === "string") return t.trim();
-            if (t && typeof t.name === "string") return t.name.trim();
-            return "";
-          })
-          .filter(Boolean)
-      : [];
+      // 标签
+      const genre: string[] = Array.isArray(subject?.tags)
+        ? subject.tags
+            .slice(0, 4)
+            .map((t: any) => {
+              if (typeof t === "string") return t.trim();
+              if (t && typeof t.name === "string") return t.name.trim();
+              return "";
+            })
+            .filter(Boolean)
+        : [];
 
-    const updatedAt: string | undefined =
-      item.updated_at || item.comment_updated_at || item.created_at || subject?.date || undefined;
+      const updatedAt: string | undefined =
+        item.updated_at ||
+        item.comment_updated_at ||
+        item.created_at ||
+        subject?.date ||
+        undefined;
 
-    const cover = subject?.images?.medium || "/assets/anime/default.webp";
-    const title = subject?.name_cn || subject?.name || T.unknown;
+      const cover = subject?.images?.medium || "/assets/anime/default.webp";
+      const title = subject?.name_cn || subject?.name || T.unknown;
+      const description =
+        (detail?.summary ||
+          subject?.short_summary ||
+          subject?.name_cn ||
+          "")?.trimStart?.() || "";
 
-    return {
-      title,
-      status,
-      rating,
-      cover,
-      description: (subject?.short_summary || subject?.name_cn || "").trimStart(),
-      year: displayDate,
-      displayDate,
-      studio,
-      link: `https://bgm.tv/subject/${subjectId}`, // 始终使用 subjectId 兜底
-      progress,
-      totalEpisodes,
-      startDate: startDate || "",
-      endDate: "",
-      updatedAt,
-      genre,
-      episodes: `${totalEpisodes || 0} ${T.episodes}`,
-    } as AnimeItem;
-  });
+      return {
+        title,
+        status,
+        rating,
+        cover,
+        description,
+        year: displayDate,
+        displayDate,
+        studio,
+        link: `https://bgm.tv/subject/${subjectId}`,
+        progress,
+        totalEpisodes,
+        startDate: startDate || "",
+        endDate: "",
+        updatedAt,
+        genre,
+        episodes: episodesText(totalEpisodes),
+      } as AnimeItem;
+    },
+  );
 
   return detailedItems as AnimeItem[];
 }
@@ -428,31 +507,51 @@ async function processBangumiData(data: any, status: AnimeStatus): Promise<Anime
 // 根据模式获取番剧列表
 let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
-  animeList = (localAnimeList as AnimeItem[]).map((a) => ({
-    ...a,
-    displayDate: toDisplayYearOrYearMonth(a.startDate || a.year),
-    genre: Array.isArray((a as any).genre) ? (a as any).genre : [],
-    episodes: `${(a.totalEpisodes as any) || 0} ${T.episodes}`,
-    link: `https://bgm.tv/subject/${(a as any).id || (a as any).subjectId || ""}`,
-  }));
+  animeList = (localAnimeList as AnimeItem[]).map((a) => {
+    const linkId = (a as any).id || (a as any).subjectId;
+    return {
+      ...a,
+      displayDate: toDisplayYearOrYearMonth(a.startDate || (a as any).year),
+      genre: Array.isArray((a as any).genre) ? (a as any).genre : [],
+      episodes: episodesText((a as any).totalEpisodes),
+      link: linkId ? `https://bgm.tv/subject/${linkId}` : "#",
+    };
+  });
 } else if (!isValidUserId) {
   animeList = [];
 } else {
-  const [watchingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 3),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 1),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 2),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 4),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 5),
-  ]);
+  const [watchingData, plannedData, completedData, onHoldData, droppedData] =
+    await Promise.all([
+      fetchBangumiCollection(BANGUMI_USER_ID, 2, 3),
+      fetchBangumiCollection(BANGUMI_USER_ID, 2, 1),
+      fetchBangumiCollection(BANGUMI_USER_ID, 2, 2),
+      fetchBangumiCollection(BANGUMI_USER_ID, 2, 4),
+      fetchBangumiCollection(BANGUMI_USER_ID, 2, 5),
+    ]);
 
-  const watchingList = watchingData ? await processBangumiData(watchingData, "watching") : [];
-  const plannedList = plannedData ? await processBangumiData(plannedData, "planned") : [];
-  const completedList = completedData ? await processBangumiData(completedData, "completed") : [];
-  const onHoldList = onHoldData ? await processBangumiData(onHoldData, "onhold") : [];
-  const droppedList = droppedData ? await processBangumiData(droppedData, "dropped") : [];
+  const watchingList = watchingData
+    ? await processBangumiData(watchingData, "watching")
+    : [];
+  const plannedList = plannedData
+    ? await processBangumiData(plannedData, "planned")
+    : [];
+  const completedList = completedData
+    ? await processBangumiData(completedData, "completed")
+    : [];
+  const onHoldList = onHoldData
+    ? await processBangumiData(onHoldData, "onhold")
+    : [];
+  const droppedList = droppedData
+    ? await processBangumiData(droppedData, "dropped")
+    : [];
 
-  animeList = [...watchingList, ...plannedList, ...completedList, ...onHoldList, ...droppedList];
+  animeList = [
+    ...watchingList,
+    ...plannedList,
+    ...completedList,
+    ...onHoldList,
+    ...droppedList,
+  ];
   if (Number.isFinite(MAX_ITEMS)) {
     animeList = animeList.slice(0, MAX_ITEMS as number);
   }
@@ -464,31 +563,36 @@ function getStatusInfo(status: string) {
     case "watching":
       return {
         text: i18n(I18nKey.animeStatusWatching),
-        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+        class:
+          "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
         icon: "▶",
       };
     case "completed":
       return {
         text: i18n(I18nKey.animeStatusCompleted),
-        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+        class:
+          "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
         icon: "✓",
       };
     case "planned":
       return {
         text: i18n(I18nKey.animeStatusPlanned),
-        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+        class:
+          "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
         icon: "⏰",
       };
     case "onhold":
       return {
         text: i18n(I18nKey.animeStatusOnHold),
-        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+        class:
+          "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
         icon: "⏸",
       };
     case "dropped":
       return {
         text: i18n(I18nKey.animeStatusDropped),
-        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+        class:
+          "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
         icon: "✗",
       };
     default:
@@ -509,7 +613,8 @@ const stats = {
     const ratedAnime = animeList.filter((anime) => (anime.rating || 0) > 0);
     if (ratedAnime.length === 0) return "0.0";
     return (
-      ratedAnime.reduce((sum, anime) => sum + (anime.rating || 0), 0) / ratedAnime.length
+      ratedAnime.reduce((sum, anime) => sum + (anime.rating || 0), 0) /
+      ratedAnime.length
     ).toFixed(1);
   })(),
 };
@@ -543,7 +648,6 @@ void isBothSidebarMode;
 <MainGridLayout title={i18n(I18nKey.anime)} description={i18n(I18nKey.animeSubtitle)}>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-9 py-6 relative w-full">
-      <!-- 页面标题 -->
       <div class="relative w-full mb-8">
         <div class="mb-6">
           <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
@@ -554,23 +658,21 @@ void isBothSidebarMode;
           <p class="text-black/75 dark:text-white/75">{i18n(I18nKey.animeSubtitle)}</p>
         </div>
         
-        <!-- 统计信息卡片 -->
         <div class="stats-container grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text-black/60 dark:text-white/60 mb-1">总数</div>
+            <div class="text-xs text-black/60 dark:text-white/60 mb-1">{T.totalLabel}</div>
             <div class="text-2xl font-bold text-[var(--primary)]">{stats.total}</div>
           </div>
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text-black/60 dark:text-white/60 mb-1">综合评分</div>
+            <div class="text-xs text-black/60 dark:text-white/60 mb-1">{T.avgRatingLabel}</div>
             <div class="text-2xl font-bold text-blue-500">{stats.avgRating}</div>
           </div>
           <div class="stat-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 flex flex-col items-center justify-center">
-            <div class="text-xs text-black/60 dark:text-white/60 mb-1">最后更新时间</div>
+            <div class="text-xs text-black/60 dark:text-white/60 mb-1">{T.lastUpdatedLabel}</div>
             <div class="text-sm font-medium text-black/80 dark:text-white/80">{lastUpdated}</div>
           </div>
         </div>
         
-        <!-- 搜索框 -->
         <div class="search-container mb-6">
           <div class="relative">
             <input 
@@ -578,41 +680,41 @@ void isBothSidebarMode;
               id="search-input" 
               placeholder={T.searchAnimePlaceholder}
               class="w-full px-4 py-3 pl-12 rounded-[var(--radius-large)] border border-[var(--line-divider)] bg-[var(--card-bg)] text-[var(--text-body)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
+              aria-label={T.searchAnimePlaceholder}
             />
             <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
           </div>
         </div>
         
-        <!-- 过滤按钮 -->
         <div class="mb-6">
-          <div class="filter-container flex flex-wrap gap-2">
-            <button class="filter-tag active" data-status="all">
+          <div class="filter-container flex flex-wrap gap-2" role="group" aria-label="Anime filters">
+            <button class="filter-tag active" data-status="all" role="button" aria-pressed="true">
               {i18n(I18nKey.animeFilterAll)} 
               <span class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({animeList.length})</span>
             </button>
-            <button class="filter-tag" data-status="watching">
+            <button class="filter-tag" data-status="watching" role="button" aria-pressed="false">
               {i18n(I18nKey.animeStatusWatching)} 
               <span class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'watching').length})</span>
             </button>
-            <button class="filter-tag" data-status="planned">
+            <button class="filter-tag" data-status="planned" role="button" aria-pressed="false">
               {i18n(I18nKey.animeStatusPlanned)} 
               <span class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'planned').length})</span>
             </button>
-            <button class="filter-tag" data-status="completed">
+            <button class="filter-tag" data-status="completed" role="button" aria-pressed="false">
               {i18n(I18nKey.animeStatusCompleted)} 
               <span class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'completed').length})</span>
             </button>
             {ANIME_MODE === 'bangumi' && (
               <>
-                <button class="filter-tag" data-status="onhold">
+                <button class="filter-tag" data-status="onhold" role="button" aria-pressed="false">
                   {i18n(I18nKey.animeStatusOnHold)} 
                   <span class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'onhold').length})</span>
                 </button>
-                <button class="filter-tag" data-status="dropped">
+                <button class="filter-tag" data-status="dropped" role="button" aria-pressed="false">
                   {i18n(I18nKey.animeStatusDropped)} 
                   <span class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'dropped').length})</span>
                 </button>
@@ -622,11 +724,10 @@ void isBothSidebarMode;
         </div>
       </div>
 
-      <!-- 动漫列表 -->
       <div class="mb-8">
         {ANIME_MODE !== 'local' && !isValidUserId ? (
           <div class="text-center py-12">
-            <div class="text-5xl mb-4">😢</div>
+            <div class="text-5xl mb-4" aria-hidden="true">😢</div>
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.animeEmpty)}
             </h3>
@@ -636,654 +737,158 @@ void isBothSidebarMode;
           </div>
         ) : animeList.length > 0 ? (
           <div id="anime-list-container" class={`anime-grid-container gap-4 md:gap-6 list-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
-            {sortedAnimeList.map(anime => {
+            {sortedAnimeList.map((anime) => {
               const statusInfo = getStatusInfo(anime.status);
-              const total = typeof anime.totalEpisodes === 'number' ? anime.totalEpisodes : 0;
-              const progress = typeof anime.progress === 'number' ? anime.progress : 0;
-              const progressPercent = total > 0 ? (progress / total) * 100 : 0;
-              
+              const total = typeof anime.totalEpisodes === "number" ? anime.totalEpisodes : 0;
+              const progress = typeof anime.progress === "number" ? anime.progress : 0;
+              const progressPercent = total > 0 ? Math.min(100, Math.round((progress / total) * 100)) : 0;
+              const keywords = [
+                anime.title || "",
+                anime.studio || "",
+                Array.isArray(anime.genre) ? anime.genre.join(" ") : "",
+                anime.displayDate || "",
+              ].join(" ").toLowerCase();
+
               return (
-                <div
-                  class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
-                  data-anime-status={anime.status}
-                  data-anime-title={String(anime.title || '').toLowerCase()}
-                  data-anime-studio={String(anime.studio || '').toLowerCase()}
-                  data-anime-genre={(anime.genre || []).map(g => String(g || '').toLowerCase()).join(' ')}
-                >
-                  <!-- 封面区域 -->
-                  <div class="relative aspect-[2/3] overflow-hidden">
-                    <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
-                      <ImageWrapper 
-                        src={anime.cover} 
-                        alt={anime.title}
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                      />
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                          <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                            <svg class="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                              <path d="M8 5v14l11-7z"/>
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
+                <article class="anime-card bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-3 hover:border-[var(--primary)]/40 transition-colors"
+                         data-status={anime.status}
+                         data-keywords={keywords}>
+                  <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block relative aspect-[3/4] overflow-hidden rounded-lg">
+                    <img src={anime.cover} alt={anime.title} loading="lazy"
+                      class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+                    <span class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`} title={statusInfo.text}>
+                      <span aria-hidden="true">{statusInfo.icon}</span>
+                      <span class="ml-1">{statusInfo.text}</span>
+                    </span>
+                  </a>
+
+                  <div class="mt-3">
+                    <a href={anime.link} target="_blank" rel="noopener noreferrer"
+                       class="line-clamp-2 font-semibold text-black/90 dark:text-white/90 hover:text-[var(--primary)]">
+                      {anime.title}
                     </a>
-                    
-                    <!-- 状态标签 -->
-                    <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`}>
-                      <span class="mr-1">{statusInfo.icon}</span>
-                      <span>{statusInfo.text}</span>
+                    <div class="mt-1 text-xs text-black/60 dark:text-white/60">
+                      <span>{anime.displayDate}</span>
+                      <span class="mx-1">·</span>
+                      <span>{anime.studio || T.unknown}</span>
                     </div>
-                    
-                    <!-- 评分 -->
-                    <div class="absolute top-2 right-2">
-                      <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                        </svg>
-                        <span class="text-[10px] font-semibold leading-none">{anime.rating}</span>
+
+                    <div class="mt-3">
+                      <div class="flex items-center justify-between text-xs text-black/70 dark:text-white/70 mb-1">
+                        <div>{episodesText(total)}</div>
+                        <div class="font-medium">{progress}/{total}</div>
+                      </div>
+                      <div class="h-2 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden" aria-label="progress">
+                        <div class="h-full bg-[var(--primary)]" style={{ width: `${progressPercent}%` }}></div>
                       </div>
                     </div>
-                    
-                    <!-- 进度条 -->
-                    {anime.status === 'watching' && (
-                      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                        <div class="w-full bg-white/20 rounded-full h-1.5 mb-1">
-                          <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-all duration-300" style={`width: ${progressPercent}%`}></div>
-                        </div>
-                        <div class="text-white text-xs font-medium">
-                          {progress}/{total} ({Math.round(progressPercent)}%)
-                        </div>
+
+                    <div class="mt-3 flex items-center text-xs text-amber-500">
+                      <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.036a1 1 0 00-1.176 0l-2.802 2.036c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.07-3.292z"/>
+                      </svg>
+                      <span class="ml-1">{anime.rating || 0}</span>
+                    </div>
+
+                    {Array.isArray(anime.genre) && anime.genre.length > 0 && (
+                      <div class="mt-3 flex flex-wrap gap-1">
+                        {anime.genre.map((g) => (
+                          <span class="px-2 py-0.5 rounded-full text-xs bg-black/5 dark:bg-white/10 text-black/70 dark:text-white/70">{g}</span>
+                        ))}
+                      </div>
+                    )}
+
+                    {anime.updatedAt && (
+                      <div class="mt-3 text-[10px] text-black/50 dark:text-white/50">
+                        更新: {new Date(anime.updatedAt).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" })}
                       </div>
                     )}
                   </div>
-                  
-                  <!-- 内容 -->
-                  <div class="p-3">
-                    <h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
-                    <p class="text-black/60 dark:text-white/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
-                    
-                    <div class="space-y-1 text-xs">
-                      <div class="flex justify-between">
-                        <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
-                        <span class="text-black/70 dark:text-white/70">{anime.displayDate}</span>
-                      </div>
-                      <div class="flex justify-between">
-                        <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
-                        <span class="text-black/70 dark:text-white/70 truncate ml-2">{anime.studio}</span>
-                      </div>
-                      <div class="flex flex-wrap gap-1 mt-2">
-                        {(anime.genre || []).map(g => (
-                          <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </article>
               );
             })}
           </div>
         ) : (
           <div class="text-center py-12">
-            <div class="text-5xl mb-4">😢</div>
+            <div class="text-5xl mb-4" aria-hidden="true">🗂️</div>
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.animeEmpty)}
             </h3>
             <p class="text-black/60 dark:text-white/60">
-              {ANIME_MODE === 'local' ? i18n(I18nKey.animeEmptyLocal) : i18n(I18nKey.animeEmptyBangumi)}
+              {ANIME_MODE === 'local' ? '请在 data/anime.ts 配置你的本地番剧数据' : '未获取到 Bangumi 数据'}
             </p>
           </div>
         )}
       </div>
-      
-      <!-- 分页控件 -->
-      <div id="pagination-container" class="pagination-container flex justify-center items-center gap-2 mt-8">
-        <button id="first-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
-          « {T.paginationFirst}
-        </button>
-        <button id="prev-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
-          &lt; {i18n(I18nKey.prevPage)}
-        </button>
-        <div id="page-numbers" class="flex gap-1"></div>
-        <button id="next-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
-          {i18n(I18nKey.nextPage)} &gt;
-        </button>
-        <button id="last-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed">
-          {T.paginationLast} »
-        </button>
-      </div>
     </div>
   </div>
 
-  <script is:inline define:vars={{ isBothSidebarMode }}>
-  // 布局切换动画（保持原逻辑）
-  (function() {
-    setTimeout(() => {
-      const animeListContainer = document.getElementById("anime-list-container");
-      if (!animeListContainer) {
-        console.debug("anime-list-container not found, skipping layout initialization");
-        return;
+  <script is:inline>
+    // 轻量前端筛选/搜索逻辑（无依赖）
+    const input = document.getElementById('search-input');
+    const container = document.getElementById('anime-list-container');
+    const cards = Array.from(container?.querySelectorAll('[data-status]') || []);
+    const buttons = Array.from(document.querySelectorAll('.filter-tag'));
+    let activeStatus = 'all';
+
+    function applyFilters() {
+      const q = (input?.value || '').trim().toLowerCase();
+      for (const el of cards) {
+        const status = el.getAttribute('data-status') || '';
+        const keys = (el.getAttribute('data-keywords') || '').toLowerCase();
+        const matchStatus = activeStatus === 'all' || status === activeStatus;
+        const matchQuery = !q || keys.includes(q);
+        el.classList.toggle('hidden', !(matchStatus && matchQuery));
       }
-
-      if (typeof window.layoutManager !== 'undefined') {
-        window.layoutManager.init(isBothSidebarMode);
-        const currentLayout = window.layoutManager.getLayout();
-        updateAnimeListLayout(currentLayout);
-        window.layoutManager.checkScreenSizeAndAdjust();
-      } else {
-        setTimeout(() => {
-          if (typeof window.layoutManager !== 'undefined') {
-            window.layoutManager.init(isBothSidebarMode);
-            const currentLayout = window.layoutManager.getLayout();
-            updateAnimeListLayout(currentLayout);
-            window.layoutManager.checkScreenSizeAndAdjust();
-          }
-        }, 300);
-      }
-    }, 50);
-
-    function updateAnimeListLayout(layout) {
-      const animeListContainer = document.getElementById("anime-list-container");
-      if (!animeListContainer) return;
-
-      const animeItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-      const firstPositions = new Map();
-      animeItems.forEach(item => {
-        const rect = item.getBoundingClientRect();
-        firstPositions.set(item, {
-          left: rect.left,
-          top: rect.top,
-          width: rect.width,
-          height: rect.height
-        });
-      });
-      
-      animeListContainer.classList.remove("list-mode", "grid-mode");
-      if (layout === "grid") {
-        animeListContainer.classList.add("grid-mode");
-        const rightSidebar = document.querySelector('.right-sidebar-container');
-        if (rightSidebar) {
-          rightSidebar.style.display = 'none';
-          rightSidebar.classList.add('hidden-in-grid-mode');
-        }
-        const mainGrid = document.getElementById('main-grid');
-        if (mainGrid) {
-          mainGrid.style.gridTemplateColumns = '17.5rem 1fr';
-          mainGrid.classList.add('two-column-layout');
-          mainGrid.setAttribute('data-layout-mode', 'grid');
-        }
-      } else {
-        animeListContainer.classList.add("list-mode");
-        const rightSidebar = document.querySelector('.right-sidebar-container');
-        if (rightSidebar) {
-          rightSidebar.style.display = '';
-          rightSidebar.classList.remove('hidden-in-grid-mode');
-        }
-        const mainGrid = document.getElementById('main-grid');
-        if (mainGrid) {
-          mainGrid.style.gridTemplateColumns = '';
-          mainGrid.classList.remove('two-column-layout');
-          mainGrid.setAttribute('data-layout-mode', 'list');
-        }
-      }
-
-      requestAnimationFrame(() => {
-        const lastPositions = new Map();
-        animeItems.forEach(item => {
-          const rect = item.getBoundingClientRect();
-          lastPositions.set(item, {
-            left: rect.left,
-            top: rect.top
-          });
-        });
-        
-        animeItems.forEach(item => {
-          const first = firstPositions.get(item);
-          const last = lastPositions.get(item);
-          if (first && last) {
-            const deltaX = first.left - last.left;
-            const deltaY = first.top - last.top;
-            item.style.transition = 'none';
-            item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-          }
-        });
-        
-        requestAnimationFrame(() => {
-          animeItems.forEach((item, index) => {
-            setTimeout(() => {
-              item.classList.add('anime-animating');
-              item.style.transition = '';
-              item.style.transform = '';
-            }, index * 20);
-          });
-          
-          setTimeout(() => {
-            animeItems.forEach(item => {
-              item.classList.remove('anime-animating');
-              item.style.transition = '';
-              item.style.transform = '';
-            });
-          }, 500 + animeItems.length * 20);
-        });
-      });
     }
 
-    window.addEventListener("layoutChange", (event) => {
-      updateAnimeListLayout(event.detail.layout);
-      // 让分页逻辑在布局改变后刷新每页数量
-      if (window.__animePage && window.__animePage.updateAfterLayout) {
-        window.__animePage.updateAfterLayout();
-      }
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const s = btn.getAttribute('data-status') || 'all';
+        activeStatus = s;
+        buttons.forEach((b) => {
+          const isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        applyFilters();
+      });
     });
-  })();
-</script>
+
+    input?.addEventListener('input', () => applyFilters());
+  </script>
 
   <style>
-    /* 字体与容器 */
-    :root { --anime-font: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
-    html.dark { --anime-font: 'Noto Sans SC', 'Hiragino Sans GB', 'PingFang SC', 'Microsoft YaHei UI', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
-    body, h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select, a { font-family: var(--anime-font) !important; }
-    .card-base { container-type: inline-size; }
-    
-    /* 布局固定列数 */
-    .anime-grid-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-    .anime-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
-    .anime-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
-    
-    .filter-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    /* 轻量样式增强（Tailwind 之外） */
     .filter-tag {
-      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
-      background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; display: flex; align-items: center;
+      @apply px-3 py-1.5 rounded-full border text-sm transition-colors;
+      border-color: var(--line-divider);
+      background: var(--card-bg);
+      color: var(--text-secondary);
     }
-    .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
-    .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .filter-tag.active:hover { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; transform: translateY(-1px); }
-    
-    /* 卡片动画与悬浮 */
-    [data-anime-status] { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-    #anime-list-container.grid-mode [data-anime-status]:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-      z-index: 10; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #anime-list-container.list-mode [data-anime-status]:hover {
-      transform: translateX(8px) scale(1.01);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      z-index: 10; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .filter-tag.active {
+      border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+      color: var(--primary);
+      box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 15%, transparent) inset;
     }
 
-    /* 统一可见性：仅通过类控制 */
-    [data-anime-status].is-filtered-out,
-    [data-anime-status].is-searched-out,
-    [data-anime-status].is-paginated-out { display: none !important; }
-    [data-anime-status].anime-animating {
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    .anime-grid-container {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
-    [data-anime-status].anime-fade-in { opacity: 0; transform: scale(0.8); }
-    [data-anime-status].anime-fade-in-active { opacity: 1; transform: scale(1); }
-    [data-anime-status].anime-fade-out { opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; }
-    
-    .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-    .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
-    
-    .pagination-container { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
-    .pagination-btn {
-      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
-      background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.25rem;
+    @media (min-width: 640px) {
+      .anime-grid-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-    .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); }
-    .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    
-    .page-number {
-      padding: 0.5rem 0.75rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
-      background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease;
+    @media (min-width: 768px) {
+      .anime-grid-container { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
-    .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
-    .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
-    
-    .search-container { position: relative; margin-bottom: 1.5rem; }
-    #search-input { padding-left: 2.5rem; transition: all 0.3s ease; }
-    #search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-    .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
-
-    /* 移动端（Android/小屏）视觉优化 */
-    @media (max-width: 640px) {
-      .anime-grid-container.grid-mode { grid-template-columns: repeat(2, 1fr); }
-      .anime-grid-container.list-mode { grid-template-columns: repeat(2, 1fr); }
-
-      .group .p-3 { padding: 0.875rem; }
-      .group h3 { font-size: 1rem; line-height: 1.5; }
-      .group p { font-size: 0.9375rem; line-height: 1.6; }
-
-      .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
-      .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
-
-      #search-input { padding: 0.875rem 1rem 0.875rem 2.75rem; font-size: 1rem; }
+    @media (min-width: 1024px) {
+      .anime-grid-container.single-sidebar { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .anime-grid-container.both-sidebar   { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1280px) {
+      .anime-grid-container.single-sidebar { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .anime-grid-container.both-sidebar   { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
   </style>
-
-  <!-- 单一 init + teardown，Swup 生命周期安全重绑（改为纯 JS） -->
-  <script is:inline>
-    (function() {
-      // 提供全局命名空间以便其他脚本触发刷新
-      window.__animePage = window.__animePage || {};
-
-      function initAnimePage() {
-        const state = {
-          currentPage: 1,
-          pageWindowStart: 1,
-          windowSize: 5,
-          itemsPerPage: 10,
-          listeners: [],
-          searchDebounce: 0,
-        };
-
-        const container = document.getElementById('anime-list-container');
-        const allItems = Array.from(document.querySelectorAll('[data-anime-status]'));
-        const filterTags = Array.from(document.querySelectorAll('.filter-tag'));
-        const searchInput = document.getElementById('search-input');
-        const pageNumbersContainer = document.getElementById('page-numbers');
-        const firstBtn = document.getElementById('first-page');
-        const prevBtn = document.getElementById('prev-page');
-        const nextBtn = document.getElementById('next-page');
-        const lastBtn = document.getElementById('last-page');
-
-        function getItemsPerPageByLayout() {
-          const isListMode = container && container.classList.contains('list-mode');
-          const isPC = window.matchMedia('(min-width: 768px)').matches;
-          return (isListMode && isPC) ? 8 : 10;
-        }
-
-        // 计算过滤 + 搜索结果
-        function computeFiltered() {
-          const activeStatusEl = document.querySelector('.filter-tag.active');
-          const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
-          const term = ((searchInput && searchInput.value) || '').trim().toLowerCase();
-
-          return allItems.filter((item) => {
-            const itemStatus = item.getAttribute('data-anime-status') || '';
-            const byStatus = (activeStatus === 'all') || (itemStatus === activeStatus);
-
-            if (!term) return byStatus;
-
-            const title = item.getAttribute('data-anime-title') || '';
-            const studio = item.getAttribute('data-anime-studio') || '';
-            const genre = item.getAttribute('data-anime-genre') || '';
-            const matches = title.includes(term) || studio.includes(term) || genre.includes(term) || itemStatus.includes(term);
-            return byStatus && matches;
-          });
-        }
-
-        function flipAnimate(keep, show, hide) {
-          const first = new Map();
-          [...keep, ...show].forEach((el) => {
-            const rect = el.getBoundingClientRect();
-            first.set(el, { left: rect.left, top: rect.top });
-          });
-
-          hide.forEach((el) => el.classList.add('anime-fade-out'));
-
-          setTimeout(() => {
-            hide.forEach((el) => {
-              el.classList.add('is-filtered-out');
-              el.classList.remove('anime-fade-out');
-            });
-
-            show.forEach((el) => {
-              el.classList.remove('is-filtered-out', 'is-searched-out');
-              el.classList.add('anime-fade-in');
-              el.style.opacity = '0';
-              el.style.transform = 'scale(0.8)';
-              el.style.transition = 'none';
-            });
-
-            requestAnimationFrame(() => {
-              const last = new Map();
-              [...keep, ...show].forEach((el) => {
-                const rect = el.getBoundingClientRect();
-                last.set(el, { left: rect.left, top: rect.top });
-              });
-
-              keep.forEach((el) => {
-                const a = first.get(el);
-                const b = last.get(el);
-                if (a && b) {
-                  const dx = a.left - b.left;
-                  const dy = a.top - b.top;
-                  el.style.transition = 'none';
-                  el.style.transform = `translate(${dx}px, ${dy}px)`;
-                }
-              });
-
-              requestAnimationFrame(() => {
-                const all = [...keep, ...show];
-                all.forEach((el, i) => {
-                  setTimeout(() => {
-                    el.classList.add('anime-animating');
-                    if (keep.includes(el)) {
-                      el.style.transition = '';
-                      el.style.transform = '';
-                    }
-                    if (show.includes(el)) {
-                      el.classList.remove('anime-fade-in');
-                      el.classList.add('anime-fade-in-active');
-                      el.style.transition = '';
-                      el.style.opacity = '1';
-                      el.style.transform = 'scale(1)';
-                    }
-                  }, i * 20);
-                });
-
-                setTimeout(() => {
-                  all.forEach((el) => {
-                    el.classList.remove('anime-animating', 'anime-fade-in-active');
-                    el.style.transition = '';
-                    el.style.transform = '';
-                    el.style.opacity = '';
-                  });
-                }, 500 + all.length * 20);
-              });
-            });
-          }, 200);
-        }
-
-        function updatePaginationUI(totalItems) {
-          state.itemsPerPage = getItemsPerPageByLayout();
-          const totalPages = Math.ceil(totalItems / state.itemsPerPage);
-
-          pageNumbersContainer.innerHTML = '';
-          if (totalPages === 0) {
-            state.currentPage = 1;
-            state.pageWindowStart = 1;
-          } else {
-            if (state.currentPage > totalPages) state.currentPage = totalPages;
-            const maxStart = Math.max(1, totalPages - state.windowSize + 1);
-            if (state.pageWindowStart > maxStart) state.pageWindowStart = maxStart;
-            if (state.pageWindowStart < 1) state.pageWindowStart = 1;
-          }
-
-          const end = Math.min(totalPages, state.pageWindowStart + state.windowSize - 1);
-          for (let i = state.pageWindowStart; i <= end; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = String(i);
-            btn.classList.add('page-number');
-            if (i === state.currentPage) btn.classList.add('active');
-            btn.addEventListener('click', () => {
-              state.currentPage = i;
-              applyPagination();
-              updatePaginationUI(totalItems);
-            });
-            pageNumbersContainer.appendChild(btn);
-          }
-
-          const onFirst = state.currentPage === 1 || totalPages === 0;
-          const onLast = state.currentPage === totalPages || totalPages === 0;
-          firstBtn.disabled = onFirst;
-          prevBtn.disabled = onFirst;
-          nextBtn.disabled = onLast;
-          lastBtn.disabled = onLast;
-        }
-
-        function applyPagination() {
-          const filtered = computeFiltered();
-          state.itemsPerPage = getItemsPerPageByLayout();
-
-          const startIndex = (state.currentPage - 1) * state.itemsPerPage;
-          const endIndex = startIndex + state.itemsPerPage;
-
-          const showSet = new Set(filtered.slice(startIndex, endIndex));
-          allItems.forEach((el) => {
-            if (showSet.has(el)) el.classList.remove('is-paginated-out');
-            else el.classList.add('is-paginated-out');
-          });
-        }
-
-        function refreshAll(triggerFLIP = false) {
-          const beforeVisible = allItems.filter(el => !el.classList.contains('is-filtered-out') && !el.classList.contains('is-searched-out'));
-          // 先基于过滤和搜索设置 is-filtered-out/is-searched-out
-          const activeStatusEl = document.querySelector('.filter-tag.active');
-          const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
-          const term = ((searchInput && searchInput.value) || '').trim().toLowerCase();
-          const matched = new Set(computeFiltered());
-
-          allItems.forEach((el) => {
-            const inFilter = (activeStatus === 'all') || (el.getAttribute('data-anime-status') === activeStatus);
-            const inSearch = !term || matched.has(el);
-            if (inFilter && inSearch) {
-              el.classList.remove('is-filtered-out', 'is-searched-out');
-            } else {
-              if (!inFilter) el.classList.add('is-filtered-out'); else el.classList.remove('is-filtered-out');
-              if (!inSearch) el.classList.add('is-searched-out'); else el.classList.remove('is-searched-out');
-            }
-          });
-
-          // 刷新分页
-          const filteredNow = allItems.filter(el => !el.classList.contains('is-filtered-out') && !el.classList.contains('is-searched-out'));
-          state.currentPage = 1;
-          state.pageWindowStart = 1;
-          applyPagination();
-          updatePaginationUI(filteredNow.length);
-
-          if (triggerFLIP) {
-            const afterVisible = allItems.filter(el => !el.classList.contains('is-filtered-out') && !el.classList.contains('is-searched-out'));
-            const keep = afterVisible.filter(el => beforeVisible.includes(el));
-            const show = afterVisible.filter(el => !beforeVisible.includes(el));
-            const hide = beforeVisible.filter(el => !afterVisible.includes(el));
-            flipAnimate(keep, show, hide);
-          }
-        }
-
-        // 绑定过滤按钮
-        filterTags.forEach(tag => {
-          const handler = () => {
-            if (tag.classList.contains('active')) return;
-            filterTags.forEach(t => t.classList.remove('active'));
-            tag.classList.add('active');
-            refreshAll(true);
-          };
-          tag.addEventListener('click', handler);
-          state.listeners.push({ el: tag, type: 'click', handler });
-        });
-
-        // 搜索输入
-        if (searchInput) {
-          const handler = function() {
-            clearTimeout(state.searchDebounce);
-            state.searchDebounce = setTimeout(() => refreshAll(false), 300);
-          };
-          searchInput.addEventListener('input', handler);
-          state.listeners.push({ el: searchInput, type: 'input', handler });
-        }
-
-        // 分页按钮
-        if (firstBtn && prevBtn && nextBtn && lastBtn) {
-          const firstH = () => {
-            const totalPages = Math.ceil(computeFiltered().length / getItemsPerPageByLayout());
-            if (state.currentPage !== 1 && totalPages > 0) {
-              state.currentPage = 1; state.pageWindowStart = 1;
-              applyPagination(); updatePaginationUI(computeFiltered().length);
-            }
-          };
-          const prevH = () => {
-            if (state.currentPage > 1) {
-              state.currentPage--; state.pageWindowStart = Math.max(1, state.pageWindowStart - 1);
-              applyPagination(); updatePaginationUI(computeFiltered().length);
-            }
-          };
-          const nextH = () => {
-            const totalPages = Math.ceil(computeFiltered().length / getItemsPerPageByLayout());
-            if (state.currentPage < totalPages) {
-              state.currentPage++; const maxStart = Math.max(1, totalPages - state.windowSize + 1);
-              state.pageWindowStart = Math.min(maxStart, state.pageWindowStart + 1);
-              applyPagination(); updatePaginationUI(computeFiltered().length);
-            }
-          };
-          const lastH = () => {
-            const totalPages = Math.ceil(computeFiltered().length / getItemsPerPageByLayout());
-            if (totalPages > 0 && state.currentPage !== totalPages) {
-              state.currentPage = totalPages; state.pageWindowStart = Math.max(1, totalPages - state.windowSize + 1);
-              applyPagination(); updatePaginationUI(computeFiltered().length);
-            }
-          };
-          firstBtn.addEventListener('click', firstH);
-          prevBtn.addEventListener('click', prevH);
-          nextBtn.addEventListener('click', nextH);
-          lastBtn.addEventListener('click', lastH);
-          state.listeners.push({ el: firstBtn, type: 'click', handler: firstH });
-          state.listeners.push({ el: prevBtn, type: 'click', handler: prevH });
-          state.listeners.push({ el: nextBtn, type: 'click', handler: nextH });
-          state.listeners.push({ el: lastBtn, type: 'click', handler: lastH });
-        }
-
-        // 初次渲染
-        refreshAll(false);
-
-        // 在布局变化时刷新每页数量+分页
-        function updateAfterLayout() {
-          applyPagination();
-          updatePaginationUI(computeFiltered().length);
-        }
-        window.__animePage.updateAfterLayout = updateAfterLayout;
-
-        // Teardown
-        function cleanup() {
-          state.listeners.forEach(({ el, type, handler }) => el.removeEventListener(type, handler));
-          state.listeners = [];
-          clearTimeout(state.searchDebounce);
-          delete window.__animePage.updateAfterLayout;
-        }
-        window.__animePage.cleanup = cleanup;
-      }
-
-      // Swup 生命周期
-      function swupBind() {
-        if (!window.swup) return;
-        const reinit = () => {
-          if (window.__animePage && window.__animePage.cleanup) window.__animePage.cleanup();
-          setTimeout(() => {
-            initAnimePage();
-          }, 50);
-        };
-        window.swup.hooks.on('content:replace', reinit);
-        window.swup.hooks.on('page:view', reinit);
-        window.swup.hooks.on('animation:in:end', reinit);
-      }
-
-      // 普通加载
-      document.addEventListener('DOMContentLoaded', () => {
-        initAnimePage();
-        if (window.swup) swupBind();
-      });
-
-      // 如果稍后启用 swup
-      document.addEventListener('swup:enable', () => {
-        if (window.__animePage && window.__animePage.cleanup) window.__animePage.cleanup();
-        initAnimePage();
-        swupBind();
-      });
-    })();
-  </script>
 </MainGridLayout>
