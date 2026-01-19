@@ -123,8 +123,8 @@ export const siteConfig: SiteConfig = {
 
         // PicFlow API支持(智能图片API)
         imageApi: {
-            enable: true, // 启用图片API
-            url: "https://pic.elvish.me/images/pc/", // API地址，返回每行一个图片链接的文本
+            enable: false, // 启用图片API
+            url: "http://domain.com/api_v2.php?format=text&count=4", // API地址，返回每行一个图片链接的文本
         },
         // 这里需要使用PicFlow API的Text返回类型,所以我们需要format=text参数
         // 项目地址:https://github.com/matsuzaka-yuki/PicFlow-API
@@ -602,6 +602,7 @@ export const umamiConfig = {
 <script defer src="XXXX.XXX" data-website-id="ABCD1234"></script>
   `.trim(), // 上面填你要插入的Script,不用再去Layout中插入
 } as const;
+
 
 
 
