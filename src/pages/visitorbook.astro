@@ -57,34 +57,25 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
 <!-- 只保留一次 SDK 引入，固定版本，避免 latest 带来的不确定性 -->
 <script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js" defer crossorigin="anonymous" is:inline></script>
 
-<!-- 初始化（兼容 Astro 客户端导航 / PJAX） -->
-<script is:inline>
+<!-- 初始化（兼容 Astro 客户端导航） -->
+<script>
   (function () {
-    // 若使用 Vercel/自托管函数，使用 serverURL；CloudBase 才使用 envId
-    var SERVER_URL = "https://twikoo-api-gmgc.vercel.app"; // 不要带末尾斜杠
+    // 注意：去掉末尾斜杠，避免请求路径出错
+    var ENV_ID = "https://twikoo-api-gmgc.vercel.app";
 
-    // 生成稳定的 path：移除 URL 末尾斜杠，空时置为 "/"
-    function getStablePath() {
-      var p = window.location.pathname || "/";
-      if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
-      return p || "/";
-    }
-
-    // 幂等初始化：可重复调用
     function initTwikoo() {
       var container = document.getElementById("twikoo");
       if (!container) return;
 
-      // PJAX/客户端路由可能复用容器，清空旧内容避免重复节点
+      // 清空容器，避免客户端路由导致的重复挂载
       container.innerHTML = "";
 
       try {
         if (window.twikoo && window.twikoo.init) {
           window.twikoo.init({
-            // 若改回 CloudBase，请把下面一行替换为：envId: "xxx"
-            serverURL: SERVER_URL,
+            envId: ENV_ID,
             el: "#twikoo",
-            path: getStablePath(),
+            path: window.location.pathname,
             lang: "zh-CN"
           });
         }
@@ -93,53 +84,36 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
       }
     }
 
-    // 等 SDK 可用后执行初始化（处理 defer 时序）
-    function whenTwikooReady(cb) {
-      if (window.twikoo && window.twikoo.init) {
-        cb();
-        return;
+    function onReady() {
+      if (window.twikoo) {
+        initTwikoo();
+      } else {
+        // 兜底：极端情况下 defer 执行顺序与网络时序导致 twikoo 尚未可用
+        var tries = 0;
+        var t = setInterval(function () {
+          if (window.twikoo) {
+            clearInterval(t);
+            initTwikoo();
+          } else if (++tries > 100) {
+            clearInterval(t);
+            console.error("[Twikoo] SDK failed to load");
+          }
+        }, 50);
       }
-      var tries = 0;
-      var t = setInterval(function () {
-        if (window.twikoo && window.twikoo.init) {
-          clearInterval(t);
-          cb();
-        } else if (++tries > 200) {
-          clearInterval(t);
-          console.error("[Twikoo] SDK failed to load");
-        }
-      }, 50);
     }
 
-    function boot() {
-      whenTwikooReady(initTwikoo);
-    }
-
-    // 首次进入页面
+    // 等待 DOM 与 SDK 就绪（无隐式 any）
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", boot, { once: true });
+      document.addEventListener("DOMContentLoaded", onReady, { once: true });
     } else {
-      boot();
+      onReady();
     }
 
-    // Astro 客户端导航：每次进入新页面重建
+    // Astro 客户端导航：每次进入页面重新挂载
     if (typeof window !== "undefined") {
       window.addEventListener("astro:page-load", function () {
-        boot();
+        initTwikoo();
       });
-
-      // Safari/Firefox BFCache 返回时确保重建
-      window.addEventListener("pageshow", function (e) {
-        if (e.persisted) boot();
-      });
-
-      // 兼容 jQuery-pjax（若站点集成）
-      var $ = window.jQuery || window.$;
-      if ($ && $.fn && $.fn.on) {
-        $(document).on("pjax:end pjax:complete", function () {
-          boot();
-        });
-      }
     }
   })();
 </script>
