@@ -2,7 +2,7 @@
 title: "瑟莉亚是我的天使❤"
 description: "喜欢的动漫类型有很多，但「热爱」才是我追番的常态"
 tags: [动漫, 异世界, 治愈]
-category: "动漫"
+category: "瑟莉亚"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://github.com/wxzjt0318-oss/wxzjt0318-oss.github.io/"
