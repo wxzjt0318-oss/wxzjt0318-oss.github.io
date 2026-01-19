@@ -23,7 +23,7 @@ const SITE_TIMEZONE = 8; //设置你的网站时区 from -12 to 12 default in UT
 export const siteConfig: SiteConfig = {
     title: "灵梦的小站",
     subtitle: "One Weblog website",
-    siteURL: "http://lm520.cc/", // 请替换为你的站点URL，以斜杠结尾
+    siteURL: "https://lm520.cc/", // 改为 HTTPS，避免混合内容
     siteStartDate: "2025-11-01", // 站点开始运行日期，用于站点统计组件计算运行天数
 
     timeZone: SITE_TIMEZONE,
@@ -91,27 +91,30 @@ export const siteConfig: SiteConfig = {
     },
 
     banner: {
-        // 支持单张图片或图片数组，当数组长度 > 1 时自动启用轮播
+        // 使用 dmoe 随机图 API，提供 6 张图；用不同查询参数做防缓存
         src: {
             desktop: [
-                "/assets/desktop-banner/1.webp",
-                "/assets/desktop-banner/2.webp",
-                "/assets/desktop-banner/3.webp",
-                "/assets/desktop-banner/4.webp",
-            ], // 桌面横幅图片
+                "https://www.dmoe.cc/random.php?t=1",
+                "https://www.dmoe.cc/random.php?t=2",
+                "https://www.dmoe.cc/random.php?t=3",
+                "https://www.dmoe.cc/random.php?t=4",
+                "https://www.dmoe.cc/random.php?t=5",
+                "https://www.dmoe.cc/random.php?t=6",
+            ],
             mobile: [
-                "/assets/mobile-banner/1.webp",
-                "/assets/mobile-banner/2.webp",
-                "/assets/mobile-banner/3.webp",
-                "/assets/mobile-banner/4.webp",
-            ], // 移动横幅图片
-        }, // 使用本地横幅图片
+                "https://www.dmoe.cc/random.php?t=m1",
+                "https://www.dmoe.cc/random.php?t=m2",
+                "https://www.dmoe.cc/random.php?t=m3",
+                "https://www.dmoe.cc/random.php?t=m4",
+                "https://www.dmoe.cc/random.php?t=m5",
+                "https://www.dmoe.cc/random.php?t=m6",
+            ],
+        }, // 直接使用 dmoe 随机图作为横幅
 
         position: "center", // 等同于 object-position，仅支持 'top', 'center', 'bottom'。默认为 'center'
 
         carousel: {
             enable: true, // 为 true 时：为多张图片启用轮播。为 false 时：从数组中随机显示一张图片
-
             interval: 1.5, // 轮播间隔时间（秒）
         },
 
@@ -122,13 +125,11 @@ export const siteConfig: SiteConfig = {
         },
 
         // PicFlow API支持(智能图片API)
+        // 注：dmoe 接口为“单次请求返回一张图”，不符合本主题 imageApi 的“文本多行直链”格式，因此保持关闭
         imageApi: {
-            enable: true, // 启用图片API
-            url: "https://pic.elvish.me/api?encode=text&count=6&domain=lm520.cc", // API地址，返回每行一个图片链接的文本
+            enable: false, // 不使用 PicFlow 的 text 模式
+            url: "http://domain.com/api_v2.php?format=text&count=4", // 保留示例占位，无实际作用
         },
-        // 这里需要使用PicFlow API的Text返回类型,所以我们需要format=text参数
-        // 项目地址:https://github.com/matsuzaka-yuki/PicFlow-API
-        // 请自行搭建API
 
         homeText: {
             enable: true, // 在主页显示自定义文本
@@ -136,16 +137,15 @@ export const siteConfig: SiteConfig = {
 
             subtitle: [
                 "特別なことはないけど、君がいると十分です",
-            	"今でもあなたは私の光",
+                "今でもあなたは私の光",
                 "世界は広いけど、ここに来てくれてありがとう",
                 "今日も一日、よろしくお願いします！",
                 "平凡な日々に、ちょっとした幸せを",
-                "心に桜を、手に夢を",
+                "心に桜を、手に梦を",
                 "あなたの訪問が、私の喜びです",
             ],
             typewriter: {
                 enable: true, // 启用副标题打字机效果
-
                 speed: 100, // 打字速度（毫秒）
                 deleteSpeed: 50, // 删除速度（毫秒）
                 pauseTime: 2000, // 完全显示后的暂停时间（毫秒）
@@ -154,7 +154,6 @@ export const siteConfig: SiteConfig = {
 
         credit: {
             enable: false, // 显示横幅图片来源文本
-
             text: "Describe", // 要显示的来源文本
             url: "", // （可选）原始艺术品或艺术家页面的 URL 链接
         },
@@ -172,15 +171,15 @@ export const siteConfig: SiteConfig = {
     showCoverInContent: true, // 新增：在文章内容页显示文章封面
     generateOgImages: false, // 启用生成OpenGraph图片功能,注意开启后要渲染很长时间，不建议本地调试的时候开启
     favicon: [
-    {
-        src: "/favicon/icon.png",
-        sizes: "32x32",
-    },
-    {
-        src: "/favicon/icon.png",
-        sizes: "192x192",
-    },
-],
+        {
+            src: "/favicon/icon.png",
+            sizes: "32x32",
+        },
+        {
+            src: "/favicon/icon.png",
+            sizes: "192x192",
+        },
+    ],
 
     // 字体配置
     font: {
@@ -250,13 +249,13 @@ export const navBarConfig: NavBarConfig = {
                     external: true,
                     icon: "fa6-brands:bilibili",
                 },
-{
+                {
                     name: "QQ",
                     url: "https://qm.qq.com/q/toDlBSdPxu",
                     external: true,
                     icon: "fa6-brands:qq",
                 },
-                        {
+                {
                     name: "网易云",
                     url: "https://music.163.com/#/user/home?id=118926845",
                     external: true,
@@ -602,12 +601,3 @@ export const umamiConfig = {
 <script defer src="XXXX.XXX" data-website-id="ABCD1234"></script>
   `.trim(), // 上面填你要插入的Script,不用再去Layout中插入
 } as const;
-
-
-
-
-
-
-
-
-
