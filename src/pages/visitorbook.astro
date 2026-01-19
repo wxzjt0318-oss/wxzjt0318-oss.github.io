@@ -60,7 +60,7 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
 <!-- 初始化（兼容 Astro 客户端导航 / PJAX） -->
 <script is:inline>
   (function () {
-    // 若使用 Vercel/自托管函数，推荐使用 serverURL；CloudBase 才使用 envId
+    // 若使用 Vercel/自托管函数，使用 serverURL；CloudBase 才使用 envId
     var SERVER_URL = "https://twikoo-api-gmgc.vercel.app"; // 不要带末尾斜杠
 
     // 生成稳定的 path：移除 URL 末尾斜杠，空时置为 "/"
@@ -81,7 +81,7 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
       try {
         if (window.twikoo && window.twikoo.init) {
           window.twikoo.init({
-            // 若你改回 CloudBase，请把下面一行替换为 envId: "xxx"
+            // 若改回 CloudBase，请把下面一行替换为：envId: "xxx"
             serverURL: SERVER_URL,
             el: "#twikoo",
             path: getStablePath(),
@@ -127,6 +127,19 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
       window.addEventListener("astro:page-load", function () {
         boot();
       });
+
+      // Safari/Firefox BFCache 返回时确保重建
+      window.addEventListener("pageshow", function (e) {
+        if (e.persisted) boot();
+      });
+
+      // 兼容 jQuery-pjax（若站点集成）
+      var $ = window.jQuery || window.$;
+      if ($ && $.fn && $.fn.on) {
+        $(document).on("pjax:end pjax:complete", function () {
+          boot();
+        });
+      }
     }
   })();
 </script>
