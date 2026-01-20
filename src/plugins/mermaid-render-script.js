@@ -1,6 +1,10 @@
 (() => {
 	// 单例模式：检查是否已经初始化过
 	if (window.mermaidInitialized) {
+		// 如果已经初始化过，只确保 renderMermaidDiagrams 函数可用
+		if (typeof window.renderMermaidDiagrams !== "function") {
+			window.renderMermaidDiagrams = renderMermaidDiagrams;
+		}
 		return;
 	}
 
@@ -31,10 +35,17 @@
 			const startTime = Date.now();
 
 			function check() {
-				if (window.mermaid && typeof window.mermaid.initialize === "function") {
+				if (
+					window.mermaid &&
+					typeof window.mermaid.initialize === "function"
+				) {
 					resolve(window.mermaid);
 				} else if (Date.now() - startTime > timeout) {
-					reject(new Error("Mermaid library failed to load within timeout"));
+					reject(
+						new Error(
+							"Mermaid library failed to load within timeout",
+						),
+					);
 				} else {
 					setTimeout(check, 100);
 				}
@@ -322,7 +333,8 @@
 
 					while (attempts < maxAttempts) {
 						try {
-							const code = element.getAttribute("data-mermaid-code");
+							const code =
+								element.getAttribute("data-mermaid-code");
 
 							if (!code) {
 								break;
@@ -339,7 +351,10 @@
 							);
 
 							const parser = new DOMParser();
-							const doc = parser.parseFromString(svg, "image/svg+xml");
+							const doc = parser.parseFromString(
+								svg,
+								"image/svg+xml",
+							);
 							const svgElement = doc.documentElement;
 
 							element.innerHTML = "";
@@ -358,7 +373,8 @@
 
 								// 强制应用样式
 								if (isDark) {
-									svgElement.style.filter = "brightness(0.9) contrast(1.1)";
+									svgElement.style.filter =
+										"brightness(0.9) contrast(1.1)";
 								} else {
 									svgElement.style.filter = "none";
 								}
@@ -407,7 +423,10 @@
 			// 如果渲染失败，尝试重新渲染
 			if (retryCount < MAX_RETRIES) {
 				retryCount++;
-				setTimeout(() => renderMermaidDiagrams(), RETRY_DELAY * retryCount);
+				setTimeout(
+					() => renderMermaidDiagrams(),
+					RETRY_DELAY * retryCount,
+				);
 			}
 		} finally {
 			isRendering = false;
@@ -440,7 +459,8 @@
 				console.error("Failed to load Mermaid library:", error);
 				// 尝试备用 CDN
 				const fallbackScript = document.createElement("script");
-				fallbackScript.src = "https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				fallbackScript.src =
+					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
 
 				fallbackScript.onload = () => {
 					console.log("Mermaid library loaded from fallback CDN");
@@ -475,6 +495,9 @@
 			// 加载并初始化 Mermaid
 			await loadMermaid();
 			await initializeMermaid();
+
+			// 将 renderMermaidDiagrams 暴露到全局作用域，以便在解密后调用
+			window.renderMermaidDiagrams = renderMermaidDiagrams;
 		} catch (error) {
 			console.error("Failed to initialize Mermaid system:", error);
 		}
