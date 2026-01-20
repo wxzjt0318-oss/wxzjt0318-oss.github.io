@@ -77,8 +77,10 @@ export type SiteConfig = {
 
 	// 顶栏标题配置
 	navbarTitle?: {
+		mode?: "text-icon" | "logo"; // 显示模式："text-icon" 显示图标+文本，"logo" 仅显示Logo
 		text: string; // 顶栏标题文本
 		icon?: string; // 顶栏标题图标路径
+		logo?: string; // 网站Logo图片路径
 	};
 
 	// 添加字体配置
@@ -100,6 +102,7 @@ export type SiteConfig = {
 	// 添加bangumi配置
 	bangumi?: {
 		userId?: string; // Bangumi用户ID
+		fetchOnDev?: boolean;
 	};
 
 	// 添加番剧页面配置
@@ -185,7 +188,7 @@ export enum LinkPreset {
 	Friends = 3,
 	Anime = 4,
 	Diary = 5,
-	Gallery = 6,
+	Albums = 6,
 	Projects = 7,
 	Skills = 8,
 	Timeline = 9,
@@ -364,8 +367,8 @@ export type SidebarLayoutConfig = {
 			desktop: number; // 桌面端断点（px）
 		};
 		layout: {
-			mobile: "hidden" | "bottom" | "drawer" | "sidebar"; // 移动端布局模式
-			tablet: "sidebar" | "bottom" | "drawer"; // 平板端布局模式
+			mobile: "hidden" | "sidebar"; // 移动端布局模式
+			tablet: "hidden" | "sidebar"; // 平板端布局模式
 			desktop: "sidebar"; // 桌面端布局模式
 		};
 	};
@@ -440,4 +443,11 @@ export type PioConfig = {
 			text?: string; // 自定义文本
 		}>;
 	};
+};
+
+/**
+ * 分享组件配置
+ */
+export type ShareConfig = {
+	enable: boolean; // 是否启用分享功能
 };
