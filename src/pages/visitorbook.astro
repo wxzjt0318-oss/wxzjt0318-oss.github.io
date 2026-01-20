@@ -1,0 +1,154 @@
+---
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
+const pageTitle = i18n(I18nKey.guestbook) || "留言版";
+const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，分享你的想法";
+---
+
+<MainGridLayout title={pageTitle} description={pageSubtitle}>
+  <!-- Hero -->
+  <div class="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] text-gray-900 dark:text-white py-6 mb-6 rounded-t-[var(--radius-large)]">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold leading-tight drop-shadow-sm dark:drop-shadow-md">{pageTitle}</h1>
+      <p class="mt-2 opacity-90 text-sm md:text-base drop-shadow-sm dark:drop-shadow-md">{pageSubtitle}</p>
+    </div>
+  </div>
+
+  <!-- 主内容区 -->
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-4 py-4 md:px-6 md:py-5 relative w-full">
+      <div class="relative max-w-4xl mx-auto">
+
+        <div class="visitorbook-header mb-6">
+          <h2 class="text-xl md:text-2xl font-bold text-90 mb-2">💬 留言板</h2>
+          <p class="subtitle text-sm md:text-base text-75 mb-3">欢迎来到留言板！这里是一个自由交流的空间，你可以：</p>
+
+          <ul class="features-list space-y-2 mb-4 list-none">
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 分享你的想法和观点</li>
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 留下你的建议和反馈</li>
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 记录你的心情和故事</li>
+            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 与其他访客互动交流</li>
+          </ul>
+
+          <p class="welcome-text text-75">无论你想说什么，都欢迎在下方评论区留言！</p>
+        </div>
+
+        <div class="notice-section mb-6 p-4 rounded-lg bg-[var(--bg-secondary)] border border-[var(--line-divider)]">
+          <h3 class="notice-title text-base font-semibold text-90 mb-2">温馨提示：</h3>
+          <ul class="notice-list space-y-1 text-sm text-75 list-none">
+            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 请保持友善和尊重，营造良好的交流氛围</li>
+            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 欢迎分享你的想法，也可以提出对网站的建议</li>
+            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 你的每一条留言都是对我最大的支持 ✨</li>
+          </ul>
+        </div>
+
+        <div class="divider h-px bg-gradient-to-r from-transparent via-[var(--line-divider)] to-transparent my-6"></div>
+
+        <!-- Twikoo 评论容器 -->
+        <div id="twikoo" class="w-full mt-4"></div>
+
+      </div>
+    </div>
+  </div>
+</MainGridLayout>
+
+<!-- 只保留一次 SDK 引入，固定版本，避免 latest 带来的不确定性 -->
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js" defer crossorigin="anonymous" is:inline></script>
+
+<!-- 初始化（兼容 Astro 客户端导航） -->
+<script is:inline>
+  (function () {
+    // 注意：不要带末尾斜杠
+    var ENV_ID = "https://twikoo-api-gmgc.vercel.app";
+
+    // 生成稳定 path，避免末尾斜杠造成分身
+    function getStablePath() {
+      var p = window.location.pathname || "/";
+      if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+      return p || "/";
+    }
+
+    // 可重复调用的初始化
+    function initTwikoo() {
+      var container = document.getElementById("twikoo");
+      if (!container) return;
+
+      // 清空容器，避免重复挂载
+      container.innerHTML = "";
+
+      try {
+        if (window.twikoo && window.twikoo.init) {
+          window.twikoo.init({
+            envId: ENV_ID,
+            el: "#twikoo",
+            path: getStablePath(),
+            lang: "zh-CN"
+          });
+        }
+      } catch (err) {
+        console.error("[Twikoo] init error:", err);
+      }
+    }
+
+    // 等待 SDK 可用再执行初始化（解决首次进入或切页时序问题）
+    function whenTwikooReady(cb) {
+      if (window.twikoo && window.twikoo.init) {
+        cb();
+        return;
+      }
+      var tries = 0;
+      var t = setInterval(function () {
+        if (window.twikoo && window.twikoo.init) {
+          clearInterval(t);
+          cb();
+        } else if (++tries > 200) {
+          clearInterval(t);
+          console.error("[Twikoo] SDK failed to load");
+        }
+      }, 50);
+    }
+
+    function boot() {
+      whenTwikooReady(initTwikoo);
+    }
+
+    // 首次进入页面
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot, { once: true });
+    } else {
+      boot();
+    }
+
+    // Astro 客户端导航：每次进入页面重新初始化（先等待 SDK）
+    if (typeof window !== "undefined") {
+      window.addEventListener("astro:page-load", function () {
+        boot();
+      });
+    }
+  })();
+</script>
+
+<style>
+  .visitorbook-header h2 {
+    text-align: left;
+  }
+  .features-list,
+  .notice-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  .emoji {
+    font-size: 1rem;
+  }
+  #twikoo {
+    min-height: 300px;
+  }
+  @media (max-width: 640px) {
+    .card-base {
+      margin: 0 -0.5rem;
+      border-radius: 0;
+    }
+  }
+</style>
