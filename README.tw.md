@@ -1,29 +1,40 @@
-# 🌸 Mizuki  
-![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
-![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
-![Astro](https://img.shields.io/badge/Astro-5.12.8-orange)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
-![Mizuki Preview](../README.webp)
-
-<table>
-  <tr>
-    <td><img alt="" src="image/1.webp"></td>
-    <td><img alt="" src="image/2.webp"></td>
-    <td><img alt="" src="image/3.webp"></td>
-  <tr>
-  <tr>
-    <td><img alt="" src="image/4.webp"></td>
-    <td><img alt="" src="image/5.webp"></td>
-    <td><img alt="" src="image/6.webp"></td>
-  <tr>
-</table>
+# 🌸 Mizuki <img align='right' src='logo.png' width='200px' alt="Mizuki logo">
 
 一個現代化、功能豐富的靜態部落格模板，基於 [Astro](https://astro.build) 構建，具有先進的功能和精美的設計。
 
-[**🖥️ 線上演示**](https://mizuki.mysqil.com/)
-[**📝 使用者文檔**](https://docs.mizuki.mysqil.com/)
+[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Astro](https://img.shields.io/badge/Astro-5.15.3-orange)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](https://www.typescriptlang.org/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
+
+[**🖥️ 線上演示**](https://mizuki.mysqil.com/) | [**📝 使用者文檔**](https://docs.mizuki.mysqil.com/)
+
+🌏 README 語言
+[**English**](../README.md) / [**中文**](../README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+
+透過我們的綜合文檔快速開始。無論是自訂主題、配置功能，還是部署到生產環境，文檔涵蓋了您成功啟動部落格所需的所有內容。
+
+[📚 閱讀完整文檔](https://docs.mizuki.mysqil.com/) →
+
+![Mizuki Preview](./README.webp)
+
+<table>
+  <tr>
+    <td><img alt="" src="docs/image/1.webp"></td>
+    <td><img alt="" src="docs/image/2.webp"></td>
+    <td><img alt="" src="docs/image/3.webp"></td>
+  <tr>
+  <tr>
+    <td><img alt="" src="docs/image/4.webp"></td>
+    <td><img alt="" src="docs/image/5.webp"></td>
+    <td><img alt="" src="docs/image/6.webp"></td>
+  <tr>
+</table>
+
+## 🚀 NEW: 自動解析度適配
+
+> **🎯 自動解析度演算法** - 智能適配內容佈局基於裝置螢幕解析度，為所有裝置提供最佳觀看體驗
 
 🌏 README 語言
 [**English**](../README.md) /

@@ -1,11 +1,23 @@
-# 🌸 Mizuki  
-![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
-![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
-![Astro](https://img.shields.io/badge/Astro-5.12.8-orange)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# 🌸 Mizuki <img align='right' src='logo.png' width='200px' alt="Mizuki logo">
 
-![Mizuki Preview](../README.webp)
+[Astro](https://astro.build)をベースにした、先進的な機能と美しいデザインを備えた現代的な静的ブログテンプレートです。
+
+[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
+[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
+[![Astro](https://img.shields.io/badge/Astro-5.15.3-orange)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](https://www.typescriptlang.org/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
+
+[**🖥️ ライブデモ**](https://mizuki.mysqil.com/) | [**📝 ドキュメント**](https://docs.mizuki.mysqil.com/)
+
+🌏 README 言語
+[**English**](../README.md) / [**中文**](../README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+
+包括的なドキュメントで素早く始めましょう。テーマのカスタマイズ、機能の設定、本番環境へのデプロイなど、ブログを正常に立ち上げるために必要なすべての情報が網羅されています。
+
+[📚 完全なドキュメントを読む](https://docs.mizuki.mysqil.com/) →
+
+![Mizuki Preview](./README.webp)
 
 <table>
   <tr>
@@ -20,10 +32,9 @@
   <tr>
 </table>
 
-[Astro](https://astro.build)をベースにした、先進的な機能と美しいデザインを備えた現代的な静的ブログテンプレートです。
+## 🚀 NEW: 自動解像度適応
 
-[**🖥️ ライブデモ**](https://mizuki.mysqil.com/)
-[**📝 ドキュメント**](https://docs.mizuki.mysqil.com/)
+> **🎯 自動解像度アルゴリズム** - デバイス画面の解像度に基づいてコンテンツレイアウトをインテリジェントに適応させ、すべてのデバイスで最適な視聴体験を提供
 
 🌏 README 言語
 [**English**](../README.md) /
