@@ -88,9 +88,10 @@ class CodeBlockCollapser {
 					(mutation.attributeName === "class" ||
 						mutation.attributeName === "data-theme")
 				) {
-					const isTransitioning = document.documentElement.classList.contains(
-						"is-theme-transitioning",
-					);
+					const isTransitioning =
+						document.documentElement.classList.contains(
+							"is-theme-transitioning",
+						);
 
 					if (isTransitioning && !this.isThemeChanging) {
 						this.isThemeChanging = true;
@@ -101,18 +102,22 @@ class CodeBlockCollapser {
 						}
 
 						// 性能优化：临时禁用代码块的动画和过渡
-						document.querySelectorAll(".expressive-code").forEach((block) => {
-							block.style.transition = "none";
-						});
+						document
+							.querySelectorAll(".expressive-code")
+							.forEach((block) => {
+								block.style.transition = "none";
+							});
 					} else if (!isTransitioning && this.isThemeChanging) {
 						this.isThemeChanging = false;
 
 						// 等待主题切换完全结束后再恢复
 						requestAnimationFrame(() => {
 							// 恢复代码块的过渡效果
-							document.querySelectorAll(".expressive-code").forEach((block) => {
-								block.style.transition = "";
-							});
+							document
+								.querySelectorAll(".expressive-code")
+								.forEach((block) => {
+									block.style.transition = "";
+								});
 
 							// 重新连接 observer
 							setTimeout(() => {
@@ -238,32 +243,27 @@ class CodeBlockCollapser {
 
 			let shouldReinit = false;
 
+			// 外层循环：遍历所有变动
 			for (const mutation of mutations) {
-				if (mutation.type === "childList") {
+				if (
+					mutation.type === "childList" &&
+					mutation.addedNodes.length > 0
+				) {
+					// 内层循环：遍历新增节点
 					for (const node of mutation.addedNodes) {
+						// 只检查元素节点 (nodeType 1)
 						if (node.nodeType === Node.ELEMENT_NODE) {
-							// 只检查添加的节点本身或其直接子节点
 							if (
-								node.classList &&
-								node.classList.contains("expressive-code")
+								node.classList.contains("expressive-code") ||
+								(node.getElementsByClassName &&
+									node.getElementsByClassName(
+										"expressive-code",
+									).length > 0)
 							) {
 								shouldReinit = true;
 								break;
 							}
-							// 避免深度查询，只检查一层
-							if (node.children && node.children.length > 0) {
-								for (let i = 0; i < Math.min(node.children.length, 10); i++) {
-									if (
-										node.children[i].classList &&
-										node.children[i].classList.contains("expressive-code")
-									) {
-										shouldReinit = true;
-										break;
-									}
-								}
-							}
 						}
-						if (shouldReinit) break;
 					}
 				}
 				if (shouldReinit) break;
@@ -271,7 +271,7 @@ class CodeBlockCollapser {
 
 			if (shouldReinit) {
 				clearTimeout(debounceTimer);
-				debounceTimer = setTimeout(() => this.setupCodeBlocks(), 150);
+				debounceTimer = setTimeout(() => this.setupCodeBlocks(), 30);
 			}
 		});
 
@@ -291,14 +291,18 @@ class CodeBlockCollapser {
 
 	// 公共API方法
 	collapseAll() {
-		const allBlocks = document.querySelectorAll(".expressive-code.expanded");
+		const allBlocks = document.querySelectorAll(
+			".expressive-code.expanded",
+		);
 		allBlocks.forEach((block) => {
 			this.toggleCollapse(block);
 		});
 	}
 
 	expandAll() {
-		const allBlocks = document.querySelectorAll(".expressive-code.collapsed");
+		const allBlocks = document.querySelectorAll(
+			".expressive-code.collapsed",
+		);
 		allBlocks.forEach((block) => {
 			this.toggleCollapse(block);
 		});
