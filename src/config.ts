@@ -15,13 +15,11 @@ import type {
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
-// 定义 share 配置类型（若已有类型，可用现有的）
+// 如果 ./types/config 已有 ShareConfig，请用下面的导入替换本地类型声明：
+// import type { ShareConfig } from "./types/config";
 export type ShareConfig = {
-  enable: boolean; // 是否显示分享组件
-  // 可扩展：控制展示的平台、是否启用海报、按钮样式等
-  poster: {
-    enable: boolean; // 是否显示 SharePoster（你模板里已经使用 SharePoster 组件）
-  };
+  enable: boolean;
+  poster: { enable: boolean };
 };
 
 // 定义站点语言
@@ -102,18 +100,23 @@ export const siteConfig: SiteConfig = {
     { src: "/favicon/icon.png", sizes: "32x32" },
     { src: "/favicon/icon.png", sizes: "192x192" },
   ],
+  // 仅使用本地 TTF，避免任何 woff2 请求
   font: {
     asciiFont: {
       fontFamily: "ZenMaruGothic-Medium",
       fontWeight: "400",
-      localFonts: ["ZenMaruGothic-Medium.ttf"],
-      enableCompress: true,
+      // 指向你实际存在的 TTF 文件；路径相对项目根或由主题解析
+      // 建议将字体放在 public/fonts 下，并在这里写 "fonts/xxx.ttf"
+      localFonts: ["fonts/ZenMaruGothic-Medium.ttf"],
+      // 关闭压缩/转换，防止构建管线尝试生成 woff2
+      enableCompress: false,
     },
     cjkFont: {
       fontFamily: "萝莉体 第二版",
       fontWeight: "500",
-      localFonts: ["萝莉体 第二版.ttf"],
-      enableCompress: true,
+      // 同样仅用 TTF；为避免 URL 编码问题，建议将文件改成 ASCII 名称并同步修改此处
+      localFonts: ["fonts/萝莉体 第二版.ttf"],
+      enableCompress: false,
     },
   },
   showLastModified: true,
@@ -127,7 +130,7 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
       "/assets/desktop-banner/3.webp",
       "/assets/desktop-banner/4.webp",
     ],
-  mobile: [
+    mobile: [
       "/assets/mobile-banner/1.webp",
       "/assets/mobile-banner/2.webp",
       "/assets/mobile-banner/3.webp",
@@ -172,7 +175,7 @@ export const navBarConfig: NavBarConfig = {
           name: "网易云",
           url: "https://music.163.com/#/user/home?id=118926845",
           external: true,
-          icon: "simple-icons:spotify", // 可换 simple-icons:neteasecloudmusic
+          icon: "simple-icons:neteasecloudmusic",
         },
       ],
     },
@@ -196,7 +199,7 @@ export const profileConfig: ProfileConfig = {
   bio: "I like the world, because i want live",
   typewriter: { enable: true, speed: 80 },
   links: [
-    { name: "Bilibli", icon: "fa6-brands:bilibili", url: "https://b23.tv/Ny6RChH" },
+    { name: "Bilibili", icon: "fa6-brands:bilibili", url: "https://b23.tv/Ny6RChH" },
     {
       name: "GitHub",
       icon: "fa6-brands:github",
@@ -360,8 +363,8 @@ export const pioConfig: import("./types/config").PioConfig = {
 
 // 分享配置：供 [...slug].astro 使用
 export const shareConfig: ShareConfig = {
-  enable: true,       // 控制分享区块是否显示
-  poster: { enable: true }, // 你在模板中使用了 SharePoster 组件
+  enable: true,
+  poster: { enable: true },
 };
 
 // 导出所有小部件配置
