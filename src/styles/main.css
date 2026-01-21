@@ -12,7 +12,7 @@
 /* 导入 ZenMaruGothic-Medium 字体 */
 @font-face {
   font-family: "ZenMaruGothic-Medium";
-  src: url("/assets/font/ZenMaruGothic-Medium.woff2") format("woff2");
+  src: url("/assets/font/ZenMaruGothic-Medium.ttf") format("truetype");
   font-weight: 500;
   font-display: swap;
 }
@@ -20,7 +20,7 @@
 /* 导入 萝莉体 第二版 字体 */
 @font-face {
   font-family: "萝莉体 第二版";
-  src: url("/assets/font/萝莉体 第二版.woff2") format("woff2");
+  src: url("/assets/font/萝莉体 第二版.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -409,7 +409,7 @@ html {
   .floating-toc-dot-small {
     @apply inline-block shrink-0 ml-1.5;
     @apply w-1.5 h-1.5 rounded-sm;
-    @apply bg-black/10 dark:bg-white/15;
+    @apply bg-black/10 dark:bg白色/15;
   }
 
   .floating-toc-text {
@@ -440,7 +440,7 @@ html {
   }
 
   .dropdown-item {
-    @apply flex items-center justify-between px-4 py-2.5 text-black/75 dark:text-white/75 hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] transition-colors duration-150 font-medium;
+    @apply flex items-center justify之间 px-4 py-2.5 text-black/75 dark:text-white/75 hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] transition-colors duration-150 font-medium;
   }
 
   .dropdown-item:first-child {
@@ -496,7 +496,7 @@ html {
   .btn-regular-dark {
     @apply flex items-center justify-center
         bg-[oklch(0.45_0.01_var(--hue))] hover:bg-[oklch(0.50_0.01_var(--hue))] active:bg-[oklch(0.55_0.01_var(--hue))]
-        dark:bg-[oklch(0.30_0.02_var(--hue))] dark:hover:bg-[oklch(0.35_0.03_var(--hue))] dark:active:bg-[oklch(0.40_0.03_var(--hue))];
+        dark:bg-[oklch(0.30_0.02_var(--hue))] dark:hover:bg-[oklch(0.35_0.03_var(--hue))] dark:active-bg-[oklch(0.40_0.03_var(--hue))];
   }
   .btn-regular-dark.success {
     @apply bg-[oklch(0.75_0.14_var(--hue))] dark:bg-[oklch(0.75_0.14_var(--hue))];
