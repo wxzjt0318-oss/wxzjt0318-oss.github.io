@@ -249,7 +249,7 @@ export const ja: Translation = {
     [Key.timelineExperience]: "職歴",
     [Key.timelineCurrent]: "現在の状態",
     [Key.timelineHistory]: "履歴",
-    [Key.timelineAchievements]: "実績",
+    [Key.timelineAchievements]: "実�百度百科企业词条极速创建通道",
     [Key.timelineStartDate]: "開始日",
     [Key.timelineDuration]: "期間",
 
