@@ -45,18 +45,18 @@ const hasChildren = children.length > 0;
 		hasChildren ? (
 			<>
 				<button
-					class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95 dropdown-trigger flex items-center"
+					class="btn-plain scale-animation rounded-lg h-11 font-bold w-11 lg:w-auto lg:px-5 active:scale-95 dropdown-trigger flex items-center justify-center lg:justify-start whitespace-nowrap"
 					aria-expanded="false"
 					aria-haspopup="true"
 					data-dropdown-trigger
 				>
 					{link.icon && (
-						<Icon name={link.icon} class="text-[1.1rem] mr-2" />
+						<Icon name={link.icon} class="text-[1.1rem] lg:mr-2 flex-shrink-0" />
 					)}
-					{getLocalizedName(link.name)}
+					<span class="truncate hidden lg:inline">{getLocalizedName(link.name)}</span>
 					<Icon
 						name="material-symbols:keyboard-arrow-down-rounded"
-						class="text-[1.25rem] transition-transform duration-200 dropdown-arrow ml-1"
+						class="text-[1.25rem] transition-transform duration-200 dropdown-arrow ml-1 flex-shrink-0 hidden lg:inline"
 					/>
 				</button>
 
@@ -102,16 +102,16 @@ const hasChildren = children.length > 0;
 				href={link.external ? link.url : url(link.url)}
 				target={link.external ? "_blank" : null}
 				rel={link.external ? "noopener noreferrer" : null}
-				class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95 flex items-center"
+				class="btn-plain scale-animation rounded-lg h-11 font-bold w-11 lg:w-auto lg:px-5 active:scale-95 flex items-center justify-center lg:justify-start whitespace-nowrap"
 			>
 				{link.icon && (
-					<Icon name={link.icon} class="text-[1.1rem] mr-2" />
+					<Icon name={link.icon} class="text-[1.1rem] lg:mr-2 flex-shrink-0" />
 				)}
-				{getLocalizedName(link.name)}
+				<span class="truncate hidden lg:inline">{getLocalizedName(link.name)}</span>
 				{link.external && (
 					<Icon
 						name="fa6-solid:arrow-up-right-from-square"
-						class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]"
+						class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2] flex-shrink-0 hidden lg:inline"
 					/>
 				)}
 			</a>
@@ -148,7 +148,7 @@ const hasChildren = children.length > 0;
 		@apply flex items-center justify-between px-4 py-2.5 text-black/75 dark:text-white/75 hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] transition-colors duration-150 font-medium rounded-lg;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		.dropdown-container {
 			@apply hidden;
 		}
