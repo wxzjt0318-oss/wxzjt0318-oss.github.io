@@ -664,7 +664,7 @@ function disableAnimation() {
 
 			// Handle mobile single image banner - 使用与电脑端相同的逻辑
 			const mobileBanner = document.querySelector(
-				'.block.lg\\:hidden[alt="Mobile banner image of the blog"]',
+				'.block.md\\:hidden[alt="Mobile banner image of the blog"]',
 			);
 			if (mobileBanner && !document.getElementById("banner-carousel")) {
 				// 移动端使用与电脑端相同的初始化逻辑
@@ -684,14 +684,14 @@ function disableAnimation() {
 	function initCarousel() {
 		const carouselItems = document.querySelectorAll(".carousel-item");
 		// 根据屏幕尺寸过滤有效的轮播项
-		const isMobile = window.innerWidth < 1024; // lg breakpoint
+		const isMobile = window.innerWidth < 768; // md breakpoint
 		const validItems = Array.from(carouselItems).filter((item) => {
 			if (isMobile) {
 				// 移动端：只显示有mobile图片的项目
-				return item.querySelector(".block.lg\\:hidden");
+				return item.querySelector(".block.md\\:hidden");
 			} else {
-				// 桌面端：只显示有desktop图片的项目
-				return item.querySelector(".hidden.lg\\:block");
+				// 桌面端/平板端：只显示有desktop图片的项目
+				return item.querySelector(".hidden.md\\:block");
 			}
 		});
 
