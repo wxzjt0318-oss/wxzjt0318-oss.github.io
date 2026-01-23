@@ -138,6 +138,7 @@
   }
 }
 
+
 /* 平板设备优化 */
 @media (min-width: 768px) and (max-width: 1279px) {
   #navbar > div {
@@ -234,29 +235,5 @@
   :root.dark body:has(#banner-wrapper) #navbar[data-is-home="true"] #display-setting {
     background: rgba(24, 25, 38, 0.85);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-  }
-}
-
-@media (max-width: 1279px) {
-  body.enable-banner #banner-wrapper ~ * #navbar[data-is-home="false"] > div,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] > div {
-    backdrop-filter: none;
-    background: var(--card-bg);
-    box-shadow: var(--shadow-sm);
-  }
-
-  body.enable-banner #banner-wrapper ~ * #navbar[data-is-home="false"] .float-panel,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] .float-panel,
-  body.enable-banner #banner-wrapper ~ * #navbar[data-is-home="false"] .dropdown-content,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] .dropdown-content,
-  body.enable-banner #banner-wrapper ~ * #navbar[data-is-home="false"] ~ * #display-setting,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] ~ * #display-setting,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] #nav-menu-panel,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] #mobile-toc-panel,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] #search-panel,
-  body.enable-banner:has(#banner-wrapper) #navbar[data-is-home="false"] #display-setting {
-    backdrop-filter: none;
-    background: var(--card-bg);
-    box-shadow: var(--shadow-sm);
   }
 }
