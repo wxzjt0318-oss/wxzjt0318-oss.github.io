@@ -149,7 +149,8 @@ async function generatePoster() {
 		const coverHeight = (coverImage ? 200 : 120) * SCALE;
 		const titleFontSize = 24 * SCALE;
 		const descFontSize = 14 * SCALE;
-		const footerHeight = 60 * SCALE;
+		const qrSize = 80 * SCALE;
+		const footerHeight = qrSize;
 
 		ctx.font = `700 ${titleFontSize}px ${FONT_FAMILY}`;
 		const titleLines = getLines(ctx, title, CONTENT_WIDTH);
@@ -281,7 +282,6 @@ async function generatePoster() {
 
 		// Footer
 		const footerY = drawY;
-		const qrSize = 80 * SCALE;
 		const qrX = WIDTH - PADDING - qrSize;
 
 		// QR code background

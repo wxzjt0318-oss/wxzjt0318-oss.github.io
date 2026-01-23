@@ -72,13 +72,13 @@ const renderGroups = [
 	{
 		key: 'desktop',
 		images: imageSources.desktop,
-		containerClass: "hidden lg:block",
+		containerClass: "hidden md:block",
 		hasImages: hasDesktopImages
 	},
 	{
 		key: 'mobile',
 		images: imageSources.mobile,
-		containerClass: "block lg:hidden",
+		containerClass: "block md:hidden",
 		hasImages: hasMobileImages
 	}
 ];
@@ -196,8 +196,8 @@ const renderGroups = [
 			let savedIndex = parseInt(sessionStorage.getItem(STORAGE_KEY) || '0');
 
 			const groups = [
-				container.querySelectorAll('.hidden.lg\\:block [data-carousel-item]'),
-				container.querySelectorAll('.block.lg\\:hidden [data-carousel-item]')
+				container.querySelectorAll('.hidden.md\\:block [data-carousel-item]'),
+				container.querySelectorAll('.block.md\\:hidden [data-carousel-item]')
 			];
 
 			const state = groups.map(items => {
