@@ -13,6 +13,7 @@
     } from "@utils/setting-utils";
     import type { WALLPAPER_MODE } from "@/types/config";
     import { panelManager } from "../utils/panel-manager.js";
+    import { onMount } from "svelte";
 
     const wallpaperOptions: { mode: WALLPAPER_MODE; icon: string; label: I18nKey }[] = [
         { mode: WALLPAPER_BANNER, icon: "material-symbols:image-outline", label: I18nKey.wallpaperBanner },
@@ -20,7 +21,11 @@
         { mode: WALLPAPER_NONE, icon: "material-symbols:hide-image-outline", label: I18nKey.wallpaperNone },
     ];
 
-    let mode: WALLPAPER_MODE = $state(getStoredWallpaperMode());
+    let mode: WALLPAPER_MODE = $state(WALLPAPER_BANNER);
+
+    onMount(() => {
+        mode = getStoredWallpaperMode();
+    });
 
     let currentIcon = $derived(wallpaperOptions.find(opt => opt.mode === mode)?.icon || wallpaperOptions[0].icon);
 
@@ -56,11 +61,11 @@
 </style>
 
 <div class="relative z-50" role="menu" tabindex="-1">
-    <button 
-        aria-label="Wallpaper Mode" 
-        role="menuitem" 
-        class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 theme-switch-btn" 
-        id="wallpaper-mode-switch" 
+    <button
+        aria-label="Wallpaper Mode"
+        role="menuitem"
+        class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 theme-switch-btn"
+        id="wallpaper-mode-switch"
         onclick={togglePanel}
     >
         <Icon icon={currentIcon} class="text-[1.25rem]"></Icon>
@@ -69,8 +74,8 @@
     <div id="wallpaper-mode-panel" class="absolute transition float-panel-closed top-11 -right-2 pt-5">
         <div class="card-base float-panel p-2">
             {#each wallpaperOptions as option}
-                <button 
-                    class="flex transition whitespace-nowrap items-center !justify-start w-full btn-plain rounded-lg h-9 px-3 font-medium active:scale-95 theme-switch-btn mb-0.5 last:mb-0"
+                <button
+                    class="flex transition whitespace-nowrap items-center !justify-start w-full btn-plain rounded-lg h-11 px-3 font-medium active:scale-95 theme-switch-btn mb-0.5 last:mb-0"
                     data-active={mode === option.mode}
                     class:scale-animation={mode !== option.mode}
                     onclick={() => switchWallpaperMode(option.mode)}

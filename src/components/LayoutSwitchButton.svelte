@@ -1,6 +1,8 @@
 <script lang="ts">
 import { onMount } from "svelte";
 import { siteConfig, sidebarLayoutConfig } from "../config";
+import { i18n } from "@i18n/translation";
+import I18nKey from "@i18n/i18nKey";
 
 type LayoutMode = "list" | "grid";
 
@@ -142,16 +144,16 @@ onMount(() => {
 </script>
 
 {#if mounted && siteConfig.postListLayout.allowSwitch && !isSmallScreen}
-  <button 
+  <button
     type="button"
-    aria-label={userPreference === 'list' ? '切换到网格模式' : '切换到列表模式'}
+    aria-label={userPreference === 'list' ? i18n(I18nKey.switchToGridMode) : i18n(I18nKey.switchToListMode)}
     aria-pressed={userPreference === 'grid'}
-    class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 flex items-center justify-center theme-switch-btn {isSwitching ? 'switching' : ''}" 
+    class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 flex items-center justify-center theme-switch-btn {isSwitching ? 'switching' : ''}"
     on:click={switchLayout}
     disabled={isSwitching}
-    title={userPreference === 'list' ? '切换到网格模式' : '切换到列表模式'}
+    title={userPreference === 'list' ? i18n(I18nKey.switchToGridMode) : i18n(I18nKey.switchToListMode)}
   >
-    <div 
+    <div
         class="icon-container w-5 h-5 flex items-center justify-center relative"
         on:animationend={onAnimationEnd}
     >

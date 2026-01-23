@@ -319,9 +319,9 @@ if (typeof window !== "undefined") {
 </script>
 
 <!-- TOC toggle button for mobile -->
-<button 
-	on:click={togglePanel} 
-	aria-label="Table of Contents" 
+<button
+	on:click={togglePanel}
+	aria-label="Table of Contents"
 	id="mobile-toc-switch"
 	class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 lg:!hidden theme-switch-btn"
 >
