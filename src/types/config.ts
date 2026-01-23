@@ -83,6 +83,12 @@ export type SiteConfig = {
 		logo?: string; // 网站Logo图片路径
 	};
 
+	// 页面自动缩放配置
+	pageScaling?: {
+		enable: boolean; // 是否开启自动缩放
+		targetWidth?: number; // 目标宽度，低于此宽度时开始缩放
+	};
+
 	// 添加字体配置
 	font: {
 		asciiFont: {
