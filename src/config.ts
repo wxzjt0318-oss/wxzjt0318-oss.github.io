@@ -382,7 +382,8 @@ export const widgetConfigs = {
 // Umami 统计配置
 export const umamiConfig = {
   enabled: true,
-  apiKey: import.meta.env.UMAMI_API_KEY || "api_xxxxxxxx",
+  // 默认读取环境变量；若未配置环境变量，则使用你提供的 token 作为后备。
+  apiKey: import.meta.env.UMAMI_API_KEY || "api_en9RqdmWT5ad7Q9SaQtkbuRTByUwKMXi",
   baseUrl: "https://api.umami.is",
   scripts: `
 <script async src="https://cloud.umami.is/script.js" data-website-id="5529ac8c-8065-46d2-b0dc-83960ac4163c"></script>
