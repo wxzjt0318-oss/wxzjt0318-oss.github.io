@@ -380,10 +380,11 @@ export const widgetConfigs = {
 } as const;
 
 export const umamiConfig = {
-  enabled: false,
+  enabled: true,
   apiKey: import.meta.env.UMAMI_API_KEY || "api_xxxxxxxx",
   baseUrl: "https://api.umami.is",
   scripts: `
 <script defer src="XXXX.XXX" data-website-id="ABCD1234"></script>
   `.trim(),
 } as const;
+
