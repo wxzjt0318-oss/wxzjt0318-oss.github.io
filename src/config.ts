@@ -59,7 +59,7 @@ export const siteConfig: SiteConfig = {
         "https://www.dmoe.cc/random.php?t=2",
         "https://www.dmoe.cc/random.php?t=3",
         "https://www.dmoe.cc/random.php?t=4",
-        "https://www.dmoe.cc/random.php?t=5",
+        "https://www.dmoe.cc随机.php?t=5",
         "https://www.dmoe.cc/random.php?t=6",
       ],
       mobile: [
@@ -379,12 +379,12 @@ export const widgetConfigs = {
   pio: pioConfig,
 } as const;
 
+// Umami 统计配置
 export const umamiConfig = {
   enabled: true,
   apiKey: import.meta.env.UMAMI_API_KEY || "api_xxxxxxxx",
   baseUrl: "https://api.umami.is",
   scripts: `
-<script defer src="XXXX.XXX" data-website-id="ABCD1234"></script>
+<script async src="https://cloud.umami.is/script.js" data-website-id="5529ac8c-8065-46d2-b0dc-83960ac4163c"></script>
   `.trim(),
 } as const;
-
