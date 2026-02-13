@@ -58,6 +58,7 @@ export const zh_TW: Translation = {
     [Key.publishedAt]: "發布於",
     [Key.license]: "許可協議",
     [Key.anime]: "追番",
+	[Key.games]: "遊戲",
     [Key.diary]: "日記",
 
     // 設備頁面
@@ -81,6 +82,26 @@ export const zh_TW: Translation = {
     [Key.animeEmptyLocal]: "請在 src/data/anime.ts 檔案中新增番劇資訊",
     [Key.prevPage]: "上一頁",
     [Key.nextPage]: "下一頁",
+
+	// 遊戲頁面
+	[Key.gameTitle]: "我的遊戲記錄",
+	[Key.gameSubtitle]: "記錄我的遊戲旅程",
+	[Key.gameStatusPlaying]: "在玩",
+	[Key.gameStatusCompleted]: "通關",
+	[Key.gameStatusPlanned]: "想玩",
+	[Key.gameStatusOnHold]: "擱置",
+	[Key.gameStatusDropped]: "棄坑",
+	[Key.gameFilterAll]: "全部",
+	[Key.gameRelease]: "發售",
+	[Key.gameDeveloper]: "開發",
+	[Key.gamePlatform]: "平台",
+	[Key.gameEmpty]: "暫無遊戲資料",
+	[Key.gameEmptyBangumi]: "請檢查 Bangumi 設定或網路連線",
+	[Key.gameUnknown]: "未知",
+	[Key.searchGamePlaceholder]: "按標題、廠商、平台搜尋...",
+	[Key.gameStatsTotal]: "總數",
+	[Key.gameStatsAvgRating]: "平均評分",
+	[Key.gameStatsLastUpdated]: "最近更新",
 
     // 短文頁面
     [Key.diarySubtitle]: "隨時隨地，分享生活",

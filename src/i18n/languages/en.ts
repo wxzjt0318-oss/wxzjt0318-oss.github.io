@@ -58,6 +58,7 @@ export const en: Translation = {
     [Key.publishedAt]: "Published at",
     [Key.license]: "License",
     [Key.anime]: "Anime",
+    [Key.games]: "Games",
     [Key.diary]: "Diary",
 
     // Anime Page
@@ -78,6 +79,27 @@ export const en: Translation = {
         "Please add anime information in src/data/anime.ts file",
     [Key.prevPage]: "Previous Page",
     [Key.nextPage]: "Next Page",
+
+    // Game Page
+    [Key.gameTitle]: "My Game List",
+    [Key.gameSubtitle]: "Track my gaming journey",
+    [Key.gameStatusPlaying]: "Playing",
+    [Key.gameStatusCompleted]: "Completed",
+    [Key.gameStatusPlanned]: "Planned",
+    [Key.gameStatusOnHold]: "On Hold",
+    [Key.gameStatusDropped]: "Dropped",
+    [Key.gameFilterAll]: "All",
+    [Key.gameRelease]: "Release",
+    [Key.gameDeveloper]: "Developer",
+    [Key.gamePlatform]: "Platform",
+    [Key.gameEmpty]: "No game data available",
+    [Key.gameEmptyBangumi]:
+        "Please check Bangumi configuration or network connection",
+    [Key.gameUnknown]: "Unknown",
+    [Key.searchGamePlaceholder]: "Search by title, developer, platform...",
+    [Key.gameStatsTotal]: "Total",
+    [Key.gameStatsAvgRating]: "Average Rating",
+    [Key.gameStatsLastUpdated]: "Last Updated",
 
     // Diary Page
     [Key.diarySubtitle]: "Share life, anytime, anywhere",

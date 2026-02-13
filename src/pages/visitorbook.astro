@@ -55,10 +55,10 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
 </MainGridLayout>
 
 <!-- 只保留一次 SDK 引入，固定版本，避免 latest 带来的不确定性 -->
-<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js" defer crossorigin="anonymous" is:inline></script>
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js" defer crossorigin="anonymous" is:inline data-swup-reload-script></script>
 
 <!-- 初始化（兼容 Astro 客户端导航） -->
-<script is:inline>
+<script is:inline data-swup-reload-script>
   (function () {
     // 注意：不要带末尾斜杠
     var ENV_ID = "https://twikoo-api-gmgc.vercel.app";
@@ -110,8 +110,19 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
       }, 50);
     }
 
+    function scheduleInitTry(timesLeft) {
+      var container = document.getElementById("twikoo");
+      if (container) {
+        whenTwikooReady(initTwikoo);
+        return;
+      }
+      if (timesLeft > 0) {
+        setTimeout(function () { scheduleInitTry(timesLeft - 1); }, 120);
+      }
+    }
+
     function boot() {
-      whenTwikooReady(initTwikoo);
+      scheduleInitTry(30);
     }
 
     // 首次进入页面
@@ -123,9 +134,15 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
 
     // Astro 客户端导航：每次进入页面重新初始化（先等待 SDK）
     if (typeof window !== "undefined") {
-      window.addEventListener("astro:page-load", function () {
-        boot();
-      });
+      window.addEventListener("astro:page-load", function () { boot(); });
+      document.addEventListener("swup:contentReplaced", function () { boot(); });
+      document.addEventListener("swup:pageView", function () { boot(); });
+      document.addEventListener("swup:animationInDone", function () { boot(); });
+      if (window.swup && window.swup.hooks && typeof window.swup.hooks.on === "function") {
+        window.swup.hooks.on("content:replace", function () { boot(); });
+        window.swup.hooks.on("page:view", function () { boot(); });
+        window.swup.hooks.on("animation:in:end", function () { boot(); });
+      }
     }
   })();
 </script>

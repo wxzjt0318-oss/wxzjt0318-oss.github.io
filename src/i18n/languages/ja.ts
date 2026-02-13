@@ -58,6 +58,7 @@ export const ja: Translation = {
     [Key.publishedAt]: "公開日",
     [Key.license]: "ライセンス",
     [Key.anime]: "視聴したアニメ",
+    [Key.games]: "ゲーム",
     [Key.diary]: "日記",
 
     // アニメページ
@@ -78,6 +79,27 @@ export const ja: Translation = {
         "src/data/anime.tsのファイルにアニメの情報を追加してください",
     [Key.prevPage]: "前のページ",
     [Key.nextPage]: "次のページ",
+
+    // ゲームページ
+    [Key.gameTitle]: "私のゲーム記録",
+    [Key.gameSubtitle]: "私のゲーム旅を記録",
+    [Key.gameStatusPlaying]: "プレイ中",
+    [Key.gameStatusCompleted]: "完了",
+    [Key.gameStatusPlanned]: "予定",
+    [Key.gameStatusOnHold]: "保留",
+    [Key.gameStatusDropped]: "中止",
+    [Key.gameFilterAll]: "すべて",
+    [Key.gameRelease]: "発売",
+    [Key.gameDeveloper]: "開発",
+    [Key.gamePlatform]: "プラットフォーム",
+    [Key.gameEmpty]: "ゲームデータがありません",
+    [Key.gameEmptyBangumi]:
+        "Bangumi の構成またはネットワークを接続を確認してください",
+    [Key.gameUnknown]: "不明",
+    [Key.searchGamePlaceholder]: "タイトル、開発元、プラットフォームで検索...",
+    [Key.gameStatsTotal]: "合計",
+    [Key.gameStatsAvgRating]: "平均評価",
+    [Key.gameStatsLastUpdated]: "最終更新",
 
     // 日記ページ
     [Key.diarySubtitle]: "いつでも、どこでも生活を共有",

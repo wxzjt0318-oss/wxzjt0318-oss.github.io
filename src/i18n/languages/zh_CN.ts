@@ -58,6 +58,7 @@ export const zh_CN: Translation = {
     [Key.publishedAt]: "发布于",
     [Key.license]: "许可协议",
     [Key.anime]: "追番",
+	[Key.games]: "游戏",
     [Key.diary]: "日记",
 
     // 番剧页面
@@ -76,6 +77,26 @@ export const zh_CN: Translation = {
     [Key.animeEmptyLocal]: "请在 src/data/anime.ts 文件中添加番剧信息",
     [Key.prevPage]: "上一页",
     [Key.nextPage]: "下一页",
+
+	// 游戏页面
+	[Key.gameTitle]: "我的游戏记录",
+	[Key.gameSubtitle]: "记录我的游戏旅程",
+	[Key.gameStatusPlaying]: "在玩",
+	[Key.gameStatusCompleted]: "通关",
+	[Key.gameStatusPlanned]: "想玩",
+	[Key.gameStatusOnHold]: "搁置",
+	[Key.gameStatusDropped]: "弃坑",
+	[Key.gameFilterAll]: "全部",
+	[Key.gameRelease]: "发售",
+	[Key.gameDeveloper]: "开发",
+	[Key.gamePlatform]: "平台",
+	[Key.gameEmpty]: "暂无游戏数据",
+	[Key.gameEmptyBangumi]: "请检查 Bangumi 配置或网络连接",
+	[Key.gameUnknown]: "未知",
+	[Key.searchGamePlaceholder]: "按标题、厂商、平台搜索...",
+	[Key.gameStatsTotal]: "总数",
+	[Key.gameStatsAvgRating]: "平均评分",
+	[Key.gameStatsLastUpdated]: "最近更新",
 
     // 短文页面
     [Key.diarySubtitle]: "随时随地，分享生活",

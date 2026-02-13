@@ -33,6 +33,11 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
 		url: "/diary/",
 		icon: "material-symbols:book",
 	},
+	[LinkPreset.Games]: {
+		name: i18n(I18nKey.games),
+		url: "/games/",
+		icon: "material-symbols:stadia-controller",
+	},
 	[LinkPreset.Albums]: {
 		name: i18n(I18nKey.albums),
 		url: "/albums/",
