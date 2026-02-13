@@ -58,7 +58,7 @@ export const siteConfig: SiteConfig = {
 	// 番剧与动画模式（保留你的 bangumi 与 anime 配置）
 	bangumi: { userId: "1180323" },
 	anime: { mode: "bangumi" },
-	game: { mode: "bangumi" },
+	game: { mode: "bangumi", cacheTtlHours: 0 },
 
 	// 页面缩放
 	pageScaling: {
