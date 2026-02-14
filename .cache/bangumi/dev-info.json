@@ -1,0 +1,225 @@
+{
+  "version": 1,
+  "updatedAt": "2026-02-14T02:28:01.094Z",
+  "items": {
+    "6818": {
+      "id": 6818,
+      "title": "魔兽争霸III：冰封王座",
+      "developer": "Blizzard Entertainment",
+      "platform": "macOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:56.860Z"
+    },
+    "13210": {
+      "id": 13210,
+      "title": "圣诞之吻",
+      "developer": "エンターブレイン",
+      "platform": "PS2/PS Vita/PSP",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:55.632Z"
+    },
+    "18011": {
+      "id": 18011,
+      "title": "英雄联盟",
+      "developer": "Riot Games/腾讯游戏/Garena/THQ",
+      "platform": "macOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:55.015Z"
+    },
+    "44645": {
+      "id": 44645,
+      "title": "穿越火线",
+      "developer": "Smilegate Entertainment/네오위즈/腾讯游戏/茂為歐買尬數位科技/Z8Games/UtoPlanet/SG Interactive/VTC Games/Pharaoh Gaming",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:28:01.094Z"
+    },
+    "98330": {
+      "id": 98330,
+      "title": "高考恋爱100天",
+      "developer": "橘子班/落叶岛项目组",
+      "platform": "Switch/PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.847Z"
+    },
+    "194792": {
+      "id": 194792,
+      "title": "王者荣耀",
+      "developer": "天美工作室群",
+      "platform": "Android/iOS/HarmonyOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:54.525Z"
+    },
+    "196074": {
+      "id": 196074,
+      "title": "我和她的世界末日",
+      "developer": "橘子班/大好网",
+      "platform": "PC/Web",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:28:00.280Z"
+    },
+    "200763": {
+      "id": 200763,
+      "title": "夏日口袋",
+      "developer": "VISUAL ARTS/Key",
+      "platform": "Switch/Android/iOS/PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:59.006Z"
+    },
+    "202892": {
+      "id": 202892,
+      "title": "三色△绘恋",
+      "developer": "绘恋GALGAME",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:56.396Z"
+    },
+    "258401": {
+      "id": 258401,
+      "title": "金庸群侠传X",
+      "developer": "汉家松鼠",
+      "platform": "Android/iOS/PC/Silverlight",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.540Z"
+    },
+    "275265": {
+      "id": 275265,
+      "title": "恋愛、借りちゃいました",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:55.919Z"
+    },
+    "284157": {
+      "id": 284157,
+      "title": "原神",
+      "developer": "米哈游",
+      "platform": "PS5/PS4/Xbox Series X/S/Android/iOS/PC/S/HarmonyOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:28:00.589Z"
+    },
+    "285687": {
+      "id": 285687,
+      "title": "梦末",
+      "developer": "#workshop/龍之咲HD",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:56.988Z"
+    },
+    "297264": {
+      "id": 297264,
+      "title": "亚托莉 -我挚爱的时光-",
+      "developer": "Front Wing × 枕",
+      "platform": "Switch/Android/iOS/PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.311Z"
+    },
+    "302427": {
+      "id": 302427,
+      "title": "昙花",
+      "developer": "龍之咲 HD",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.052Z"
+    },
+    "303543": {
+      "id": 303543,
+      "title": "无畏契约",
+      "developer": "Riot Games",
+      "platform": "PS5/Xbox Series X/S/PC/S",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:55.018Z"
+    },
+    "308573": {
+      "id": 308573,
+      "title": "恋爱X决胜战",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:57.733Z"
+    },
+    "317730": {
+      "id": 317730,
+      "title": "英雄联盟：激斗峡谷",
+      "developer": "光子工作室群/Riot Games",
+      "platform": "Android/iOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:54.765Z"
+    },
+    "347794": {
+      "id": 347794,
+      "title": "金铲铲之战",
+      "developer": "光子工作室群",
+      "platform": "Android/iOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:54.764Z"
+    },
+    "356907": {
+      "id": 356907,
+      "title": "恋爱成双",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:56.811Z"
+    },
+    "364952": {
+      "id": 364952,
+      "title": "幻想曹操传",
+      "developer": "桑尼游戏",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.084Z"
+    },
+    "385208": {
+      "id": 385208,
+      "title": "鸣潮",
+      "developer": "库洛游戏",
+      "platform": "PS5/Android/iOS/PC/Mac",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.149Z"
+    },
+    "431610": {
+      "id": 431610,
+      "title": "TNT弹道轨迹",
+      "platform": "Web",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:56.690Z"
+    },
+    "442350": {
+      "id": 442350,
+      "title": "永恒世界",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:58.689Z"
+    },
+    "452020": {
+      "id": 452020,
+      "title": "魔兽争霸III：重制版",
+      "developer": "Blizzard Entertainment",
+      "platform": "macOS",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.669Z"
+    },
+    "457780": {
+      "id": 457780,
+      "title": "特工17",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:56.814Z"
+    },
+    "464784": {
+      "id": 464784,
+      "title": "刘婵养成计划",
+      "status": "missing",
+      "lastChecked": "2026-02-14T02:27:58.617Z"
+    },
+    "495794": {
+      "id": 495794,
+      "title": "职场浮生记",
+      "developer": "厦门雷云",
+      "platform": "Android/iOS/PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:56.228Z"
+    },
+    "561628": {
+      "id": 561628,
+      "title": "高考恋爱一百天 - 十年后的约定",
+      "developer": "高考恋爱委员会/橘子班",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-14T02:27:57.218Z"
+    }
+  }
+}
