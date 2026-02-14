@@ -433,7 +433,7 @@ if (siteConfig.font) {
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
-		<script>
+		<script is:inline lang="ts">
 	// import { animationManager } from '../utils/animation-utils';
 	import "overlayscrollbars/overlayscrollbars.css";
 	// import {
@@ -462,8 +462,7 @@ if (siteConfig.font) {
 	import { widgetConfigs } from "../config";
 	import { initSakura } from "../utils/sakura-manager";
 
-	const setTimeout = (callback = () => {}, delay = 0) =>
-		window.setTimeout(callback, delay);
+	const setTimeout = (callback, delay) => window.setTimeout(callback, delay);
 
 	/* Preload fonts */
 	// (async function() {
@@ -516,43 +515,43 @@ function disableAnimation() {
 			// @ts-ignore
 			const { panelManager } = await import("../utils/panel-manager.js");
 
-			function setClickOutsideToClose(ignores = [""], onClose = () => {}) {
-				document.addEventListener(
-					"click",
-					async (event = new MouseEvent("click")) => {
-						let tDom = event.target;
-						if (!(tDom instanceof Node)) return;
-						for (let ig of ignores) {
-							let ie = document.getElementById(ig);
-							if (ie == tDom || ie?.contains(tDom)) {
-								return;
-							}
+			function setClickOutsideToClose(panel, ignores) {
+				document.addEventListener("click", async (event) => {
+					// @ts-ignore
+					// let _panelDom = document.getElementById(panel);
+					let tDom = event.target;
+					if (!(tDom instanceof Node)) return; // Ensure the event target is an HTML Node
+					for (let ig of ignores) {
+						let ie = document.getElementById(ig);
+						if (ie == tDom || ie?.contains(tDom)) {
+							return;
 						}
-						onClose();
-					},
-				);
+					}
+					await panelManager.closePanel(panel);
+				});
 			}
 
-			setClickOutsideToClose(
-				["display-setting", "display-settings-switch"],
-				() => panelManager.closePanel("display-setting"),
-			);
-			setClickOutsideToClose(
-				["nav-menu-panel", "nav-menu-switch"],
-				() => panelManager.closePanel("nav-menu-panel"),
-			);
-			setClickOutsideToClose(
-				["search-panel", "search-bar", "search-switch"],
-				() => panelManager.closePanel("search-panel"),
-			);
-			setClickOutsideToClose(
-				["mobile-toc-panel", "mobile-toc-switch"],
-				() => panelManager.closePanel("mobile-toc-panel"),
-			);
-			setClickOutsideToClose(
-				["wallpaper-mode-panel", "wallpaper-mode-switch"],
-				() => panelManager.closePanel("wallpaper-mode-panel"),
-			);
+			setClickOutsideToClose("display-setting", [
+				"display-setting",
+				"display-settings-switch",
+			]);
+			setClickOutsideToClose("nav-menu-panel", [
+				"nav-menu-panel",
+				"nav-menu-switch",
+			]);
+			setClickOutsideToClose("search-panel", [
+				"search-panel",
+				"search-bar",
+				"search-switch",
+			]);
+			setClickOutsideToClose("mobile-toc-panel", [
+				"mobile-toc-panel",
+				"mobile-toc-switch",
+			]);
+			setClickOutsideToClose("wallpaper-mode-panel", [
+				"wallpaper-mode-panel",
+				"wallpaper-mode-switch",
+			]);
 
 			return panelManager;
 		} catch (error) {
@@ -666,7 +665,7 @@ function disableAnimation() {
 		if (validItems.length > 1 && siteConfig.banner.carousel?.enable) {
 			let currentIndex = 0;
 			const interval = siteConfig.banner.carousel?.interval || 6;
-			let carouselInterval = 0;
+			let carouselInterval;
 			let isPaused = false;
 
 			// 移动端触摸手势支持
@@ -677,7 +676,7 @@ function disableAnimation() {
 			const carousel = document.getElementById("banner-carousel");
 
 			// 切换图片的函数 - 基于有效项目
-			function switchToSlide(index = 0) {
+			function switchToSlide(index) {
 				// 隐藏当前图片
 				const currentItem = validItems[currentIndex];
 				currentItem.classList.remove("opacity-100", "scale-100");
@@ -823,11 +822,8 @@ function disableAnimation() {
 		setupSakura();
 	}
 
-	let fancyboxSelectors = [""].slice(0, 0);
-	let Fancybox = {
-		bind(_a = "", _b = {}) {},
-		unbind(_a = "", _b = "", _c = "") {},
-	};
+	let fancyboxSelectors = [];
+	let Fancybox = null;
 
 	// 数学公式按需加载
 	function checkKatex() {
@@ -911,7 +907,7 @@ function disableAnimation() {
 
 		Fancybox.bind(albumLinksSelector, {
 			...commonConfig,
-			source: (el = document.createElement("a")) => {
+			source: (el) => {
 				return el.getAttribute("data-src") || el.getAttribute("href");
 			},
 		});
@@ -1015,7 +1011,7 @@ function disableAnimation() {
 
 		window.swup.hooks.on(
 			"visit:start",
-			(visit = { to: { url: "" } }) => {
+			(visit) => {
 				// 清理上一页的 Fancybox
 				cleanupFancybox();
 
@@ -1213,11 +1209,11 @@ function disableAnimation() {
 	let navbar = document.getElementById("navbar-wrapper");
 
 	// 节流函数
-	function throttle(func = () => {}, limit = 0) {
+	function throttle(func, limit) {
 		let inThrottle = false;
-		return function () {
+		return function (...args) {
 			if (!inThrottle) {
-				func.apply(this, arguments);
+				func.apply(this, args);
 				inThrottle = true;
 				setTimeout(() => (inThrottle = false), limit);
 			}

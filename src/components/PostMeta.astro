@@ -151,8 +151,12 @@ const {
                         throw new Error('getUmamiPageStats not ready');
                     }
                     const stats = await getUmamiPageStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId, pageUrl);
-                    const pageViews = stats.pageviews || 0;
-                    const visitors = stats.visitors || 0;
+                    const pageViews = (stats?.pageviews && typeof stats.pageviews === "object" ? stats.pageviews.value : stats?.pageviews) ?? 0;
+                    const visitors =
+                      (stats?.visitors && typeof stats.visitors === "object" ? stats.visitors.value : stats?.visitors) ??
+                      (stats?.sessions && typeof stats.sessions === "object" ? stats.sessions.value : stats?.sessions) ??
+                      (stats?.visits && typeof stats.visits === "object" ? stats.visits.value : stats?.visits) ??
+                      0;
                     displayElement.textContent = generateStatsText(pageViews, visitors);
                     return;
                 } catch (error) {

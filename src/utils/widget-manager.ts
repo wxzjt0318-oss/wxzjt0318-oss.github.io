@@ -298,4 +298,3 @@ export function isComponentEnabled(
 export function getEnabledComponentTypes(): WidgetComponentType[] {
 	return widgetManager.getConfig().components.left;
 }
-

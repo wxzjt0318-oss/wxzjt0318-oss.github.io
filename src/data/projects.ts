@@ -26,7 +26,6 @@ export type ProjectStats = {
 		planned: number;
 	};
 };
-
 export const projectsData: Project[] = [
 	{
 		id: "mizuki-blog",

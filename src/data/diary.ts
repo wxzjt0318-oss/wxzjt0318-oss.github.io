@@ -20,7 +20,6 @@ export type DiaryStats = {
 	locationPercentage: number;
 	moodPercentage: number;
 };
-
 // 示例日记数据
 const diaryData: DiaryItem[] = [
 	{

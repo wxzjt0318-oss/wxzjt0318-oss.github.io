@@ -245,17 +245,7 @@ const transparentClass = shouldEnableTransparency
 
 <Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} postSlug={postSlug}>
 
-<script
-	is:inline
-	define:vars={{
-		navbarTransparentMode:
-			siteConfig.banner?.navbar?.transparentMode || "semi",
-		defaultWallpaperMode: siteConfig.wallpaperMode.defaultMode,
-		defaultPostListLayout: siteConfig.postListLayout?.defaultMode || "list",
-		BANNER_HEIGHT: BANNER_HEIGHT,
-		pageScaling: siteConfig.pageScaling,
-	}}
->
+<script type="module" is:inline define:vars={{navbarTransparentMode: siteConfig.banner?.navbar?.transparentMode || "semi", defaultWallpaperMode: siteConfig.wallpaperMode.defaultMode, defaultPostListLayout: siteConfig.postListLayout?.defaultMode || "list", BANNER_HEIGHT: BANNER_HEIGHT, pageScaling: siteConfig.pageScaling}}>
 
 	// 立即执行，在页面渲染前应用壁纸模式和布局模式，避免闪烁
 	(function() {
@@ -611,6 +601,7 @@ const transparentClass = shouldEnableTransparency
 <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
 
     {siteConfig.banner.carousel?.enable && ((bannerImages.desktop && Array.isArray(bannerImages.desktop) && bannerImages.desktop.length > 1) || (bannerImages.mobile && Array.isArray(bannerImages.mobile) && bannerImages.mobile.length > 1)) ? (
+        <!-- Carousel mode for multiple images -->
         <div id="banner-carousel" class="relative h-full w-full">
             <ul class="carousel-list h-full w-full">
                 {Math.max(
@@ -631,6 +622,7 @@ const transparentClass = shouldEnableTransparency
                     
                     return (
                         <li class={`carousel-item absolute inset-0 transition-all duration-500 ${index === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}>
+                            <!-- Mobile: use mobile-specific images -->
                             {hasMobileImage && (
                                 <ImageWrapper 
                                     alt={`Mobile banner image ${index + 1}`} 
@@ -640,6 +632,7 @@ const transparentClass = shouldEnableTransparency
                                     loading={index === 0 ? "eager" : "lazy"}
                                 />
                             )}
+                            <!-- Desktop/Tablet: use desktop-specific images -->
                             {hasDesktopImage && (
                                 <ImageWrapper 
                                     alt={`Desktop banner image ${index + 1}`} 
@@ -655,6 +648,7 @@ const transparentClass = shouldEnableTransparency
             </ul>
         </div>
     ) : (
+        <!-- Single image mode -->
         <div id="banner-single-container" class="relative h-full w-full">
             <script is:inline define:vars={{ desktopImages: bannerImages.desktop, mobileImages: bannerImages.mobile, position: siteConfig.banner.position }}>
                 (function() {

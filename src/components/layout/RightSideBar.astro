@@ -152,11 +152,8 @@ function renderComponent(
       
       const deviceType =
         width < breakpoints.mobile
-          ? "mobile"
-          : width < breakpoints.tablet
-            ? "tablet"
-            : "desktop";
-      
+          ? 'mobile'
+          : (width < breakpoints.tablet ? 'tablet' : 'desktop');
       const shouldShow = widgetManager.shouldShowSidebar(deviceType);
       const sidebar = document.getElementById('right-sidebar');
       

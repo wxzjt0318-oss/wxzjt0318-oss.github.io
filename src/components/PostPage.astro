@@ -77,7 +77,7 @@ const initialLayoutClass = defaultLayout === "grid" ? "grid-mode" : "list-mode";
 		});
 	}
 
-function updatePostListLayout(layout = "list") {
+	function updatePostListLayout(layout = "list") {
 		const container = document.getElementById("post-list-container");
 		if (!container) return;
 
@@ -121,20 +121,21 @@ function updatePostListLayout(layout = "list") {
 
 	// 监听布局变化
 	window.addEventListener("layoutChange", (event) => {
-		if (!(event instanceof CustomEvent)) return;
-		const detail = event.detail;
-		if (
+		const detail =
+			event && typeof event === "object" && "detail" in event
+				? event["detail"]
+				: undefined;
+		const layout =
 			detail &&
 			typeof detail === "object" &&
-			"layout" in detail &&
-			(detail.layout === "grid" || detail.layout === "list")
-		) {
-			updatePostListLayout(detail.layout);
-		}
+			(detail["layout"] === "grid" || detail["layout"] === "list")
+				? detail["layout"]
+				: undefined;
+		if (layout) updatePostListLayout(layout);
 	});
 
 	// Resize 防抖
-let resizeTimeout = 0;
+	let resizeTimeout = 0;
 	window.addEventListener("resize", () => {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = window.setTimeout(() => {
@@ -154,14 +155,13 @@ let resizeTimeout = 0;
 	if (document.readyState !== "loading") initLayout();
 
 	// Swup 集成
-	let postListSwupListenerAttached = false;
 	function setupSwupListeners() {
-		if (postListSwupListenerAttached) return;
+		if ((window as any)._postListSwupListenerAttached) return;
 
 		function trySetupSwup() {
-			if (typeof window !== "undefined" && window.swup) {
-				window.swup.hooks.on("content:replace", initLayout);
-				postListSwupListenerAttached = true;
+			if (typeof window !== "undefined" && (window as any).swup) {
+				(window as any).swup.hooks.on("content:replace", initLayout);
+				(window as any)._postListSwupListenerAttached = true;
 				return true;
 			}
 			return false;

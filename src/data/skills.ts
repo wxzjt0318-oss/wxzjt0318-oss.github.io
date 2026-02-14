@@ -38,7 +38,6 @@ export type TotalExperience = {
 	years: number;
 	months: number;
 };
-
 export const skillsData: Skill[] = [
 	// Frontend Skills
 	{

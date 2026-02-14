@@ -37,7 +37,6 @@ export type WorkExperienceSummary = {
 	years: number;
 	months: number;
 };
-
 export const timelineData: TimelineItem[] = [
 	{
 		id: "current-study",

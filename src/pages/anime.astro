@@ -330,7 +330,7 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
           break;
         }
       }
-
+      
       if (allData.length >= MAX_ITEMS) {
         allData = allData.slice(0, MAX_ITEMS as number);
         break;
@@ -580,7 +580,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
           </h1>
           <p class="text-black/75 dark:text-white/75">{i18n(I18nKey.animeSubtitle)}</p>
         </div>
-
         {cacheNotice ? (
           <div class="mb-4 rounded-[var(--radius-large)] border border-amber-400/30 bg-amber-50/70 dark:bg-amber-900/20 px-4 py-2 text-sm text-amber-800 dark:text-amber-200">
             {cacheNotice}
