@@ -1,0 +1,2062 @@
+---
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
+import { sidebarLayoutConfig, siteConfig } from "../config";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+const T = {
+  unknown: i18n((I18nKey as any).gameUnknown ?? "gameUnknown") || "Unknown",
+  searchPlaceholder:
+    i18n((I18nKey as any).searchGamePlaceholder ?? "searchGamePlaceholder") ||
+    "Search by title, developer, plytfor tle, developer, platform...",
+  statsTotal: i18n((I18nKey as any).gameStatsTotal ?? "gameStatsTotal") || "Total",
+  statsAvgRating:
+    i18n((I18nKey as any).gameStatsAvgRating ?? "gameStatsAvgRating") || "Average Rating",
+  statsLastUpdated:
+    i18n((I18nKey as any).gameStatsLastUpdated ?? "gameStatsLastUpdated") || "Last Updated",
+  paginationFirst: i18n((I18nKey as any).paginationFirst ?? "paginationFirst") || "First",
+  paginationLast: i18n((I18nKey as any).paginationLast ?? "paginationLast") || "Last",
+};
+
+type GameStatus = "playing" | "completed" | "planned" | "onhold" | "dropped";
+type GameItem = {
+  id: number;
+  title: string;
+  description: string;
+  rating: number;
+  cover: string;
+  status: GameStatus;
+  displayDate?: string;
+  developer?: string;
+  platform?: string;
+  platformList?: string[];
+  developerMissing?: boolean;
+  platformMissing?: boolean;
+  link: string;
+  updatedAt?: string;
+  genre: string[];
+};
+
+if (!siteConfig.featurePages.games) {
+  return Astro.redirect("/404/");
+}
+
+const isBothSidebarMode = sidebarLayoutConfig.position === "both";
+const userAgent = Astro.request?.headers?.get("user-agent") || "";
+
+const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
+const BANGUMI_API_BASE = "https://api.bgm.tv";
+const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
+
+type GameConfigExt = { mode?: "bangumi"; maxItems?: number; cacheTtlHours?: number };
+const gameCfg = (siteConfig.game || {}) as GameConfigExt;
+const MAX_ITEMS = Number(gameCfg.maxItems) > 0 ? Number(gameCfg.maxItems) : Infinity;
+const CACHE_TTL_HOURS = Number(gameCfg.cacheTtlHours) >= 0 ? Number(gameCfg.cacheTtlHours) : 24;
+
+type CacheEntry<T> = { ts: number; data: T };
+const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
+const DISK_CACHE = isNode && !(process as any).env?.BANGUMI_DISABLE_DISK_CACHE;
+
+let fs: typeof import("fs/promises") | null = null;
+let path: typeof import("path") | null = null;
+if (isNode && DISK_CACHE) {
+  const fsMod = await import("fs/promises");
+  const pathMod = await import("path");
+  fs = fsMod;
+  path = pathMod;
+}
+
+const cacheRoot = isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
+if (isNode && DISK_CACHE && fs && cacheRoot) {
+  await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+}
+
+const logRoot = isNode && path ? path.resolve(process.cwd(), "logs") : "";
+if (isNode && DISK_CACHE && fs && logRoot) {
+  await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
+}
+
+async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
+  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) return null;
+  try {
+    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+    const file = path.resolve(cacheRoot, `${key}.json`);
+    const buf = await fs.readFile(file, { encoding: "utf8" as any });
+    const jsonStr = typeof buf === "string" ? buf : String(buf);
+    const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
+    const ageHours = (Date.now() - parsed.ts) / 3.6e6;
+    if (ageHours <= ttlHours) return parsed.data;
+  } catch {}
+  return null;
+}
+async function diskCacheSet<T>(key: string, data: T): Promise<void> {
+  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) return;
+  try {
+    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+    const file = path.resolve(cacheRoot, `${key}.json`);
+    const payload: CacheEntry<T> = { ts: Date.now(), data };
+    await fs.writeFile(file, JSON.stringify(payload), { encoding: "utf8" });
+  } catch {}
+}
+
+async function appendLog(fileName: string, line: string): Promise<void> {
+  if (!isNode || !fs || !path || !logRoot) return;
+  try {
+    await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
+    const file = path.resolve(logRoot, fileName);
+    await fs.appendFile(file, `${line}\n`, { encoding: "utf8" });
+  } catch {}
+}
+
+type DevInfoRecord = {
+  id: number;
+  title?: string;
+  developer?: string;
+  platform?: string;
+  status: "ok" | "missing";
+  lastChecked: string;
+};
+
+type DevInfoDatabase = {
+  version: number;
+  updatedAt: string;
+  items: Record<string, DevInfoRecord>;
+};
+
+const devInfoDbFile = isNode && path && cacheRoot ? path.resolve(cacheRoot, "dev-info.json") : "";
+async function readDevInfoDatabase(): Promise<DevInfoDatabase> {
+  if (!isNode || !fs || !devInfoDbFile) {
+    return { version: 1, updatedAt: new Date().toISOString(), items: {} };
+  }
+  try {
+    const raw = await fs.readFile(devInfoDbFile, { encoding: "utf8" as any });
+    const parsed = JSON.parse(typeof raw === "string" ? raw : String(raw)) as DevInfoDatabase;
+    if (parsed && parsed.items) return parsed;
+  } catch {}
+  return { version: 1, updatedAt: new Date().toISOString(), items: {} };
+}
+
+async function writeDevInfoDatabase(db: DevInfoDatabase): Promise<void> {
+  if (!isNode || !fs || !devInfoDbFile) return;
+  try {
+    await fs.writeFile(devInfoDbFile, JSON.stringify(db, null, 2), { encoding: "utf8" });
+  } catch {}
+}
+
+async function fetchWithRetry(
+  url: string,
+  init?: RequestInit,
+  retries = 3,
+  baseDelayMs = 300,
+  timeoutMs = 800,
+): Promise<Response> {
+  let lastErr: unknown = null;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    let res: Response | null = null;
+    try {
+      const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), Math.max(0, timeoutMs)) : null;
+      try {
+        res = (await fetch(url, { ...(init || {}), signal: controller?.signal })) as Response;
+      } finally {
+        if (timeoutId) clearTimeout(timeoutId as any);
+      }
+    } catch (e) {
+      lastErr = e;
+    }
+    if (res && res.ok) return res;
+    const status = res?.status ?? 0;
+    const isTimeout = typeof lastErr === "object" && lastErr && (lastErr as any).name === "AbortError";
+    const retryable = status === 429 || (status >= 500 && status <= 599) || isTimeout;
+    if (attempt < retries && retryable) {
+      let delay = baseDelayMs * Math.pow(2, attempt);
+      const ra = res?.headers?.get("Retry-After");
+      const s = ra ? Number(ra) : NaN;
+      if (!Number.isNaN(s) && s > 0) delay = s * 1000;
+      delay += Math.floor(Math.random() * 200);
+      await new Promise((r) => setTimeout(r, delay));
+      continue;
+    }
+    if (res) throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
+    if (isTimeout) throw new Error(`Timeout after ${timeoutMs}ms for ${url}`);
+    throw new Error(`Network error: ${String(lastErr)}`);
+  }
+  throw new Error(`fetchWithRetry exhausted for ${url}`);
+}
+
+function pickFirstUsefulValue(v: any): string | undefined {
+  if (v == null) return undefined;
+  if (typeof v === "string") return v.trim() || undefined;
+  if (Array.isArray(v)) {
+    for (const it of v) {
+      const got = pickFirstUsefulValue(it);
+      if (got) return got;
+    }
+    return undefined;
+  }
+  if (typeof v === "object") {
+    if (typeof (v as any).v === "string") return (v as any).v.trim() || undefined;
+    if (typeof (v as any).value === "string") return (v as any).value.trim() || undefined;
+  }
+  return undefined;
+}
+
+function normalizeValue(input: string): string {
+  return input.replace(/\s+/g, " ").trim();
+}
+
+function flattenInfoboxValues(value: any): string[] {
+  if (value == null) return [];
+  if (typeof value === "string") return [normalizeValue(value)].filter(Boolean);
+  if (Array.isArray(value)) return value.flatMap((v) => flattenInfoboxValues(v));
+  if (typeof value === "object") {
+    if (typeof (value as any).v === "string") return [normalizeValue((value as any).v)].filter(Boolean);
+    if (typeof (value as any).value === "string")
+      return [normalizeValue((value as any).value)].filter(Boolean);
+  }
+  return [];
+}
+
+function getInfoboxValues(subject: any, keys: string[]): string[] {
+  const infobox = subject?.infobox;
+  if (!Array.isArray(infobox)) return [];
+  const results: string[] = [];
+  for (const k of keys) {
+    const entries = infobox.filter((x: any) => x?.key === k);
+    for (const entry of entries) {
+      results.push(...flattenInfoboxValues(entry?.value));
+    }
+  }
+  return results;
+}
+
+function splitValueTokens(value: string): string[] {
+  if (!value) return [];
+  let v = value.replace(/[（(][^）)]*[）)]/g, " ");
+  v = v.replace(/[，、]/g, ",").replace(/[／]/g, "/").replace(/[＆]/g, "&");
+  v = v.replace(/xbox\s*series\s*x\|s/gi, "Xbox Series X/S");
+  v = v.replace(/xbox\s*series\s*s\|x/gi, "Xbox Series X/S");
+  const parts = v
+    .split(/[\/,|&+]/)
+    .flatMap((p) => p.split(/(?:和|与|及|以及)/))
+    .map((p) => normalizeValue(p))
+    .filter(Boolean);
+  return parts.length ? parts : [normalizeValue(value)].filter(Boolean);
+}
+
+function dedupeList(values: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const v of values) {
+    const key = v.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push(v);
+    }
+  }
+  return result;
+}
+
+const MULTI_PLATFORM_MARKERS = [
+  /跨平台/i,
+  /全平台/i,
+  /多平台/i,
+  /全机种/i,
+  /全机型/i,
+  /多机种/i,
+  /multi\s*platform/i,
+  /multiplatform/i,
+  /all\s*platform/i,
+];
+
+const PLATFORM_PATTERNS: { label: string; patterns: RegExp[]; weight: number }[] = [
+  { label: "PS5", patterns: [/ps5/i, /playstation\s*5/i, /ps\s*5/i], weight: 95 },
+  { label: "PS4", patterns: [/ps4/i, /playstation\s*4/i, /ps\s*4/i], weight: 90 },
+  { label: "PS3", patterns: [/ps3/i, /playstation\s*3/i, /ps\s*3/i], weight: 75 },
+  { label: "PS2", patterns: [/ps2/i, /playstation\s*2/i, /ps\s*2/i], weight: 65 },
+  { label: "PS", patterns: [/ps1/i, /playstation(?!\s*\d)/i, /ps\s*one/i], weight: 55 },
+  { label: "PS Vita", patterns: [/ps\s*vita/i, /psv/i, /vita/i], weight: 55 },
+  { label: "PSP", patterns: [/psp/i, /playstation\s*portable/i], weight: 50 },
+  { label: "PS VR2", patterns: [/ps\s*vr2/i, /playstation\s*vr2/i], weight: 50 },
+  { label: "PS VR", patterns: [/ps\s*vr/i, /playstation\s*vr/i], weight: 45 },
+  { label: "Xbox Series X/S", patterns: [/xbox\s*series/i, /series\s*x\/s/i], weight: 85 },
+  { label: "Xbox One", patterns: [/xbox\s*one/i], weight: 70 },
+  { label: "Xbox 360", patterns: [/xbox\s*360/i], weight: 60 },
+  { label: "Xbox", patterns: [/xbox(?!\s*(one|360|series))/i], weight: 50 },
+  { label: "Switch 2", patterns: [/switch\s*2/i, /\bns2\b/i], weight: 95 },
+  { label: "Switch", patterns: [/nintendo\s*switch/i, /\bswitch\b/i, /\bns\b/i], weight: 92 },
+  { label: "Wii U", patterns: [/wii\s*u/i], weight: 60 },
+  { label: "Wii", patterns: [/wii(?!\s*u)/i], weight: 55 },
+  { label: "GameCube", patterns: [/gamecube/i, /\bgc\b/i], weight: 50 },
+  { label: "Nintendo 64", patterns: [/nintendo\s*64/i, /\bn64\b/i], weight: 45 },
+  { label: "SNES", patterns: [/snes/i, /super\s*famicom/i, /sfc/i], weight: 45 },
+  { label: "NES", patterns: [/\bnes\b/i, /famicom/i, /\bfc\b/i], weight: 40 },
+  { label: "Game Boy", patterns: [/game\s*boy(?!\s*advance)/i, /\bgb\b/i], weight: 40 },
+  { label: "GBA", patterns: [/game\s*boy\s*advance/i, /\bgba\b/i], weight: 45 },
+  { label: "DS", patterns: [/\bnds\b/i, /nintendo\s*ds/i, /\bds\b/i], weight: 50 },
+  { label: "3DS", patterns: [/3ds/i, /nintendo\s*3ds/i], weight: 55 },
+  { label: "Steam Deck", patterns: [/steam\s*deck/i], weight: 58 },
+  { label: "Steam", patterns: [/steam(?!\s*deck)/i], weight: 70 },
+  { label: "Epic", patterns: [/epic\s*games\s*store/i, /\begs\b/i, /\bepic\b/i], weight: 45 },
+  { label: "GOG", patterns: [/\bgog\b/i, /good\s*old\s*games/i], weight: 40 },
+  { label: "itch.io", patterns: [/itch\.io/i, /\bitch\b/i], weight: 35 },
+  { label: "Windows", patterns: [/windows/i, /\bwin(32|64)?\b/i, /微软视窗/i], weight: 75 },
+  { label: "macOS", patterns: [/mac\s*os/i, /\bmacos\b/i, /os\s*x/i, /macintosh/i], weight: 55 },
+  { label: "Linux", patterns: [/linux/i, /ubuntu/i, /debian/i, /steam\s*os/i], weight: 45 },
+  { label: "PC-98", patterns: [/pc-?98/i], weight: 35 },
+  { label: "MSX", patterns: [/\bmsx\b/i], weight: 35 },
+  { label: "X68000", patterns: [/x68000/i, /x-?68k/i], weight: 30 },
+  { label: "FM Towns", patterns: [/fm\s*towns/i], weight: 30 },
+  { label: "PC", patterns: [/\bpc\b/i, /个人电脑/i, /电脑/i, /桌面/i], weight: 65 },
+  { label: "Android", patterns: [/android/i, /安卓/i], weight: 80 },
+  { label: "iOS", patterns: [/\bios\b/i, /iphone/i, /ipad/i, /苹果/i], weight: 78 },
+  { label: "HarmonyOS", patterns: [/harmony\s*os/i, /鸿蒙/i], weight: 30 },
+  { label: "移动端", patterns: [/移动/i, /手机/i, /mobile/i], weight: 60 },
+  { label: "Web", patterns: [/web/i, /browser/i, /html5/i, /网页/i, /浏览器/i], weight: 62 },
+  { label: "Arcade", patterns: [/arcade/i, /街机/i, /机台/i], weight: 45 },
+  { label: "Dreamcast", patterns: [/dreamcast/i, /\bdc\b/i], weight: 35 },
+  { label: "Saturn", patterns: [/saturn/i, /sega\s*saturn/i], weight: 35 },
+  { label: "Mega Drive", patterns: [/mega\s*drive/i, /genesis/i, /md\b/i], weight: 35 },
+  { label: "PC Engine", patterns: [/pc\s*engine/i, /turbografx/i, /tg-?16/i], weight: 32 },
+  { label: "Neo Geo", patterns: [/neo\s*geo/i, /\bng\b/i], weight: 30 },
+  { label: "WonderSwan", patterns: [/wonderswan/i, /ws\b/i], weight: 25 },
+  { label: "3DO", patterns: [/\b3do\b/i], weight: 25 },
+  { label: "Atari", patterns: [/atari/i], weight: 20 },
+  { label: "VR", patterns: [/\bvr\b/i, /oculus/i, /quest/i], weight: 30 },
+  { label: "Cloud", patterns: [/cloud/i, /云游戏/i, /stadia/i, /geforce\s*now/i], weight: 22 },
+];
+
+function matchPlatformLabels(token: string): string[] {
+  const labels: string[] = [];
+  for (const entry of PLATFORM_PATTERNS) {
+    if (entry.patterns.some((p) => p.test(token))) labels.push(entry.label);
+  }
+  return labels;
+}
+
+function postProcessPlatforms(list: string[]): string[] {
+  const set = new Set(list);
+  const hasPlayStationSpecific =
+    set.has("PS5") || set.has("PS4") || set.has("PS3") || set.has("PS2") || set.has("PS");
+  if (hasPlayStationSpecific) set.delete("PlayStation");
+  const hasXboxSpecific =
+    set.has("Xbox Series X/S") || set.has("Xbox One") || set.has("Xbox 360");
+  if (hasXboxSpecific) set.delete("Xbox");
+  const hasNintendoSpecific =
+    set.has("Switch 2") ||
+    set.has("Switch") ||
+    set.has("Wii U") ||
+    set.has("Wii") ||
+    set.has("GameCube") ||
+    set.has("Nintendo 64") ||
+    set.has("SNES") ||
+    set.has("NES") ||
+    set.has("Game Boy") ||
+    set.has("GBA") ||
+    set.has("DS") ||
+    set.has("3DS");
+  if (hasNintendoSpecific) set.delete("Nintendo");
+  if ((set.has("Windows") || set.has("macOS") || set.has("Linux")) && set.has("PC")) {
+    set.delete("PC");
+  }
+  if (set.has("移动端") && (set.has("Android") || set.has("iOS"))) {
+    set.delete("移动端");
+  }
+  return Array.from(set);
+}
+
+function detectDeviceType(ua: string): string {
+  const s = ua.toLowerCase();
+  if (s.includes("android")) return "android";
+  if (s.includes("iphone") || s.includes("ipad") || s.includes("ios")) return "ios";
+  if (s.includes("playstation") || s.includes("ps5") || s.includes("ps4")) return "playstation";
+  if (s.includes("xbox")) return "xbox";
+  if (s.includes("nintendo") || s.includes("switch")) return "switch";
+  if (s.includes("steam deck")) return "steamdeck";
+  if (s.includes("windows")) return "windows";
+  if (s.includes("mac os") || s.includes("macintosh")) return "mac";
+  if (s.includes("linux")) return "linux";
+  return "unknown";
+}
+
+function getPlatformWeight(label: string, deviceType: string): number {
+  const base =
+    PLATFORM_PATTERNS.find((p) => p.label === label)?.weight ??
+    (label === "跨平台" ? 70 : 40);
+  const deviceBoostMap: Record<string, string[]> = {
+    android: ["Android", "移动端"],
+    ios: ["iOS", "移动端"],
+    windows: ["Windows", "PC", "Steam", "Epic", "GOG", "itch.io"],
+    mac: ["macOS", "PC", "Steam"],
+    linux: ["Linux", "PC", "Steam", "Steam Deck"],
+    steamdeck: ["Steam Deck", "Steam", "PC"],
+    playstation: ["PS5", "PS4", "PS3", "PS2", "PS", "PS Vita", "PSP", "PS VR2", "PS VR"],
+    xbox: ["Xbox Series X/S", "Xbox One", "Xbox 360", "Xbox"],
+    switch: ["Switch 2", "Switch", "Wii U", "Wii", "3DS", "DS", "GBA", "Game Boy"],
+  };
+  const boostTargets = deviceBoostMap[deviceType] || [];
+  const boost = boostTargets.includes(label) ? 120 : 0;
+  return base + boost;
+}
+
+function sortPlatformsByPriority(list: string[], ua: string): string[] {
+  const deviceType = detectDeviceType(ua);
+  return [...list].sort((a, b) => {
+    const wa = getPlatformWeight(a, deviceType);
+    const wb = getPlatformWeight(b, deviceType);
+    if (wa !== wb) return wb - wa;
+    return a.localeCompare(b);
+  });
+}
+
+function normalizePlatforms(rawValues: string[], ua: string): { list: string[]; display: string } {
+  const rawTokens = dedupeList(rawValues.flatMap((v) => splitValueTokens(v)));
+  if (rawTokens.length === 0) return { list: [], display: T.unknown };
+  if (rawTokens.some((t) => MULTI_PLATFORM_MARKERS.some((m) => m.test(t)))) {
+    return { list: ["跨平台"], display: "跨平台" };
+  }
+  const matchedLabels: string[] = [];
+  const unmatchedTokens: string[] = [];
+  for (const token of rawTokens) {
+    const labels = matchPlatformLabels(token);
+    if (labels.length > 0) matchedLabels.push(...labels);
+    else unmatchedTokens.push(token);
+  }
+  const combined = dedupeList([...postProcessPlatforms(matchedLabels), ...unmatchedTokens]);
+  const ordered = sortPlatformsByPriority(combined, ua);
+  return { list: ordered, display: ordered.join("/") };
+}
+
+function getReleaseDateFromInfobox(subject: any): string | undefined {
+  const keys = ["发售日", "発売日", "発売", "发行日期", "发售时间", "首发日", "上架日期"];
+  const infobox = subject?.infobox;
+  if (!Array.isArray(infobox)) return undefined;
+  for (const k of keys) {
+    const entry = infobox.find((x: any) => x?.key === k);
+    if (!entry) continue;
+    const v = pickFirstUsefulValue(entry?.value);
+    if (v) return v;
+  }
+  return undefined;
+}
+
+function getDeveloperListFromInfobox(subject: any): string[] {
+  const keys = [
+    "开发",
+    "开发商",
+    "开发公司",
+    "开发者",
+    "游戏开发",
+    "制作",
+    "制作组",
+    "制作公司",
+    "製作",
+    "製作会社",
+    "開発",
+    "開発元",
+    "開発会社",
+    "Developer",
+    "Developed by",
+    "Development",
+  ];
+  const values = getInfoboxValues(subject, keys);
+  const tokens = values.flatMap((v) => splitValueTokens(v));
+  return dedupeList(tokens);
+}
+
+const DEVELOPER_ALIAS_MAP: Record<string, string> = {
+  "任天堂株式会社": "任天堂",
+  "任天堂(株)": "任天堂",
+  "nintendo co., ltd.": "Nintendo",
+  "nintendo": "Nintendo",
+  "sony interactive entertainment": "SIE",
+  "sony interactive entertainment inc.": "SIE",
+  "sega corporation": "SEGA",
+  "square enix": "Square Enix",
+  "bandai namco entertainment": "Bandai Namco",
+  "capcom co., ltd.": "CAPCOM",
+  "fromsoftware": "FromSoftware",
+};
+
+function normalizeDeveloperName(name: string): string {
+  let v = String(name || "").trim();
+  v = v.replace(/[（(].*?[）)]/g, " ");
+  v = v.replace(/\s+/g, " ").trim();
+  const key = v.toLowerCase();
+  const mapped = DEVELOPER_ALIAS_MAP[key];
+  return mapped || v;
+}
+
+function normalizeDeveloperList(values: string[]): string[] {
+  const normalized = values.map((v) => normalizeDeveloperName(v)).filter(Boolean);
+  return dedupeList(normalized);
+}
+
+function pickBetterDeveloperName(a: string, b: string): string {
+  if (!a) return b;
+  if (!b) return a;
+  if (a === b) return a;
+  const aHasCjk = /[\u4e00-\u9fff]/.test(a);
+  const bHasCjk = /[\u4e00-\u9fff]/.test(b);
+  if (aHasCjk !== bHasCjk) return aHasCjk ? a : b;
+  return a.length >= b.length ? a : b;
+}
+
+function mergeDeveloperValues(primary: string[], secondary: string[]): string[] {
+  const merged: Record<string, string> = {};
+  for (const name of [...primary, ...secondary]) {
+    const normalized = normalizeDeveloperName(name);
+    if (!normalized) continue;
+    const key = normalized.toLowerCase();
+    merged[key] = pickBetterDeveloperName(merged[key] || "", normalized);
+  }
+  return Object.values(merged);
+}
+
+function pickName(value: any): string {
+  if (typeof value === "string") return value.trim();
+  if (value && typeof value === "object") {
+    if (typeof value.name_cn === "string" && value.name_cn.trim()) return value.name_cn.trim();
+    if (typeof value.name === "string" && value.name.trim()) return value.name.trim();
+    if (value.person) return pickName(value.person);
+  }
+  return "";
+}
+
+function getStaffNamesByJobs(subject: any, jobMatchers: RegExp[]): string[] {
+  const staff = Array.isArray(subject?.staff) ? subject.staff : [];
+  const names: string[] = [];
+  for (const member of staff) {
+    const jobs: string[] = [];
+    if (Array.isArray(member?.jobs)) jobs.push(...member.jobs.map((j: any) => String(j || "")));
+    if (typeof member?.job === "string") jobs.push(member.job);
+    if (typeof member?.role === "string") jobs.push(member.role);
+    const jobText = jobs.join(" ");
+    if (!jobText) continue;
+    if (!jobMatchers.some((m) => m.test(jobText))) continue;
+    const name = pickName(member);
+    if (name) names.push(name);
+  }
+  return dedupeList(names);
+}
+
+function getRelationNamesByTypes(subject: any, relationMatchers: RegExp[]): string[] {
+  const relations = Array.isArray(subject?.relations) ? subject.relations : [];
+  const names: string[] = [];
+  for (const rel of relations) {
+    const relText = String(rel?.relation || rel?.type || "").trim();
+    if (!relText) continue;
+    if (!relationMatchers.some((m) => m.test(relText))) continue;
+    const name = pickName(rel);
+    if (name) names.push(name);
+  }
+  return dedupeList(names);
+}
+
+function getPlatformValuesFromInfobox(subject: any): string[] {
+  const keys = ["平台", "游戏平台", "プラットフォーム", "Platform"];
+  return getInfoboxValues(subject, keys);
+}
+
+function toDisplayYearOrYearMonth(input?: string): string {
+  if (!input) return T.unknown;
+  const s = input.trim();
+  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;
+  const ym = /^(\d{4})-(\d{2})$/;
+  const y = /^(\d{4})$/;
+  if (ymd.test(s) || ym.test(s) || y.test(s)) return s;
+  const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
+  if (mYMD) {
+    const year = mYMD[1];
+    const mm = String(mYMD[2]).padStart(2, "0");
+    const dd = String(mYMD[3]).padStart(2, "0");
+    return `${year}-${mm}-${dd}`;
+  }
+  const mYM = s.match(/(\d{4})[-/年](\d{1,2})/);
+  if (mYM) {
+    const year = mYM[1];
+    const mm = String(mYM[2]).padStart(2, "0");
+    return `${year}-${mm}`;
+  }
+  const mY = s.match(/(\d{4})/);
+  if (mY) return mY[1];
+  return T.unknown;
+}
+
+function toTime(input?: string) {
+  if (!input) return 0;
+  const s = input.trim();
+  if (/^\d{4}$/.test(s)) return Date.parse(`${s}-01-01T00:00:00Z`);
+  if (/^\d{4}-\d{2}$/.test(s)) return Date.parse(`${s}-01T00:00:00Z`);
+  const t = Date.parse(s);
+  return Number.isNaN(t) ? 0 : t;
+}
+
+async function fetchSubjectDetailRaw(subjectId: number) {
+  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`, undefined, 2, 200, 500);
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) throw new Error(`Bangumi subject ${subjectId} non-JSON`);
+  return await res.json();
+}
+
+async function fetchSubjectDetailCached(subjectId: number) {
+  const cacheKey = `subject-${subjectId}`;
+  const cached = await diskCacheGet<any>(cacheKey, CACHE_TTL_HOURS);
+  if (cached) return cached;
+  try {
+    const detail = await fetchSubjectDetailRaw(subjectId);
+    await diskCacheSet(cacheKey, detail);
+    return detail;
+  } catch {
+    return null;
+  }
+}
+
+function stripTags(input: string): string {
+  return String(input || "").replace(/<[^>]+>/g, " ");
+}
+
+function extractDeveloperFromHtml(html: string): string[] {
+  const entries: string[] = [];
+  const liBlocks = html.match(/<li[^>]*>[\s\S]*?<\/li>/gi) || [];
+  for (const block of liBlocks) {
+    const tip = block.match(/<span[^>]*class="tip"[^>]*>(.*?)<\/span>/i);
+    const label = tip ? stripTags(tip[1]).trim() : "";
+    if (!label) continue;
+    if (!/开发|开发商|開発|Developer|Developers/i.test(label)) continue;
+    const text = stripTags(block.replace(tip?.[0] || "", ""));
+    const anchors = Array.from(block.matchAll(/<a[^>]*>(.*?)<\/a>/gi)).map((m) => stripTags(m[1]).trim());
+    const rawList = anchors.length ? anchors : splitValueTokens(text);
+    entries.push(...rawList);
+  }
+  return normalizeDeveloperList(entries);
+}
+
+async function fetchDeveloperFromHtml(subjectId: number): Promise<string[]> {
+  const cacheKey = `subject-html-${subjectId}`;
+  const cached = await diskCacheGet<string>(cacheKey, CACHE_TTL_HOURS);
+  if (cached) return extractDeveloperFromHtml(cached);
+  try {
+    const res = await fetchWithRetry(`https://bgm.tv/subject/${subjectId}`, undefined, 1, 200, 500);
+    const html = await res.text();
+    await diskCacheSet(cacheKey, html);
+    return extractDeveloperFromHtml(html);
+  } catch {
+    return [];
+  }
+}
+
+async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T, index: number) => Promise<R>) {
+  const results: R[] = new Array(items.length);
+  let idx = 0;
+  const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (idx < items.length) {
+      const current = idx++;
+      results[current] = await fn(items[current], current);
+    }
+  });
+  await Promise.all(runners);
+  return results;
+}
+
+async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
+  const cacheKey = `collection-${userId}-${subjectType}-${type}`;
+  const cached = await diskCacheGet<{ data: any[] }>(cacheKey, CACHE_TTL_HOURS);
+  if (cached && cached.data?.length) return cached;
+  try {
+    let allData: any[] = [];
+    let offset = 0;
+    const pageLimit = 50;
+    while (true) {
+      const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
+      const response = await fetchWithRetry(url, undefined, 2, 300, 1200);
+      const data = await response.json();
+      const batch = data.data || [];
+      if (batch.length > 0) allData = [...allData, ...batch];
+      if (allData.length >= MAX_ITEMS) {
+        allData = allData.slice(0, MAX_ITEMS as number);
+        break;
+      }
+      const hasMore = batch.length === pageLimit;
+      if (!hasMore) break;
+      offset += pageLimit;
+      await new Promise((resolve) => setTimeout(resolve, 120));
+    }
+    const payload = { data: allData };
+    await diskCacheSet(cacheKey, payload);
+    return payload;
+  } catch {
+    return null;
+  }
+}
+
+const devInfoDb = await readDevInfoDatabase();
+let devInfoDirty = false;
+
+async function processBangumiData(data: any, status: GameStatus): Promise<GameItem[]> {
+  if (!data || !data.data) return [];
+  const items: any[] = data.data;
+  const detailedItems = await mapWithConcurrency(items, 8, async (item: any) => {
+    const subjectId = item.subject_id;
+    const subject = item.subject || {};
+    const detail = await fetchSubjectDetailCached(subjectId);
+    const title = subject?.name_cn || subject?.name || detail?.name_cn || detail?.name || T.unknown;
+    const description = (detail?.summary || subject?.short_summary || "").trim();
+    const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : Number(subject?.rating?.score || 0);
+    const cover = subject?.images?.medium || detail?.images?.medium || "/assets/anime/default.webp";
+
+    const releaseDate =
+      (subject?.date || "").trim() ||
+      (detail?.date || "").trim() ||
+      getReleaseDateFromInfobox(detail) ||
+      "";
+    const displayDate = toDisplayYearOrYearMonth(releaseDate);
+    const primaryDeveloperList = normalizeDeveloperList(
+      dedupeList([
+        ...getDeveloperListFromInfobox(detail),
+        ...getDeveloperListFromInfobox(subject),
+        ...getStaffNamesByJobs(detail, [/开发/i, /制作/i, /developer/i, /development/i, /dev/i, /开発/i, /製作/i]),
+        ...getStaffNamesByJobs(subject, [/开发/i, /制作/i, /developer/i, /development/i, /dev/i, /开発/i, /製作/i]),
+        ...getRelationNamesByTypes(detail, [/厂商/i, /開発/i, /开发/i, /制作/i, /製作/i, /开发商/i]),
+        ...getRelationNamesByTypes(subject, [/厂商/i, /開発/i, /开发/i, /制作/i, /製作/i, /开发商/i]),
+      ]),
+    );
+    let htmlDeveloperList: string[] = [];
+    if (primaryDeveloperList.length === 0) {
+      htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
+      if (htmlDeveloperList.length === 0) {
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
+      }
+    }
+    const existingRecord = devInfoDb.items[String(subjectId)];
+    const existingDeveloperList = existingRecord?.developer
+      ? normalizeDeveloperList(splitValueTokens(existingRecord.developer))
+      : [];
+    let developerList = mergeDeveloperValues(primaryDeveloperList, htmlDeveloperList);
+    if (developerList.length === 0 && existingDeveloperList.length > 0) {
+      developerList = existingDeveloperList;
+    } else if (existingDeveloperList.length > 0 && developerList.length > 0) {
+      const merged = mergeDeveloperValues(developerList, existingDeveloperList);
+      const before = existingDeveloperList.join("/");
+      const after = merged.join("/");
+      if (before && after && before !== after) {
+        await appendLog(
+          "dev-info-conflict.log",
+          JSON.stringify({ time: new Date().toISOString(), id: subjectId, title, before, after }),
+        );
+      }
+      developerList = merged;
+    }
+    const developer = developerList.length ? developerList.join("/") : T.unknown;
+    const platformValues = dedupeList([
+      ...getPlatformValuesFromInfobox(detail),
+      ...getPlatformValuesFromInfobox(subject),
+    ]);
+    const platformInfo = normalizePlatforms(platformValues, userAgent);
+    let platform = platformInfo.display || T.unknown;
+
+    const developerMissing = !developer || developer === T.unknown;
+    const platformMissing = !platform || platform === T.unknown;
+    const record: DevInfoRecord = {
+      id: subjectId,
+      title,
+      developer: developerMissing ? undefined : developer,
+      platform: platformMissing ? undefined : platform,
+      status: developerMissing ? "missing" : "ok",
+      lastChecked: new Date().toISOString(),
+    };
+    devInfoDb.items[String(subjectId)] = record;
+    devInfoDirty = true;
+    if (developerMissing) {
+      await appendLog(
+        "dev-info-missing.log",
+        JSON.stringify({ time: record.lastChecked, id: subjectId, title }),
+      );
+    }
+
+    const genre: string[] = Array.isArray(subject?.tags)
+      ? subject.tags
+          .slice(0, 4)
+          .map((t: any) => {
+            if (typeof t === "string") return t.trim();
+            if (t && typeof t.name === "string") return t.name.trim();
+            return "";
+          })
+          .filter(Boolean)
+      : [];
+
+    const updatedAtRaw =
+      item.updated_at || item.comment_updated_at || item.created_at || detail?.date || subject?.date || "";
+    let updatedAt: string | undefined = undefined;
+    if (updatedAtRaw) {
+      const ts = toTime(updatedAtRaw);
+      if (ts > 0) updatedAt = new Date(ts).toISOString();
+    }
+
+    return {
+      id: subjectId,
+      title,
+      description,
+      rating,
+      cover,
+      status,
+      displayDate,
+      developer,
+      platform,
+      platformList: platformInfo.list,
+      developerMissing,
+      platformMissing,
+      link: `https://bgm.tv/subject/${subjectId}`,
+      updatedAt,
+      genre,
+    } as GameItem;
+  });
+  return detailedItems as GameItem[];
+}
+
+let gameList: GameItem[] = [];
+if (!isValidUserId) {
+  gameList = [];
+} else {
+  const [playingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
+    fetchBangumiCollection(BANGUMI_USER_ID, 4, 3),
+    fetchBangumiCollection(BANGUMI_USER_ID, 4, 1),
+    fetchBangumiCollection(BANGUMI_USER_ID, 4, 2),
+    fetchBangumiCollection(BANGUMI_USER_ID, 4, 4),
+    fetchBangumiCollection(BANGUMI_USER_ID, 4, 5),
+  ]);
+
+  const playingList = playingData ? await processBangumiData(playingData, "playing") : [];
+  const plannedList = plannedData ? await processBangumiData(plannedData, "planned") : [];
+  const completedList = completedData ? await processBangumiData(completedData, "completed") : [];
+  const onHoldList = onHoldData ? await processBangumiData(onHoldData, "onhold") : [];
+  const droppedList = droppedData ? await processBangumiData(droppedData, "dropped") : [];
+
+  gameList = [...playingList, ...plannedList, ...completedList, ...onHoldList, ...droppedList];
+}
+
+if (devInfoDirty) {
+  devInfoDb.updatedAt = new Date().toISOString();
+  await writeDevInfoDatabase(devInfoDb);
+}
+
+if (Number.isFinite(MAX_ITEMS)) {
+  gameList = gameList.slice(0, MAX_ITEMS as number);
+}
+
+const sortedGameList = [...gameList].sort((a, b) => {
+  const aTime = toTime(a.updatedAt) || toTime(a.displayDate);
+  const bTime = toTime(b.updatedAt) || toTime(b.displayDate);
+  return bTime - aTime;
+});
+
+const stats = {
+  total: gameList.length,
+  avgRating: (() => {
+    const ratedGames = gameList.filter((game) => (game.rating || 0) > 0);
+    if (ratedGames.length === 0) return "0.0";
+    return (
+      ratedGames.reduce((sum, game) => sum + (game.rating || 0), 0) / ratedGames.length
+    ).toFixed(1);
+  })(),
+};
+
+const lastUpdated = new Date().toLocaleString("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Shanghai",
+});
+
+const titleText = i18n(I18nKey.gameTitle);
+const subtitleText = i18n(I18nKey.gameSubtitle);
+
+function getStatusInfo(status: GameStatus) {
+  switch (status) {
+    case "playing":
+      return {
+        text: i18n(I18nKey.gameStatusPlaying),
+        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+        icon: "▶",
+      };
+    case "completed":
+      return {
+        text: i18n(I18nKey.gameStatusCompleted),
+        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+        icon: "✓",
+      };
+    case "planned":
+      return {
+        text: i18n(I18nKey.gameStatusPlanned),
+        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+        icon: "⏰",
+      };
+    case "onhold":
+      return {
+        text: i18n(I18nKey.gameStatusOnHold),
+        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+        icon: "⏸",
+      };
+    case "dropped":
+      return {
+        text: i18n(I18nKey.gameStatusDropped),
+        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+        icon: "✗",
+      };
+    default:
+      return {
+        text: status,
+        class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+        icon: "?",
+      };
+  }
+}
+---
+
+<MainGridLayout title={titleText} description={subtitleText}>
+  <script>
+    import("../scripts/right-sidebar-layout.js");
+  </script>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class={`card-base z-10 px-9 py-6 relative w-full game-page ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
+      <header class="mb-8">
+        <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-3 relative
+                  before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
+                  before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+          {titleText}
+        </h1>
+        <p class="text-neutral-600 dark:text-neutral-400">
+          {subtitleText}
+        </p>
+      </header>
+
+      <div class="stats-container grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-indigo-500/20 dark:border-indigo-400/20 bg-gradient-to-br from-indigo-500/20 via-indigo-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">
+          <div class="text-xs text-indigo-700/80 dark:text-indigo-200/70 mb-1">{T.statsTotal}</div>
+          <div class="text-2xl font-bold text-indigo-700 dark:text-indigo-200">{stats.total}</div>
+        </div>
+        <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-amber-500/20 dark:border-amber-400/20 bg-gradient-to-br from-amber-500/20 via-rose-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">
+          <div class="text-xs text-amber-700/80 dark:text-amber-200/70 mb-1">{T.statsAvgRating}</div>
+          <div class="text-2xl font-bold text-amber-700 dark:text-amber-200">{stats.avgRating}</div>
+        </div>
+        <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-emerald-500/20 dark:border-emerald-400/20 bg-gradient-to-br from-emerald-500/20 via-teal-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">
+          <div class="text-xs text-emerald-700/80 dark:text-emerald-200/70 mb-1">{T.statsLastUpdated}</div>
+          <div class="text-sm font-medium text-emerald-700 dark:text-emerald-200">{lastUpdated}</div>
+        </div>
+      </div>
+
+      <div id="list-announce" aria-live="polite" class="visually-hidden"></div>
+
+      <div class="search-container mb-6">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-input"
+            placeholder={T.searchPlaceholder}
+            class="w-full px-4 py-3 pl-12 rounded-[var(--radius-large)] border border-[var(--line-divider)] bg-[var(--card-bg)] text-[var(--text-body)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
+            aria-label={T.searchPlaceholder}
+          />
+          <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]" aria-hidden="true" style="pointer-events: none">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <div class="filter-container flex flex-wrap gap-2">
+          <button class="filter-tag active" data-status="all" aria-pressed="true">
+            {i18n(I18nKey.gameFilterAll)}
+            <span id="count-all" class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({gameList.length})</span>
+          </button>
+          <button class="filter-tag" data-status="playing" aria-pressed="false">
+            {i18n(I18nKey.gameStatusPlaying)}
+            <span id="count-playing" class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "playing").length})</span>
+          </button>
+          <button class="filter-tag" data-status="planned" aria-pressed="false">
+            {i18n(I18nKey.gameStatusPlanned)}
+            <span id="count-planned" class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "planned").length})</span>
+          </button>
+          <button class="filter-tag" data-status="completed" aria-pressed="false">
+            {i18n(I18nKey.gameStatusCompleted)}
+            <span id="count-completed" class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "completed").length})</span>
+          </button>
+          <button class="filter-tag" data-status="onhold" aria-pressed="false">
+            {i18n(I18nKey.gameStatusOnHold)}
+            <span id="count-onhold" class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "onhold").length})</span>
+          </button>
+          <button class="filter-tag" data-status="dropped" aria-pressed="false">
+            {i18n(I18nKey.gameStatusDropped)}
+            <span id="count-dropped" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "dropped").length})</span>
+          </button>
+        </div>
+      </div>
+
+      {(!isValidUserId && (
+        <div class="text-center py-12">
+          <div class="text-5xl mb-4" aria-hidden="true">😢</div>
+          <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+            {i18n(I18nKey.gameEmpty)}
+          </h3>
+          <p class="text-black/60 dark:text-white/60">
+            {i18n(I18nKey.gameEmptyBangumi)}
+          </p>
+        </div>
+      )) || (
+        <Fragment>
+          {gameList.length > 0 ? (
+            <div id="game-list-container" class={`game-grid-container gap-4 md:gap-6 list-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
+              {sortedGameList.map((game) => {
+                const statusInfo = getStatusInfo(game.status);
+                const showDeveloper = !game.developerMissing;
+                const showPlatform = !game.platformMissing;
+                return (
+                  <div
+                    class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-transform duration-300 hover:shadow-lg hover:scale-[1.02]"
+                    data-game-status={game.status}
+                    data-game-title={String(game.title || "").toLowerCase()}
+                    data-game-developer={String(game.developer || "").toLowerCase()}
+                    data-game-platform={String(game.platform || "").toLowerCase()}
+                    data-game-platforms={JSON.stringify(game.platformList || [])}
+                    data-game-genre={(game.genre || []).map((g) => String(g || "").toLowerCase()).join(" ")}
+                    data-game-developer-missing={String(!!game.developerMissing)}
+                    data-game-platform-missing={String(!!game.platformMissing)}
+                  >
+                    <div class="relative aspect-[2/3] overflow-hidden">
+                      <a href={game.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full" aria-label={`Open ${game.title} on Bangumi`}>
+                        <ImageWrapper
+                          src={game.cover}
+                          alt={game.title}
+                          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" style="pointer-events: none"></div>
+                      </a>
+
+                      <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`} aria-label={`Status: ${statusInfo.text}`}>
+                        <span class="mr-1" aria-hidden="true">{statusInfo.icon}</span>
+                        <span>{statusInfo.text}</span>
+                      </div>
+
+                      <div class="absolute top-2 right-2" aria-label={`Rating ${game.rating || 0}`}>
+                        <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
+                          <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-0.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z" />
+                          </svg>
+                          <span class="text-[10px] font-semibold leading-none">{game.rating}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="p-3">
+                      <h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{game.title}</h3>
+                      <p class="text-black/60 dark:text-white/60 text-xs mb-2 line-clamp-2">{game.description || ""}</p>
+                      <div class="space-y-1 text-xs">
+                        <div class="flex justify-between">
+                          <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.gameRelease)}</span>
+                          <span class="text-black/70 dark:text-white/70">{game.displayDate || T.unknown}</span>
+                        </div>
+                        {showDeveloper && (
+                          <div class="flex justify-between">
+                            <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.gameDeveloper)}</span>
+                            <span class="text-black/70 dark:text-white/70 truncate ml-2">{game.developer || T.unknown}</span>
+                          </div>
+                        )}
+                        {showPlatform && (
+                          <div class="flex justify-between">
+                            <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.gamePlatform)}</span>
+                            <span class="text-black/70 dark:text-white/70 truncate ml-2" data-game-platform-text>{game.platform || T.unknown}</span>
+                          </div>
+                        )}
+                        <div class="flex flex-wrap gap-1 mt-2">
+                          {(game.genre || []).map((g) => (
+                            <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div id="game-empty" class="text-center py-12">
+              <div class="text-5xl mb-4" aria-hidden="true">🎮</div>
+              <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+                {i18n(I18nKey.gameEmpty)}
+              </h3>
+              <p class="text-black/60 dark:text-white/60">
+                {i18n(I18nKey.gameEmptyBangumi)}
+              </p>
+            </div>
+          )}
+          <div id="game-empty-filter" class="text-center py-12 hidden">
+            <div class="text-5xl mb-4" aria-hidden="true">🔍</div>
+            <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+              {i18n(I18nKey.gameEmpty)}
+            </h3>
+            <p class="text-black/60 dark:text-white/60">
+              {i18n(I18nKey.gameEmptyBangumi)}
+            </p>
+          </div>
+          <div id="pagination-container" class="pagination-container flex justify-center items-center gap-2 mt-8">
+            <button id="first-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={T.paginationFirst}>
+              « {T.paginationFirst}
+            </button>
+            <button id="prev-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.prevPage)}>
+              &lt; {i18n(I18nKey.prevPage)}
+            </button>
+            <div id="page-numbers" class="flex gap-1" aria-live="polite"></div>
+            <button id="next-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.nextPage)}>
+              {i18n(I18nKey.nextPage)} &gt;
+            </button>
+            <button id="last-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={T.paginationLast}>
+              {T.paginationLast} »
+            </button>
+          </div>
+        </Fragment>
+      )}
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ isBothSidebarMode }} data-swup-reload-script>
+  (function() {
+    function runWhenReady() {
+      const root = document.querySelector('.game-page');
+      if (!root) return;
+
+      setTimeout(() => {
+        const gameListContainer = root.querySelector("#game-list-container");
+        if (!gameListContainer) return;
+
+        if (typeof window.layoutManager !== 'undefined') {
+          window.layoutManager.init(isBothSidebarMode);
+          const currentLayout = window.layoutManager.getLayout();
+          updateGameListLayout(currentLayout);
+          window.layoutManager.checkScreenSizeAndAdjust();
+        } else {
+          setTimeout(() => {
+            if (typeof window.layoutManager !== 'undefined') {
+              window.layoutManager.init(isBothSidebarMode);
+              const currentLayout = window.layoutManager.getLayout();
+              updateGameListLayout(currentLayout);
+              window.layoutManager.checkScreenSizeAndAdjust();
+            }
+          }, 300);
+        }
+      }, 50);
+    }
+
+    function updateGameListLayout(layout) {
+      const root = document.querySelector('.game-page');
+      if (!root) return;
+      const gameListContainer = root.querySelector("#game-list-container");
+      if (!gameListContainer) return;
+
+      const gameItems = Array.from(root.querySelectorAll('[data-game-status]'));
+      const firstPositions = new Map();
+      gameItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        firstPositions.set(item, {
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height
+        });
+      });
+
+      gameListContainer.classList.remove("list-mode", "grid-mode");
+      if (layout === "grid") {
+        gameListContainer.classList.add("grid-mode");
+        const rightSidebar = document.querySelector('.right-sidebar-container');
+        if (rightSidebar) {
+          rightSidebar.style.display = 'none';
+          rightSidebar.classList.add('hidden-in-grid-mode');
+        }
+        const mainGrid = document.getElementById('main-grid');
+        if (mainGrid) {
+          mainGrid.style.gridTemplateColumns = '17.5rem 1fr';
+          mainGrid.classList.add('two-column-layout');
+          mainGrid.setAttribute('data-layout-mode', 'grid');
+        }
+      } else {
+        gameListContainer.classList.add("list-mode");
+        const rightSidebar = document.querySelector('.right-sidebar-container');
+        if (rightSidebar) {
+          rightSidebar.style.display = '';
+          rightSidebar.classList.remove('hidden-in-grid-mode');
+        }
+        const mainGrid = document.getElementById('main-grid');
+        if (mainGrid) {
+          mainGrid.style.gridTemplateColumns = '';
+          mainGrid.classList.remove('two-column-layout');
+          mainGrid.setAttribute('data-layout-mode', 'list');
+        }
+      }
+
+      requestAnimationFrame(() => {
+        const lastPositions = new Map();
+        gameItems.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          lastPositions.set(item, {
+            left: rect.left,
+            top: rect.top
+          });
+        });
+
+        gameItems.forEach(item => {
+          const first = firstPositions.get(item);
+          const last = lastPositions.get(item);
+          if (first && last) {
+            const deltaX = first.left - last.left;
+            const deltaY = first.top - last.top;
+            item.style.transition = 'none';
+            item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+          }
+        });
+
+        requestAnimationFrame(() => {
+          gameItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('game-animating');
+              item.style.transition = '';
+              item.style.transform = '';
+            }, index * 20);
+          });
+
+          setTimeout(() => {
+            gameItems.forEach(item => {
+              item.classList.remove('game-animating');
+              item.style.transition = '';
+              item.style.transform = '';
+            });
+          }, 500 + gameItems.length * 20);
+        });
+      });
+    }
+
+    function onLayoutChange(event) {
+      updateGameListLayout(event.detail.layout);
+      if (window.__gamePage && window.__gamePage.updateAfterLayout) {
+        window.__gamePage.updateAfterLayout();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', runWhenReady);
+    window.addEventListener("layoutChange", onLayoutChange);
+    try { runWhenReady(); } catch(_) {}
+    document.addEventListener('swup:contentReplaced', () => { try { runWhenReady(); } catch(_) {} });
+    document.addEventListener('swup:pageView', () => { try { runWhenReady(); } catch(_) {} });
+    document.addEventListener('swup:animationInDone', () => { try { runWhenReady(); } catch(_) {} });
+  })();
+  </script>
+
+  <style>
+    .game-page { --game-font: 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+    .game-page, .game-page * { font-family: var(--game-font); }
+    .card-base { container-type: inline-size; }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important; height: 1px !important;
+      padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important;
+    }
+
+    .game-grid-container { transition: grid-template-columns 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .game-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .game-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
+
+    .search-container { position: relative; margin-bottom: 1.5rem; z-index: 2; pointer-events: auto; }
+    .filter-container { display: flex; flex-wrap: wrap; gap: 0.5rem; position: relative; z-index: 2; pointer-events: auto; }
+    .filter-tag {
+      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      background: var(--btn-regular-bg); color: var(--btn-content);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; white-space: nowrap; display: flex; align-items: center; position: relative; pointer-events: auto;
+    }
+    .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
+    .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .filter-tag.active:hover { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; transform: translateY(-1px); }
+
+    [data-game-status] { transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; contain: content; will-change: transform; }
+    #game-list-container.grid-mode [data-game-status]:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+    }
+    #game-list-container.list-mode [data-game-status]:hover {
+      transform: translateX(8px) scale(1.01);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    [data-game-status].is-filtered-out,
+    [data-game-status].is-searched-out,
+    [data-game-status].is-paginated-out { display: none !important; }
+
+    [data-game-status].game-animating {
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-game-status].game-fade-in { opacity: 0; transform: scale(0.8); }
+    [data-game-status].game-fade-in-active { opacity: 1; transform: scale(1); }
+    [data-game-status].game-fade-out { opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; }
+    [data-game-status].game-paginate-animating {
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-game-status].game-paginate-fade-in { opacity: 0; transform: scale(0.92); }
+    [data-game-status].game-paginate-fade-in-active { opacity: 1; transform: scale(1); }
+    [data-game-status].game-paginate-fade-out { opacity: 0; transform: scale(0.98); transition: opacity 0.28s ease, transform 0.28s ease; }
+
+    .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
+    .pagination-container { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+    .pagination-btn {
+      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      background: var(--btn-regular-bg); color: var(--btn-content);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+      display: flex; align-items: center; gap: 0.25rem;
+    }
+    .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); }
+    .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .page-number {
+      padding: 0.5rem 0.75rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      background: var(--btn-regular-bg); color: var(--btn-content);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
+    .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
+    #search-input { padding-left: 2.5rem; transition: box-shadow 0.3s ease; }
+    #search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+    .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+      #game-list-container [data-game-status] { transform: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      .game-grid-container.grid-mode { grid-template-columns: repeat(2, 1fr); }
+      .game-grid-container.list-mode { grid-template-columns: repeat(2, 1fr); }
+
+      .group .p-3 { padding: 0.875rem; }
+      .group h3 { font-size: 1rem; line-height: 1.5; }
+      .group p { font-size: 0.9375rem; line-height: 1.6; }
+
+      .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
+      .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
+
+      #search-input { padding: 0.875rem 1rem 0.875rem 2.75rem; font-size: 1rem; }
+    }
+  </style>
+
+  <script is:inline data-swup-reload-script>
+    (function() {
+      window.__gamePage = window.__gamePage || {};
+
+      function initGamePage() {
+        const root = document.querySelector('.game-page');
+        if (!root) return;
+
+        if (window.__gamePage && typeof window.__gamePage.cleanup === 'function') {
+          try { window.__gamePage.cleanup(); } catch (_) {}
+        }
+
+        const container = root.querySelector('#game-list-container');
+        if (!container) return;
+
+        const state = {
+          currentPage: 1,
+          pageWindowStart: 1,
+          windowSize: 5,
+          itemsPerPage: 10,
+          listeners: [],
+          searchDebounce: 0,
+          reduceMotion: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false,
+          lastFiltered: null
+        };
+
+        const allItems = Array.from(root.querySelectorAll('[data-game-status]'));
+        const filterTags = Array.from(root.querySelectorAll('.filter-tag'));
+        const searchInput = root.querySelector('#search-input');
+        const pageNumbersContainer = root.querySelector('#page-numbers');
+        const firstBtn = root.querySelector('#first-page');
+        const prevBtn = root.querySelector('#prev-page');
+        const nextBtn = root.querySelector('#next-page');
+        const lastBtn = root.querySelector('#last-page');
+        const paginationContainer = root.querySelector('#pagination-container');
+        const announce = root.querySelector('#list-announce');
+
+        const countEls = {
+          all: root.querySelector('#count-all'),
+          playing: root.querySelector('#count-playing'),
+          planned: root.querySelector('#count-planned'),
+          completed: root.querySelector('#count-completed'),
+          onhold: root.querySelector('#count-onhold'),
+          dropped: root.querySelector('#count-dropped'),
+        };
+
+      function detectDeviceType(ua) {
+        const s = String(ua || '').toLowerCase();
+        if (s.includes('android')) return 'android';
+        if (s.includes('iphone') || s.includes('ipad') || s.includes('ios')) return 'ios';
+        if (s.includes('playstation') || s.includes('ps5') || s.includes('ps4')) return 'playstation';
+        if (s.includes('xbox')) return 'xbox';
+        if (s.includes('nintendo') || s.includes('switch')) return 'switch';
+        if (s.includes('steam deck')) return 'steamdeck';
+        if (s.includes('windows')) return 'windows';
+        if (s.includes('mac os') || s.includes('macintosh')) return 'mac';
+        if (s.includes('linux')) return 'linux';
+        return 'unknown';
+      }
+
+      const platformBaseWeights = {
+        'PS5': 95,
+        'PS4': 90,
+        'PS3': 75,
+        'PS2': 65,
+        'PS': 55,
+        'PS Vita': 55,
+        'PSP': 50,
+        'PS VR2': 50,
+        'PS VR': 45,
+        'Xbox Series X/S': 85,
+        'Xbox One': 70,
+        'Xbox 360': 60,
+        'Xbox': 50,
+        'Switch 2': 95,
+        'Switch': 92,
+        'Wii U': 60,
+        'Wii': 55,
+        'GameCube': 50,
+        'Nintendo 64': 45,
+        'SNES': 45,
+        'NES': 40,
+        'Game Boy': 40,
+        'GBA': 45,
+        'DS': 50,
+        '3DS': 55,
+        'Steam Deck': 58,
+        'Steam': 70,
+        'Epic': 45,
+        'GOG': 40,
+        'itch.io': 35,
+        'Windows': 75,
+        'macOS': 55,
+        'Linux': 45,
+        'PC': 65,
+        'Android': 80,
+        'iOS': 78,
+        'HarmonyOS': 30,
+        '移动端': 60,
+        'Web': 62,
+        'Arcade': 45,
+        'Dreamcast': 35,
+        'Saturn': 35,
+        'Mega Drive': 35,
+        'PC Engine': 32,
+        'Neo Geo': 30,
+        'WonderSwan': 25,
+        '3DO': 25,
+        'Atari': 20,
+        'VR': 30,
+        'Cloud': 22,
+        '跨平台': 70,
+      };
+
+      const platformBoostTargets = {
+        android: ['Android', '移动端'],
+        ios: ['iOS', '移动端'],
+        windows: ['Windows', 'PC', 'Steam', 'Epic', 'GOG', 'itch.io'],
+        mac: ['macOS', 'PC', 'Steam'],
+        linux: ['Linux', 'PC', 'Steam', 'Steam Deck'],
+        steamdeck: ['Steam Deck', 'Steam', 'PC'],
+        playstation: ['PS5', 'PS4', 'PS3', 'PS2', 'PS', 'PS Vita', 'PSP', 'PS VR2', 'PS VR'],
+        xbox: ['Xbox Series X/S', 'Xbox One', 'Xbox 360', 'Xbox'],
+        switch: ['Switch 2', 'Switch', 'Wii U', 'Wii', '3DS', 'DS', 'GBA', 'Game Boy'],
+      };
+
+      function getPlatformWeight(label, deviceType) {
+        const base = platformBaseWeights[label] ?? 40;
+        const boostTargets = platformBoostTargets[deviceType] || [];
+        const boost = boostTargets.includes(label) ? 120 : 0;
+        return base + boost;
+      }
+
+      function safeParsePlatformList(attr) {
+        if (!attr) return [];
+        try {
+          const parsed = JSON.parse(attr);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function applyPlatformPriority(items) {
+        const deviceType = detectDeviceType(navigator.userAgent || '');
+        items.forEach((item) => {
+          const platforms = safeParsePlatformList(item.getAttribute('data-game-platforms'));
+          if (!platforms.length) return;
+          const ordered = [...platforms].sort((a, b) => {
+            const wa = getPlatformWeight(a, deviceType);
+            const wb = getPlatformWeight(b, deviceType);
+            if (wa !== wb) return wb - wa;
+            return a.localeCompare(b);
+          });
+          const text = ordered.join('/');
+          const platformText = item.querySelector('[data-game-platform-text]');
+          if (platformText) platformText.textContent = text;
+          item.setAttribute('data-game-platform', text.toLowerCase());
+        });
+      }
+
+      applyPlatformPriority(allItems);
+
+        function getSearchTerm() {
+          if (!searchInput) return '';
+          if (searchInput instanceof HTMLInputElement || searchInput instanceof HTMLTextAreaElement) {
+            return (searchInput.value || '').trim().toLowerCase();
+          }
+          return (searchInput.textContent || '').trim().toLowerCase();
+        }
+
+        function getCols() {
+          const gtc = getComputedStyle(container).gridTemplateColumns;
+          if (gtc && gtc !== 'none') {
+            const m = gtc.match(/repeat\(\s*(\d+)\s*,/i);
+            if (m) {
+              const n = parseInt(m[1], 10);
+              if (n > 0) return n;
+            }
+            const parts = gtc.trim().split(/\s+/).filter(Boolean);
+            if (parts.length > 0) return parts.length;
+          }
+
+          const candidates = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out') &&
+            !el.classList.contains('is-paginated-out')
+          );
+          const pool = candidates.length ? candidates : allItems;
+          let cols = 0;
+          if (pool.length) {
+            const firstTop = pool[0].getBoundingClientRect().top;
+            for (let i = 0; i < pool.length; i++) {
+              const t = pool[i].getBoundingClientRect().top;
+              if (Math.abs(t - firstTop) < 1) cols++;
+              else break;
+            }
+          }
+          if (cols > 0) return cols;
+
+          return container.classList.contains('grid-mode') ? 5 : 4;
+        }
+
+        function getItemsPerPageByLayout() {
+          const cols = getCols();
+          const rows = window.matchMedia && window.matchMedia('(min-width: 768px)').matches ? 2 : 2;
+          const ipp = Math.max(1, cols * rows);
+          return ipp;
+        }
+
+        function matchesSearch(item, term) {
+          if (!term) return true;
+          const title = item.getAttribute('data-game-title') || '';
+          const developer = item.getAttribute('data-game-developer') || '';
+          const platform = item.getAttribute('data-game-platform') || '';
+          const genre = item.getAttribute('data-game-genre') || '';
+          const status = item.getAttribute('data-game-status') || '';
+          return title.includes(term) || developer.includes(term) || platform.includes(term) || genre.includes(term) || status.includes(term);
+        }
+
+        function computeFiltered() {
+          const activeStatusEl = root.querySelector('.filter-tag.active');
+          const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+          const term = getSearchTerm();
+
+          return allItems.filter((item) => {
+            const itemStatus = item.getAttribute('data-game-status') || '';
+            const byStatus = (activeStatus === 'all') || (itemStatus === activeStatus);
+            const bySearch = matchesSearch(item, term);
+            return byStatus && bySearch;
+          });
+        }
+
+        function withFiltered(fn) {
+          const filtered = computeFiltered();
+          state.lastFiltered = filtered;
+          return fn(filtered);
+        }
+
+        function flipAnimate(keep, show, hide) {
+          if (state.reduceMotion) {
+            hide.forEach((el) => el.classList.add('is-filtered-out'));
+            show.forEach((el) => el.classList.remove('is-filtered-out', 'is-searched-out'));
+            return;
+          }
+
+          const first = new Map();
+          [...keep, ...show].forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            first.set(el, { left: rect.left, top: rect.top });
+          });
+
+          hide.forEach((el) => el.classList.add('game-fade-out'));
+
+          setTimeout(() => {
+            hide.forEach((el) => {
+              el.classList.add('is-filtered-out');
+              el.classList.remove('game-fade-out');
+            });
+
+            show.forEach((el) => {
+              el.classList.remove('is-filtered-out', 'is-searched-out');
+              el.classList.add('game-fade-in');
+              if (el instanceof HTMLElement) {
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0.8)';
+                el.style.transition = 'none';
+              }
+            });
+
+            requestAnimationFrame(() => {
+              const last = new Map();
+              [...keep, ...show].forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                last.set(el, { left: rect.left, top: rect.top });
+              });
+
+              keep.forEach((el) => {
+                const a = first.get(el);
+                const b = last.get(el);
+                if (a && b && el instanceof HTMLElement) {
+                  const dx = a.left - b.left;
+                  const dy = a.top - b.top;
+                  el.style.transition = 'none';
+                  el.style.transform = `translate(${dx}px, ${dy}px)`;
+                }
+              });
+
+              requestAnimationFrame(() => {
+                const all = [...keep, ...show];
+                all.forEach((el, i) => {
+                  setTimeout(() => {
+                    el.classList.add('game-animating');
+                    if (keep.includes(el) && el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                    }
+                    if (show.includes(el) && el instanceof HTMLElement) {
+                      el.classList.remove('game-fade-in');
+                      el.classList.add('game-fade-in-active');
+                      el.style.transition = '';
+                      el.style.opacity = '1';
+                      el.style.transform = 'scale(1)';
+                    }
+                  }, i * 20);
+                });
+
+                setTimeout(() => {
+                  all.forEach((el) => {
+                    el.classList.remove('game-animating', 'game-fade-in-active');
+                    if (el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                      el.style.opacity = '';
+                    }
+                  });
+                }, 500 + all.length * 20);
+              });
+            });
+          }, 120);
+        }
+
+        function flipAnimatePagination(keep, show, hide) {
+          if (state.reduceMotion) {
+            hide.forEach((el) => el.classList.add('is-paginated-out'));
+            show.forEach((el) => el.classList.remove('is-paginated-out'));
+            return;
+          }
+
+          const first = new Map();
+          keep.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            first.set(el, { left: rect.left, top: rect.top });
+          });
+
+          hide.forEach((el) => el.classList.add('game-paginate-fade-out'));
+
+          setTimeout(() => {
+            hide.forEach((el) => {
+              el.classList.add('is-paginated-out');
+              el.classList.remove('game-paginate-fade-out');
+            });
+
+            show.forEach((el) => {
+              el.classList.remove('is-paginated-out');
+              el.classList.add('game-paginate-fade-in');
+              if (el instanceof HTMLElement) {
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0.92)';
+                el.style.transition = 'none';
+              }
+            });
+
+            requestAnimationFrame(() => {
+              const last = new Map();
+              keep.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                last.set(el, { left: rect.left, top: rect.top });
+              });
+
+              keep.forEach((el) => {
+                const a = first.get(el);
+                const b = last.get(el);
+                if (a && b && el instanceof HTMLElement) {
+                  const dx = a.left - b.left;
+                  const dy = a.top - b.top;
+                  el.style.transition = 'none';
+                  el.style.transform = `translate(${dx}px, ${dy}px)`;
+                }
+              });
+
+              requestAnimationFrame(() => {
+                const all = [...keep, ...show];
+                all.forEach((el, i) => {
+                  setTimeout(() => {
+                    el.classList.add('game-paginate-animating');
+                    if (keep.includes(el) && el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                    }
+                    if (show.includes(el) && el instanceof HTMLElement) {
+                      el.classList.remove('game-paginate-fade-in');
+                      el.classList.add('game-paginate-fade-in-active');
+                      el.style.transition = '';
+                      el.style.opacity = '1';
+                      el.style.transform = 'scale(1)';
+                    }
+                  }, i * 20);
+                });
+
+                setTimeout(() => {
+                  all.forEach((el) => {
+                    el.classList.remove('game-paginate-animating', 'game-paginate-fade-in-active');
+                    if (el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                      el.style.opacity = '';
+                    }
+                  });
+                }, 500 + all.length * 20);
+              });
+            });
+          }, 120);
+        }
+
+        function updatePaginationUI(totalItems) {
+          if (!pageNumbersContainer) return;
+          state.itemsPerPage = getItemsPerPageByLayout();
+          const totalPages = Math.ceil(totalItems / state.itemsPerPage);
+
+          if (paginationContainer) {
+            paginationContainer.style.display = totalPages > 1 ? 'flex' : 'none';
+          }
+
+          pageNumbersContainer.innerHTML = '';
+          if (totalPages === 0) {
+            state.currentPage = 1;
+            state.pageWindowStart = 1;
+          } else {
+            if (state.currentPage > totalPages) state.currentPage = totalPages;
+            const maxStart = Math.max(1, totalPages - state.windowSize + 1);
+            if (state.pageWindowStart > maxStart) state.pageWindowStart = maxStart;
+            if (state.pageWindowStart < 1) state.pageWindowStart = 1;
+          }
+
+          const end = Math.min(totalPages, state.pageWindowStart + state.windowSize - 1);
+          for (let i = state.pageWindowStart; i <= end; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = String(i);
+            btn.classList.add('page-number');
+            btn.setAttribute('aria-label', `Go to page ${i}`);
+            if (i === state.currentPage) btn.classList.add('active');
+            btn.addEventListener('click', () => {
+              state.currentPage = i;
+              const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
+              applyPagination(filtered, true);
+              updatePaginationUI(filtered.length);
+            });
+            pageNumbersContainer.appendChild(btn);
+          }
+
+          const onFirst = state.currentPage === 1 || totalPages === 0;
+          const onLast = state.currentPage === totalPages || totalPages === 0;
+          if (firstBtn) firstBtn.disabled = onFirst;
+          if (prevBtn) prevBtn.disabled = onFirst;
+          if (nextBtn) nextBtn.disabled = onLast;
+          if (lastBtn) lastBtn.disabled = onLast;
+        }
+
+        function applyPagination(filtered, withFlip = false) {
+          const list = filtered || computeFiltered();
+          state.itemsPerPage = getItemsPerPageByLayout();
+
+          const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+          const endIndex = startIndex + state.itemsPerPage;
+
+          const target = list.slice(startIndex, endIndex);
+          const showSet = new Set(target);
+
+          if (!withFlip || state.reduceMotion) {
+            allItems.forEach((el) => {
+              if (showSet.has(el)) el.classList.remove('is-paginated-out');
+              else el.classList.add('is-paginated-out');
+            });
+            return;
+          }
+
+          const beforeVisible = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out') &&
+            !el.classList.contains('is-paginated-out')
+          );
+          const afterVisible = target;
+
+          const keep = afterVisible.filter(el => beforeVisible.includes(el));
+          const show = afterVisible.filter(el => !beforeVisible.includes(el));
+          const hide = beforeVisible.filter(el => !afterVisible.includes(el));
+
+          flipAnimatePagination(keep, show, hide);
+        }
+
+        function updateCountsForSearch() {
+          const term = getSearchTerm();
+          const matches = allItems.filter((it) => matchesSearch(it, term));
+          const countAll = matches.length;
+          const countsByStatus = Object.create(null);
+          matches.forEach((it) => {
+            const s = it.getAttribute('data-game-status') || 'unknown';
+            countsByStatus[s] = (countsByStatus[s] || 0) + 1;
+          });
+
+          if (countEls.all) countEls.all.textContent = `(${countAll})`;
+          ['playing', 'planned', 'completed', 'onhold', 'dropped'].forEach((s) => {
+            if (countEls[s]) countEls[s].textContent = `(${countsByStatus[s] || 0})`;
+          });
+
+          const activeStatusEl = root.querySelector('.filter-tag.active');
+          const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+          const showing = computeFiltered().length;
+          const label = activeStatus === 'all' ? 'All' : activeStatus;
+          if (announce) {
+            announce.textContent = `Showing ${showing} item(s) for "${label}"${term ? ` with search "${term}"` : ''}.`;
+          }
+        }
+
+        function refreshAll(triggerFLIP = false) {
+          const beforeVisible = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out')
+          );
+
+          withFiltered((filtered) => {
+            const activeStatusEl = root.querySelector('.filter-tag.active');
+            const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+            const term = getSearchTerm();
+            const matched = new Set(filtered);
+
+            allItems.forEach((el) => {
+              const inFilter = (activeStatus === 'all') || (el.getAttribute('data-game-status') === activeStatus);
+              const inSearch = !term || matched.has(el);
+              if (inFilter && inSearch) {
+                el.classList.remove('is-filtered-out', 'is-searched-out');
+              } else {
+                if (!inFilter) el.classList.add('is-filtered-out'); else el.classList.remove('is-filtered-out');
+                if (!inSearch) el.classList.add('is-searched-out'); else el.classList.remove('is-searched-out');
+              }
+            });
+
+            state.currentPage = 1;
+            state.pageWindowStart = 1;
+            applyPagination(filtered, false);
+            updatePaginationUI(filtered.length);
+            updateCountsForSearch();
+
+            if (triggerFLIP) {
+              const afterVisible = allItems.filter(el =>
+                !el.classList.contains('is-filtered-out') &&
+                !el.classList.contains('is-searched-out')
+              );
+              const keep = afterVisible.filter(el => beforeVisible.includes(el));
+              const show = afterVisible.filter(el => !beforeVisible.includes(el));
+              const hide = beforeVisible.filter(el => !afterVisible.includes(el));
+              flipAnimate(keep, show, hide);
+            }
+          });
+        }
+
+        filterTags.forEach(tag => {
+          const handler = () => {
+            if (tag.classList.contains('active')) return;
+            filterTags.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false'); });
+            tag.classList.add('active');
+            tag.setAttribute('aria-pressed','true');
+            refreshAll(true);
+          };
+          tag.addEventListener('click', handler);
+          state.listeners.push({ el: tag, type: 'click', handler });
+        });
+
+        if (searchInput) {
+          const inputHandler = function() {
+            clearTimeout(state.searchDebounce);
+            state.searchDebounce = window.setTimeout(() => refreshAll(true), 200);
+          };
+          const keyHandler = function(e) {
+            if (e.key === 'Escape') {
+              if (searchInput instanceof HTMLInputElement) {
+                searchInput.value = '';
+              } else if (searchInput) {
+                searchInput.textContent = '';
+              }
+              refreshAll(true);
+            } else if (e.key === 'Enter') {
+              state.currentPage = 1;
+              state.pageWindowStart = 1;
+              refreshAll(true);
+            }
+          };
+          searchInput.addEventListener('input', inputHandler);
+          searchInput.addEventListener('keydown', keyHandler);
+          state.listeners.push({ el: searchInput, type: 'input', handler: inputHandler });
+          state.listeners.push({ el: searchInput, type: 'keydown', handler: keyHandler });
+        }
+
+        if (firstBtn && prevBtn && nextBtn && lastBtn) {
+          const firstH = () => withFiltered((filtered) => {
+            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
+            if (state.currentPage !== 1 && totalPages > 0) {
+              state.currentPage = 1; state.pageWindowStart = 1;
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          const prevH = () => withFiltered((filtered) => {
+            if (state.currentPage > 1) {
+              state.currentPage--; state.pageWindowStart = Math.max(1, state.pageWindowStart - 1);
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          const nextH = () => withFiltered((filtered) => {
+            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
+            if (state.currentPage < totalPages) {
+              state.currentPage++; const maxStart = Math.max(1, totalPages - state.windowSize + 1);
+              state.pageWindowStart = Math.min(maxStart, state.pageWindowStart + 1);
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          const lastH = () => withFiltered((filtered) => {
+            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
+            if (totalPages > 0 && state.currentPage !== totalPages) {
+              state.currentPage = totalPages; state.pageWindowStart = Math.max(1, totalPages - state.windowSize + 1);
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          firstBtn.addEventListener('click', firstH);
+          prevBtn.addEventListener('click', prevH);
+          nextBtn.addEventListener('click', nextH);
+          lastBtn.addEventListener('click', lastH);
+          state.listeners.push({ el: firstBtn, type: 'click', handler: firstH });
+          state.listeners.push({ el: prevBtn, type: 'click', handler: prevH });
+          state.listeners.push({ el: nextBtn, type: 'click', handler: nextH });
+          state.listeners.push({ el: lastBtn, type: 'click', handler: lastH });
+        }
+
+        refreshAll(false);
+
+        window.__gamePage = {
+          updateAfterLayout() {
+            const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
+            applyPagination(filtered, false);
+            updatePaginationUI(filtered.length);
+          },
+          cleanup() {
+            state.listeners.forEach(({ el, type, handler }) => {
+              el.removeEventListener(type, handler);
+            });
+          },
+        };
+      }
+
+      function scheduleInitTry(timesLeft = 30) {
+        if (window.__gamePage && typeof window.__gamePage.cleanup === 'function') {
+          try { window.__gamePage.cleanup(); } catch (_) {}
+        }
+        const tryInit = () => {
+          const root = document.querySelector('.game-page');
+          const hasContainer = root && root.querySelector('#game-list-container');
+          if (root && hasContainer) {
+            initGamePage();
+            return true;
+          }
+          return false;
+        };
+        if (tryInit()) return;
+
+        if (timesLeft > 0) {
+          setTimeout(() => scheduleInitTry(timesLeft - 1), 120);
+        } else {
+          const mo = new MutationObserver(() => { if (tryInit()) mo.disconnect(); });
+          mo.observe(document.documentElement, { childList: true, subtree: true });
+          setTimeout(() => mo.disconnect(), 5000);
+        }
+      }
+
+      function swupBind() {
+        if (!window.swup) return;
+        window.__gamePage.__swup = window.__gamePage.__swup || { bound: false, reinit: null };
+        if (window.__gamePage.__swup.bound) return;
+
+        const reinit = () => {
+          scheduleInitTry();
+        };
+        window.__gamePage.__swup.reinit = reinit;
+
+        if (window.swup.hooks && typeof window.swup.hooks.on === 'function') {
+          window.swup.hooks.on('content:replace', reinit);
+          window.swup.hooks.on('page:view', reinit);
+          window.swup.hooks.on('animation:in:end', reinit);
+        }
+        window.__gamePage.__swup.bound = true;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        scheduleInitTry();
+        swupBind();
+      });
+      try { scheduleInitTry(); swupBind(); } catch (_) {}
+
+      document.addEventListener('swup:contentReplaced', () => { try { scheduleInitTry(); } catch(_) {} });
+      document.addEventListener('swup:pageView', () => { try { scheduleInitTry(); } catch(_) {} });
+      document.addEventListener('swup:animationInDone', () => { try { scheduleInitTry(); } catch(_) {} });
+      document.addEventListener('swup:willReplaceContent', () => {
+        if (window.__gamePage && typeof window.__gamePage.cleanup === 'function') {
+          try { window.__gamePage.cleanup(); } catch (_) {}
+        }
+      });
+    })();
+  </script>
+</MainGridLayout>
