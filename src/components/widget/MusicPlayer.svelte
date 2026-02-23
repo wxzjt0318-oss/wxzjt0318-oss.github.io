@@ -4,6 +4,7 @@ import { onDestroy, onMount } from "svelte";
 import { slide } from "svelte/transition";
 // 从配置文件中导入音乐播放器配置
 import { musicPlayerConfig } from "../../config";
+import { fetchMetingListWithFailover } from "../../utils/music-api.js";
 // 导入国际化相关的 Key 和 i18n 实例
 import Key from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
@@ -14,12 +15,19 @@ let mode = musicPlayerConfig.mode ?? "meting";
 let meting_api =
 	musicPlayerConfig.meting_api ??
 	"https://www.bilibili.uno/api?server=:server&type=:type&id=:id&auth=:auth&r=:r";
+let meting_api_backup =
+	musicPlayerConfig.backup_meting_api ??
+	"https://music.zhheo.com/meting-api/?server=:server&type=:type&id=:id&auth=:auth&r=:r";
 // Meting API 的 ID，从配置中获取或使用默认值
 let meting_id = musicPlayerConfig.id ?? "14164869977";
 // Meting API 的服务器，从配置中获取或使用默认值,有的meting的api源支持更多平台,一般来说,netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐, xiami=虾米音乐, baidu=百度音乐
 let meting_server = musicPlayerConfig.server ?? "netease";
 // Meting API 的类型，从配置中获取或使用默认值
 let meting_type = musicPlayerConfig.type ?? "playlist";
+let requestTimeoutMs = musicPlayerConfig.requestTimeoutMs ?? 5000;
+let maxRetries = musicPlayerConfig.maxRetries ?? 3;
+let retryDelayMs = musicPlayerConfig.retryDelayMs ?? 1000;
+let usingBackupApi = false;
 
 // 播放状态，默认为 false (未播放)
 let isPlaying = false;
@@ -102,36 +110,35 @@ const localPlaylist = [
 async function fetchMetingPlaylist() {
 	if (!meting_api || !meting_id) return;
 	isLoading = true;
-	const apiUrl = meting_api
-		.replace(":server", meting_server)
-		.replace(":type", meting_type)
-		.replace(":id", meting_id)
-		.replace(":auth", "")
-		.replace(":r", Date.now().toString());
 	try {
-		const res = await fetch(apiUrl);
-		if (!res.ok) throw new Error("meting api error");
-		const list = await res.json();
-		playlist = list.map((song: any) => {
-			let title = song.name ?? song.title ?? i18n(Key.unknownSong);
-		let artist = song.artist ?? song.author ?? i18n(Key.unknownArtist);
-			let dur = song.duration ?? 0;
-			if (dur > 10000) dur = Math.floor(dur / 1000);
-			if (!Number.isFinite(dur) || dur <= 0) dur = 0;
-			return {
-				id: song.id,
-				title,
-				artist,
-				cover: song.pic ?? "",
-				url: song.url ?? "",
-				duration: dur,
-			};
+		const previousBackupState = usingBackupApi;
+		const { list, usedBackup, primaryError } = await fetchMetingListWithFailover({
+			primaryApi: meting_api,
+			backupApi: meting_api_backup,
+			server: meting_server,
+			type: meting_type,
+			id: meting_id,
+			timeoutMs: requestTimeoutMs,
+			maxRetries,
+			retryDelayMs,
+			unknownSong: i18n(Key.unknownSong),
+			unknownArtist: i18n(Key.unknownArtist),
 		});
+		playlist = list;
+		usingBackupApi = usedBackup;
+		if (usedBackup !== previousBackupState) {
+			if (usedBackup) {
+				console.warn("Music API switched to backup", primaryError);
+			} else {
+				console.info("Music API switched to primary");
+			}
+		}
 		if (playlist.length > 0) {
 			loadSong(playlist[0]);
 		}
 		isLoading = false;
 	} catch (e) {
+		console.error("Music API failed", e);
 		showErrorMessage(i18n(Key.musicPlayerErrorPlaylist));
 		isLoading = false;
 	}
@@ -520,7 +527,10 @@ onDestroy(() => {
                 <div class="text-sm font-medium text-90 truncate">{currentSong.title}</div>
                 <div class="text-xs text-50 truncate">{currentSong.artist}</div>
             </div>
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-2">
+                <span class="api-badge" class:api-backup={usingBackupApi}>
+					{usingBackupApi ? "Backup" : "Primary"}
+				</span>
                 <button class="btn-plain w-8 h-8 rounded-lg flex items-center justify-center"
                         on:click|stopPropagation={toggleHidden}
                         title={i18n(Key.musicPlayerHide)}>
@@ -758,6 +768,18 @@ onDestroy(() => {
 .music-player {
     max-width: 20rem;
     user-select: none;
+}
+.api-badge {
+    padding: 0.125rem 0.375rem;
+    font-size: 0.6875rem;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--text-body);
+    border: 1px solid var(--line-divider);
+    line-height: 1;
+}
+.api-badge.api-backup {
+    background: rgba(245, 158, 11, 0.2);
 }
 .mini-player {
     width: 17.5rem;

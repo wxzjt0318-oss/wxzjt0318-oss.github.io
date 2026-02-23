@@ -24,7 +24,8 @@
 		"preinstall": "npx only-allow pnpm",
 		"compress-fonts": "node scripts/compress-fonts.js",
 		"test-font-compression": "node scripts/test-font-compression.js",
-		"test:anime": "node scripts/anime-search.test.mjs && node scripts/anime-collection.test.mjs"
+		"test:anime": "node scripts/anime-search.test.mjs && node scripts/anime-collection.test.mjs",
+		"test:music": "node scripts/music-api.test.mjs"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.6",

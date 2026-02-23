@@ -295,6 +295,11 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	mode: "meting",
 	meting_api:
 		"https://www.bilibili.uno/api?server=:server&type=:type&id=:id&auth=:auth&r=:r",
+	backup_meting_api:
+		"https://music.zhheo.com/meting-api/?server=:server&type=:type&id=:id&auth=:auth&r=:r",
+	requestTimeoutMs: 5000,
+	retryDelayMs: 1000,
+	maxRetries: 3,
 	id: "13985124277",
 	server: "netease",
 	type: "playlist",
@@ -451,4 +456,3 @@ export const umamiConfig: {
 <script defer src="https://cloud.umami.is/script.js" data-website-id="5529ac8c-8065-46d2-b0dc-83960ac4163c"></script>
   `.trim(),
 };
-

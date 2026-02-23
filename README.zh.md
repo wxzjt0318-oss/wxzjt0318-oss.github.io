@@ -163,6 +163,15 @@ BCRYPT_SALT_ROUNDS=12
 部署前，请在 `src/config.ts` 中更新 `siteURL`。
 **不建议**将 `.env` 文件提交到 Git，`.env` 应该仅在本地调试或构建使用。若要将项目在云平台部署，建议通过平台上的 `环境变量` 配置传入。
 
+### 🎵 音乐播放器备用接口
+
+- 配置位置：`src/config.ts` -> `musicPlayerConfig.backup_meting_api`
+- 默认地址：`https://music.zhheo.com/meting-api/?server=:server&type=:type&id=:id&auth=:auth&r=:r`
+- 降级触发：主接口请求失败、超时、非 2xx 或返回空列表时自动切换到备用接口
+- 切换提示：播放器迷你模式显示 Primary/Backup 状态
+- 可调参数：`requestTimeoutMs`、`maxRetries`、`retryDelayMs`
+- 参数格式：`server` 支持 `netease`、`tencent` 等；`type` 支持 `song`、`playlist`、`url`、`pic`、`lrc` 等；`id` 为对应类型 ID
+
 ## 📝 文章前言格式
 
 ```yaml

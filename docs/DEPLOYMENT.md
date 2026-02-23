@@ -413,6 +413,14 @@ fatal: could not read Username for 'https://github.com'
 
 ---
 
+## 🎵 音乐播放器备用接口配置
+
+- 生产环境请确认 `src/config.ts` 中 `musicPlayerConfig.backup_meting_api` 已设置为 `https://music.zhheo.com/meting-api/?server=:server&type=:type&id=:id&auth=:auth&r=:r`
+- 主接口不可用时会自动降级到备用接口，接口可访问性会直接影响音乐播放可用性
+- 可选参数：`requestTimeoutMs`、`maxRetries`、`retryDelayMs`，用于控制超时与重试策略
+
+---
+
 ## 💡 推荐配置
 
 ### 个人博客
