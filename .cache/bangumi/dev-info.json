@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-02-23T03:30:50.753Z",
+  "updatedAt": "2026-02-25T11:05:59.333Z",
   "items": {
     "6818": {
       "id": 6818,
@@ -8,7 +8,15 @@
       "developer": "Blizzard Entertainment",
       "platform": "macOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.049Z"
+      "lastChecked": "2026-02-25T11:05:47.061Z"
+    },
+    "12596": {
+      "id": 12596,
+      "title": "我的世界",
+      "developer": "Mojang Studios",
+      "platform": "PS5/Switch/PS4/Android/iOS/PS3/Windows/Xbox One/Wii U/Xbox 360/3DS/macOS/PS Vita/Linux/Chrome OS/Fire OS/Raspberry Pi/tvOS/WonderSwan",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:35.147Z"
     },
     "13210": {
       "id": 13210,
@@ -16,7 +24,7 @@
       "developer": "エンターブレイン",
       "platform": "PS2/PS Vita/PSP",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:46.658Z"
+      "lastChecked": "2026-02-25T11:05:43.152Z"
     },
     "18011": {
       "id": 18011,
@@ -24,7 +32,7 @@
       "developer": "Riot Games/腾讯游戏/Garena/THQ",
       "platform": "macOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:45.855Z"
+      "lastChecked": "2026-02-25T11:05:38.406Z"
     },
     "44645": {
       "id": 44645,
@@ -32,7 +40,15 @@
       "developer": "Smilegate Entertainment/네오위즈/腾讯游戏/茂為歐買尬數位科技/Z8Games/UtoPlanet/SG Interactive/VTC Games/Pharaoh Gaming",
       "platform": "PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:50.753Z"
+      "lastChecked": "2026-02-25T11:05:59.333Z"
+    },
+    "52356": {
+      "id": 52356,
+      "title": "反恐精英：全球攻势",
+      "developer": "Valve/Hidden Path Entertainment",
+      "platform": "PS3/Xbox 360/macOS/Linux",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.489Z"
     },
     "98330": {
       "id": 98330,
@@ -40,7 +56,7 @@
       "developer": "橘子班/落叶岛项目组",
       "platform": "Switch/PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:49.182Z"
+      "lastChecked": "2026-02-25T11:05:51.102Z"
     },
     "194792": {
       "id": 194792,
@@ -48,7 +64,7 @@
       "developer": "天美工作室群",
       "platform": "Android/iOS/HarmonyOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:43.661Z"
+      "lastChecked": "2026-02-25T11:05:35.154Z"
     },
     "196074": {
       "id": 196074,
@@ -56,7 +72,7 @@
       "developer": "橘子班/大好网",
       "platform": "PC/Web",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:50.156Z"
+      "lastChecked": "2026-02-25T11:05:54.477Z"
     },
     "200763": {
       "id": 200763,
@@ -64,7 +80,7 @@
       "developer": "VISUAL ARTS/Key",
       "platform": "Switch/Android/iOS/PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:49.896Z"
+      "lastChecked": "2026-02-25T11:05:51.619Z"
     },
     "202892": {
       "id": 202892,
@@ -72,7 +88,15 @@
       "developer": "绘恋GALGAME",
       "platform": "PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:47.535Z"
+      "lastChecked": "2026-02-25T11:05:46.759Z"
+    },
+    "247785": {
+      "id": 247785,
+      "title": "狐姬零",
+      "developer": "AsicxArt",
+      "platform": "Android/iOS/PC",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.338Z"
     },
     "258401": {
       "id": 258401,
@@ -80,13 +104,21 @@
       "developer": "汉家松鼠",
       "platform": "Android/iOS/PC/Silverlight",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.102Z"
+      "lastChecked": "2026-02-25T11:05:49.615Z"
+    },
+    "269896": {
+      "id": 269896,
+      "title": "隐形守护者",
+      "developer": "New One Studio",
+      "platform": "Android/iOS/macOS",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.329Z"
     },
     "275265": {
       "id": 275265,
       "title": "恋愛、借りちゃいました",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:46.830Z"
+      "lastChecked": "2026-02-25T11:05:42.172Z"
     },
     "284157": {
       "id": 284157,
@@ -94,7 +126,7 @@
       "developer": "米哈游",
       "platform": "PS5/PS4/Xbox Series X/S/Android/iOS/PC/S/HarmonyOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:50.504Z"
+      "lastChecked": "2026-02-25T11:05:54.684Z"
     },
     "285687": {
       "id": 285687,
@@ -102,7 +134,23 @@
       "developer": "#workshop/龍之咲HD",
       "platform": "PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.396Z"
+      "lastChecked": "2026-02-25T11:05:47.058Z"
+    },
+    "288969": {
+      "id": 288969,
+      "title": "茸茸便利店",
+      "developer": "AsicxArt制作组",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.329Z"
+    },
+    "293738": {
+      "id": 293738,
+      "title": "拣爱",
+      "developer": "赤叶游戏",
+      "platform": "Android/iOS/PC",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.536Z"
     },
     "297264": {
       "id": 297264,
@@ -110,7 +158,7 @@
       "developer": "Front Wing × 枕",
       "platform": "Switch/Android/iOS/PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.751Z"
+      "lastChecked": "2026-02-25T11:05:47.471Z"
     },
     "302427": {
       "id": 302427,
@@ -118,7 +166,7 @@
       "developer": "龍之咲 HD",
       "platform": "PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.421Z"
+      "lastChecked": "2026-02-25T11:05:47.426Z"
     },
     "303543": {
       "id": 303543,
@@ -126,13 +174,13 @@
       "developer": "Riot Games",
       "platform": "PS5/Xbox Series X/S/PC/S",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:45.853Z"
+      "lastChecked": "2026-02-25T11:05:38.349Z"
     },
     "308573": {
       "id": 308573,
       "title": "恋爱X决胜战",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:49.393Z"
+      "lastChecked": "2026-02-25T11:05:46.623Z"
     },
     "317730": {
       "id": 317730,
@@ -140,7 +188,15 @@
       "developer": "光子工作室群/Riot Games",
       "platform": "Android/iOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:45.514Z"
+      "lastChecked": "2026-02-25T11:05:38.168Z"
+    },
+    "334035": {
+      "id": 334035,
+      "title": "小兵求爱记",
+      "developer": "Yangyang Mobile",
+      "platform": "macOS/Linux",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.315Z"
     },
     "347794": {
       "id": 347794,
@@ -148,13 +204,13 @@
       "developer": "光子工作室群",
       "platform": "Android/iOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:45.455Z"
+      "lastChecked": "2026-02-25T11:05:39.010Z"
     },
     "356907": {
       "id": 356907,
       "title": "恋爱成双",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:47.735Z"
+      "lastChecked": "2026-02-25T11:05:49.014Z"
     },
     "364952": {
       "id": 364952,
@@ -162,7 +218,7 @@
       "developer": "桑尼游戏",
       "platform": "PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.292Z"
+      "lastChecked": "2026-02-25T11:05:49.014Z"
     },
     "385208": {
       "id": 385208,
@@ -170,20 +226,28 @@
       "developer": "库洛游戏",
       "platform": "PS5/Android/iOS/PC/Mac",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.471Z"
+      "lastChecked": "2026-02-25T11:05:47.363Z"
     },
     "431610": {
       "id": 431610,
       "title": "TNT弹道轨迹",
       "platform": "Web",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:47.810Z"
+      "lastChecked": "2026-02-25T11:05:46.353Z"
     },
     "442350": {
       "id": 442350,
       "title": "永恒世界",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:49.446Z"
+      "lastChecked": "2026-02-25T11:05:46.997Z"
+    },
+    "445334": {
+      "id": 445334,
+      "title": "米塔",
+      "developer": "Aihasto",
+      "platform": "PC",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:43.490Z"
     },
     "452020": {
       "id": 452020,
@@ -191,19 +255,33 @@
       "developer": "Blizzard Entertainment",
       "platform": "macOS",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.137Z"
+      "lastChecked": "2026-02-25T11:05:47.061Z"
     },
     "457780": {
       "id": 457780,
       "title": "特工17",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:49.529Z"
+      "lastChecked": "2026-02-25T11:05:46.188Z"
+    },
+    "460529": {
+      "id": 460529,
+      "title": "完蛋！我被美女包围了！",
+      "developer": "广州小有内容",
+      "platform": "PS5/Switch/PS4/Xbox Series X/S/Android/iOS/Xbox One/macOS/Linux/S",
+      "status": "ok",
+      "lastChecked": "2026-02-25T11:05:45.356Z"
     },
     "464784": {
       "id": 464784,
       "title": "刘婵养成计划",
       "status": "missing",
-      "lastChecked": "2026-02-23T03:30:49.250Z"
+      "lastChecked": "2026-02-25T11:05:46.996Z"
+    },
+    "481553": {
+      "id": 481553,
+      "title": "涟漪",
+      "status": "missing",
+      "lastChecked": "2026-02-25T11:05:44.425Z"
     },
     "495794": {
       "id": 495794,
@@ -211,7 +289,13 @@
       "developer": "厦门雷云",
       "platform": "Android/iOS/PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:47.181Z"
+      "lastChecked": "2026-02-25T11:05:43.608Z"
+    },
+    "511152": {
+      "id": 511152,
+      "title": "Waifu Academy",
+      "status": "missing",
+      "lastChecked": "2026-02-25T11:05:46.622Z"
     },
     "561628": {
       "id": 561628,
@@ -219,7 +303,7 @@
       "developer": "高考恋爱委员会/橘子班",
       "platform": "PC",
       "status": "ok",
-      "lastChecked": "2026-02-23T03:30:48.631Z"
+      "lastChecked": "2026-02-25T11:05:47.456Z"
     }
   }
 }

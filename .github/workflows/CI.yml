@@ -60,7 +60,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run Astro Build
-        run: pnpm astro build
+      - name: Create Personalization Snapshot
+        run: pnpm snapshot-personalization
         env:
           ENABLE_CONTENT_SYNC: false
+          PERSONALIZATION_SNAPSHOT_KEY: ${{ secrets.PERSONALIZATION_SNAPSHOT_KEY }}
+
+      - name: Run Build
+        run: pnpm build
+        env:
+          ENABLE_CONTENT_SYNC: false
+
+      - name: Run Personalization Regression
+        run: pnpm test:personalization
+        env:
+          PERSONALIZATION_SNAPSHOT_KEY: ${{ secrets.PERSONALIZATION_SNAPSHOT_KEY }}

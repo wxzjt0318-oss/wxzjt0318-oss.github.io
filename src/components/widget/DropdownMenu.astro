@@ -88,7 +88,7 @@ const hasChildren = children.length > 0;
 								</div>
 								{child.external && (
 									<Icon
-										name="fa6-solid:arrow-up-right-from-square"
+										name="fa7-solid:arrow-up-right-from-square"
 										class="text-[0.75rem] text-black/25 dark:text-white/25 ml-2"
 									/>
 								)}
@@ -111,7 +111,7 @@ const hasChildren = children.length > 0;
 				<span class="truncate hidden lg:inline">{getLocalizedName(link.name)}</span>
 				{link.external && (
 					<Icon
-						name="fa6-solid:arrow-up-right-from-square"
+						name="fa7-solid:arrow-up-right-from-square"
 						class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2] flex-shrink-0 hidden lg:inline"
 					/>
 				)}
@@ -121,6 +121,7 @@ const hasChildren = children.length > 0;
 </div>
 
 <style>
+	@reference "tailwindcss";
 	.dropdown-container {
 		@apply relative;
 	}

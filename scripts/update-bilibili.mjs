@@ -60,13 +60,7 @@ async function getUserIdFromConfig() {
 }
 
 async function getSessdataFromConfig() {
-	try {
-		const configContent = await fs.readFile(CONFIG_PATH, "utf-8");
-		const match = configContent.match(/SESSDATA:\s*["']([^"']*)["']/);
-		return match ? match[1] : "";
-	} catch {
-		return "";
-	}
+	return process.env.BILI_SESSDATA || "";
 }
 
 async function getCoverMirrorFromConfig() {

@@ -1,12 +1,13 @@
 import sitemap from "@astrojs/sitemap";
 import svelte, { vitePreprocess } from "@astrojs/svelte";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import swup from "@swup/astro";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
+import { umami } from "oddmisc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components";
 import rehypeKatex from "rehype-katex";
@@ -36,8 +37,8 @@ export default defineConfig({
 	output: "static",
 
 	integrations: [
-		tailwind({
-			nesting: true,
+		umami({
+			shareUrl: false,
 		}),
 		swup({
 			theme: false,
@@ -166,6 +167,7 @@ export default defineConfig({
 		],
 	},
 	vite: {
+		plugins: [tailwindcss()],
 		build: {
 			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大（可选，根据需要调整）
 			assetsInlineLimit: 4096,

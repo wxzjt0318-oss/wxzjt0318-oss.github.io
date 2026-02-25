@@ -306,6 +306,7 @@ export type BlogPostData = {
 	image?: string;
 	category?: string;
 	pinned?: boolean;
+	comments?: boolean;
 	prevTitle?: string;
 	prevSlug?: string;
 	nextTitle?: string;
@@ -484,4 +485,3 @@ export type ShareConfig = {
 	enable: boolean; // 是否启用分享功能
 	poster?: SharePosterConfig; // SharePoster 设置
 };
-

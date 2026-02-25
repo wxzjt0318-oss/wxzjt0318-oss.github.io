@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* 导入相册样式 */
 @import "./albums.css";
 /* 导入追番页面样式 */
@@ -8,6 +10,44 @@
 /* 导入渐变按钮样式 */
 @import "./gradient-buttons.css";
 /* 加密内容样式已移除，现在直接使用非加密文章的样式 */
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    "Roboto", "sans-serif", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1280px;
+}
+
+@utility expand-animation {
+  position: relative;
+  z-index: 0;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    scale: 0.85;
+    z-index: -10;
+    transition: all 0.15s ease-out;
+  }
+  &:hover::before {
+    background-color: var(--btn-plain-bg-hover);
+    scale: 1;
+  }
+  &:active::before {
+    background-color: var(--btn-plain-bg-active);
+  }
+  &:active {
+    background: none;
+  }
+}
 
 /* 导入 ZenMaruGothic-Medium 字体 */
 @font-face {
@@ -26,13 +66,14 @@
   font-display: swap;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* 确保平滑滚动 */
 html {
-  scroll-behavior: smooth;
+	@apply scroll-smooth;
+	@apply text-black/80;
+
+	&.dark {
+		@apply text-white/80;
+	}
 }
 
 /* 页面顶部渐变高光效果 */
