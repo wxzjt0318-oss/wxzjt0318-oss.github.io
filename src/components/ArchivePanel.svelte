@@ -101,7 +101,7 @@ onMount(async () => {
                 </div>
                 <div class="w-[15%] md:w-[10%]">
                     <div
-                            class="h-3 w-3 bg-none rounded-full outline outline-[var(--primary) mx-auto
+                            class="h-3 w-3 bg-[var(--primary)] rounded-full outline outline-[var(--primary)] mx-auto
                   -outline-offset-2 z-50 outline-3"
                     ></div>
                 </div>
@@ -126,18 +126,18 @@ onMount(async () => {
                         <div class="w-[15%] md:w-[10%] relative dash-line h-full flex items-center">
                             <div
                                     class="transition-all mx-auto w-1 h-1 rounded group-hover:h-5
-                       bg-[oklch(0.5_0.05_var(--hue))] group-hover:bg-[var(--primary)
+                       bg-[oklch(0.5_0.05_var(--hue))] group-hover:bg-[var(--primary)]
                        outline outline-4 z-50
-                       outline-[var(--card-bg)
-                       group-hover:outline-[var(--btn-plain-bg-hover)
-                       group-active:outline-[var(--btn-plain-bg-active)"
+                       outline-[var(--card-bg)]
+                       group-hover:outline-[var(--btn-plain-bg-hover)]
+                       group-active:outline-[var(--btn-plain-bg-active)]"
                             ></div>
                         </div>
 
                         <!-- post title -->
                         <div
                                 class="w-[70%] md:max-w-[65%] md:w-[65%] text-left font-bold
-                     group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)
+                     group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)]
                      text-75 pr-8 whitespace-nowrap text-ellipsis overflow-hidden"
                         >
                             {post.data.title}

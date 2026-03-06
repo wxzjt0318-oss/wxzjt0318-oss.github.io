@@ -59,10 +59,15 @@
 }
 
 .pio-container .pio-action {
-	top: 3em;
+	top: 50%;
 	opacity: 0;
 	position: absolute;
-	transition: opacity 0.3s;
+	transition: opacity 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	transform: translateY(-50%);
+	pointer-events: none;
 }
 .pio-container.left .pio-action {
 	right: 0;
@@ -72,19 +77,33 @@
 }
 .pio-container:hover .pio-action {
 	opacity: 1;
+	pointer-events: auto;
 }
 
 .pio-action span {
 	color: #fff;
-	width: 1.5em;
-	height: 1.5em;
-	display: block;
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
-	text-align: center;
-	border-radius: 66%;
-	margin-bottom: 0.5em;
-	border: 1px solid #666;
-	background: #fff center / 70% no-repeat;
+	border-radius: 50%;
+	border: 2px solid rgba(102, 102, 102, 0.3);
+	background-color: rgba(255, 255, 255, 0.95);
+	background-size: 60%;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: all 0.2s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.pio-action span:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	border-color: rgba(102, 102, 102, 0.5);
+}
+.pio-action span:active {
+	transform: scale(0.95);
 }
 .pio-action .pio-home {
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTg5My43IDUwNS45SDEyOS4zYy0xMyAwLTI0LjgtNy45LTI5LjgtMTkuOS01LTEyLTIuMi0yNS45IDctMzUuMmwzMDctMzA3YzI2LjEtMjYuMSA2MC45LTQwLjUgOTgtNDAuNXM3MS45IDE0LjQgOTggNDAuNWwzMDcgMzA3YzkuMiA5LjIgMTIgMjMuMSA3IDM1LjItNSAxMi4xLTE2LjcgMTkuOS0yOS44IDE5Ljl6TTY3My4yIDkxOS45aC0zMS41Yy0xNy44IDAtMzIuMy0xNC40LTMyLjMtMzIuM3YtNzcuNGMwLTIzLjEtMTguOC00Mi4xLTQxLjktNDIuNC0yMi4zIDAuMy00MS4xIDE5LjMtNDEuMSA0Mi40djc3LjRjMCAxNy44LTE0LjQgMzIuMy0zMi4zIDMyLjNIMzQ5LjhjLTcwLjkgMC0xMjguNy02My43LTEyOC43LTE0MS45VjU4MS45YzAtMTcuOCAxNC40LTMyLjMgMzIuMy0zMi4zaDUxNi4yYzE3LjggMCAzMi4zIDE0LjQgMzIuMyAzMi4zVjc3OGMtMC4xIDc4LjMtNTcuOCAxNDEuOS0xMjguNyAxNDEuOXoiPjwvcGF0aD48L3N2Zz4=);

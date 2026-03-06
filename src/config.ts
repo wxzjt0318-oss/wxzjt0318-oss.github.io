@@ -390,7 +390,7 @@ export const sakuraConfig: SakuraConfig = {
 // Pio
 export const pioConfig: import("./types/config").PioConfig = {
 	enable: true,
-	models: ["/pio/models/pio/model.json"],
+	models: ["/pio/models/kato/katou_01.model.json"],
 	position: "left",
 	width: 280,
 	height: 250,
@@ -400,9 +400,9 @@ export const pioConfig: import("./types/config").PioConfig = {
 		welcome: "欢迎来到灵梦的小站!",
 		touch: [
 			"你干什么呀！",
-			"不要摸我了啦！",
-			"有死变态，主人救命呀~",
-			"不可以这样欺负我啦！",
+			"不要摸我了哦！",
+			"真拿你没办法了！",
+			"随便你好啦～",
 		],
 		home: "点击这里回到首页哟！",
 		skin: ["想看看我的新衣服吗？", "新衣服真漂亮~"],

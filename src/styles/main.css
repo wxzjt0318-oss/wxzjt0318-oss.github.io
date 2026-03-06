@@ -567,6 +567,11 @@ html {
   transform: translateY(-50%);
 }
 
+/* 悬停时改变虚线颜色为主题色 */
+.group:hover .dash-line::before {
+  border-left-color: var(--primary);
+}
+
 .collapsed {
   height: var(--collapsedHeight);
 }
