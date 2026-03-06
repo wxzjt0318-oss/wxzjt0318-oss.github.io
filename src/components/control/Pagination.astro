@@ -51,34 +51,34 @@ const getPageUrl = (p: number) => {
 };
 ---
 
-<div class:list={[className, "pagination flex flex-row gap-1.5 justify-center flex-wrap"]} style={style}>
+<div class:list={[className, "flex flex-row gap-3 justify-center"]} style={style}>
     <a href={page.url.prev || ""} aria-label={page.url.prev ? "Previous Page" : null}
-       class:list={["pagination-link flex items-center justify-center gap-1 min-w-[30px] h-[30px] rounded-lg text-[var(--primary)] text-sm",
+       class:list={["btn-card overflow-hidden rounded-lg text-[var(--primary)] w-11 h-11",
            {"disabled": page.url.prev == undefined}
        ]}
     >
-        <Icon name="material-symbols:chevron-left-rounded" class="text-[1.25rem]"></Icon>
+        <Icon name="material-symbols:chevron-left-rounded" class="text-[1.75rem]"></Icon>
     </a>
-    <div class="pagination-numbers flex flex-row items-center justify-center gap-1">
+    <div class="bg-[var(--card-bg)] flex flex-row rounded-lg items-center text-neutral-700 dark:text-neutral-300 font-bold">
         {pages.map((p) => {
             if (p == HIDDEN)
-                return <div class="pagination-dots text-neutral-500 dark:text-neutral-400 text-sm">...</div>;
+                return <Icon name="material-symbols:more-horiz" class="mx-1"/>;
             if (p == page.currentPage)
-                return <div class="pagination-current min-w-[30px] h-[30px] rounded-lg bg-[var(--primary)] flex items-center justify-center
-                    font-bold text-white text-sm"
+                return <div class="h-11 w-11 rounded-lg bg-[var(--primary)] flex items-center justify-center
+                    font-bold text-white dark:text-black/70"
                 >
                     {p}
                 </div>
             return <a href={url(getPageUrl(p))} aria-label={`Page ${p}`}
-                class="pagination-link min-w-[30px] h-[30px] rounded-lg flex items-center justify-center text-sm text-neutral-700 dark:text-neutral-300 hover:bg-[var(--primary)_10%] hover:text-[var(--primary)] transition-all duration-300"
+                class="btn-card w-11 h-11 rounded-lg overflow-hidden active:scale-[0.85]"
             >{p}</a>
         })}
     </div>
     <a href={page.url.next || ""} aria-label={page.url.next ? "Next Page" : null}
-       class:list={["pagination-link flex items-center justify-center gap-1 min-w-[30px] h-[30px] rounded-lg text-[var(--primary)] text-sm",
+       class:list={["btn-card overflow-hidden rounded-lg text-[var(--primary)] w-11 h-11",
            {"disabled": page.url.next == undefined}
        ]}
     >
-        <Icon name="material-symbols:chevron-right-rounded" class="text-[1.25rem]"></Icon>
+        <Icon name="material-symbols:chevron-right-rounded" class="text-[1.75rem]"></Icon>
     </a>
 </div>
