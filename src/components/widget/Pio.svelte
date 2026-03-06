@@ -2,23 +2,17 @@
 import { onDestroy, onMount } from "svelte";
 import { pioConfig } from "@/config";
 
-// 确保DOM元素正确引用
 let pioContainer;
 let modelSelector;
 
-// 全局Pio实例引用
 let pioInstance = null;
 let pioInitialized = false;
 let isLoading = false;
-
-// 当前选中的模型索引
 let currentModelIndex = 0;
 
-// 加载必要的脚本
 function loadPioAssets() {
 	if (typeof window === "undefined") return;
 
-	// 加载JS脚本
 	const loadScript = (src, id) => {
 		return new Promise((resolve, reject) => {
 			if (document.querySelector(`#${id}`)) {
@@ -34,12 +28,10 @@ function loadPioAssets() {
 		});
 	};
 
-	// 按顺序加载脚本
 	return loadScript("/pio/static/l2d.js", "pio-l2d-script")
 		.then(() => loadScript("/pio/static/pio.js", "pio-main-script"));
 }
 
-// 初始化或切换Pio模型
 function initOrSwitchPio(modelPath) {
 	if (typeof window === "undefined" || typeof Paul_Pio === "undefined") {
 		console.error("Paul_Pio is not available");
@@ -49,13 +41,11 @@ function initOrSwitchPio(modelPath) {
 	try {
 		isLoading = true;
 		
-		// 确保DOM元素存在
 		const canvas = document.getElementById("pio");
 		const container = document.querySelector(".pio-container");
 		const action = document.querySelector(".pio-container .pio-action");
 		
 		if (canvas && container && action) {
-			// 创建配置对象
 			const pioOptions = {
 				model: [modelPath],
 				content: pioConfig.dialog || {},
@@ -63,36 +53,28 @@ function initOrSwitchPio(modelPath) {
 				hidden: pioConfig.hiddenOnMobile
 			};
 			
-			// 如果已经有实例，先销毁
 			if (pioInstance) {
-				// 添加淡出效果
 				container.style.opacity = "0";
 				container.style.transition = "opacity 0.3s ease";
 				
-				// 延迟销毁和重新初始化，等待淡出动画完成
 				setTimeout(() => {
-					// 销毁现有实例
 					if (typeof pioInstance.destroy === "function") {
 						pioInstance.destroy();
 					}
 					
-					// 清除画布
 					const ctx = canvas.getContext("2d");
 					if (ctx) {
 						ctx.clearRect(0, 0, canvas.width, canvas.height);
 					}
 					
-					// 重新初始化
 					pioInstance = new Paul_Pio(pioOptions);
 					pioInitialized = true;
 					
-					// 添加淡入效果
 					container.style.opacity = "1";
 					isLoading = false;
 					console.log("Pio model switched successfully");
 				}, 300);
 			} else {
-				// 首次初始化
 				pioInstance = new Paul_Pio(pioOptions);
 				pioInitialized = true;
 				isLoading = false;
@@ -108,7 +90,6 @@ function initOrSwitchPio(modelPath) {
 	}
 }
 
-// 切换到下一个模型
 function nextModel() {
 	if (pioConfig.models && pioConfig.models.length > 1) {
 		currentModelIndex = (currentModelIndex + 1) % pioConfig.models.length;
@@ -116,7 +97,6 @@ function nextModel() {
 	}
 }
 
-// 切换到指定模型
 function switchModel(modelPath) {
 	if (typeof window !== "undefined" && pioInitialized) {
 		initOrSwitchPio(modelPath);
@@ -126,16 +106,13 @@ function switchModel(modelPath) {
 onMount(async () => {
 	if (!pioConfig.enable) return;
 
-	// 如果配置了手机端隐藏，且当前屏幕宽度小于 1280px (平板/手机)，则直接终止，不加载脚本
-    if (pioConfig.hiddenOnMobile && window.matchMedia("(max-width: 1280px)").matches) {
-        return;
-    }
+	if (pioConfig.hiddenOnMobile && window.matchMedia("(max-width: 1280px)").matches) {
+		return;
+	}
 
 	try {
-		// 加载资源
 		await loadPioAssets();
 		
-		// 等待DOM完全渲染
 		setTimeout(() => {
 			initOrSwitchPio(pioConfig.models[currentModelIndex] || "/pio/models/pio/model.json");
 		}, 100);
@@ -146,9 +123,7 @@ onMount(async () => {
 });
 
 onDestroy(() => {
-	// Svelte 组件销毁时清理 Pio 实例
 	if (pioInstance) {
-		// 如果 Paul_Pio 有清理方法，这里可以调用
 		if (typeof pioInstance.destroy === "function") {
 			pioInstance.destroy();
 		}
@@ -162,12 +137,11 @@ onDestroy(() => {
     <div class="pio-action"></div>
     <canvas 
       id="pio"
-      width={pioConfig.width || 280} 
-      height={pioConfig.height || 250}
+      width={pioConfig.width || 300} 
+      height={pioConfig.height || 300}
       class:opacity-50={isLoading}
     ></canvas>
     
-    <!-- 模型选择器 -->
     {#if pioConfig.models && pioConfig.models.length > 1}
       <div class="pio-model-selector" bind:this={modelSelector}>
         <select 
@@ -196,7 +170,6 @@ onDestroy(() => {
       </div>
     {/if}
     
-    <!-- 加载指示器 -->
     {#if isLoading}
       <div class="pio-loading-indicator">
         <div class="loading-spinner"></div>
@@ -210,6 +183,13 @@ onDestroy(() => {
   :global(.pio-container) {
     position: fixed !important;
     z-index: 52;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  
+  :global(.pio-container canvas) {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
   
   :global(.pio-container .pio-action) {

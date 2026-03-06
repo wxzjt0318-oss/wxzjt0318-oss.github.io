@@ -1,16 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
-import { umamiConfig } from "../config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
 import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
-
-// 解析 umami
-const umamiEnabled = umamiConfig.enabled || false;
-const umamiWebsiteId = umamiConfig.scripts.match(/data-website-id="([^"]+)"/)?.[1] || "";
-const umamiApiKey = umamiConfig.apiKey || "";
-const umamiBaseUrl = umamiConfig.baseUrl || "";
 
 export interface Props {
 	published: Date;
@@ -71,7 +64,7 @@ const {
         <div class="flex flex-row flex-nowrap items-center">
             <a href={getCategoryUrl(category || '')} aria-label={`View all posts in the ${category} category`}
                class="link-lg transition text-50 text-sm font-medium
-                            hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
+                            hover:text-[var(--primary) dark:hover:text-[var(--primary) whitespace-nowrap">
                 {category || i18n(I18nKey.uncategorized)}
             </a>
         </div>
@@ -98,10 +91,10 @@ const {
             <div class="flex flex-row flex-nowrap items-center">
                 {(tags && tags.length > 0) && tags.map((tag, i) => (
                     <>
-                        <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
+                        <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider) text-sm"]}>/</div>
                         <a href={getTagUrl(tag)} aria-label={`View all posts with the ${tag.trim()} tag`}
                            class="link-lg transition text-50 text-sm font-medium
-                                        hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
+                                        hover:text-[var(--primary) dark:hover:text-[var(--primary) whitespace-nowrap">
                             {tag.trim()}
                         </a>
                     </>
@@ -112,8 +105,8 @@ const {
     )}
     
     <!-- 访问量 -->
-    {!isHome && umamiEnabled && id && (
-        <div class="flex items-center">
+    {!isHome && id && (
+        <div class="flex items-center umami-page-views hidden" data-id={id}>
             <div class="meta-icon">
                 <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
             </div>
@@ -122,55 +115,41 @@ const {
     )}
 </div>
 
-{!isHome && umamiEnabled && id && (
-<script is:inline define:vars={{ 
-    id, 
-    umamiBaseUrl, 
-    umamiApiKey, 
-    umamiWebsiteId, 
-    umamiConfig,
+{!isHome && id && (
+<script is:inline define:vars={{
     pageViewsText: i18n(I18nKey.profileStatsPageViews),
     visitsText: i18n(I18nKey.profileStatsVisits)
 }}>
-    function generateStatsText(pageViews, visitors) {
-        return `${pageViewsText} ${pageViews} · ${visitsText} ${visitors}`;
+    function generateStatsText(pageViews, visits) {
+        return `${pageViewsText} ${pageViews} · ${visitsText} ${visits}`;
     }
 
     async function fetchPageViews() {
-        const displayElements = document.querySelectorAll('.page-views-display');
-        if (!displayElements || displayElements.length === 0) return;
+        const container = document.querySelector('.umami-page-views');
         
-        if (!umamiConfig.enabled || !umamiWebsiteId || !id || !umamiBaseUrl || !umamiApiKey) {
-            displayElements.forEach(el => el.textContent = '统计不可用');
+        if (!window.oddmisc) {
+            container?.classList.add('hidden');
             return;
         }
 
-        const pageUrl = (window && window.location && window.location.pathname) ? window.location.pathname : `/posts/${id}/`;
-        const maxRetry = 6;
-        const baseDelay = 300;
+        const id = container?.dataset.id;
+        if (!id) return;
 
-        for (let attempt = 0; attempt <= maxRetry; attempt++) {
-            try {
-                if (typeof getUmamiPageStats !== 'function') {
-                    throw new Error('getUmamiPageStats not ready');
-                }
-                const stats = await getUmamiPageStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId, pageUrl);
-                const pageViews = stats.pageviews || 0;
-                const visitors = stats.visitors || 0;
-                
-                displayElements.forEach(el => {
-                    el.textContent = generateStatsText(pageViews, visitors);
-                });
+        try {
+            const stats = await window.oddmisc.getStats(`/posts/${id}/`);
+            const pageViews = stats.pageviews || 0;
+            const visits = stats.visits || 0;
+
+            if (pageViews === 0 && visits === 0) {
+                container?.classList.add('hidden');
                 return;
-            } catch (error) {
-                if (attempt >= maxRetry) {
-                    console.error('Error fetching page views:', error);
-                    displayElements.forEach(el => el.textContent = '统计不可用');
-                    return;
-                }
-                const delay = baseDelay * Math.pow(2, attempt);
-                await new Promise((resolve) => setTimeout(resolve, delay));
             }
+
+            container?.classList.remove('hidden');
+            container.querySelector('.page-views-display').textContent = generateStatsText(pageViews, visits);
+        } catch (error) {
+            console.error('Error fetching page views:', error);
+            container?.classList.add('hidden');
         }
     }
 

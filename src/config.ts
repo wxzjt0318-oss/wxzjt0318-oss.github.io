@@ -392,8 +392,8 @@ export const pioConfig: import("./types/config").PioConfig = {
 	enable: true,
 	models: ["/pio/models/kato/katou_01.model.json"],
 	position: "left",
-	width: 280,
-	height: 250,
+	width: 300,
+	height: 300,
 	mode: "draggable",
 	hiddenOnMobile: true,
 	dialog: {

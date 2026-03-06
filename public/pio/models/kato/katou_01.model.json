@@ -18,26 +18,31 @@
 		{"name":"body", "id":"D_REF.PT_BODY"}
 	],
 	"motions":{
-		"":[
-			{"file":"mtn/I_ANGRY.mtn"},
-			{"file":"mtn/I_ANGRY_S.mtn"},
-			{"file":"mtn/I_ANGRY_W.mtn"},
-			{"file":"mtn/I_FUN.mtn"},
-			{"file":"mtn/I_FUN_S.mtn"},
-			{"file":"mtn/I_FUN_W.mtn"},
-			{"file":"mtn/I_SAD.mtn"},
-			{"file":"mtn/I_SAD_S.mtn"},
-			{"file":"mtn/I_SAD_W.mtn"},
-			{"file":"mtn/I_SURPRISE.mtn"},
-			{"file":"mtn/I_SURPRISE_S.mtn"},
-			{"file":"mtn/I_SURPRISE_W.mtn"},
+		"idle":[
 			{"file":"mtn/IDLING_01.mtn"},
 			{"file":"mtn/IDLING_02.mtn"},
 			{"file":"mtn/IDLING_03.mtn"},
 			{"file":"mtn/REPEAT_01.mtn"}
 		],
-		"idle":[
+		"tap_body":[
+			{"file":"mtn/I_FUN.mtn"},
+			{"file":"mtn/I_FUN_S.mtn"},
+			{"file":"mtn/I_SURPRISE.mtn"}
+		],
+		"flick_head":[
+			{"file":"mtn/I_ANGRY.mtn"},
+			{"file":"mtn/I_ANGRY_S.mtn"},
+			{"file":"mtn/I_SAD.mtn"}
+		],
+		"shake":[
+			{"file":"mtn/I_SURPRISE_W.mtn"},
+			{"file":"mtn/I_FUN_W.mtn"}
+		],
+		"pinch_in":[
 			{"file":"mtn/IDLING_01.mtn"}
+		],
+		"pinch_out":[
+			{"file":"mtn/IDLING_02.mtn"}
 		]
 	},
 	"physics":"katou_01.physics.json",

@@ -214,6 +214,87 @@ if (siteConfig.font) {
 		<!-- Umami Analytics -->
 		${umamiConfig.enabled ? umamiConfig.scripts : ''}
 
+		<!-- Oddmisc Analytics Implementation -->
+		<script is:inline define:vars={{ umamiEnabled: umamiConfig.enabled, umamiApiKey: umamiConfig.apiKey, umamiBaseUrl: umamiConfig.baseUrl }}>
+			window.oddmisc = window.oddmisc || {};
+			window.oddmisc.getStats = async function(path) {
+				if (!umamiEnabled) {
+					return { pageviews: 0, visits: 0 };
+				}
+
+				try {
+					const response = await fetch(`${umamiBaseUrl}/api/websites/5529ac8c-8065-46d2-b0dc-83960ac4163c/stats`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-API-Key': umamiApiKey
+						},
+						body: JSON.stringify({
+							startAt: Math.floor(Date.now() / 1000) - 365 * 24 * 60 * 60, // 过去一年
+							endAt: Math.floor(Date.now() / 1000),
+							filters: [
+								{ type: 'url', value: path }
+							],
+							metrics: ['pageviews', 'visits'],
+							groupBy: [],
+							order: [],
+							limit: 1
+						})
+					});
+
+					if (!response.ok) {
+						throw new Error(`API request failed with status ${response.status}`);
+					}
+
+					const data = await response.json();
+					return {
+						pageviews: data.metrics?.pageviews || 0,
+						visits: data.metrics?.visits || 0
+					};
+				} catch (error) {
+					console.error('Error fetching page stats:', error);
+					return { pageviews: 0, visits: 0 };
+				}
+			};
+
+			window.oddmisc.getSiteStats = async function() {
+				if (!umamiEnabled) {
+					return { pageviews: 0, visits: 0 };
+				}
+
+				try {
+					const response = await fetch(`${umamiBaseUrl}/api/websites/5529ac8c-8065-46d2-b0dc-83960ac4163c/stats`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'X-API-Key': umamiApiKey
+						},
+						body: JSON.stringify({
+							startAt: Math.floor(Date.now() / 1000) - 365 * 24 * 60 * 60, // 过去一年
+							endAt: Math.floor(Date.now() / 1000),
+							metrics: ['pageviews', 'visits'],
+							groupBy: [],
+							order: [],
+							limit: 1
+						})
+					});
+
+					if (!response.ok) {
+						throw new Error(`API request failed with status ${response.status}`);
+					}
+
+					const data = await response.json();
+					return {
+						pageviews: data.metrics?.pageviews || 0,
+						visits: data.metrics?.visits || 0
+					};
+				} catch (error) {
+					console.error('Error fetching site stats:', error);
+					return { pageviews: 0, visits: 0 };
+				}
+			};
+		</script>
+
 		<title>{pageTitle}</title>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description || pageTitle} />
