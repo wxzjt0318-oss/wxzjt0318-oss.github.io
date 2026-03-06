@@ -1,14 +1,9 @@
 name: Deploy to Pages Branch
 
 on:
-    # 禁用此工作流程，使用CI.yml进行部署
     push:
-        branches: [never-trigger-this-branch]
+        branches: [main]
     workflow_dispatch:
-        inputs:
-            reason:
-                description: "为什么要触发这个已禁用的工作流程？"
-                required: true
 
 # 需要写入权限来推送到pages分支
 permissions:
