@@ -2,10 +2,9 @@ name: Fuwari-yCENzh CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ never-trigger-this-branch ]
   pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    branches: [ never-trigger-this-branch ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

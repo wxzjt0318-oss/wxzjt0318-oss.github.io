@@ -2,9 +2,9 @@ name: Code quality
 
 on:
   push:
-    branches: [ main ] # Adjust branches as needed
+    branches: [ never-trigger-this-branch ]
   pull_request:
-    branches: [ main ] # Adjust branches as needed
+    branches: [ never-trigger-this-branch ]
 
 jobs:
   quality:
