@@ -147,13 +147,50 @@ var Paul_Pio = function (prop) {
 		},
 		// 触摸
 		touch: () => {
-			current.canvas.onclick = () => {
+			current.canvas.onclick = (ev) => {
+				// 随机选择一个交互动作
+				const interactionMotions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // 交互动作索引
+				const randomMotion =
+					interactionMotions[
+						Math.floor(Math.random() * interactionMotions.length)
+					];
+
+				// 随机选择一个表情
+				const expressions = [0, 1, 2, 3, 4, 5]; // 表情索引
+				const randomExpression =
+					expressions[Math.floor(Math.random() * expressions.length)];
+
+				// 执行交互动作和表情
+				actionManager.execute(
+					"motion",
+					{
+						motionGroup: "",
+						motionIndex: randomMotion,
+						duration: 2000,
+					},
+					actionManager.PRIORITY.INTERACTION,
+				);
+
+				actionManager.execute(
+					"expression",
+					{
+						expressionIndex: randomExpression,
+						duration: 1500,
+					},
+					actionManager.PRIORITY.EXPRESSION,
+				);
+
+				// 显示交互消息
 				modules.message(
 					prop.content.touch || [
 						"你在干什么？",
 						"再摸我就报警了！",
 						"HENTAI!",
 						"不可以这样欺负我啦！",
+						"哎呀，你弄疼我了！",
+						"讨厌啦~",
+						"嘿嘿，好痒啊！",
+						"你想和我玩吗？",
 					],
 				);
 			};
@@ -277,6 +314,193 @@ var Paul_Pio = function (prop) {
 		},
 	};
 
+	/* - 场景识别系统 */
+	const sceneDetector = {
+		// 检测当前场景类型
+		detectScene: () => {
+			const path = window.location.pathname;
+			const hour = new Date().getHours();
+
+			// 根据时间判断场景
+			let timeScene = "day";
+			if (hour >= 22 || hour <= 6) {
+				timeScene = "night";
+			} else if (hour > 6 && hour <= 12) {
+				timeScene = "morning";
+			} else if (hour > 12 && hour <= 18) {
+				timeScene = "afternoon";
+			}
+
+			// 根据页面路径判断场景
+			let pageScene = "home";
+			if (path.includes("/posts/") || path.includes("/article/")) {
+				pageScene = "article";
+			} else if (path.includes("/about/")) {
+				pageScene = "about";
+			} else if (path.includes("/archive/")) {
+				pageScene = "archive";
+			} else if (
+				path.includes("/tags/") ||
+				path.includes("/categories/")
+			) {
+				pageScene = "category";
+			}
+
+			return { timeScene, pageScene };
+		},
+
+		// 根据场景获取推荐动作
+		getRecommendedAction: (scene) => {
+			const { timeScene, pageScene } = scene;
+
+			// 场景动作映射表
+			const sceneActions = {
+				home: {
+					morning: { motion: 0, expression: 1, duration: 3000 }, // 早晨空闲动作
+					afternoon: { motion: 11, expression: 2, duration: 3500 }, // 下午空闲动作
+					evening: { motion: 12, expression: 3, duration: 3000 }, // 傍晚空闲动作
+					night: { motion: 13, expression: 4, duration: 4000 }, // 夜晚空闲动作
+				},
+				article: {
+					default: { motion: 0, expression: 0, duration: 5000 }, // 阅读时的安静动作
+				},
+				about: {
+					default: { motion: 2, expression: 2, duration: 3500 }, // 关于页面的友好动作
+				},
+				archive: {
+					default: { motion: 1, expression: 1, duration: 3000 }, // 归档页面的探索动作
+				},
+				category: {
+					default: { motion: 0, expression: 0, duration: 3000 }, // 分类页面的安静动作
+				},
+			};
+
+			// 获取场景对应的动作
+			const pageConfig = sceneActions[pageScene] || sceneActions.home;
+			return pageConfig[timeScene] || pageConfig.default;
+		},
+	};
+
+	/* - 动作管理 */
+	const actionManager = {
+		// 动作优先级
+		PRIORITY: {
+			IDLE: 1,
+			EXPRESSION: 2,
+			INTERACTION: 3,
+			SYSTEM: 4,
+		},
+
+		// 当前执行的动作
+		currentAction: null,
+
+		// 动作队列
+		actionQueue: [],
+
+		// 执行动作，支持优先级管理
+		execute: (actionType, actionData, priority = this.PRIORITY.IDLE) => {
+			// 检查优先级，如果当前有更高优先级的动作正在执行，则将当前动作加入队列
+			if (this.currentAction && this.currentAction.priority > priority) {
+				this.actionQueue.push({
+					type: actionType,
+					data: actionData,
+					priority,
+				});
+				return;
+			}
+
+			// 执行新动作
+			this.currentAction = { type: actionType, priority };
+
+			// 根据动作类型执行不同的处理
+			switch (actionType) {
+				case "motion":
+					// 执行动作
+					if (window.loadlive2d && current.canvas) {
+						// 使用Live2D SDK的动作播放功能
+						try {
+							// 这里需要根据具体的Live2D SDK API进行调整
+							// 示例：live2d.playMotion(actionData.motionGroup, actionData.motionIndex);
+						} catch (e) {
+							console.error("Failed to play motion:", e);
+						}
+					}
+					break;
+				case "expression":
+					// 执行表情
+					if (window.loadlive2d && current.canvas) {
+						try {
+							// 示例：live2d.setExpression(actionData.expressionIndex);
+						} catch (e) {
+							console.error("Failed to set expression:", e);
+						}
+					}
+					break;
+			}
+
+			// 动作执行完成后，处理队列中的下一个动作
+			const completeAction = () => {
+				this.currentAction = null;
+				if (this.actionQueue.length > 0) {
+					const nextAction = this.actionQueue.shift();
+					this.execute(
+						nextAction.type,
+						nextAction.data,
+						nextAction.priority,
+					);
+				} else {
+					// 动作队列为空时，根据场景执行推荐动作
+					this.executeSceneAction();
+				}
+			};
+
+			// 模拟动作执行时间，实际应该监听动作完成事件
+			setTimeout(completeAction, actionData.duration || 2000);
+		},
+
+		//// 根据场景执行推荐动作
+		executeSceneAction: () => {
+			const scene = sceneDetector.detectScene();
+			const recommendedAction = sceneDetector.getRecommendedAction(scene);
+
+			// 执行场景推荐动作
+			this.execute(
+				"motion",
+				{
+					motionGroup: "",
+					motionIndex: recommendedAction.motion,
+					duration: recommendedAction.duration,
+				},
+				this.PRIORITY.IDLE,
+			);
+
+			// 执行场景推荐表情
+			this.execute(
+				"expression",
+				{
+					expressionIndex: recommendedAction.expression,
+					duration: recommendedAction.duration - 500,
+				},
+				this.PRIORITY.EXPRESSION,
+			);
+		},
+
+		// 清除动作队列
+		clearQueue: () => {
+			this.actionQueue = [];
+		},
+
+		// 立即执行动作，中断当前动作
+		forceExecute: (
+			actionType,
+			actionData,
+			priority = this.PRIORITY.SYSTEM,
+		) => {
+			this.clearQueue();
+			this.execute(actionType, actionData, priority);
+		},
+	};
+
 	/* - 运行 */
 	const begin = {
 		static: () => {
@@ -285,10 +509,22 @@ var Paul_Pio = function (prop) {
 		fixed: () => {
 			action.touch();
 			action.buttons();
+			// 添加空闲动作
+			actionManager.execute("motion", {
+				motionGroup: "",
+				motionIndex: 0,
+				duration: 3000,
+			});
 		},
 		draggable: () => {
 			action.touch();
 			action.buttons();
+			// 添加空闲动作
+			actionManager.execute("motion", {
+				motionGroup: "",
+				motionIndex: 0,
+				duration: 3000,
+			});
 
 			const body = current.body;
 			const canvas = current.canvas;

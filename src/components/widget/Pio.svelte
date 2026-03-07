@@ -14,29 +14,103 @@ let isLoading = false;
 // 当前选中的模型索引
 let currentModelIndex = 0;
 
+// 更新加载进度
+function updateLoadingProgress(progress, text) {
+	const loadingIndicator = document.querySelector(".pio-loading-indicator");
+	const loadingText = loadingIndicator?.querySelector("span");
+	const progressBar = loadingIndicator?.querySelector(".pio-loading-progress-bar");
+	
+	if (loadingText && text) {
+		loadingText.textContent = text;
+	}
+	
+	if (progressBar) {
+		progressBar.style.width = `${progress}%`;
+	}
+}
+
 // 加载必要的脚本
 function loadPioAssets() {
 	if (typeof window === "undefined") return;
 
 	// 加载JS脚本
-	const loadScript = (src, id) => {
+	const loadScript = (src, id, priority = 1, progressCallback = null) => {
 		return new Promise((resolve, reject) => {
 			if (document.querySelector(`#${id}`)) {
 				resolve();
 				return;
 			}
+			
 			const script = document.createElement("script");
 			script.id = id;
 			script.src = src;
-			script.onload = resolve;
+			script.onload = () => {
+				if (progressCallback) progressCallback(100);
+				resolve();
+			};
 			script.onerror = reject;
+			script.async = priority > 1;
+			script.defer = priority > 1;
 			document.head.appendChild(script);
+			
+			// 模拟进度更新
+			if (progressCallback) {
+				let progress = 0;
+				const interval = setInterval(() => {
+					progress += 10;
+					if (progress < 80) {
+						progressCallback(progress);
+					} else {
+						clearInterval(interval);
+					}
+				}, 100);
+				
+				script.onload = () => {
+					clearInterval(interval);
+					progressCallback(100);
+					resolve();
+				};
+			}
 		});
 	};
 
-	// 按顺序加载脚本
-	return loadScript("/pio/static/l2d.js", "pio-l2d-script")
-		.then(() => loadScript("/pio/static/pio.js", "pio-main-script"));
+	// 按优先级加载脚本
+	// 高优先级：核心库
+	// 低优先级：功能扩展
+	return new Promise((resolve, reject) => {
+		updateLoadingProgress(0, "加载核心库...");
+		
+		loadScript("/pio/static/l2d.js", "pio-l2d-script", 1, (progress) => {
+			updateLoadingProgress(progress * 0.5, "加载Live2D核心库...");
+		})
+		.then(() => {
+			return loadScript("/pio/static/pio.js", "pio-main-script", 1, (progress) => {
+				updateLoadingProgress(50 + progress * 0.5, "加载模型控制脚本...");
+			});
+		})
+		.then(() => {
+			updateLoadingProgress(100, "核心库加载完成");
+			resolve();
+		})
+		.catch(reject);
+	});
+}
+
+// 预加载下一个模型资源
+function preloadNextModel() {
+	if (!pioConfig.models || pioConfig.models.length <= 1) return;
+	
+	const nextModelIndex = (currentModelIndex + 1) % pioConfig.models.length;
+	const nextModelPath = pioConfig.models[nextModelIndex];
+	
+	// 预加载模型配置文件
+	fetch(nextModelPath, {
+		method: 'HEAD',
+		credentials: 'same-origin'
+	}).catch(() => {
+		// 预加载失败不影响主流程
+		console.log('Preload failed for model:', nextModelPath);
+	});
 }
 
 // 初始化或切换Pio模型
@@ -55,6 +129,13 @@ function initOrSwitchPio(modelPath) {
 		const action = document.querySelector(".pio-container .pio-action");
 		
 		if (canvas && container && action) {
+			// 添加加载进度反馈
+			const loadingIndicator = document.querySelector(".pio-loading-indicator");
+			const loadingText = loadingIndicator?.querySelector("span");
+			if (loadingText) {
+				loadingText.textContent = "准备加载模型...";
+			}
+			
 			// 创建配置对象
 			const pioOptions = {
 				model: [modelPath],
@@ -90,6 +171,9 @@ function initOrSwitchPio(modelPath) {
 					container.style.opacity = "1";
 					isLoading = false;
 					console.log("Pio model switched successfully");
+					
+					// 预加载下一个模型
+					preloadNextModel();
 				}, 300);
 			} else {
 				// 首次初始化
@@ -97,6 +181,9 @@ function initOrSwitchPio(modelPath) {
 				pioInitialized = true;
 				isLoading = false;
 				console.log("Pio initialized successfully (Svelte)");
+				
+				// 预加载下一个模型
+				preloadNextModel();
 			}
 		} else {
 			console.warn("Pio DOM elements not found");
@@ -132,6 +219,7 @@ onMount(async () => {
     }
 
 	try {
+		isLoading = true;
 		// 加载资源
 		await loadPioAssets();
 		
@@ -142,6 +230,33 @@ onMount(async () => {
 	} catch (error) {
 		console.error("Failed to initialize Pio:", error);
 		isLoading = false;
+		
+		// 显示加载失败提示
+		const container = document.querySelector(".pio-container");
+		if (container) {
+			const errorMsg = document.createElement("div");
+			errorMsg.className = "pio-error-message";
+			errorMsg.textContent = "模型加载失败，请刷新页面重试";
+			errorMsg.style.cssText = `
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 0, 0, 0.8);
+				color: white;
+				padding: 12px 20px;
+				border-radius: 8px;
+				font-size: 14px;
+				z-index: 10;
+				text-align: center;
+			`;
+			container.appendChild(errorMsg);
+			
+			// 3秒后自动隐藏错误信息
+			setTimeout(() => {
+				errorMsg.remove();
+			}, 3000);
+		}
 	}
 });
 
@@ -201,6 +316,9 @@ onDestroy(() => {
       <div class="pio-loading-indicator">
         <div class="loading-spinner"></div>
         <span>模型加载中...</span>
+        <div class="pio-loading-progress">
+          <div class="pio-loading-progress-bar"></div>
+        </div>
       </div>
     {/if}
   </div>
@@ -316,20 +434,22 @@ onDestroy(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.7);
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 16px 24px;
+    border-radius: 12px;
     font-size: 14px;
     z-index: 10;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   
   .loading-spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top: 3px solid white;
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
@@ -337,6 +457,30 @@ onDestroy(() => {
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  
+  /* 加载进度条 */
+  .pio-loading-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  
+  .pio-loading-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+    animation: progressPulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
   }
   
   .opacity-50 {
