@@ -79,7 +79,7 @@ html {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0.05) 80%, transparent 100%);
 }
 
-/* 分页样式 - 与Mizuki-master保持一致 */
+/* 分页样式 - 移植自 Mizuki-master */
 .comments-pagination {
   margin-top: 2rem;
   display: flex;
@@ -95,60 +95,72 @@ html {
   gap: 0.25rem;
 }
 
-.comments-pagination a,
-.comments-pagination span {
-  min-width: 30px;
-  height: 30px;
+/* 链接项通用样式 */
+.comments-pagination .page-link {
+  min-width: 2.5rem; /* 40px */
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  color: rgba(0, 0, 0, 0.75);
+
+  /* Mizuki 样式核心 */
+  background: transparent;
+  color: var(--bs-dark, rgba(0, 0, 0, 0.75));
+  border: 1px solid rgba(0, 0, 0, 0.2); /* 边框 */
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.2); /* 实线阴影 */
+  margin: 0 5px;
+
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.5, 2.5, 0.7, 0.7); /* 弹性过渡 */
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-.comments-pagination .current span {
-  color: white;
+/* 适配暗色模式 */
+.dark .comments-pagination .page-link {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 2px 2px 0 0 rgba(255, 255, 255, 0.2);
 }
 
-.comments-pagination a:hover {
-  background: rgba(216, 124, 255, 0.1); /* 使用Mizuki-master中的紫色作为主色调 */
-  color: var(--primary);
+/* Hover & Active 状态 (按压效果) */
+.comments-pagination .page-link:not(.disabled):hover,
+.comments-pagination .page-link:not(.disabled):active {
+  box-shadow: none !important;
+  transform: translateY(2px);
+  background: transparent;
+  color: var(--primary); /* Hover 时文字变主色 */
+  border-color: var(--primary);
 }
 
-.comments-pagination .current {
+/* 当前页样式 */
+.comments-pagination .current .page-link {
   background: var(--primary);
   color: white;
+  border-color: var(--primary);
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.2); /* 保持阴影或根据 Mizuki 去掉 */
 }
 
-.comments-pagination .disabled {
+.comments-pagination .current .page-link:hover {
+  transform: none;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.2);
+  cursor: default;
+}
+
+/* 禁用状态 */
+.comments-pagination .page-link.disabled {
   opacity: 0.5;
   pointer-events: none;
+  box-shadow: none;
+  border-color: transparent;
 }
 
-.comments-pagination .prev,
-.comments-pagination .next {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
+/* 省略号 */
 .comments-pagination .dots {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-/* 暗色主题适配 */
-:root.dark .comments-pagination a {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-:root.dark .comments-pagination .dots {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-:root.dark .comments-pagination a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  box-shadow: none;
+  cursor: default;
 }
 
 /* 响应式设计 */

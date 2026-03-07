@@ -92,7 +92,8 @@
 		"fontmin": "^1.1.1",
 		"postcss-import": "^16.1.1",
 		"postcss-nesting": "^13.0.2",
-		"prettier": "^3.8.1"
+		"prettier": "^3.8.1",
+		"vitest": "^4.0.18"
 	},
 	"packageManager": "pnpm@10.22.0",
 	"pnpm": {
@@ -101,4 +102,3 @@
 		}
 	}
 }
-
