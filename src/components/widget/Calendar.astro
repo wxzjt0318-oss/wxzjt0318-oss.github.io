@@ -49,12 +49,12 @@ const yearSuffix = isChinese ? "年" : " ";
 	<div class="flex justify-between items-center mb-2 mt-2">
 		<div
 			class="font-bold transition text-lg text-90 relative ml-4 flex items-center
-					before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)
+					before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
 					before:absolute before:left-[-16px] before:top-[13.5px]"
 		>
 			<div
 				id="calendar-title-container"
-				class="flex justify-center items-center cursor-pointer hover:bg-[var(--btn-plain-bg-hover) px-2 py-2 -ml-2 rounded-lg transition-colors"
+				class="flex justify-center items-center cursor-pointer hover:bg-[var(--btn-plain-bg-hover)] px-2 py-2 -ml-2 rounded-lg transition-colors"
 			>
 				<span
 					id="calendar-title"
@@ -66,7 +66,7 @@ const yearSuffix = isChinese ? "年" : " ";
 		<div class="flex items-center gap-1 shrink-0 ml-2">
 			<button
 				id="back-to-today-btn"
-				class="p-1.5 rounded-md hover:bg-[var(--btn-plain-bg-hover) text-[var(--primary) transition-all invisible"
+				class="p-1.5 rounded-md hover:bg-[var(--btn-plain-bg-hover)] text-[var(--primary)] transition-all invisible"
 				aria-label="Back to today"
 			>
 				<Icon
@@ -76,14 +76,14 @@ const yearSuffix = isChinese ? "年" : " ";
 			</button>
 			<button
 				id="prev-month-btn"
-				class="p-1.5 rounded-md hover:bg-[var(--btn-plain-bg-hover) text-75 hover:text-[var(--primary) transition-colors text-xl font-extrabold"
+				class="p-1.5 rounded-md hover:bg-[var(--btn-plain-bg-hover)] text-75 hover:text-[var(--primary)] transition-colors text-xl font-extrabold"
 				aria-label="Previous month"
 			>
 				＜
 			</button>
 			<button
 				id="next-month-btn"
-				class="p-1.5 rounded-md hover:bg-[var(--btn-plain-bg-hover) text-75 hover:text-[var(--primary) transition-colors text-xl font-extrabold"
+				class="p-1.5 rounded-md hover:bg-[var(--btn-plain-bg-hover)] text-75 hover:text-[var(--primary)] transition-colors text-xl font-extrabold"
 				aria-label="Next month"
 			>
 				＞
@@ -104,7 +104,7 @@ const yearSuffix = isChinese ? "年" : " ";
 			<div id="calendar-grid" class="grid grid-cols-7 gap-1"></div>
 			<div id="calendar-posts" class="mt-4">
 				<div
-					class="h-px w-full bg-[var(--line-divider) mb-2 hidden"
+					class="h-px w-full bg-[var(--line-divider)] mb-2 hidden"
 					id="calendar-posts-divider"
 				>
 				</div>
@@ -117,7 +117,7 @@ const yearSuffix = isChinese ? "年" : " ";
 		</div>
 		<div
 			id="selection-panel"
-			class="absolute inset-0 bg-[var(--card-bg) z-10 flex flex-col hidden opacity-0 transition-opacity duration-200"
+			class="absolute inset-0 bg-[var(--card-bg)] z-10 flex flex-col hidden opacity-0 transition-opacity duration-200"
 		>
 			<div
 				id="selection-content"
@@ -351,24 +351,24 @@ const yearSuffix = isChinese ? "年" : " ";
 			const isSelected = selectedDateKey === dateKey;
 
 			let bgClass =
-				"hover:bg-[var(--btn-plain-bg-hover) text-75 border border-transparent";
+				"hover:bg-[var(--btn-plain-bg-hover)] text-75 border border-transparent";
 
 			if (isSelected) {
 				bgClass =
-					"bg-[var(--primary) text-white shadow-md border border-transparent";
+					"bg-[var(--primary)] text-white shadow-md border border-transparent";
 			} else if (isToday) {
 				bgClass =
-					"text-[var(--primary) font-bold bg-[var(--primary)/10 border border-[var(--primary)";
+					"text-[var(--primary)] font-bold bg-[var(--primary)/10] border border-[var(--primary)]";
 			} else if (hasPost) {
 				bgClass =
-					"font-bold text-90 hover:bg-[var(--btn-plain-bg-hover) border border-transparent";
+					"font-bold text-90 hover:bg-[var(--btn-plain-bg-hover)] border border-transparent";
 			}
 
 			html += `
                 <div class="calendar-day aspect-square flex items-center justify-center rounded-md cursor-pointer relative transition-all duration-200 ${bgClass}"
                     data-date="${dateKey}">
                     ${day}
-                    ${hasPost && !isSelected ? `<span class="absolute bottom-1 w-1 h-1 rounded-full bg-[var(--primary)"></span>` : ""}
+                    ${hasPost && !isSelected ? `<span class="absolute bottom-1 w-1 h-1 rounded-full bg-[var(--primary)]"></span>` : ""}
                     ${hasPost && count > 1 ? `<span class="absolute top-0.5 right-0.5 text-[9px] opacity-70 scale-75">${count}</span>` : ""}
                 </div>
             `;
@@ -413,13 +413,13 @@ const yearSuffix = isChinese ? "年" : " ";
 
 				if (isCurrentPost) {
 					containerClass +=
-						" bg-[var(--primary)/10 text-[var(--primary) border-[var(--primary)/10";
-					dateClass += " text-[var(--primary)/80";
+						" bg-[var(--primary)/10] text-[var(--primary)] border-[var(--primary)/10]";
+					dateClass += " text-[var(--primary)/80]";
 				} else {
 					containerClass +=
-						" text-neutral-700 dark:text-neutral-300 hover:text-[var(--primary) dark:hover:text-[var(--primary) hover:bg-[var(--btn-plain-bg-hover)";
+						" text-neutral-700 dark:text-neutral-300 hover:text-[var(--primary)] dark:hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)]";
 					dateClass +=
-						" text-neutral-400 group-hover:text-[var(--primary)/70";
+						" text-neutral-400 group-hover:text-[var(--primary)/70]";
 				}
 
 				return `
@@ -450,16 +450,16 @@ const yearSuffix = isChinese ? "年" : " ";
 			const isCurrentMonth = index === currentMonth;
 			const hasPost = stats.hasPostInMonth[`${currentYear}-${index + 1}`];
 			let cls =
-				"month-item cursor-pointer rounded-lg flex flex-col items-center justify-center p-2 transition-all hover:bg-[var(--btn-plain-bg-hover) relative border border-transparent";
+				"month-item cursor-pointer rounded-lg flex flex-col items-center justify-center p-2 transition-all hover:bg-[var(--btn-plain-bg-hover)] relative border border-transparent";
 			if (isCurrentMonth)
 				cls +=
-					" border-[var(--primary) text-[var(--primary) bg-[var(--primary)/5";
+					" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)/5]";
 			else cls += " text-neutral-700 dark:text-neutral-300";
 
 			html += `
                 <div class="${cls}" data-month="${index}">
                     <span class="text-sm font-bold">${name}</span>
-                    ${hasPost ? `<span class="w-1 h-1 rounded-full bg-[var(--primary) mt-1"></span>` : `<span class="w-1 h-1 mt-1"></span>`}
+                    ${hasPost ? `<span class="w-1 h-1 rounded-full bg-[var(--primary)] mt-1"></span>` : `<span class="w-1 h-1 mt-1"></span>`}
                 </div>
              `;
 		});
@@ -477,16 +477,16 @@ const yearSuffix = isChinese ? "年" : " ";
 			const isCurrent = y === currentYear;
 			const hasPost = stats.hasPostInYear[y];
 			let cls =
-				"year-item cursor-pointer rounded-lg flex flex-col items-center justify-center py-3 transition-all hover:bg-[var(--btn-plain-bg-hover) relative border border-transparent";
+				"year-item cursor-pointer rounded-lg flex flex-col items-center justify-center py-3 transition-all hover:bg-[var(--btn-plain-bg-hover)] relative border border-transparent";
 			if (isCurrent)
 				cls +=
-					" border-[var(--primary) text-[var(--primary) bg-[var(--primary)/5";
+					" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)/5]";
 			else cls += " text-neutral-700 dark:text-neutral-300";
 
 			html += `
                 <div class="${cls}" data-year="${y}" id="year-${y}">
                     <span class="text-sm font-bold">${y}</span>
-                     ${hasPost ? `<span class="w-1.5 h-1.5 rounded-full bg-[var(--primary) mt-1"></span>` : `<span class="w-1.5 h-1.5 mt-1"></span>`}
+                     ${hasPost ? `<span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] mt-1"></span>` : `<span class="w-1.5 h-1.5 mt-1"></span>`}
                 </div>
             `;
 		}

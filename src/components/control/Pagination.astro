@@ -51,34 +51,37 @@ const getPageUrl = (p: number) => {
 };
 ---
 
-<div class:list={[className, "flex flex-row gap-3 justify-center"]} style={style}>
-    <a href={page.url.prev || ""} aria-label={page.url.prev ? "Previous Page" : null}
-       class:list={["btn-card overflow-hidden rounded-lg text-[var(--primary)] w-11 h-11",
-           {"disabled": page.url.prev == undefined}
-       ]}
-    >
-        <Icon name="material-symbols:chevron-left-rounded" class="text-[1.75rem]"></Icon>
-    </a>
-    <div class="bg-[var(--card-bg)] flex flex-row rounded-lg items-center text-neutral-700 dark:text-neutral-300 font-bold">
+<div class:list={[className, "comments-pagination"]} style={style}>
+    <div class="page-numbers">
+        <!-- Previous Button -->
+        <a href={page.url.prev || ""} aria-label={page.url.prev ? "Previous Page" : null}
+           class:list={[
+               {"disabled": page.url.next == undefined}
+           ]}
+        >
+            <Icon name="material-symbols:chevron-left-rounded" class="text-[1rem]"></Icon>
+        </a>
+        
+        <!-- Page Numbers -->
         {pages.map((p) => {
             if (p == HIDDEN)
-                return <Icon name="material-symbols:more-horiz" class="mx-1"/>;
+                return <span class="dots">...</span>;
             if (p == page.currentPage)
-                return <div class="h-11 w-11 rounded-lg bg-[var(--primary)] flex items-center justify-center
-                    font-bold text-white dark:text-black/70"
-                >
-                    {p}
-                </div>
-            return <a href={url(getPageUrl(p))} aria-label={`Page ${p}`}
-                class="btn-card w-11 h-11 rounded-lg overflow-hidden active:scale-[0.85]"
-            >{p}</a>
+                return <span class="current">
+                    <span class="page-link">{p}</span>
+                </span>
+            return <a href={url(getPageUrl(p))} aria-label={`Page ${p}`}>
+                {p}
+            </a>
         })}
+        
+        <!-- Next Button -->
+        <a href={page.url.next || ""} aria-label={page.url.next ? "Next Page" : null}
+           class:list={[
+               {"disabled": page.url.next == undefined}
+           ]}
+        >
+            <Icon name="material-symbols:chevron-right-rounded" class="text-[1rem]"></Icon>
+        </a>
     </div>
-    <a href={page.url.next || ""} aria-label={page.url.next ? "Next Page" : null}
-       class:list={["btn-card overflow-hidden rounded-lg text-[var(--primary)] w-11 h-11",
-           {"disabled": page.url.next == undefined}
-       ]}
-    >
-        <Icon name="material-symbols:chevron-right-rounded" class="text-[1.75rem]"></Icon>
-    </a>
 </div>

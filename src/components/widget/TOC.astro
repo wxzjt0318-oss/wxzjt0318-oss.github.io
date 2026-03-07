@@ -301,9 +301,6 @@ class TableOfContents extends HTMLElement {
         const maxLevel = siteConfig.toc?.depth || 3;
         const useJapaneseBadge = siteConfig.toc?.useJapaneseBadge || false;
         
-        // 添加调试信息
-        console.log('TOC Config in regenerateTOC:', { siteConfig: siteConfig.toc, maxLevel, useJapaneseBadge });
-        
         // 日语片假名字符集
         const japaneseKatakana = [
             "ア", "イ", "ウ", "エ", "オ",
@@ -334,19 +331,19 @@ class TableOfContents extends HTMLElement {
                     }
                     heading1Count++;
                 } else if (heading.depth === minDepth + 1) {
-                    badgeContent = '<div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)"></div>';
+                    badgeContent = '<div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div>';
                 } else {
                     badgeContent = '<div class="transition w-1.5 h-1.5 rounded-sm bg-black/[5%] dark:bg-white/[10%]"></div>';
                 }
                 
-                return `<a href="#${heading.slug}" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover) active:bg-[var(--toc-btn-active) py-2">
-                    <div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ${depthClass} ${heading.depth === minDepth ? 'bg-[var(--toc-badge-bg) text-[var(--btn-content)' : ''}">
+                return `<a href="#${heading.slug}" class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2">
+                    <div class="transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold ${depthClass} ${heading.depth === minDepth ? 'bg-[var(--toc-badge-bg)] text-[var(--btn-content)]' : ''}">
                         ${badgeContent}
                     </div>
                     <div class="transition text-sm ${heading.depth <= minDepth + 1 ? 'text-50' : 'text-30'}">${heading.text}</div>
                 </a>`;
             }).join('');
-        this.innerHTML = tocHTML + '<div id="active-indicator" style="opacity: 0" class="-z-10 absolute bg-[var(--toc-btn-hover) left-0 right-0 rounded-xl transition-all group-hover:bg-transparent border-2 border-[var(--toc-btn-hover) group-hover:border-[var(--toc-btn-active) border-dashed"></div>';
+        this.innerHTML = tocHTML + '<div id="active-indicator" style="opacity: 0" class="-z-10 absolute bg-[var(--toc-btn-hover)] left-0 right-0 rounded-xl transition-all group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"></div>';
         this.dataset.loaded = "true";
     }
 
