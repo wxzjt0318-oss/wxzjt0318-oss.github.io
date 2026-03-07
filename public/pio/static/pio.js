@@ -398,7 +398,9 @@ var Paul_Pio = function (prop) {
 		actionQueue: [],
 
 		// 执行动作，支持优先级管理
-		execute: (actionType, actionData, priority = this.PRIORITY.IDLE) => {
+		execute: function(actionType, actionData, priority) {
+			// 修复默认参数的this指向问题
+			priority = priority || this.PRIORITY.IDLE;
 			// 检查优先级，如果当前有更高优先级的动作正在执行，则将当前动作加入队列
 			if (this.currentAction && this.currentAction.priority > priority) {
 				this.actionQueue.push({
@@ -452,50 +454,40 @@ var Paul_Pio = function (prop) {
 					// 动作队列为空时，根据场景执行推荐动作
 					this.executeSceneAction();
 				}
-			};
+			}.bind(this);
 
 			// 模拟动作执行时间，实际应该监听动作完成事件
 			setTimeout(completeAction, actionData.duration || 2000);
 		},
 
 		//// 根据场景执行推荐动作
-		executeSceneAction: () => {
+		executeSceneAction: function() {
 			const scene = sceneDetector.detectScene();
 			const recommendedAction = sceneDetector.getRecommendedAction(scene);
 
 			// 执行场景推荐动作
-			this.execute(
-				"motion",
-				{
-					motionGroup: "",
-					motionIndex: recommendedAction.motion,
-					duration: recommendedAction.duration,
-				},
-				this.PRIORITY.IDLE,
-			);
+			this.execute("motion", {
+				motionGroup: "",
+				motionIndex: recommendedAction.motion,
+				duration: recommendedAction.duration,
+			}, this.PRIORITY.IDLE);
 
 			// 执行场景推荐表情
-			this.execute(
-				"expression",
-				{
-					expressionIndex: recommendedAction.expression,
-					duration: recommendedAction.duration - 500,
-				},
-				this.PRIORITY.EXPRESSION,
-			);
+			this.execute("expression", {
+				expressionIndex: recommendedAction.expression,
+				duration: recommendedAction.duration - 500,
+			}, this.PRIORITY.EXPRESSION);
 		},
 
 		// 清除动作队列
-		clearQueue: () => {
+		clearQueue: function() {
 			this.actionQueue = [];
 		},
 
 		// 立即执行动作，中断当前动作
-		forceExecute: (
-			actionType,
-			actionData,
-			priority = this.PRIORITY.SYSTEM,
-		) => {
+		forceExecute: function(actionType, actionData, priority) {
+			// 修复默认参数的this指向问题
+			priority = priority || this.PRIORITY.SYSTEM;
 			this.clearQueue();
 			this.execute(actionType, actionData, priority);
 		},
@@ -507,24 +499,24 @@ var Paul_Pio = function (prop) {
 			current.body.classList.add("static");
 		},
 		fixed: () => {
-			action.touch();
-			action.buttons();
-			// 添加空闲动作
-			actionManager.execute("motion", {
-				motionGroup: "",
-				motionIndex: 0,
-				duration: 3000,
-			});
-		},
-		draggable: () => {
-			action.touch();
-			action.buttons();
-			// 添加空闲动作
-			actionManager.execute("motion", {
-				motionGroup: "",
-				motionIndex: 0,
-				duration: 3000,
-			});
+		action.touch();
+		action.buttons();
+		// 添加空闲动作
+		actionManager.execute("motion", {
+			motionGroup: "",
+			motionIndex: 0,
+			duration: 3000,
+		}, actionManager.PRIORITY.IDLE);
+	},
+	draggable: () => {
+		action.touch();
+		action.buttons();
+		// 添加空闲动作
+		actionManager.execute("motion", {
+			motionGroup: "",
+			motionIndex: 0,
+			duration: 3000,
+		}, actionManager.PRIORITY.IDLE);
 
 			const body = current.body;
 			const canvas = current.canvas;
