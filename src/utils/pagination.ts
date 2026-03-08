@@ -1,9 +1,12 @@
+export const PAGINATION_ELLIPSIS = -1;
+
 export function calculatePaginationRange(
 	currentPage: number,
 	lastPage: number,
 	visibleCount: number = 5,
 ): number[] {
-	const HIDDEN = -1;
+	visibleCount = Math.max(1, visibleCount);
+	const HIDDEN = PAGINATION_ELLIPSIS;
 	let count = 1;
 	let l = currentPage;
 	let r = currentPage;

@@ -103,8 +103,8 @@ html {
   justify-content: center;
   border-radius: 8px;
 
-  background: #ffffff;
-  color: #b84a88;
+  background: var(--card-bg);
+  color: var(--primary);
   border: 0;
   box-shadow: 0 8px 18px rgba(184, 74, 136, 0.18);
   margin: 0 6px;
@@ -121,21 +121,21 @@ html {
 }
 
 .dark .comments-pagination .page-link {
-  background: #ffffff;
-  color: #b84a88;
+  background: var(--card-bg);
+  color: var(--primary);
   box-shadow: 0 8px 18px rgba(255, 255, 255, 0.12);
 }
 
 .comments-pagination .page-link:not(.disabled):hover,
 .comments-pagination .page-link:not(.disabled):active {
   transform: translateY(-1px);
-  background: #f3e3ec;
-  color: #a83a78;
+  background: var(--btn-plain-bg-hover);
+  color: var(--primary);
   box-shadow: 0 10px 22px rgba(184, 74, 136, 0.26);
 }
 
 .comments-pagination .current .page-link {
-  background: #b84a88;
+  background: var(--primary);
   color: #ffffff;
   box-shadow: 0 10px 24px rgba(184, 74, 136, 0.35);
 }
@@ -644,9 +644,15 @@ html {
   .dropdown-item:focus {
     @apply outline-none;
   }
+  .dropdown-item:focus-visible {
+    @apply ring-2 ring-(--primary);
+  }
 
   .mobile-dropdown button:focus {
     @apply outline-none;
+  }
+  .mobile-dropdown button:focus-visible {
+    @apply ring-2 ring-(--primary);
   }
 
   .meta-icon {
