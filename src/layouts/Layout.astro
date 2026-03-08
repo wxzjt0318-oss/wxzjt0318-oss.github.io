@@ -2,6 +2,7 @@
 import ConfigCarrier from "@components/ConfigCarrier.astro";
 import MusicPlayer from "@components/widget/MusicPlayer.svelte";
 import Pio from "@components/widget/Pio.svelte"; // 使用 Svelte 版本的 Pio 组件
+import Toast from "@components/ui/Toast.svelte";
 import {
 	musicPlayerConfig,
 	pioConfig,
@@ -481,6 +482,9 @@ if (siteConfig.font) {
 
 		<ConfigCarrier />
 		<slot />
+
+		<!-- Global Toast Notifications -->
+		<Toast client:idle />
 
 		<!-- Music Player - 仅在启用时加载 -->
 		{musicPlayerConfig.enable && <MusicPlayer client:idle />}
