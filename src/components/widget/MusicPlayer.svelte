@@ -8,8 +8,6 @@ import { musicPlayerConfig } from "../../config";
 import Key from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 
-import { errorHandler } from "../../utils/error-handler";
-
 // 音乐播放器模式，可选 "local" 或 "meting"，从本地配置中获取或使用默认值 "meting"
 let mode = musicPlayerConfig.mode ?? "meting";
 // Meting API 地址，从配置中获取或使用默认地址(bilibili.uno(由哔哩哔哩松坂有希公益管理)),服务器在海外,部分音乐平台可能不支持并且速度可能慢,也可以自建Meting API
@@ -49,6 +47,10 @@ let isLoading = false;
 let isShuffled = false;
 // 循环模式，0: 不循环, 1: 单曲循环, 2: 列表循环，默认为 0
 let isRepeating = 0;
+// 错误信息，默认为空字符串
+let errorMessage = "";
+// 是否显示错误信息，默认为 false
+let showError = false;
 
 // 当前歌曲信息
 let currentSong = {
@@ -158,7 +160,7 @@ async function fetchMetingPlaylist() {
 		}
 		isLoading = false;
 	} catch (e) {
-		errorHandler.handleError(e, "Music Player Playlist Fetch");
+		showErrorMessage(i18n(Key.musicPlayerErrorPlaylist));
 		isLoading = false;
 	}
 }
@@ -319,14 +321,14 @@ function handleAudioEnded() {
 }
 
 function showErrorMessage(message: string) {
-	errorHandler.handleError({
-		name: 'MusicPlayerError',
-		message: message,
-		code: 'MUSIC_ERROR'
-	}, "Music Player");
+	errorMessage = message;
+	showError = true;
+	setTimeout(() => {
+		showError = false;
+	}, 3000);
 }
 function hideError() {
-	// Not used with global toast
+	showError = false;
 }
 
 function setProgress(event: MouseEvent) {
@@ -458,6 +460,17 @@ onDestroy(() => {
 />
 
 {#if musicPlayerConfig.enable}
+{#if showError}
+<div class="fixed bottom-20 right-4 z-60 max-w-sm">
+    <div class="bg-red-500 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-up">
+        <Icon icon="material-symbols:error" class="text-xl shrink-0" />
+        <span class="text-sm flex-1">{errorMessage}</span>
+        <button on:click={hideError} class="text-white/[80%] hover:text-white transition-colors">
+            <Icon icon="material-symbols:close" class="text-lg" />
+        </button>
+    </div>
+</div>
+{/if}
 
 <div class="music-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
      class:expanded={isExpanded}

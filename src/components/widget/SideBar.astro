@@ -57,8 +57,6 @@ function renderComponent(component: any, index: number, _components: any[]) {
 }
 ---
 
-<div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300 md:hidden" aria-hidden="true"></div>
-
 <div id="sidebar" class:list={[className, "w-full sidebar-root"]}>
 	<!-- 顶部组件区域 -->
 	<div class="flex flex-col w-full gap-4 mb-4">
@@ -121,165 +119,106 @@ function renderComponent(component: any, index: number, _components: any[]) {
 
 <!-- 响应式样式和JavaScript -->
 <style>
-	/* 移动端 Drawer 样式 */
-	@media (max-width: 768px) {
+	/* 响应式断点样式 */
+	@media (max-width: 1280px) {
 		#sidebar {
-			position: fixed;
-			top: 0;
-			left: 0;
-			height: 100vh;
-			width: 280px;
-			max-width: 80vw;
-			background: var(--card-bg);
-			z-index: 50;
-			transform: translateX(-100%);
-			transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-			overflow-y: auto;
-			padding: 1rem;
-			box-shadow: var(--shadow-xl);
-		}
-
-		#sidebar.open {
-			transform: translateX(0);
-		}
-
-		#sidebar-overlay.open {
-			display: block;
-			opacity: 1;
-		}
-	}
-
-	/* 平板/桌面端样式 */
-	@media (min-width: 769px) {
-		#sidebar {
-			width: 100%; /* Parent grid controls width */
-			/* clamp() for internal content width if needed, but grid handles it mostly */
+			display: var(--sidebar-mobile-display, block);
 		}
 	}
 	
-	/* 字体缩放控制 */
-	#sidebar :global(*) {
-		font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+	@media (min-width: 769px) and (max-width: 1279px) {
+		#sidebar {
+			display: var(--sidebar-tablet-display, block);
+		}
+	}
+
+	@media (min-width: 1280px) {
+		#sidebar {
+			display: var(--sidebar-desktop-display, block);
+		}
 	}
 </style>
 
-<script is:inline>
+<script is:inline define:vars={{
+	breakpoints: widgetManager.getBreakpoints(),
+	mobileShowSidebar: widgetManager.shouldShowSidebar('mobile'),
+	tabletShowSidebar: widgetManager.shouldShowSidebar('tablet'),
+	desktopShowSidebar: widgetManager.shouldShowSidebar('desktop'),
+	hasMobileComponents: mobileTopComponents.length > 0 || mobileStickyComponents.length > 0,
+	hasTabletComponents: tabletTopComponents.length > 0 || tabletStickyComponents.length > 0
+}}>
+	// 响应式布局管理
 	class SidebarManager {
 		constructor() {
-			this.sidebar = document.getElementById('sidebar');
-			this.overlay = document.getElementById('sidebar-overlay');
-			this.isOpen = false;
-			this.startX = 0;
-			this.currentX = 0;
-			this.threshold = 50; // Swipe threshold
-
 			this.init();
 		}
 		
 		init() {
-			if (!this.sidebar || !this.overlay) return;
+			// 绑定方法到实例，以便正确移除监听器
+			this.handleResize = this.updateResponsiveDisplay.bind(this);
+			this.handleContentReplace = () => {
+				setTimeout(() => {
+					this.updateResponsiveDisplay();
+				}, 100);
+			};
 
-			// Bind methods
-			this.handleTouchStart = this.handleTouchStart.bind(this);
-			this.handleTouchMove = this.handleTouchMove.bind(this);
-			this.handleTouchEnd = this.handleTouchEnd.bind(this);
-			this.toggle = this.toggle.bind(this);
-			this.close = this.close.bind(this);
-
-			// Overlay click to close
-			this.overlay.addEventListener('click', this.close);
-
-			// Touch events on document for swipe
-			document.addEventListener('touchstart', this.handleTouchStart, { passive: true });
-			document.addEventListener('touchmove', this.handleTouchMove, { passive: false });
-			document.addEventListener('touchend', this.handleTouchEnd);
-
-			// SWUP cleanup
-			if (window.swup) {
-				window.swup.hooks.on('content:replace', () => {
-					this.close(); // Close on navigation
+			this.updateResponsiveDisplay();
+			window.addEventListener('resize', this.handleResize);
+			
+			// 监听SWUP内容替换事件
+			if (typeof window !== 'undefined' && window.swup) {
+				window.swup.hooks.on('content:replace', this.handleContentReplace);
+				
+				// 在页面即将卸载时清理监听器，防止重复绑定
+				window.swup.hooks.once('content:replace', () => {
+					this.destroy();
 				});
-				// Ensure cleanup on destroy not strictly needed as this script re-runs or persists depending on implementation
-				// But since is:inline re-runs, we should probably check for existing instance or cleanup old listeners
-				// For now, simple close is enough. Ideally use a singleton pattern or cleanup.
 			}
 		}
 
-		handleTouchStart(e) {
-			this.startX = e.touches[0].clientX;
-			this.currentX = this.startX;
-		}
-
-		handleTouchMove(e) {
-			this.currentX = e.touches[0].clientX;
-			const diff = this.currentX - this.startX;
-
-			// Left-to-right swipe to open (from edge)
-			if (!this.isOpen && this.startX < 30 && diff > 0) {
-				e.preventDefault();
-				// Optional: Add drag logic here for 1:1 movement
+		destroy() {
+			window.removeEventListener('resize', this.handleResize);
+			if (typeof window !== 'undefined' && window.swup) {
+				window.swup.hooks.off('content:replace', this.handleContentReplace);
 			}
 		}
+		
+		updateResponsiveDisplay() {
+			const width = window.innerWidth;
+			
+			let deviceType;
+			let hasComponents = false;
+			let showConfig = false;
 
-		handleTouchEnd(e) {
-			const diff = this.currentX - this.startX;
-
-			if (!this.isOpen) {
-				// Swipe Right to Open
-				if (this.startX < 50 && diff > this.threshold) { // Only from left edge
-					this.open();
-				}
+			if (width < breakpoints.mobile) {
+				deviceType = 'mobile';
+				hasComponents = hasMobileComponents;
+				showConfig = mobileShowSidebar;
+			} else if (width < breakpoints.tablet) {
+				deviceType = 'tablet';
+				hasComponents = hasTabletComponents;
+				showConfig = tabletShowSidebar;
 			} else {
-				// Swipe Left to Close
-				if (diff < -this.threshold) {
-					this.close();
-				}
+				deviceType = 'desktop';
+				hasComponents = hasTabletComponents; // 桌面端也使用 tablet 的组件列表（left）
+				showConfig = desktopShowSidebar;
+			}
+			
+			// 根据设备类型判断是否显示侧边栏
+			// 只有在配置开启且该设备下有组件时才显示
+			const shouldShow = showConfig && hasComponents;
+			
+			const sidebar = document.getElementById('sidebar');
+			
+			if (sidebar) {
+				sidebar.style.setProperty(
+					`--sidebar-${deviceType}-display`, 
+					shouldShow ? 'block' : 'none'
+				);
 			}
 		}
-
-		open() {
-			this.isOpen = true;
-			this.sidebar.classList.add('open');
-			this.overlay.classList.add('open');
-			document.body.style.overflow = 'hidden'; // Prevent scrolling
-		}
-
-		close() {
-			this.isOpen = false;
-			this.sidebar.classList.remove('open');
-			this.overlay.classList.remove('open');
-			document.body.style.overflow = '';
-		}
-
-		toggle() {
-			if (this.isOpen) this.close();
-			else this.open();
-		}
 	}
 	
-	// Initialize
-	// Check if already initialized to prevent duplicates (since is:inline might run again if not careful, though usually fine in Astro components unless swapped)
-	if (!window._sidebarManager) {
-		window._sidebarManager = new SidebarManager();
-	} else {
-		// Re-init DOM references if they changed (e.g. SWUP replace)
-		// But SideBar might be outside of swup container. 
-		// If SideBar IS in swup container, we need to re-instantiate.
-		// Let's just create a new one, old one's listeners on document persist... that's bad.
-		// We need cleanup.
-	}
-	
-	// Better approach:
-	// Remove old listeners if any
-	if (window._sidebarCleanup) window._sidebarCleanup();
-
-	const manager = new SidebarManager();
-	
-	window._sidebarCleanup = () => {
-		document.removeEventListener('touchstart', manager.handleTouchStart);
-		document.removeEventListener('touchmove', manager.handleTouchMove);
-		document.removeEventListener('touchend', manager.handleTouchEnd);
-		if (manager.overlay) manager.overlay.removeEventListener('click', manager.close);
-	};
-
+	// 初始化侧边栏管理器
+	new SidebarManager();
 </script>
