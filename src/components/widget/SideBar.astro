@@ -154,17 +154,32 @@ function renderComponent(component: any, index: number, _components: any[]) {
 		}
 		
 		init() {
+			// 绑定方法到实例，以便正确移除监听器
+			this.handleResize = this.updateResponsiveDisplay.bind(this);
+			this.handleContentReplace = () => {
+				setTimeout(() => {
+					this.updateResponsiveDisplay();
+				}, 100);
+			};
+
 			this.updateResponsiveDisplay();
-			window.addEventListener('resize', () => this.updateResponsiveDisplay());
+			window.addEventListener('resize', this.handleResize);
 			
 			// 监听SWUP内容替换事件
 			if (typeof window !== 'undefined' && window.swup) {
-				window.swup.hooks.on('content:replace', () => {
-					// 延迟执行以确保DOM已更新
-					setTimeout(() => {
-						this.updateResponsiveDisplay();
-					}, 100);
+				window.swup.hooks.on('content:replace', this.handleContentReplace);
+				
+				// 在页面即将卸载时清理监听器，防止重复绑定
+				window.swup.hooks.once('content:replace', () => {
+					this.destroy();
 				});
+			}
+		}
+
+		destroy() {
+			window.removeEventListener('resize', this.handleResize);
+			if (typeof window !== 'undefined' && window.swup) {
+				window.swup.hooks.off('content:replace', this.handleContentReplace);
 			}
 		}
 		

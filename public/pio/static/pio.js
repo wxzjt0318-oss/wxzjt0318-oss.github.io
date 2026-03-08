@@ -216,9 +216,11 @@ var Paul_Pio = function (prop) {
 			// 夜间模式
 			if (prop.night) {
 				elements.night.onclick = () => {
-					typeof prop.night === "function"
-						? prop.night()
-						: eval(prop.night);
+					if (typeof prop.night === "function") {
+						prop.night();
+					} else if (typeof window[prop.night] === "function") {
+						window[prop.night]();
+					}
 				};
 				elements.night.onmouseover = () => {
 					modules.message("夜间点击这里可以保护眼睛呢");
@@ -321,6 +323,7 @@ var Paul_Pio = function (prop) {
 			const mouseup = () => {
 				body.classList.remove("active");
 				document.removeEventListener("mousemove", mousemove);
+				document.removeEventListener("mouseup", mouseup);
 			};
 
 			canvas.onmousedown = mousedown;
@@ -370,6 +373,33 @@ var Paul_Pio = function (prop) {
 
 			this.init();
 		};
+	};
+
+	// 销毁实例
+	this.destroy = () => {
+		// 移除 DOM 元素
+		if (elements.dialog && elements.dialog.parentNode) {
+			elements.dialog.parentNode.removeChild(elements.dialog);
+		}
+		if (elements.show && elements.show.parentNode) {
+			elements.show.parentNode.removeChild(elements.show);
+		}
+		
+		// 清理菜单按钮
+		if (current.menu) {
+			current.menu.innerHTML = "";
+		}
+
+		// 移除 canvas 事件监听
+		if (current.canvas) {
+			current.canvas.onclick = null;
+			current.canvas.onmousedown = null;
+		}
+
+		// 清除定时器
+		if (current.timeout) {
+			clearTimeout(current.timeout);
+		}
 	};
 
 	localStorage.getItem("posterGirl") === "0"

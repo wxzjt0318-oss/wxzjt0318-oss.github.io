@@ -237,77 +237,97 @@ const yearSuffix = isChinese ? "年" : " ";
 	}
 
 	function setupEventListeners() {
-		dom.titleContainer.addEventListener("click", (e) => {
-			e.stopPropagation();
-			if (currentView === "day") showMonthPicker();
-			else if (currentView === "month") showYearPicker();
-			else closeSelectionPanel();
-		});
+		// 清理旧的事件监听器
+		if (window._calendarCleanup) {
+			window._calendarCleanup();
+		}
 
-		dom.prevBtn.addEventListener("click", () => {
-			currentMonth--;
-			if (currentMonth < 0) {
-				currentMonth = 11;
-				currentYear--;
-			}
-			renderCalendar();
-		});
-
-		dom.nextBtn.addEventListener("click", () => {
-			currentMonth++;
-			if (currentMonth > 11) {
-				currentMonth = 0;
-				currentYear++;
-			}
-			renderCalendar();
-		});
-
-		dom.backTodayBtn.addEventListener("click", () => {
-			currentYear = todayYear;
-			currentMonth = todayMonth;
-			selectedDateKey = null;
-			if (currentView !== "day") closeSelectionPanel();
-			else renderCalendar();
-		});
-
-		dom.grid.addEventListener("click", (e) => {
-			const cell = e.target.closest(".calendar-day");
-			if (!cell) return;
-			const dateKey = cell.getAttribute("data-date");
-
-			if (selectedDateKey === dateKey) selectedDateKey = null;
-			else selectedDateKey = dateKey;
-
-			renderCalendar();
-			if (selectedDateKey && postDateMap[selectedDateKey]) {
-				renderPostList(postDateMap[selectedDateKey]);
-			} else {
-				showMonthlyPosts();
-			}
-		});
-
-		dom.selectionContent.addEventListener("click", (e) => {
-			const monthItem = e.target.closest(".month-item");
-			const yearItem = e.target.closest(".year-item");
-
-			if (monthItem) {
+		const handlers = {
+			titleClick: (e) => {
 				e.stopPropagation();
-				currentMonth = parseInt(monthItem.getAttribute("data-month"));
-				closeSelectionPanel();
-			} else if (yearItem) {
-				e.stopPropagation();
-				currentYear = parseInt(yearItem.getAttribute("data-year"));
-				showMonthPicker();
-			}
-		});
+				if (currentView === "day") showMonthPicker();
+				else if (currentView === "month") showYearPicker();
+				else closeSelectionPanel();
+			},
+			prevClick: () => {
+				currentMonth--;
+				if (currentMonth < 0) {
+					currentMonth = 11;
+					currentYear--;
+				}
+				renderCalendar();
+			},
+			nextClick: () => {
+				currentMonth++;
+				if (currentMonth > 11) {
+					currentMonth = 0;
+					currentYear++;
+				}
+				renderCalendar();
+			},
+			backTodayClick: () => {
+				currentYear = todayYear;
+				currentMonth = todayMonth;
+				selectedDateKey = null;
+				if (currentView !== "day") closeSelectionPanel();
+				else renderCalendar();
+			},
+			gridClick: (e) => {
+				const cell = e.target.closest(".calendar-day");
+				if (!cell) return;
+				const dateKey = cell.getAttribute("data-date");
 
-		document.addEventListener("click", (e) => {
-			if (currentView === "day") return;
-			const widget = document.getElementById("calendar-widget");
-			if (widget && !widget.contains(e.target)) {
-				closeSelectionPanel();
+				if (selectedDateKey === dateKey) selectedDateKey = null;
+				else selectedDateKey = dateKey;
+
+				renderCalendar();
+				if (selectedDateKey && postDateMap[selectedDateKey]) {
+					renderPostList(postDateMap[selectedDateKey]);
+				} else {
+					showMonthlyPosts();
+				}
+			},
+			selectionClick: (e) => {
+				const monthItem = e.target.closest(".month-item");
+				const yearItem = e.target.closest(".year-item");
+
+				if (monthItem) {
+					e.stopPropagation();
+					currentMonth = parseInt(monthItem.getAttribute("data-month"));
+					closeSelectionPanel();
+				} else if (yearItem) {
+					e.stopPropagation();
+					currentYear = parseInt(yearItem.getAttribute("data-year"));
+					showMonthPicker();
+				}
+			},
+			documentClick: (e) => {
+				if (currentView === "day") return;
+				const widget = document.getElementById("calendar-widget");
+				if (widget && !widget.contains(e.target)) {
+					closeSelectionPanel();
+				}
 			}
-		});
+		};
+
+		dom.titleContainer.addEventListener("click", handlers.titleClick);
+		dom.prevBtn.addEventListener("click", handlers.prevClick);
+		dom.nextBtn.addEventListener("click", handlers.nextClick);
+		dom.backTodayBtn.addEventListener("click", handlers.backTodayClick);
+		dom.grid.addEventListener("click", handlers.gridClick);
+		dom.selectionContent.addEventListener("click", handlers.selectionClick);
+		document.addEventListener("click", handlers.documentClick);
+
+		// 注册清理函数
+		window._calendarCleanup = () => {
+			if (dom.titleContainer) dom.titleContainer.removeEventListener("click", handlers.titleClick);
+			if (dom.prevBtn) dom.prevBtn.removeEventListener("click", handlers.prevClick);
+			if (dom.nextBtn) dom.nextBtn.removeEventListener("click", handlers.nextClick);
+			if (dom.backTodayBtn) dom.backTodayBtn.removeEventListener("click", handlers.backTodayClick);
+			if (dom.grid) dom.grid.removeEventListener("click", handlers.gridClick);
+			if (dom.selectionContent) dom.selectionContent.removeEventListener("click", handlers.selectionClick);
+			document.removeEventListener("click", handlers.documentClick);
+		};
 	}
 
 	function updateHeader() {

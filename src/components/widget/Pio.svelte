@@ -72,8 +72,9 @@ function initOrSwitchPio(modelPath) {
 				// 延迟销毁和重新初始化，等待淡出动画完成
 				setTimeout(() => {
 					// 销毁现有实例
-					if (typeof pioInstance.destroy === "function") {
+					if (pioInstance && typeof pioInstance.destroy === "function") {
 						pioInstance.destroy();
+						pioInstance = null; // 确保引用被清除
 					}
 					
 					// 清除画布
@@ -152,6 +153,7 @@ onDestroy(() => {
 		if (typeof pioInstance.destroy === "function") {
 			pioInstance.destroy();
 		}
+		pioInstance = null; // 确保引用被清除
 		console.log("Pio Svelte component destroyed");
 	}
 });
