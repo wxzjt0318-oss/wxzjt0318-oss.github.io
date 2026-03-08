@@ -2,7 +2,7 @@ export function calculatePaginationRange(
 	currentPage: number,
 	lastPage: number,
 	visibleCount: number = 5,
-) {
+): number[] {
 	const HIDDEN = -1;
 	let count = 1;
 	let l = currentPage;

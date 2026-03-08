@@ -22,7 +22,9 @@
 			"@i18n/*": ["src/i18n/*"],
 			"@layouts/*": ["src/layouts/*"],
 			"@/*": ["src/*"]
-		}
+		},
+		"skipLibCheck": true
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
+	"exclude": [".astro/**", "dist/**", "node_modules/**"]
 }

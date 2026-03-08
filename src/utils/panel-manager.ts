@@ -151,7 +151,7 @@ class PanelManager {
 }
 
 // 创建全局浮窗管理器实例
-export const panelManager = new PanelManager();
+export const panelManager: PanelManager = new PanelManager();
 
 // 将浮窗管理器暴露到全局，方便在其他地方使用
 if (typeof window !== "undefined") {

@@ -99,7 +99,7 @@ async function fetchNotoSansSCFonts() {
 
 export async function GET({
 	props,
-}: APIContext<{ post: CollectionEntry<"posts"> }>) {
+}: APIContext<{ post: CollectionEntry<"posts"> }>): Promise<Response> {
 	const { post } = props;
 
 	// Try to fetch fonts from Google Fonts (woff2) at runtime.
