@@ -11,74 +11,73 @@ export function remarkContent() {
 			data.astro.frontmatter = {};
 		}
 
-		let fullText = ""; // 用于计算字数（包含全文）
-		let excerpt = ""; // 用于存放摘要
-
 		// 定义“手动摘要”的分隔符正则 (支持 或 ，忽略大小写)
 		const moreTagRegex = /<!--\s*more\s*-->/i;
-		let moreTagIndex = -1;
+		let moreTagFound = false;
+		
+		let fullText = "";
+		let excerptText = "";
+		let foundFirstParagraph = false;
 
-		// --- 遍历 AST 查找手动摘要分隔符 ---
-		if (tree.children && Array.isArray(tree.children)) {
-			moreTagIndex = tree.children.findIndex(
-				(node) =>
-					node.type === "html" &&
-					node.value &&
-					moreTagRegex.test(node.value),
-			);
-		}
-
-		// --- 计算摘要 (Excerpt) ---
-		if (moreTagIndex !== -1) {
-			// 提取它之前的所有内容
-			const excerptNodes = tree.children.slice(0, moreTagIndex);
-			excerpt = excerptNodes.map(getNodeText).join("");
-		} else {
-			// 提取第一个非空的段落
-			if (tree.children && Array.isArray(tree.children)) {
-				for (const node of tree.children) {
-					if (node.type === "paragraph") {
-						const text = getNodeText(node);
-						// 确保提取出的文本不是仅包含空白字符
-						if (text && text.trim().length > 0) {
-							excerpt = text;
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		// --- 计算阅读时间 (Reading Time) ---
+		// --- 单次遍历 AST，同时完成摘要提取和全文提取 ---
 		visit(tree, (node) => {
+			// 检查是否遇到手动摘要分隔符
+			if (node.type === "html" && node.value && moreTagRegex.test(node.value)) {
+				moreTagFound = true;
+				return "skip";
+			}
+
 			// 跳过代码块，不计入字数
 			if (node.type === "code" || node.type === "inlineCode")
 				return "skip";
 
-			// 累加文本
+			// 如果找到了手动摘要分隔符，只提取分隔符之前的内容作为摘要
+			if (!moreTagFound) {
+				const nodeText = getNodeText(node);
+				if (nodeText && nodeText.trim().length > 0) {
+					// 如果没有手动摘要，且还没找到第一个非空段落
+					if (!foundFirstParagraph && node.type === "paragraph") {
+						excerptText = nodeText;
+						foundFirstParagraph = true;
+					}
+					// 如果有手动摘要，累积内容作为摘要
+					if (moreTagRegex.test(node.value)) {
+						moreTagFound = true;
+					} else if (!moreTagFound) {
+						excerptText += nodeText;
+					}
+				}
+			}
+
+			// 总是累积全文内容（跳过代码块）
 			if (node.type === "text" && node.value) {
 				fullText += node.value + " ";
 			}
 		});
 
+		// --- 计算阅读时间 (Reading Time) ---
 		// 针对 CJK (中日韩) 字符的字数统计优化
 		const cjkPattern =
 			/[\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u3000-\u303f\uff00-\uffef]/g;
 
-		const cjkMatches = fullText.match(cjkPattern);
-		const cjkCount = cjkMatches ? cjkMatches.length : 0;
+		// 使用 matchAll 代替 match，提高性能
+		const cjkMatches = [...fullText.matchAll(cjkPattern)];
+		const cjkCount = cjkMatches.length;
 
-		// 将 CJK 字符替换为空格，避免粘连，然后计算非 CJK (英文/数字) 单词数
-		const nonCjkText = fullText.replace(cjkPattern, " ");
-		const nonCjkStats = getReadingTime(nonCjkText);
-
-		const totalWords = nonCjkStats.words + cjkCount;
+		// 优化：避免创建新字符串，直接计算非 CJK 单词数
+		// 非 CJK 字符（英文/数字/空格/标点）
+		const nonCjkPattern = /[^\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u3000-\u303f\uff00-\uffef]+/g;
+		const nonCjkWords = [...fullText.matchAll(nonCjkPattern)]
+			.map(match => match[0].trim())
+			.filter(word => word.length > 0)
+			.length;
 
 		// 估算时间：英文 200词/分，中文 400字/分
-		const minutes = nonCjkStats.words / 200 + cjkCount / 400;
+		const minutes = nonCjkWords / 200 + cjkCount / 400;
+		const totalWords = nonCjkWords + cjkCount;
 
 		// --- 注入数据到 Frontmatter ---
-		data.astro.frontmatter.excerpt = excerpt;
+		data.astro.frontmatter.excerpt = excerptText;
 		data.astro.frontmatter.minutes = Math.max(1, Math.round(minutes));
 		data.astro.frontmatter.words = totalWords;
 	};

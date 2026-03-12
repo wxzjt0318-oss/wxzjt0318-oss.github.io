@@ -17,6 +17,10 @@
 	const MAX_RETRIES = 3;
 	const RETRY_DELAY = 1000; // 1秒
 
+	// 图表缓存：使用图表代码+主题作为键，缓存渲染结果
+	const diagramCache = new Map();
+	const CACHE_EXPIRY_TIME = 3600000; // 缓存有效期1小时
+
 	// 检查主题是否真的发生了变化
 	function hasThemeChanged() {
 		const isDark = document.documentElement.classList.contains("dark");
@@ -340,45 +344,98 @@
 								break;
 							}
 
-							// 显示加载状态
-							element.innerHTML =
-								'<div class="mermaid-loading">Rendering diagram...</div>';
+							// 生成缓存键：图表代码 + 主题
+							const cacheKey = `${code}-${theme}`;
+							// 检查缓存
+							const cached = diagramCache.get(cacheKey);
+							const now = Date.now();
 
-							// 渲染图表
-							const { svg } = await window.mermaid.render(
-								`mermaid-${Date.now()}-${index}-${attempts}`,
-								code,
-							);
+							if (
+								cached &&
+								now - cached.timestamp < CACHE_EXPIRY_TIME
+							) {
+								// 使用缓存的SVG
+								const parser = new DOMParser();
+								const doc = parser.parseFromString(
+									cached.svg,
+									"image/svg+xml",
+								);
+								const svgElement = doc.documentElement;
 
-							const parser = new DOMParser();
-							const doc = parser.parseFromString(
-								svg,
-								"image/svg+xml",
-							);
-							const svgElement = doc.documentElement;
+								element.innerHTML = "";
+								element.__zoomAttached = false;
+								element.appendChild(svgElement);
 
-							element.innerHTML = "";
-							element.__zoomAttached = false;
-							element.appendChild(svgElement);
+								// 添加响应式支持
+								const insertedSvg =
+									element.querySelector("svg");
+								if (insertedSvg) {
+									insertedSvg.setAttribute("width", "100%");
+									insertedSvg.removeAttribute("height");
+									insertedSvg.style.maxWidth = "100%";
+									insertedSvg.style.height = "auto";
+									//Todo 需要根据实际情况
+									insertedSvg.style.minHeight = "300px";
 
-							// 添加响应式支持
-							const insertedSvg = element.querySelector("svg");
-							if (insertedSvg) {
-								insertedSvg.setAttribute("width", "100%");
-								insertedSvg.removeAttribute("height");
-								insertedSvg.style.maxWidth = "100%";
-								insertedSvg.style.height = "auto";
-								//Todo 需要根据实际情况
-								insertedSvg.style.minHeight = "300px";
-
-								// 强制应用样式
-								if (isDark) {
-									svgElement.style.filter =
-										"brightness(0.9) contrast(1.1)";
-								} else {
-									svgElement.style.filter = "none";
+									// 强制应用样式
+									if (isDark) {
+										svgElement.style.filter =
+											"brightness(0.9) contrast(1.1)";
+									} else {
+										svgElement.style.filter = "none";
+									}
+									attachZoomControls(element, insertedSvg);
 								}
-								attachZoomControls(element, insertedSvg);
+								// 渲染成功，跳出重试循环
+								break;
+							} else {
+								// 显示加载状态
+								element.innerHTML =
+									'<div class="mermaid-loading">Rendering diagram...</div>';
+
+								// 渲染图表
+								const { svg } = await window.mermaid.render(
+									`mermaid-${Date.now()}-${index}-${attempts}`,
+									code,
+								);
+
+								// 缓存渲染结果
+								diagramCache.set(cacheKey, {
+									svg,
+									timestamp: now,
+								});
+
+								const parser = new DOMParser();
+								const doc = parser.parseFromString(
+									svg,
+									"image/svg+xml",
+								);
+								const svgElement = doc.documentElement;
+
+								element.innerHTML = "";
+								element.__zoomAttached = false;
+								element.appendChild(svgElement);
+
+								// 添加响应式支持
+								const insertedSvg =
+									element.querySelector("svg");
+								if (insertedSvg) {
+									insertedSvg.setAttribute("width", "100%");
+									insertedSvg.removeAttribute("height");
+									insertedSvg.style.maxWidth = "100%";
+									insertedSvg.style.height = "auto";
+									//Todo 需要根据实际情况
+									insertedSvg.style.minHeight = "300px";
+
+									// 强制应用样式
+									if (isDark) {
+										svgElement.style.filter =
+											"brightness(0.9) contrast(1.1)";
+									} else {
+										svgElement.style.filter = "none";
+									}
+									attachZoomControls(element, insertedSvg);
+								}
 							}
 
 							// 渲染成功，跳出重试循环
@@ -439,47 +496,121 @@
 		currentTheme = isDark ? "dark" : "default";
 	}
 
+	// 检查浏览器是否支持 Service Worker 和 Cache API
+	function canUseCacheAPI() {
+		return "caches" in window && "Cache" in window;
+	}
+
+	// 缓存 Mermaid 库到 Cache API
+	async function cacheMermaidLibrary(url, response) {
+		if (!canUseCacheAPI()) return;
+
+		try {
+			const cache = await caches.open("mermaid-library-cache");
+			await cache.put(url, response.clone());
+			console.log("Mermaid library cached successfully");
+		} catch (error) {
+			console.warn("Failed to cache Mermaid library:", error);
+		}
+	}
+
+	// 从 Cache API 加载 Mermaid 库
+	async function loadFromCache(url) {
+		if (!canUseCacheAPI()) return null;
+
+		try {
+			const cache = await caches.open("mermaid-library-cache");
+			const response = await cache.match(url);
+			if (response) {
+				console.log("Loaded Mermaid library from cache");
+				return response;
+			}
+		} catch (error) {
+			console.warn("Failed to load Mermaid library from cache:", error);
+		}
+		return null;
+	}
+
+	// 通过 Fetch API 加载 Mermaid 库
+	async function fetchWithCache(url) {
+		// 先尝试从缓存加载
+		const cachedResponse = await loadFromCache(url);
+		if (cachedResponse) {
+			// 使用缓存的响应
+			const blob = await cachedResponse.blob();
+			const blobUrl = URL.createObjectURL(blob);
+			return blobUrl;
+		}
+
+		// 缓存未命中，从网络加载
+		try {
+			const response = await fetch(url, {
+				mode: "cors",
+				cache: "no-cache", // 强制网络请求，然后我们自己缓存
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			// 缓存响应
+			await cacheMermaidLibrary(url, response.clone());
+
+			// 创建 Blob URL
+			const blob = await response.blob();
+			return URL.createObjectURL(blob);
+		} catch (error) {
+			console.error("Failed to fetch Mermaid library:", error);
+			throw error;
+		}
+	}
+
 	// 加载 Mermaid 库
 	async function loadMermaid() {
 		if (typeof window.mermaid !== "undefined") {
 			return Promise.resolve();
 		}
 
-		return new Promise((resolve, reject) => {
-			const script = document.createElement("script");
-			script.src =
-				"https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+		const CDNs = [
+			"https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js",
+			"https://unpkg.com/mermaid@11/dist/mermaid.min.js",
+		];
 
-			script.onload = () => {
-				console.log("Mermaid library loaded successfully");
-				resolve();
-			};
+		for (const cdnUrl of CDNs) {
+			try {
+				// 尝试从 Cache API 或网络加载
+				const scriptUrl = await fetchWithCache(cdnUrl);
 
-			script.onerror = (error) => {
-				console.error("Failed to load Mermaid library:", error);
-				// 尝试备用 CDN
-				const fallbackScript = document.createElement("script");
-				fallbackScript.src =
-					"https://unpkg.com/mermaid@11/dist/mermaid.min.js";
+				return new Promise((resolve, reject) => {
+					const script = document.createElement("script");
+					script.src = scriptUrl;
 
-				fallbackScript.onload = () => {
-					console.log("Mermaid library loaded from fallback CDN");
-					resolve();
-				};
+					script.onload = () => {
+						console.log("Mermaid library loaded successfully");
+						resolve();
+					};
 
-				fallbackScript.onerror = () => {
-					reject(
-						new Error(
-							"Failed to load Mermaid from both primary and fallback CDNs",
-						),
-					);
-				};
+					script.onerror = (error) => {
+						console.error(
+							`Failed to load Mermaid from ${cdnUrl}:`,
+							error,
+						);
+						reject(error);
+					};
 
-				document.head.appendChild(fallbackScript);
-			};
+					document.head.appendChild(script);
+				});
+			} catch (error) {
+				console.warn(
+					`Failed to load from ${cdnUrl}, trying next CDN...`,
+				);
+				// 尝试下一个 CDN
+				continue;
+			}
+		}
 
-			document.head.appendChild(script);
-		});
+		// 所有 CDN 都尝试失败
+		throw new Error("Failed to load Mermaid from all configured CDNs");
 	}
 
 	// 主初始化函数
@@ -510,3 +641,4 @@
 		initialize();
 	}
 })();
+

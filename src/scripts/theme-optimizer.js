@@ -226,26 +226,39 @@ class ThemeOptimizer {
 
 	initCodeBlockOptimization() {
 		// 创建 Intersection Observer 追踪可见代码块
+		// 优化配置：增加rootMargin，提前加载更多内容
 		this.codeBlockObserver = new IntersectionObserver(
 			(entries) => {
+				// 批量处理条目，减少回调次数
+				const entriesToAdd = [];
+				const entriesToRemove = [];
+
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						this.visibleBlocks.add(entry.target);
-						// 如果有待处理的主题更新，立即应用
-						if (this.pendingThemeUpdate) {
-							this.applyThemeToBlock(
-								entry.target,
-								this.pendingThemeUpdate,
-							);
-						}
+						entriesToAdd.push(entry.target);
 					} else {
-						this.visibleBlocks.delete(entry.target);
+						entriesToRemove.push(entry.target);
 					}
+				});
+
+				// 批量更新可见块集合
+				entriesToAdd.forEach((target) => {
+					this.visibleBlocks.add(target);
+					// 如果有待处理的主题更新，立即应用
+					if (this.pendingThemeUpdate) {
+						this.applyThemeToBlock(target, this.pendingThemeUpdate);
+					}
+				});
+
+				entriesToRemove.forEach((target) => {
+					this.visibleBlocks.delete(target);
 				});
 			},
 			{
-				rootMargin: "50px 0px",
-				threshold: 0.01,
+				rootMargin: "150px 0px", // 增加rootMargin，提前加载更多内容
+				threshold: 0.05, // 增加threshold，减少不必要的触发
+				trackVisibility: true, // 启用可见性追踪
+				delay: 100, // 添加延迟，减少频繁触发
 			},
 		);
 
@@ -315,26 +328,30 @@ class ThemeOptimizer {
 	}
 
 	batchUpdateBlocks(blocks, theme) {
-		const batchSize = 3;
+		const batchSize = 8; // 增加批量大小，减少渲染次数
 		let currentIndex = 0;
 
+		// 使用requestAnimationFrame进行批量处理
 		const processBatch = () => {
+			if (currentIndex >= blocks.length) return;
+
 			const batch = blocks.slice(currentIndex, currentIndex + batchSize);
 
-			requestAnimationFrame(() => {
-				batch.forEach((block) => {
-					this.applyThemeToBlock(block, theme);
-				});
+			// 批量处理当前批次
+			for (const block of batch) {
+				this.applyThemeToBlock(block, theme);
+			}
 
-				currentIndex += batchSize;
+			currentIndex += batchSize;
 
-				if (currentIndex < blocks.length) {
-					setTimeout(processBatch, 0);
-				}
-			});
+			// 使用requestAnimationFrame处理下一批，确保在每一帧中只处理一批
+			if (currentIndex < blocks.length) {
+				requestAnimationFrame(processBatch);
+			}
 		};
 
-		processBatch();
+		// 开始处理
+		requestAnimationFrame(processBatch);
 	}
 
 	applyThemeToBlock(block, theme) {
