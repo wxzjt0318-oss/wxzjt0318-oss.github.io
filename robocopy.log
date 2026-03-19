@@ -1,0 +1,32 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Windows 的可靠文件复制                              
+-------------------------------------------------------------------------------
+
+  开始时间: 2026年3月6日 11:36:20
+        源: C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\
+      目标: c:\Users\Administrator\Downloads\Compressed\wxzjt0318-oss.github.io-eddbe6ca28c52b75d3050ee62acef783e3aebe55\src\components\
+
+      文件: *.*
+	    
+      选项: *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /XO /XN /XC /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                  17	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\
+	                   2	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\comment\
+	                   5	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\control\
+	                   1	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\layout\
+	                   8	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\misc\
+	                   1	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\skills\
+	                  19	C:\Users\Administrator\Downloads\Compressed\新建文件夹\mizuki\src\components\widget\
+
+------------------------------------------------------------------------------
+
+                  总数        复制        跳过       不匹配        失败        其他
+       目录:         7         0         7         0         0         0
+       文件:        53         0        53         0         0         0
+       字节:   321.5 k         0   321.5 k         0         0         0
+       时间:   0:00:00   0:00:00                       0:00:00   0:00:00
+   已结束: 2026年3月6日 11:36:20
+

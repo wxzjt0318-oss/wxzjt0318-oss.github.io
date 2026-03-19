@@ -1,0 +1,23 @@
+---
+interface Props {
+	badge?: string;
+	url?: string;
+	label?: string;
+}
+const { badge, url, label } = Astro.props;
+---
+<a href={url} aria-label={label} class:list={["btn-plain block w-full h-10 rounded-lg transition-all pl-2 pr-2 text-75"]}>
+    <div class="flex items-center justify-between w-full relative h-full">
+        <div class="overflow-hidden text-left whitespace-nowrap text-ellipsis flex-grow">
+            <slot></slot>
+        </div>
+        {!!badge && (
+            <div class="transition px-2 h-7 ml-4 min-w-8 rounded-lg text-sm font-bold
+                text-[var(--btn-content)] dark:!text-[var(--deep-text)]
+                bg-[var(--btn-plain-bg-hover)] dark:!bg-[var(--primary)]
+                flex items-center justify-center flex-shrink-0">
+                {badge}
+            </div>
+        )}
+    </div>
+</a>

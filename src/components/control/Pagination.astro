@@ -1,0 +1,75 @@
+---
+import type { Page } from "astro";
+import { Icon } from "astro-icon/components";
+import { url } from "../../utils/url-utils";
+import { calculatePaginationRange } from "../../utils/pagination";
+
+interface Props {
+	page: Page;
+	class?: string;
+	style?: string;
+}
+
+const { page, style } = Astro.props;
+
+const HIDDEN = -1;
+const className = Astro.props.class;
+const VISIBLE = 5;
+
+const pages = calculatePaginationRange(page.currentPage, page.lastPage, VISIBLE);
+
+const getPageUrl = (p: number) => {
+	if (p === 1) return "/";
+	return `/${p}/`;
+};
+---
+
+<nav class:list={[className, "comments-pagination", "pagination-wrapper"]} style={style} aria-label="Pagination">
+    <div class="page-numbers pagenav">
+        <!-- Previous Button -->
+        <a href={page.url.prev || "#"} 
+           aria-label={page.url.prev ? "Previous Page" : null}
+           class:list={["page-link", { "disabled": !page.url.prev }]}
+           aria-disabled={!page.url.prev}
+        >
+            <Icon name="material-symbols:chevron-left-rounded" class="pagination-icon"></Icon>
+        </a>
+        
+        <!-- Page Numbers -->
+        {pages.map((p) => {
+            if (p == HIDDEN)
+                return <span class="page-link dots">...</span>;
+            if (p == page.currentPage)
+                return <span class="current">
+                    <span class="page-link active">{p}</span>
+                </span>
+            return <a href={url(getPageUrl(p))} class="page-link" aria-label={`Page ${p}`}>
+                {p}
+            </a>
+        })}
+        
+        <!-- Next Button -->
+        <a href={page.url.next || "#"} 
+           aria-label={page.url.next ? "Next Page" : null}
+           class:list={["page-link", { "disabled": !page.url.next }]}
+           aria-disabled={!page.url.next}
+        >
+            <Icon name="material-symbols:chevron-right-rounded" class="pagination-icon"></Icon>
+        </a>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('keydown', (e) => {
+        // Only trigger if not typing in an input
+        if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+
+        if (e.key === 'ArrowLeft') {
+            const prevLink = document.querySelector('.comments-pagination .page-link[aria-label="Previous Page"]:not(.disabled)');
+            if (prevLink) (prevLink as HTMLElement).click();
+        } else if (e.key === 'ArrowRight') {
+            const nextLink = document.querySelector('.comments-pagination .page-link[aria-label="Next Page"]:not(.disabled)');
+            if (nextLink) (nextLink as HTMLElement).click();
+        }
+    });
+</script>
