@@ -1,21 +1,21 @@
 import { type CollectionEntry, getCollection } from "astro:content";
+import type { PostsSchema } from "../content.config";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
 import { initPostIdMap } from "@utils/permalink-utils";
 
-// // Retrieve posts and sort them by publication date
-async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
+type PostEntry = CollectionEntry<"posts">;
+
+async function getRawSortedPosts(): Promise<PostEntry[]> {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
-		// 首先按置顶状态排序，置顶文章在前
 		if (a.data.pinned && !b.data.pinned) return -1;
 		if (!a.data.pinned && b.data.pinned) return 1;
 
-		// 如果置顶状态相同，优先按 Priority 排序（数值越小越靠前）
 		if (a.data.pinned && b.data.pinned) {
 			const priorityA = a.data.priority;
 			const priorityB = b.data.priority;
@@ -28,7 +28,6 @@ async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 			}
 		}
 
-		// 否则按发布日期排序
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;
@@ -36,7 +35,7 @@ async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 	return sorted;
 }
 
-export async function getSortedPosts(): Promise<CollectionEntry<"posts">[]> {
+export async function getSortedPosts(): Promise<PostEntry[]> {
 	const sorted = await getRawSortedPosts();
 
 	for (let i = 1; i < sorted.length; i++) {
@@ -50,18 +49,18 @@ export async function getSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 
 	return sorted;
 }
+
 export type PostForList = {
 	id: string;
-	data: CollectionEntry<"posts">["data"];
-	url?: string; // 预计算的文章 URL
+	data: PostsSchema;
+	url?: string;
 };
+
 export async function getSortedPostsList(): Promise<PostForList[]> {
 	const sortedFullPosts = await getRawSortedPosts();
 
-	// 初始化文章 ID 映射（用于 permalink 功能）
 	initPostIdMap(sortedFullPosts);
 
-	// delete post.body，并预计算 URL
 	const sortedPostsList = sortedFullPosts.map((post) => ({
 		id: post.id,
 		data: post.data,
@@ -70,25 +69,25 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 
 	return sortedPostsList;
 }
+
 export type Tag = {
 	name: string;
 	count: number;
 };
 
 export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
 	const countMap: { [key: string]: number } = {};
-	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
+	allBlogPosts.forEach((post) => {
 		post.data.tags.forEach((tag: string) => {
 			if (!countMap[tag]) countMap[tag] = 0;
 			countMap[tag]++;
 		});
 	});
 
-	// sort tags
 	const keys: string[] = Object.keys(countMap).sort((a, b) => {
 		return a.toLowerCase().localeCompare(b.toLowerCase());
 	});
@@ -103,11 +102,11 @@ export type Category = {
 };
 
 export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 	const count: { [key: string]: number } = {};
-	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
+	allBlogPosts.forEach((post) => {
 		if (!post.data.category) {
 			const ucKey = i18n(I18nKey.uncategorized);
 			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
