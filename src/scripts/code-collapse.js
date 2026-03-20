@@ -9,6 +9,7 @@ class CodeBlockCollapser {
 
 	log(...args) {
 		if (this.debug) {
+			// eslint-disable-next-line no-console
 			console.log("[CodeBlockCollapser]", ...args);
 		}
 	}

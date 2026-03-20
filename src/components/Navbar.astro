@@ -165,6 +165,7 @@ async function loadButtonScript() {
             };
         }
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Failed to load panel manager:', error);
         // 备用逻辑
         const settingBtn = document.getElementById("display-settings-switch");
@@ -275,14 +276,17 @@ async function loadPagefind() {
         window.pagefind = pagefind;
 
         document.dispatchEvent(new CustomEvent('pagefindready'));
+        // eslint-disable-next-line no-console
         console.log('Pagefind loaded and initialized successfully, event dispatched.');
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Failed to load Pagefind:', error);
         window.pagefind = {
             search: () => Promise.resolve({ results: [] }),
             options: () => Promise.resolve(),
         };
         document.dispatchEvent(new CustomEvent('pagefindloaderror'));
+        // eslint-disable-next-line no-console
         console.log('Pagefind load error, event dispatched.');
     }
 }

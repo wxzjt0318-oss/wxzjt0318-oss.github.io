@@ -374,6 +374,7 @@ const subtitle = i18n(I18nKey.timelineSubtitle);
           item.dispatchEvent(new CustomEvent('iconify-ready'));
         });
       }).catch(function(error) {
+        // eslint-disable-next-line no-console
         console.error('Failed to load icons on timeline page:', error);
       });
     }
@@ -398,7 +399,8 @@ const subtitle = i18n(I18nKey.timelineSubtitle);
       if (event.persisted && window.__iconifyLoader) {
         // 页面从缓存恢复，重新检查图标状态
         setTimeout(function() {
-          window.__iconifyLoader?.load().catch(console.error);
+          // eslint-disable-next-line no-console
+          window.__iconifyLoader?.load().catch(function(e) { console.error(e); });
         }, 100);
       }
     });

@@ -32,7 +32,6 @@ export class Live2DModelManager {
 	private initModels(): void {
 		// 这里可以实现从服务器或本地目录扫描模型的逻辑
 		// 由于是静态站点，我们使用配置文件来管理模型列表
-		console.log("Live2DModelManager initialized");
 	}
 
 	/**
@@ -60,7 +59,9 @@ export class Live2DModelManager {
 	 * 切换到下一个模型
 	 */
 	nextModel(): Live2DModelInfo | null {
-		if (this.models.length === 0) {return null;}
+		if (this.models.length === 0) {
+			return null;
+		}
 
 		this.currentModelIndex =
 			(this.currentModelIndex + 1) % this.models.length;
@@ -71,7 +72,9 @@ export class Live2DModelManager {
 	 * 切换到指定索引的模型
 	 */
 	switchToModel(index: number): Live2DModelInfo | null {
-		if (index < 0 || index >= this.models.length) {return null;}
+		if (index < 0 || index >= this.models.length) {
+			return null;
+		}
 
 		this.currentModelIndex = index;
 		return this.models[this.currentModelIndex];
@@ -89,16 +92,19 @@ export class Live2DModelManager {
 		try {
 			// 由于是静态站点，我们无法在运行时写入文件系统
 			// 这里提供一个示例，实际应用中需要通过服务器或构建时下载
+			// eslint-disable-next-line no-console
 			console.log(`尝试从GitHub下载模型: ${modelUrl} 到 ${savePath}`);
 
 			// 模拟下载过程
 			return new Promise((resolve) => {
 				setTimeout(() => {
+					// eslint-disable-next-line no-console
 					console.log(`模型下载完成: ${savePath}`);
 					resolve(true);
 				}, 2000);
 			});
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("模型下载失败:", error);
 			return false;
 		}
@@ -116,6 +122,7 @@ export class Live2DModelManager {
 			}
 			return await response.json();
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("加载模型配置失败:", error);
 			throw error;
 		}
@@ -160,6 +167,7 @@ export const Live2DUtils = {
 				const filePath = `${modelPath}/${file}`;
 				const fileResponse = await fetch(filePath);
 				if (!fileResponse.ok) {
+					// eslint-disable-next-line no-console
 					console.warn(`模型文件缺失: ${file}`);
 					// 非关键文件缺失时继续验证
 				}
@@ -167,6 +175,7 @@ export const Live2DUtils = {
 
 			return true;
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("模型验证失败:", error);
 			return false;
 		}
@@ -199,6 +208,7 @@ export const Live2DUtils = {
 
 			return modelDirs;
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("从GitHub获取模型列表失败:", error);
 			return [];
 		}

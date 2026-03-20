@@ -344,6 +344,7 @@ async function generatePoster() {
 
 		posterImage = canvas.toDataURL("image/png");
 	} catch (error) {
+		// eslint-disable-next-line no-console
 		console.error("Failed to generate poster:", error);
 	} finally {
 		generating = false;
@@ -386,6 +387,7 @@ async function copyLink() {
 			copied = false;
 		}, COPY_FEEDBACK_DURATION);
 	} catch (error) {
+		// eslint-disable-next-line no-console
 		console.error("Failed to copy link:", error);
 	}
 }

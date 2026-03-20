@@ -119,11 +119,8 @@ if (!album) {
 <script>
   // 确保Fancybox正确处理相册图片
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('=== 相册页面加载完成 ===');
-    
     // 检查页面中的图片元素
     const albumImages = document.querySelectorAll('.moment-images img, .photo-gallery img');
-    console.log('相册图片数量:', albumImages.length);
     
     // 预加载图片以确保正确显示
     albumImages.forEach((img) => {

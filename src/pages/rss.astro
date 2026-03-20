@@ -127,6 +127,7 @@ const recentPosts = posts.slice(0, 6);
                             this.style.backgroundColor = '';
                         }, 2000);
                     } catch (err) {
+                        // eslint-disable-next-line no-console
                         console.error('复制失败:', err);
                         const originalText = this.textContent || "Copy Link";
                         this.textContent = "Copy failed, please copy the link manually";

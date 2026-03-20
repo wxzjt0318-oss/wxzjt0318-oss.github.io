@@ -43,6 +43,7 @@ function loadPioAssets() {
 // 初始化或切换Pio模型
 function initOrSwitchPio(modelPath) {
 	if (typeof window === "undefined" || typeof Paul_Pio === "undefined") {
+		// eslint-disable-next-line no-console
 		console.error("Paul_Pio is not available");
 		return;
 	}
@@ -91,6 +92,7 @@ function initOrSwitchPio(modelPath) {
 					// 添加淡入效果
 					container.style.opacity = "1";
 					isLoading = false;
+					// eslint-disable-next-line no-console
 					console.log("Pio model switched successfully");
 				}, 300);
 			} else {
@@ -98,13 +100,16 @@ function initOrSwitchPio(modelPath) {
 				pioInstance = new Paul_Pio(pioOptions);
 				pioInitialized = true;
 				isLoading = false;
+				// eslint-disable-next-line no-console
 				console.log("Pio initialized successfully (Svelte)");
 			}
 		} else {
+			// eslint-disable-next-line no-console
 			console.warn("Pio DOM elements not found");
 			isLoading = false;
 		}
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.error("Pio initialization/switch error:", e);
 		isLoading = false;
 	}
@@ -142,6 +147,7 @@ onMount(async () => {
 			initOrSwitchPio(pioConfig.models[currentModelIndex] || "/pio/models/pio/model.json");
 		}, 100);
 	} catch (error) {
+		// eslint-disable-next-line no-console
 		console.error("Failed to initialize Pio:", error);
 		isLoading = false;
 	}
@@ -155,6 +161,7 @@ onDestroy(() => {
 			pioInstance.destroy();
 		}
 		pioInstance = null; // 确保引用被清除
+		// eslint-disable-next-line no-console
 		console.log("Pio Svelte component destroyed");
 	}
 });

@@ -94,7 +94,9 @@
 
 	// 缩放平移
 	function attachZoomControls(element, svgElement) {
-		if (element.__zoomAttached) {return;}
+		if (element.__zoomAttached) {
+			return;
+		}
 		element.__zoomAttached = true;
 
 		const wrapper = document.createElement("div");
@@ -125,7 +127,9 @@
 		controls.addEventListener("click", (ev) => {
 			const action =
 				ev.target.getAttribute && ev.target.getAttribute("data-action");
-			if (!action) {return;}
+			if (!action) {
+				return;
+			}
 
 			switch (action) {
 				case "zoom-in":
@@ -154,7 +158,9 @@
 		wrapper.style.touchAction = "none";
 
 		wrapper.addEventListener("pointerdown", (ev) => {
-			if (ev.button !== 0) {return;} // 仅左键
+			if (ev.button !== 0) {
+				return;
+			} // 仅左键
 			isPanning = true;
 			wrapper.setPointerCapture(ev.pointerId);
 			startX = ev.clientX;
@@ -164,7 +170,9 @@
 		});
 
 		wrapper.addEventListener("pointermove", (ev) => {
-			if (!isPanning) {return;}
+			if (!isPanning) {
+				return;
+			}
 			const dx = ev.clientX - startX;
 			const dy = ev.clientY - startY;
 			tx = startTx + dx / scale; // 根据当前缩放调整灵敏度
@@ -269,6 +277,7 @@
 			// 渲染所有 Mermaid 图表
 			await renderMermaidDiagrams();
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Failed to initialize Mermaid:", error);
 			// 如果初始化失败，尝试重新加载
 			if (retryCount < MAX_RETRIES) {
@@ -286,6 +295,7 @@
 
 		// 检查 Mermaid 是否可用
 		if (!window.mermaid || typeof window.mermaid.render !== "function") {
+			// eslint-disable-next-line no-console
 			console.warn("Mermaid not available, skipping render");
 			return;
 		}
@@ -442,12 +452,14 @@
 							break;
 						} catch (error) {
 							attempts++;
+							// eslint-disable-next-line no-console
 							console.warn(
 								`Mermaid rendering attempt ${attempts} failed for element ${index}:`,
 								error,
 							);
 
 							if (attempts >= maxAttempts) {
+								// eslint-disable-next-line no-console
 								console.error(
 									`Failed to render Mermaid diagram after ${maxAttempts} attempts:`,
 									error,
@@ -475,6 +487,7 @@
 			await Promise.all(renderPromises);
 			retryCount = 0; // 重置重试计数
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Error in renderMermaidDiagrams:", error);
 
 			// 如果渲染失败，尝试重新渲染
@@ -503,29 +516,37 @@
 
 	// 缓存 Mermaid 库到 Cache API
 	async function cacheMermaidLibrary(url, response) {
-		if (!canUseCacheAPI()) {return;}
+		if (!canUseCacheAPI()) {
+			return;
+		}
 
 		try {
 			const cache = await caches.open("mermaid-library-cache");
 			await cache.put(url, response.clone());
+			// eslint-disable-next-line no-console
 			console.log("Mermaid library cached successfully");
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.warn("Failed to cache Mermaid library:", error);
 		}
 	}
 
 	// 从 Cache API 加载 Mermaid 库
 	async function loadFromCache(url) {
-		if (!canUseCacheAPI()) {return null;}
+		if (!canUseCacheAPI()) {
+			return null;
+		}
 
 		try {
 			const cache = await caches.open("mermaid-library-cache");
 			const response = await cache.match(url);
 			if (response) {
+				// eslint-disable-next-line no-console
 				console.log("Loaded Mermaid library from cache");
 				return response;
 			}
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.warn("Failed to load Mermaid library from cache:", error);
 		}
 		return null;
@@ -560,6 +581,7 @@
 			const blob = await response.blob();
 			return URL.createObjectURL(blob);
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Failed to fetch Mermaid library:", error);
 			throw error;
 		}
@@ -586,11 +608,13 @@
 					script.src = scriptUrl;
 
 					script.onload = () => {
+						// eslint-disable-next-line no-console
 						console.log("Mermaid library loaded successfully");
 						resolve();
 					};
 
 					script.onerror = (error) => {
+						// eslint-disable-next-line no-console
 						console.error(
 							`Failed to load Mermaid from ${cdnUrl}:`,
 							error,
@@ -601,6 +625,7 @@
 					document.head.appendChild(script);
 				});
 			} catch (error) {
+				// eslint-disable-next-line no-console
 				console.warn(
 					`Failed to load from ${cdnUrl}, trying next CDN...`,
 				);
@@ -630,6 +655,7 @@
 			// 将 renderMermaidDiagrams 暴露到全局作用域，以便在解密后调用
 			window.renderMermaidDiagrams = renderMermaidDiagrams;
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Failed to initialize Mermaid system:", error);
 		}
 	}

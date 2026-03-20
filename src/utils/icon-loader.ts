@@ -47,6 +47,7 @@ class IconLoader {
 			this.isLoaded = true;
 			this.notifyObservers();
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Failed to load Iconify after all retries:", error);
 			throw error;
 		} finally {
@@ -67,6 +68,7 @@ class IconLoader {
 				await this.loadScript(timeout);
 				return;
 			} catch (error) {
+				// eslint-disable-next-line no-console
 				console.warn(`Iconify load attempt ${attempt} failed:`, error);
 
 				if (attempt === retryCount) {
@@ -187,6 +189,7 @@ class IconLoader {
 			try {
 				callback();
 			} catch (error) {
+				// eslint-disable-next-line no-console
 				console.error("Error in icon load observer:", error);
 			}
 		});
@@ -266,3 +269,4 @@ export const preloadIcons: (icons: string[]) => Promise<void> = (
 export const onIconsReady: (callback: () => void) => void = (
 	callback: () => void,
 ) => iconLoader.onLoad(callback);
+

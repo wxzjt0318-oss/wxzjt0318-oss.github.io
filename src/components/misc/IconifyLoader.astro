@@ -53,6 +53,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
           this.notifyObservers();
           await this.processPreloadQueue();
         } catch (error) {
+          // eslint-disable-next-line no-console
           console.error('Failed to load Iconify:', error);
           throw error;
         } finally {
@@ -66,6 +67,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
             await this.loadScript(timeout);
             return;
           } catch (error) {
+            // eslint-disable-next-line no-console
             console.warn(`Iconify load attempt ${attempt} failed:`, error);
             
             if (attempt === retryCount) {
@@ -157,6 +159,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
           try {
             callback();
           } catch (error) {
+            // eslint-disable-next-line no-console
             console.error('Error in icon load observer:', error);
           }
         });
@@ -234,6 +237,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
 
     // 立即开始加载
     window.__iconifyLoader.load().catch(error => {
+      // eslint-disable-next-line no-console
       console.error('Failed to initialize Iconify:', error);
     });
 
@@ -252,7 +256,8 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
     // 页面可见性变化时重新检查
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden && !window.__iconifyLoader.isLoaded) {
-        window.__iconifyLoader.load().catch(console.error);
+        // eslint-disable-next-line no-console
+        window.__iconifyLoader.load().catch(function(e) { console.error(e); });
       }
     });
 
