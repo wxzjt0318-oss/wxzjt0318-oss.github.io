@@ -96,23 +96,27 @@ export function waitForSwup(timeout = 5000): Promise<boolean> {
 			return;
 		}
 
-		let timeoutId: NodeJS.Timeout;
+		let resolved = false;
+		const cleanup = () => {
+			document.removeEventListener("swup:enable", checkSwup);
+		};
 
 		const checkSwup = () => {
-			if (isSwupReady()) {
-				clearTimeout(timeoutId);
-				document.removeEventListener("swup:enable", checkSwup);
+			if (isSwupReady() && !resolved) {
+				resolved = true;
+				cleanup();
 				resolve(true);
 			}
 		};
 
-		// 监听 Swup 启用事件
 		document.addEventListener("swup:enable", checkSwup);
 
-		// 设置超时
-		timeoutId = setTimeout(() => {
-			document.removeEventListener("swup:enable", checkSwup);
-			resolve(false);
+		setTimeout(() => {
+			if (!resolved) {
+				resolved = true;
+				cleanup();
+				resolve(false);
+			}
 		}, timeout);
 	});
 }
@@ -170,3 +174,4 @@ export function pathsEqual(path1: string, path2: string): boolean {
 
 	return normalize(path1) === normalize(path2);
 }
+

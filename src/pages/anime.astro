@@ -138,7 +138,7 @@ async function fetchWithRetry(url: string, init?: RequestInit, retries = 4, base
 
 // 安全提取 infobox
 function pickFirstUsefulValue(v: any): string | undefined {
-  if (v == null) {return undefined;}
+  if (v === null || v === undefined) {return undefined;}
   if (typeof v === "string") {return v.trim() || undefined;}
   if (Array.isArray(v)) {
     for (const it of v) {
