@@ -60,7 +60,7 @@ export class Live2DModelManager {
 	 * 切换到下一个模型
 	 */
 	nextModel(): Live2DModelInfo | null {
-		if (this.models.length === 0) return null;
+		if (this.models.length === 0) {return null;}
 
 		this.currentModelIndex =
 			(this.currentModelIndex + 1) % this.models.length;
@@ -71,7 +71,7 @@ export class Live2DModelManager {
 	 * 切换到指定索引的模型
 	 */
 	switchToModel(index: number): Live2DModelInfo | null {
-		if (index < 0 || index >= this.models.length) return null;
+		if (index < 0 || index >= this.models.length) {return null;}
 
 		this.currentModelIndex = index;
 		return this.models[this.currentModelIndex];

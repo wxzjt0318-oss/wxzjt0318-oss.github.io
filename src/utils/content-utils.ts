@@ -1,9 +1,10 @@
-import { type CollectionEntry, getCollection } from "astro:content";
-import type { PostsSchema } from "../content.config";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
-import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
 import { initPostIdMap } from "@utils/permalink-utils";
+import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+import type { PostsSchema } from "../content.config";
 
 type PostEntry = CollectionEntry<"posts">;
 
@@ -13,14 +14,14 @@ async function getRawSortedPosts(): Promise<PostEntry[]> {
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
-		if (a.data.pinned && !b.data.pinned) return -1;
-		if (!a.data.pinned && b.data.pinned) return 1;
+		if (a.data.pinned && !b.data.pinned) {return -1;}
+		if (!a.data.pinned && b.data.pinned) {return 1;}
 
 		if (a.data.pinned && b.data.pinned) {
 			const priorityA = a.data.priority;
 			const priorityB = b.data.priority;
 			if (priorityA !== undefined && priorityB !== undefined) {
-				if (priorityA !== priorityB) return priorityA - priorityB;
+				if (priorityA !== priorityB) {return priorityA - priorityB;}
 			} else if (priorityA !== undefined) {
 				return -1;
 			} else if (priorityB !== undefined) {
@@ -83,7 +84,7 @@ export async function getTagList(): Promise<Tag[]> {
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post) => {
 		post.data.tags.forEach((tag: string) => {
-			if (!countMap[tag]) countMap[tag] = 0;
+			if (!countMap[tag]) {countMap[tag] = 0;}
 			countMap[tag]++;
 		});
 	});

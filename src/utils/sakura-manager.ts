@@ -242,7 +242,7 @@ export class SakuraManager {
 
 	// 创建樱花列表
 	private createSakuraList(): void {
-		if (!this.img || !this.ctx) return;
+		if (!this.img || !this.ctx) {return;}
 
 		this.sakuraList = new SakuraList();
 		const limitArray = new Array(this.config.sakuraNum).fill(
@@ -285,10 +285,10 @@ export class SakuraManager {
 
 	// 开始动画
 	private startAnimation(): void {
-		if (!this.ctx || !this.canvas || !this.sakuraList) return;
+		if (!this.ctx || !this.canvas || !this.sakuraList) {return;}
 
 		const animate = () => {
-			if (!this.ctx || !this.canvas || !this.sakuraList) return;
+			if (!this.ctx || !this.canvas || !this.sakuraList) {return;}
 
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this.sakuraList.update();

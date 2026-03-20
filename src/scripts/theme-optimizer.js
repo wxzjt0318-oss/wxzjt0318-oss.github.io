@@ -321,7 +321,7 @@ class ThemeOptimizer {
 
 		const visibleBlocksArray = Array.from(this.visibleBlocks);
 
-		if (visibleBlocksArray.length === 0) return;
+		if (visibleBlocksArray.length === 0) {return;}
 
 		// 分批更新可见代码块
 		this.batchUpdateBlocks(visibleBlocksArray, newTheme);
@@ -333,7 +333,7 @@ class ThemeOptimizer {
 
 		// 使用requestAnimationFrame进行批量处理
 		const processBatch = () => {
-			if (currentIndex >= blocks.length) return;
+			if (currentIndex >= blocks.length) {return;}
 
 			const batch = blocks.slice(currentIndex, currentIndex + batchSize);
 

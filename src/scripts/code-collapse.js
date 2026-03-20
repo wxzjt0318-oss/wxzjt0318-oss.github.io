@@ -228,7 +228,7 @@ class CodeBlockCollapser {
 
 	observePageChanges() {
 		// 如果正在主题切换，不要重新连接
-		if (this.isThemeChanging) return;
+		if (this.isThemeChanging) {return;}
 
 		// 断开现有的 observer
 		if (this.observer) {
@@ -239,7 +239,7 @@ class CodeBlockCollapser {
 
 		this.observer = new MutationObserver((mutations) => {
 			// 如果正在主题切换，忽略所有变化
-			if (this.isThemeChanging) return;
+			if (this.isThemeChanging) {return;}
 
 			let shouldReinit = false;
 
@@ -266,7 +266,7 @@ class CodeBlockCollapser {
 						}
 					}
 				}
-				if (shouldReinit) break;
+				if (shouldReinit) {break;}
 			}
 
 			if (shouldReinit) {

@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+
 import { umamiConfig } from "../config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
@@ -123,7 +124,7 @@ const {
         
         async function fetchPageViews() {
             const displayElement = document.getElementById('page-views-display');
-            if (!displayElement) return;
+            if (!displayElement) {return;}
             
             if (!umamiConfig.enabled || !umamiWebsiteId || !id || !umamiBaseUrl || !umamiApiKey) {
                 displayElement.textContent = '统计不可用';

@@ -1,4 +1,5 @@
 import type { CollectionEntry } from "astro:content";
+
 import { permalinkConfig } from "../config";
 import { removeFileExtension } from "./url-utils";
 

@@ -2,6 +2,7 @@
 import Icon from "@iconify/svelte";
 import QRCode from "qrcode";
 import { onMount } from "svelte";
+
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 
@@ -80,7 +81,7 @@ function getLines(
 		}
 	}
 
-	if (currentLine) lines.push(currentLine);
+	if (currentLine) {lines.push(currentLine);}
 	return lines;
 }
 
@@ -111,7 +112,7 @@ type DateObj = { day: string; month: string; year: string };
 function parseDate(dateStr: string): DateObj | null {
 	try {
 		const d = new Date(dateStr);
-		if (Number.isNaN(d.getTime())) return null;
+		if (Number.isNaN(d.getTime())) {return null;}
 
 		return {
 			day: d.getDate().toString().padStart(2, "0"),
@@ -125,7 +126,7 @@ function parseDate(dateStr: string): DateObj | null {
 
 async function generatePoster() {
 	showModal = true;
-	if (posterImage) return;
+	if (posterImage) {return;}
 
 	generating = true;
 	try {
@@ -143,7 +144,7 @@ async function generatePoster() {
 
 		const canvas = document.createElement("canvas");
 		const ctx = canvas.getContext("2d");
-		if (!ctx) throw new Error("Canvas context not available");
+		if (!ctx) {throw new Error("Canvas context not available");}
 
 		// Calculate layout
 		const coverHeight = (coverImage ? 200 : 120) * SCALE;

@@ -8,12 +8,12 @@ import type {
 	MusicPlayerConfig,
 	NavBarConfig,
 	PermalinkConfig,
-	ProfileConfig,
 	PioConfig,
+	ProfileConfig,
 	SakuraConfig,
+	ShareConfig,
 	SidebarLayoutConfig,
 	SiteConfig,
-	ShareConfig,
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 

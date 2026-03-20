@@ -67,12 +67,12 @@ const iconId = `icon-${Math.random().toString(36).substring(2, 9)}`;
   // 图标加载和显示逻辑
   (function() {
     const container = document.querySelector(`[data-icon-container="${iconId}"]`);
-    if (!container) return;
+    if (!container) {return;}
     
     const loadingIndicator = container.querySelector('[data-loading-indicator]');
     const iconElement = container.querySelector('[data-icon-element]');
     
-    if (!loadingIndicator || !iconElement) return;
+    if (!loadingIndicator || !iconElement) {return;}
 
     // 检查图标是否已经加载
     function checkIconLoaded() {

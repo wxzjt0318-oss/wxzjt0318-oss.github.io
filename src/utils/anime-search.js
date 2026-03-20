@@ -1,5 +1,5 @@
 export function normalizeText(input) {
-	if (!input) return "";
+	if (!input) {return "";}
 	let s = String(input).normalize("NFKC").toLowerCase();
 	s = s.replace(/[\u3000\s]+/g, " ");
 	s = s.replace(/[·•・]/g, " ");
@@ -12,7 +12,7 @@ export function normalizeText(input) {
 }
 
 function stripBracketed(input) {
-	if (!input) return "";
+	if (!input) {return "";}
 	const s = String(input).replace(
 		/[\(\（【\[《『「][^)\）】\]》』」]*[\)\）】\]》』」]/g,
 		" ",
@@ -21,7 +21,7 @@ function stripBracketed(input) {
 }
 
 function stripSeason(input) {
-	if (!input) return "";
+	if (!input) {return "";}
 	let s = String(input);
 	s = s.replace(/第\s*[0-9一二三四五六七八九十]+\s*(季|期|部)/gi, " ");
 	s = s.replace(/\bseason\s*\d+\b/gi, " ");
@@ -34,14 +34,14 @@ export function buildAltTitles(...titles) {
 	const set = new Set();
 	for (const t of titles) {
 		const raw = String(t || "").trim();
-		if (!raw) continue;
+		if (!raw) {continue;}
 		set.add(raw);
 		const noBracket = stripBracketed(raw);
-		if (noBracket) set.add(noBracket);
+		if (noBracket) {set.add(noBracket);}
 		const noSeason = stripSeason(raw);
-		if (noSeason) set.add(noSeason);
+		if (noSeason) {set.add(noSeason);}
 		const mix = stripSeason(noBracket);
-		if (mix) set.add(mix);
+		if (mix) {set.add(mix);}
 	}
 	return Array.from(set);
 }
@@ -50,23 +50,23 @@ export function buildSearchIndex(tokens) {
 	const set = new Set();
 	for (const t of tokens || []) {
 		const raw = String(t || "").trim();
-		if (!raw) continue;
+		if (!raw) {continue;}
 		set.add(raw.toLowerCase());
 		const norm = normalizeText(raw);
-		if (norm) set.add(norm);
+		if (norm) {set.add(norm);}
 		const compact = norm.replace(/\s+/g, "");
-		if (compact) set.add(compact);
+		if (compact) {set.add(compact);}
 	}
 	return Array.from(set).join(" ");
 }
 
 export function isValidStudio(input, unknownText) {
-	if (!input) return false;
+	if (!input) {return false;}
 	const raw = String(input).trim();
-	if (!raw) return false;
-	if (unknownText && raw === unknownText) return false;
+	if (!raw) {return false;}
+	if (unknownText && raw === unknownText) {return false;}
 	const norm = normalizeText(raw);
-	if (!norm) return false;
+	if (!norm) {return false;}
 	const lowered = norm.toLowerCase();
 	const invalid = new Set([
 		"unknown",
@@ -78,8 +78,8 @@ export function isValidStudio(input, unknownText) {
 		"null",
 		"undefined",
 	]);
-	if (invalid.has(lowered)) return false;
-	if (!/[a-z0-9\u4e00-\u9fff]/i.test(norm)) return false;
+	if (invalid.has(lowered)) {return false;}
+	if (!/[a-z0-9\u4e00-\u9fff]/i.test(norm)) {return false;}
 	return true;
 }
 

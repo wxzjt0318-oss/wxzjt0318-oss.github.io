@@ -11,7 +11,7 @@ const { config, className } = Astro.props;
 
 // 获取当前设备类型的图片源
 const getImageSources = async () => {
-	let srcConfig = config.src;
+	const srcConfig = config.src;
 
 	// API 图片逻辑
 	if (siteConfig.banner.imageApi?.enable && siteConfig.banner.imageApi?.url) {
@@ -48,7 +48,7 @@ const imageSources = await getImageSources();
 const hasDesktopImages = imageSources.desktop.length > 0;
 const hasMobileImages = imageSources.mobile.length > 0;
 
-if (!hasDesktopImages && !hasMobileImages) return null;
+if (!hasDesktopImages && !hasMobileImages) {return null;}
 
 // 轮播配置
 const isCarouselEnabled = config.carousel?.enable && 
@@ -123,8 +123,8 @@ const renderGroups = [
 			<script is:inline define:vars={{ desktopImages: imageSources.desktop, mobileImages: imageSources.mobile, positionClass, blurAmount }}>
 				(function() {
 					const getRandomImage = (images, storageKey) => {
-						if (images.length === 0) return null;
-						if (images.length === 1) return images[0];
+						if (images.length === 0) {return null;}
+						if (images.length === 1) {return images[0];}
 						
 						const lastIndex = sessionStorage.getItem(storageKey);
 						let newIndex;
@@ -185,7 +185,7 @@ const renderGroups = [
 	<script is:inline define:vars={{ carouselInterval }}>
 		function initFullscreenWallpaperCarousel() {
 			const container = document.querySelector('[data-fullscreen-wallpaper]');
-			if (!container) return;
+			if (!container) {return;}
 
 			if (window.__wallpaper_cleanup) {
 				window.__wallpaper_cleanup();
@@ -193,7 +193,7 @@ const renderGroups = [
 			}
 
 			const STORAGE_KEY = 'mizuki_wallpaper_index';
-			let savedIndex = parseInt(sessionStorage.getItem(STORAGE_KEY) || '0');
+			const savedIndex = parseInt(sessionStorage.getItem(STORAGE_KEY) || '0');
 
 			const groups = [
 				container.querySelectorAll('.hidden.md\\:block [data-carousel-item]'),
@@ -260,13 +260,13 @@ const renderGroups = [
 					stop();
 				} else {
 					const exists = state.some(s => s.items.length > 0 && document.body.contains(s.items[0]));
-					if (exists) start();
+					if (exists) {start();}
 				}
 			};
 
 			// 初始化状态
 			state.forEach(s => {
-				if (s.items.length > 0) initImage(s);
+				if (s.items.length > 0) {initImage(s);}
 			});
 
 			start();

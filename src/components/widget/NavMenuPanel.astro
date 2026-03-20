@@ -151,7 +151,7 @@ const processedLinks: ProcessedNavBarLink[] = Astro.props.links.map(
             const trigger = dropdown.querySelector('[data-mobile-dropdown-trigger]');
             const submenu = dropdown.querySelector('[data-mobile-submenu]');
             
-            if (!trigger || !submenu) return;
+            if (!trigger || !submenu) {return;}
             
             trigger.addEventListener('click', function(e) {
                 e.preventDefault();

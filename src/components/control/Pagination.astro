@@ -1,8 +1,9 @@
 ---
 import type { Page } from "astro";
 import { Icon } from "astro-icon/components";
-import { url } from "../../utils/url-utils";
+
 import { calculatePaginationRange } from "../../utils/pagination";
+import { url } from "../../utils/url-utils";
 
 interface Props {
 	page: Page;
@@ -19,7 +20,7 @@ const VISIBLE = 5;
 const pages = calculatePaginationRange(page.currentPage, page.lastPage, VISIBLE);
 
 const getPageUrl = (p: number) => {
-	if (p === 1) return "/";
+	if (p === 1) {return "/";}
 	return `/${p}/`;
 };
 ---
@@ -38,11 +39,11 @@ const getPageUrl = (p: number) => {
         <!-- Page Numbers -->
         {pages.map((p) => {
             if (p == HIDDEN)
-                return <span class="page-link dots">...</span>;
+                {return <span class="page-link dots">...</span>;}
             if (p == page.currentPage)
-                return <span class="current">
+                {return <span class="current">
                     <span class="page-link active">{p}</span>
-                </span>
+                </span>}
             return <a href={url(getPageUrl(p))} class="page-link" aria-label={`Page ${p}`}>
                 {p}
             </a>

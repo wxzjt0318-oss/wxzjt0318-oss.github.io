@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+
 import { navBarConfig, siteConfig } from "../config";
 import { LinkPresets } from "../constants/link-presets";
 import { LinkPreset, type NavBarLink } from "../types/config";
@@ -26,7 +27,7 @@ const modeSwitchDisplay =
 // 检查是否为首页
 const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
 
-let links: NavBarLink[] = navBarConfig.links.map(
+const links: NavBarLink[] = navBarConfig.links.map(
 	(item: NavBarLink | LinkPreset): NavBarLink => {
 		if (typeof item === "number") {
 			return LinkPresets[item];
@@ -150,14 +151,14 @@ async function loadButtonScript() {
         // 导入面板管理器
         const { panelManager } = await import('../utils/panel-manager.js');
         
-        let settingBtn = document.getElementById("display-settings-switch");
+        const settingBtn = document.getElementById("display-settings-switch");
         if (settingBtn) {
             settingBtn.onclick = async function () {
                 await panelManager.togglePanel('display-setting');
             };
         }
 
-        let menuBtn = document.getElementById("nav-menu-switch");
+        const menuBtn = document.getElementById("nav-menu-switch");
         if (menuBtn) {
             menuBtn.onclick = async function () {
                 await panelManager.togglePanel('nav-menu-panel');
@@ -166,20 +167,20 @@ async function loadButtonScript() {
     } catch (error) {
         console.error('Failed to load panel manager:', error);
         // 备用逻辑
-        let settingBtn = document.getElementById("display-settings-switch");
+        const settingBtn = document.getElementById("display-settings-switch");
         if (settingBtn) {
             settingBtn.onclick = function () {
-                let settingPanel = document.getElementById("display-setting");
+                const settingPanel = document.getElementById("display-setting");
                 if (settingPanel) {
                     settingPanel.classList.toggle("float-panel-closed");
                 }
             };
         }
 
-        let menuBtn = document.getElementById("nav-menu-switch");
+        const menuBtn = document.getElementById("nav-menu-switch");
         if (menuBtn) {
             menuBtn.onclick = function () {
-                let menuPanel = document.getElementById("nav-menu-panel");
+                const menuPanel = document.getElementById("nav-menu-panel");
                 if (menuPanel) {
                     menuPanel.classList.toggle("float-panel-closed");
                 }
@@ -193,7 +194,7 @@ loadButtonScript();
 // 为semifull模式添加滚动检测逻辑
 function initSemifullScrollDetection() {
     const navbar = document.getElementById('navbar');
-    if (!navbar) return;
+    if (!navbar) {return;}
     
     // 移除之前的滚动事件监听器（如果存在）
     // @ts-ignore

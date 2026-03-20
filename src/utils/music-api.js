@@ -1,5 +1,5 @@
 export function buildMetingUrl(apiTemplate, { server, type, id, auth = "", r }) {
-	if (!apiTemplate) return "";
+	if (!apiTemplate) {return "";}
 	const ts = r ?? Date.now().toString();
 	return apiTemplate
 		.replace(":server", server ?? "")
@@ -53,11 +53,11 @@ export function normalizeMetingList(raw, { unknownSong = "Unknown", unknownArtis
 				? raw.result
 				: [];
 	return list.map((song) => {
-		let title = song?.name ?? song?.title ?? unknownSong;
-		let artist = song?.artist ?? song?.author ?? unknownArtist;
+		const title = song?.name ?? song?.title ?? unknownSong;
+		const artist = song?.artist ?? song?.author ?? unknownArtist;
 		let dur = song?.duration ?? 0;
-		if (dur > 10000) dur = Math.floor(dur / 1000);
-		if (!Number.isFinite(dur) || dur <= 0) dur = 0;
+		if (dur > 10000) {dur = Math.floor(dur / 1000);}
+		if (!Number.isFinite(dur) || dur <= 0) {dur = 0;}
 		return {
 			id: song?.id ?? 0,
 			title,

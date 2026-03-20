@@ -3,6 +3,7 @@ import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
 import { formatDateToYYYYMMDD } from "@utils/date-utils";
 import { Icon } from "astro-icon/components";
+
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 
@@ -114,7 +115,7 @@ const recentPosts = posts.slice(0, 6);
             if (copyBtn) {
                 copyBtn.addEventListener('click', async function() {
                     const url = this.getAttribute('data-url');
-                    if (!url) return;
+                    if (!url) {return;}
                     try {
                         await navigator.clipboard.writeText(url);
                         const originalText = this.textContent || "Copy Link";

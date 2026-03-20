@@ -11,9 +11,11 @@
         getStoredWallpaperMode,
         setWallpaperMode,
     } from "@utils/setting-utils";
-    import type { WALLPAPER_MODE } from "@/types/config";
-    import { panelManager } from "../utils/panel-manager.js";
     import { onMount } from "svelte";
+
+    import type { WALLPAPER_MODE } from "@/types/config";
+
+    import { panelManager } from "../utils/panel-manager.js";
 
     const wallpaperOptions: { mode: WALLPAPER_MODE; icon: string; label: I18nKey }[] = [
         { mode: WALLPAPER_BANNER, icon: "material-symbols:image-outline", label: I18nKey.wallpaperBanner },
@@ -27,7 +29,7 @@
         mode = getStoredWallpaperMode();
     });
 
-    let currentIcon = $derived(wallpaperOptions.find(opt => opt.mode === mode)?.icon || wallpaperOptions[0].icon);
+    const currentIcon = $derived(wallpaperOptions.find(opt => opt.mode === mode)?.icon || wallpaperOptions[0].icon);
 
     function switchWallpaperMode(newMode: WALLPAPER_MODE) {
         mode = newMode;

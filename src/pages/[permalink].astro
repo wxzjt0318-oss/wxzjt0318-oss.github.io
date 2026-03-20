@@ -6,8 +6,6 @@
  * 自定义 permalink 也在根目录下
  * 例如：permalink: "custom-page" => /custom-page/
  */
-import type { CollectionEntry } from "astro:content";
-import { render } from "astro:content";
 import Comment from "@components/comment/index.astro";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
@@ -16,14 +14,18 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
+import { generatePermalinkSlug,hasCustomPermalink, initPostIdMap } from "@utils/permalink-utils";
 import { getFileDirFromPath, getPostUrlBySlug } from "@utils/url-utils";
-import { initPostIdMap, hasCustomPermalink, generatePermalinkSlug } from "@utils/permalink-utils";
-import { permalinkConfig } from "@/config";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import CryptoJS from "crypto-js";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { licenseConfig } from "src/config";
+
+import { permalinkConfig } from "@/config";
+
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import PostMetadata from "../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../config";
@@ -73,7 +75,7 @@ const { remarkPluginFrontmatter } = await render(entry);
 
 // 处理加密逻辑
 let encryptedContent = "";
-let isEncrypted = entry.data.encrypted && entry.data.password;
+const isEncrypted = entry.data.encrypted && entry.data.password;
 
 if (isEncrypted) {
     const contentToEncrypt = "MIZUKI-VERIFY:" + entry.body;
@@ -263,7 +265,7 @@ const jsonLd = {
                 <script is:inline>
                     function runtime() {
                         const lastModifiedElement = document.getElementById('last-modified');
-                        if (!lastModifiedElement) return;  // 如果元素不存在，直接返回
+                        if (!lastModifiedElement) {return;}  // 如果元素不存在，直接返回
                         
                         const startDate = new Date(lastModifiedElement.dataset.lastModified);
                         const currentDate = new Date();

@@ -1,9 +1,10 @@
 <script lang="ts">
-import { DARK_MODE, LIGHT_MODE, DEFAULT_THEME } from "@constants/constants";
+import { DARK_MODE, DEFAULT_THEME,LIGHT_MODE } from "@constants/constants";
 import Icon from "@iconify/svelte";
 import { getStoredTheme, setTheme } from "@utils/setting-utils";
-import type { LIGHT_DARK_MODE } from "@/types/config.ts";
 import { onMount } from "svelte";
+
+import type { LIGHT_DARK_MODE } from "@/types/config.ts";
 
 const seq: LIGHT_DARK_MODE[] = [LIGHT_MODE, DARK_MODE];
 let mode: LIGHT_DARK_MODE = $state(DEFAULT_THEME);
@@ -15,7 +16,7 @@ onMount(() => {
 
 function switchScheme(newMode: LIGHT_DARK_MODE) {
 	// 防止连续快速点击
-	if (isChanging) return;
+	if (isChanging) {return;}
 
 	isChanging = true;
 	mode = newMode;
@@ -28,7 +29,7 @@ function switchScheme(newMode: LIGHT_DARK_MODE) {
 }
 
 function toggleScheme() {
-	if (isChanging) return;
+	if (isChanging) {return;}
 
 	let i = 0;
 	for (; i < seq.length; i++) {

@@ -176,7 +176,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
       }
 
       async processPreloadQueue() {
-        if (this.preloadQueue.size === 0) return;
+        if (this.preloadQueue.size === 0) {return;}
         
         const iconsToLoad = Array.from(this.preloadQueue);
         this.preloadQueue.clear();
@@ -185,7 +185,7 @@ const { preloadIcons = [], timeout = 10000, retryCount = 3 } = Astro.props;
       }
 
       async preloadIcons(icons) {
-        if (!this.isLoaded || icons.length === 0) return;
+        if (!this.isLoaded || icons.length === 0) {return;}
 
         return new Promise((resolve) => {
           let loadedCount = 0;

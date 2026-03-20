@@ -1,7 +1,7 @@
 ---
-import MainGridLayout from "../layouts/MainGridLayout.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 const pageTitle = i18n(I18nKey.guestbook) || "留言版";
 const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，分享你的想法";
@@ -61,19 +61,19 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
 <script is:inline data-swup-reload-script>
   (function () {
     // 注意：不要带末尾斜杠
-    var ENV_ID = "https://twikoo-api-gmgc.vercel.app";
+    const ENV_ID = "https://twikoo-api-gmgc.vercel.app";
 
     // 生成稳定 path，避免末尾斜杠造成分身
     function getStablePath() {
-      var p = window.location.pathname || "/";
-      if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+      let p = window.location.pathname || "/";
+      if (p.length > 1 && p.endsWith("/")) {p = p.slice(0, -1);}
       return p || "/";
     }
 
     // 可重复调用的初始化
     function initTwikoo() {
-      var container = document.getElementById("twikoo");
-      if (!container) return;
+      const container = document.getElementById("twikoo");
+      if (!container) {return;}
 
       // 清空容器，避免重复挂载
       container.innerHTML = "";
@@ -98,20 +98,20 @@ const pageSubtitle = i18n(I18nKey.guestbookSubtitle) || "留下你的足迹，�
         cb();
         return;
       }
-      var tries = 0;
-      var t = setInterval(function () {
-        if (window.twikoo && window.twikoo.init) {
-          clearInterval(t);
-          cb();
-        } else if (++tries > 200) {
-          clearInterval(t);
-          console.error("[Twikoo] SDK failed to load");
-        }
-      }, 50);
+      let tries = 0;
+      const t = setInterval(function () {
+      if (window.twikoo && window.twikoo.init) {
+        clearInterval(t);
+        cb();
+      } else if (++tries > 200) {
+        clearInterval(t);
+        console.error("[Twikoo] SDK failed to load");
+      }
+    }, 50);
     }
 
     function scheduleInitTry(timesLeft) {
-      var container = document.getElementById("twikoo");
+      const container = document.getElementById("twikoo");
       if (container) {
         whenTwikooReady(initTwikoo);
         return;

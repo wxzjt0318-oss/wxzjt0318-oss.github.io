@@ -10,7 +10,7 @@ interface Props {
 	headings: MarkdownHeading[];
 }
 
-let { headings = [] } = Astro.props;
+const { headings = [] } = Astro.props;
 
 let minDepth = 10;
 for (const heading of headings) {

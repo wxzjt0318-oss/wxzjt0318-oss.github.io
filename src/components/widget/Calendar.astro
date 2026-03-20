@@ -1,9 +1,10 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import { siteConfig } from "../../config";
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 import WidgetLayout from "./WidgetLayout.astro";
-import { Icon } from "astro-icon/components";
 
 interface Props {
 	class?: string;
@@ -171,7 +172,7 @@ const yearSuffix = isChinese ? "年" : " ";
 	}
 
 	function processPostsData(posts) {
-		if (!posts || posts.length === 0) return;
+		if (!posts || posts.length === 0) {return;}
 		posts.forEach((post) => {
 			const [yStr, mStr] = post.date.split("-");
 			const year = parseInt(yStr);
@@ -179,15 +180,15 @@ const yearSuffix = isChinese ? "年" : " ";
 			stats.hasPostInYear[year] = true;
 			stats.hasPostInMonth[`${year}-${month}`] = true;
 
-			if (year < stats.minYear) stats.minYear = year;
+			if (year < stats.minYear) {stats.minYear = year;}
 
 			const dateKey = post.date;
 			const monthKey = `${year}-${month - 1}`; // JS Month is 0-11
 
-			if (!postDateMap[dateKey]) postDateMap[dateKey] = [];
+			if (!postDateMap[dateKey]) {postDateMap[dateKey] = [];}
 			postDateMap[dateKey].push(post);
 
-			if (!postsByMonth[monthKey]) postsByMonth[monthKey] = [];
+			if (!postsByMonth[monthKey]) {postsByMonth[monthKey] = [];}
 			postsByMonth[monthKey].push(post);
 		});
 	}
@@ -218,7 +219,7 @@ const yearSuffix = isChinese ? "年" : " ";
 
 	function getCurrentPostId() {
 		const path = window.location.pathname;
-		if (!allPostsData || allPostsData.length === 0) return null;
+		if (!allPostsData || allPostsData.length === 0) {return null;}
 		const decodedPath = decodeURIComponent(path);
 		const normalizedPath = decodedPath.endsWith("/")
 			? decodedPath.slice(0, -1)
@@ -245,9 +246,9 @@ const yearSuffix = isChinese ? "年" : " ";
 		const handlers = {
 			titleClick: (e) => {
 				e.stopPropagation();
-				if (currentView === "day") showMonthPicker();
-				else if (currentView === "month") showYearPicker();
-				else closeSelectionPanel();
+				if (currentView === "day") {showMonthPicker();}
+				else if (currentView === "month") {showYearPicker();}
+				else {closeSelectionPanel();}
 			},
 			prevClick: () => {
 				currentMonth--;
@@ -269,16 +270,16 @@ const yearSuffix = isChinese ? "年" : " ";
 				currentYear = todayYear;
 				currentMonth = todayMonth;
 				selectedDateKey = null;
-				if (currentView !== "day") closeSelectionPanel();
-				else renderCalendar();
+				if (currentView !== "day") {closeSelectionPanel();}
+				else {renderCalendar();}
 			},
 			gridClick: (e) => {
 				const cell = e.target.closest(".calendar-day");
-				if (!cell) return;
+				if (!cell) {return;}
 				const dateKey = cell.getAttribute("data-date");
 
-				if (selectedDateKey === dateKey) selectedDateKey = null;
-				else selectedDateKey = dateKey;
+				if (selectedDateKey === dateKey) {selectedDateKey = null;}
+				else {selectedDateKey = dateKey;}
 
 				renderCalendar();
 				if (selectedDateKey && postDateMap[selectedDateKey]) {
@@ -302,7 +303,7 @@ const yearSuffix = isChinese ? "年" : " ";
 				}
 			},
 			documentClick: (e) => {
-				if (currentView === "day") return;
+				if (currentView === "day") {return;}
 				const widget = document.getElementById("calendar-widget");
 				if (widget && !widget.contains(e.target)) {
 					closeSelectionPanel();
@@ -320,12 +321,12 @@ const yearSuffix = isChinese ? "年" : " ";
 
 		// 注册清理函数
 		window._calendarCleanup = () => {
-			if (dom.titleContainer) dom.titleContainer.removeEventListener("click", handlers.titleClick);
-			if (dom.prevBtn) dom.prevBtn.removeEventListener("click", handlers.prevClick);
-			if (dom.nextBtn) dom.nextBtn.removeEventListener("click", handlers.nextClick);
-			if (dom.backTodayBtn) dom.backTodayBtn.removeEventListener("click", handlers.backTodayClick);
-			if (dom.grid) dom.grid.removeEventListener("click", handlers.gridClick);
-			if (dom.selectionContent) dom.selectionContent.removeEventListener("click", handlers.selectionClick);
+			if (dom.titleContainer) {dom.titleContainer.removeEventListener("click", handlers.titleClick);}
+			if (dom.prevBtn) {dom.prevBtn.removeEventListener("click", handlers.prevClick);}
+			if (dom.nextBtn) {dom.nextBtn.removeEventListener("click", handlers.nextClick);}
+			if (dom.backTodayBtn) {dom.backTodayBtn.removeEventListener("click", handlers.backTodayClick);}
+			if (dom.grid) {dom.grid.removeEventListener("click", handlers.gridClick);}
+			if (dom.selectionContent) {dom.selectionContent.removeEventListener("click", handlers.selectionClick);}
 			document.removeEventListener("click", handlers.documentClick);
 		};
 	}
@@ -336,8 +337,8 @@ const yearSuffix = isChinese ? "年" : " ";
 			currentYear === todayYear && currentMonth === todayMonth;
 		const shouldShowReset = !isCurrentRealMonth || selectedDateKey !== null;
 
-		if (shouldShowReset) dom.backTodayBtn.classList.remove("invisible");
-		else dom.backTodayBtn.classList.add("invisible");
+		if (shouldShowReset) {dom.backTodayBtn.classList.remove("invisible");}
+		else {dom.backTodayBtn.classList.add("invisible");}
 
 		// const isDayView = currentView === "day";
 		// dom.prevBtn.style.visibility = isDayView ? "visible" : "hidden";
@@ -409,7 +410,7 @@ const yearSuffix = isChinese ? "年" : " ";
 	}
 
 	function renderPostList(posts) {
-		if (!dom.postsList) return;
+		if (!dom.postsList) {return;}
 		if (posts.length === 0) {
 			dom.divider.classList.add("hidden");
 			dom.postsList.innerHTML = "";
@@ -427,7 +428,7 @@ const yearSuffix = isChinese ? "年" : " ";
 				const isCurrentPost = post.id === currentPostId;
 				let containerClass =
 					"flex items-center justify-between text-sm transition-colors px-2 py-2 rounded-lg group border border-transparent";
-				let titleClass = "truncate flex-1 font-bold transition-colors";
+				const titleClass = "truncate flex-1 font-bold transition-colors";
 				let dateClass =
 					"text-xs ml-2 whitespace-nowrap transition-colors";
 
@@ -472,9 +473,9 @@ const yearSuffix = isChinese ? "年" : " ";
 			let cls =
 				"month-item cursor-pointer rounded-lg flex flex-col items-center justify-center p-2 transition-all hover:bg-[var(--btn-plain-bg-hover)] relative border border-transparent";
 			if (isCurrentMonth)
-				cls +=
-					" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)/5]";
-			else cls += " text-neutral-700 dark:text-neutral-300";
+				{cls +=
+				" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)/5]";}
+			else {cls += " text-neutral-700 dark:text-neutral-300";}
 
 			html += `
                 <div class="${cls}" data-month="${index}">
@@ -499,9 +500,9 @@ const yearSuffix = isChinese ? "年" : " ";
 			let cls =
 				"year-item cursor-pointer rounded-lg flex flex-col items-center justify-center py-3 transition-all hover:bg-[var(--btn-plain-bg-hover)] relative border border-transparent";
 			if (isCurrent)
-				cls +=
-					" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)/5]";
-			else cls += " text-neutral-700 dark:text-neutral-300";
+				{cls +=
+				" border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)/5]";}
+			else {cls += " text-neutral-700 dark:text-neutral-300";}
 
 			html += `
                 <div class="${cls}" data-year="${y}" id="year-${y}">
@@ -514,7 +515,7 @@ const yearSuffix = isChinese ? "年" : " ";
 
 		setTimeout(() => {
 			const el = document.getElementById(`year-${currentYear}`);
-			if (el) el.scrollIntoView({ block: "center", behavior: "smooth" });
+			if (el) {el.scrollIntoView({ block: "center", behavior: "smooth" });}
 		}, 50);
 	}
 

@@ -78,7 +78,7 @@ if (isNode && DISK_CACHE && fs && logRoot) {
 }
 
 async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
-  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) return null;
+  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) {return null;}
   try {
     await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
     const file = path.resolve(cacheRoot, `${key}.json`);
@@ -86,12 +86,12 @@ async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null>
     const jsonStr = typeof buf === "string" ? buf : String(buf);
     const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
     const ageHours = (Date.now() - parsed.ts) / 3.6e6;
-    if (ageHours <= ttlHours) return parsed.data;
+    if (ageHours <= ttlHours) {return parsed.data;}
   } catch {}
   return null;
 }
 async function diskCacheSet<T>(key: string, data: T): Promise<void> {
-  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) return;
+  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) {return;}
   try {
     await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
     const file = path.resolve(cacheRoot, `${key}.json`);
@@ -101,7 +101,7 @@ async function diskCacheSet<T>(key: string, data: T): Promise<void> {
 }
 
 async function appendLog(fileName: string, line: string): Promise<void> {
-  if (!isNode || !fs || !path || !logRoot) return;
+  if (!isNode || !fs || !path || !logRoot) {return;}
   try {
     await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
     const file = path.resolve(logRoot, fileName);
@@ -132,13 +132,13 @@ async function readDevInfoDatabase(): Promise<DevInfoDatabase> {
   try {
     const raw = await fs.readFile(devInfoDbFile, { encoding: "utf8" as any });
     const parsed = JSON.parse(typeof raw === "string" ? raw : String(raw)) as DevInfoDatabase;
-    if (parsed && parsed.items) return parsed;
+    if (parsed && parsed.items) {return parsed;}
   } catch {}
   return { version: 1, updatedAt: new Date().toISOString(), items: {} };
 }
 
 async function writeDevInfoDatabase(db: DevInfoDatabase): Promise<void> {
-  if (!isNode || !fs || !devInfoDbFile) return;
+  if (!isNode || !fs || !devInfoDbFile) {return;}
   try {
     await fs.writeFile(devInfoDbFile, JSON.stringify(db, null, 2), { encoding: "utf8" });
   } catch {}
@@ -160,12 +160,12 @@ async function fetchWithRetry(
       try {
         res = (await fetch(url, { ...(init || {}), signal: controller?.signal })) as Response;
       } finally {
-        if (timeoutId) clearTimeout(timeoutId as any);
+        if (timeoutId) {clearTimeout(timeoutId as any);}
       }
     } catch (e) {
       lastErr = e;
     }
-    if (res && res.ok) return res;
+    if (res && res.ok) {return res;}
     const status = res?.status ?? 0;
     const isTimeout = typeof lastErr === "object" && lastErr && (lastErr as any).name === "AbortError";
     const retryable = status === 429 || (status >= 500 && status <= 599) || isTimeout;
@@ -173,31 +173,31 @@ async function fetchWithRetry(
       let delay = baseDelayMs * Math.pow(2, attempt);
       const ra = res?.headers?.get("Retry-After");
       const s = ra ? Number(ra) : NaN;
-      if (!Number.isNaN(s) && s > 0) delay = s * 1000;
+      if (!Number.isNaN(s) && s > 0) {delay = s * 1000;}
       delay += Math.floor(Math.random() * 200);
       await new Promise((r) => setTimeout(r, delay));
       continue;
     }
-    if (res) throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
-    if (isTimeout) throw new Error(`Timeout after ${timeoutMs}ms for ${url}`);
+    if (res) {throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);}
+    if (isTimeout) {throw new Error(`Timeout after ${timeoutMs}ms for ${url}`);}
     throw new Error(`Network error: ${String(lastErr)}`);
   }
   throw new Error(`fetchWithRetry exhausted for ${url}`);
 }
 
 function pickFirstUsefulValue(v: any): string | undefined {
-  if (v == null) return undefined;
-  if (typeof v === "string") return v.trim() || undefined;
+  if (v == null) {return undefined;}
+  if (typeof v === "string") {return v.trim() || undefined;}
   if (Array.isArray(v)) {
     for (const it of v) {
       const got = pickFirstUsefulValue(it);
-      if (got) return got;
+      if (got) {return got;}
     }
     return undefined;
   }
   if (typeof v === "object") {
-    if (typeof (v as any).v === "string") return (v as any).v.trim() || undefined;
-    if (typeof (v as any).value === "string") return (v as any).value.trim() || undefined;
+    if (typeof (v as any).v === "string") {return (v as any).v.trim() || undefined;}
+    if (typeof (v as any).value === "string") {return (v as any).value.trim() || undefined;}
   }
   return undefined;
 }
@@ -207,20 +207,20 @@ function normalizeValue(input: string): string {
 }
 
 function flattenInfoboxValues(value: any): string[] {
-  if (value == null) return [];
-  if (typeof value === "string") return [normalizeValue(value)].filter(Boolean);
-  if (Array.isArray(value)) return value.flatMap((v) => flattenInfoboxValues(v));
+  if (value == null) {return [];}
+  if (typeof value === "string") {return [normalizeValue(value)].filter(Boolean);}
+  if (Array.isArray(value)) {return value.flatMap((v) => flattenInfoboxValues(v));}
   if (typeof value === "object") {
-    if (typeof (value as any).v === "string") return [normalizeValue((value as any).v)].filter(Boolean);
+    if (typeof (value as any).v === "string") {return [normalizeValue((value as any).v)].filter(Boolean);}
     if (typeof (value as any).value === "string")
-      return [normalizeValue((value as any).value)].filter(Boolean);
+      {return [normalizeValue((value as any).value)].filter(Boolean);}
   }
   return [];
 }
 
 function getInfoboxValues(subject: any, keys: string[]): string[] {
   const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) return [];
+  if (!Array.isArray(infobox)) {return [];}
   const results: string[] = [];
   for (const k of keys) {
     const entries = infobox.filter((x: any) => x?.key === k);
@@ -232,7 +232,7 @@ function getInfoboxValues(subject: any, keys: string[]): string[] {
 }
 
 function splitValueTokens(value: string): string[] {
-  if (!value) return [];
+  if (!value) {return [];}
   let v = value.replace(/[（(][^）)]*[）)]/g, " ");
   v = v.replace(/[，、]/g, ",").replace(/[／]/g, "/").replace(/[＆]/g, "&");
   v = v.replace(/xbox\s*series\s*x\|s/gi, "Xbox Series X/S");
@@ -330,7 +330,7 @@ const PLATFORM_PATTERNS: { label: string; patterns: RegExp[]; weight: number }[]
 function matchPlatformLabels(token: string): string[] {
   const labels: string[] = [];
   for (const entry of PLATFORM_PATTERNS) {
-    if (entry.patterns.some((p) => p.test(token))) labels.push(entry.label);
+    if (entry.patterns.some((p) => p.test(token))) {labels.push(entry.label);}
   }
   return labels;
 }
@@ -339,10 +339,10 @@ function postProcessPlatforms(list: string[]): string[] {
   const set = new Set(list);
   const hasPlayStationSpecific =
     set.has("PS5") || set.has("PS4") || set.has("PS3") || set.has("PS2") || set.has("PS");
-  if (hasPlayStationSpecific) set.delete("PlayStation");
+  if (hasPlayStationSpecific) {set.delete("PlayStation");}
   const hasXboxSpecific =
     set.has("Xbox Series X/S") || set.has("Xbox One") || set.has("Xbox 360");
-  if (hasXboxSpecific) set.delete("Xbox");
+  if (hasXboxSpecific) {set.delete("Xbox");}
   const hasNintendoSpecific =
     set.has("Switch 2") ||
     set.has("Switch") ||
@@ -356,7 +356,7 @@ function postProcessPlatforms(list: string[]): string[] {
     set.has("GBA") ||
     set.has("DS") ||
     set.has("3DS");
-  if (hasNintendoSpecific) set.delete("Nintendo");
+  if (hasNintendoSpecific) {set.delete("Nintendo");}
   if ((set.has("Windows") || set.has("macOS") || set.has("Linux")) && set.has("PC")) {
     set.delete("PC");
   }
@@ -368,15 +368,15 @@ function postProcessPlatforms(list: string[]): string[] {
 
 function detectDeviceType(ua: string): string {
   const s = ua.toLowerCase();
-  if (s.includes("android")) return "android";
-  if (s.includes("iphone") || s.includes("ipad") || s.includes("ios")) return "ios";
-  if (s.includes("playstation") || s.includes("ps5") || s.includes("ps4")) return "playstation";
-  if (s.includes("xbox")) return "xbox";
-  if (s.includes("nintendo") || s.includes("switch")) return "switch";
-  if (s.includes("steam deck")) return "steamdeck";
-  if (s.includes("windows")) return "windows";
-  if (s.includes("mac os") || s.includes("macintosh")) return "mac";
-  if (s.includes("linux")) return "linux";
+  if (s.includes("android")) {return "android";}
+  if (s.includes("iphone") || s.includes("ipad") || s.includes("ios")) {return "ios";}
+  if (s.includes("playstation") || s.includes("ps5") || s.includes("ps4")) {return "playstation";}
+  if (s.includes("xbox")) {return "xbox";}
+  if (s.includes("nintendo") || s.includes("switch")) {return "switch";}
+  if (s.includes("steam deck")) {return "steamdeck";}
+  if (s.includes("windows")) {return "windows";}
+  if (s.includes("mac os") || s.includes("macintosh")) {return "mac";}
+  if (s.includes("linux")) {return "linux";}
   return "unknown";
 }
 
@@ -405,14 +405,14 @@ function sortPlatformsByPriority(list: string[], ua: string): string[] {
   return [...list].sort((a, b) => {
     const wa = getPlatformWeight(a, deviceType);
     const wb = getPlatformWeight(b, deviceType);
-    if (wa !== wb) return wb - wa;
+    if (wa !== wb) {return wb - wa;}
     return a.localeCompare(b);
   });
 }
 
 function normalizePlatforms(rawValues: string[], ua: string): { list: string[]; display: string } {
   const rawTokens = dedupeList(rawValues.flatMap((v) => splitValueTokens(v)));
-  if (rawTokens.length === 0) return { list: [], display: T.unknown };
+  if (rawTokens.length === 0) {return { list: [], display: T.unknown };}
   if (rawTokens.some((t) => MULTI_PLATFORM_MARKERS.some((m) => m.test(t)))) {
     return { list: ["跨平台"], display: "跨平台" };
   }
@@ -420,8 +420,8 @@ function normalizePlatforms(rawValues: string[], ua: string): { list: string[]; 
   const unmatchedTokens: string[] = [];
   for (const token of rawTokens) {
     const labels = matchPlatformLabels(token);
-    if (labels.length > 0) matchedLabels.push(...labels);
-    else unmatchedTokens.push(token);
+    if (labels.length > 0) {matchedLabels.push(...labels);}
+    else {unmatchedTokens.push(token);}
   }
   const combined = dedupeList([...postProcessPlatforms(matchedLabels), ...unmatchedTokens]);
   const ordered = sortPlatformsByPriority(combined, ua);
@@ -431,12 +431,12 @@ function normalizePlatforms(rawValues: string[], ua: string): { list: string[]; 
 function getReleaseDateFromInfobox(subject: any): string | undefined {
   const keys = ["发售日", "発売日", "発売", "发行日期", "发售时间", "首发日", "上架日期"];
   const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) return undefined;
+  if (!Array.isArray(infobox)) {return undefined;}
   for (const k of keys) {
     const entry = infobox.find((x: any) => x?.key === k);
-    if (!entry) continue;
+    if (!entry) {continue;}
     const v = pickFirstUsefulValue(entry?.value);
-    if (v) return v;
+    if (v) {return v;}
   }
   return undefined;
 }
@@ -494,12 +494,12 @@ function normalizeDeveloperList(values: string[]): string[] {
 }
 
 function pickBetterDeveloperName(a: string, b: string): string {
-  if (!a) return b;
-  if (!b) return a;
-  if (a === b) return a;
+  if (!a) {return b;}
+  if (!b) {return a;}
+  if (a === b) {return a;}
   const aHasCjk = /[\u4e00-\u9fff]/.test(a);
   const bHasCjk = /[\u4e00-\u9fff]/.test(b);
-  if (aHasCjk !== bHasCjk) return aHasCjk ? a : b;
+  if (aHasCjk !== bHasCjk) {return aHasCjk ? a : b;}
   return a.length >= b.length ? a : b;
 }
 
@@ -507,7 +507,7 @@ function mergeDeveloperValues(primary: string[], secondary: string[]): string[] 
   const merged: Record<string, string> = {};
   for (const name of [...primary, ...secondary]) {
     const normalized = normalizeDeveloperName(name);
-    if (!normalized) continue;
+    if (!normalized) {continue;}
     const key = normalized.toLowerCase();
     merged[key] = pickBetterDeveloperName(merged[key] || "", normalized);
   }
@@ -515,11 +515,11 @@ function mergeDeveloperValues(primary: string[], secondary: string[]): string[] 
 }
 
 function pickName(value: any): string {
-  if (typeof value === "string") return value.trim();
+  if (typeof value === "string") {return value.trim();}
   if (value && typeof value === "object") {
-    if (typeof value.name_cn === "string" && value.name_cn.trim()) return value.name_cn.trim();
-    if (typeof value.name === "string" && value.name.trim()) return value.name.trim();
-    if (value.person) return pickName(value.person);
+    if (typeof value.name_cn === "string" && value.name_cn.trim()) {return value.name_cn.trim();}
+    if (typeof value.name === "string" && value.name.trim()) {return value.name.trim();}
+    if (value.person) {return pickName(value.person);}
   }
   return "";
 }
@@ -529,14 +529,14 @@ function getStaffNamesByJobs(subject: any, jobMatchers: RegExp[]): string[] {
   const names: string[] = [];
   for (const member of staff) {
     const jobs: string[] = [];
-    if (Array.isArray(member?.jobs)) jobs.push(...member.jobs.map((j: any) => String(j || "")));
-    if (typeof member?.job === "string") jobs.push(member.job);
-    if (typeof member?.role === "string") jobs.push(member.role);
+    if (Array.isArray(member?.jobs)) {jobs.push(...member.jobs.map((j: any) => String(j || "")));}
+    if (typeof member?.job === "string") {jobs.push(member.job);}
+    if (typeof member?.role === "string") {jobs.push(member.role);}
     const jobText = jobs.join(" ");
-    if (!jobText) continue;
-    if (!jobMatchers.some((m) => m.test(jobText))) continue;
+    if (!jobText) {continue;}
+    if (!jobMatchers.some((m) => m.test(jobText))) {continue;}
     const name = pickName(member);
-    if (name) names.push(name);
+    if (name) {names.push(name);}
   }
   return dedupeList(names);
 }
@@ -546,10 +546,10 @@ function getRelationNamesByTypes(subject: any, relationMatchers: RegExp[]): stri
   const names: string[] = [];
   for (const rel of relations) {
     const relText = String(rel?.relation || rel?.type || "").trim();
-    if (!relText) continue;
-    if (!relationMatchers.some((m) => m.test(relText))) continue;
+    if (!relText) {continue;}
+    if (!relationMatchers.some((m) => m.test(relText))) {continue;}
     const name = pickName(rel);
-    if (name) names.push(name);
+    if (name) {names.push(name);}
   }
   return dedupeList(names);
 }
@@ -560,12 +560,12 @@ function getPlatformValuesFromInfobox(subject: any): string[] {
 }
 
 function toDisplayYearOrYearMonth(input?: string): string {
-  if (!input) return T.unknown;
+  if (!input) {return T.unknown;}
   const s = input.trim();
   const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;
   const ym = /^(\d{4})-(\d{2})$/;
   const y = /^(\d{4})$/;
-  if (ymd.test(s) || ym.test(s) || y.test(s)) return s;
+  if (ymd.test(s) || ym.test(s) || y.test(s)) {return s;}
   const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
   if (mYMD) {
     const year = mYMD[1];
@@ -580,15 +580,15 @@ function toDisplayYearOrYearMonth(input?: string): string {
     return `${year}-${mm}`;
   }
   const mY = s.match(/(\d{4})/);
-  if (mY) return mY[1];
+  if (mY) {return mY[1];}
   return T.unknown;
 }
 
 function toTime(input?: string) {
-  if (!input) return 0;
+  if (!input) {return 0;}
   const s = input.trim();
-  if (/^\d{4}$/.test(s)) return Date.parse(`${s}-01-01T00:00:00Z`);
-  if (/^\d{4}-\d{2}$/.test(s)) return Date.parse(`${s}-01T00:00:00Z`);
+  if (/^\d{4}$/.test(s)) {return Date.parse(`${s}-01-01T00:00:00Z`);}
+  if (/^\d{4}-\d{2}$/.test(s)) {return Date.parse(`${s}-01T00:00:00Z`);}
   const t = Date.parse(s);
   return Number.isNaN(t) ? 0 : t;
 }
@@ -596,14 +596,14 @@ function toTime(input?: string) {
 async function fetchSubjectDetailRaw(subjectId: number) {
   const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`, undefined, 2, 200, 500);
   const ct = res.headers.get("content-type") || "";
-  if (!ct.includes("application/json")) throw new Error(`Bangumi subject ${subjectId} non-JSON`);
+  if (!ct.includes("application/json")) {throw new Error(`Bangumi subject ${subjectId} non-JSON`);}
   return await res.json();
 }
 
 async function fetchSubjectDetailCached(subjectId: number) {
   const cacheKey = `subject-${subjectId}`;
   const cached = await diskCacheGet<any>(cacheKey, CACHE_TTL_HOURS);
-  if (cached) return cached;
+  if (cached) {return cached;}
   try {
     const detail = await fetchSubjectDetailRaw(subjectId);
     await diskCacheSet(cacheKey, detail);
@@ -623,8 +623,8 @@ function extractDeveloperFromHtml(html: string): string[] {
   for (const block of liBlocks) {
     const tip = block.match(/<span[^>]*class="tip"[^>]*>(.*?)<\/span>/i);
     const label = tip ? stripTags(tip[1]).trim() : "";
-    if (!label) continue;
-    if (!/开发|开发商|開発|Developer|Developers/i.test(label)) continue;
+    if (!label) {continue;}
+    if (!/开发|开发商|開発|Developer|Developers/i.test(label)) {continue;}
     const text = stripTags(block.replace(tip?.[0] || "", ""));
     const anchors = Array.from(block.matchAll(/<a[^>]*>(.*?)<\/a>/gi)).map((m) => stripTags(m[1]).trim());
     const rawList = anchors.length ? anchors : splitValueTokens(text);
@@ -636,7 +636,7 @@ function extractDeveloperFromHtml(html: string): string[] {
 async function fetchDeveloperFromHtml(subjectId: number): Promise<string[]> {
   const cacheKey = `subject-html-${subjectId}`;
   const cached = await diskCacheGet<string>(cacheKey, CACHE_TTL_HOURS);
-  if (cached) return extractDeveloperFromHtml(cached);
+  if (cached) {return extractDeveloperFromHtml(cached);}
   try {
     const res = await fetchWithRetry(`https://bgm.tv/subject/${subjectId}`, undefined, 1, 200, 500);
     const html = await res.text();
@@ -663,7 +663,7 @@ async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T,
 async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
   const cacheKey = `collection-${userId}-${subjectType}-${type}`;
   const cached = await diskCacheGet<{ data: any[] }>(cacheKey, CACHE_TTL_HOURS);
-  if (cached && cached.data?.length) return cached;
+  if (cached && cached.data?.length) {return cached;}
   try {
     let allData: any[] = [];
     let offset = 0;
@@ -673,13 +673,13 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
       const response = await fetchWithRetry(url, undefined, 2, 300, 1200);
       const data = await response.json();
       const batch = data.data || [];
-      if (batch.length > 0) allData = [...allData, ...batch];
+      if (batch.length > 0) {allData = [...allData, ...batch];}
       if (allData.length >= MAX_ITEMS) {
         allData = allData.slice(0, MAX_ITEMS as number);
         break;
       }
       const hasMore = batch.length === pageLimit;
-      if (!hasMore) break;
+      if (!hasMore) {break;}
       offset += pageLimit;
       await new Promise((resolve) => setTimeout(resolve, 120));
     }
@@ -695,7 +695,7 @@ const devInfoDb = await readDevInfoDatabase();
 let devInfoDirty = false;
 
 async function processBangumiData(data: any, status: GameStatus): Promise<GameItem[]> {
-  if (!data || !data.data) return [];
+  if (!data || !data.data) {return [];}
   const items: any[] = data.data;
   const detailedItems = await mapWithConcurrency(items, 8, async (item: any) => {
     const subjectId = item.subject_id;
@@ -755,7 +755,7 @@ async function processBangumiData(data: any, status: GameStatus): Promise<GameIt
       ...getPlatformValuesFromInfobox(subject),
     ]);
     const platformInfo = normalizePlatforms(platformValues, userAgent);
-    let platform = platformInfo.display || T.unknown;
+    const platform = platformInfo.display || T.unknown;
 
     const developerMissing = !developer || developer === T.unknown;
     const platformMissing = !platform || platform === T.unknown;
@@ -780,8 +780,8 @@ async function processBangumiData(data: any, status: GameStatus): Promise<GameIt
       ? subject.tags
           .slice(0, 4)
           .map((t: any) => {
-            if (typeof t === "string") return t.trim();
-            if (t && typeof t.name === "string") return t.name.trim();
+            if (typeof t === "string") {return t.trim();}
+            if (t && typeof t.name === "string") {return t.name.trim();}
             return "";
           })
           .filter(Boolean)
@@ -792,7 +792,7 @@ async function processBangumiData(data: any, status: GameStatus): Promise<GameIt
     let updatedAt: string | undefined = undefined;
     if (updatedAtRaw) {
       const ts = toTime(updatedAtRaw);
-      if (ts > 0) updatedAt = new Date(ts).toISOString();
+      if (ts > 0) {updatedAt = new Date(ts).toISOString();}
     }
 
     return {
@@ -856,7 +856,7 @@ const stats = {
   total: gameList.length,
   avgRating: (() => {
     const ratedGames = gameList.filter((game) => (game.rating || 0) > 0);
-    if (ratedGames.length === 0) return "0.0";
+    if (ratedGames.length === 0) {return "0.0";}
     return (
       ratedGames.reduce((sum, game) => sum + (game.rating || 0), 0) / ratedGames.length
     ).toFixed(1);
@@ -1128,11 +1128,11 @@ function getStatusInfo(status: GameStatus) {
   (function() {
     function runWhenReady() {
       const root = document.querySelector('.game-page');
-      if (!root) return;
+      if (!root) {return;}
 
       setTimeout(() => {
         const gameListContainer = root.querySelector("#game-list-container");
-        if (!gameListContainer) return;
+        if (!gameListContainer) {return;}
 
         if (typeof window.layoutManager !== 'undefined') {
           window.layoutManager.init(isBothSidebarMode);
@@ -1154,9 +1154,9 @@ function getStatusInfo(status: GameStatus) {
 
     function updateGameListLayout(layout) {
       const root = document.querySelector('.game-page');
-      if (!root) return;
+      if (!root) {return;}
       const gameListContainer = root.querySelector("#game-list-container");
-      if (!gameListContainer) return;
+      if (!gameListContainer) {return;}
 
       const gameItems = Array.from(root.querySelectorAll('[data-game-status]'));
       const firstPositions = new Map();
@@ -1379,14 +1379,14 @@ function getStatusInfo(status: GameStatus) {
 
       function initGamePage() {
         const root = document.querySelector('.game-page');
-        if (!root) return;
+        if (!root) {return;}
 
         if (window.__gamePage && typeof window.__gamePage.cleanup === 'function') {
           try { window.__gamePage.cleanup(); } catch (_) {}
         }
 
         const container = root.querySelector('#game-list-container');
-        if (!container) return;
+        if (!container) {return;}
 
         const state = {
           currentPage: 1,
@@ -1421,15 +1421,15 @@ function getStatusInfo(status: GameStatus) {
 
       function detectDeviceType(ua) {
         const s = String(ua || '').toLowerCase();
-        if (s.includes('android')) return 'android';
-        if (s.includes('iphone') || s.includes('ipad') || s.includes('ios')) return 'ios';
-        if (s.includes('playstation') || s.includes('ps5') || s.includes('ps4')) return 'playstation';
-        if (s.includes('xbox')) return 'xbox';
-        if (s.includes('nintendo') || s.includes('switch')) return 'switch';
-        if (s.includes('steam deck')) return 'steamdeck';
-        if (s.includes('windows')) return 'windows';
-        if (s.includes('mac os') || s.includes('macintosh')) return 'mac';
-        if (s.includes('linux')) return 'linux';
+        if (s.includes('android')) {return 'android';}
+        if (s.includes('iphone') || s.includes('ipad') || s.includes('ios')) {return 'ios';}
+        if (s.includes('playstation') || s.includes('ps5') || s.includes('ps4')) {return 'playstation';}
+        if (s.includes('xbox')) {return 'xbox';}
+        if (s.includes('nintendo') || s.includes('switch')) {return 'switch';}
+        if (s.includes('steam deck')) {return 'steamdeck';}
+        if (s.includes('windows')) {return 'windows';}
+        if (s.includes('mac os') || s.includes('macintosh')) {return 'mac';}
+        if (s.includes('linux')) {return 'linux';}
         return 'unknown';
       }
 
@@ -1507,7 +1507,7 @@ function getStatusInfo(status: GameStatus) {
       }
 
       function safeParsePlatformList(attr) {
-        if (!attr) return [];
+        if (!attr) {return [];}
         try {
           const parsed = JSON.parse(attr);
           return Array.isArray(parsed) ? parsed : [];
@@ -1520,16 +1520,16 @@ function getStatusInfo(status: GameStatus) {
         const deviceType = detectDeviceType(navigator.userAgent || '');
         items.forEach((item) => {
           const platforms = safeParsePlatformList(item.getAttribute('data-game-platforms'));
-          if (!platforms.length) return;
+          if (!platforms.length) {return;}
           const ordered = [...platforms].sort((a, b) => {
             const wa = getPlatformWeight(a, deviceType);
             const wb = getPlatformWeight(b, deviceType);
-            if (wa !== wb) return wb - wa;
+            if (wa !== wb) {return wb - wa;}
             return a.localeCompare(b);
           });
           const text = ordered.join('/');
           const platformText = item.querySelector('[data-game-platform-text]');
-          if (platformText) platformText.textContent = text;
+          if (platformText) {platformText.textContent = text;}
           item.setAttribute('data-game-platform', text.toLowerCase());
         });
       }
@@ -1537,7 +1537,7 @@ function getStatusInfo(status: GameStatus) {
       applyPlatformPriority(allItems);
 
         function getSearchTerm() {
-          if (!searchInput) return '';
+          if (!searchInput) {return '';}
           if (searchInput instanceof HTMLInputElement || searchInput instanceof HTMLTextAreaElement) {
             return (searchInput.value || '').trim().toLowerCase();
           }
@@ -1550,10 +1550,10 @@ function getStatusInfo(status: GameStatus) {
             const m = gtc.match(/repeat\(\s*(\d+)\s*,/i);
             if (m) {
               const n = parseInt(m[1], 10);
-              if (n > 0) return n;
+              if (n > 0) {return n;}
             }
             const parts = gtc.trim().split(/\s+/).filter(Boolean);
-            if (parts.length > 0) return parts.length;
+            if (parts.length > 0) {return parts.length;}
           }
 
           const candidates = allItems.filter(el =>
@@ -1567,11 +1567,11 @@ function getStatusInfo(status: GameStatus) {
             const firstTop = pool[0].getBoundingClientRect().top;
             for (let i = 0; i < pool.length; i++) {
               const t = pool[i].getBoundingClientRect().top;
-              if (Math.abs(t - firstTop) < 1) cols++;
-              else break;
+              if (Math.abs(t - firstTop) < 1) {cols++;}
+              else {break;}
             }
           }
-          if (cols > 0) return cols;
+          if (cols > 0) {return cols;}
 
           return container.classList.contains('grid-mode') ? 5 : 4;
         }
@@ -1584,7 +1584,7 @@ function getStatusInfo(status: GameStatus) {
         }
 
         function matchesSearch(item, term) {
-          if (!term) return true;
+          if (!term) {return true;}
           const title = item.getAttribute('data-game-title') || '';
           const developer = item.getAttribute('data-game-developer') || '';
           const platform = item.getAttribute('data-game-platform') || '';
@@ -1779,7 +1779,7 @@ function getStatusInfo(status: GameStatus) {
         }
 
         function updatePaginationUI(totalItems) {
-          if (!pageNumbersContainer) return;
+          if (!pageNumbersContainer) {return;}
           state.itemsPerPage = getItemsPerPageByLayout();
           const totalPages = Math.ceil(totalItems / state.itemsPerPage);
 
@@ -1792,10 +1792,10 @@ function getStatusInfo(status: GameStatus) {
             state.currentPage = 1;
             state.pageWindowStart = 1;
           } else {
-            if (state.currentPage > totalPages) state.currentPage = totalPages;
+            if (state.currentPage > totalPages) {state.currentPage = totalPages;}
             const maxStart = Math.max(1, totalPages - state.windowSize + 1);
-            if (state.pageWindowStart > maxStart) state.pageWindowStart = maxStart;
-            if (state.pageWindowStart < 1) state.pageWindowStart = 1;
+            if (state.pageWindowStart > maxStart) {state.pageWindowStart = maxStart;}
+            if (state.pageWindowStart < 1) {state.pageWindowStart = 1;}
           }
 
           const end = Math.min(totalPages, state.pageWindowStart + state.windowSize - 1);
@@ -1804,7 +1804,7 @@ function getStatusInfo(status: GameStatus) {
             btn.textContent = String(i);
             btn.classList.add('page-number');
             btn.setAttribute('aria-label', `Go to page ${i}`);
-            if (i === state.currentPage) btn.classList.add('active');
+            if (i === state.currentPage) {btn.classList.add('active');}
             btn.addEventListener('click', () => {
               state.currentPage = i;
               const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
@@ -1816,10 +1816,10 @@ function getStatusInfo(status: GameStatus) {
 
           const onFirst = state.currentPage === 1 || totalPages === 0;
           const onLast = state.currentPage === totalPages || totalPages === 0;
-          if (firstBtn) firstBtn.disabled = onFirst;
-          if (prevBtn) prevBtn.disabled = onFirst;
-          if (nextBtn) nextBtn.disabled = onLast;
-          if (lastBtn) lastBtn.disabled = onLast;
+          if (firstBtn) {firstBtn.disabled = onFirst;}
+          if (prevBtn) {prevBtn.disabled = onFirst;}
+          if (nextBtn) {nextBtn.disabled = onLast;}
+          if (lastBtn) {lastBtn.disabled = onLast;}
         }
 
         function applyPagination(filtered, withFlip = false) {
@@ -1834,8 +1834,8 @@ function getStatusInfo(status: GameStatus) {
 
           if (!withFlip || state.reduceMotion) {
             allItems.forEach((el) => {
-              if (showSet.has(el)) el.classList.remove('is-paginated-out');
-              else el.classList.add('is-paginated-out');
+              if (showSet.has(el)) {el.classList.remove('is-paginated-out');}
+              else {el.classList.add('is-paginated-out');}
             });
             return;
           }
@@ -1864,9 +1864,9 @@ function getStatusInfo(status: GameStatus) {
             countsByStatus[s] = (countsByStatus[s] || 0) + 1;
           });
 
-          if (countEls.all) countEls.all.textContent = `(${countAll})`;
+          if (countEls.all) {countEls.all.textContent = `(${countAll})`;}
           ['playing', 'planned', 'completed', 'onhold', 'dropped'].forEach((s) => {
-            if (countEls[s]) countEls[s].textContent = `(${countsByStatus[s] || 0})`;
+            if (countEls[s]) {countEls[s].textContent = `(${countsByStatus[s] || 0})`;}
           });
 
           const activeStatusEl = root.querySelector('.filter-tag.active');
@@ -1896,8 +1896,8 @@ function getStatusInfo(status: GameStatus) {
               if (inFilter && inSearch) {
                 el.classList.remove('is-filtered-out', 'is-searched-out');
               } else {
-                if (!inFilter) el.classList.add('is-filtered-out'); else el.classList.remove('is-filtered-out');
-                if (!inSearch) el.classList.add('is-searched-out'); else el.classList.remove('is-searched-out');
+                if (!inFilter) {el.classList.add('is-filtered-out');} else {el.classList.remove('is-filtered-out');}
+                if (!inSearch) {el.classList.add('is-searched-out');} else {el.classList.remove('is-searched-out');}
               }
             });
 
@@ -1922,7 +1922,7 @@ function getStatusInfo(status: GameStatus) {
 
         filterTags.forEach(tag => {
           const handler = () => {
-            if (tag.classList.contains('active')) return;
+            if (tag.classList.contains('active')) {return;}
             filterTags.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false'); });
             tag.classList.add('active');
             tag.setAttribute('aria-pressed','true');
@@ -2025,21 +2025,21 @@ function getStatusInfo(status: GameStatus) {
           }
           return false;
         };
-        if (tryInit()) return;
+        if (tryInit()) {return;}
 
         if (timesLeft > 0) {
           setTimeout(() => scheduleInitTry(timesLeft - 1), 120);
         } else {
-          const mo = new MutationObserver(() => { if (tryInit()) mo.disconnect(); });
+          const mo = new MutationObserver(() => { if (tryInit()) {mo.disconnect();} });
           mo.observe(document.documentElement, { childList: true, subtree: true });
           setTimeout(() => mo.disconnect(), 5000);
         }
       }
 
       function swupBind() {
-        if (!window.swup) return;
+        if (!window.swup) {return;}
         window.__gamePage.__swup = window.__gamePage.__swup || { bound: false, reinit: null };
-        if (window.__gamePage.__swup.bound) return;
+        if (window.__gamePage.__swup.bound) {return;}
 
         const reinit = () => {
           scheduleInitTry();

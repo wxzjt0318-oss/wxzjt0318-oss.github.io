@@ -4,7 +4,8 @@ import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { navigateToPage } from "@utils/navigation-utils";
 import { url } from "@utils/url-utils";
-import { onMount, onDestroy } from "svelte";
+import { onDestroy,onMount } from "svelte";
+
 import type { SearchResult } from "@/global";
 
 let keywordDesktop = $state("");
@@ -72,7 +73,7 @@ const handleBlur = () => {
 
 const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
 	const panel = document.getElementById("search-panel");
-	if (!panel || !isDesktop) return;
+	if (!panel || !isDesktop) {return;}
 	if (show) {
 		panel.classList.remove("float-panel-closed");
 	} else {
@@ -226,7 +227,7 @@ onDestroy(() => {
         role="button"
         tabindex="0"
         aria-label="Search"
-        onmouseenter={() => {if (!isDesktopSearchExpanded) toggleDesktopSearch()}}
+        onmouseenter={() => {if (!isDesktopSearchExpanded) {toggleDesktopSearch()}}}
         onmouseleave={collapseDesktopSearch}
         onclick={() => {
             const input = document.getElementById("search-input-desktop") as HTMLInputElement;
@@ -237,7 +238,7 @@ onDestroy(() => {
         <input id="search-input-desktop" placeholder={i18n(I18nKey.search)} bind:value={keywordDesktop}
             onfocus={() => {
                 clearTimeout(blurTimer);
-                if (!isDesktopSearchExpanded) toggleDesktopSearch(); 
+                if (!isDesktopSearchExpanded) {toggleDesktopSearch();} 
                 search(keywordDesktop, true);
             }}
             onblur={handleBlur}

@@ -62,7 +62,7 @@
   // 动画测试函数
   function testSlideIn() {
     const content = document.getElementById('test-content');
-    if (!content) return;
+    if (!content) {return;}
     
     content.className = 'test-content transition-slide-in';
     content.offsetHeight; // 强制重排
@@ -74,7 +74,7 @@
 
   function testSlideOut() {
     const content = document.getElementById('test-content');
-    if (!content) return;
+    if (!content) {return;}
     
     content.className = 'test-content transition-slide-out is-active';
     
@@ -85,7 +85,7 @@
 
   function resetAnimation() {
     const content = document.getElementById('test-content');
-    if (!content) return;
+    if (!content) {return;}
     
     content.className = 'test-content transition-slide-in is-active';
   }

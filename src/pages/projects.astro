@@ -4,8 +4,8 @@ import { UNCATEGORIZED } from "../constants/constants";
 import {
 	getAllTechStack,
 	getFeaturedProjects,
-	getProjectStats,
 	getProjectsByCategory,
+	getProjectStats,
 	projectsData,
 } from "../data/projects";
 import I18nKey from "../i18n/i18nKey";
@@ -199,7 +199,7 @@ const getCategoryText = (category: string) => {
       <div class="space-y-8">
         {categories.map((category) => {
           const categoryProjects = projectsByCategory[category];
-          if (categoryProjects.length === 0) return null;
+          if (categoryProjects.length === 0) {return null;}
           
           return (
             <div>

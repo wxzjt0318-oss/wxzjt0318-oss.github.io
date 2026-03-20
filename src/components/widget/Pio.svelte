@@ -1,5 +1,6 @@
 <script>
 import { onDestroy, onMount } from "svelte";
+
 import { pioConfig } from "@/config";
 
 // 确保DOM元素正确引用
@@ -16,7 +17,7 @@ let currentModelIndex = 0;
 
 // 加载必要的脚本
 function loadPioAssets() {
-	if (typeof window === "undefined") return;
+	if (typeof window === "undefined") {return;}
 
 	// 加载JS脚本
 	const loadScript = (src, id) => {
@@ -125,7 +126,7 @@ function switchModel(modelPath) {
 }
 
 onMount(async () => {
-	if (!pioConfig.enable) return;
+	if (!pioConfig.enable) {return;}
 
 	// 如果配置了手机端隐藏，且当前屏幕宽度小于 1280px (平板/手机)，则直接终止，不加载脚本
     if (pioConfig.hiddenOnMobile && window.matchMedia("(max-width: 1280px)").matches) {

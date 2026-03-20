@@ -1,8 +1,9 @@
 <script lang="ts">
-import { onMount } from "svelte";
-import { siteConfig, sidebarLayoutConfig } from "../config";
-import { i18n } from "@i18n/translation";
 import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import { onMount } from "svelte";
+
+import { sidebarLayoutConfig,siteConfig } from "../config";
 
 type LayoutMode = "list" | "grid";
 
@@ -46,7 +47,7 @@ function getSavedSessionLayout(): LayoutMode | null {
 }
 
 function switchLayout() {
-    if (!mounted || isSmallScreen || isSwitching) return;
+    if (!mounted || isSmallScreen || isSwitching) {return;}
 
     isSwitching = true;
     const newLayout = userPreference === "list" ? "grid" : "list";
@@ -91,7 +92,7 @@ onMount(() => {
     }
 
     const handleCustomEvent = (event: CustomEvent<{ layout: LayoutMode }>) => {
-        if (event.detail?.layout) userPreference = event.detail.layout;
+        if (event.detail?.layout) {userPreference = event.detail.layout;}
     };
     
     const handleSwupEvent = () => {

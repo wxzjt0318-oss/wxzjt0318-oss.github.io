@@ -12,6 +12,7 @@ interface Props {
 }
 
 import { Image } from "astro:assets";
+
 import { url } from "../../utils/url-utils";
 
 const { id, src, alt, position = "center", basePath = "/", loading = "lazy" } = Astro.props;
@@ -33,7 +34,7 @@ if (isLocal) {
 	const files = import.meta.glob<ImageMetadata>("../../**", {
 		import: "default",
 	});
-	let normalizedPath = path
+	const normalizedPath = path
 		.normalize(path.join("../../", basePath, src))
 		.replace(/\\/g, "/");
 	const file = files[normalizedPath];

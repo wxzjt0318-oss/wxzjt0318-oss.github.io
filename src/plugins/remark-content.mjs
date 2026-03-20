@@ -29,7 +29,7 @@ export function remarkContent() {
 
 			// 跳过代码块，不计入字数
 			if (node.type === "code" || node.type === "inlineCode")
-				return "skip";
+				{return "skip";}
 
 			// 如果找到了手动摘要分隔符，只提取分隔符之前的内容作为摘要
 			if (!moreTagFound) {
@@ -88,13 +88,13 @@ export function remarkContent() {
  */
 function getNodeText(node) {
 	// 安全性检查
-	if (!node) return "";
+	if (!node) {return "";}
 
 	// 如果是文本节点，直接返回
-	if (node.type === "text") return node.value || "";
+	if (node.type === "text") {return node.value || "";}
 
 	// 如果是图片，提取 alt 文本 (可选，这里选择提取以保持语义)
-	if (node.type === "image") return node.alt || "";
+	if (node.type === "image") {return node.alt || "";}
 
 	// 跳过代码块和 HTML 标签
 	if (
@@ -102,7 +102,7 @@ function getNodeText(node) {
 		node.type === "inlineCode" ||
 		node.type === "html"
 	)
-		return "";
+		{return "";}
 
 	// 递归处理子节点
 	if (node.children && Array.isArray(node.children)) {

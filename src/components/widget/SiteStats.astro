@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+
 import { siteConfig } from "../../config";
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
@@ -62,7 +63,7 @@ function formatNumber(num: number): string {
 
 // 获取最新文章日期（忽略置顶状态，只按发布日期排序）
 const latestPost = posts.reduce((latest, post) => {
-	if (!latest) return post;
+	if (!latest) {return post;}
 	return post.data.published > latest.data.published ? post : latest;
 }, posts[0]);
 

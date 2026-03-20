@@ -10,7 +10,7 @@ interface ChartSegment {
 }
 
 const calculatePathData = (segment: ChartSegment) => {
-	if (segment.angle <= 0) return "";
+	if (segment.angle <= 0) {return "";}
 
 	// 外圆和内圆半径
 	const outerRadius = 40;
@@ -197,7 +197,7 @@ const calculatePercentage = (value: number, total: number) => {
               </defs>
               {levelSegments.map((segment, index) => {
                 const pathData = calculatePathData(segment);
-                if (!pathData) return null;
+                if (!pathData) {return null;}
                 
                 // 根据技能等级选择对应的渐变
                 let gradientId = "";

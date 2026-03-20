@@ -1,5 +1,6 @@
 ---
 import type { MarkdownHeading } from "astro";
+
 import { widgetManager } from "../../utils/widget-manager";
 import Announcement from "./Announcement.astro";
 import Calendar from "./Calendar.astro";
@@ -40,7 +41,7 @@ const componentMap = {
 function renderComponent(component: any, index: number, _components: any[]) {
 	const ComponentToRender =
 		componentMap[component.type as keyof typeof componentMap];
-	if (!ComponentToRender) return null;
+	if (!ComponentToRender) {return null;}
 
 	const componentClass = widgetManager.getComponentClass(component, index);
 	const componentStyle = widgetManager.getComponentStyle(component, index);
@@ -65,7 +66,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
 			<div class="flex flex-col w-full gap-4 md:hidden">
 				{mobileTopComponents.map((component, index) => {
 					const renderData = renderComponent(component, index, mobileTopComponents);
-					if (!renderData) return null;
+					if (!renderData) {return null;}
 					
 					const { Component, props } = renderData;
 					return <Component {...props} />;
@@ -78,7 +79,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
 			<div class="hidden md:flex flex-col w-full gap-4">
 				{tabletTopComponents.map((component, index) => {
 					const renderData = renderComponent(component, index, tabletTopComponents);
-					if (!renderData) return null;
+					if (!renderData) {return null;}
 					
 					const { Component, props } = renderData;
 					return <Component {...props} />;
@@ -94,7 +95,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
 			<div class="flex flex-col w-full gap-4 md:hidden">
 				{mobileStickyComponents.map((component, index) => {
 					const renderData = renderComponent(component, index, mobileStickyComponents);
-					if (!renderData) return null;
+					if (!renderData) {return null;}
 					
 					const { Component, props } = renderData;
 					return <Component {...props} />;
@@ -107,7 +108,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
 			<div class="hidden md:flex flex-col w-full gap-4">
 				{tabletStickyComponents.map((component, index) => {
 					const renderData = renderComponent(component, index, tabletStickyComponents);
-					if (!renderData) return null;
+					if (!renderData) {return null;}
 					
 					const { Component, props } = renderData;
 					return <Component {...props} />;
