@@ -1,5 +1,104 @@
 @reference "tailwindcss";
 
+/* 全局滚动条样式 - 跨浏览器兼容 */
+/* CSS变量定义 */
+:root {
+  --scrollbar-width: 8px;
+  --scrollbar-height: 8px;
+  --scrollbar-radius: 4px;
+  --scrollbar-bg: rgba(0, 0, 0, 0.15);
+  --scrollbar-bg-hover: rgba(0, 0, 0, 0.25);
+  --scrollbar-bg-active: rgba(0, 0, 0, 0.35);
+  --scrollbar-track-bg: transparent;
+  --scrollbar-border-width: 0;
+  --scrollbar-border-color: transparent;
+  --scrollbar-bg-dark: rgba(255, 255, 255, 0.15);
+  --scrollbar-bg-hover-dark: rgba(255, 255, 255, 0.25);
+  --scrollbar-bg-active-dark: rgba(255, 255, 255, 0.35);
+  --scrollbar-bg-light: rgba(0, 0, 0, 0.15);
+  --scrollbar-bg-hover-light: rgba(0, 0, 0, 0.25);
+  --scrollbar-bg-active-light: rgba(0, 0, 0, 0.35);
+}
+
+/* Webkit浏览器滚动条样式 (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-height);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg);
+  border-radius: var(--scrollbar-radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-bg);
+  border-radius: var(--scrollbar-radius);
+  border: var(--scrollbar-border-width) solid var(--scrollbar-border-color);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-bg-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-bg-active);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 暗色模式滚动条 */
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-bg-dark);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-bg-hover-dark);
+}
+
+.dark ::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-bg-active-dark);
+}
+
+/* Firefox滚动条样式 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-bg) var(--scrollbar-track-bg);
+}
+
+.dark * {
+  scrollbar-color: var(--scrollbar-bg-dark) var(--scrollbar-track-bg);
+}
+
+/* Safari滚动条样式 (macOS/iOS) */
+@supports (font: -apple-system-body) {
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-height);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-bg);
+    border-radius: var(--scrollbar-radius);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-bg-dark);
+  }
+}
+
+/* OverlayScrollbars样式 */
 .scrollbar-base.os-scrollbar {
   @apply transition-all;
   pointer-events: unset;
@@ -41,5 +140,181 @@
     --os-handle-bg-hover: var(--scrollbar-bg-hover-light);
     --os-handle-bg-active: var(--scrollbar-bg-active-light);
   }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-bg);
+    border-radius: 2px;
+  }
+
+  .scrollbar-base.os-scrollbar {
+    &.os-scrollbar-vertical {
+      @apply px-0.5 py-0.5 w-3;
+      .os-scrollbar-track .os-scrollbar-handle {
+        @apply rounded-full w-0.5;
+      }
+    }
+  }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+  ::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+
+  .scrollbar-base.os-scrollbar {
+    @apply transition-none;
+  }
+}
+
+/* 滚动性能优化 - GPU加速 */
+* {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* 滚动容器优化 */
+.scroll-container,
+[data-scroll-container],
+.overflow-auto,
+.overflow-y-auto,
+.overflow-x-auto {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+}
+
+/* 平滑滚动优化 - 使用CSS scroll-behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* 禁用用户选择的滚动区域 */
+.no-scroll-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 滚动捕捉优化 */
+.scroll-snap-container {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Edge浏览器滚动条优化 */
+@supports (-ms-ime-align: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-bg);
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-bg-hover);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+/* Linux系统滚动条优化 */
+@supports not (-webkit-touch-callout: none) {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* 滚动条动画过渡优化 */
+::-webkit-scrollbar-thumb {
+  transition:
+    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 滚动条焦点状态 */
+::-webkit-scrollbar-thumb:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* 隐藏滚动条但保持滚动功能 */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 自定义滚动条主题 */
+.scrollbar-primary {
+  --scrollbar-bg: var(--primary);
+  --scrollbar-bg-hover: var(--primary);
+  --scrollbar-bg-active: var(--primary);
+  --scrollbar-bg-dark: var(--primary);
+  --scrollbar-bg-hover-dark: var(--primary);
+  --scrollbar-bg-active-dark: var(--primary);
+}
+
+.scrollbar-subtle {
+  --scrollbar-bg: rgba(0, 0, 0, 0.08);
+  --scrollbar-bg-hover: rgba(0, 0, 0, 0.15);
+  --scrollbar-bg-active: rgba(0, 0, 0, 0.2);
+  --scrollbar-bg-dark: rgba(255, 255, 255, 0.08);
+  --scrollbar-bg-hover-dark: rgba(255, 255, 255, 0.15);
+  --scrollbar-bg-active-dark: rgba(255, 255, 255, 0.2);
+}
+
+.scrollbar-wide {
+  --scrollbar-width: 12px;
+  --scrollbar-height: 12px;
+}
+
+.scrollbar-thin {
+  --scrollbar-width: 6px;
+  --scrollbar-height: 6px;
 }
 

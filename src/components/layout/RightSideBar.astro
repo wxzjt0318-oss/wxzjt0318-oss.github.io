@@ -3,12 +3,12 @@ import type { MarkdownHeading } from "astro";
 import Announcement from "@/components/widget/Announcement.astro";
 import Calendar from "@/components/widget/Calendar.astro";
 import Categories from "@/components/widget/Categories.astro";
-import Profile from "@/components/widget/Profile.astro";
+import MusicPlayer from "@/components/widget/MusicPlayer.svelte";
 import SidebarMusicPlayer from "@/components/widget/SidebarMusicPlayer.svelte";
+import Profile from "@/components/widget/Profile.astro";
 import SiteStats from "@/components/widget/SiteStats.astro";
 import Tags from "@/components/widget/Tags.astro";
 import TOC from "@/components/widget/TOC.astro";
-import { musicPlayerConfig } from "@/config";
 import { widgetManager } from "@/utils/widget-manager";
 
 interface Props {
@@ -32,7 +32,8 @@ const componentMap = {
 	categories: Categories,
 	tags: Tags,
 	toc: TOC,
-	"music-player": SidebarMusicPlayer,
+	"music-player": MusicPlayer,
+	"sidebar-music-player": SidebarMusicPlayer,
 	"site-stats": SiteStats,
 	calendar: Calendar,
 };
@@ -58,135 +59,51 @@ function renderComponent(component: any, index: number, _components: any[]) {
 }
 ---
 
-<div id="right-sidebar" class:list={[className, "w-full right-sidebar-container"]}>
-  <!-- 可滚动内容区域 -->
-  <div id="right-sidebar-scrollable" class="right-sidebar-scrollable">
-    <!-- 顶部固定组件区域 -->
-    {
-      topComponents.length > 0 && (
-        <div class="flex flex-col w-full gap-4 mb-4">
-          {topComponents.map((component, index) => {
-            const renderData = renderComponent(component, index, topComponents);
-            if (!renderData) return null;
+<div id="right-sidebar" class:list={[className, "w-full"]}>
+  <!-- 顶部固定组件区域 -->
+  {
+    topComponents.length > 0 && (
+      <div class="flex flex-col w-full gap-4 mb-4">
+        {topComponents.map((component, index) => {
+          const renderData = renderComponent(component, index, topComponents);
+          if (!renderData) return null;
 
-            const { Component, props } = renderData;
-            return <Component {...props} />;
-          })}
-        </div>
-      )
-    }
+          const { Component, props } = renderData;
+          return <Component {...props} />;
+        })}
+      </div>
+    )
+  }
 
-    <!-- 粘性组件区域 -->
-    {
-      stickyComponents.length > 0 && (
-        <div
-          id="right-sidebar-sticky"
-          class="transition-all duration-700 flex flex-col w-full gap-4"
-        >
-          {stickyComponents.map((component, index) => {
-            const renderData = renderComponent(
-              component,
-              index,
-              stickyComponents
-            );
-            if (!renderData) return null;
+  <!-- 粘性组件区域 -->
+  {
+    stickyComponents.length > 0 && (
+      <div
+        id="right-sidebar-sticky"
+        class="transition-all duration-700 flex flex-col w-full gap-4 sticky top-4"
+      >
+        {stickyComponents.map((component, index) => {
+          const renderData = renderComponent(
+            component,
+            index,
+            stickyComponents
+          );
+          if (!renderData) return null;
 
-            const { Component, props } = renderData;
-            return <Component {...props} />;
-          })}
-        </div>
-      )
-    }
-  </div>
-
-  <!-- 固定在底部的音乐播放器 -->
-  {musicPlayerConfig.enable && (
-    <div id="sidebar-music-player" class="sidebar-music-player">
-      <SidebarMusicPlayer client:only="svelte" />
-    </div>
-  )}
+          const { Component, props } = renderData;
+          return <Component {...props} />;
+        })}
+      </div>
+    )
+  }
 </div>
 
 <!-- 响应式样式和JavaScript -->
 <style>
-  .right-sidebar-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 6rem);
-    max-height: calc(100vh - 6rem);
-    position: sticky;
-    top: 4.5rem;
-  }
-
-  .right-sidebar-scrollable {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 4px;
-    margin-right: -4px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-bg) transparent;
-  }
-
-  .right-sidebar-scrollable::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .right-sidebar-scrollable::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 3px;
-  }
-
-  .right-sidebar-scrollable::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-bg);
-    border-radius: 3px;
-    transition: background 0.2s ease;
-  }
-
-  .right-sidebar-scrollable::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-bg-hover);
-  }
-
-  :global(.dark) .right-sidebar-scrollable::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-bg-dark);
-  }
-
-  :global(.dark) .right-sidebar-scrollable::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-bg-hover-dark);
-  }
-
-  .sidebar-music-player {
-    flex-shrink: 0;
-    padding-top: 12px;
-    margin-top: 12px;
-    border-top: 1px solid var(--line-divider);
-    position: relative;
-    z-index: 10;
-    background: var(--card-bg);
-  }
-
-  :global(.dark) .sidebar-music-player {
-    background: var(--card-bg);
-  }
-
   /* 响应式断点样式 */
   @media (max-width: 768px) {
     #right-sidebar {
       display: var(--sidebar-mobile-display, block);
-    }
-    
-    .right-sidebar-container {
-      height: auto;
-      max-height: none;
-      position: static;
-    }
-    
-    .right-sidebar-scrollable {
-      overflow-y: visible;
-    }
-    
-    .sidebar-music-player {
-      display: none;
     }
   }
 
