@@ -2,7 +2,6 @@
 import { onDestroy, onMount } from "svelte";
 
 import { pioConfig } from "@/config";
-import { createWaveAction,Live2DWaveAction } from "@/utils/live2d-wave-action";
 
 // 确保DOM元素正确引用
 let pioContainer;
@@ -15,10 +14,6 @@ let isLoading = false;
 
 // 当前选中的模型索引
 let currentModelIndex = 0;
-
-// 招手动作管理器
-let waveAction = null;
-let isWaving = false;
 
 // 加载必要的脚本
 function loadPioAssets() {
@@ -94,9 +89,6 @@ function initOrSwitchPio(modelPath) {
 					pioInstance = new Paul_Pio(pioOptions);
 					pioInitialized = true;
 					
-					// 初始化招手动作
-					initWaveAction();
-					
 					// 添加淡入效果
 					container.style.opacity = "1";
 					isLoading = false;
@@ -107,10 +99,6 @@ function initOrSwitchPio(modelPath) {
 				// 首次初始化
 				pioInstance = new Paul_Pio(pioOptions);
 				pioInitialized = true;
-				
-				// 初始化招手动作
-				initWaveAction();
-				
 				isLoading = false;
 				// eslint-disable-next-line no-console
 				console.log("Pio initialized successfully (Svelte)");
@@ -127,45 +115,6 @@ function initOrSwitchPio(modelPath) {
 	}
 }
 
-// 初始化招手动作管理器
-function initWaveAction() {
-	if (typeof window === "undefined") {return;}
-	
-	// 销毁旧的招手动作管理器
-	if (waveAction) {
-		waveAction.destroy();
-	}
-	
-	// 创建新的招手动作管理器
-	waveAction = createWaveAction({
-		enable: true,
-		trigger: "all",
-		duration: 2000,
-		intensity: 1.0,
-		repeatCount: 3,
-		autoTriggerInterval: 60000,
-		transitionDuration: 300
-	});
-	
-	// 启动自动触发
-	waveAction.startAutoTrigger();
-	
-	// 绑定模型实例（如果可用）
-	if (window.live2dModel) {
-		waveAction.setModel(window.live2dModel);
-	}
-}
-
-// 触发招手动作
-function triggerWave() {
-	if (waveAction && waveAction.canTrigger() && !isWaving) {
-		isWaving = true;
-		waveAction.startWave().finally(() => {
-			isWaving = false;
-		});
-	}
-}
-
 // 切换到下一个模型
 function nextModel() {
 	if (pioConfig.models && pioConfig.models.length > 1) {
@@ -178,38 +127,6 @@ function nextModel() {
 function switchModel(modelPath) {
 	if (typeof window !== "undefined" && pioInitialized) {
 		initOrSwitchPio(modelPath);
-	}
-}
-
-// 处理画布点击事件
-function handleCanvasClick(event) {
-	// 触发招手动作
-	triggerWave();
-	
-	// 如果有Pio实例，触发原有消息
-	if (pioInstance && typeof pioInstance.message === "function") {
-		pioInstance.message("你好呀～");
-	}
-}
-
-// 处理画布悬停事件
-function handleCanvasMouseEnter() {
-	// 悬停时触发招手动作（有冷却时间）
-	if (waveAction && waveAction.canTrigger()) {
-		waveAction.handleHover();
-	}
-}
-
-// 处理画布双击事件
-function handleCanvasDoubleClick() {
-	// 双击触发热情招手
-	if (waveAction && !isWaving) {
-		waveAction.updateConfig({ intensity: 1.5, repeatCount: 5 });
-		triggerWave();
-		// 恢复默认配置
-		setTimeout(() => {
-			waveAction?.updateConfig({ intensity: 1.0, repeatCount: 3 });
-		}, 3000);
 	}
 }
 
@@ -237,12 +154,6 @@ onMount(async () => {
 });
 
 onDestroy(() => {
-	// 销毁招手动作管理器
-	if (waveAction) {
-		waveAction.destroy();
-		waveAction = null;
-	}
-	
 	// Svelte 组件销毁时清理 Pio 实例
 	if (pioInstance) {
 		// 如果 Paul_Pio 有清理方法，这里可以调用
@@ -264,11 +175,7 @@ onDestroy(() => {
       width={pioConfig.width || 280} 
       height={pioConfig.height || 250}
       class:opacity-50={isLoading}
-      class:waving={isWaving}
-      on:click={handleCanvasClick}
-      on:mouseenter={handleCanvasMouseEnter}
-      on:dblclick={handleCanvasDoubleClick}
-    />
+    ></canvas>
     
     <!-- 模型选择器 -->
     {#if pioConfig.models && pioConfig.models.length > 1}
@@ -298,17 +205,6 @@ onDestroy(() => {
         </button>
       </div>
     {/if}
-    
-    <!-- 招手动作按钮 -->
-    <button 
-      on:click={triggerWave}
-      disabled={isWaving || isLoading}
-      class="wave-action-btn"
-      aria-label="触发招手动作"
-      title="招手"
-    >
-      👋
-    </button>
     
     <!-- 加载指示器 -->
     {#if isLoading}
@@ -422,41 +318,6 @@ onDestroy(() => {
     cursor: not-allowed;
   }
   
-  .wave-action-btn {
-    position: absolute;
-    bottom: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid rgba(102, 102, 102, 0.3);
-    background: rgba(255, 255, 255, 0.95);
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-  }
-  
-  .wave-action-btn:hover:not(:disabled) {
-    transform: translateX(-50%) scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-color: rgba(102, 102, 102, 0.5);
-  }
-  
-  .wave-action-btn:active:not(:disabled) {
-    transform: translateX(-50%) scale(0.95);
-  }
-  
-  .wave-action-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
   .pio-loading-indicator {
     position: absolute;
     top: 50%;
@@ -490,23 +351,5 @@ onDestroy(() => {
   
   .opacity-50 {
     opacity: 0.5;
-  }
-  
-  .waving {
-    animation: wave-hint 0.5s ease-in-out;
-  }
-  
-  @keyframes wave-hint {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-  }
-  
-  #pio {
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  
-  #pio:hover {
-    transform: scale(1.01);
   }
 </style>
