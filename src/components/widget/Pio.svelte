@@ -2,6 +2,7 @@
 import { onDestroy, onMount } from "svelte";
 
 import { pioConfig } from "@/config";
+import { createWaveAction,Live2DWaveAction } from "@/utils/live2d-wave-action";
 
 // 确保DOM元素正确引用
 let pioContainer;
@@ -15,63 +16,15 @@ let isLoading = false;
 // 当前选中的模型索引
 let currentModelIndex = 0;
 
-// 欢迎气泡状态
-let showWelcomeBubble = false;
-const welcomeMessage = "欢迎光临灵梦的博客站";
-
-// 检查是否为新访客
-function isNewVisitor(): boolean {
-	if (typeof window === "undefined") {return false;}
-	
-	const visitedKey = "lingmeng_blog_visited";
-	const visited = localStorage.getItem(visitedKey);
-	
-	if (!visited) {
-		// 标记为已访问
-		localStorage.setItem(visitedKey, new Date().toISOString());
-		return true;
-	}
-	
-	return false;
-}
-
-// 播放欢迎动作序列
-async function playWelcomeSequence() {
-	if (typeof window === "undefined" || !pioInitialized) {return;}
-	
-	try {
-		// 显示欢迎气泡
-		showWelcomeBubble = true;
-		
-		// 等待模型加载完成
-		await new Promise(resolve => setTimeout(resolve, 500));
-		
-		// 尝试触发表情和动作
-		const canvas = document.getElementById("pio");
-		if (canvas) {
-			// 模拟点击触发触摸动作
-			canvas.click();
-		}
-		
-		// 使用 pioInstance 的 message 方法显示欢迎消息
-		if (pioInstance && typeof pioInstance.message === "function") {
-			pioInstance.message(welcomeMessage, { time: 5000 });
-		}
-		
-		// 3秒后隐藏气泡
-		setTimeout(() => {
-			showWelcomeBubble = false;
-		}, 5000);
-	} catch (error) {
-		// eslint-disable-next-line no-console
-		console.error("Welcome sequence error:", error);
-	}
-}
+// 招手动作管理器
+let waveAction = null;
+let isWaving = false;
 
 // 加载必要的脚本
 function loadPioAssets() {
 	if (typeof window === "undefined") {return;}
 
+	// 加载JS脚本
 	const loadScript = (src, id) => {
 		return new Promise((resolve, reject) => {
 			if (document.querySelector(`#${id}`)) {
@@ -87,6 +40,7 @@ function loadPioAssets() {
 		});
 	};
 
+	// 按顺序加载脚本
 	return loadScript("/pio/static/l2d.js", "pio-l2d-script")
 		.then(() => loadScript("/pio/static/pio.js", "pio-main-script"));
 }
@@ -102,11 +56,13 @@ function initOrSwitchPio(modelPath) {
 	try {
 		isLoading = true;
 		
+		// 确保DOM元素存在
 		const canvas = document.getElementById("pio");
 		const container = document.querySelector(".pio-container");
 		const action = document.querySelector(".pio-container .pio-action");
 		
 		if (canvas && container && action) {
+			// 创建配置对象
 			const pioOptions = {
 				model: [modelPath],
 				content: pioConfig.dialog || {},
@@ -114,42 +70,50 @@ function initOrSwitchPio(modelPath) {
 				hidden: pioConfig.hiddenOnMobile
 			};
 			
+			// 如果已经有实例，先销毁
 			if (pioInstance) {
+				// 添加淡出效果
 				container.style.opacity = "0";
 				container.style.transition = "opacity 0.3s ease";
 				
+				// 延迟销毁和重新初始化，等待淡出动画完成
 				setTimeout(() => {
+					// 销毁现有实例
 					if (pioInstance && typeof pioInstance.destroy === "function") {
 						pioInstance.destroy();
-						pioInstance = null;
+						pioInstance = null; // 确保引用被清除
 					}
 					
+					// 清除画布
 					const ctx = canvas.getContext("2d");
 					if (ctx) {
 						ctx.clearRect(0, 0, canvas.width, canvas.height);
 					}
 					
+					// 重新初始化
 					pioInstance = new Paul_Pio(pioOptions);
 					pioInitialized = true;
 					
+					// 初始化招手动作
+					initWaveAction();
+					
+					// 添加淡入效果
 					container.style.opacity = "1";
 					isLoading = false;
 					// eslint-disable-next-line no-console
 					console.log("Pio model switched successfully");
 				}, 300);
 			} else {
+				// 首次初始化
 				pioInstance = new Paul_Pio(pioOptions);
 				pioInitialized = true;
+				
+				// 初始化招手动作
+				initWaveAction();
+				
 				isLoading = false;
 				// eslint-disable-next-line no-console
 				console.log("Pio initialized successfully (Svelte)");
-				
-				// 检查是否为新访客，播放欢迎序列
-				if (isNewVisitor()) {
-					setTimeout(() => {
-						playWelcomeSequence();
-					}, 1000);
-				}
 			}
 		} else {
 			// eslint-disable-next-line no-console
@@ -160,6 +124,45 @@ function initOrSwitchPio(modelPath) {
 		// eslint-disable-next-line no-console
 		console.error("Pio initialization/switch error:", e);
 		isLoading = false;
+	}
+}
+
+// 初始化招手动作管理器
+function initWaveAction() {
+	if (typeof window === "undefined") {return;}
+	
+	// 销毁旧的招手动作管理器
+	if (waveAction) {
+		waveAction.destroy();
+	}
+	
+	// 创建新的招手动作管理器
+	waveAction = createWaveAction({
+		enable: true,
+		trigger: "all",
+		duration: 2000,
+		intensity: 1.0,
+		repeatCount: 3,
+		autoTriggerInterval: 60000,
+		transitionDuration: 300
+	});
+	
+	// 启动自动触发
+	waveAction.startAutoTrigger();
+	
+	// 绑定模型实例（如果可用）
+	if (window.live2dModel) {
+		waveAction.setModel(window.live2dModel);
+	}
+}
+
+// 触发招手动作
+function triggerWave() {
+	if (waveAction && waveAction.canTrigger() && !isWaving) {
+		isWaving = true;
+		waveAction.startWave().finally(() => {
+			isWaving = false;
+		});
 	}
 }
 
@@ -178,16 +181,51 @@ function switchModel(modelPath) {
 	}
 }
 
+// 处理画布点击事件
+function handleCanvasClick(event) {
+	// 触发招手动作
+	triggerWave();
+	
+	// 如果有Pio实例，触发原有消息
+	if (pioInstance && typeof pioInstance.message === "function") {
+		pioInstance.message("你好呀～");
+	}
+}
+
+// 处理画布悬停事件
+function handleCanvasMouseEnter() {
+	// 悬停时触发招手动作（有冷却时间）
+	if (waveAction && waveAction.canTrigger()) {
+		waveAction.handleHover();
+	}
+}
+
+// 处理画布双击事件
+function handleCanvasDoubleClick() {
+	// 双击触发热情招手
+	if (waveAction && !isWaving) {
+		waveAction.updateConfig({ intensity: 1.5, repeatCount: 5 });
+		triggerWave();
+		// 恢复默认配置
+		setTimeout(() => {
+			waveAction?.updateConfig({ intensity: 1.0, repeatCount: 3 });
+		}, 3000);
+	}
+}
+
 onMount(async () => {
 	if (!pioConfig.enable) {return;}
 
-	if (pioConfig.hiddenOnMobile && window.matchMedia("(max-width: 1280px)").matches) {
-		return;
-	}
+	// 如果配置了手机端隐藏，且当前屏幕宽度小于 1280px (平板/手机)，则直接终止，不加载脚本
+    if (pioConfig.hiddenOnMobile && window.matchMedia("(max-width: 1280px)").matches) {
+        return;
+    }
 
 	try {
+		// 加载资源
 		await loadPioAssets();
 		
+		// 等待DOM完全渲染
 		setTimeout(() => {
 			initOrSwitchPio(pioConfig.models[currentModelIndex] || "/pio/models/pio/model.json");
 		}, 100);
@@ -199,11 +237,19 @@ onMount(async () => {
 });
 
 onDestroy(() => {
+	// 销毁招手动作管理器
+	if (waveAction) {
+		waveAction.destroy();
+		waveAction = null;
+	}
+	
+	// Svelte 组件销毁时清理 Pio 实例
 	if (pioInstance) {
+		// 如果 Paul_Pio 有清理方法，这里可以调用
 		if (typeof pioInstance.destroy === "function") {
 			pioInstance.destroy();
 		}
-		pioInstance = null;
+		pioInstance = null; // 确保引用被清除
 		// eslint-disable-next-line no-console
 		console.log("Pio Svelte component destroyed");
 	}
@@ -218,17 +264,11 @@ onDestroy(() => {
       width={pioConfig.width || 280} 
       height={pioConfig.height || 250}
       class:opacity-50={isLoading}
-    ></canvas>
-    
-    <!-- 欢迎气泡 -->
-    {#if showWelcomeBubble}
-      <div class="welcome-bubble">
-        <div class="bubble-content">
-          <span class="bubble-text">{welcomeMessage}</span>
-        </div>
-        <div class="bubble-arrow"></div>
-      </div>
-    {/if}
+      class:waving={isWaving}
+      on:click={handleCanvasClick}
+      on:mouseenter={handleCanvasMouseEnter}
+      on:dblclick={handleCanvasDoubleClick}
+    />
     
     <!-- 模型选择器 -->
     {#if pioConfig.models && pioConfig.models.length > 1}
@@ -258,6 +298,17 @@ onDestroy(() => {
         </button>
       </div>
     {/if}
+    
+    <!-- 招手动作按钮 -->
+    <button 
+      on:click={triggerWave}
+      disabled={isWaving || isLoading}
+      class="wave-action-btn"
+      aria-label="触发招手动作"
+      title="招手"
+    >
+      👋
+    </button>
     
     <!-- 加载指示器 -->
     {#if isLoading}
@@ -324,72 +375,6 @@ onDestroy(() => {
     transform: scale(0.95);
   }
   
-  /* 欢迎气泡样式 */
-  .welcome-bubble {
-    position: absolute;
-    top: -60px;
-    right: -20px;
-    z-index: 100;
-    animation: bubbleFadeIn 0.5s ease-out, bubbleBounce 2s ease-in-out infinite 0.5s;
-  }
-  
-  .bubble-content {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 12px 18px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    white-space: nowrap;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-  
-  .bubble-text {
-    display: inline-block;
-    animation: textGlow 2s ease-in-out infinite;
-  }
-  
-  .bubble-arrow {
-    position: absolute;
-    bottom: -8px;
-    right: 30px;
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #764ba2;
-  }
-  
-  @keyframes bubbleFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px) scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-  
-  @keyframes bubbleBounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-  
-  @keyframes textGlow {
-    0%, 100% {
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    }
-  }
-  
   .pio-model-selector {
     position: absolute;
     bottom: -40px;
@@ -437,6 +422,41 @@ onDestroy(() => {
     cursor: not-allowed;
   }
   
+  .wave-action-btn {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(102, 102, 102, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+  
+  .wave-action-btn:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: rgba(102, 102, 102, 0.5);
+  }
+  
+  .wave-action-btn:active:not(:disabled) {
+    transform: translateX(-50%) scale(0.95);
+  }
+  
+  .wave-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
   .pio-loading-indicator {
     position: absolute;
     top: 50%;
@@ -470,5 +490,23 @@ onDestroy(() => {
   
   .opacity-50 {
     opacity: 0.5;
+  }
+  
+  .waving {
+    animation: wave-hint 0.5s ease-in-out;
+  }
+  
+  @keyframes wave-hint {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+  
+  #pio {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  #pio:hover {
+    transform: scale(1.01);
   }
 </style>
