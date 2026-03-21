@@ -5,6 +5,7 @@ import Calendar from "@/components/widget/Calendar.astro";
 import Categories from "@/components/widget/Categories.astro";
 import MusicPlayer from "@/components/widget/MusicPlayer.svelte";
 import Profile from "@/components/widget/Profile.astro";
+import SidebarMusicPlayer from "@/components/widget/SidebarMusicPlayer.svelte";
 import SiteStats from "@/components/widget/SiteStats.astro";
 import Tags from "@/components/widget/Tags.astro";
 import TOC from "@/components/widget/TOC.astro";
@@ -32,6 +33,7 @@ const componentMap = {
 	tags: Tags,
 	toc: TOC,
 	"music-player": MusicPlayer,
+	"sidebar-music-player": SidebarMusicPlayer,
 	"site-stats": SiteStats,
 	calendar: Calendar,
 };
@@ -78,7 +80,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
     stickyComponents.length > 0 && (
       <div
         id="right-sidebar-sticky"
-        class="transition-all duration-700 flex flex-col w-full gap-4"
+        class="transition-all duration-700 flex flex-col w-full gap-4 sticky top-4"
       >
         {stickyComponents.map((component, index) => {
           const renderData = renderComponent(
@@ -98,16 +100,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
 
 <!-- 响应式样式和JavaScript -->
 <style>
-  #right-sidebar {
-    position: relative;
-  }
-  
-  #right-sidebar-sticky {
-    position: sticky;
-    top: 1rem;
-    z-index: 10;
-  }
-
+  /* 响应式断点样式 */
   @media (max-width: 768px) {
     #right-sidebar {
       display: var(--sidebar-mobile-display, block);

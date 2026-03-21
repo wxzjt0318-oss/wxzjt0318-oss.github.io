@@ -3,176 +3,40 @@ import Icon from "@iconify/svelte";
 import { onDestroy, onMount } from "svelte";
 import { slide } from "svelte/transition";
 
-// 从配置文件中导入音乐播放器配置
 import { musicPlayerConfig } from "../../config";
-// 导入国际化相关的 Key 和 i18n 实例
 import Key from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
+import {
+	formatTime,
+	musicPlayerStore,
+} from "../../stores/musicPlayerStore";
 
-// 音乐播放器模式，可选 "local" 或 "meting"，从本地配置中获取或使用默认值 "meting"
-const mode = musicPlayerConfig.mode ?? "meting";
-// Meting API 地址，从配置中获取或使用默认地址(bilibili.uno(由哔哩哔哩松坂有希公益管理)),服务器在海外,部分音乐平台可能不支持并且速度可能慢,也可以自建Meting API
-const meting_api =
-	musicPlayerConfig.meting_api ??
-	"https://www.bilibili.uno/api?server=:server&type=:type&id=:id&auth=:auth&r=:r";
-// Meting API 的 ID，从配置中获取或使用默认值
-const meting_id = musicPlayerConfig.id ?? "14164869977";
-// Meting API 的服务器，从配置中获取或使用默认值,有的meting的api源支持更多平台,一般来说,netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐, xiami=虾米音乐, baidu=百度音乐
-const meting_server = musicPlayerConfig.server ?? "netease";
-// Meting API 的类型，从配置中获取或使用默认值
-const meting_type = musicPlayerConfig.type ?? "playlist";
+$: isPlaying = $musicPlayerStore.isPlaying;
+$: isLoading = $musicPlayerStore.isLoading;
+$: currentTime = $musicPlayerStore.currentTime;
+$: duration = $musicPlayerStore.duration;
+$: volume = $musicPlayerStore.volume;
+$: isMuted = $musicPlayerStore.isMuted;
+$: isShuffled = $musicPlayerStore.isShuffled;
+$: isRepeating = $musicPlayerStore.isRepeating;
+$: currentSong = $musicPlayerStore.currentSong;
+$: playlist = $musicPlayerStore.playlist;
+$: currentIndex = $musicPlayerStore.currentIndex;
+$: showError = $musicPlayerStore.showError;
+$: errorMessage = $musicPlayerStore.errorMessage;
 
-// 播放状态，默认为 false (未播放)
-let isPlaying = false;
-// 播放器是否展开，默认为 false
 let isExpanded = false;
-// 播放器是否隐藏，默认为 false
 let isHidden = false;
-// 是否显示播放列表，默认为 false
 let showPlaylist = false;
-// 当前播放时间，默认为 0
-let currentTime = 0;
-// 歌曲总时长，默认为 0
-let duration = 0;
-
-// localStorage 存储音量
-const STORAGE_KEY_VOLUME = 'music-player-volume';
-
-// 音量，默认为 0.7
-let volume = 0.7;
-// 是否静音，默认为 false
-let isMuted = false;
-// 是否正在加载，默认为 false
-let isLoading = false;
-// 是否随机播放，默认为 false
-let isShuffled = false;
-// 循环模式，0: 不循环, 1: 单曲循环, 2: 列表循环，默认为 0
-let isRepeating = 0;
-// 错误信息，默认为空字符串
-let errorMessage = "";
-// 是否显示错误信息，默认为 false
-let showError = false;
-
-// 当前歌曲信息
-let currentSong = {
-	title: "Sample Song",
-	artist: "Sample Artist",
-	cover: "/favicon/favicon.ico",
-	url: "",
-	duration: 0,
-};
-
-type Song = {
-	id: number;
-	title: string;
-	artist: string;
-	cover: string;
-	url: string;
-	duration: number;
-};
-
-let playlist: Song[] = [];
-let currentIndex = 0;
-let audio: HTMLAudioElement;
 let progressBar: HTMLElement;
 let volumeBar: HTMLElement;
-
-const localPlaylist = [
-	{
-		id: 1,
-		title: "ひとり上手",
-		artist: "Kaya",
-		cover: "assets/music/cover/hitori.jpg",
-		url: "assets/music/url/hitori.mp3",
-		duration: 240,
-	},
-	{
-		id: 2,
-		title: "眩耀夜行",
-		artist: "スリーズブーケ",
-		cover: "assets/music/cover/xryx.jpg",
-		url: "assets/music/url/xryx.mp3",
-		duration: 180,
-	},
-	{
-		id: 3,
-		title: "春雷の頃",
-		artist: "22/7",
-		cover: "assets/music/cover/cl.jpg",
-		url: "assets/music/url/cl.mp3",
-		duration: 200,
-	},
-];
-
-// 从localStorage加载音量设置
-function loadVolumeSettings() {
-	try {
-		if (typeof localStorage !== 'undefined') {
-			const savedVolume = localStorage.getItem(STORAGE_KEY_VOLUME);
-			if (savedVolume !== null && !isNaN(parseFloat(savedVolume))) {
-				volume = parseFloat(savedVolume);
-			}
-		}
-	} catch (e) {
-		console.warn('Failed to load volume settings from localStorage:', e);
-	}
-}
-// 保存音量设置到localStorage
-function saveVolumeSettings() {
-	try {
-		if (typeof localStorage !== 'undefined') {
-			localStorage.setItem(STORAGE_KEY_VOLUME, volume.toString());
-		}
-	} catch (e) {
-		console.warn('Failed to save volume settings to localStorage:', e);
-	}
-}
-
-async function fetchMetingPlaylist() {
-	if (!meting_api || !meting_id) {return;}
-	isLoading = true;
-	const apiUrl = meting_api
-		.replace(":server", meting_server)
-		.replace(":type", meting_type)
-		.replace(":id", meting_id)
-		.replace(":auth", "")
-		.replace(":r", Date.now().toString());
-	try {
-		const res = await fetch(apiUrl);
-		if (!res.ok) {throw new Error("meting api error");}
-		const list = await res.json();
-		playlist = list.map((song: any) => {
-			const title = song.name ?? song.title ?? i18n(Key.unknownSong);
-		const artist = song.artist ?? song.author ?? i18n(Key.unknownArtist);
-			let dur = song.duration ?? 0;
-			if (dur > 10000) {dur = Math.floor(dur / 1000);}
-			if (!Number.isFinite(dur) || dur <= 0) {dur = 0;}
-			return {
-				id: song.id,
-				title,
-				artist,
-				cover: song.pic ?? "",
-				url: song.url ?? "",
-				duration: dur,
-			};
-		});
-		if (playlist.length > 0) {
-			loadSong(playlist[0]);
-		}
-		isLoading = false;
-	} catch (e) {
-		showErrorMessage(i18n(Key.musicPlayerErrorPlaylist));
-		isLoading = false;
-	}
-}
+let isVolumeDragging = false;
+let isPointerDown = false;
+let volumeBarRect: DOMRect | null = null;
+let rafId: number | null = null;
 
 function togglePlay() {
-	if (!audio || !currentSong.url) {return;}
-	if (isPlaying) {
-		audio.pause();
-	} else {
-		audio.play().catch(() => {});
-	}
+	musicPlayerStore.togglePlay();
 }
 
 function toggleExpanded() {
@@ -196,264 +60,87 @@ function togglePlaylist() {
 }
 
 function toggleShuffle() {
-    isShuffled = !isShuffled;
-	if (isShuffled) {
-        isRepeating = 0;
-	}
+	musicPlayerStore.toggleShuffle();
 }
 
 function toggleRepeat() {
-    isRepeating = (isRepeating + 1) % 3;
-	if (isRepeating !== 0) {
-        isShuffled = false;
-	}
+	musicPlayerStore.toggleRepeat();
 }
 
 function previousSong() {
-	if (playlist.length <= 1) {return;}
-	const newIndex = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
-	playSong(newIndex);
+	musicPlayerStore.previousSong();
 }
 
-function nextSong(autoPlay: boolean = true) {
-	if (playlist.length <= 1) {return;}
-	
-	let newIndex: number;
-	if (isShuffled) {
-		do {
-			newIndex = Math.floor(Math.random() * playlist.length);
-		} while (newIndex === currentIndex && playlist.length > 1);
-	} else {
-		newIndex = currentIndex < playlist.length - 1 ? currentIndex + 1 : 0;
-	}
-	playSong(newIndex, autoPlay);
+function nextSong() {
+	musicPlayerStore.nextSong();
 }
 
-// 记录切歌时的播放意图，用于解决加载失败时的状态传递问题
-let willAutoPlay = false;
-
-function playSong(index: number, autoPlay = true) {
-	if (index < 0 || index >= playlist.length) {return;}
-	
-    willAutoPlay = autoPlay;
-	currentIndex = index;
-	loadSong(playlist[currentIndex]);
-}
-
-function getAssetPath(path: string): string {
-	if (path.startsWith("http://") || path.startsWith("https://")) {return path;}
-	if (path.startsWith("/")) {return path;}
-	return `/${path}`;
-}
-
-function loadSong(song: typeof currentSong) {
-	if (!song) {return;}
-	if (song.url !== currentSong.url) {
-		currentSong = { ...song };
-		if (song.url) {
-			isLoading = true;
-		} else {
-			isLoading = false;
-		}
-	}
-}
-
-// 标记是否因浏览器策略导致自动播放失败
-let autoplayFailed = false;
-
-function handleLoadSuccess() {
-	isLoading = false;
-	if (audio?.duration && audio.duration > 1) {
-		duration = Math.floor(audio.duration);
-		if (playlist[currentIndex]) {playlist[currentIndex].duration = duration;}
-		currentSong.duration = duration;
-	}
-
-	if (willAutoPlay || isPlaying) {
-        const playPromise = audio.play();
-		if (playPromise !== undefined) {
-            playPromise.catch((error) => {
-                console.warn("自动播放被拦截，等待用户交互:", error);
-                autoplayFailed = true;
-				isPlaying = false;
-            });
-		}
-    }
-}
-
-function handleUserInteraction() {
-    if (autoplayFailed && audio) {
-        const playPromise = audio.play();
-		if (playPromise !== undefined) {
-            playPromise.then(() => {
-                autoplayFailed = false;
-            }).catch(() => {});
-		}
-    }
-}
-
-function handleLoadError(_event: Event) {
-	if (!currentSong.url) {return;}
-	isLoading = false;
-	showErrorMessage(i18n(Key.musicPlayerErrorSong));
-	
-    const shouldContinue = isPlaying || willAutoPlay;
-	if (playlist.length > 1) {
-		setTimeout(() => nextSong(shouldContinue), 1000);
-	} else {
-		showErrorMessage(i18n(Key.musicPlayerErrorEmpty));
-	}
-}
-
-function handleLoadStart() {}
-
-function handleAudioEnded() {
-	if (isRepeating === 1) {
-		audio.currentTime = 0;
-		audio.play().catch(() => {});
-	} else if (
-		isRepeating === 2 ||
-		isShuffled
-	) {
-		nextSong(true);
-	} else {
-		isPlaying = false;
-	}
-}
-
-function showErrorMessage(message: string) {
-	errorMessage = message;
-	showError = true;
-	setTimeout(() => {
-		showError = false;
-	}, 3000);
-}
-function hideError() {
-	showError = false;
+function playSong(index: number) {
+	musicPlayerStore.playSong(index);
 }
 
 function setProgress(event: MouseEvent) {
-	if (!audio || !progressBar) {return;}
+	if (!progressBar) {return;}
 	const rect = progressBar.getBoundingClientRect();
-	const percent = (event.clientX - rect.left) / rect.width;
-	const newTime = percent * duration;
-	audio.currentTime = newTime;
-	currentTime = newTime;
+	const percent = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+	musicPlayerStore.setProgress(percent);
 }
 
-let isVolumeDragging = false;
-let isPointerDown = false;
-let volumeBarRect: DOMRect | null = null;
-let rafId: number | null = null;
-
 function startVolumeDrag(event: PointerEvent) {
-    if (!volumeBar) {return;}
+	if (!volumeBar) {return;}
 	event.preventDefault();
-    
-    isPointerDown = true; 
+	isPointerDown = true;
 	volumeBar.setPointerCapture(event.pointerId);
-
-    volumeBarRect = volumeBar.getBoundingClientRect();
-    updateVolumeLogic(event.clientX);
+	volumeBarRect = volumeBar.getBoundingClientRect();
+	updateVolumeLogic(event.clientX);
 }
 
 function handleVolumeMove(event: PointerEvent) {
-    if (!isPointerDown) {return;}
+	if (!isPointerDown) {return;}
 	event.preventDefault();
-
-    isVolumeDragging = true; 
-    if (rafId) {return;}
-
+	isVolumeDragging = true;
+	if (rafId) {return;}
 	rafId = requestAnimationFrame(() => {
-        updateVolumeLogic(event.clientX);
-        rafId = null;
-    });
+		updateVolumeLogic(event.clientX);
+		rafId = null;
+	});
 }
 
 function stopVolumeDrag(event: PointerEvent) {
-    if (!isPointerDown) {return;}
+	if (!isPointerDown) {return;}
 	isPointerDown = false;
-    isVolumeDragging = false;
-    volumeBarRect = null;
+	isVolumeDragging = false;
+	volumeBarRect = null;
 	if (volumeBar) {
 		volumeBar.releasePointerCapture(event.pointerId);
 	}
-
 	if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
+		cancelAnimationFrame(rafId);
+		rafId = null;
 	}
-    saveVolumeSettings();
 }
 
 function updateVolumeLogic(clientX: number) {
-    if (!audio || !volumeBar) {return;}
-
-    const rect = volumeBarRect || volumeBar.getBoundingClientRect();
-	const percent = Math.max(
-        0,
-        Math.min(1, (clientX - rect.left) / rect.width),
-    );
-	volume = percent;
+	if (!volumeBar) {return;}
+	const rect = volumeBarRect || volumeBar.getBoundingClientRect();
+	const percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+	musicPlayerStore.setVolume(percent);
 }
 
 function toggleMute() {
-	isMuted = !isMuted;
+	musicPlayerStore.toggleMute();
 }
 
-function formatTime(seconds: number): string {
-	if (!Number.isFinite(seconds) || seconds < 0) {return "0:00";}
-	const mins = Math.floor(seconds / 60);
-	const secs = Math.floor(seconds % 60);
-	return `${mins}:${secs.toString().padStart(2, "0")}`;
+function hideError() {
+	$musicPlayerStore.showError = false;
 }
 
-const interactionEvents = ['click', 'keydown', 'touchstart'];
 onMount(() => {
-    loadVolumeSettings(); 
-    interactionEvents.forEach(event => {
-        document.addEventListener(event, handleUserInteraction, { capture: true });
-    });
-
-	if (!musicPlayerConfig.enable) {
-		return;
+	if (musicPlayerConfig.enable && !$musicPlayerStore.isInitialized) {
+		musicPlayerStore.init();
 	}
-	if (mode === "meting") {
-		fetchMetingPlaylist();
-	} else {
-		// 使用本地播放列表，不发送任何API请求
-		playlist = [...localPlaylist];
-		if (playlist.length > 0) {
-			loadSong(playlist[0]);
-		} else {
-			showErrorMessage("本地播放列表为空");
-		}
-	}
-});
-
-onDestroy(() => {
-    if (typeof document !== 'undefined') {
-        interactionEvents.forEach(event => {
-            document.removeEventListener(event, handleUserInteraction, { capture: true });
-        });
-    }
 });
 </script>
-
-<audio
-	bind:this={audio}
-	src={getAssetPath(currentSong.url)}
-	bind:volume
-	bind:muted={isMuted}
-	on:play={() => isPlaying = true}
-	on:pause={() => isPlaying = false}
-	on:timeupdate={() => currentTime = audio.currentTime}
-	on:ended={handleAudioEnded}
-	on:error={handleLoadError}
-	on:loadeddata={handleLoadSuccess}
-	on:loadstart={handleLoadStart}
-	preload="auto"
-></audio>
 
 <svelte:window 
     on:pointermove={handleVolumeMove} 
@@ -477,7 +164,6 @@ onDestroy(() => {
      class:expanded={isExpanded}
      class:hidden-mode={isHidden}>
 
-    <!-- 隐藏状态的小圆球 -->
     <div class="orb-player w-12 h-12 bg-[var(--primary)] rounded-full shadow-lg cursor-pointer transition-all duration-500 ease-in-out flex items-center justify-center hover:scale-110 active:scale-95"
          class:opacity-0={!isHidden}
          class:scale-0={!isHidden}
@@ -504,13 +190,12 @@ onDestroy(() => {
             <Icon icon="material-symbols:music-note" class="text-white text-lg" />
         {/if}
     </div>
-    <!-- 收缩状态的迷你播放器（封面圆形） -->
+
     <div class="mini-player card-base bg-[var(--float-panel-bg)] shadow-xl rounded-2xl p-3 transition-all duration-500 ease-in-out"
          class:opacity-0={isExpanded || isHidden}
          class:scale-95={isExpanded || isHidden}
          class:pointer-events-none={isExpanded || isHidden}>
         <div class="flex items-center gap-3">
-            <!-- 封面区域：点击控制播放/暂停 -->
             <div class="cover-container relative w-12 h-12 rounded-full overflow-hidden cursor-pointer"
                  on:click={togglePlay}
                  on:keydown={(e) => {
@@ -522,7 +207,7 @@ onDestroy(() => {
                  role="button"
                  tabindex="0"
                  aria-label={isPlaying ? i18n(Key.musicPlayerPause) : i18n(Key.musicPlayerPlay)}>
-                <img src={getAssetPath(currentSong.cover)} alt={i18n(Key.musicPlayerCover)}
+                <img src={musicPlayerStore.getAssetPath(currentSong.cover)} alt={i18n(Key.musicPlayerCover)}
                      class="w-full h-full object-cover transition-transform duration-300"
                      class:spinning={isPlaying && !isLoading}
                      class:animate-pulse={isLoading} />
@@ -536,7 +221,6 @@ onDestroy(() => {
                     {/if}
                 </div>
             </div>
-            <!-- 歌曲信息区域：点击展开播放器 -->
             <div class="flex-1 min-w-0 cursor-pointer"
                  on:click={toggleExpanded}
                  on:keydown={(e) => {
@@ -564,14 +248,14 @@ onDestroy(() => {
             </div>
         </div>
     </div>
-    <!-- 展开状态的完整播放器（封面圆形） -->
+
     <div class="expanded-player card-base bg-[var(--float-panel-bg)] shadow-xl rounded-2xl p-4 transition-all duration-500 ease-in-out"
          class:opacity-0={!isExpanded}
          class:scale-95={!isExpanded}
          class:pointer-events-none={!isExpanded}>
         <div class="flex items-center gap-4 mb-4">
             <div class="cover-container relative w-16 h-16 rounded-full overflow-hidden shrink-0">
-                <img src={getAssetPath(currentSong.cover)} alt={i18n(Key.musicPlayerCover)}
+                <img src={musicPlayerStore.getAssetPath(currentSong.cover)} alt={i18n(Key.musicPlayerCover)}
                      class="w-full h-full object-cover transition-transform duration-300"
                      class:spinning={isPlaying && !isLoading}
                      class:animate-pulse={isLoading} />
@@ -605,11 +289,7 @@ onDestroy(() => {
                      if (e.key === 'Enter' || e.key === ' ') {
                          e.preventDefault();
                          const percent = 0.5;
-                         const newTime = percent * duration;
-						 if (audio) {
-                             audio.currentTime = newTime;
-							 currentTime = newTime;
-                         }
+                         musicPlayerStore.setProgress(percent);
                      }
                  }}
                  role="slider"
@@ -734,7 +414,7 @@ onDestroy(() => {
                             {/if}
                         </div>
                         <div class="w-10 h-10 rounded-lg overflow-hidden bg-[var(--btn-regular-bg)] shrink-0">
-                            <img src={getAssetPath(song.cover)} alt={song.title} loading="lazy" class="w-full h-full object-cover" />
+                            <img src={musicPlayerStore.getAssetPath(song.cover)} alt={song.title} loading="lazy" class="w-full h-full object-cover" />
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="font-medium truncate" class:text-[var(--primary)]={index === currentIndex} class:text-[var(--content-text)]={index !== currentIndex}>
@@ -802,7 +482,6 @@ onDestroy(() => {
     position: absolute;
     bottom: 0;
     right: 0;
-    /*left: 0;*/
 }
 .expanded-player {
     width: 20rem;
@@ -830,7 +509,6 @@ onDestroy(() => {
 @media (max-width: 768px) {
     .music-player {
         max-width: 280px !important;
-        /*left: 0.5rem !important;*/
         bottom: 0.5rem !important;
         right: 0.5rem !important;
 	}
@@ -840,12 +518,10 @@ onDestroy(() => {
     .music-player.expanded {
         width: calc(100vw - 16px);
         max-width: none;
-        /*left: 0.5rem !important;*/
         right: 0.5rem !important;
 	}
     .playlist-panel {
         width: calc(100vw - 16px) !important;
-        /*left: 0.5rem !important;*/
         right: 0.5rem !important;
         max-width: none;
 	}
@@ -914,7 +590,6 @@ onDestroy(() => {
         height: 12px;
 	}
 }
-/* 自定义旋转动画，停止时保持当前位置 */
 @keyframes spin-continuous {
     from {
         transform: rotate(0deg);
@@ -933,7 +608,6 @@ onDestroy(() => {
     animation-play-state: running;
 }
 
-/* 让主题色按钮更有视觉反馈 */
 button.bg-\[var\(--primary\)\] {
     box-shadow: 0 0 0 2px var(--primary);
 	border: none;
