@@ -1400,6 +1400,27 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
     display: none !important;
 }
 
+/* 右侧边栏容器sticky定位 */
+.right-sidebar-container {
+    position: sticky;
+    top: 5.5rem;
+    height: fit-content;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    align-self: start;
+}
+
+/* 隐藏滚动条但保持滚动功能 */
+.right-sidebar-container::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
+
+.right-sidebar-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 /* Grid 模式下调整主网格布局 */
 #main-grid[data-layout-mode="grid"] {
     /* 在桌面端只显示左侧边栏和主内容 */

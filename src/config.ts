@@ -359,17 +359,10 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			class: "onload-animation",
 			animationDelay: 250,
 		},
-		{
-			type: "sidebar-music-player",
-			enabled: true,
-			position: "top",
-			class: "onload-animation",
-			animationDelay: 300,
-		},
 	],
 	components: {
 		left: ["profile", "announcement", "categories", "tags"],
-		right: ["site-stats", "calendar", "sidebar-music-player"],
+		right: ["site-stats", "calendar"],
 		drawer: ["profile", "announcement"],
 	},
 	defaultAnimation: { enable: true, baseDelay: 0, increment: 50 },

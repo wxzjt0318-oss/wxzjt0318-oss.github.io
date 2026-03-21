@@ -353,7 +353,6 @@ export type WidgetComponentType =
 	| "tags"
 	| "toc"
 	| "music-player"
-	| "sidebar-music-player"
 	| "pio" // 添加 pio 组件类型
 	| "site-stats" // 站点统计组件
 	| "calendar" // 日历组件
