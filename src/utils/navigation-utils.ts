@@ -17,6 +17,7 @@ export function navigateToPage(
 ): void {
 	// 检查 URL 是否有效
 	if (!url || typeof url !== "string") {
+		console.warn("navigateToPage: Invalid URL provided");
 		return;
 	}
 
@@ -49,6 +50,8 @@ export function navigateToPage(
 				(window as any).swup.navigate(url);
 			}
 		} catch (error) {
+			console.error("Swup navigation failed:", error);
+			// 降级到普通跳转
 			fallbackNavigation(url, options);
 		}
 	} else {
@@ -132,7 +135,7 @@ export function preloadPage(url: string): void {
 		try {
 			(window as any).swup.preload(url);
 		} catch (error) {
-			// 预加载失败，静默处理
+			console.warn("Failed to preload page:", error);
 		}
 	}
 }

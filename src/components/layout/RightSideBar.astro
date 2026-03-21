@@ -78,7 +78,7 @@ function renderComponent(component: any, index: number, _components: any[]) {
     stickyComponents.length > 0 && (
       <div
         id="right-sidebar-sticky"
-        class="transition-all duration-700 flex flex-col w-full gap-4 sticky top-4"
+        class="transition-all duration-700 flex flex-col w-full gap-4"
       >
         {stickyComponents.map((component, index) => {
           const renderData = renderComponent(
@@ -98,7 +98,16 @@ function renderComponent(component: any, index: number, _components: any[]) {
 
 <!-- 响应式样式和JavaScript -->
 <style>
-  /* 响应式断点样式 */
+  #right-sidebar {
+    position: relative;
+  }
+  
+  #right-sidebar-sticky {
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+  }
+
   @media (max-width: 768px) {
     #right-sidebar {
       display: var(--sidebar-mobile-display, block);

@@ -40,8 +40,7 @@ const stickyComponents = widgetManager.getComponentsByPosition("sticky", "right"
     width: 100%;
     max-width: 300px;
     height: fit-content;
-    position: sticky;
-    top: 1rem;
+    position: relative;
   }
   
   .sidebar-top {
@@ -55,7 +54,8 @@ const stickyComponents = widgetManager.getComponentsByPosition("sticky", "right"
     flex-direction: column;
     gap: 16px;
     position: sticky;
-    top: 0;
+    top: 1rem;
+    z-index: 10;
   }
   
   .sidebar-component {
@@ -71,7 +71,6 @@ const stickyComponents = widgetManager.getComponentsByPosition("sticky", "right"
     }
   }
   
-  /* 响应式设计 */
   @media (max-width: 1280px) {
     .right-sidebar {
       max-width: 260px;

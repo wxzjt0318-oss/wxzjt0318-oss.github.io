@@ -105,7 +105,6 @@ class PanelManager {
 	): Promise<boolean> {
 		const panel = document.getElementById(panelId);
 		if (!panel) {
-			// eslint-disable-next-line no-console
 			console.warn(`Panel ${panelId} not found`);
 			return false;
 		}

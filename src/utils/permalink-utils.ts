@@ -26,6 +26,7 @@ export function initPostIdMap(posts: PostEntry[]): Map<string, number> {
 
 export function getPostNumericId(postId: string): number {
 	if (!postIdMap) {
+		console.warn("Post ID map not initialized. Returning 0 for post_id.");
 		return 0;
 	}
 	return postIdMap.get(postId) ?? 0;
@@ -50,6 +51,9 @@ export function generatePermalinkSlug(post: PostEntry): string {
 	let format = permalinkConfig.format;
 
 	if (format.includes("/")) {
+		console.warn(
+			"Permalink format contains '/' which is not supported. Removing slashes.",
+		);
 		format = format.replace(/\//g, "-");
 	}
 
@@ -90,4 +94,3 @@ export function getPermalinkPath(post: PostEntry): string {
 	const slug = generatePermalinkSlug(post);
 	return `/${slug}/`;
 }
-

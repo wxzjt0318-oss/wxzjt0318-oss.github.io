@@ -106,7 +106,7 @@ export default tseslint.config(
 			"no-var": "error",
 			eqeqeq: "warn",
 			curly: "warn",
-			"no-console": "warn",
+			"no-console": "off",
 			"no-debugger": "warn",
 			"no-useless-assignment": "off",
 			"no-redeclare": "off",

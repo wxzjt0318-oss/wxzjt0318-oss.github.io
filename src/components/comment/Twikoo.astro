@@ -39,14 +39,11 @@ const config = {
         commentEl.innerHTML = '';
         
         const dynamicConfig = createTwikooConfig();
-        // eslint-disable-next-line no-console
         console.log('[Twikoo] 初始化配置:', dynamicConfig);
         
         twikoo.init(dynamicConfig).then(() => {
-          // eslint-disable-next-line no-console
           console.log('[Twikoo] 初始化完成');
         }).catch((error) => {
-          // eslint-disable-next-line no-console
           console.error('[Twikoo] 初始化失败:', error);
         });
       }
@@ -78,7 +75,6 @@ const config = {
   document.addEventListener('mizuki:page:loaded', function() {
     const commentEl = document.getElementById('tcomment');
     if (commentEl) {
-      // eslint-disable-next-line no-console
       console.log('[Twikoo] 通过自定义事件重新初始化');
       initTwikoo();
     }

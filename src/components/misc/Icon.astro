@@ -112,7 +112,6 @@ const iconId = `icon-${Math.random().toString(36).substring(2, 9)}`;
     // 监听图标加载错误
     iconElement.addEventListener('error', () => {
       // 保持显示fallback
-      // eslint-disable-next-line no-console
       console.warn(`Failed to load icon: ${icon}`);
     });
 
@@ -135,7 +134,6 @@ const iconId = `icon-${Math.random().toString(36).substring(2, 9)}`;
       setTimeout(() => {
         observer.disconnect();
         if (!checkIconLoaded()) {
-          // eslint-disable-next-line no-console
           console.warn(`Icon load timeout: ${icon}`);
         }
       }, 5000);

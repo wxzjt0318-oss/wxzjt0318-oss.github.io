@@ -68,7 +68,6 @@ async function fetchNotoSansSCFonts() {
 		const boldUrl = getUrlForWeight(700);
 
 		if (!regularUrl || !boldUrl) {
-			// eslint-disable-next-line no-console
 			console.warn(
 				"Could not find font urls in Google Fonts CSS; falling back to no fonts.",
 			);
@@ -81,7 +80,6 @@ async function fetchNotoSansSCFonts() {
 			fetch(boldUrl),
 		]);
 		if (!rResp.ok || !bResp.ok) {
-			// eslint-disable-next-line no-console
 			console.warn(
 				"Failed to download font files from Google; falling back to no fonts.",
 			);
@@ -95,7 +93,6 @@ async function fetchNotoSansSCFonts() {
 		fontCache = { regular: rBuf, bold: bBuf };
 		return fontCache;
 	} catch (err) {
-		// eslint-disable-next-line no-console
 		console.warn("Error fetching fonts:", err);
 		fontCache = { regular: null, bold: null };
 		return fontCache;

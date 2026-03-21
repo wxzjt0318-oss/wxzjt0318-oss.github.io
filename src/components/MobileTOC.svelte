@@ -230,12 +230,14 @@ const setupSwupListeners = () => {
 		});
 
 		swupListenersRegistered = true;
+		console.log("MobileTOC Swup listener registered");
 	} else if (!swupListenersRegistered) {
 		// 降级处理：监听普通页面切换事件
 		window.addEventListener("popstate", () => {
 			setTimeout(init, 200);
 		});
 		swupListenersRegistered = true;
+		console.log("MobileTOC fallback listener registered");
 	}
 };
 

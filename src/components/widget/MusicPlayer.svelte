@@ -114,7 +114,6 @@ function loadVolumeSettings() {
 			}
 		}
 	} catch (e) {
-		// eslint-disable-next-line no-console
 		console.warn('Failed to load volume settings from localStorage:', e);
 	}
 }
@@ -125,7 +124,6 @@ function saveVolumeSettings() {
 			localStorage.setItem(STORAGE_KEY_VOLUME, volume.toString());
 		}
 	} catch (e) {
-		// eslint-disable-next-line no-console
 		console.warn('Failed to save volume settings to localStorage:', e);
 	}
 }
@@ -275,7 +273,6 @@ function handleLoadSuccess() {
         const playPromise = audio.play();
 		if (playPromise !== undefined) {
             playPromise.catch((error) => {
-                // eslint-disable-next-line no-console
                 console.warn("自动播放被拦截，等待用户交互:", error);
                 autoplayFailed = true;
 				isPlaying = false;

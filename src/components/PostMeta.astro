@@ -147,7 +147,6 @@ const {
                     return;
                 } catch (error) {
                     if (attempt >= maxRetry) {
-                        // eslint-disable-next-line no-console
                         console.error('Error fetching page views:', error);
                         displayElement.textContent = '统计不可用';
                         return;

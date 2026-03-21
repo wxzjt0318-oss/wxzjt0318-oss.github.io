@@ -229,7 +229,6 @@ async function fetchSubjectPersonsRaw(subjectId: number) {
     const data = await res.json().catch(() => []);
     return Array.isArray(data) ? data : [];
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(`Error fetching persons for subject ${subjectId}:`, e);
     return [];
   }
@@ -254,7 +253,6 @@ async function fetchSubjectDetailCached(id: number) {
     return disk;
   }
   const d = await fetchSubjectDetailRaw(id).catch((e) => {
-    // eslint-disable-next-line no-console
     console.error(`Error fetching subject ${id} detail:`, e);
     return null;
   });
@@ -350,7 +348,6 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
     await diskCacheSet(cacheKey, payload);
     return payload;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error("Error fetching Bangumi data:", error);
     if (cachedList.length > 0) {
       cacheNotice = "Bangumi API 异常，已展示缓存数据";
