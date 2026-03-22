@@ -893,3 +893,103 @@ body.wallpaper-transparent #toc-inner-wrapper:has(table-of-contents[data-loaded=
     max-height: 40px !important;
   }
 }
+
+/* ==========================================================================
+   移动端轮播图片覆盖优化
+   ========================================================================== */
+
+/* 移动端轮播图片完整覆盖 */
+@media (max-width: 767px) {
+  /* 轮播容器确保全屏 */
+  #banner-carousel,
+  .carousel-list {
+    width: 100vw !important;
+    height: 100% !important;
+    margin-left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* 轮播项确保覆盖 */
+  .carousel-item {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+
+  /* 移动端图片确保完整覆盖 */
+  .carousel-item img,
+  #banner img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+  }
+
+  /* 禁用移动端缩放动画，确保图片稳定 */
+  .carousel-item.opacity-100.scale-100,
+  .carousel-item.opacity-0.scale-110 {
+    transform: none !important;
+  }
+
+  /* 单图模式移动端优化 */
+  #banner-single-container,
+  #banner-single-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+/* 平板端轮播图片优化 */
+@media (min-width: 768px) and (max-width: 1279px) {
+  /* 轮播容器确保全屏 */
+  #banner-carousel,
+  .carousel-list {
+    width: 100vw !important;
+    height: 100% !important;
+  }
+
+  /* 轮播项确保覆盖 */
+  .carousel-item {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+
+  /* 平板端图片确保完整覆盖 */
+  .carousel-item img,
+  #banner img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+/* 高分辨率移动设备优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .carousel-item img,
+  #banner img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* 刘海屏/异形屏适配 */
+@supports (padding: max(0px)) {
+  #banner-wrapper {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+
+  .carousel-item img,
+  #banner img {
+    width: calc(100% + max(0px, env(safe-area-inset-left)) + max(0px, env(safe-area-inset-right))) !important;
+    margin-left: calc(-1 * max(0px, env(safe-area-inset-left))) !important;
+  }
+}

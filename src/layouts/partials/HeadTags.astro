@@ -87,8 +87,12 @@ const cdnDomains = [
 <meta name="twitter:description" content={description || title} />
 
 <!-- Viewport and Generator -->
-<meta name="viewport" content="width=device-width" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
 <meta name="generator" content={Astro.generator} />
+<meta name="format-detection" content="telephone=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
 <!-- Favicons -->
 {
@@ -196,6 +200,9 @@ const cdnDomains = [
 	(function() {
 		if (pageScaling && pageScaling.enable) {
 			function adjustPageScale() {
+				// 更精确的移动端检测
+				const isMobile = window.innerWidth < 768;
+				const isTablet = window.innerWidth >= 768 && window.innerWidth < 1280;
 				const isTouch =
 					(window.matchMedia &&
 						(window.matchMedia("(pointer:coarse)").matches ||
@@ -204,11 +211,14 @@ const cdnDomains = [
 				const isPortrait =
 					window.matchMedia &&
 					window.matchMedia("(orientation: portrait)").matches;
-				const isTabletLike = isTouch || window.innerWidth <= 1280;
-				if (isTabletLike || isPortrait) {
+				
+				// 移动端和平板端不应用缩放，使用响应式设计
+				if (isMobile || isTablet || (isTouch && window.innerWidth <= 1280) || isPortrait) {
 					document.documentElement.style.fontSize = "";
 					return;
 				}
+				
+				// 仅在桌面端大屏幕上应用缩放
 				const targetWidth = pageScaling.targetWidth || 2000;
 				const currentWidth = document.documentElement.clientWidth;
 				let scale = currentWidth / targetWidth;
