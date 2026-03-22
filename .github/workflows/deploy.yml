@@ -56,6 +56,7 @@ jobs:
         run: pnpm run build
         env:
           UMAMI_SHARE_URL: ${{ secrets.UMAMI_SHARE_URL }}
+          ENABLE_CONTENT_SYNC: false
       
       - name: Deploy to pages branch
         uses: JamesIves/github-pages-deploy-action@v4
