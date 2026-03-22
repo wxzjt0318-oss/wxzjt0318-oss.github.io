@@ -316,7 +316,7 @@ export const footerConfig: FooterConfig = {
  * - 去掉 responsive.layout（类型仅接受 breakpoints）
  */
 export const sidebarLayoutConfig: SidebarLayoutConfig = {
-	position: "both", // 左右两侧都有侧边栏内容
+	position: "both",
 	properties: [
 		{
 			type: "profile",
@@ -333,20 +333,19 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			animationDelay: 50,
 		},
 		{
-			type: "categories",
-			enabled: true,
-			position: "sticky",
-			class: "onload-animation",
-			animationDelay: 150,
-			responsive: { collapseThreshold: 5 },
-		},
-		{
 			type: "tags",
 			enabled: true,
 			position: "top",
 			class: "onload-animation",
-			animationDelay: 250,
+			animationDelay: 100,
 			responsive: { collapseThreshold: 20 },
+		},
+		{
+			type: "card-toc",
+			enabled: true,
+			position: "sticky",
+			class: "onload-animation",
+			animationDelay: 150,
 		},
 		{
 			type: "site-stats",
@@ -362,11 +361,26 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			class: "onload-animation",
 			animationDelay: 250,
 		},
+		{
+			type: "categories",
+			enabled: true,
+			position: "sticky",
+			class: "onload-animation",
+			animationDelay: 300,
+			responsive: { collapseThreshold: 5 },
+		},
+		{
+			type: "music-sidebar",
+			enabled: true,
+			position: "sticky",
+			class: "onload-animation",
+			animationDelay: 350,
+		},
 	],
 	components: {
-		left: ["profile", "announcement", "categories", "tags"],
-		right: ["site-stats", "calendar"],
-		drawer: ["profile", "announcement"],
+		left: ["profile", "announcement", "tags", "card-toc"],
+		right: ["site-stats", "calendar", "categories", "music-sidebar"],
+		drawer: ["profile", "announcement", "music-sidebar", "categories", "tags"],
 	},
 	defaultAnimation: { enable: true, baseDelay: 0, increment: 50 },
 	responsive: {
