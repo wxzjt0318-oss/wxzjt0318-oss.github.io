@@ -26,18 +26,22 @@
   --breakpoint-xl: 1920px;
 }
 
-/* 导入 ZenMaruGothic-Medium 字体 */
+/* 导入 ZenMaruGothic-Medium 字体 - 优先使用 woff2 格式 */
 @font-face {
   font-family: "ZenMaruGothic-Medium";
-  src: url("/assets/font/ZenMaruGothic-Medium.ttf") format("truetype");
+  src: url("/assets/font/ZenMaruGothic-Medium.woff2") format("woff2"),
+       url("/assets/font/ZenMaruGothic-Medium.ttf") format("truetype");
   font-weight: 500;
+  font-style: normal;
   font-display: swap;
+  font-named-instance: "Medium";
 }
 
-/* 导入 萝莉体 第二版 字体 */
+/* 导入 萝莉体 第二版 字体 - 优先使用 woff2 格式 */
 @font-face {
   font-family: "萝莉体 第二版";
-  src: url("/assets/font/loli.ttf") format("truetype");
+  src: url("/assets/font/萝莉体 第二版.woff2") format("woff2"),
+       url("/assets/font/loli.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;

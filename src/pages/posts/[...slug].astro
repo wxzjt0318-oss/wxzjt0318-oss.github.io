@@ -16,7 +16,7 @@ import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getRelatedPosts, getSortedPosts } from "@utils/content-utils";
 import { hasCustomPermalink, initPostIdMap } from "@utils/permalink-utils";
-import { getFileDirFromPath, removeFileExtension } from "@utils/url-utils";
+import { getFileDirFromPath, getPostUrl, removeFileExtension } from "@utils/url-utils";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import {
@@ -258,6 +258,7 @@ const jsonLd = {
 					tags={entry.data.tags}
 					category={entry.data.category || undefined}
 					id={entry.id}
+					postUrl={getPostUrl(entry)}
 					showEncrypted={isEncrypted}
 				/>
 				{

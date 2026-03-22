@@ -64,13 +64,13 @@ export function remarkContent() {
 		const cjkMatches = [...fullText.matchAll(cjkPattern)];
 		const cjkCount = cjkMatches.length;
 
-		// 优化：避免创建新字符串，直接计算非 CJK 单词数
-		// 非 CJK 字符（英文/数字/空格/标点）
-		const nonCjkPattern = /[^\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u3000-\u303f\uff00-\uffef]+/g;
-		const nonCjkWords = [...fullText.matchAll(nonCjkPattern)]
-			.map(match => match[0].trim())
-			.filter(word => word.length > 0)
-			.length;
+		// 修复：正确统计英文单词数
+		// 1. 先移除所有 CJK 字符，得到纯非 CJK 文本
+		const nonCjkText = fullText.replace(cjkPattern, ' ');
+		
+		// 2. 使用单词边界匹配来统计英文单词数（连续字母数字组合）
+		const wordPattern = /[a-zA-Z0-9]+/g;
+		const nonCjkWords = [...nonCjkText.matchAll(wordPattern)].length;
 
 		// 估算时间：英文 200词/分，中文 400字/分
 		const minutes = nonCjkWords / 200 + cjkCount / 400;

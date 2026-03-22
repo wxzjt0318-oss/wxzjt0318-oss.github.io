@@ -185,10 +185,28 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 		build: {
-			// 静态资源处理优化，防止小图片转 base64 导致 HTML 体积过大（可选，根据需要调整）
 			assetsInlineLimit: 4096,
-
+			cssMinify: true,
+			minify: 'esbuild',
+			target: 'es2022',
+			reportCompressedSize: true,
+			sourcemap: false,
 			rollupOptions: {
+				output: {
+					manualChunks: (id) => {
+						if (id.includes('node_modules')) {
+							if (id.includes('katex')) return 'vendor-katex';
+							if (id.includes('photoswipe')) return 'vendor-photoswipe';
+							if (id.includes('svelte')) return 'vendor-svelte';
+							if (id.includes('iconify')) return 'vendor-iconify';
+							if (id.includes('crypto-js')) return 'vendor-crypto';
+							return 'vendor';
+						}
+					},
+					chunkFileNames: '_astro/[name]-[hash].js',
+					entryFileNames: '_astro/[name]-[hash].js',
+					assetFileNames: '_astro/[name]-[hash].[ext]',
+				},
 				onwarn(warning, warn) {
 					if (
 						warning.message.includes(
@@ -203,6 +221,17 @@ export default defineConfig({
 					warn(warning);
 				},
 			},
+		},
+		ssr: {
+			noExternal: ['@fontsource-variable/jetbrains-mono', '@fontsource/roboto'],
+		},
+		optimizeDeps: {
+			include: [
+				'@iconify/svelte',
+				'dayjs',
+				'sharp',
+			],
+			exclude: ['@astrojs/sitemap'],
 		},
 	},
 });
