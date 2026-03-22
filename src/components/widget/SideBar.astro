@@ -7,6 +7,7 @@ import Calendar from "./Calendar.astro";
 import Categories from "./Categories.astro";
 import MusicPlayer from "./MusicPlayer.svelte";
 import Profile from "./Profile.astro";
+import SidebarMusicPlayer from "./SidebarMusicPlayer.svelte";
 import SiteStats from "./SiteStats.astro";
 import Tags from "./Tags.astro";
 import TOC from "./TOC.astro";
@@ -18,14 +19,12 @@ interface Props {
 
 const { class: className, headings } = Astro.props;
 
-// 获取不同设备下的组件列表
 const mobileTopComponents = widgetManager.getComponentsByPosition("top", "drawer", "mobile");
 const mobileStickyComponents = widgetManager.getComponentsByPosition("sticky", "drawer", "mobile");
 
 const tabletTopComponents = widgetManager.getComponentsByPosition("top", "left", "tablet");
 const tabletStickyComponents = widgetManager.getComponentsByPosition("sticky", "left", "tablet");
 
-// 组件映射表
 const componentMap = {
 	profile: Profile,
 	announcement: Announcement,
@@ -33,6 +32,7 @@ const componentMap = {
 	tags: Tags,
 	toc: TOC,
 	"music-player": MusicPlayer,
+	"sidebar-music-player": SidebarMusicPlayer,
 	"site-stats": SiteStats,
 	calendar: Calendar,
 };
@@ -120,7 +120,17 @@ function renderComponent(component: any, index: number, _components: any[]) {
 
 <!-- 响应式样式和JavaScript -->
 <style>
-	/* 响应式断点样式 */
+	#sidebar {
+		position: sticky;
+		top: 1rem;
+		height: fit-content;
+		align-self: flex-start;
+	}
+
+	#sidebar-sticky {
+		position: relative;
+	}
+
 	@media (max-width: 1280px) {
 		#sidebar {
 			display: var(--sidebar-mobile-display, block);

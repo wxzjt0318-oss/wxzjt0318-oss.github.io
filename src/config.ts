@@ -313,7 +313,7 @@ export const footerConfig: FooterConfig = {
  * - 去掉 responsive.layout（类型仅接受 breakpoints）
  */
 export const sidebarLayoutConfig: SidebarLayoutConfig = {
-	position: "both", // 左右两侧都有侧边栏内容
+	position: "both",
 	properties: [
 		{
 			type: "profile",
@@ -359,10 +359,17 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			class: "onload-animation",
 			animationDelay: 250,
 		},
+		{
+			type: "sidebar-music-player",
+			enabled: true,
+			position: "sticky",
+			class: "onload-animation",
+			animationDelay: 300,
+		},
 	],
 	components: {
 		left: ["profile", "announcement", "categories", "tags"],
-		right: ["site-stats", "calendar"],
+		right: ["site-stats", "calendar", "sidebar-music-player"],
 		drawer: ["profile", "announcement"],
 	},
 	defaultAnimation: { enable: true, baseDelay: 0, increment: 50 },
