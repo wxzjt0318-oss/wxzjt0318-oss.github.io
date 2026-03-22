@@ -59,7 +59,7 @@ const { class: className, style } = Astro.props;
 	 * 为单个 card-toc 实例初始化目录。
 	 * 目录绑定当前组件自己的内容容器，避免左侧多断点并存时命中隐藏实例。
 	 */
-	function initCardTOC(root) {
+	function initCardTOC(root: Element | HTMLElement) {
 		if (!(root instanceof HTMLElement)) {
 			return;
 		}

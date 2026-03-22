@@ -4,11 +4,14 @@
  * 第三方分析脚本组件 - 延迟加载优化
  *
  * 包含:
+ * - Umami Analytics
  * - Google Tag Manager (GTM)
  * - Microsoft Clarity
  *
  * 使用 requestIdleCallback 延迟加载以优化性能
  */
+
+import { umamiConfig } from "@/config";
 
 interface Props {
 	gtmId?: string;
@@ -19,7 +22,15 @@ const {
 	gtmId = "GTM-KRX3XGVH",
 	clarityId = "tjr3vkhj8i",
 } = Astro.props;
+
+const umamiEnabled = umamiConfig.enabled || false;
+const umamiWebsiteId = umamiConfig.scripts.match(/data-website-id="([^"]+)"/)?.[1] || "";
 ---
+
+<!-- Umami Analytics 脚本 -->
+{umamiEnabled && umamiWebsiteId && (
+	<script is:inline defer src="https://cloud.umami.is/script.js" data-website-id={umamiWebsiteId}></script>
+)}
 
 <!-- 第三方分析脚本 - 延迟加载优化 -->
 <script is:inline define:vars={{ gtmId, clarityId }}>

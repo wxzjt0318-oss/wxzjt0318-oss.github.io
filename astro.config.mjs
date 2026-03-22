@@ -29,6 +29,14 @@ import { rehypeImageWidth } from "./src/plugins/rehype-image-width.mjs";
 import rehypeExternalLinks from "rehype-external-links";
 import { remarkFixGithubAdmonitions } from "./src/plugins/remark-fix-github-admonitions.js";
 
+// 加载环境变量
+import { loadEnv } from "vite";
+const env = loadEnv("", process.cwd(), "");
+
+// Umami 分享 URL 配置
+// 从环境变量读取，如果未配置则使用空字符串（禁用统计显示功能）
+const UMAMI_SHARE_URL = env.UMAMI_SHARE_URL || "";
+
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.siteURL,
@@ -39,7 +47,7 @@ export default defineConfig({
 
 	integrations: [
 		umami({
-			shareUrl: false,
+			shareUrl: UMAMI_SHARE_URL || false,
 		}),
 		swup({
 			theme: false,
