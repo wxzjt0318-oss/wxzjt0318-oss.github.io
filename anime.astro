@@ -1,0 +1,1686 @@
+---
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
+import { sidebarLayoutConfig, siteConfig } from "../config";
+import localAnimeList from "../data/anime";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { buildAltTitles, buildSearchIndex, isValidStudio } from "../utils/anime-search.js";
+import { getCollectionUpdatedAt, mergeCollectionData } from "../utils/anime-collection.js";
+
+// i18n helpers with safe fallbacks（采用第二版）
+const T = {
+  unknown: i18n((I18nKey as any).animeUnknown ?? "animeUnknown") || "Unknown",
+  episodes: i18n((I18nKey as any).animeEpisodes ?? "animeEpisodes") || "episodes",
+  paginationFirst: i18n((I18nKey as any).paginationFirst ?? "paginationFirst") || "First",
+  paginationLast: i18n((I18nKey as any).paginationLast ?? "paginationLast") || "Last",
+  searchAnimePlaceholder:
+    i18n((I18nKey as any).searchAnimePlaceholder ?? "searchAnimePlaceholder") ||
+    "Search by title, genre, studio...",
+  statsTotal: i18n((I18nKey as any).animeStatsTotal ?? "animeStatsTotal") || "Total",
+  statsAvgRating:
+    i18n((I18nKey as any).animeStatsAvgRating ?? "animeStatsAvgRating") || "Average Rating",
+  statsLastUpdated:
+    i18n((I18nKey as any).animeStatsLastUpdated ?? "animeStatsLastUpdated") || "Last Updated",
+};
+
+// 扩展状态类型
+type LocalAnimeItem = (typeof localAnimeList)[number];
+type AnimeStatus = "watching" | "completed" | "planned" | "onhold" | "dropped";
+type AnimeItem = Omit<LocalAnimeItem, "status"> & {
+  status: AnimeStatus;
+  updatedAt?: string; // ISO
+  startDate?: string;
+  displayDate?: string;
+  genre: string[];
+  progress?: number;
+  totalEpisodes?: number;
+  episodes?: string;
+  altTitles?: string[];
+  searchIndex?: string;
+};
+
+// 页面开关
+if (!siteConfig.featurePages.anime) {
+  return Astro.redirect("/404/");
+}
+
+// 双侧边栏
+const isBothSidebarMode = sidebarLayoutConfig.position === "both";
+
+// Bangumi API 配置
+const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
+const BANGUMI_API_BASE = "https://api.bgm.tv";
+const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
+
+// 获取模式
+const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
+
+// 上限与缓存 TTL（小时）
+type AnimeConfigExt = { mode?: "bangumi" | "local"; maxItems?: number; cacheTtlHours?: number };
+const animeCfg = (siteConfig.anime || {}) as AnimeConfigExt;
+const MAX_ITEMS = Number(animeCfg.maxItems) > 0 ? Number(animeCfg.maxItems) : Infinity;
+const CACHE_TTL_HOURS = Number(animeCfg.cacheTtlHours) >= 0 ? Number(animeCfg.cacheTtlHours) : 24;
+let cacheNotice = "";
+
+// 简易磁盘持久缓存（Node 端有效）；支持通过 env 禁用（采用第二版的 mkdir 防御）
+type CacheEntry<T> = { ts: number; data: T };
+const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
+const DISK_CACHE = isNode && !(process as any).env?.BANGUMI_DISABLE_DISK_CACHE;
+
+let fs: typeof import("fs/promises") | null = null;
+let path: typeof import("path") | null = null;
+if (isNode && DISK_CACHE) {
+  const fsMod = await import("fs/promises");
+  const pathMod = await import("path");
+  fs = fsMod;
+  path = pathMod;
+}
+
+const cacheRoot = isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
+if (isNode && DISK_CACHE && fs && cacheRoot) {
+  await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+}
+
+async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
+  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) return null;
+  try {
+    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+    const file = path.resolve(cacheRoot, `${key}.json`);
+    const buf = await fs.readFile(file, { encoding: "utf8" as any });
+    const jsonStr = typeof buf === "string" ? buf : String(buf);
+    const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
+    const ageHours = (Date.now() - parsed.ts) / 3.6e6;
+    if (ageHours <= ttlHours) return parsed.data;
+  } catch {}
+  return null;
+}
+async function diskCacheSet<T>(key: string, data: T): Promise<void> {
+  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) return;
+  try {
+    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+    const file = path.resolve(cacheRoot, `${key}.json`);
+    const payload: CacheEntry<T> = { ts: Date.now(), data };
+    await fs.writeFile(file, JSON.stringify(payload), { encoding: "utf8" });
+  } catch {
+    // ignore
+  }
+}
+
+// fetch 带重试与 429/5xx 退避
+async function fetchWithRetry(url: string, init?: RequestInit, retries = 4, baseDelayMs = 400): Promise<Response> {
+  let lastErr: unknown = null;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    let res: Response | null = null;
+    try {
+      res = (await fetch(url, init)) as Response;
+    } catch (e) {
+      lastErr = e;
+    }
+    if (res && res.ok) return res;
+
+    const status = res?.status ?? 0;
+    const retryable = status === 429 || (status >= 500 && status <= 599);
+    if (attempt < retries && retryable) {
+      let delay = baseDelayMs * Math.pow(2, attempt);
+      const ra = res?.headers?.get("Retry-After");
+      const s = ra ? Number(ra) : NaN;
+      if (!Number.isNaN(s) && s > 0) delay = s * 1000;
+      delay += Math.floor(Math.random() * 200);
+      await new Promise((r) => setTimeout(r, delay));
+      continue;
+    }
+    if (res) throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
+    throw new Error(`Network error: ${String(lastErr)}`);
+  }
+  throw new Error(`fetchWithRetry exhausted for ${url}`);
+}
+
+// 安全提取 infobox
+function pickFirstUsefulValue(v: any): string | undefined {
+  if (v == null) return undefined;
+  if (typeof v === "string") return v.trim() || undefined;
+  if (Array.isArray(v)) {
+    for (const it of v) {
+      const got = pickFirstUsefulValue(it);
+      if (got) return got;
+    }
+    return undefined;
+  }
+  if (typeof v === "object") {
+    if (typeof (v as any).v === "string") return (v as any).v.trim() || undefined;
+    if (typeof (v as any).value === "string") return (v as any).value.trim() || undefined;
+  }
+  return undefined;
+}
+
+function getStartDateFromInfobox(subject: any): string | undefined {
+  const keys = [
+    "放送开始", "放送開始", "首播", "首映", "首播日期", "上映日期", "上映年度", "上映时间",
+    "发售日", "開始", "開始日", "开始", "開始時間", "开始时间", "开播", "首播时间",
+  ];
+  const infobox = subject?.infobox;
+  if (!Array.isArray(infobox)) return undefined;
+  for (const k of keys) {
+    const entry = infobox.find((x: any) => x?.key === k);
+    if (!entry) continue;
+    const v = pickFirstUsefulValue(entry?.value);
+    if (v) return v;
+  }
+  return undefined;
+}
+function getStudioFromInfobox(subject: any): string | undefined {
+  const keys = ["动画制作", "製作", "制作", "动画公司", "Studio", "制作公司", "制作スタジオ"];
+  const infobox = subject?.infobox;
+  if (!Array.isArray(infobox)) return undefined;
+  for (const k of keys) {
+    const entry = infobox.find((x: any) => x?.key === k);
+    if (!entry) continue;
+    const v = pickFirstUsefulValue(entry?.value);
+    if (v) return v;
+  }
+  return undefined;
+}
+
+// 展示日期
+function toDisplayYearOrYearMonth(input?: string): string {
+  if (!input) return T.unknown;
+  const s = input.trim();
+  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;
+  const ym = /^(\d{4})-(\d{2})$/;
+  const y = /^(\d{4})$/;
+  if (ymd.test(s) || ym.test(s) || y.test(s)) return s;
+
+  const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
+  if (mYMD) {
+    const year = mYMD[1];
+    const mm = String(mYMD[2]).padStart(2, "0");
+    const dd = String(mYMD[3]).padStart(2, "0");
+    return `${year}-${mm}-${dd}`;
+  }
+  const mYM = s.match(/(\d{4})[-/年](\d{1,2})/);
+  if (mYM) {
+    const year = mYM[1];
+    const mm = String(mYM[2]).padStart(2, "0");
+    return `${year}-${mm}`;
+  }
+  const mY = s.match(/(\d{4})/);
+  if (mY) return mY[1];
+
+  return T.unknown;
+}
+
+// toTime（修复 YYYY-MM 的解析）
+function toTime(input?: string) {
+  if (!input) return 0;
+  const s = input.trim();
+  if (/^\d{4}$/.test(s)) return Date.parse(`${s}-01-01T00:00:00Z`);
+  if (/^\d{4}-\d{2}$/.test(s)) return Date.parse(`${s}-01T00:00:00Z`);
+  const t = Date.parse(s);
+  return Number.isNaN(t) ? 0 : t;
+}
+
+// 人员与详情 API
+async function fetchSubjectPersonsRaw(subjectId: number) {
+  try {
+    const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
+    const ct = res.headers.get("content-type") || "";
+    if (!ct.includes("application/json")) return [];
+    const data = await res.json().catch(() => []);
+    return Array.isArray(data) ? data : [];
+  } catch (e) {
+    console.error(`Error fetching persons for subject ${subjectId}:`, e);
+    return [];
+  }
+}
+async function fetchSubjectDetailRaw(subjectId: number) {
+  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`);
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("application/json")) throw new Error(`Bangumi subject ${subjectId} non-JSON`);
+  return await res.json();
+}
+
+// 内存缓存 + 磁盘缓存
+const subjectDetailCache = new Map<number, any>();
+const subjectPersonsCache = new Map<number, any[]>();
+
+async function fetchSubjectDetailCached(id: number) {
+  if (subjectDetailCache.has(id)) return subjectDetailCache.get(id);
+  const diskKey = `subject-${id}`;
+  const disk = await diskCacheGet<any>(diskKey, CACHE_TTL_HOURS);
+  if (disk) {
+    subjectDetailCache.set(id, disk);
+    return disk;
+  }
+  const d = await fetchSubjectDetailRaw(id).catch((e) => {
+    console.error(`Error fetching subject ${id} detail:`, e);
+    return null;
+  });
+  subjectDetailCache.set(id, d);
+  if (d) await diskCacheSet(diskKey, d);
+  return d;
+}
+async function fetchSubjectPersonsCached(id: number) {
+  if (subjectPersonsCache.has(id)) return subjectPersonsCache.get(id);
+  const diskKey = `persons-${id}`;
+  const disk = await diskCacheGet<any[]>(diskKey, CACHE_TTL_HOURS);
+  if (disk) {
+    subjectPersonsCache.set(id, disk);
+    return disk;
+  }
+  const p = await fetchSubjectPersonsRaw(id).catch(() => []);
+  subjectPersonsCache.set(id, p);
+  if (p?.length) await diskCacheSet(diskKey, p);
+  return p;
+}
+
+// 并发限制
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T, idx: number) => Promise<R>,
+): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let i = 0;
+  const runners = new Array(Math.min(limit, items.length)).fill(0).map(async () => {
+    while (true) {
+      const idx = i++;
+      if (idx >= items.length) return;
+      results[idx] = await fn(items[idx], idx);
+    }
+  });
+  await Promise.all(runners);
+  return results;
+}
+
+type CollectionCache = { data: any[]; lastSync?: string };
+
+// 收藏列表抓取（分页 + 上限 + 可缓存）
+async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
+  const cacheKey = `collection-${userId}-${subjectType}-${type}`;
+  const cached = await diskCacheGet<CollectionCache>(cacheKey, CACHE_TTL_HOURS);
+  const cachedList = cached?.data || [];
+  const lastSyncTime = cached?.lastSync ? toTime(cached.lastSync) : 0;
+
+  try {
+    let allData: any[] = [];
+    let offset = 0;
+    const pageLimit = 50;
+    let canShortCircuit = true;
+    let prevUpdated = Number.POSITIVE_INFINITY;
+
+    while (true) {
+      const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
+      const response = await fetchWithRetry(url);
+      const data = await response.json();
+      const batch = data.data || [];
+      if (batch.length > 0) allData = [...allData, ...batch];
+
+      if (lastSyncTime > 0 && batch.length > 0) {
+        let batchMax = 0;
+        let batchMin = Number.POSITIVE_INFINITY;
+        for (const item of batch) {
+          const t = toTime(getCollectionUpdatedAt(item));
+          if (t > batchMax) batchMax = t;
+          if (t < batchMin) batchMin = t;
+          if (t > prevUpdated) canShortCircuit = false;
+          prevUpdated = t;
+        }
+        if (canShortCircuit && batchMax <= lastSyncTime && batchMin <= lastSyncTime) {
+          break;
+        }
+      }
+
+      if (allData.length >= MAX_ITEMS) {
+        allData = allData.slice(0, MAX_ITEMS as number);
+        break;
+      }
+
+      const hasMore = batch.length === pageLimit;
+      if (!hasMore) break;
+      offset += pageLimit;
+
+      await new Promise((resolve) => setTimeout(resolve, 120)); // 轻微节流
+    }
+
+    const merged = mergeCollectionData(cachedList, allData);
+    const payload: CollectionCache = { data: merged, lastSync: new Date().toISOString() };
+    await diskCacheSet(cacheKey, payload);
+    return payload;
+  } catch (error) {
+    console.error("Error fetching Bangumi data:", error);
+    if (cachedList.length > 0) {
+      cacheNotice = "Bangumi API 异常，已展示缓存数据";
+      return { data: cachedList, lastSync: cached?.lastSync };
+    }
+    return null;
+  }
+}
+
+// 统一 episodes 文案
+const episodesText = (n?: number) => (typeof n === "number" && n > 0 ? `${n} ${T.episodes}` : T.unknown);
+
+// 状态信息
+function getStatusInfo(status: string) {
+  switch (status) {
+    case "watching":
+      return {
+        text: i18n(I18nKey.animeStatusWatching),
+        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+        icon: "▶",
+      };
+    case "completed":
+      return {
+        text: i18n(I18nKey.animeStatusCompleted),
+        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+        icon: "✓",
+      };
+    case "planned":
+      return {
+        text: i18n(I18nKey.animeStatusPlanned),
+        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+        icon: "⏰",
+      };
+    case "onhold":
+      return {
+        text: i18n(I18nKey.animeStatusOnHold),
+        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+        icon: "⏸",
+      };
+    case "dropped":
+      return {
+        text: i18n(I18nKey.animeStatusDropped),
+        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+        icon: "✗",
+      };
+    default:
+      return {
+        text: status,
+        class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+        icon: "?",
+      };
+  }
+}
+
+// 转换为页面数据
+async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
+  if (!data || !data.data) return [];
+  const items: any[] = data.data;
+
+  const detailedItems = await mapWithConcurrency(items, 6, async (item: any) => {
+    const subjectId = item.subject_id;
+    const subject = item.subject || {};
+    const detail = await fetchSubjectDetailCached(subjectId);
+
+    const rawDate = (subject?.date || "").trim();
+    const isUnknown = !rawDate || /^unknown$/i.test(rawDate) || rawDate === "0000-00-00";
+    const detailDate = (detail?.date || "").trim();
+    const infoboxStart = getStartDateFromInfobox(detail);
+    const startCandidate = !isUnknown ? rawDate : detailDate || infoboxStart || "";
+    const startDate = startCandidate || undefined;
+    const displayDate = toDisplayYearOrYearMonth(startDate);
+
+    const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
+    const progress = item.ep_status || 0;
+    const totalEpisodes =
+      typeof subject?.eps === "number" && subject?.eps > 0 ? subject.eps : progress;
+
+    let studio = getStudioFromInfobox(detail) || T.unknown;
+    if (!studio || studio === T.unknown) {
+      const subjectPersons = await fetchSubjectPersonsCached(subjectId);
+      if (Array.isArray(subjectPersons)) {
+        const priorities = ["动画制作", "製作", "制作"];
+        for (const relation of priorities) {
+          const match = subjectPersons.find((person) => person.relation === relation);
+          if (match?.name) {
+            studio = match.name;
+            break;
+          }
+        }
+      }
+      if (!studio) studio = T.unknown;
+    }
+
+    const genre: string[] = Array.isArray(subject?.tags)
+      ? subject.tags
+          .slice(0, 4)
+          .map((t: any) => {
+            if (typeof t === "string") return t.trim();
+            if (t && typeof t.name === "string") return t.name.trim();
+            return "";
+          })
+          .filter(Boolean)
+      : [];
+
+    const updatedAtRaw =
+      item.updated_at || item.comment_updated_at || item.created_at || detail?.date || subject?.date || "";
+    let updatedAt: string | undefined = undefined;
+    if (updatedAtRaw) {
+      const ts = toTime(updatedAtRaw);
+      if (ts > 0) updatedAt = new Date(ts).toISOString();
+    }
+
+    const cover = subject?.images?.medium || "/assets/anime/default.webp";
+    const title = subject?.name_cn || subject?.name || T.unknown;
+    const studioValue = isValidStudio(studio, T.unknown) ? studio : "";
+    const altTitles = buildAltTitles(subject?.name_cn, subject?.name, detail?.name_cn, detail?.name);
+    const searchIndex = buildSearchIndex([title, ...altTitles, studioValue, ...genre, status]);
+
+    return {
+      title,
+      status,
+      rating,
+      cover,
+      description: (subject?.short_summary || subject?.name_cn || "").trimStart(),
+      displayDate,
+      studio: studioValue,
+      link: `https://bgm.tv/subject/${subjectId}`,
+      progress,
+      totalEpisodes,
+      startDate: startDate || "",
+      updatedAt,
+      altTitles,
+      searchIndex,
+      genre,
+      episodes: episodesText(totalEpisodes),
+    } as AnimeItem;
+  });
+
+  return detailedItems as AnimeItem[];
+}
+
+// 根据模式获取番剧列表
+let animeList: AnimeItem[] = [];
+if (ANIME_MODE === "local") {
+  animeList = (localAnimeList as AnimeItem[]).map((a) => {
+    const genre = Array.isArray((a as any).genre) ? (a as any).genre.slice(0, 4) : [];
+    const altTitles = buildAltTitles(a.title);
+    const studioValue = isValidStudio(a.studio, T.unknown) ? a.studio : "";
+    return {
+      ...a,
+      displayDate: toDisplayYearOrYearMonth(a.startDate || (a as any).year),
+      genre,
+      episodes: episodesText(a.totalEpisodes as any),
+      link: `https://bgm.tv/subject/${(a as any).id || (a as any).subjectId || ""}`,
+      updatedAt: a.updatedAt
+        ? (() => {
+            const ts = toTime(a.updatedAt as any);
+            return ts > 0 ? new Date(ts).toISOString() : undefined;
+          })()
+        : undefined,
+      studio: studioValue,
+      altTitles,
+      searchIndex: buildSearchIndex([a.title, ...altTitles, studioValue, ...genre, a.status]),
+    };
+  });
+} else if (!isValidUserId) {
+  animeList = [];
+} else {
+  const [watchingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 3),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 1),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 2),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 4),
+    fetchBangumiCollection(BANGUMI_USER_ID, 2, 5),
+  ]);
+
+  const watchingList = watchingData ? await processBangumiData(watchingData, "watching") : [];
+  const plannedList = plannedData ? await processBangumiData(plannedData, "planned") : [];
+  const completedList = completedData ? await processBangumiData(completedData, "completed") : [];
+  const onHoldList = onHoldData ? await processBangumiData(onHoldData, "onhold") : [];
+  const droppedList = droppedData ? await processBangumiData(droppedData, "dropped") : [];
+
+  animeList = [...watchingList, ...plannedList, ...completedList, ...onHoldList, ...droppedList];
+  if (Number.isFinite(MAX_ITEMS)) {
+    animeList = animeList.slice(0, MAX_ITEMS as number);
+  }
+}
+
+// 统计（总集）
+const stats = {
+  total: animeList.length,
+  watching: animeList.filter((anime) => anime.status === "watching").length,
+  completed: animeList.filter((anime) => anime.status === "completed").length,
+  avgRating: (() => {
+    const ratedAnime = animeList.filter((anime) => (anime.rating || 0) > 0);
+    if (ratedAnime.length === 0) return "0.0";
+    return (ratedAnime.reduce((sum, anime) => sum + (anime.rating || 0), 0) / ratedAnime.length).toFixed(1);
+  })(),
+};
+
+// 最后更新时间
+const lastUpdated = new Date().toLocaleString("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Shanghai",
+});
+
+// 排序（优先 updatedAt ISO，再 startDate/displayDate）
+const sortedAnimeList = [...animeList].sort((a, b) => {
+  const aTime = toTime(a.updatedAt) || toTime(a.startDate) || toTime(a.displayDate);
+  const bTime = toTime(b.updatedAt) || toTime(b.startDate) || toTime(b.displayDate);
+  return bTime - aTime;
+});
+---
+
+<MainGridLayout title={i18n(I18nKey.anime)} description={i18n(I18nKey.animeSubtitle)}>
+  <div class="anime-page flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <!-- 页面标题 -->
+      <div class="relative w-full mb-8">
+        <div class="mb-6">
+          <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
+                    before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
+                    before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+            {i18n(I18nKey.animeTitle)}
+          </h1>
+          <p class="text-black/75 dark:text-white/75">{i18n(I18nKey.animeSubtitle)}</p>
+        </div>
+
+        {cacheNotice ? (
+          <div class="mb-4 rounded-[var(--radius-large)] border border-amber-400/30 bg-amber-50/70 dark:bg-amber-900/20 px-4 py-2 text-sm text-amber-800 dark:text-amber-200">
+            {cacheNotice}
+          </div>
+        ) : null}
+        
+        <!-- 统计信息卡片 -->
+        <div class="stats-container grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-indigo-500/20 dark:border-indigo-400/20 bg-gradient-to-br from-indigo-500/20 via-indigo-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div class="text-xs text-indigo-700/80 dark:text-indigo-200/70 mb-1">{T.statsTotal}</div>
+            <div class="text-2xl font-bold text-indigo-700 dark:text-indigo-200">{stats.total}</div>
+          </div>
+          <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-amber-500/20 dark:border-amber-400/20 bg-gradient-to-br from-amber-500/20 via-rose-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div class="text-xs text-amber-700/80 dark:text-amber-200/70 mb-1">{T.statsAvgRating}</div>
+            <div class="text-2xl font-bold text-amber-700 dark:text-amber-200">{stats.avgRating}</div>
+          </div>
+          <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-emerald-500/20 dark:border-emerald-400/20 bg-gradient-to-br from-emerald-500/20 via-teal-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">
+            <div class="text-xs text-emerald-700/80 dark:text-emerald-200/70 mb-1">{T.statsLastUpdated}</div>
+            <div class="text-sm font-medium text-emerald-700 dark:text-emerald-200">{lastUpdated}</div>
+          </div>
+        </div>
+
+        <!-- 屏幕阅读器可读结果公告 -->
+        <div id="list-announce" aria-live="polite" class="visually-hidden"></div>
+        
+        <!-- 搜索框 -->
+        <div class="search-container mb-6">
+          <div class="relative">
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder={T.searchAnimePlaceholder}
+              class="w-full px-4 py-3 pl-12 rounded-[var(--radius-large)] border border-[var(--line-divider)] bg-[var(--card-bg)] text-[var(--text-body)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
+              aria-label={T.searchAnimePlaceholder}
+            />
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]" aria-hidden="true" style="pointer-events: none">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 过滤按钮 -->
+        <div class="mb-6">
+          <div class="filter-container flex flex-wrap gap-2">
+            <button class="filter-tag active" data-status="all" aria-pressed="true">
+              {i18n(I18nKey.animeFilterAll)} 
+              <span id="count-all" class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({animeList.length})</span>
+            </button>
+            <button class="filter-tag" data-status="watching" aria-pressed="false">
+              {i18n(I18nKey.animeStatusWatching)} 
+              <span id="count-watching" class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'watching').length})</span>
+            </button>
+            <button class="filter-tag" data-status="planned" aria-pressed="false">
+              {i18n(I18nKey.animeStatusPlanned)} 
+              <span id="count-planned" class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'planned').length})</span>
+            </button>
+            <button class="filter-tag" data-status="completed" aria-pressed="false">
+              {i18n(I18nKey.animeStatusCompleted)} 
+              <span id="count-completed" class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'completed').length})</span>
+            </button>
+            {ANIME_MODE === 'bangumi' && (
+              <Fragment>
+                <button class="filter-tag" data-status="onhold" aria-pressed="false">
+                  {i18n(I18nKey.animeStatusOnHold)} 
+                  <span id="count-onhold" class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'onhold').length})</span>
+                </button>
+                <button class="filter-tag" data-status="dropped" aria-pressed="false">
+                  {i18n(I18nKey.animeStatusDropped)} 
+                  <span id="count-dropped" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({animeList.filter(a => a.status === 'dropped').length})</span>
+                </button>
+              </Fragment>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- 动漫列表 -->
+      <div class="mb-8">
+        {ANIME_MODE !== 'local' && !isValidUserId ? (
+          <div class="text-center py-12">
+            <div class="text-5xl mb-4" aria-hidden="true">😢</div>
+            <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+              {i18n(I18nKey.animeEmpty)}
+            </h3>
+            <p class="text-black/60 dark:text-white/60">
+              请在 src/config.ts 文件中设置你的 Bangumi 用户ID
+            </p>
+          </div>
+        ) : animeList.length > 0 ? (
+          <div id="anime-list-container" class={`anime-grid-container gap-4 md:gap-6 list-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
+            {sortedAnimeList.map(anime => {
+              const statusInfo = getStatusInfo(anime.status);
+              const total = typeof anime.totalEpisodes === 'number' ? anime.totalEpisodes : 0;
+              const progress = typeof anime.progress === 'number' ? anime.progress : 0;
+              const progressPercent = total > 0 ? (progress / total) * 100 : 0;
+
+              return (
+                <div
+                  class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-transform duration-300 hover:shadow-lg hover:scale-[1.02]"
+                  data-anime-status={anime.status}
+                  data-anime-title={String(anime.title || '').toLowerCase()}
+                  data-anime-studio={String(anime.studio || '').toLowerCase()}
+                  data-anime-genre={(anime.genre || []).map(g => String(g || '').toLowerCase()).join(' ')}
+                  data-anime-search={String(anime.searchIndex || '').toLowerCase()}
+                >
+                  <!-- 封面区域 -->
+                  <div class="relative aspect-[2/3] overflow-hidden">
+                    <a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full" aria-label={`Open ${anime.title} on Bangumi`}>
+                      <ImageWrapper 
+                        src={anime.cover} 
+                        alt={anime.title}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" style="pointer-events: none"></div>
+                    </a>
+                    
+                    <!-- 状态标签 -->
+                    <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`} aria-label={`Status: ${statusInfo.text}`}>
+                      <span class="mr-1" aria-hidden="true">{statusInfo.icon}</span>
+                      <span>{statusInfo.text}</span>
+                    </div>
+                    
+                    <!-- 评分 -->
+                    <div class="absolute top-2 right-2" aria-label={`Rating ${anime.rating || 0}`}>
+                      <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-0.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span class="text-[10px] font-semibold leading-none">{anime.rating}</span>
+                      </div>
+                    </div>
+                    
+                    <!-- 进度条（仅 watching） -->
+                    {anime.status === 'watching' && total > 0 && (
+                      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                        <div class="w-full bg-white/20 rounded-full h-1.5 mb-1" role="progressbar" aria-valuemin="0" aria-valuemax={total} aria-valuenow={progress}>
+                          <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-[width] duration-300" style={`width: ${progressPercent}%`}></div>
+                        </div>
+                        <div class="text-white text-xs font-medium">
+                          {progress}/{total} ({Math.round(progressPercent)}%)
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <!-- 内容 -->
+                  <div class="p-3">
+                    <h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
+                    <p class="text-black/60 dark:text-white/60 text-xs mb-2 line-clamp-2">{anime.description}</p>
+                    
+                    <div class="space-y-1 text-xs">
+                      <div class="flex justify-between">
+                        <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
+                        <span class="text-black/70 dark:text-white/70">{anime.displayDate}</span>
+                      </div>
+                      {anime.studio ? (
+                        <div class="flex justify-between">
+                          <span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
+                          <span class="text-black/70 dark:text-white/70 truncate ml-2">{anime.studio}</span>
+                        </div>
+                      ) : null}
+                      <div class="flex flex-wrap gap-1 mt-2">
+                        {(anime.genre || []).map(g => (
+                          <span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="text-center py-12">
+            <div class="text-5xl mb-4" aria-hidden="true">😢</div>
+            <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+              {i18n(I18nKey.animeEmpty)}
+            </h3>
+            <p class="text-black/60 dark:text-white/60">
+              {ANIME_MODE === 'local' ? i18n(I18nKey.animeEmptyLocal) : i18n(I18nKey.animeEmptyBangumi)}
+            </p>
+          </div>
+        )}
+      </div>
+      
+      <!-- 分页控件 -->
+      <div id="pagination-container" class="pagination-container flex justify-center items-center gap-2 mt-8">
+        <button id="first-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={T.paginationFirst}>
+          « {T.paginationFirst}
+        </button>
+        <button id="prev-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.prevPage)}>
+          &lt; {i18n(I18nKey.prevPage)}
+        </button>
+        <div id="page-numbers" class="flex gap-1" aria-live="polite"></div>
+        <button id="next-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.nextPage)}>
+          {i18n(I18nKey.nextPage)} &gt;
+        </button>
+        <button id="last-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={T.paginationLast}>
+          {T.paginationLast} »
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 布局切换动画（保持原逻辑），仅在本页存在时生效 -->
+  <script is:inline define:vars={{ isBothSidebarMode }} data-swup-reload-script>
+  (function() {
+    function runWhenReady() {
+      const root = document.querySelector('.anime-page');
+      if (!root) return;
+
+      setTimeout(() => {
+        const animeListContainer = root.querySelector("#anime-list-container");
+        if (!animeListContainer) return;
+
+        if (typeof window.layoutManager !== 'undefined') {
+          window.layoutManager.init(isBothSidebarMode);
+          const currentLayout = window.layoutManager.getLayout();
+          updateAnimeListLayout(currentLayout);
+          window.layoutManager.checkScreenSizeAndAdjust();
+        } else {
+          setTimeout(() => {
+            if (typeof window.layoutManager !== 'undefined') {
+              window.layoutManager.init(isBothSidebarMode);
+              const currentLayout = window.layoutManager.getLayout();
+              updateAnimeListLayout(currentLayout);
+              window.layoutManager.checkScreenSizeAndAdjust();
+            }
+          }, 300);
+        }
+      }, 50);
+    }
+
+    function updateAnimeListLayout(layout) {
+      const root = document.querySelector('.anime-page');
+      if (!root) return;
+      const animeListContainer = root.querySelector("#anime-list-container");
+      if (!animeListContainer) return;
+
+      const animeItems = Array.from(root.querySelectorAll('[data-anime-status]'));
+      const firstPositions = new Map();
+      animeItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        firstPositions.set(item, {
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height
+        });
+      });
+      
+      animeListContainer.classList.remove("list-mode", "grid-mode");
+      if (layout === "grid") {
+        animeListContainer.classList.add("grid-mode");
+        const rightSidebar = document.querySelector('.right-sidebar-container');
+        if (rightSidebar) {
+          rightSidebar.style.display = 'none';
+          rightSidebar.classList.add('hidden-in-grid-mode');
+        }
+        const mainGrid = document.getElementById('main-grid');
+        if (mainGrid) {
+          mainGrid.style.gridTemplateColumns = '17.5rem 1fr';
+          mainGrid.classList.add('two-column-layout');
+          mainGrid.setAttribute('data-layout-mode', 'grid');
+        }
+      } else {
+        animeListContainer.classList.add("list-mode");
+        const rightSidebar = document.querySelector('.right-sidebar-container');
+        if (rightSidebar) {
+          rightSidebar.style.display = '';
+          rightSidebar.classList.remove('hidden-in-grid-mode');
+        }
+        const mainGrid = document.getElementById('main-grid');
+        if (mainGrid) {
+          mainGrid.style.gridTemplateColumns = '';
+          mainGrid.classList.remove('two-column-layout');
+          mainGrid.setAttribute('data-layout-mode', 'list');
+        }
+      }
+
+      requestAnimationFrame(() => {
+        const lastPositions = new Map();
+        animeItems.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          lastPositions.set(item, {
+            left: rect.left,
+            top: rect.top
+          });
+        });
+        
+        animeItems.forEach(item => {
+          const first = firstPositions.get(item);
+          const last = lastPositions.get(item);
+          if (first && last) {
+            const deltaX = first.left - last.left;
+            const deltaY = first.top - last.top;
+            item.style.transition = 'none';
+            item.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+          }
+        });
+        
+        requestAnimationFrame(() => {
+          animeItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('anime-animating');
+              item.style.transition = '';
+              item.style.transform = '';
+            }, index * 20);
+          });
+          
+          setTimeout(() => {
+            animeItems.forEach(item => {
+              item.classList.remove('anime-animating');
+              item.style.transition = '';
+              item.style.transform = '';
+            });
+          }, 500 + animeItems.length * 20);
+        });
+      });
+    }
+
+    function onLayoutChange(event) {
+      updateAnimeListLayout(event.detail.layout);
+      if (window.__animePage && window.__animePage.updateAfterLayout) {
+        window.__animePage.updateAfterLayout();
+      }
+    }
+
+    // 在每次进入页面时运行（Swup 导航时也要立即尝试）
+    document.addEventListener('DOMContentLoaded', runWhenReady);
+    window.addEventListener("layoutChange", onLayoutChange);
+    // 关键：脚本执行时也尝试一次，避免依赖 DOMContentLoaded
+    try { runWhenReady(); } catch(_) {}
+
+    // Swup DOM 事件兜底
+    document.addEventListener('swup:contentReplaced', () => { try { runWhenReady(); } catch(_) {} });
+    document.addEventListener('swup:pageView', () => { try { runWhenReady(); } catch(_) {} });
+    document.addEventListener('swup:animationInDone', () => { try { runWhenReady(); } catch(_) {} });
+  })();
+  </script>
+
+  <style>
+    /* 仅此页字体覆盖 */
+    .anime-page { --anime-font: 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+    .anime-page, .anime-page * { font-family: var(--anime-font); }
+    .card-base { container-type: inline-size; }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important; height: 1px !important;
+      padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important;
+    }
+    
+    /* 布局固定列数 */
+    .anime-grid-container { transition: grid-template-columns 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    .anime-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .anime-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
+    
+    .filter-container { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .filter-tag {
+      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      background: var(--btn-regular-bg); color: var(--btn-content);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; white-space: nowrap; display: flex; align-items: center;
+    }
+    .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
+    .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .filter-tag.active:hover { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; transform: translateY(-1px); }
+    
+    /* 卡片动画与悬浮 */
+    [data-anime-status] { transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; contain: content; will-change: transform; }
+    #anime-list-container.grid-mode [data-anime-status]:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+    }
+    #anime-list-container.list-mode [data-anime-status]:hover {
+      transform: translateX(8px) scale(1.01);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    /* 统一可见性：仅通过类控制 */
+    [data-anime-status].is-filtered-out,
+    [data-anime-status].is-searched-out,
+    [data-anime-status].is-paginated-out { display: none !important; }
+
+    /* 通用过滤/搜索 FLIP 状态 */
+    [data-anime-status].anime-animating {
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-anime-status].anime-fade-in { opacity: 0; transform: scale(0.8); }
+    [data-anime-status].anime-fade-in-active { opacity: 1; transform: scale(1); }
+    [data-anime-status].anime-fade-out { opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; }
+
+    /* 分页专用 FLIP 状态 */
+    [data-anime-status].anime-paginate-animating {
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-anime-status].anime-paginate-fade-in { opacity: 0; transform: scale(0.92); }
+    [data-anime-status].anime-paginate-fade-in-active { opacity: 1; transform: scale(1); }
+    [data-anime-status].anime-paginate-fade-out { opacity: 0; transform: scale(0.98); transition: opacity 0.28s ease, transform 0.28s ease; }
+    
+    .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
+    
+    .pagination-container { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+    .pagination-btn {
+      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      background: var(--btn-regular-bg); color: var(--btn-content);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+      display: flex; align-items: center; gap: 0.25rem;
+    }
+    .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); }
+    .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    .page-number {
+      padding: 0.5rem 0.75rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
+      background: var(--btn-regular-bg); color: var(--btn-content);
+      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
+    .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
+    
+    .search-container { position: relative; margin-bottom: 1.5rem; }
+    #search-input { padding-left: 2.5rem; transition: box-shadow 0.3s ease; }
+    #search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+    .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+      #anime-list-container [data-anime-status] { transform: none !important; }
+    }
+
+    /* 移动端优化 */
+    @media (max-width: 640px) {
+      .anime-grid-container.grid-mode { grid-template-columns: repeat(2, 1fr); }
+      .anime-grid-container.list-mode { grid-template-columns: repeat(2, 1fr); }
+
+      .group .p-3 { padding: 0.875rem; }
+      .group h3 { font-size: 1rem; line-height: 1.5; }
+      .group p { font-size: 0.9375rem; line-height: 1.6; }
+
+      .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
+      .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
+
+      #search-input { padding: 0.875rem 1rem 0.875rem 2.75rem; font-size: 1rem; }
+    }
+  </style>
+
+  <!-- 单一 init + teardown，Swup/原生回退安全重绑；查询限定在 .anime-page 作用域内 -->
+  <script is:inline data-swup-reload-script>
+    (function() {
+      // 全局容器（跨页面存在），仅保存钩子与清理方法
+      window.__animePage = window.__animePage || {};
+
+      // 仅当页面中存在番剧容器时初始化
+      function initAnimePage() {
+        const root = document.querySelector('.anime-page');
+        const container = root ? root.querySelector('#anime-list-container') : null;
+        if (!root || !container) return; // 不是本页，直接退出
+
+        const state = {
+          currentPage: 1,
+          pageWindowStart: 1,
+          windowSize: 5,
+          itemsPerPage: 10,
+          listeners: [],
+          searchDebounce: 0,
+          reduceMotion: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false,
+          lastFiltered: null
+        };
+
+        const allItems = Array.from(root.querySelectorAll('[data-anime-status]'));
+        const filterTags = Array.from(root.querySelectorAll('.filter-tag'));
+        const searchInput = root.querySelector('#search-input');
+        const pageNumbersContainer = root.querySelector('#page-numbers');
+        const firstBtn = root.querySelector('#first-page');
+        const prevBtn = root.querySelector('#prev-page');
+        const nextBtn = root.querySelector('#next-page');
+        const lastBtn = root.querySelector('#last-page');
+        const announce = root.querySelector('#list-announce');
+
+        // filter counts
+        const countEls = {
+          all: root.querySelector('#count-all'),
+          watching: root.querySelector('#count-watching'),
+          planned: root.querySelector('#count-planned'),
+          completed: root.querySelector('#count-completed'),
+          onhold: root.querySelector('#count-onhold'),
+          dropped: root.querySelector('#count-dropped'),
+        };
+
+        // 读取搜索框的值（避免 TS 断言，用原生类型判定）
+        function getSearchTerm() {
+          if (!searchInput) return '';
+          if (searchInput instanceof HTMLInputElement || searchInput instanceof HTMLTextAreaElement) {
+            return (searchInput.value || '').trim().toLowerCase();
+          }
+          return (searchInput.textContent || '').trim().toLowerCase();
+        }
+
+        // 计算当前列数（优先解析 gridTemplateColumns；失败时用首行测量；再失败用默认）
+        function getCols() {
+          const style = getComputedStyle(container);
+          let gtc = style.gridTemplateColumns || '';
+          if (gtc && gtc !== 'none') {
+            const m = gtc.match(/repeat\(\s*(\d+)\s*,/i);
+            if (m) {
+              const n = parseInt(m[1], 10);
+              if (n > 0) return n;
+            }
+            const parts = gtc.trim().split(/\s+/).filter(Boolean);
+            if (parts.length > 0) return parts.length;
+          }
+
+          // DOM 测量首行可见元素个数
+          const candidates = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out') &&
+            !el.classList.contains('is-paginated-out')
+          );
+          const pool = candidates.length ? candidates : allItems;
+          let cols = 0;
+          if (pool.length) {
+            const firstTop = pool[0].getBoundingClientRect().top;
+            for (let i = 0; i < pool.length; i++) {
+              const t = pool[i].getBoundingClientRect().top;
+              if (Math.abs(t - firstTop) < 1) cols++;
+              else break;
+            }
+          }
+          if (cols > 0) return cols;
+
+          // 兜底
+          return container.classList.contains('grid-mode') ? 5 : 4;
+        }
+
+        function getItemsPerPageByLayout() {
+          const cols = getCols();
+          const rows = window.matchMedia && window.matchMedia('(min-width: 768px)').matches ? 2 : 2;
+          const ipp = Math.max(1, cols * rows);
+          return ipp;
+        }
+
+        function normalizeQuery(input) {
+          if (!input) return '';
+          let s = String(input).normalize('NFKC').toLowerCase();
+          s = s.replace(/[\u3000\s]+/g, ' ');
+          s = s.replace(/[·•・]/g, ' ');
+          s = s.replace(/[’'"]/g, '');
+          s = s.replace(/[()（）[\]{}<>《》「」『』【】]/g, ' ');
+          s = s.replace(/[:：;；,.，。!?！？…~\-_=+|\\\/]/g, ' ');
+          s = s.replace(/[#$%^&*]/g, ' ');
+          s = s.replace(/\s+/g, ' ').trim();
+          return s;
+        }
+
+        function compactQuery(input) {
+          return normalizeQuery(input).replace(/\s+/g, '');
+        }
+
+        function editDistance(a, b, max) {
+          const alen = a.length;
+          const blen = b.length;
+          if (Math.abs(alen - blen) > max) return max + 1;
+          const dp = new Array(blen + 1);
+          for (let j = 0; j <= blen; j++) dp[j] = j;
+          for (let i = 1; i <= alen; i++) {
+            let prev = dp[0];
+            dp[0] = i;
+            let minRow = dp[0];
+            for (let j = 1; j <= blen; j++) {
+              const tmp = dp[j];
+              const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+              const val = Math.min(dp[j] + 1, dp[j - 1] + 1, prev + cost);
+              dp[j] = val;
+              prev = tmp;
+              if (val < minRow) minRow = val;
+            }
+            if (minRow > max) return max + 1;
+          }
+          return dp[blen];
+        }
+
+        function matchesSearch(item, term) {
+          if (!term) return true;
+          const index = item.getAttribute('data-anime-search') || '';
+          if (!index) return false;
+          const norm = normalizeQuery(term);
+          if (!norm) return true;
+          if (index.includes(norm)) return true;
+          const compact = compactQuery(term);
+          if (compact && index.includes(compact)) return true;
+          const tokens = norm.split(' ').filter(Boolean);
+          if (tokens.length > 1 && tokens.every((t) => index.includes(t))) return true;
+          if (norm.length < 3) return false;
+          const idxTokens = index.split(/\s+/).filter(Boolean);
+          const maxDistance = Math.max(1, Math.floor(norm.length * 0.25));
+          for (const tok of idxTokens) {
+            if (tok.length < 3) continue;
+            if (Math.abs(tok.length - norm.length) > maxDistance) continue;
+            if (editDistance(tok, norm, maxDistance) <= maxDistance) return true;
+          }
+          return false;
+        }
+
+        function computeFiltered() {
+          const activeStatusEl = root.querySelector('.filter-tag.active');
+          const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+          const term = getSearchTerm();
+
+          return allItems.filter((item) => {
+            const itemStatus = item.getAttribute('data-anime-status') || '';
+            const byStatus = (activeStatus === 'all') || (itemStatus === activeStatus);
+            const bySearch = matchesSearch(item, term);
+            return byStatus && bySearch;
+          });
+        }
+
+        function withFiltered(fn) {
+          const filtered = computeFiltered();
+          state.lastFiltered = filtered;
+          return fn(filtered);
+        }
+
+        // 通用 FLIP 重排动画
+        function flipAnimate(keep, show, hide) {
+          if (state.reduceMotion) {
+            hide.forEach((el) => el.classList.add('is-filtered-out'));
+            show.forEach((el) => el.classList.remove('is-filtered-out', 'is-searched-out'));
+            return;
+          }
+
+          const first = new Map();
+          [...keep, ...show].forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            first.set(el, { left: rect.left, top: rect.top });
+          });
+
+          hide.forEach((el) => el.classList.add('anime-fade-out'));
+
+          setTimeout(() => {
+            hide.forEach((el) => {
+              el.classList.add('is-filtered-out');
+              el.classList.remove('anime-fade-out');
+            });
+
+            show.forEach((el) => {
+              el.classList.remove('is-filtered-out', 'is-searched-out');
+              el.classList.add('anime-fade-in');
+              if (el instanceof HTMLElement) {
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0.8)';
+                el.style.transition = 'none';
+              }
+            });
+
+            requestAnimationFrame(() => {
+              const last = new Map();
+              [...keep, ...show].forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                last.set(el, { left: rect.left, top: rect.top });
+              });
+
+              keep.forEach((el) => {
+                const a = first.get(el);
+                const b = last.get(el);
+                if (a && b && el instanceof HTMLElement) {
+                  const dx = a.left - b.left;
+                  const dy = a.top - b.top;
+                  el.style.transition = 'none';
+                  el.style.transform = `translate(${dx}px, ${dy}px)`;
+                }
+              });
+
+              requestAnimationFrame(() => {
+                const all = [...keep, ...show];
+                all.forEach((el, i) => {
+                  setTimeout(() => {
+                    el.classList.add('anime-animating');
+                    if (keep.includes(el) && el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                    }
+                    if (show.includes(el) && el instanceof HTMLElement) {
+                      el.classList.remove('anime-fade-in');
+                      el.classList.add('anime-fade-in-active');
+                      el.style.transition = '';
+                      el.style.opacity = '1';
+                      el.style.transform = 'scale(1)';
+                    }
+                  }, i * 20);
+                });
+
+                setTimeout(() => {
+                  all.forEach((el) => {
+                    el.classList.remove('anime-animating', 'anime-fade-in-active');
+                    if (el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                      el.style.opacity = '';
+                    }
+                  });
+                }, 500 + all.length * 20);
+              });
+            });
+          }, 120);
+        }
+
+        // 分页专用 FLIP
+        function flipAnimatePagination(keep, show, hide) {
+          if (state.reduceMotion) {
+            hide.forEach((el) => el.classList.add('is-paginated-out'));
+            show.forEach((el) => el.classList.remove('is-paginated-out'));
+            return;
+          }
+
+          const first = new Map();
+          keep.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            first.set(el, { left: rect.left, top: rect.top });
+          });
+
+          hide.forEach((el) => el.classList.add('anime-paginate-fade-out'));
+
+          setTimeout(() => {
+            hide.forEach((el) => {
+              el.classList.add('is-paginated-out');
+              el.classList.remove('anime-paginate-fade-out');
+            });
+
+            show.forEach((el) => {
+              el.classList.remove('is-paginated-out');
+              el.classList.add('anime-paginate-fade-in');
+              if (el instanceof HTMLElement) {
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0.92)';
+                el.style.transition = 'none';
+              }
+            });
+
+            requestAnimationFrame(() => {
+              const last = new Map();
+              keep.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                last.set(el, { left: rect.left, top: rect.top });
+              });
+
+              keep.forEach((el) => {
+                const a = first.get(el);
+                const b = last.get(el);
+                if (a && b && el instanceof HTMLElement) {
+                  const dx = a.left - b.left;
+                  const dy = a.top - b.top;
+                  el.style.transition = 'none';
+                  el.style.transform = `translate(${dx}px, ${dy}px)`;
+                }
+              });
+
+              requestAnimationFrame(() => {
+                const all = [...keep, ...show];
+                all.forEach((el, i) => {
+                  setTimeout(() => {
+                    el.classList.add('anime-paginate-animating');
+                    if (keep.includes(el) && el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                    }
+                    if (show.includes(el) && el instanceof HTMLElement) {
+                      el.classList.remove('anime-paginate-fade-in');
+                      el.classList.add('anime-paginate-fade-in-active');
+                      el.style.transition = '';
+                      el.style.opacity = '1';
+                      el.style.transform = 'scale(1)';
+                    }
+                  }, i * 12);
+                });
+
+                setTimeout(() => {
+                  all.forEach((el) => {
+                    el.classList.remove('anime-paginate-animating', 'anime-paginate-fade-in-active');
+                    if (el instanceof HTMLElement) {
+                      el.style.transition = '';
+                      el.style.transform = '';
+                      el.style.opacity = '';
+                    }
+                  });
+                }, 420 + all.length * 12);
+              });
+            });
+          }, 80);
+        }
+
+        function updateCountsForSearch() {
+          const term = getSearchTerm();
+          const matches = allItems.filter((it) => matchesSearch(it, term));
+          const countAll = matches.length;
+          const countsByStatus = Object.create(null);
+          matches.forEach((it) => {
+            const s = it.getAttribute('data-anime-status') || 'unknown';
+            countsByStatus[s] = (countsByStatus[s] || 0) + 1;
+          });
+
+          if (countEls.all) countEls.all.textContent = `(${countAll})`;
+          ['watching', 'planned', 'completed', 'onhold', 'dropped'].forEach((s) => {
+            if (countEls[s]) countEls[s].textContent = `(${countsByStatus[s] || 0})`;
+          });
+
+          const activeStatusEl = root.querySelector('.filter-tag.active');
+          const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+          const showing = computeFiltered().length;
+          const label = activeStatus === 'all' ? 'All' : activeStatus;
+          if (announce) {
+            announce.textContent = `Showing ${showing} item(s) for "${label}"${term ? ` with search "${term}"` : ''}.`;
+          }
+        }
+
+        function updatePaginationUI(totalItems) {
+          if (!pageNumbersContainer) return;
+          state.itemsPerPage = getItemsPerPageByLayout();
+          const totalPages = Math.ceil(totalItems / state.itemsPerPage);
+
+          pageNumbersContainer.innerHTML = '';
+          if (totalPages === 0) {
+            state.currentPage = 1;
+            state.pageWindowStart = 1;
+          } else {
+            if (state.currentPage > totalPages) state.currentPage = totalPages;
+            const maxStart = Math.max(1, totalPages - state.windowSize + 1);
+            if (state.pageWindowStart > maxStart) state.pageWindowStart = maxStart;
+            if (state.pageWindowStart < 1) state.pageWindowStart = 1;
+          }
+
+          const end = Math.min(totalPages, state.pageWindowStart + state.windowSize - 1);
+          for (let i = state.pageWindowStart; i <= end; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = String(i);
+            btn.classList.add('page-number');
+            btn.setAttribute('aria-label', `Go to page ${i}`);
+            if (i === state.currentPage) btn.classList.add('active');
+            btn.addEventListener('click', () => {
+              state.currentPage = i;
+              const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
+              applyPagination(filtered, true);
+              updatePaginationUI(filtered.length);
+            });
+            pageNumbersContainer.appendChild(btn);
+          }
+
+          const onFirst = state.currentPage === 1 || totalPages === 0;
+          const onLast = state.currentPage === totalPages || totalPages === 0;
+          if (firstBtn) firstBtn.disabled = onFirst;
+          if (prevBtn) prevBtn.disabled = onFirst;
+          if (nextBtn) nextBtn.disabled = onLast;
+          if (lastBtn) lastBtn.disabled = onLast;
+        }
+
+        // 仅分页显示更新
+        function applyPagination(filtered, withFlip = false) {
+          const list = filtered || computeFiltered();
+          state.itemsPerPage = getItemsPerPageByLayout();
+
+          const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+          const endIndex = startIndex + state.itemsPerPage;
+
+          const target = list.slice(startIndex, endIndex);
+          const showSet = new Set(target);
+
+          if (!withFlip || state.reduceMotion) {
+            allItems.forEach((el) => {
+              if (showSet.has(el)) el.classList.remove('is-paginated-out');
+              else el.classList.add('is-paginated-out');
+            });
+            return;
+          }
+
+          const beforeVisible = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out') &&
+            !el.classList.contains('is-paginated-out')
+          );
+          const afterVisible = target;
+
+          const keep = afterVisible.filter(el => beforeVisible.includes(el));
+          const show = afterVisible.filter(el => !beforeVisible.includes(el));
+          const hide = beforeVisible.filter(el => !afterVisible.includes(el));
+
+          flipAnimatePagination(keep, show, hide);
+        }
+
+        // 刷新所有显示（过滤+搜索），分页不动画
+        function refreshAll(triggerFLIP = false) {
+          const beforeVisible = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out')
+          );
+
+          withFiltered((filtered) => {
+            const activeStatusEl = root.querySelector('.filter-tag.active');
+            const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
+            const term = getSearchTerm();
+            const matched = new Set(filtered);
+
+            allItems.forEach((el) => {
+              const inFilter = (activeStatus === 'all') || (el.getAttribute('data-anime-status') === activeStatus);
+              const inSearch = !term || matched.has(el);
+              if (inFilter && inSearch) {
+                el.classList.remove('is-filtered-out', 'is-searched-out');
+              } else {
+                if (!inFilter) el.classList.add('is-filtered-out'); else el.classList.remove('is-filtered-out');
+                if (!inSearch) el.classList.add('is-searched-out'); else el.classList.remove('is-searched-out');
+              }
+            });
+
+            state.currentPage = 1;
+            state.pageWindowStart = 1;
+            applyPagination(filtered, false);
+            updatePaginationUI(filtered.length);
+            updateCountsForSearch();
+
+            if (triggerFLIP) {
+              const afterVisible = allItems.filter(el =>
+                !el.classList.contains('is-filtered-out') &&
+                !el.classList.contains('is-searched-out')
+              );
+              const keep = afterVisible.filter(el => beforeVisible.includes(el));
+              const show = afterVisible.filter(el => !beforeVisible.includes(el));
+              const hide = beforeVisible.filter(el => !afterVisible.includes(el));
+              flipAnimate(keep, show, hide);
+            }
+          });
+        }
+
+        // 绑定过滤按钮
+        filterTags.forEach(tag => {
+          const handler = () => {
+            if (tag.classList.contains('active')) return;
+            filterTags.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false'); });
+            tag.addEventListener && tag.classList.add('active'); tag.setAttribute('aria-pressed','true');
+            refreshAll(true);
+          };
+          tag.addEventListener('click', handler);
+          state.listeners.push({ el: tag, type: 'click', handler });
+        });
+
+        // 搜索输入
+        if (searchInput) {
+          const inputHandler = function() {
+            clearTimeout(state.searchDebounce);
+            state.searchDebounce = window.setTimeout(() => refreshAll(true), 200);
+          };
+          const keyHandler = function(e) {
+            if (e.key === 'Escape') {
+              if (searchInput instanceof HTMLInputElement) {
+                searchInput.value = '';
+              } else if (searchInput) {
+                searchInput.textContent = '';
+              }
+              refreshAll(true);
+            } else if (e.key === 'Enter') {
+              state.currentPage = 1;
+              state.pageWindowStart = 1;
+              refreshAll(true);
+            }
+          };
+          searchInput.addEventListener('input', inputHandler);
+          searchInput.addEventListener('keydown', keyHandler);
+          state.listeners.push({ el: searchInput, type: 'input', handler: inputHandler });
+          state.listeners.push({ el: searchInput, type: 'keydown', handler: keyHandler });
+        }
+
+        // 分页按钮
+        if (firstBtn && prevBtn && nextBtn && lastBtn) {
+          const firstH = () => withFiltered((filtered) => {
+            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
+            if (state.currentPage !== 1 && totalPages > 0) {
+              state.currentPage = 1; state.pageWindowStart = 1;
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          const prevH = () => withFiltered((filtered) => {
+            if (state.currentPage > 1) {
+              state.currentPage--; state.pageWindowStart = Math.max(1, state.pageWindowStart - 1);
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          const nextH = () => withFiltered((filtered) => {
+            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
+            if (state.currentPage < totalPages) {
+              state.currentPage++; const maxStart = Math.max(1, totalPages - state.windowSize + 1);
+              state.pageWindowStart = Math.min(maxStart, state.pageWindowStart + 1);
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          const lastH = () => withFiltered((filtered) => {
+            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
+            if (totalPages > 0 && state.currentPage !== totalPages) {
+              state.currentPage = totalPages; state.pageWindowStart = Math.max(1, totalPages - state.windowSize + 1);
+              applyPagination(filtered, true); updatePaginationUI(filtered.length);
+            }
+          });
+          firstBtn.addEventListener('click', firstH);
+          prevBtn.addEventListener('click', prevH);
+          nextBtn.addEventListener('click', nextH);
+          lastBtn.addEventListener('click', lastH);
+          state.listeners.push({ el: firstBtn, type: 'click', handler: firstH });
+          state.listeners.push({ el: prevBtn, type: 'click', handler: prevH });
+          state.listeners.push({ el: nextBtn, type: 'click', handler: nextH });
+          state.listeners.push({ el: lastBtn, type: 'click', handler: lastH });
+        }
+
+        // 初次渲染（设置分页/过滤可见性）
+        refreshAll(false);
+
+        // 在布局变化时刷新每页数量+分页（不做分页动画）
+        function updateAfterLayout() {
+          const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
+          applyPagination(filtered, false);
+          updatePaginationUI(filtered.length);
+        }
+        window.__animePage.updateAfterLayout = updateAfterLayout;
+
+        // Teardown
+        function cleanup() {
+          state.listeners.forEach(({ el, type, handler }) => el && el.removeEventListener && el.removeEventListener(type, handler));
+          state.listeners = [];
+          clearTimeout(state.searchDebounce);
+          if (window.__animePage && window.__animePage.updateAfterLayout) {
+            delete window.__animePage.updateAfterLayout;
+          }
+        }
+        window.__animePage.cleanup = cleanup;
+      }
+
+      // 安全调度：当页面包含番剧容器时才初始化；重试等待 DOM 就绪（延长次数 + MutationObserver 兜底）
+      function scheduleInitTry(timesLeft = 30) {
+        if (window.__animePage && typeof window.__animePage.cleanup === 'function') {
+          try { window.__animePage.cleanup(); } catch (_) {}
+        }
+        const tryInit = () => {
+          const root = document.querySelector('.anime-page');
+          const hasContainer = root && root.querySelector('#anime-list-container');
+          if (root && hasContainer) {
+            initAnimePage();
+            return true;
+          }
+          return false;
+        };
+        if (tryInit()) return;
+
+        if (timesLeft > 0) {
+          setTimeout(() => scheduleInitTry(timesLeft - 1), 120);
+        } else {
+          // 兜底监听最多 5 秒
+          const mo = new MutationObserver(() => { if (tryInit()) mo.disconnect(); });
+          mo.observe(document.documentElement, { childList: true, subtree: true });
+          setTimeout(() => mo.disconnect(), 5000);
+        }
+      }
+
+      // Swup 钩子绑定（存在则用 hooks，不存在则使用 DOM 事件）
+      function swupBind() {
+        if (!window.swup) return;
+        window.__animePage.__swup = window.__animePage.__swup || { bound: false, reinit: null };
+        if (window.__animePage.__swup.bound) return;
+
+        const reinit = () => {
+          scheduleInitTry();
+        };
+        window.__animePage.__swup.reinit = reinit;
+
+        // Swup v4 hooks
+        if (window.swup.hooks && typeof window.swup.hooks.on === 'function') {
+          window.swup.hooks.on('content:replace', reinit);
+          window.swup.hooks.on('page:view', reinit);
+          window.swup.hooks.on('animation:in:end', reinit);
+        }
+        window.__animePage.__swup.bound = true;
+      }
+
+      // 常规加载
+      document.addEventListener('DOMContentLoaded', () => {
+        scheduleInitTry();
+        swupBind();
+      });
+      // 直接尝试一次，避免错过时机
+      try { scheduleInitTry(); swupBind(); } catch (_) {}
+
+      // Swup DOM 事件兜底（若未使用 Swup，不会触发）
+      document.addEventListener('swup:contentReplaced', () => { try { scheduleInitTry(); } catch(_) {} });
+      document.addEventListener('swup:pageView', () => { try { scheduleInitTry(); } catch(_) {} });
+      document.addEventListener('swup:animationInDone', () => { try { scheduleInitTry(); } catch(_) {} });
+      document.addEventListener('swup:willReplaceContent', () => {
+        if (window.__animePage && typeof window.__animePage.cleanup === 'function') {
+          try { window.__animePage.cleanup(); } catch (_) {}
+        }
+      });
+    })();
+  </script>
+</MainGridLayout>

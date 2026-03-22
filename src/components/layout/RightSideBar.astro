@@ -99,77 +99,17 @@ function renderComponent(component: any, index: number, _components: any[]) {
   }
 </div>
 
-<!-- 响应式样式和JavaScript -->
 <style>
-  /* 响应式断点样式 */
-  @media (max-width: 768px) {
+  /* 响应式断点样式 - 右侧边栏仅在桌面端显示 */
+  @media (max-width: 1279px) {
     #right-sidebar {
-      display: var(--sidebar-mobile-display, block);
+      display: none !important;
     }
   }
 
-  @media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 1280px) {
     #right-sidebar {
-      display: var(--sidebar-tablet-display, block);
-    }
-  }
-
-  @media (min-width: 1025px) {
-    #right-sidebar {
-      display: var(--sidebar-desktop-display, block);
+      display: block;
     }
   }
 </style>
-
-<script>
-  import { widgetManager } from "../../utils/widget-manager";
-  
-  // 响应式布局管理
-  class RightSidebarManager {
-    constructor() {
-      this.init();
-    }
-    
-    init() {
-      this.updateResponsiveDisplay();
-      window.addEventListener('resize', () => this.updateResponsiveDisplay());
-      
-      // 监听SWUP内容替换事件
-      if (typeof window !== 'undefined' && (window as any).swup) {
-        (window as any).swup.hooks.on('content:replace', () => {
-          // 延迟执行以确保DOM已更新
-          setTimeout(() => {
-            this.updateResponsiveDisplay();
-          }, 100);
-        });
-      }
-    }
-    
-    updateResponsiveDisplay() {
-      const breakpoints = widgetManager.getBreakpoints();
-      const width = window.innerWidth;
-      
-      let deviceType: 'mobile' | 'tablet' | 'desktop';
-      if (width < breakpoints.mobile) {
-        deviceType = 'mobile';
-      } else if (width < breakpoints.tablet) {
-        deviceType = 'tablet';
-      } else {
-        deviceType = 'desktop';
-      }
-      
-      const shouldShow = widgetManager.shouldShowSidebar(deviceType);
-      const sidebar = document.getElementById('right-sidebar');
-      
-      if (sidebar) {
-        sidebar.style.setProperty(
-          `--sidebar-${deviceType}-display`, 
-          shouldShow ? 'block' : 'none'
-        );
-      }
-    }
-  }
-  
-  // 初始化右侧边栏管理器
-  new RightSidebarManager();
-</script>
