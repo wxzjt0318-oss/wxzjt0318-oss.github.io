@@ -59,7 +59,6 @@ export const zh_CN: Translation = {
 	[Key.license]: "许可协议",
 	[Key.anime]: "追番",
 	[Key.diary]: "日记",
-	[Key.games]: "游戏",
 
 	// 番剧页面
 	[Key.animeTitle]: "我的追番记录",
@@ -82,14 +81,25 @@ export const zh_CN: Translation = {
 		"请在 src/config.ts 文件中设置您的 Bangumi userId",
 
 	// 游戏页面
-	[Key.gameFilterAll]: "全部",
-	[Key.gameStatusPlaying]: "在玩",
-	[Key.gameStatusPlanned]: "想玩",
-	[Key.gameStatusCompleted]: "玩过",
+	[Key.gameTitle]: "游戏",
+	[Key.gameSubtitle]: "我的游戏收藏",
+	[Key.gameStatusPlaying]: "正在玩",
+	[Key.gameStatusCompleted]: "已完成",
+	[Key.gameStatusPlanned]: "计划中",
 	[Key.gameStatusOnHold]: "搁置",
 	[Key.gameStatusDropped]: "抛弃",
-	[Key.gameEmpty]: "暂无游戏记录",
+	[Key.gameFilterAll]: "全部",
+	[Key.gameEmpty]: "暂无游戏数据",
 	[Key.gameEmptyBangumi]: "请检查 Bangumi 配置或网络连接",
+	[Key.gamePlatform]: "平台",
+	[Key.gameDeveloper]: "开发商",
+	[Key.gameRelease]: "发行日期",
+	[Key.gameGenre]: "类型",
+	[Key.gameRating]: "评分",
+
+	// 留言板
+	[Key.guestbook]: "留言板",
+	[Key.guestbookSubtitle]: "留下你的足迹，分享你的想法",
 
 	// 短文页面
 	[Key.diarySubtitle]: "随时随地，分享生活",
@@ -224,6 +234,7 @@ export const zh_CN: Translation = {
 	[Key.passwordProtected]: "密码保护",
 	[Key.passwordProtectedTitle]: "此内容受密码保护",
 	[Key.passwordProtectedDescription]: "请输入密码以查看受保护的内容",
+	[Key.postEncrypted]: "已加密",
 	[Key.passwordPlaceholder]: "请输入密码",
 	[Key.passwordUnlock]: "解锁",
 	[Key.passwordUnlocking]: "解锁中...",
@@ -351,19 +362,16 @@ export const zh_CN: Translation = {
 	[Key.switchToGridMode]: "切换到网格模式",
 	[Key.switchToListMode]: "切换到列表模式",
 
-	// 游戏页面补充翻译
-	[Key.gameTitle]: "我的游戏列表",
-	[Key.gameSubtitle]: "记录我的游戏旅程",
-	[Key.gameRelease]: "发售日期",
-	[Key.gameDeveloper]: "开发者",
-	[Key.gamePlatform]: "平台",
-
 	// 分页
 	[Key.prevPage]: "上一页",
 	[Key.nextPage]: "下一页",
 
-	// 留言板
-	[Key.guestbook]: "留言板",
-	[Key.guestbookSubtitle]: "留下你的足迹，分享你的想法",
-};
+	// 游戏
+	[Key.games]: "游戏",
 
+	// 相关文章与随机文章
+	[Key.relatedPosts]: "相关文章",
+	[Key.randomPosts]: "随机文章",
+	[Key.smartRecommend]: "智能推荐",
+	[Key.randomRecommend]: "随机推荐",
+};

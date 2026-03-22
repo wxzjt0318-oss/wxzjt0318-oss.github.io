@@ -19,7 +19,7 @@
 
 /* frame容器样式 - 与expressive-code.css保持一致 */
 #decrypted-content .expressive-code .frame {
-  @apply shadow-none! relative rounded-lg overflow-hidden;
+  @apply !shadow-none relative rounded-lg overflow-hidden;
   background: var(--codeblock-bg);
 }
 
@@ -72,7 +72,7 @@
 
 /* 内联代码样式 - 与markdown.css保持一致 */
 #decrypted-content .custom-md code:not(.astro-code code) {
-  @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
+  @apply bg-(--inline-code-bg) text-(--inline-code-color) px-1 py-0.5 rounded-md overflow-hidden;
 }
 
 /* 代码块内的code元素不应用内联代码样式 */
@@ -275,7 +275,7 @@
 
 /* 行号样式 - 与markdown.css保持一致 */
 #decrypted-content .astro-code code span.line:before {
-  @apply text-white/[25%] mr-4 w-4 inline-block;
+  @apply text-white/25 mr-4 w-4 inline-block;
   content: counter(line);
   counter-increment: line;
   direction: rtl;
@@ -283,7 +283,7 @@
 
 /* 亮色主题下的行号颜色 */
 :root:not(.dark) #decrypted-content .astro-code code span.line:before {
-  @apply text-black/[25%];
+  @apply text-black/25;
 }
 
 /* 隐藏最后的空行 */
@@ -354,4 +354,3 @@
   background-color: transparent !important;
   padding: 1rem 0 1rem 0 !important;
 }
-

@@ -21,8 +21,8 @@
 
   /* --- 链接 --- */
   a:not(.no-styling) {
-    @apply relative bg-none font-medium text-[var(--primary)]
-        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
+    @apply relative bg-none font-medium text-(--primary)
+        underline decoration-(--link-underline) decoration-1 decoration-dashed underline-offset-4;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
 
@@ -37,7 +37,7 @@
 
   /* --- 代码块 --- */
   code {
-    @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
+    @apply bg-(--inline-code-bg) text-(--inline-code-color) px-1 py-0.5 rounded-md overflow-hidden;
 
     font-family: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
@@ -49,7 +49,7 @@
     counter-reset: line;
     span.line {
       &:before {
-        @apply text-white/[25%] mr-4 w-4 inline-block select-none;
+        @apply text-white/25 mr-4 w-4 inline-block select-none;
         content: counter(line);
         counter-increment: line;
         direction: rtl;
@@ -65,7 +65,7 @@
   ul,
   ol {
     li::marker {
-      @apply text-[var(--primary)];
+      @apply text-(--primary);
     }
   }
 
@@ -75,7 +75,7 @@
     font-weight: inherit;
 
     &:before {
-      @apply content-[''] absolute left-0 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full;
+      @apply content-[''] absolute left-0 block transition bg-(--btn-regular-bg) h-full w-1 rounded-full;
     }
 
     p:before,
@@ -86,7 +86,7 @@
 
   /* --- 表格样式 --- */
   .table-wrapper {
-    @apply w-full overflow-x-auto m-0 rounded-[var(--radius-large)];
+    @apply w-full overflow-x-auto m-0 rounded-(--radius-large);
     -webkit-overflow-scrolling: touch;
 
     /* --- 滚动条样式 --- */
@@ -111,7 +111,7 @@
   }
 
   table {
-    @apply w-full border-separate m-0 bg-[var(--card-bg)];
+    @apply w-full border-separate m-0 bg-(--card-bg);
     border-spacing: 0;
 
     border: 1px solid var(--line-divider);
@@ -198,4 +198,3 @@
 :root:not(.dark) .custom-md spoiler {
   --_spoiler-mask: color-mix(in oklch, var(--primary) 55%, white 45%);
 }
-

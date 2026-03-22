@@ -76,6 +76,27 @@ enum I18nKey {
 	animeConfigBilibili = "animeConfigBilibili",
 	animeConfigBangumi = "animeConfigBangumi",
 
+	// 游戏页面
+	gameTitle = "gameTitle",
+	gameSubtitle = "gameSubtitle",
+	gameStatusPlaying = "gameStatusPlaying",
+	gameStatusCompleted = "gameStatusCompleted",
+	gameStatusPlanned = "gameStatusPlanned",
+	gameStatusOnHold = "gameStatusOnHold",
+	gameStatusDropped = "gameStatusDropped",
+	gameFilterAll = "gameFilterAll",
+	gameEmpty = "gameEmpty",
+	gameEmptyBangumi = "gameEmptyBangumi",
+	gamePlatform = "gamePlatform",
+	gameDeveloper = "gameDeveloper",
+	gameRelease = "gameRelease",
+	gameGenre = "gameGenre",
+	gameRating = "gameRating",
+
+	// 留言板
+	guestbook = "guestbook",
+	guestbookSubtitle = "guestbookSubtitle",
+
 	// 短文页面
 	diarySubtitle = "diarySubtitle",
 	diaryCount = "diaryCount",
@@ -91,7 +112,7 @@ enum I18nKey {
 	notFoundDescription = "notFoundDescription",
 	backToHome = "backToHome",
 
-	// Music player
+	// 音乐播放器
 	musicPlayer = "musicPlayer",
 	musicPlayerShow = "musicPlayerShow",
 	musicPlayerHide = "musicPlayerHide",
@@ -114,30 +135,6 @@ enum I18nKey {
 	musicPlayerErrorEmpty = "musicPlayerErrorEmpty",
 	unknownSong = "unknownSong",
 	unknownArtist = "unknownArtist",
-
-	// 游戏页面
-	gameFilterAll = "gameFilterAll",
-	gameStatusPlaying = "gameStatusPlaying",
-	gameStatusPlanned = "gameStatusPlanned",
-	gameStatusCompleted = "gameStatusCompleted",
-	gameStatusOnHold = "gameStatusOnHold",
-	gameStatusDropped = "gameStatusDropped",
-	gameEmpty = "gameEmpty",
-	gameEmptyBangumi = "gameEmptyBangumi",
-	games = "games",
-	gameTitle = "gameTitle",
-	gameSubtitle = "gameSubtitle",
-	gameRelease = "gameRelease",
-	gameDeveloper = "gameDeveloper",
-	gamePlatform = "gamePlatform",
-
-	// 分页
-	prevPage = "prevPage",
-	nextPage = "nextPage",
-
-	// 留言板
-	guestbook = "guestbook",
-	guestbookSubtitle = "guestbookSubtitle",
 
 	// 相册页面
 	albums = "albums",
@@ -233,6 +230,7 @@ enum I18nKey {
 	passwordProtected = "passwordProtected",
 	passwordProtectedTitle = "passwordProtectedTitle",
 	passwordProtectedDescription = "passwordProtectedDescription",
+	postEncrypted = "postEncrypted",
 	passwordPlaceholder = "passwordPlaceholder",
 	passwordUnlock = "passwordUnlock",
 	passwordUnlocking = "passwordUnlocking",
@@ -353,7 +351,19 @@ enum I18nKey {
 	// 布局切换按钮
 	switchToGridMode = "switchToGridMode",
 	switchToListMode = "switchToListMode",
+
+	// 分页
+	prevPage = "prevPage",
+	nextPage = "nextPage",
+
+	// 游戏
+	games = "games",
+
+	// 相关文章与随机文章
+	relatedPosts = "relatedPosts",
+	randomPosts = "randomPosts",
+	smartRecommend = "smartRecommend",
+	randomRecommend = "randomRecommend",
 }
 
 export default I18nKey;
-

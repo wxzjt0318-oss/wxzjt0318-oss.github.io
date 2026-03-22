@@ -7,7 +7,7 @@ interface Props {
 }
 const className = Astro.props.class;
 ---
-<div data-pagefind-body class={`prose dark:prose-invert prose-base max-w-none! custom-md ${className}`}>
+<div data-pagefind-body class={`prose dark:prose-invert prose-base !max-w-none custom-md ${className}`}>
     <!--<div class="prose dark:prose-invert max-w-none custom-md">-->
     <!--<div class="max-w-none custom-md">-->
     <slot/>
@@ -72,7 +72,7 @@ document.addEventListener("click", function (e: MouseEvent) {
             }
             
             // 至少保留一个空行
-            if (resultEmptyLines < 1) resultEmptyLines = 1;
+            if (resultEmptyLines < 1) {resultEmptyLines = 1;}
             
             // 返回对应数量的换行符
             return '\n'.repeat(resultEmptyLines + 1);

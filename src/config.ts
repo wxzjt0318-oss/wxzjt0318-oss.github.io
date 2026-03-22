@@ -10,6 +10,8 @@ import type {
 	PermalinkConfig,
 	PioConfig,
 	ProfileConfig,
+	RandomPostsConfig,
+	RelatedPostsConfig,
 	SakuraConfig,
 	ShareConfig,
 	SidebarLayoutConfig,
@@ -293,6 +295,7 @@ export const announcementConfig: AnnouncementConfig = {
 
 export const musicPlayerConfig: MusicPlayerConfig = {
 	enable: true, // 启用音乐播放器功能
+	showFloatingPlayer: true, // 显示悬浮播放器
 	mode: "meting", // 音乐播放器模式，可选 "local" 或 "meting"
 	meting_api:
 		"https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r", // Meting API 地址
@@ -415,6 +418,18 @@ export const pioConfig: import("./types/config").PioConfig = {
 export const shareConfig: ShareConfigWithPoster = {
 	enable: true,
 	poster: { enable: true },
+};
+
+// 相关文章配置
+export const relatedPostsConfig: RelatedPostsConfig = {
+	enable: true,
+	maxCount: 3,
+};
+
+// 随机文章配置
+export const randomPostsConfig: RandomPostsConfig = {
+	enable: true,
+	maxCount: 3,
 };
 
 // 统一导出 widgets

@@ -1,6 +1,6 @@
 import { getSortedPosts } from "../../utils/content-utils";
 
-export async function GET(): Promise<Response> {
+export async function GET() {
 	const posts = await getSortedPosts();
 
 	const allPostsData = posts.map((post) => {

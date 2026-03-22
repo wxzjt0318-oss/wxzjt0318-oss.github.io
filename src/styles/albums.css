@@ -153,9 +153,9 @@
   }
 }
 
-/* 图片懒加载占位符 */
+/* 图片懒加载占位符 - 使用主题色变量 */
 .photo-image[loading="lazy"] {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--btn-regular-bg) 25%, var(--card-bg) 50%, var(--btn-regular-bg) 75%);
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
 }
@@ -166,14 +166,6 @@
   }
   100% {
     background-position: -200% 0;
-  }
-}
-
-/* 深色模式适配 */
-@media (prefers-color-scheme: dark) {
-  .photo-image[loading="lazy"] {
-    background: linear-gradient(90deg, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%);
-    background-size: 200% 100%;
   }
 }
 

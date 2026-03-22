@@ -29,7 +29,17 @@ declare global {
 			isLoaded: boolean;
 		};
 		siteConfig: any;
+		hljs?: {
+			highlightElement: (element: HTMLElement) => void;
+		};
+		renderMermaidDiagrams?: () => void;
+		tocInternalNavigation?: boolean;
 	}
+
+	var Fancybox: {
+		bind: (selector: string, options?: any) => void;
+		unbind: (selector: string) => void;
+	} | undefined;
 }
 
 interface SearchResult {

@@ -1,0 +1,166 @@
+---
+import { Icon } from "astro-icon/components";
+import { umamiConfig } from "../config";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import { formatDateToYYYYMMDD } from "../utils/date-utils";
+import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
+
+// 瑙ｆ瀽 umami
+const umamiEnabled = umamiConfig.enabled || false;
+const umamiWebsiteId =
+	umamiConfig.scripts.match(/data-website-id="([^"]+)"/)?.[1] || "";
+const umamiApiKey = umamiConfig.apiKey || "";
+const umamiBaseUrl = umamiConfig.baseUrl || "";
+
+export interface Props {
+	published: Date;
+	updated?: Date;
+	category?: string;
+	tags?: string[];
+	hideUpdateDate?: boolean;
+	hideTagsForMobile?: boolean;
+	isHome?: boolean;
+	className?: string;
+	id?: string;
+	showOnlyBasicMeta?: boolean; // 鏂板灞炴€э紝鎺у埗鏄惁鍙樉绀哄熀鏈厓鏁版嵁
+	words?: number; // 瀛楁暟缁熻
+	minutes?: number; // 闃呰鏃堕棿锛堝垎閽燂級
+	showWordCount?: boolean; // 鏄惁鏄剧ず瀛楁暟缁熻
+}
+
+const {
+	published,
+	updated,
+	category,
+	tags,
+	hideUpdateDate,
+	hideTagsForMobile,
+	isHome,
+	className = "",
+	id,
+	showOnlyBasicMeta = false, // 榛樿涓篺alse锛屼繚鎸佸師鏈夎涓?	words,
+	// minutes,
+	showWordCount = false, // 榛樿涓嶆樉绀哄瓧鏁扮粺璁?} = Astro.props;
+---
+
+<div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2", className]}>
+    <!-- publish date -->
+    <div class="flex items-center">
+        <div class="meta-icon">
+            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+        </div>
+        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
+    </div>
+
+    <!-- update date -->
+    {!hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
+        <div class="flex items-center">
+            <div class="meta-icon">
+                <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
+            </div>
+            <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
+        </div>
+    )}
+
+    <!-- categories -->
+    <div class="flex items-center">
+        <div class="meta-icon">
+            <Icon name="material-symbols:book-2-outline-rounded" class="text-xl"></Icon>
+        </div>
+        <div class="flex flex-row flex-nowrap items-center">
+            <a href={getCategoryUrl(category || '')} aria-label={`View all posts in the ${category} category`}
+               class="link-lg transition text-50 text-sm font-medium
+                            hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
+                {category || i18n(I18nKey.uncategorized)}
+            </a>
+        </div>
+    </div>
+
+    <!-- word count -->
+    {showWordCount && words && (
+        <div class="flex items-center">
+            <div class="meta-icon">
+                <Icon name="material-symbols:article-outline-rounded" class="text-xl"></Icon>
+            </div>
+            <span class="text-50 text-sm font-medium">
+                {words} {words > 1 ? i18n(I18nKey.wordsCount) : i18n(I18nKey.wordCount)}
+            </span>
+        </div>
+    )}
+
+    <!-- tags (鍙湁鍦ㄤ笉鏄剧ず鍩烘湰鍏冩暟鎹椂鎵嶆樉绀? -->
+    {!showOnlyBasicMeta && (
+        <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
+            <div class="meta-icon">
+                <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
+            </div>
+            <div class="flex flex-row flex-nowrap items-center">
+                {(tags && tags.length > 0) && tags.map((tag, i) => (
+                    <>
+                        <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
+                        <a href={getTagUrl(tag)} aria-label={`View all posts with the ${tag.trim()} tag`}
+                           class="link-lg transition text-50 text-sm font-medium
+                                        hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
+                            {tag.trim()}
+                        </a>
+                    </>
+                ))}
+                {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
+            </div>
+        </div>
+    )}
+    
+    <!-- 璁块棶閲忥紙棣栭〉涓嶆樉绀猴紝涓攗mami.enabled涓簍rue鏃舵樉绀猴級 -->
+    {!isHome && umamiEnabled && id && (
+        <div class="flex items-center">
+            <div class="meta-icon">
+                <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
+            </div>
+            <span class="text-50 text-sm font-medium" id="page-views-display">缁熻鍔犺浇涓?..</span>
+        </div>
+    )}
+</div>
+
+<!-- 鍙湁鍦ㄩ潪棣栭〉涓斿惎鐢╱mami涓旀湁slug鏃舵墠鍔犺浇鑴氭湰 -->
+{!isHome && umamiEnabled && id && (
+    <script is:inline define:vars={{ id, umamiBaseUrl, umamiApiKey, umamiWebsiteId, umamiConfig }}>
+        // 瀹㈡埛绔粺璁℃枃妗堢敓鎴愬嚱鏁?        function generateStatsText(pageViews, visitors) {
+            return `娴忚閲?${pageViews} 路 璁垮 ${visitors}`;
+        }
+        
+        // 鑾峰彇璁块棶閲忕粺璁?        async function fetchPageViews(isRetry = false) {
+            // @ts-ignore
+            if (!umamiConfig.enabled || !umamiWebsiteId || !id || !isRetry) return;
+            
+            try {
+                // 鏋勯€犳枃绔犻〉闈㈢殑URL璺緞
+                const pageUrl = `/posts/${id}/`;
+                
+                // 璋冪敤鍏ㄥ眬宸ュ叿鑾峰彇鐗瑰畾椤甸潰鐨?Umami 缁熻鏁版嵁
+                const stats = await getUmamiPageStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId, pageUrl);
+                
+                // 浠庤繑鍥炵殑鏁版嵁涓彁鍙栭〉闈㈡祻瑙堥噺鍜岃瀹㈡暟
+                const pageViews = stats.pageviews || 0;
+                const visitors = stats.visitors || 0;
+                
+                const displayElement = document.getElementById('page-views-display');
+                if (displayElement) {
+                    displayElement.textContent = generateStatsText(pageViews, visitors);
+                }
+            } catch (error) {
+                console.error('Error fetching page views:', error);
+                const displayElement = document.getElementById('page-views-display');
+                if (displayElement) {
+                    displayElement.textContent = '缁熻涓嶅彲鐢?;
+                }
+            }
+        }
+
+        // 椤甸潰鍔犺浇瀹屾垚鍚庤幏鍙栫粺璁℃暟鎹?        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', fetchPageViews);
+        } else {
+            fetchPageViews();
+        }
+    </script>
+)}

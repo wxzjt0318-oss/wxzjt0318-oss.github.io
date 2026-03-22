@@ -85,6 +85,27 @@ export const zh_TW: Translation = {
 	[Key.animeConfigBangumi]:
 		"請在 src/config.ts 檔案中設定您的 Bangumi userId",
 
+	// 遊戲頁面
+	[Key.gameTitle]: "遊戲",
+	[Key.gameSubtitle]: "我的遊戲收藏",
+	[Key.gameStatusPlaying]: "正在玩",
+	[Key.gameStatusCompleted]: "已完成",
+	[Key.gameStatusPlanned]: "計劃中",
+	[Key.gameStatusOnHold]: "擱置",
+	[Key.gameStatusDropped]: "拋棄",
+	[Key.gameFilterAll]: "全部",
+	[Key.gameEmpty]: "暫無遊戲資料",
+	[Key.gameEmptyBangumi]: "請檢查 Bangumi 設定或網路連線",
+	[Key.gamePlatform]: "平台",
+	[Key.gameDeveloper]: "開發商",
+	[Key.gameRelease]: "發行日期",
+	[Key.gameGenre]: "類型",
+	[Key.gameRating]: "評分",
+
+	// 留言板
+	[Key.guestbook]: "留言板",
+	[Key.guestbookSubtitle]: "留下你的足跡，分享你的想法",
+
 	// 短文頁面
 	[Key.diarySubtitle]: "隨時隨地，分享生活",
 	[Key.diaryCount]: "條短文",
@@ -255,6 +276,7 @@ export const zh_TW: Translation = {
 	[Key.passwordProtected]: "密碼保護",
 	[Key.passwordProtectedTitle]: "此內容受密碼保護",
 	[Key.passwordProtectedDescription]: "請輸入密碼以查看受保護的內容",
+	[Key.postEncrypted]: "已加密",
 	[Key.passwordPlaceholder]: "請輸入密碼",
 	[Key.passwordUnlock]: "解鎖",
 	[Key.passwordUnlocking]: "解鎖中...",
@@ -342,27 +364,16 @@ export const zh_TW: Translation = {
 	[Key.switchToGridMode]: "切換到網格模式",
 	[Key.switchToListMode]: "切換到列表模式",
 
-	// 遊戲頁面
-	[Key.games]: "遊戲",
-	[Key.gameFilterAll]: "全部",
-	[Key.gameStatusPlaying]: "在玩",
-	[Key.gameStatusPlanned]: "想玩",
-	[Key.gameStatusCompleted]: "玩過",
-	[Key.gameStatusOnHold]: "擱置",
-	[Key.gameStatusDropped]: "拋棄",
-	[Key.gameTitle]: "我的遊戲清單",
-	[Key.gameSubtitle]: "記錄我的遊戲旅程",
-	[Key.gameRelease]: "發售日期",
-	[Key.gameDeveloper]: "開發者",
-	[Key.gamePlatform]: "平台",
-	[Key.gameEmpty]: "目前沒有遊戲數據",
-	[Key.gameEmptyBangumi]: "請檢查Bangumi設定或網路連線",
-
 	// 分頁
 	[Key.prevPage]: "上一頁",
 	[Key.nextPage]: "下一頁",
 
-	// 留言板
-	[Key.guestbook]: "留言板",
-	[Key.guestbookSubtitle]: "留下你的足跡，分享你的想法",
+	// 遊戲
+	[Key.games]: "遊戲",
+
+	// 相关文章与随机文章
+	[Key.relatedPosts]: "相關文章",
+	[Key.randomPosts]: "隨機文章",
+	[Key.smartRecommend]: "智能推薦",
+	[Key.randomRecommend]: "隨機推薦",
 };

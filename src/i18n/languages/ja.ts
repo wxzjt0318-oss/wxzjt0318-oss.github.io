@@ -83,6 +83,28 @@ export const ja: Translation = {
 	[Key.animeConfigBangumi]:
 		"src/config.tsファイルでBangumi userIdを設定してください",
 
+	// ゲームページ
+	[Key.gameTitle]: "ゲーム",
+	[Key.gameSubtitle]: "私のゲームコレクション",
+	[Key.gameStatusPlaying]: "プレイ中",
+	[Key.gameStatusCompleted]: "完了",
+	[Key.gameStatusPlanned]: "計画中",
+	[Key.gameStatusOnHold]: "保留",
+	[Key.gameStatusDropped]: "中断",
+	[Key.gameFilterAll]: "すべて",
+	[Key.gameEmpty]: "ゲームのデータはありません",
+	[Key.gameEmptyBangumi]:
+		"Bangumiの構成またはネットワークを接続を確認してください",
+	[Key.gamePlatform]: "プラットフォーム",
+	[Key.gameDeveloper]: "開発元",
+	[Key.gameRelease]: "発売日",
+	[Key.gameGenre]: "ジャンル",
+	[Key.gameRating]: "評価",
+
+	// ゲストブック
+	[Key.guestbook]: "ゲストブック",
+	[Key.guestbookSubtitle]: "あなたの足跡を残して、感想を共有してください",
+
 	// 日記ページ
 	[Key.diarySubtitle]: "いつでも、どこでも生活を共有",
 	[Key.diaryCount]: "件の日記のエントリー",
@@ -272,6 +294,7 @@ export const ja: Translation = {
 		"このコンテンツはパスワードで保護されています",
 	[Key.passwordProtectedDescription]:
 		"保護されたコンテンツを表示するにはパスワードを入力してください。",
+	[Key.postEncrypted]: "暗号化",
 	[Key.passwordPlaceholder]: "パスワードを入力",
 	[Key.passwordUnlock]: "ロックを解除",
 	[Key.passwordUnlocking]: "ロックを解除中...",
@@ -356,28 +379,16 @@ export const ja: Translation = {
 	[Key.switchToGridMode]: "グリッド表示に切り替え",
 	[Key.switchToListMode]: "リスト表示に切り替え",
 
-	// ゲームページ
-	[Key.games]: "ゲーム",
-	[Key.gameFilterAll]: "すべて",
-	[Key.gameStatusPlaying]: "プレイ中",
-	[Key.gameStatusPlanned]: "プレイ予定",
-	[Key.gameStatusCompleted]: "完了",
-	[Key.gameStatusOnHold]: "休止中",
-	[Key.gameStatusDropped]: "ドロップ",
-	[Key.gameTitle]: "My Game List",
-	[Key.gameSubtitle]: "ゲームの旅を記録",
-	[Key.gameRelease]: "発売日",
-	[Key.gameDeveloper]: "開発者",
-	[Key.gamePlatform]: "プラットフォーム",
-	[Key.gameEmpty]: "ゲームデータがありません",
-	[Key.gameEmptyBangumi]:
-		"Bangumiの設定またはネットワーク接続を確認してください",
-
 	// ページネーション
 	[Key.prevPage]: "前のページ",
 	[Key.nextPage]: "次のページ",
 
-	// ゲストブック
-	[Key.guestbook]: "ゲストブック",
-	[Key.guestbookSubtitle]: "あなたの足跡を残して、感想を共有してください",
+	// ゲーム
+	[Key.games]: "ゲーム",
+
+	// 関連記事とランダム記事
+	[Key.relatedPosts]: "関連記事",
+	[Key.randomPosts]: "ランダム記事",
+	[Key.smartRecommend]: "スマート",
+	[Key.randomRecommend]: "ランダム",
 };

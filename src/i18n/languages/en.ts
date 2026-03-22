@@ -83,6 +83,28 @@ export const en: Translation = {
 	[Key.animeConfigBangumi]:
 		"Please set your Bangumi userId in the src/config.ts file",
 
+	// Game Page
+	[Key.gameTitle]: "Games",
+	[Key.gameSubtitle]: "My Game Collection",
+	[Key.gameStatusPlaying]: "Playing",
+	[Key.gameStatusCompleted]: "Completed",
+	[Key.gameStatusPlanned]: "Planned",
+	[Key.gameStatusOnHold]: "On Hold",
+	[Key.gameStatusDropped]: "Dropped",
+	[Key.gameFilterAll]: "All",
+	[Key.gameEmpty]: "No game data available",
+	[Key.gameEmptyBangumi]:
+		"Please check Bangumi configuration or network connection",
+	[Key.gamePlatform]: "Platform",
+	[Key.gameDeveloper]: "Developer",
+	[Key.gameRelease]: "Release Date",
+	[Key.gameGenre]: "Genre",
+	[Key.gameRating]: "Rating",
+
+	// Guestbook
+	[Key.guestbook]: "Guestbook",
+	[Key.guestbookSubtitle]: "Leave your footprint and share your thoughts",
+
 	// Diary Page
 	[Key.diarySubtitle]: "Share life, anytime, anywhere",
 	[Key.diaryCount]: "diary entries",
@@ -269,6 +291,7 @@ export const en: Translation = {
 	[Key.passwordProtectedTitle]: "This content is password protected",
 	[Key.passwordProtectedDescription]:
 		"Please enter the password to view the protected content",
+	[Key.postEncrypted]: "Encrypted",
 	[Key.passwordPlaceholder]: "Enter password",
 	[Key.passwordUnlock]: "Unlock",
 	[Key.passwordUnlocking]: "Unlocking...",
@@ -353,29 +376,16 @@ export const en: Translation = {
 	[Key.switchToGridMode]: "Switch to Grid Mode",
 	[Key.switchToListMode]: "Switch to List Mode",
 
-	// Game Page
-	[Key.games]: "Games",
-	[Key.gameFilterAll]: "All",
-	[Key.gameStatusPlaying]: "Playing",
-	[Key.gameStatusPlanned]: "Plan to Play",
-	[Key.gameStatusCompleted]: "Completed",
-	[Key.gameStatusOnHold]: "On Hold",
-	[Key.gameStatusDropped]: "Dropped",
-	[Key.gameTitle]: "My Game List",
-	[Key.gameSubtitle]: "Record my gaming journey",
-	[Key.gameRelease]: "Release Date",
-	[Key.gameDeveloper]: "Developer",
-	[Key.gamePlatform]: "Platform",
-	[Key.gameEmpty]: "No game data available",
-	[Key.gameEmptyBangumi]:
-		"Please check Bangumi configuration or network connection",
-
 	// Pagination
 	[Key.prevPage]: "Previous Page",
 	[Key.nextPage]: "Next Page",
 
-	// Guestbook
-	[Key.guestbook]: "Guestbook",
-	[Key.guestbookSubtitle]: "Leave your footprint and share your thoughts",
-};
+	// Games
+	[Key.games]: "Games",
 
+	// Related Posts & Random Posts
+	[Key.relatedPosts]: "Related Posts",
+	[Key.randomPosts]: "Random Posts",
+	[Key.smartRecommend]: "Smart",
+	[Key.randomRecommend]: "Random",
+};

@@ -1,4 +1,12 @@
 ---
+/**
+ * ButtonLink - 分类列表按钮组件
+ *
+ * 用于分类、归档等列表项的链接按钮，支持徽章显示。
+ *
+ * @deprecated 这是一个特定用途的组件，保留在 control/ 目录中。
+ *             新的通用按钮需求请使用 atoms/Button。
+ */
 interface Props {
 	badge?: string;
 	url?: string;
@@ -6,18 +14,38 @@ interface Props {
 }
 const { badge, url, label } = Astro.props;
 ---
-<a href={url} aria-label={label} class:list={["btn-plain block w-full h-10 rounded-lg transition-all pl-2 pr-2 text-75"]}>
-    <div class="flex items-center justify-between w-full relative h-full">
-        <div class="overflow-hidden text-left whitespace-nowrap text-ellipsis flex-grow">
-            <slot></slot>
-        </div>
-        {!!badge && (
-            <div class="transition px-2 h-7 ml-4 min-w-8 rounded-lg text-sm font-bold
-                text-[var(--btn-content)] dark:!text-[var(--deep-text)]
-                bg-[var(--btn-plain-bg-hover)] dark:!bg-[var(--primary)]
-                flex items-center justify-center flex-shrink-0">
-                {badge}
+<a href={url} aria-label={label}>
+    <button
+        class:list={`
+            w-full
+            h-10
+            rounded-lg
+            bg-none
+            hover:bg-[var(--btn-plain-bg-hover)]
+            active:bg-[var(--btn-plain-bg-active)]
+            transition-all
+            pl-2
+            hover:pl-3
+            
+            text-neutral-700
+            hover:text-[var(--primary)]
+            dark:text-neutral-300
+            dark:hover:text-[var(--primary)]
+        `
+        }
+    >
+        <div class="flex items-center justify-between relative mr-2">
+            <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis  ">
+                <slot></slot>
             </div>
-        )}
-    </div>
+            { badge !== undefined && badge !== null && badge !== '' &&
+                <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center">
+                    { badge }
+                </div>
+            }
+        </div>
+    </button>
 </a>

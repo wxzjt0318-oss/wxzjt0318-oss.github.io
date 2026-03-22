@@ -1,0 +1,42 @@
+---
+import { SectionTitle } from "../section-title"
+import { SkillCard } from "../skills"
+import type { SkillsCategoryProps } from "./types"
+
+const {
+	skills,
+	categoryText,
+	class: className = "",
+} = Astro.props as SkillsCategoryProps
+
+---
+
+
+
+<div class={`skills-category ${className}`.trim()} style="container-type: inline-size;">
+	<SectionTitle title={categoryText} count={skills.length} />
+	<div class="skills-grid grid gap-4">
+		{skills.map((skill) => (
+			<SkillCard skill={skill} size="small" showProgress={true} showIcon={true} />
+		))}
+	</div>
+</div>
+
+<style>
+	.skills-grid {
+		grid-template-columns: 1fr;
+		transition: grid-template-columns 0.3s ease;
+	}
+
+	@container (min-width: 40rem) {
+		.skills-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@container (min-width: 56.25rem) {
+		.skills-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

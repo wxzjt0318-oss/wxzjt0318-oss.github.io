@@ -9,16 +9,17 @@ import type {
  * 组件映射表 - 将组件类型映射到实际的组件路径
  */
 export const WIDGET_COMPONENT_MAP = {
-	profile: "../components/widget/Profile.astro",
-	announcement: "../components/widget/Announcement.astro",
-	categories: "../components/widget/Categories.astro",
-	tags: "../components/widget/Tags.astro",
-	toc: "../components/widget/TOC.astro",
-	"music-player": "../components/widget/MusicPlayer.svelte",
-	pio: "../components/widget/Pio.astro", // 添加 Pio 组件映射
-	"site-stats": "../components/widget/SiteStats.astro", // 站点统计组件
-	calendar: "../components/widget/Calendar.astro", // 日历组件
-	custom: null, // 自定义组件需要在配置中指定路径
+	profile: "../components/widgets/profile/Profile.astro",
+	announcement: "../components/widgets/announcement/Announcement.astro",
+	categories: "../components/widgets/categories/Categories.astro",
+	tags: "../components/widgets/tags/Tags.astro",
+	toc: "../components/widgets/toc/TOC.astro",
+	"card-toc": "../components/widgets/card-toc/CardTOC.astro",
+	"music-player": "../components/widgets/music-player/MusicPlayer.svelte",
+	pio: "../components/widget/Pio.astro",
+	"site-stats": "../components/widgets/site-stats/SiteStats.astro",
+	calendar: "../components/widgets/calendar/Calendar.astro",
+	custom: null,
 } as const;
 
 /**
@@ -208,7 +209,7 @@ export class WidgetManager {
 	/**
 	 * 获取设备断点配置
 	 */
-	getBreakpoints(): SidebarLayoutConfig["responsive"]["breakpoints"] {
+	getBreakpoints() {
 		return this.config.responsive.breakpoints;
 	}
 
@@ -263,7 +264,7 @@ export class WidgetManager {
 /**
  * 默认组件管理器实例
  */
-export const widgetManager: WidgetManager = new WidgetManager();
+export const widgetManager = new WidgetManager();
 
 /**
  * 工具函数：根据组件类型获取组件配置
@@ -298,4 +299,3 @@ export function isComponentEnabled(
 export function getEnabledComponentTypes(): WidgetComponentType[] {
 	return widgetManager.getConfig().components.left;
 }
-
