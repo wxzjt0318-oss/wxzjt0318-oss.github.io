@@ -1,0 +1,24 @@
+﻿{
+  "name": "npm",
+  "dependencies": {
+    "@biomejs/biome": {
+      "version": "2.3.8",
+      "overridden": false
+    },
+    "@openai/codex": {
+      "version": "0.114.0",
+      "overridden": false
+    },
+    "npm": {
+      "version": "11.12.0",
+      "overridden": false
+    },
+    "pnpm": {
+      "overridden": false
+    },
+    "ttf2woff2": {
+      "version": "8.0.0",
+      "overridden": false
+    }
+  }
+}
