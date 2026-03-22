@@ -378,10 +378,10 @@ onDestroy(() => {
 			</div>
 			<div class="header-actions">
 				<button class="action-btn" on:click|stopPropagation={togglePlaylist} title={i18n(Key.musicPlayerPlaylist)}>
-					<Icon icon="material-symbols:queue-music" class="text-lg" class:text-[var(--primary)]={showPlaylist} />
+					<Icon icon="material-symbols:queue-music" class="text-lg {showPlaylist ? 'text-[var(--primary)]' : ''}" />
 				</button>
 				<button class="action-btn" on:click={toggleExpanded}>
-					<Icon icon="material-symbols:expand-less" class="text-lg" class:rotate-180={isExpanded} />
+					<Icon icon="material-symbols:expand-less" class="text-lg {isExpanded ? 'rotate-180' : ''}" />
 				</button>
 			</div>
 		</div>
