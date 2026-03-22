@@ -535,7 +535,7 @@ onDestroy(() => {
 .cover-img {
 	width: 100%;
 	height: 100%;
-	object-cover;
+	object-fit: cover;
 	transition: transform 0.3s ease;
 }
 
