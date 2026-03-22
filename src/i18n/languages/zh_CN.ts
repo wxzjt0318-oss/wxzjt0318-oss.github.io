@@ -83,9 +83,9 @@ export const zh_CN: Translation = {
 	// 游戏页面
 	[Key.gameTitle]: "游戏",
 	[Key.gameSubtitle]: "我的游戏收藏",
-	[Key.gameStatusPlaying]: "正在玩",
-	[Key.gameStatusCompleted]: "已完成",
-	[Key.gameStatusPlanned]: "计划中",
+	[Key.gameStatusPlaying]: "在玩",
+	[Key.gameStatusCompleted]: "玩过",
+	[Key.gameStatusPlanned]: "想玩",
 	[Key.gameStatusOnHold]: "搁置",
 	[Key.gameStatusDropped]: "抛弃",
 	[Key.gameFilterAll]: "全部",

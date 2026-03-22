@@ -88,9 +88,9 @@ export const zh_TW: Translation = {
 	// 遊戲頁面
 	[Key.gameTitle]: "遊戲",
 	[Key.gameSubtitle]: "我的遊戲收藏",
-	[Key.gameStatusPlaying]: "正在玩",
-	[Key.gameStatusCompleted]: "已完成",
-	[Key.gameStatusPlanned]: "計劃中",
+	[Key.gameStatusPlaying]: "在玩",
+	[Key.gameStatusCompleted]: "玩過",
+	[Key.gameStatusPlanned]: "想玩",
 	[Key.gameStatusOnHold]: "擱置",
 	[Key.gameStatusDropped]: "拋棄",
 	[Key.gameFilterAll]: "全部",

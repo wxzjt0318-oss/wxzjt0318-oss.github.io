@@ -91,6 +91,8 @@ jobs:
     if: success()
     steps:
       - name: Notify Slack - Success
+        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
+        continue-on-error: true
         uses: slackapi/slack-github-action@v1.26.0
         with:
           payload: |
@@ -153,6 +155,8 @@ jobs:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       - name: Notify Discord - Success
+        if: ${{ vars.ENABLE_DISCORD_NOTIFY == 'true' }}
+        continue-on-error: true
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "✅ **Deployment Successful**\n📦 Repository: ${{ github.repository }}\n🌿 Branch: ${{ github.ref_name }}\n🔢 Build: #${{ github.run_number }}\n🔗 [View Site](https://lm520.cc/) | [Workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
@@ -165,6 +169,8 @@ jobs:
     if: failure()
     steps:
       - name: Notify Slack - Failure
+        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
+        continue-on-error: true
         uses: slackapi/slack-github-action@v1.26.0
         with:
           payload: |
@@ -219,6 +225,8 @@ jobs:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       - name: Notify Discord - Failure
+        if: ${{ vars.ENABLE_DISCORD_NOTIFY == 'true' }}
+        continue-on-error: true
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "❌ **Deployment Failed**\n📦 Repository: ${{ github.repository }}\n🌿 Branch: ${{ github.ref_name }}\n🔢 Build: #${{ github.run_number }}\n🔗 [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
@@ -231,6 +239,8 @@ jobs:
     if: cancelled()
     steps:
       - name: Notify Slack - Cancelled
+        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
+        continue-on-error: true
         uses: slackapi/slack-github-action@v1.26.0
         with:
           payload: |
@@ -268,6 +278,8 @@ jobs:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       - name: Notify Discord - Cancelled
+        if: ${{ vars.ENABLE_DISCORD_NOTIFY == 'true' }}
+        continue-on-error: true
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "⚠️ **Deployment Cancelled**\n📦 Repository: ${{ github.repository }}\n🌿 Branch: ${{ github.ref_name }}\n🔢 Build: #${{ github.run_number }}"
