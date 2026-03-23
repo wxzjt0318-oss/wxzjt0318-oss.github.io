@@ -57,7 +57,7 @@ export const siteConfig: SiteConfig = {
 
 	// 顶栏标题（与参考页面保持一致的配置）
 	navbarTitle: {
-		mode: "logo", // 使用Logo模式显示
+		mode: "text-icon", // 使用Icon模式显示图标+文字
 		text: "Lingmeng",
 		icon: "assets/home/younai.png",
 		logo: "assets/home/younai.png", // Logo图片路径
@@ -74,7 +74,13 @@ export const siteConfig: SiteConfig = {
 		targetWidth: 2000,
 	},
 
-	postListLayout: { defaultMode: "list", allowSwitch: true },
+	postListLayout: {
+		defaultMode: "list",
+		allowSwitch: true,
+		categoryBar: {
+			enable: true, // 在文章列表页显示分类导航条
+		},
+	},
 	tagStyle: { useNewStyle: false },
 	wallpaperMode: { defaultMode: "banner", showModeSwitchOnMobile: "desktop" },
 
@@ -128,7 +134,15 @@ export const siteConfig: SiteConfig = {
 		navbar: { transparentMode: "semifull" },
 	},
 
-	toc: { enable: true, depth: 3, mode: "sidebar", useJapaneseBadge: false },
+	toc: {
+		enable: true,
+		depth: 3,
+		mode: "sidebar",
+		mobileTop: true,
+		desktopSidebar: true,
+		floating: true,
+		useJapaneseBadge: false,
+	},
 	showCoverInContent: true,
 	generateOgImages: false,
 	favicon: [],
@@ -282,9 +296,24 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 // 评论
 export const commentConfig: CommentConfig = {
 	enable: true,
+	system: "twikoo", // 评论系统选择: "twikoo" | "giscus"
 	twikoo: {
 		envId: "https://twikoo-api-gmgc.vercel.app/",
 		lang: "zh-CN",
+	},
+	giscus: {
+		repo: "your-github-username/your-repo-name",
+		repoId: "your-repo-id",
+		category: "Announcements",
+		categoryId: "your-category-id",
+		mapping: "pathname",
+		strict: "0",
+		reactionsEnabled: "1",
+		emitMetadata: "0",
+		inputPosition: "top",
+		theme: "preferred_color_scheme",
+		lang: "zh-CN",
+		loading: "lazy",
 	},
 };
 

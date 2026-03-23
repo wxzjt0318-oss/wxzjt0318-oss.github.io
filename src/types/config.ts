@@ -74,6 +74,9 @@ export interface SiteConfig {
 	postListLayout: {
 		defaultMode: "list" | "grid"; // 默认布局模式：list=列表模式，grid=网格模式
 		allowSwitch: boolean; // 是否允许用户切换布局
+		categoryBar?: {
+			enable: boolean; // 是否在文章列表页显示分类导航条
+		};
 	};
 
 	// 顶栏标题配置
@@ -187,6 +190,9 @@ export interface SiteConfig {
 	toc: {
 		enable: boolean;
 		mode: "float" | "sidebar"; // 目录显示模式："float" 悬浮按钮模式，"sidebar" 侧边栏模式
+		mobileTop?: boolean; // 手机端顶部 TOC 按钮
+		desktopSidebar?: boolean; // 电脑端右侧边栏 TOC
+		floating?: boolean; // 悬浮 TOC 按钮
 		depth: 1 | 2 | 3;
 		useJapaneseBadge?: boolean; // 使用日语假名标记（あいうえお...）代替数字
 	};
@@ -280,7 +286,24 @@ export interface PermalinkConfig {
 
 export interface CommentConfig {
 	enable: boolean; // 是否启用评论功能
+	system?: "twikoo" | "giscus"; // 评论系统选择
 	twikoo?: TwikooConfig;
+	giscus?: GiscusConfig;
+}
+
+export interface GiscusConfig {
+	repo: string;
+	repoId: string;
+	category: string;
+	categoryId: string;
+	mapping: string;
+	strict: string;
+	reactionsEnabled: string;
+	emitMetadata: string;
+	inputPosition: string;
+	theme: string;
+	lang: string;
+	loading: string;
 }
 
 interface TwikooConfig {

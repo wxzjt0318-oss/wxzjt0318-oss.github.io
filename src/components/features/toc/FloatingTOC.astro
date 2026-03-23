@@ -7,6 +7,8 @@
 import { Icon } from "astro-icon/components";
 
 import { siteConfig } from "../../../config";
+import I18nKey from "../../../i18n/i18nKey";
+import { i18n } from "../../../i18n/translation";
 
 const tocDepth = siteConfig.toc.depth;
 const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
@@ -19,8 +21,9 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 >
 	<button
 		id="floating-toc-btn"
-		class="floating-toc-btn btn-card"
-		aria-label="Table of Contents"
+		class="floating-toc-btn btn-card hide"
+		aria-label={i18n(I18nKey.tableOfContents)}
+		onclick="window.toggleFloatingTOC()"
 	>
 		<svg
 			class="progress-ring"
@@ -33,7 +36,8 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 				cx="50"
 				cy="50"
 				r="40"
-				fill="transparent"></circle>
+				fill="transparent"
+			></circle>
 		</svg>
 		<div class="btn-icon">
 			<Icon
@@ -43,31 +47,30 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		</div>
 	</button>
 	<div id="floating-toc-panel" class="floating-toc-panel">
+		<div class="floating-toc-header">
+			<h3 class="text-lg font-bold text-(--primary)">{i18n(I18nKey.tableOfContents)}</h3>
+			<button
+				onclick="window.toggleFloatingTOC()"
+				aria-label="Close TOC"
+				class="btn-plain rounded-lg h-8 w-8 active:scale-90"
+			>
+				<Icon name="material-symbols:close" class="text-lg" />
+			</button>
+		</div>
 		<div class="floating-toc-panel-content" id="floating-toc-content"></div>
 	</div>
 </div>
 
 <style>
 	.floating-toc-wrapper {
-		position: fixed;
-		right: 6rem;
-		bottom: 15rem;
-		z-index: 50;
+		position: relative;
+		z-index: 51;
 		pointer-events: auto;
-		transform: translateX(5rem);
-		display: none;
-		transition:
-			opacity 0.3s ease,
-			transform 0.3s ease;
-	}
-
-	.floating-toc-wrapper.active-toc {
-		display: block;
 	}
 
 	.floating-toc-btn {
-		width: 3.75rem;
-		height: 3.75rem;
+		width: 3rem;
+		height: 3rem;
 		border-radius: 1rem;
 		display: flex;
 		align-items: center;
@@ -75,6 +78,31 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		color: var(--primary);
 		position: relative;
 		background: var(--card-bg);
+		cursor: pointer;
+		pointer-events: auto;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		flex-shrink: 0;
+		overflow: hidden;
+	}
+
+	.floating-toc-btn.hide {
+		transform: scale(0.5);
+		opacity: 0;
+		pointer-events: none;
+		height: 0 !important;
+		width: 0 !important;
+		margin: 0 !important;
+		border-width: 0 !important;
+		padding: 0 !important;
+	}
+
+	.floating-toc-btn:active {
+		transform: scale(0.9);
+	}
+
+	.floating-toc-btn:hover {
+		color: var(--primary);
+		box-shadow: var(--shadow-button);
 	}
 
 	.floating-toc-btn.active {
@@ -106,7 +134,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 
 	.floating-toc-panel {
 		position: absolute;
-		bottom: 4.5rem;
+		bottom: calc(100% + 0.75rem);
 		right: 0;
 		width: 18rem;
 		max-height: 60vh;
@@ -120,6 +148,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		transform: translateY(10px) scale(0.95);
 		transition: all 0.2s ease;
 		pointer-events: none;
+		z-index: 52;
 	}
 
 	.floating-toc-panel.show {
@@ -129,9 +158,18 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		pointer-events: auto;
 	}
 
+	.floating-toc-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid var(--line-color);
+		background: var(--card-bg);
+	}
+
 	.floating-toc-panel-content {
 		padding: 0.75rem;
-		max-height: 60vh;
+		max-height: calc(60vh - 3rem);
 		overflow-y: auto;
 		overflow-x: hidden;
 	}
@@ -149,40 +187,41 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 		border-radius: 2px;
 	}
 
-	@media (max-width: 1920px) {
-		.floating-toc-btn {
-			box-shadow:
-				0 0 0 1px var(--btn-regular-bg),
-				0 0 1em var(--btn-regular-bg);
-		}
-	}
-
 	@media (max-width: 768px) {
-		.floating-toc-wrapper {
-			transform: none;
-			right: 2rem;
-			bottom: 6rem;
-			opacity: 0.6;
-		}
-
-		.floating-toc-wrapper:active,
-		.floating-toc-wrapper.active {
-			opacity: 1;
+		.floating-toc-btn {
+			width: 2.75rem;
+			height: 2.75rem;
+			border-radius: 0.75rem;
 		}
 
 		.floating-toc-panel {
 			width: 85vw;
 			max-width: 20rem;
 			right: 0;
-			bottom: 4.5rem;
 		}
+	}
+
+	@media (max-width: 480px) {
+		.floating-toc-btn {
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: 0.5rem;
+		}
+	}
+
+	:global(.dark) .floating-toc-btn {
+		border: 1px solid rgba(255, 255, 255, 0.15);
+	}
+
+	:global(.dark) .floating-toc-btn:hover {
+		box-shadow: var(--shadow-button-dark);
 	}
 
 	:global(.floating-toc-item) {
 		display: flex;
 		align-items: center;
 		padding: 0.5rem;
-		color: var(--text-secondary);
+		color: var(--content-meta);
 		text-decoration: none;
 		font-size: 0.9rem;
 		line-height: 1.5;
@@ -251,6 +290,7 @@ const useJapaneseBadge = siteConfig.toc.useJapaneseBadge;
 <script>
 import { findActiveHeadingIndex } from "./hooks/useTocHighlight";
 import {
+	calculateReadingProgress,
 	throttle,
 	updateProgressRing,
 } from "./hooks/useTocScroll";
@@ -260,11 +300,18 @@ import {
 	scrollToHeading,
 } from "./utils/toc-utils";
 
+declare global {
+	interface Window {
+		toggleFloatingTOC: () => void;
+	}
+}
+
 interface FloatingTOCState {
 	btn: HTMLElement | null;
 	panel: HTMLElement | null;
 	content: HTMLElement | null;
 	wrapper: HTMLElement | null;
+	progressCircle: SVGCircleElement | null;
 	isOpen: boolean;
 	observer: MutationObserver | null;
 	headings: HTMLElement[];
@@ -280,6 +327,9 @@ class FloatingTOC {
 			panel: document.getElementById("floating-toc-panel"),
 			content: document.getElementById("floating-toc-content"),
 			wrapper: document.querySelector(".floating-toc-wrapper"),
+			progressCircle: document.querySelector(
+				"#floating-toc-btn .progress-ring-circle"
+			),
 			isOpen: false,
 			observer: null,
 			headings: [],
@@ -317,17 +367,11 @@ class FloatingTOC {
 	}
 
 	updateProgress() {
-		const circle = this.state.btn?.querySelector(
-			".progress-ring-circle"
-		) as SVGCircleElement | null;
-		if (!circle) {return;}
+		const { progressCircle } = this.state;
+		if (!progressCircle) {return;}
 
-		const scrollTop = window.scrollY || document.documentElement.scrollTop;
-		const docHeight =
-			document.documentElement.scrollHeight -
-			document.documentElement.clientHeight;
-		const progress = docHeight > 0 ? scrollTop / docHeight : 0;
-		updateProgressRing(circle, progress);
+		const progress = calculateReadingProgress();
+		updateProgressRing(progressCircle, progress);
 	}
 
 	updateActiveHeading() {
@@ -360,11 +404,12 @@ class FloatingTOC {
 
 	generateTOC() {
 		const container = document.getElementById("post-container");
-		const { wrapper } = this.state;
+		const { wrapper, btn } = this.state;
 
 		if (!container) {
 			wrapper?.classList.remove("active-toc");
 			wrapper?.classList.add("no-toc");
+			btn?.classList.add("hide");
 			return;
 		}
 
@@ -375,12 +420,14 @@ class FloatingTOC {
 		if (allHeadings.length === 0) {
 			wrapper?.classList.remove("active-toc");
 			wrapper?.classList.add("no-toc");
+			btn?.classList.add("hide");
 			this.state.headings = [];
 			return;
 		}
 
 		wrapper?.classList.remove("no-toc");
 		wrapper?.classList.add("active-toc");
+		btn?.classList.remove("hide");
 
 		const headings = Array.from(allHeadings) as HTMLElement[];
 		const config = getTOCConfig();
@@ -477,12 +524,45 @@ class FloatingTOC {
 			this.state.observer.disconnect();
 		}
 		this.close();
+		this.state.btn = document.getElementById("floating-toc-btn");
+		this.state.panel = document.getElementById("floating-toc-panel");
+		this.state.content = document.getElementById("floating-toc-content");
+		this.state.wrapper = document.querySelector(".floating-toc-wrapper");
+		this.state.progressCircle = document.querySelector(
+			"#floating-toc-btn .progress-ring-circle"
+		);
 		this.generateTOC();
 		this.observeContent();
 		this.updateProgress();
 	}
 }
 
-document.addEventListener("DOMContentLoaded", () => new FloatingTOC());
-document.addEventListener("swup:page:view", () => new FloatingTOC());
+window.toggleFloatingTOC = function () {
+	const panel = document.getElementById("floating-toc-panel");
+	const btn = document.getElementById("floating-toc-btn");
+	if (!panel) return;
+
+	const isHidden = !panel.classList.contains("show");
+	if (isHidden) {
+		panel.classList.add("show");
+		btn?.classList.add("active");
+	} else {
+		panel.classList.remove("show");
+		btn?.classList.remove("active");
+	}
+};
+
+let floatingTOCInstance: FloatingTOC | null = null;
+
+function initFloatingTOC() {
+	if (floatingTOCInstance) {
+		floatingTOCInstance.reinit();
+	} else {
+		floatingTOCInstance = new FloatingTOC();
+	}
+}
+
+document.addEventListener("DOMContentLoaded", initFloatingTOC);
+document.addEventListener("astro:page-load", initFloatingTOC);
+document.addEventListener("swup:page:view", initFloatingTOC);
 </script>

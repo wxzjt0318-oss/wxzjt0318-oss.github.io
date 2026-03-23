@@ -1,0 +1,377 @@
+---
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import { Icon } from "astro-icon/components";
+import { getCategoryList, getSortedPostsList } from "@/utils/content-utils";
+import { getCategoryUrl, url } from "@/utils/url-utils";
+
+const categories = await getCategoryList();
+const totalPosts = (await getSortedPostsList()).length;
+const homeUrl = url("/");
+const archiveUrl = url("/archive/");
+---
+
+<div
+	class="card-base category-bar p-3 onload-animation"
+	id="category-bar"
+	data-home-path={homeUrl}
+	data-archive-path={archiveUrl}
+>
+	<div class="category-bar-inner flex gap-2 items-center">
+		<a
+			href={homeUrl}
+			class="category-pill category-fixed text-sm px-2 py-1 rounded-lg flex-shrink-0
+				   transition-colors duration-200 flex items-center justify-center"
+			data-category-name=""
+			aria-label={i18n(I18nKey.home)}
+		>
+			<Icon name="material-symbols:home" class="text-lg" />
+		</a>
+		<a
+			href={archiveUrl}
+			class="category-pill category-fixed text-sm px-3 py-1 rounded-lg whitespace-nowrap flex-shrink-0
+				   transition-colors duration-200 flex items-center justify-center"
+			data-category-name="__archive__"
+		>
+			{i18n(I18nKey.archive)}
+			<span class="text-xs opacity-60 ml-1">{totalPosts}</span>
+		</a>
+		<div class="category-divider flex-shrink-0"></div>
+		
+		<div class="scroll-area relative flex-1">
+			<div class="category-scroll-wrapper overflow-hidden">
+				<div class="category-scroll flex gap-2" id="category-scroll-container">
+					{
+						categories.map((cat) => (
+							<a
+								href={getCategoryUrl(cat.name)}
+								class="category-pill text-sm px-3 py-1 rounded-lg whitespace-nowrap flex-shrink-0
+									   transition-colors duration-200 flex items-center justify-center"
+								data-category-name={cat.name}
+							>
+								{cat.name}
+								<span class="text-xs opacity-60 ml-1">{cat.count}</span>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.category-bar {
+		margin-bottom: 1rem;
+		user-select: none;
+	}
+	.category-divider {
+		width: 1px;
+		align-self: stretch;
+		background: var(--line-divider);
+		margin: 0 0.25rem;
+	}
+	.scroll-area {
+		flex: 1;
+		min-width: 0;
+		position: relative;
+	}
+	.category-scroll-wrapper {
+		width: 100%;
+		position: relative;
+	}
+	.category-scroll {
+		display: flex;
+		gap: 0.5rem;
+		will-change: transform;
+	}
+	.category-pill {
+		border: 1.5px solid var(--line-divider);
+		color: var(--btn-content);
+		background: transparent;
+	}
+	.category-pill:hover {
+		border-color: var(--primary);
+		color: var(--primary);
+		background: transparent;
+	}
+	.category-pill[data-active] {
+		background: var(--primary);
+		border-color: var(--primary);
+		color: white;
+	}
+	.category-pill[data-active]:hover {
+		background: var(--primary);
+		border-color: var(--primary);
+		opacity: 0.9;
+	}
+</style>
+
+<script>
+	const AUTO_SCROLL_SPEED = 0.3;
+	const AUTO_SCROLL_RESUME_DELAY = 2000;
+	const DRAG_SENSITIVITY = 1.2;
+	const MOMENTUM_FRICTION = 0.96;
+	const MIN_MOMENTUM = 0.3;
+
+	let autoScrollState = {
+		isEnabled: true,
+		animationId: null as number | null,
+		speed: AUTO_SCROLL_SPEED,
+		currentOffset: 0,
+		isPaused: false
+	};
+
+	let dragState = {
+		isDragging: false,
+		startX: 0,
+		lastX: 0,
+		lastTime: 0,
+		momentum: 0,
+		animationId: null as number | null
+	};
+
+	function updateCategoryBar() {
+		const bar = document.getElementById("category-bar");
+		if (!bar) return;
+
+		const pathname = window.location.pathname.replace(/\/$/, "");
+		const homePath = (bar.getAttribute("data-home-path") || "/").replace(/\/$/, "");
+		const archivePath = (bar.getAttribute("data-archive-path") || "/archive").replace(/\/$/, "");
+		const isHome = pathname === homePath || pathname === "" || pathname === "/";
+		const isArchive = pathname === archivePath;
+		const isHomePagination = /^\/\d+$/.test(pathname) || (homePath !== "" && new RegExp("^" + homePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + "\\/\\d+$").test(pathname));
+
+		if (!isHome && !isHomePagination && !isArchive) {
+			bar.style.display = "none";
+			return;
+		}
+		bar.style.display = "";
+
+		const pills = bar.querySelectorAll<HTMLAnchorElement>(".category-pill");
+		const params = new URLSearchParams(window.location.search);
+		const activeCategory = params.get("category") || "";
+		const hasTag = params.has("tag");
+		const hasUncategorized = params.has("uncategorized");
+
+		pills.forEach((pill) => pill.removeAttribute("data-active"));
+
+		if (isHome || isHomePagination) {
+			bar.querySelector<HTMLAnchorElement>('.category-pill[data-category-name=""]')
+				?.setAttribute("data-active", "");
+		} else if (activeCategory) {
+			pills.forEach((pill) => {
+				if (pill.getAttribute("data-category-name") === activeCategory) {
+					pill.setAttribute("data-active", "");
+				}
+			});
+		} else if (isArchive && !hasTag && !hasUncategorized) {
+			bar.querySelector<HTMLAnchorElement>('.category-pill[data-category-name="__archive__"]')
+				?.setAttribute("data-active", "");
+		}
+
+		if (isArchive && activeCategory) {
+			const bannerTitle = document.querySelector(".banner-page-title-text");
+			if (bannerTitle) {
+				bannerTitle.textContent = decodeURIComponent(activeCategory);
+			}
+		}
+	}
+
+	function initInfiniteScroll() {
+		const bar = document.getElementById("category-bar");
+		if (!bar) return;
+
+		const wrapper = bar.querySelector<HTMLElement>(".category-scroll-wrapper");
+		const scrollContainer = bar.querySelector<HTMLElement>("#category-scroll-container");
+		
+		if (!wrapper || !scrollContainer) return;
+
+		const originalItems = Array.from(scrollContainer.children) as HTMLElement[];
+		if (originalItems.length === 0) return;
+
+		const totalOriginalWidth = originalItems.reduce((sum, item) => sum + item.offsetWidth + 8, 0);
+		const containerWidth = wrapper.offsetWidth;
+
+		if (totalOriginalWidth <= containerWidth) {
+			return;
+		}
+
+		const cloneCount = Math.ceil((containerWidth * 3) / totalOriginalWidth) + 1;
+		
+		for (let i = 0; i < cloneCount; i++) {
+			originalItems.forEach(item => {
+				const clone = item.cloneNode(true) as HTMLElement;
+				clone.removeAttribute("data-active");
+				scrollContainer.appendChild(clone);
+			});
+		}
+
+		const maxOffset = totalOriginalWidth;
+
+		function setOffset(offset: number) {
+			if (!scrollContainer) return;
+			let normalizedOffset = offset % maxOffset;
+			if (normalizedOffset < 0) {
+				normalizedOffset += maxOffset;
+			}
+			autoScrollState.currentOffset = normalizedOffset;
+			scrollContainer.style.transform = `translateX(${-normalizedOffset}px)`;
+		}
+
+		function startAutoScroll() {
+			if (autoScrollState.animationId) {
+				cancelAnimationFrame(autoScrollState.animationId);
+			}
+
+			function animate() {
+				if (!autoScrollState.isEnabled || autoScrollState.isPaused) {
+					autoScrollState.animationId = null;
+					return;
+				}
+
+				autoScrollState.currentOffset += autoScrollState.speed;
+				setOffset(autoScrollState.currentOffset);
+
+				autoScrollState.animationId = requestAnimationFrame(animate);
+			}
+
+			autoScrollState.animationId = requestAnimationFrame(animate);
+		}
+
+		function stopAutoScroll() {
+			autoScrollState.isEnabled = false;
+			if (autoScrollState.animationId) {
+				cancelAnimationFrame(autoScrollState.animationId);
+				autoScrollState.animationId = null;
+			}
+		}
+
+		function resumeAutoScroll(delay: number = AUTO_SCROLL_RESUME_DELAY) {
+			setTimeout(() => {
+				if (!autoScrollState.isEnabled) {
+					autoScrollState.isEnabled = true;
+					autoScrollState.isPaused = false;
+					startAutoScroll();
+				}
+			}, delay);
+		}
+
+		function applyMomentum() {
+			if (Math.abs(dragState.momentum) < MIN_MOMENTUM) {
+				resumeAutoScroll(500);
+				return;
+			}
+
+			let velocity = dragState.momentum;
+
+			function animate() {
+				if (Math.abs(velocity) < MIN_MOMENTUM) {
+					dragState.animationId = null;
+					resumeAutoScroll(500);
+					return;
+				}
+
+				autoScrollState.currentOffset -= velocity;
+				setOffset(autoScrollState.currentOffset);
+				velocity *= MOMENTUM_FRICTION;
+
+				dragState.animationId = requestAnimationFrame(animate);
+			}
+
+			dragState.animationId = requestAnimationFrame(animate);
+		}
+
+		wrapper.addEventListener("mouseenter", () => {
+			autoScrollState.isPaused = true;
+		});
+
+		wrapper.addEventListener("mouseleave", () => {
+			if (!dragState.isDragging) {
+				autoScrollState.isPaused = false;
+				if (autoScrollState.isEnabled && !autoScrollState.animationId) {
+					startAutoScroll();
+				}
+			}
+		});
+
+		wrapper.addEventListener("mousedown", (e) => {
+			e.preventDefault();
+			stopAutoScroll();
+			dragState.isDragging = true;
+			dragState.startX = e.clientX;
+			dragState.lastX = e.clientX;
+			dragState.lastTime = Date.now();
+			dragState.momentum = 0;
+			
+			if (dragState.animationId) {
+				cancelAnimationFrame(dragState.animationId);
+				dragState.animationId = null;
+			}
+			
+			wrapper.style.cursor = "grabbing";
+		});
+
+		window.addEventListener("mousemove", (e) => {
+			if (!dragState.isDragging) return;
+			e.preventDefault();
+
+			const currentX = e.clientX;
+			const deltaX = currentX - dragState.lastX;
+			const now = Date.now();
+			const dt = now - dragState.lastTime;
+
+			if (dt > 0) {
+				dragState.momentum = deltaX / dt * 16;
+			}
+
+			dragState.lastX = currentX;
+			dragState.lastTime = now;
+
+			autoScrollState.currentOffset -= deltaX * DRAG_SENSITIVITY;
+			setOffset(autoScrollState.currentOffset);
+		});
+
+		window.addEventListener("mouseup", () => {
+			if (!dragState.isDragging) return;
+			
+			dragState.isDragging = false;
+			wrapper.style.cursor = "grab";
+			applyMomentum();
+		});
+
+		wrapper.addEventListener("wheel", (e) => {
+			e.preventDefault();
+			stopAutoScroll();
+			
+			const delta = e.deltaY || e.deltaX;
+			autoScrollState.currentOffset += delta * 0.5;
+			setOffset(autoScrollState.currentOffset);
+			
+			resumeAutoScroll();
+		}, { passive: false });
+
+		wrapper.style.cursor = "grab";
+		startAutoScroll();
+
+		const resizeObserver = new ResizeObserver(() => {
+			const newContainerWidth = wrapper.offsetWidth;
+			if (totalOriginalWidth > newContainerWidth && !autoScrollState.animationId && autoScrollState.isEnabled) {
+				startAutoScroll();
+			} else if (totalOriginalWidth <= newContainerWidth) {
+				stopAutoScroll();
+				setOffset(0);
+			}
+		});
+		resizeObserver.observe(wrapper);
+	}
+
+	updateCategoryBar();
+	initInfiniteScroll();
+	
+	document.addEventListener("astro:page-load", () => {
+		updateCategoryBar();
+		initInfiniteScroll();
+	});
+	document.addEventListener("swup:contentReplaced", updateCategoryBar);
+</script>
