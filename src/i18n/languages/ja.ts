@@ -307,6 +307,7 @@ export const ja: Translation = {
 		"復号に失敗しました。パスワードを確認してください。",
 	[Key.passwordDecryptRetry]: "復号に失敗しました。再度お試しください。",
 	[Key.passwordUnlockButton]: "ロックを解除",
+	[Key.passwordHintToggle]: "パスワードのヒントを表示",
 	[Key.copyFailed]: "コピーに失敗しました:",
 	[Key.syntaxHighlightFailed]: "構文の強調表示が失敗しました:",
 	[Key.autoSyntaxHighlightFailed]: "自動構文強調表示が失敗しました:",

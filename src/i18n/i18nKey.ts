@@ -241,6 +241,7 @@ enum I18nKey {
 	passwordDecryptFailed = "passwordDecryptFailed",
 	passwordDecryptRetry = "passwordDecryptRetry",
 	passwordUnlockButton = "passwordUnlockButton",
+	passwordHintToggle = "passwordHintToggle",
 	copyFailed = "copyFailed",
 	syntaxHighlightFailed = "syntaxHighlightFailed",
 	autoSyntaxHighlightFailed = "autoSyntaxHighlightFailed",

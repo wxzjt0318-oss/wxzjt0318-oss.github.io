@@ -3,9 +3,17 @@
 	import { i18n } from "@i18n/translation";
 	import { onMount } from "svelte";
 
+	interface Props {
+		passwordHint?: string;
+	}
+
+	let { passwordHint = "" }: Props = $props();
+
 	let errorMessage = $state("");
 	let isLoading = $state(false);
 	let password = $state("");
+	let showHint = $state(false);
+	let hasError = $state(false);
 
 	function dispatchUnlock(password: string) {
 		const event = new CustomEvent("password:unlock", {
@@ -29,6 +37,10 @@
 		}
 	}
 
+	function toggleHint() {
+		showHint = !showHint;
+	}
+
 	onMount(() => {
 		const handleLoading = ((e: CustomEvent<boolean>) => {
 			isLoading = e.detail;
@@ -37,10 +49,12 @@
 		const handleError = ((e: CustomEvent<string>) => {
 			errorMessage = e.detail;
 			isLoading = false;
+			hasError = true;
 		}) as EventListener;
 
 		const handleClearError = (() => {
 			errorMessage = "";
+			hasError = false;
 		}) as EventListener;
 
 		document.addEventListener("password:loading", handleLoading);
@@ -83,6 +97,7 @@
 				id="password-input"
 				placeholder={i18n(I18nKey.passwordPlaceholder)}
 				class="password-input"
+				class:error-shake={hasError}
 				bind:value={password}
 				onkeypress={handleKeypress}
 				disabled={isLoading}
@@ -100,6 +115,50 @@
 		</form>
 		{#if errorMessage}
 			<div class="error-message">{errorMessage}</div>
+		{/if}
+		{#if passwordHint}
+			<div class="hint-section">
+				<button
+					type="button"
+					class="hint-toggle"
+					onclick={toggleHint}
+					aria-expanded={showHint}
+				>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+						class="hint-icon"
+						class:rotated={showHint}
+					>
+						<path
+							d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+							fill="currentColor"
+						></path>
+					</svg>
+					<span>{i18n(I18nKey.passwordHintToggle)}</span>
+				</button>
+				{#if showHint}
+					<div class="hint-content">
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							class="hint-bulb"
+						>
+							<path
+								d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"
+								fill="currentColor"
+							></path>
+						</svg>
+						<span class="hint-text">{passwordHint}</span>
+					</div>
+				{/if}
+			</div>
 		{/if}
 	</div>
 </div>
@@ -192,6 +251,17 @@
 		border-color: var(--primary);
 	}
 
+	.password-input.error-shake {
+		animation: shake 0.4s ease-in-out;
+		border-color: #ef4444;
+	}
+
+	@keyframes shake {
+		0%, 100% { transform: translateX(0); }
+		20%, 60% { transform: translateX(-5px); }
+		40%, 80% { transform: translateX(5px); }
+	}
+
 	.unlock-button {
 		padding: 0.75rem 1.5rem;
 		background: transparent;
@@ -225,6 +295,78 @@
 		color: #ef4444;
 		font-size: 0.875rem;
 		margin-top: 0.5rem;
+	}
+
+	.hint-section {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px dashed var(--line-divider);
+	}
+
+	.hint-toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: transparent;
+		border: none;
+		color: var(--primary);
+		font-size: 0.875rem;
+		cursor: pointer;
+		padding: 0.5rem 0.75rem;
+		border-radius: 6px;
+		transition: background 0.2s ease;
+	}
+
+	.hint-toggle:hover {
+		background: rgba(var(--primary-rgb, 59, 130, 246), 0.1);
+	}
+
+	.hint-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.hint-icon.rotated {
+		transform: rotate(180deg);
+	}
+
+	.hint-content {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		margin-top: 0.75rem;
+		padding: 0.75rem 1rem;
+		background: rgba(var(--primary-rgb, 59, 130, 246), 0.08);
+		border-radius: 8px;
+		text-align: left;
+		animation: fadeInHint 0.3s ease;
+	}
+
+	@keyframes fadeInHint {
+		from {
+			opacity: 0;
+			transform: translateY(-5px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.hint-bulb {
+		flex-shrink: 0;
+		color: var(--primary);
+		margin-top: 0.125rem;
+	}
+
+	.hint-text {
+		color: rgba(0, 0, 0, 0.75);
+		font-size: 0.875rem;
+		line-height: 1.5;
+		word-break: break-word;
+	}
+
+	:global(.dark) .hint-text {
+		color: rgba(255, 255, 255, 0.75);
 	}
 
 	@media (min-width: 769px) {
@@ -282,6 +424,14 @@
 		.error-message {
 			font-size: 0.8rem;
 			text-align: center;
+		}
+
+		.hint-content {
+			padding: 0.625rem 0.875rem;
+		}
+
+		.hint-text {
+			font-size: 0.8rem;
 		}
 	}
 

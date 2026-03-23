@@ -245,6 +245,7 @@ export const zh_CN: Translation = {
 	[Key.passwordDecryptFailed]: "解密失败，请检查密码",
 	[Key.passwordDecryptRetry]: "解密失败，请重试",
 	[Key.passwordUnlockButton]: "解锁",
+	[Key.passwordHintToggle]: "查看密码提示",
 	[Key.copyFailed]: "复制失败:",
 	[Key.syntaxHighlightFailed]: "语法高亮失败:",
 	[Key.autoSyntaxHighlightFailed]: "自动语法高亮也失败:",

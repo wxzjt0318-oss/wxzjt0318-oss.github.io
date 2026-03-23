@@ -287,6 +287,7 @@ export const zh_TW: Translation = {
 	[Key.passwordDecryptFailed]: "解密失敗，請檢查密碼",
 	[Key.passwordDecryptRetry]: "解密失敗，請重試",
 	[Key.passwordUnlockButton]: "解鎖",
+	[Key.passwordHintToggle]: "查看密碼提示",
 	[Key.copyFailed]: "複製失敗:",
 	[Key.syntaxHighlightFailed]: "語法高亮失敗:",
 	[Key.autoSyntaxHighlightFailed]: "自動語法高亮也失敗:",

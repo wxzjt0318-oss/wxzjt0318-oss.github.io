@@ -25,6 +25,7 @@ const postsCollection = defineCollection({
 		/* Page encryption fields */
 		encrypted: z.boolean().optional().default(false),
 		password: z.string().optional().default(""),
+		passwordHint: z.string().max(50).optional(),
 
 		/* Posts alias */
 		alias: z.string().optional(),

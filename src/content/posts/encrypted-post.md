@@ -5,6 +5,7 @@ description: This is an article for testing the page encryption feature
 encrypted: true
 pinned: false
 password: "123456"
+passwordHint: "The password is 6 digits, starting with 123"
 alias: "encrypted-example"
 tags: ["Test", "Encryption"]
 category: "Technology"

@@ -303,6 +303,7 @@ export const en: Translation = {
 	[Key.passwordDecryptFailed]: "Decryption failed, please check the password",
 	[Key.passwordDecryptRetry]: "Decryption failed, please try again",
 	[Key.passwordUnlockButton]: "Unlock",
+	[Key.passwordHintToggle]: "Show password hint",
 	[Key.copyFailed]: "Copy failed:",
 	[Key.syntaxHighlightFailed]: "Syntax highlighting failed:",
 	[Key.autoSyntaxHighlightFailed]:

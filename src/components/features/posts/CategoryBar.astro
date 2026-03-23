@@ -39,7 +39,7 @@ const archiveUrl = url("/archive/");
 		<div class="category-divider flex-shrink-0"></div>
 		
 		<div class="scroll-area relative flex-1">
-			<div class="category-scroll-wrapper overflow-hidden">
+			<div class="category-scroll-wrapper overflow-hidden" id="category-scroll-wrapper">
 				<div class="category-scroll flex gap-2" id="category-scroll-container">
 					{
 						categories.map((cat) => (
@@ -64,6 +64,8 @@ const archiveUrl = url("/archive/");
 	.category-bar {
 		margin-bottom: 1rem;
 		user-select: none;
+		-webkit-user-select: none;
+		touch-action: pan-y;
 	}
 	.category-divider {
 		width: 1px;
@@ -84,6 +86,10 @@ const archiveUrl = url("/archive/");
 		display: flex;
 		gap: 0.5rem;
 		will-change: transform;
+		transition: transform 0.1s ease-out;
+	}
+	.category-scroll.smooth-snap {
+		transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 	.category-pill {
 		border: 1.5px solid var(--line-divider);
@@ -105,29 +111,50 @@ const archiveUrl = url("/archive/");
 		border-color: var(--primary);
 		opacity: 0.9;
 	}
+
+	@media (max-width: 768px) {
+		.category-bar {
+			padding: 0.75rem;
+			margin-bottom: 0.75rem;
+		}
+		.category-pill {
+			font-size: 0.8rem;
+			padding: 0.25rem 0.6rem;
+		}
+	}
 </style>
 
 <script>
 	const AUTO_SCROLL_SPEED = 0.3;
-	const AUTO_SCROLL_RESUME_DELAY = 2000;
-	const DRAG_SENSITIVITY = 1.2;
-	const MOMENTUM_FRICTION = 0.96;
-	const MIN_MOMENTUM = 0.3;
+	const AUTO_SCROLL_RESUME_DELAY = 2500;
+	const DRAG_SENSITIVITY = 1.0;
+	const MOMENTUM_FRICTION = 0.95;
+	const MIN_MOMENTUM = 0.5;
+	const TOUCH_MOVE_THRESHOLD = 5;
 
 	let autoScrollState = {
 		isEnabled: true,
 		animationId: null as number | null,
 		speed: AUTO_SCROLL_SPEED,
 		currentOffset: 0,
-		isPaused: false
+		isPaused: false,
+		items: [] as HTMLElement[]
 	};
 
 	let dragState = {
 		isDragging: false,
 		startX: 0,
+		startY: 0,
 		lastX: 0,
 		lastTime: 0,
 		momentum: 0,
+		animationId: null as number | null,
+		isTouch: false,
+		hasMoved: false
+	};
+
+	let bounceState = {
+		isBouncing: false,
 		animationId: null as number | null
 	};
 
@@ -178,17 +205,61 @@ const archiveUrl = url("/archive/");
 		}
 	}
 
+	function findNearestItem(offset: number, items: HTMLElement[]): number {
+		let nearestOffset = 0;
+		let minDistance = Infinity;
+		let currentPos = 0;
+
+		for (const item of items) {
+			const distance = Math.abs(currentPos - offset);
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearestOffset = currentPos;
+			}
+			currentPos += item.offsetWidth + 8;
+		}
+
+		return nearestOffset;
+	}
+
+	function scrollToActiveItem(scrollContainer: HTMLElement, items: HTMLElement[], wrapper: HTMLElement) {
+		const activeItem = items.find(item => item.hasAttribute("data-active"));
+		if (!activeItem) return;
+
+		const itemIndex = items.indexOf(activeItem);
+		if (itemIndex === -1) return;
+
+		let targetOffset = 0;
+		for (let i = 0; i < itemIndex; i++) {
+			targetOffset += items[i].offsetWidth + 8;
+		}
+
+		const containerWidth = wrapper.offsetWidth;
+		const itemWidth = activeItem.offsetWidth;
+		const centeredOffset = targetOffset - (containerWidth / 2) + (itemWidth / 2);
+
+		autoScrollState.currentOffset = Math.max(0, centeredOffset);
+		scrollContainer.classList.add("smooth-snap");
+		scrollContainer.style.transform = `translateX(${-autoScrollState.currentOffset}px)`;
+		
+		setTimeout(() => {
+			scrollContainer.classList.remove("smooth-snap");
+		}, 300);
+	}
+
 	function initInfiniteScroll() {
 		const bar = document.getElementById("category-bar");
 		if (!bar) return;
 
-		const wrapper = bar.querySelector<HTMLElement>(".category-scroll-wrapper");
+		const wrapper = document.getElementById("category-scroll-wrapper");
 		const scrollContainer = bar.querySelector<HTMLElement>("#category-scroll-container");
 		
 		if (!wrapper || !scrollContainer) return;
 
 		const originalItems = Array.from(scrollContainer.children) as HTMLElement[];
 		if (originalItems.length === 0) return;
+
+		autoScrollState.items = originalItems;
 
 		const totalOriginalWidth = originalItems.reduce((sum, item) => sum + item.offsetWidth + 8, 0);
 		const containerWidth = wrapper.offsetWidth;
@@ -208,15 +279,71 @@ const archiveUrl = url("/archive/");
 		}
 
 		const maxOffset = totalOriginalWidth;
+		let minOffset = -containerWidth;
 
-		function setOffset(offset: number) {
+		function setOffset(offset: number, smooth: boolean = false) {
 			if (!scrollContainer) return;
-			let normalizedOffset = offset % maxOffset;
-			if (normalizedOffset < 0) {
-				normalizedOffset += maxOffset;
+			
+			let normalizedOffset = offset;
+			
+			if (normalizedOffset < minOffset || normalizedOffset > maxOffset) {
+				if (!bounceState.isBouncing) {
+					applyBounce(normalizedOffset, minOffset, maxOffset);
+				}
+				return;
 			}
+			
 			autoScrollState.currentOffset = normalizedOffset;
+			
+			if (smooth) {
+				scrollContainer.classList.add("smooth-snap");
+			}
+			
 			scrollContainer.style.transform = `translateX(${-normalizedOffset}px)`;
+			
+			if (smooth) {
+				setTimeout(() => {
+					scrollContainer.classList.remove("smooth-snap");
+				}, 300);
+			}
+		}
+
+		function applyBounce(currentOffset: number, min: number, max: number) {
+			if (!scrollContainer) return;
+			bounceState.isBouncing = true;
+			
+			let targetOffset = currentOffset;
+			if (currentOffset < min) {
+				targetOffset = min;
+			} else if (currentOffset > max) {
+				targetOffset = max;
+			}
+
+			scrollContainer.classList.add("smooth-snap");
+			scrollContainer.style.transform = `translateX(${-targetOffset}px)`;
+			autoScrollState.currentOffset = targetOffset;
+			
+			setTimeout(() => {
+				if (!scrollContainer) return;
+				scrollContainer.classList.remove("smooth-snap");
+				bounceState.isBouncing = false;
+				resumeAutoScroll(500);
+			}, 300);
+		}
+
+		function snapToNearestItem() {
+			if (!scrollContainer) return;
+			const nearestOffset = findNearestItem(autoScrollState.currentOffset, originalItems);
+			
+			scrollContainer.classList.add("smooth-snap");
+			scrollContainer.style.transform = `translateX(${-nearestOffset}px)`;
+			autoScrollState.currentOffset = nearestOffset;
+			
+			setTimeout(() => {
+				if (!scrollContainer) return;
+				scrollContainer.classList.remove("smooth-snap");
+				resumeAutoScroll(1000);
+			}, 300);
 		}
 
 		function startAutoScroll() {
@@ -225,12 +352,17 @@ const archiveUrl = url("/archive/");
 			}
 
 			function animate() {
-				if (!autoScrollState.isEnabled || autoScrollState.isPaused) {
+				if (!autoScrollState.isEnabled || autoScrollState.isPaused || dragState.isDragging) {
 					autoScrollState.animationId = null;
 					return;
 				}
 
 				autoScrollState.currentOffset += autoScrollState.speed;
+				
+				if (autoScrollState.currentOffset >= maxOffset) {
+					autoScrollState.currentOffset = 0;
+				}
+				
 				setOffset(autoScrollState.currentOffset);
 
 				autoScrollState.animationId = requestAnimationFrame(animate);
@@ -249,7 +381,7 @@ const archiveUrl = url("/archive/");
 
 		function resumeAutoScroll(delay: number = AUTO_SCROLL_RESUME_DELAY) {
 			setTimeout(() => {
-				if (!autoScrollState.isEnabled) {
+				if (!autoScrollState.isEnabled && !dragState.isDragging) {
 					autoScrollState.isEnabled = true;
 					autoScrollState.isPaused = false;
 					startAutoScroll();
@@ -259,16 +391,16 @@ const archiveUrl = url("/archive/");
 
 		function applyMomentum() {
 			if (Math.abs(dragState.momentum) < MIN_MOMENTUM) {
-				resumeAutoScroll(500);
+				snapToNearestItem();
 				return;
 			}
 
 			let velocity = dragState.momentum;
 
 			function animate() {
-				if (Math.abs(velocity) < MIN_MOMENTUM) {
+				if (Math.abs(velocity) < MIN_MOMENTUM || dragState.isDragging) {
 					dragState.animationId = null;
-					resumeAutoScroll(500);
+					snapToNearestItem();
 					return;
 				}
 
@@ -282,6 +414,7 @@ const archiveUrl = url("/archive/");
 			dragState.animationId = requestAnimationFrame(animate);
 		}
 
+		// PC端鼠标事件
 		wrapper.addEventListener("mouseenter", () => {
 			autoScrollState.isPaused = true;
 		});
@@ -299,10 +432,12 @@ const archiveUrl = url("/archive/");
 			e.preventDefault();
 			stopAutoScroll();
 			dragState.isDragging = true;
+			dragState.isTouch = false;
 			dragState.startX = e.clientX;
 			dragState.lastX = e.clientX;
 			dragState.lastTime = Date.now();
 			dragState.momentum = 0;
+			dragState.hasMoved = false;
 			
 			if (dragState.animationId) {
 				cancelAnimationFrame(dragState.animationId);
@@ -313,7 +448,7 @@ const archiveUrl = url("/archive/");
 		});
 
 		window.addEventListener("mousemove", (e) => {
-			if (!dragState.isDragging) return;
+			if (!dragState.isDragging || dragState.isTouch) return;
 			e.preventDefault();
 
 			const currentX = e.clientX;
@@ -333,13 +468,93 @@ const archiveUrl = url("/archive/");
 		});
 
 		window.addEventListener("mouseup", () => {
-			if (!dragState.isDragging) return;
+			if (!dragState.isDragging || dragState.isTouch) return;
 			
 			dragState.isDragging = false;
 			wrapper.style.cursor = "grab";
 			applyMomentum();
 		});
 
+		// 移动端触摸事件
+		wrapper.addEventListener("touchstart", (e) => {
+			if (e.touches.length !== 1) return;
+			
+			stopAutoScroll();
+			dragState.isDragging = true;
+			dragState.isTouch = true;
+			dragState.startX = e.touches[0].clientX;
+			dragState.startY = e.touches[0].clientY;
+			dragState.lastX = e.touches[0].clientX;
+			dragState.lastTime = Date.now();
+			dragState.momentum = 0;
+			dragState.hasMoved = false;
+			
+			if (dragState.animationId) {
+				cancelAnimationFrame(dragState.animationId);
+				dragState.animationId = null;
+			}
+			
+			scrollContainer.classList.remove("smooth-snap");
+		}, { passive: true });
+
+		wrapper.addEventListener("touchmove", (e) => {
+			if (!dragState.isDragging || !dragState.isTouch) return;
+			if (e.touches.length !== 1) return;
+
+			const currentX = e.touches[0].clientX;
+			const currentY = e.touches[0].clientY;
+			const deltaX = currentX - dragState.startX;
+			const deltaY = currentY - dragState.startY;
+
+			if (!dragState.hasMoved) {
+				if (Math.abs(deltaX) > TOUCH_MOVE_THRESHOLD || Math.abs(deltaY) > TOUCH_MOVE_THRESHOLD) {
+					if (Math.abs(deltaY) > Math.abs(deltaX)) {
+						dragState.isDragging = false;
+						return;
+					}
+					dragState.hasMoved = true;
+				} else {
+					return;
+				}
+			}
+
+			e.preventDefault();
+
+			const moveX = currentX - dragState.lastX;
+			const now = Date.now();
+			const dt = now - dragState.lastTime;
+
+			if (dt > 0) {
+				dragState.momentum = moveX / dt * 16;
+			}
+
+			dragState.lastX = currentX;
+			dragState.lastTime = now;
+
+			autoScrollState.currentOffset -= moveX * DRAG_SENSITIVITY;
+			setOffset(autoScrollState.currentOffset);
+		}, { passive: false });
+
+		wrapper.addEventListener("touchend", () => {
+			if (!dragState.isDragging || !dragState.isTouch) return;
+			
+			dragState.isDragging = false;
+			
+			if (dragState.hasMoved) {
+				applyMomentum();
+			} else {
+				resumeAutoScroll(500);
+			}
+		}, { passive: true });
+
+		wrapper.addEventListener("touchcancel", () => {
+			if (!dragState.isDragging || !dragState.isTouch) return;
+			
+			dragState.isDragging = false;
+			snapToNearestItem();
+		}, { passive: true });
+
+		// 滚轮事件
 		wrapper.addEventListener("wheel", (e) => {
 			e.preventDefault();
 			stopAutoScroll();
@@ -351,16 +566,25 @@ const archiveUrl = url("/archive/");
 			resumeAutoScroll();
 		}, { passive: false });
 
+		// 初始化
 		wrapper.style.cursor = "grab";
+		
+		setTimeout(() => {
+			scrollToActiveItem(scrollContainer, originalItems, wrapper);
+		}, 100);
+		
 		startAutoScroll();
 
+		// 响应式处理
 		const resizeObserver = new ResizeObserver(() => {
 			const newContainerWidth = wrapper.offsetWidth;
+			minOffset = -newContainerWidth;
+			
 			if (totalOriginalWidth > newContainerWidth && !autoScrollState.animationId && autoScrollState.isEnabled) {
 				startAutoScroll();
 			} else if (totalOriginalWidth <= newContainerWidth) {
 				stopAutoScroll();
-				setOffset(0);
+				setOffset(0, true);
 			}
 		});
 		resizeObserver.observe(wrapper);
