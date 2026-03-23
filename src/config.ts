@@ -55,8 +55,13 @@ export const siteConfig: SiteConfig = {
 		devices: false,
 	},
 
-	// 顶栏标题（保留你的文案与图标）
-	navbarTitle: { text: "Lingmeng", icon: "assets/home/younai.png" },
+	// 顶栏标题（与参考页面保持一致的配置）
+	navbarTitle: {
+		mode: "logo", // 使用Logo模式显示
+		text: "Lingmeng",
+		icon: "assets/home/younai.png",
+		logo: "assets/home/younai.png", // Logo图片路径
+	},
 
 	// 番剧与动画模式（保留你的 bangumi 与 anime 配置）
 	bangumi: { userId: "1180323", fetchOnDev: true },
@@ -319,32 +324,40 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 	position: "both",
 	properties: [
 		{
-			type: "mobile-quick-nav",
+			type: "profile",
 			enabled: true,
 			position: "top",
 			class: "onload-animation",
 			animationDelay: 0,
 		},
 		{
-			type: "profile",
+			type: "announcement",
 			enabled: true,
 			position: "top",
 			class: "onload-animation",
 			animationDelay: 50,
 		},
 		{
-			type: "announcement",
+			type: "music-sidebar",
 			enabled: true,
-			position: "top",
+			position: "sticky",
 			class: "onload-animation",
 			animationDelay: 100,
+		},
+		{
+			type: "categories",
+			enabled: true,
+			position: "sticky",
+			class: "onload-animation",
+			animationDelay: 150,
+			responsive: { collapseThreshold: 5 },
 		},
 		{
 			type: "tags",
 			enabled: true,
 			position: "top",
 			class: "onload-animation",
-			animationDelay: 150,
+			animationDelay: 250,
 			responsive: { collapseThreshold: 20 },
 		},
 		{
@@ -359,35 +372,20 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			enabled: true,
 			position: "top",
 			class: "onload-animation",
-			animationDelay: 250,
+			animationDelay: 200,
 		},
 		{
 			type: "calendar",
 			enabled: true,
 			position: "top",
 			class: "onload-animation",
-			animationDelay: 300,
-		},
-		{
-			type: "categories",
-			enabled: true,
-			position: "sticky",
-			class: "onload-animation",
-			animationDelay: 350,
-			responsive: { collapseThreshold: 5 },
-		},
-		{
-			type: "music-sidebar",
-			enabled: true,
-			position: "sticky",
-			class: "onload-animation",
-			animationDelay: 400,
+			animationDelay: 250,
 		},
 	],
 	components: {
 		left: ["profile", "announcement", "tags", "card-toc"],
 		right: ["site-stats", "calendar", "categories", "music-sidebar"],
-		drawer: ["mobile-quick-nav", "profile", "announcement", "music-sidebar", "categories", "tags"],
+		drawer: ["profile", "announcement", "music-sidebar", "categories", "tags"],
 	},
 	defaultAnimation: { enable: true, baseDelay: 0, increment: 50 },
 	responsive: {
