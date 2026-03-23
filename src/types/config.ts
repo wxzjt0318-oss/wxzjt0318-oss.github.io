@@ -363,6 +363,7 @@ export interface MusicPlayerConfig {
 	id: string; // 歌单ID
 	server: string; // 音乐源服务器
 	type: string; // 音乐类型
+	floatingEntryMode?: "default" | "fab"; // 悬浮播放器入口模式：default=传统悬浮球，fab=FAB按钮集成
 }
 
 export interface FooterConfig {
