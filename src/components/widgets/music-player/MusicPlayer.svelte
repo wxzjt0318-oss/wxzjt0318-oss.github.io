@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte";
+	import { cubicOut } from "svelte/easing";
 	import { onDestroy, onMount } from "svelte";
+	import { fly } from "svelte/transition";
 
 	import { musicPlayerConfig } from "@/config";
 	import type { MusicPlayerState } from "@/stores/musicPlayerStore";
@@ -10,10 +12,15 @@
 	import MiniPlayer from "./organisms/MiniPlayer.svelte";
 	import PlayerBar from "./organisms/PlayerBar.svelte";
 	import Playlist from "./organisms/Playlist.svelte";
+	import FabMusicPanel from "./FabMusicPanel.svelte";
 	import type { RepeatMode, Song } from "./types";
 
-	let state: MusicPlayerState = musicPlayerStore.getState();
+	let state = $state<MusicPlayerState>(musicPlayerStore.getState());
 	const showFloatingPlayer = musicPlayerConfig.showFloatingPlayer;
+	const floatingEntryMode = musicPlayerConfig.floatingEntryMode ?? "default";
+	const useFabEntry = floatingEntryMode === "fab";
+	const shouldRenderFloatingUi =
+		showFloatingPlayer && musicPlayerConfig.enable;
 	let unsubscribe: (() => void) | undefined;
 
 	function togglePlay() {
@@ -175,19 +182,27 @@
 			state = nextState;
 		});
 		musicPlayerStore.initialize();
+
+		const handleStateRequest = () => {
+			musicPlayerStore.broadcastCurrentState();
+		};
+		window.addEventListener("music-player:request-state", handleStateRequest);
+
+		return () => {
+			window.removeEventListener("music-player:request-state", handleStateRequest);
+		};
 	});
 
 	onDestroy(() => {
 		if (unsubscribe) {
 			unsubscribe();
 		}
-		musicPlayerStore.destroy();
 	});
 </script>
 
 <svelte:window on:keydown={handleVolumeKeyDown} />
 
-{#if showFloatingPlayer && musicPlayerConfig.enable}
+{#if shouldRenderFloatingUi}
 	{#if state.showError}
 		<div class="fixed bottom-20 right-4 z-[60] max-w-sm">
 			<div
@@ -208,79 +223,124 @@
 		</div>
 	{/if}
 
-	<div
-		class="music-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
-		class:expanded={state.isExpanded}
-		class:hidden-mode={state.isHidden}
-	>
+	{#if useFabEntry}
+		{#if state.isExpanded}
+			<div class="music-player-fab-anchor fixed z-[55]">
+				<div
+					class="music-player-fab-shell"
+					transition:fly={{
+						y: 16,
+						duration: 280,
+						opacity: 0.12,
+						easing: cubicOut,
+					}}
+				>
+					<FabMusicPanel />
+				</div>
+			</div>
+		{/if}
+	{:else}
 		<div
-			class="orb-player-container {state.isHidden
-				? 'orb-enter pointer-events-auto'
-				: 'orb-leave pointer-events-none'}"
+			class="music-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
+			class:expanded={state.isExpanded}
+			class:hidden-mode={state.isHidden}
 		>
-			<CoverImage
-				cover={state.currentSong.cover}
+			<div
+				class="orb-player-container {state.isHidden
+					? 'orb-enter pointer-events-auto'
+					: 'orb-leave pointer-events-none'}"
+			>
+				<CoverImage
+					cover={state.currentSong.cover}
+					isPlaying={state.isPlaying}
+					isLoading={state.isLoading}
+					size="orb"
+					onclick={toggleHidden}
+				/>
+			</div>
+
+			<MiniPlayer
+				song={state.currentSong}
+				currentTime={state.currentTime}
+				duration={state.duration}
 				isPlaying={state.isPlaying}
 				isLoading={state.isLoading}
-				size="orb"
-				onclick={toggleHidden}
+				isHidden={state.isExpanded || state.isHidden}
+				onCoverClick={togglePlay}
+				onInfoClick={toggleExpanded}
+				onHideClick={toggleHidden}
+				onExpandClick={toggleExpanded}
+			/>
+
+			<PlayerBar
+				song={state.currentSong}
+				currentTime={state.currentTime}
+				duration={state.duration}
+				isPlaying={state.isPlaying}
+				isLoading={state.isLoading}
+				isShuffled={state.isShuffled}
+				isRepeating={state.isRepeating}
+				showPlaylist={state.showPlaylist}
+				canSkip={canSkip()}
+				volume={state.volume}
+				isMuted={state.isMuted}
+				isVolumeDragging={false}
+				isHidden={!state.isExpanded}
+				{volumeBarRef}
+				onPlayClick={togglePlay}
+				onPrevClick={prev}
+				onNextClick={() => next()}
+				onShuffleClick={toggleShuffle}
+				onRepeatClick={toggleRepeat}
+				onProgressClick={setProgress}
+				onProgressKeyDown={handleProgressKeyDown}
+				onVolumeButtonClick={handleVolumeButtonClick}
+				onSliderPointerDown={startVolumeDrag}
+				onSliderKeyDown={handleVolumeKeyDown}
+				onHideClick={toggleHidden}
+				onPlaylistClick={togglePlaylist}
+				onCollapseClick={toggleExpanded}
+			/>
+
+			<Playlist
+				playlist={state.playlist}
+				currentIndex={state.currentIndex}
+				isPlaying={state.isPlaying}
+				show={state.showPlaylist}
+				onClose={togglePlaylist}
+				onPlaySong={playIndex}
 			/>
 		</div>
-
-		<MiniPlayer
-			song={state.currentSong}
-			currentTime={state.currentTime}
-			duration={state.duration}
-			isPlaying={state.isPlaying}
-			isLoading={state.isLoading}
-			isHidden={state.isExpanded || state.isHidden}
-			onCoverClick={togglePlay}
-			onInfoClick={toggleExpanded}
-			onHideClick={toggleHidden}
-			onExpandClick={toggleExpanded}
-		/>
-
-		<PlayerBar
-			song={state.currentSong}
-			currentTime={state.currentTime}
-			duration={state.duration}
-			isPlaying={state.isPlaying}
-			isLoading={state.isLoading}
-			isShuffled={state.isShuffled}
-			isRepeating={state.isRepeating}
-			showPlaylist={state.showPlaylist}
-			canSkip={canSkip()}
-			volume={state.volume}
-			isMuted={state.isMuted}
-			isVolumeDragging={false}
-			isHidden={!state.isExpanded}
-			{volumeBarRef}
-			onPlayClick={togglePlay}
-			onPrevClick={prev}
-			onNextClick={() => next()}
-			onShuffleClick={toggleShuffle}
-			onRepeatClick={toggleRepeat}
-			onProgressClick={setProgress}
-			onProgressKeyDown={handleProgressKeyDown}
-			onVolumeButtonClick={handleVolumeButtonClick}
-			onSliderPointerDown={startVolumeDrag}
-			onSliderKeyDown={handleVolumeKeyDown}
-			onHideClick={toggleHidden}
-			onPlaylistClick={togglePlaylist}
-			onCollapseClick={toggleExpanded}
-		/>
-
-		<Playlist
-			playlist={state.playlist}
-			currentIndex={state.currentIndex}
-			isPlaying={state.isPlaying}
-			show={state.showPlaylist}
-			onClose={togglePlaylist}
-			onPlaySong={playIndex}
-		/>
-	</div>
+	{/if}
 
 	<style>
+		.music-player-fab-anchor {
+			right: var(--fab-group-right, 1.5rem);
+			bottom: calc(
+				var(--fab-group-bottom, 10rem) +
+					(
+						var(--fab-button-size, 3rem) *
+							var(--fab-visible-count, 1)
+					) +
+					(
+						var(--fab-group-gap, 0.5rem) *
+							(var(--fab-visible-count, 1) - 1)
+					)
+			);
+			width: 0;
+			height: 0;
+			pointer-events: none;
+		}
+
+		.music-player-fab-shell {
+			position: absolute;
+			right: 0;
+			bottom: 0.75rem;
+			transform-origin: bottom right;
+			pointer-events: auto;
+			will-change: transform, opacity;
+		}
+
 		.orb-player-container {
 			position: absolute;
 			bottom: 0;
@@ -417,6 +477,26 @@
 		}
 
 		@media (max-width: 768px) {
+			.music-player-fab-anchor {
+				right: var(--fab-group-right, 0.75rem) !important;
+				bottom: calc(
+					var(--fab-group-bottom, 5rem) +
+						(
+							var(--fab-button-size, 2.75rem) *
+								var(--fab-visible-count, 1)
+						) +
+						(
+							var(--fab-group-gap, 0.5rem) *
+								(var(--fab-visible-count, 1) - 1)
+						)
+				) !important;
+			}
+
+			.music-player-fab-shell {
+				right: 0 !important;
+				bottom: 0.75rem !important;
+			}
+
 			.music-player {
 				width: 280px !important;
 				min-width: 280px !important;
@@ -456,6 +536,26 @@
 		}
 
 		@media (max-width: 480px) {
+			.music-player-fab-anchor {
+				right: var(--fab-group-right, 0.5rem) !important;
+				bottom: calc(
+					var(--fab-group-bottom, 4.5rem) +
+						(
+							var(--fab-button-size, 2.5rem) *
+								var(--fab-visible-count, 1)
+						) +
+						(
+							var(--fab-group-gap, 0.5rem) *
+								(var(--fab-visible-count, 1) - 1)
+						)
+				) !important;
+			}
+
+			.music-player-fab-shell {
+				right: 0 !important;
+				bottom: 0.75rem !important;
+			}
+
 			.music-player {
 				width: 260px !important;
 				min-width: 260px !important;

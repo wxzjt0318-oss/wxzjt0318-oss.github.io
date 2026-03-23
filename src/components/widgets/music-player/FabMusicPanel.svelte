@@ -4,12 +4,11 @@
 	import type { MusicPlayerState } from "@/stores/musicPlayerStore";
 	import { musicPlayerStore } from "@/stores/musicPlayerStore";
 
-	import type { Song } from "../music-player/types";
-	import SidebarControls from "./components/SidebarControls.svelte";
-	import SidebarCover from "./components/SidebarCover.svelte";
-	import SidebarPlaylist from "./components/SidebarPlaylist.svelte";
-	import SidebarProgress from "./components/SidebarProgress.svelte";
-	import SidebarTrackInfo from "./components/SidebarTrackInfo.svelte";
+	import SidebarControls from "../music-sidebar/components/SidebarControls.svelte";
+	import SidebarCover from "../music-sidebar/components/SidebarCover.svelte";
+	import SidebarPlaylist from "../music-sidebar/components/SidebarPlaylist.svelte";
+	import SidebarProgress from "../music-sidebar/components/SidebarProgress.svelte";
+	import SidebarTrackInfo from "../music-sidebar/components/SidebarTrackInfo.svelte";
 
 	let state = $state<MusicPlayerState>(musicPlayerStore.getState());
 	let showPlaylist = $state(false);
@@ -62,8 +61,10 @@
 	}
 </script>
 
-<div class="music-sidebar-widget">
-	<div class="flex items-center gap-3 mb-2.5">
+<div
+	class="fab-music-panel card-base shadow-xl rounded-2xl p-4 w-[20rem] max-w-[80vw]"
+>
+	<div class="fab-music-header">
 		<SidebarCover
 			currentSong={state.currentSong}
 			isPlaying={state.isPlaying}
@@ -108,14 +109,29 @@
 </div>
 
 <style>
-	@media (max-width: 520px) {
-		.music-sidebar-widget {
-			min-width: 0;
-		}
+	.fab-music-panel {
+		border-radius: 1.25rem;
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid color-mix(in srgb, var(--line-color) 65%, transparent);
+		box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+	}
 
-		.music-sidebar-widget > :global(div:first-child) {
-			gap: 0.75rem;
-			margin-bottom: 0.5rem;
+	:global(.dark) .fab-music-panel {
+		box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+	}
+
+	.fab-music-header {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+		margin-bottom: 0.75rem;
+	}
+
+	@media (max-width: 640px) {
+		.fab-music-panel {
+			padding: 0.9rem 0.85rem 0.9rem 0.9rem;
+			border-radius: 1rem;
 		}
 	}
 </style>

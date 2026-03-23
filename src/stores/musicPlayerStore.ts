@@ -570,6 +570,10 @@ class MusicPlayerStore {
 		);
 	}
 
+	broadcastCurrentState(): void {
+		this.broadcastState();
+	}
+
 	destroy(): void {
 		if (this.unregisterInteraction) {
 			this.unregisterInteraction();
