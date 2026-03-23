@@ -360,6 +360,7 @@ export type WidgetComponentType =
 	| "pio" // 添加 pio 组件类型
 	| "site-stats" // 站点统计组件
 	| "calendar" // 日历组件
+	| "mobile-quick-nav" // 移动端快捷导航组件
 	| "custom";
 
 export interface WidgetComponentConfig {

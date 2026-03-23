@@ -1,0 +1,231 @@
+---
+/**
+ * 移动端快捷导航组件
+ * Mobile Quick Navigation Component
+ * 包含主页图标和归档功能模块
+ */
+import { Icon } from "astro-icon/components";
+import { url } from "../../../utils/url-utils";
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+---
+
+<div class:list={["mobile-quick-nav md:hidden", className]}>
+	<div class="quick-nav-container">
+		<a 
+			href={url('/')} 
+			class="quick-nav-item home-item"
+			class:list={[{ active: isHomePage }]}
+			aria-label="返回首页"
+		>
+			<div class="nav-icon-wrapper">
+				<Icon name="material-symbols:home-outline-rounded" class="nav-icon" />
+			</div>
+			<span class="nav-label">主页</span>
+		</a>
+		
+		<a 
+			href={url('/archive/')} 
+			class="quick-nav-item archive-item"
+			class:list={[{ active: Astro.url.pathname.startsWith('/archive') }]}
+			aria-label="查看归档"
+		>
+			<div class="nav-icon-wrapper">
+				<Icon name="material-symbols:archive-outline-rounded" class="nav-icon" />
+			</div>
+			<span class="nav-label">归档</span>
+		</a>
+		
+		<a 
+			href={url('/timeline/')} 
+			class="quick-nav-item timeline-item"
+			class:list={[{ active: Astro.url.pathname.startsWith('/timeline') }]}
+			aria-label="查看时间线"
+		>
+			<div class="nav-icon-wrapper">
+				<Icon name="material-symbols:timeline-outline-rounded" class="nav-icon" />
+			</div>
+			<span class="nav-label">时间线</span>
+		</a>
+		
+		<a 
+			href={url('/about/')} 
+			class="quick-nav-item about-item"
+			class:list={[{ active: Astro.url.pathname.startsWith('/about') }]}
+			aria-label="关于"
+		>
+			<div class="nav-icon-wrapper">
+				<Icon name="material-symbols:info-outline-rounded" class="nav-icon" />
+			</div>
+			<span class="nav-label">关于</span>
+		</a>
+	</div>
+</div>
+
+<style>
+	.mobile-quick-nav {
+		width: 100%;
+		padding: 0 0.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.quick-nav-container {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.5rem;
+		background: var(--card-bg);
+		border-radius: var(--radius-large);
+		padding: 0.75rem 0.5rem;
+		box-shadow: var(--shadow-sm);
+		border: 1px solid var(--line-divider);
+	}
+
+	.quick-nav-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 0.25rem;
+		border-radius: var(--radius-medium);
+		text-decoration: none;
+		transition: all 0.2s ease;
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.quick-nav-item:hover {
+		background: var(--btn-plain-bg-hover);
+	}
+
+	.quick-nav-item:active {
+		transform: scale(0.95);
+	}
+
+	.quick-nav-item.active {
+		background: oklch(0.95 0.03 var(--hue));
+	}
+
+	:global(.dark) .quick-nav-item.active {
+		background: oklch(0.25 0.03 var(--hue));
+	}
+
+	.nav-icon-wrapper {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background: oklch(0.95 0.02 var(--hue));
+		margin-bottom: 0.375rem;
+		transition: all 0.2s ease;
+	}
+
+	:global(.dark) .nav-icon-wrapper {
+		background: oklch(0.3 0.02 var(--hue));
+	}
+
+	.quick-nav-item.active .nav-icon-wrapper {
+		background: var(--primary);
+	}
+
+	.quick-nav-item.active .nav-icon-wrapper .nav-icon {
+		color: white;
+	}
+
+	.nav-icon {
+		font-size: 1.25rem;
+		color: var(--primary);
+		transition: color 0.2s ease;
+	}
+
+	.nav-label {
+		font-size: 0.75rem;
+		color: var(--text-secondary);
+		font-weight: 500;
+		white-space: nowrap;
+		transition: color 0.2s ease;
+	}
+
+	.quick-nav-item.active .nav-label {
+		color: var(--primary);
+		font-weight: 600;
+	}
+
+	/* 小屏幕适配 */
+	@media (max-width: 360px) {
+		.quick-nav-container {
+			padding: 0.5rem 0.25rem;
+			gap: 0.25rem;
+		}
+
+		.nav-icon-wrapper {
+			width: 2.25rem;
+			height: 2.25rem;
+		}
+
+		.nav-icon {
+			font-size: 1.125rem;
+		}
+
+		.nav-label {
+			font-size: 0.6875rem;
+		}
+	}
+
+	/* 大屏手机适配 */
+	@media (min-width: 400px) {
+		.quick-nav-container {
+			padding: 0.875rem 0.75rem;
+			gap: 0.75rem;
+		}
+
+		.nav-icon-wrapper {
+			width: 2.75rem;
+			height: 2.75rem;
+		}
+
+		.nav-icon {
+			font-size: 1.375rem;
+		}
+
+		.nav-label {
+			font-size: 0.8125rem;
+		}
+	}
+
+	/* 动画效果 */
+	.quick-nav-item {
+		animation: fadeInUp 0.4s ease-out backwards;
+	}
+
+	.quick-nav-item:nth-child(1) {
+		animation-delay: 0.05s;
+	}
+	.quick-nav-item:nth-child(2) {
+		animation-delay: 0.1s;
+	}
+	.quick-nav-item:nth-child(3) {
+		animation-delay: 0.15s;
+	}
+	.quick-nav-item:nth-child(4) {
+		animation-delay: 0.2s;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>
