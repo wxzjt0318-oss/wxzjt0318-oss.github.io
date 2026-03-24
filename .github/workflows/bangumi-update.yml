@@ -165,11 +165,8 @@ jobs:
             if git diff --staged --quiet; then
               echo "No changes to commit"
             else
-              git commit -m "chore: update bangumi cache [skip ci]
-
-- Anime entries: ${{ steps.fetch.outputs.anime_count }}
-- Game entries: ${{ steps.fetch.outputs.game_count }}
-- Updated at: ${{ steps.fetch.outputs.cache_timestamp }}"
+              COMMIT_MSG="chore: update bangumi cache [skip ci] - Anime: ${{ steps.fetch.outputs.anime_count }}, Games: ${{ steps.fetch.outputs.game_count }}"
+              git commit -m "$COMMIT_MSG"
               git push
               echo "Cache committed and pushed"
             fi
