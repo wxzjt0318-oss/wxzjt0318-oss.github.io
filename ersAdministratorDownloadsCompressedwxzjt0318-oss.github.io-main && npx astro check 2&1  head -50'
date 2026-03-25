@@ -1,0 +1,221 @@
+ .github/dependabot.yml                             |   67 [32m+[m[31m-[m
+ .github/workflows/CI.yml                           |  100 [32m+[m[31m-[m
+ .github/workflows/biome.yml                        |   20 [31m-[m
+ .github/workflows/deploy.yml                       |  277 [32m+[m[31m-[m
+ .github/workflows/lint.yml                         |   54 [32m+[m[31m-[m
+ .gitignore                                         |    9 [32m+[m[31m-[m
+ .npmrc                                             |    3 [32m+[m[31m-[m
+ .prettierrc.js                                     |   26 [31m-[m
+ .vscode/settings.json                              |    6 [32m+[m
+ anime.astro                                        | 1686 [31m----------[m
+ astro.config.mjs                                   |   58 [32m+[m[31m-[m
+ biome.json                                         |   75 [31m-[m
+ docs/DEPLOYMENT.md                                 |   13 [32m+[m[31m-[m
+ docs/backups/pagination-legacy.css                 |   73 [31m-[m
+ docs/editor/editor.css                             |  854 [32m+++[m[31m---[m
+ docs/editor/editor.html                            |  384 [32m+[m[31m--[m
+ docs/editor/editor.js                              | 1678 [32m+++++[m[31m-----[m
+ eslint.config.js                                   |   42 [32m+[m[31m-[m
+ fix-tailwind-syntax.cjs                            |   45 [31m-[m
+ npm-global-packages-backup.json                    |   24 [31m-[m
+ package.json                                       |   62 [32m+[m[31m-[m
+ performance-test.mjs                               |  132 [31m-[m
+ personal_config_backup.json                        |  306 [31m--[m
+ pnpm-lock.yaml                                     | 3245 [32m++++++++++++++[m[31m------[m
+ postcss.config.mjs                                 |   12 [32m+[m[31m-[m
+ public/_headers                                    |  110 [32m+[m[31m-[m
+ ...5\223 \347\254\254\344\272\214\347\211\210.ttf" |  Bin [31m10776876[m -> [32m0[m bytes
+ public/assets/home/younai.png                      |  Bin [31m429115[m -> [32m0[m bytes
+ public/assets/js/twikoo.all.min.js                 |    2 [32m+[m[31m-[m
+ public/favicon.ico                                 |  Bin [31m16958[m -> [32m0[m bytes
+ public/favicon/favicon.ico                         |  Bin [31m4286[m -> [32m21238[m bytes
+ public/js/umami-share.js                           |  133 [31m-[m
+ public/pio/models/kato/exp/F_ANGRY.exp.json        |   14 [31m-[m
+ public/pio/models/kato/exp/F_DOWN.exp.json         |   14 [31m-[m
+ public/pio/models/kato/exp/F_FUN.exp.json          |   13 [31m-[m
+ public/pio/models/kato/exp/F_NOMAL.exp.json        |    5 [31m-[m
+ public/pio/models/kato/exp/F_SAD.exp.json          |   16 [31m-[m
+ public/pio/models/kato/exp/F_SURPRISE.exp.json     |   13 [31m-[m
+ public/pio/models/kato/katou_01.model.json         |   45 [31m-[m
+ public/pio/models/kato/katou_01.physics.json       |  227 [31m--[m
+ public/pio/models/kato/katou_01.pose.json          |   20 [31m-[m
+ .../pio/models/kato/moc/katou.2048/texture_00.png  |  Bin [31m3020887[m -> [32m0[m bytes
+ public/pio/models/kato/moc/katou.moc               |  Bin [31m452623[m -> [32m0[m bytes
+ public/pio/models/kato/mtn/IDLING_01.mtn           |   45 [31m-[m
+ public/pio/models/kato/mtn/IDLING_02.mtn           |   45 [31m-[m
+ public/pio/models/kato/mtn/IDLING_03.mtn           |   45 [31m-[m
+ public/pio/models/kato/mtn/I_ANGRY.mtn             |   49 [31m-[m
+ public/pio/models/kato/mtn/I_ANGRY_S.mtn           |   49 [31m-[m
+ public/pio/models/kato/mtn/I_ANGRY_W.mtn           |   49 [31m-[m
+ public/pio/models/kato/mtn/I_FUN.mtn               |   49 [31m-[m
+ public/pio/models/kato/mtn/I_FUN_S.mtn             |   49 [31m-[m
+ public/pio/models/kato/mtn/I_FUN_W.mtn             |   49 [31m-[m
+ public/pio/models/kato/mtn/I_SAD.mtn               |   49 [31m-[m
+ public/pio/models/kato/mtn/I_SAD_S.mtn             |   49 [31m-[m
+ public/pio/models/kato/mtn/I_SAD_W.mtn             |   49 [31m-[m
+ public/pio/models/kato/mtn/I_SURPRISE.mtn          |   51 [31m-[m
+ public/pio/models/kato/mtn/I_SURPRISE_S.mtn        |   51 [31m-[m
+ public/pio/models/kato/mtn/I_SURPRISE_W.mtn        |   51 [31m-[m
+ public/pio/models/kato/mtn/REPEAT_01.mtn           |    8 [31m-[m
+ public/pio/models_backup_pio/model.json            |   77 [31m-[m
+ public/pio/models_backup_pio/model.moc             |  Bin [31m84445[m -> [32m0[m bytes
+ .../pio/models_backup_pio/motions/Breath Dere1.mtn |   53 [31m-[m
+ .../pio/models_backup_pio/motions/Breath Dere2.mtn |   46 [31m-[m
+ .../pio/models_backup_pio/motions/Breath Dere3.mtn |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Breath1.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Breath2.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Breath3.mtn   |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Breath4.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Breath5.mtn   |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Breath6.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Breath7.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Breath8.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Fail.mtn      |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Sleeping.mtn  |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Success.mtn   |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Sukebei1.mtn  |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Sukebei2.mtn  |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Sukebei3.mtn  |   53 [31m-[m
+ .../pio/models_backup_pio/motions/Touch Dere1.mtn  |   53 [31m-[m
+ .../pio/models_backup_pio/motions/Touch Dere2.mtn  |   53 [31m-[m
+ .../pio/models_backup_pio/motions/Touch Dere3.mtn  |   46 [31m-[m
+ .../pio/models_backup_pio/motions/Touch Dere4.mtn  |   53 [31m-[m
+ .../pio/models_backup_pio/motions/Touch Dere5.mtn  |   46 [31m-[m
+ .../pio/models_backup_pio/motions/Touch Dere6.mtn  |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Touch1.mtn    |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Touch2.mtn    |   46 [31m-[m
+ public/pio/models_backup_pio/motions/Touch3.mtn    |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Touch4.mtn    |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Touch5.mtn    |   53 [31m-[m
+ public/pio/models_backup_pio/motions/Touch6.mtn    |   53 [31m-[m
+ public/pio/models_backup_pio/motions/WakeUp.mtn    |   46 [31m-[m
+ .../models_backup_pio/textures/default-costume.png |  Bin [31m603024[m -> [32m0[m bytes
+ .../models_backup_pio/textures/pajamas-costume.png |  Bin [31m470154[m -> [32m0[m bytes
+ .../models_backup_pio/textures/school-costume.png  |  Bin [31m564818[m -> [32m0[m bytes
+ public/pio/static/l2d.js                           |    2 [32m+[m[31m-[m
+ public/pio/static/pio.css                          |   49 [32m+[m[31m-[m
+ public/pio/static/pio.js                           |   91 [32m+[m[31m-[m
+ reports/anime-acceptance.md                        |   20 [31m-[m
+ reports/anime-games-review.md                      |   25 [31m-[m
+ reports/anime-test-coverage.md                     |   13 [31m-[m
+ robocopy.log                                       |   32 [31m-[m
+ scripts/anime-collection.test.mjs                  |   25 [31m-[m
+ scripts/anime-search.test.mjs                      |   97 [31m-[m
+ scripts/compress-fonts.js                          |  246 [32m+[m[31m-[m
+ scripts/init-content-repo.js                       |    6 [31m-[m
+ scripts/music-api.test.mjs                         |  129 [31m-[m
+ scripts/update-bilibili.mjs                        |   11 [32m+[m[31m-[m
+ src/assets/images/00190-3899095289.webp            |  Bin [31m29206[m -> [32m0[m bytes
+ src/assets/images/EubELQBVIAE-kz5.jpg              |  Bin [31m122499[m -> [32m0[m bytes
+ src/assets/images/avatar.webp                      |  Bin [31m64868[m -> [32m90384[m bytes
+ .../images/b_c8af1ff9fb603ba53e0998fdd26263ac.jpg  |  Bin [31m48643[m -> [32m0[m bytes
+ src/assets/images/celia.png                        |  Bin [31m56060[m -> [32m0[m bytes
+ src/assets/images/younai.ico                       |  Bin [31m4286[m -> [32m0[m bytes
+ src/assets/images/younai.jpg                       |  Bin [31m50006[m -> [32m0[m bytes
+ src/components/ArchivePanel.svelte                 |  158 [31m-[m
+ src/components/ConfigCarrier.astro                 |   21 [31m-[m
+ src/components/CustomScrollbar.astro               |  248 [31m--[m
+ src/components/Encryptor.astro                     |   26 [31m-[m
+ src/components/Footer.astro                        |   60 [31m-[m
+ src/components/GlobalStyles.astro                  |    3 [31m-[m
+ src/components/LayoutSwitchButton.svelte           |  200 [31m--[m
+ src/components/LightDarkSwitch.svelte              |  101 [31m-[m
+ src/components/MobileTOC.svelte                    |  652 [31m----[m
+ src/components/Navbar.astro                        |  295 [31m--[m
+ src/components/PasswordProtection.astro            |  648 [31m----[m
+ src/components/PostCard.astro                      |  179 [31m--[m
+ src/components/PostMeta.astro                      |  166 [31m-[m
+ src/components/PostPage.astro                      |  261 [31m--[m
+ src/components/Search.svelte                       |  302 [31m--[m
+ src/components/TypewriterText.astro                |  152 [31m-[m
+ src/components/WallpaperSwitch.svelte              |   91 [31m-[m
+ src/components/comment/index.astro                 |   17 [32m+[m[31m-[m
+ src/components/common/FloatingButton.astro         |    7 [32m+[m[31m-[m
+ src/components/control/FloatingControls.astro      |  370 [32m++[m[31m-[m
+ src/components/control/MusicFabButton.svelte       |  158 [32m+[m
+ src/components/features/posts/CategoryBar.astro    |  330 [32m+[m[31m-[m
+ src/components/features/posts/PostMeta.astro       |  101 [32m+[m[31m-[m
+ src/components/features/posts/PostPage.astro       |    6 [32m+[m[31m-[m
+ src/components/features/toc/FloatingTOC.astro      |  581 [32m++[m[31m--[m
+ src/components/layout/RightSideBar.astro           |  116 [32m+[m[31m-[m
+ src/components/layout/SidebarColumn.astro          |   18 [32m+[m[31m-[m
+ src/components/misc/ImageWrapper.astro             |   62 [31m-[m
+ src/components/organisms/footer/Footer.astro       |   62 [32m+[m[31m-[m
+ src/components/organisms/navigation/Navbar.astro   |    2 [32m+[m[31m-[m
+ src/components/skills/SkillsChart.astro            |   36 [32m+[m[31m-[m
+ src/components/widget/Announcement.astro           |   88 [31m-[m
+ src/components/widget/Calendar.astro               |  548 [31m----[m
+ src/components/widget/Categories.astro             |   41 [31m-[m
+ src/components/widget/DisplaySettings.svelte       |  101 [31m-[m
+ src/components/widget/DropdownMenu.astro           |  221 [31m--[m
+ src/components/widget/MusicPlayer.svelte           |  942 [31m------[m
+ src/components/widget/NavMenuPanel.astro           |  178 [31m--[m
+ src/components/widget/Pio.svelte                   |  348 [31m---[m
+ src/components/widget/Profile.astro                |  123 [31m-[m
+ src/components/widget/ProjectCard.astro            |  216 [31m--[m
+ src/components/widget/RightSideBar.astro           |   86 [31m-[m
+ src/components/widget/SideBar.astro                |  225 [31m--[m
+ src/components/widget/SiteStats.astro              |  198 [31m--[m
+ src/components/widget/SkillCard.astro              |  230 [31m--[m
+ src/components/widget/StatCard.astro               |  177 [31m--[m
+ src/components/widget/TOC.astro                    |  376 [31m---[m
+ src/components/widget/Tags.astro                   |   38 [31m-[m
+ src/components/widget/TimelineItem.astro           |  384 [31m---[m
+ src/components/widget/WidgetLayout.astro           |   64 [31m-[m
+ src/components/widgets/card-toc/CardTOC.astro      |    2 [32m+[m[31m-[m
+ .../widgets/music-player/FabMusicPanel.svelte      |  146 [32m+[m
+ .../widgets/music-player/MusicPlayer.svelte        |  224 [32m+[m[31m-[m
+ .../widgets/music-player/organisms/Playlist.svelte |   17 [32m+[m[31m-[m
+ src/components/widgets/profile/Profile.astro       |   76 [32m+[m[31m-[m
+ src/components/widgets/sidebar/SideBar.astro       |    2 [32m+[m[31m-[m
+ src/config.ts                                      |  680 [32m++[m[31m--[m
+ src/constants/constants.ts                         |    9 [32m+[m[31m-[m
+ src/constants/link-presets.ts                      |    7 [32m+[m[31m-[m
+ ...256\266\347\232\204\346\227\245\345\270\270.md" |   87 [31m-[m
+ src/content/posts/celia.md                         |  124 [31m-[m
+ src/content/posts/encrypted-post.md                |    2 [32m+[m[31m-[m
+ src/content/posts/markdown-extended.md             |    2 [32m+[m[31m-[m
+ src/content/posts/markdown-tutorial.md             |    2 [32m+[m[31m-[m
+ src/content/posts/my-first-post.md                 |   22 [31m-[m
+ ...200\276\345\277\203\346\227\213\345\276\213.md" |  123 [31m-[m
+ ...70\226\347\225\214\346\227\240\345\217\214~.md" |   78 [31m-[m
+ ...242\206\345\234\260\351\230\262\345\215\253.md" |   99 [31m-[m
+ ...275\273\345\244\234\344\271\213\346\255\214.md" |   73 [31m-[m
+ ...232\204\344\275\240\344\270\216\346\210\221.md" |  123 [31m-[m
+ ...270\215\347\262\276\347\232\204\346\210\221.md" |   82 [31m-[m
+ ...256\236\344\270\273\344\271\211\350\200\205.md" |   82 [31m-[m
+ ...201\265\345\271\273\346\203\263\350\256\260.md" |  104 [31m-[m
+ ...245\263\345\255\251\345\221\212\347\231\275.md" |   78 [31m-[m
+ src/data/anime.ts                                  |    4 [32m+[m[31m-[m
+ src/data/devices.ts                                |    4 [32m+[m[31m-[m
+ src/data/diary.ts                                  |   24 [32m+[m[31m-[m
+ src/data/projects.ts                               |   17 [32m+[m[31m-[m
+ src/data/skills.ts                                 |   30 [32m+[m[31m-[m
+ src/data/timeline.ts                               |   25 [32m+[m[31m-[m
+ src/global.d.ts                                    |   81 [32m+[m[31m-[m
+ src/i18n/i18nKey.ts                                |   28 [31m-[m
+ src/i18n/languages/en.ts                           |   29 [31m-[m
+ src/i18n/languages/ja.ts                           |   29 [31m-[m
+ src/i18n/languages/zh_CN.ts                        |   28 [31m-[m
+ src/i18n/languages/zh_TW.ts                        |   28 [31m-[m
+ src/layouts/partials/AnalyticsScripts.astro        |   11 [31m-[m
+ src/layouts/partials/GridScripts.astro             |   16 [32m+[m[31m-[m
+ src/layouts/partials/HeadTags.astro                |   28 [32m+[m[31m-[m
+ src/pages/[permalink].astro                        |    3 [32m+[m[31m-[m
+ src/pages/anime.astro                              | 2196 [32m++++[m[31m---------[m
+ src/pages/devices.astro                            |    2 [32m+[m[31m-[m
+ src/pages/friends.astro                            |    2 [32m+[m[31m-[m
+ src/pages/games.astro                              | 2073 [31m-------------[m
+ src/pages/posts/[...slug].astro                    |    3 [32m+[m[31m-[m
+ src/pages/visitorbook.astro                        |  171 [31m--[m
+ src/plugins/expressive-code/custom-copy-button.ts  |    2 [32m+[m[31m-[m
+ src/plugins/expressive-code/language-badge.ts      |    4 [32m+[m[31m-[m
+ src/plugins/mermaid-render-script.js               |  362 [32m+[m[31m--[m
+ src/plugins/rehype-image-width.mjs                 |  106 [32m+[m[31m-[m
+ src/plugins/remark-content.mjs                     |   89 [32m+[m[31m-[m
+ src/plugins/remark-fix-github-admonitions.js       |    3 [32m+[m[31m-[m
+ src/scripts/core/swup-hooks.ts                     |   24 [32m+[m[31m-[m
+ src/scripts/swup-manager.ts                        |    2 [32m+[m[31m-[m
+ src/scripts/theme-optimizer.js                     |   61 [32m+[m[31m-[m
+ src/styles/banner.css                              |  103 [32m+[m[31m-[m
+ src/styles/main.css                                |   16 [32m+[m[

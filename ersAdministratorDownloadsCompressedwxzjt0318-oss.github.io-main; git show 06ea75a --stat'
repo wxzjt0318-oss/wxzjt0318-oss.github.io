@@ -1,0 +1,46 @@
+[33mcommit 05aecdf880392388eae509a60fda3febf78fd1e0[m
+Author: matsuzaka-yuki <becky.balde@gmail.com>
+Date:   Tue Mar 24 01:09:56 2026 +0800
+
+    feat: add FAB-integrated music player with unified control panel
+    
+    Introduce a new FAB entry mode for the music player that integrates
+    seamlessly with the existing floating action button group (TOC, BackToHome,
+    BackToTop). The music player now has two display modes:
+    
+    - 'default': original floating orb/mini-player with standalone floating
+      playlist panel
+    - 'fab': simplified FAB-style entry button that opens a compact control
+      panel styled after the sidebar music widget
+    
+    Key changes:
+    - Add floatingEntryMode config (default | fab) to MusicPlayerConfig
+    - Add MusicFabButton: minimal FAB button showing music icon with playing
+      state indicator (green dot + pulse ring when active)
+    - Add FabMusicPanel: compact card UI reusing SidebarCover,
+      SidebarTrackInfo, SidebarProgress, SidebarControls, and
+      SidebarPlaylist components from the sidebar music widget
+    - Replace old PlayerBar+Playlist floating layout with the new
+      FabMusicPanel in FAB mode, eliminating cross-origin positioning issues
+    - Add visible-count-aware positioning so the FAB panel always anchors
+      above the full FAB group regardless of how many buttons are visible
+    - Freeze FAB button visibility while music panel is expanded to prevent
+      layout thrashing during scroll
+    - Add light-mode border (rgba(148,163,184,0.45)) to FloatingButton
+      and MusicFabButton for consistent visibility on light backgrounds
+    - Refactor FloatingControls as a unified FAB group container with
+      CSS-variable-driven positioning and responsive breakpoints
+    - Add graceful handling of mermaid:render events to avoid FAB layout
+      updates during heavy Mermaid rendering sessions
+    
+    Config change: musicPlayerConfig.floatingEntryMode defaults to 'fab'
+
+ src/components/common/FloatingButton.astro         |   7 [32m+[m[31m-[m
+ src/components/control/FloatingControls.astro      | 366 [32m++++++++++++++++++++[m[31m-[m
+ src/components/control/MusicFabButton.svelte       | 158 [32m+++++++++[m
+ .../widgets/music-player/FabMusicPanel.svelte      | 146 [32m++++++++[m
+ .../widgets/music-player/MusicPlayer.svelte        | 224 [32m+++++++++[m[31m----[m
+ .../widgets/music-player/organisms/Playlist.svelte |  17 [32m+[m[31m-[m
+ src/config.ts                                      |   3 [32m+[m[31m-[m
+ src/types/config.ts                                |   1 [32m+[m
+ 8 files changed, 835 insertions(+), 87 deletions(-)
