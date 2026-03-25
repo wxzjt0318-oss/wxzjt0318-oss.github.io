@@ -1,7 +1,7 @@
 {
-	"name": "mizuki",
+	"name": "灵梦Mizuki",
 	"type": "module",
-	"version": "9.1",
+	"version": "9.0",
 	"scripts": {
 		"sync-content": "node scripts/sync-content.js",
 		"init-content": "node scripts/init-content-repo.js",
