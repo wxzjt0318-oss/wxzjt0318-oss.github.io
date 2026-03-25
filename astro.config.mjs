@@ -185,8 +185,10 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 		build: {
-			assetsInlineLimit: 4096,
-			cssMinify: true,
+			assetsInlineLimit: 8192,
+			cssMinify: {
+				transforms: ['discardComments', 'minifySelectors', 'minifyCss']
+			},
 			minify: 'esbuild',
 			target: 'es2022',
 			reportCompressedSize: true,
@@ -200,12 +202,16 @@ export default defineConfig({
 							if (id.includes('svelte')) return 'vendor-svelte';
 							if (id.includes('iconify')) return 'vendor-iconify';
 							if (id.includes('crypto-js')) return 'vendor-crypto';
+							if (id.includes('dayjs')) return 'vendor-dayjs';
+							if (id.includes('sharp')) return 'vendor-sharp';
 							return 'vendor';
 						}
 					},
 					chunkFileNames: '_astro/[name]-[hash].js',
 					entryFileNames: '_astro/[name]-[hash].js',
 					assetFileNames: '_astro/[name]-[hash].[ext]',
+					compact: true,
+					hoistTransitiveImports: false,
 				},
 				onwarn(warning, warn) {
 					if (
@@ -232,6 +238,7 @@ export default defineConfig({
 				'sharp',
 			],
 			exclude: ['@astrojs/sitemap'],
+			force: false,
 		},
 	},
 });
