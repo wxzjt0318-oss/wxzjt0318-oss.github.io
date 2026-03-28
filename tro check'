@@ -1,0 +1,100 @@
+65bfb2f 2026-03-21 upgrade: migrate to Tailwind CSS v4 with full theme refactor
+9ddf001 2026-03-21 style(banner): 统一CSS缩进为2空格并修复选择器语法
+c721e92 2026-03-21 feat(posts): 新增文章组件并重构页面以提升可维护性
+89db72e 2026-03-21 feat(posts): add ReadingTime component and refactor word count with variant support
+850c1a6 2026-03-21 refactor(posts): 提取文章元数据组件为原子组件
+674bfda 2026-03-20 refactor(ui): 统一页面标题组件并修复导航链接
+4131669 2026-03-20 refactor: extract shared FeedInfo component for RSS and Atom pages
+6e64264 2026-03-20 feat(海报生成器): 支持深色模式下的海报渲染
+c832f29 2026-03-20 style(SharePoster): 使用 CSS 变量替换硬编码颜色值
+ff78385 2026-03-20 fix: restrict import.meta.glob to image files only
+387d73d 2026-03-20 feat(anime): add anime page components and utilities
+11a7445 2026-03-20 fix(devices): use global script for swup compatibility to fix tab switching issue
+4ea9291 2026-03-20 refactor(components): move page-specific components to features directory
+5c9c9ec 2026-03-20 feat(friends): componentize friends page for improved maintainability
+3cefb31 2026-03-20 feat(diary): componentize diary page for improved maintainability
+e5cbbd4 2026-03-20 refactor(quality): code style improvements via lint
+9486e2a 2026-03-20 feat(devices): componentize device page for improved maintainability
+397d5e7 2026-03-20 feat(anime): componentize anime page for improved maintainability
+fdbcb3e 2026-03-20 feat(stage-28): add performance monitoring and Lighthouse CI
+ea7f539 2026-03-20 feat(ci): add dedicated lint workflow
+0fe7e42 2026-03-20 refactor(quality): code style improvements across codebase
+c9b8615 2026-03-20 feat(lint): add ESLint flat config with Svelte and Astro support
+13266f5 2026-03-20 refactor(stage-24): extract grid layout logic from MainGridLayout
+8a279d7 2026-03-20 build: 更新多个依赖包至最新版本
+8130bba 2026-03-20 perf(stage-23): lazy loading optimization for SharePoster and Calendar
+0490e53 2026-03-20 refactor(types): stage 22 - TypeScript type improvements
+c4d5c3d 2026-03-20 fix(music-player): auto-play next song in sequential mode
+5c12b5d 2026-03-20 refactor(sidebar): stage 21 - extract widget renderer and types
+e21bf69 2026-03-20 refactor(calendar): stage 20 - extract calendar components
+4c30fd9 2026-03-20 refactor(toc): stage 19 - extract TOC hooks and unify components
+1ae4694 2026-03-20 refactor(auth): stage 18 - extract PasswordModal and decryption utils
+224365d 2026-03-20 refactor(music-player): stage 17 - extract UI and volume hooks
+8073a34 2026-03-19 refactor(layout): stage 15.6 - extract grid layout styles to external CSS
+34c5306 2026-03-19 refactor(layout): stage 15.4 - extract Head tags components to modular architecture
+e9828ea 2026-03-19 fix: correct case sensitivity in import paths for Linux CI builds
+9967dc8 2026-03-19 refactor(layout): stage 15.2 - extract Banner component to modular architecture
+769d55f 2026-03-19 refactor(layout): stage 15.1 - extract Swup manager to modular architecture
+8c03a7e 2026-03-19 refactor(components): stage 11 - refactor large components
+5074e05 2026-03-19 refactor(components): stages 12 & 14 - standardize naming and cleanup
+e83a2b1 2026-03-19 fix(navbar): hide mobile TOC button in float mode
+5f94cb5 2026-03-19 refactor(components): stage 10 - remove duplicate components and unify import paths
+5beeb4d 2026-03-19 refactor(components): stage 9 - unify atoms directory naming to kebab-case
+9265067 2026-03-19 refactor(components): complete stage 7 and 8 - clean up duplicate components
+2a30789 2026-03-19 Merge pull request #404 from endray-coder/fix/album
+07fd1aa 2026-03-19 fix(types): resolve TypeScript errors and warnings
+57a2336 2026-03-19 refactor(components): remove deprecated root component wrappers
+f0493cf 2026-03-19 refactor(components): migrate root components to organized directories
+34bca16 2026-03-18 refactor(components): remove deprecated UI components
+c5dda26 2026-03-18 refactor(components): rename and migrate UI components to atoms/
+5f74a1c 2026-03-18 refactor(toc): complete integration - move implementations to features/toc
+aee8b3b 2026-03-18 refactor(toc): use unified TOC components from features/toc
+6382713 2026-03-18 feat(toc): create unified TOC component system in features/toc
+abc765c 2026-03-18 refactor(components): migrate navigation components to organisms/
+0caa837 2026-03-18 refactor(posts): migrate post components to features/posts
+2ab55f5 2026-03-18 feat(components): create atoms directory for base UI components
+0abe83c 2026-03-18 refactor(pages): 重构 timeline/skills/projects 页面使用组件库
+af8fcdc 2026-03-18 feat(components): 新增页面级可复用组件库
+97a8ab1 2026-03-18 refactor(components): 删除旧版 widget 组件库
+613d30b 2026-03-18 feat(components): 使用项目组件库重构页面
+ef457a0 2026-03-18 feat(components): 创建项目组件库目录结构
+8cb3491 2026-03-17 perf(swup): 只在 production 开启 updateHead 避免 dev 冲突
+759664c 2026-03-17 refactor(music-player): 删除旧版音乐播放器文件
+4cdcee5 2026-03-17 feat(music-player): 使用新版组件化音乐播放器
+6210c5c 2026-03-17 feat(music-player): 创建组件化音乐播放器目录结构
+6cf992e 2026-03-17 refactor(widgets): 创建新的 widgets 目录结构并迁移侧栏组件
+c23bed9 2026-03-17 Add standard document
+71231a4 2026-03-17 chore: 更新lock文件到Astro 6
+db0da98 2026-03-13 Upgrade to Astro 6
+4900f3c 2026-03-02 build: 更新项目依赖包版本
+cd45b70 2026-03-07 Upgrade @iconify/svelte to compatible with Svelte 5
+576cd11 2026-03-13 twikoo 版本 1.7.3
+7de04bd 2026-02-25 Adjust announcement widget styles in tablet grid mode
+ccb8978 2026-02-24 Modify tablet grid layout to display sidebar components horizontally
+fb426fa 2026-03-17 chore: 更新lock文件
+676a5bc 2026-03-16 调整图片宽度插件顺序并改进样式设置
+8c67a90 2026-03-05 feat: 添加.prettierrc 的plugins配置，格式化对astro文件和svelte文件生效 .prettierrc.js之前的配置没有对astro文件和svelte文件生效导致项目中的文件代码规范不统一
+c957d17 2026-03-04 feat: 替换 GitHub admonitions 插件并添加外部链接处理
+c971a9d 2026-03-08 fix: 增加oddmisc重试机制
+c82df7b 2026-02-26 fix(pio): avoid hidden class conflict so reopen icon shows
+02f0452 2026-02-24 Unify breakpoints
+5f0cec6 2026-02-22 Update meting url
+1670f5c 2026-02-20 fix: banner-single-container重复创建子元素 #376
+38189eb 2026-02-19 docs: 更新部署文档
+883b047 2026-02-19 Revise wiki content for clarity and focus
+54b5ea2 2026-02-18 feat: Create wiki.json with repo notes
+e9b8547 2026-02-18 Update config.ts to reflect umamiConfig changes
+75ac993 2026-02-17 恢复误删的action.yml
+dfcc371 2026-02-16 Merge pull request #367 from Senguk520/master
+1dcaa61 2026-02-16 umami (#370)
+1d68763 2026-02-16 增加本地化的笔记编辑器
+0a5360a 2026-02-16 增加本地笔记可视化编辑器
+2445b41 2026-02-12 Merge pull request #363 from hcl55/bili
+37b7ab1 2026-02-12 refactor: bilibili 的 SESSDATA 应到环境变量中配置
+be2bbd6 2026-02-11 fix: 添加一个空数据检查
+8a7307b 2026-02-11 fix: 修复 logo 的路径处理
+0784cb7 2026-02-09 Merge pull request #360 from mikus-loli/miku
+311dffd 2026-02-09 feat(i18n): 解决页面访问量统计“加载中”问题并添加多语言支持
+4cc1edf 2026-02-07 Merge pull request #358 from hcl55/anime
+008048d 2026-02-07 i18n(anime): bilibili 的相关描述
+5267a58 2026-02-07 refactor: 策略配置化，通用加载逻辑

@@ -55,6 +55,7 @@ enum I18nKey {
 	friendsCopyLink = "friendsCopyLink",
 	friendsCopySuccess = "friendsCopySuccess",
 	friendsTags = "friendsTags",
+	friendsCount = "friendsCount",
 	anime = "anime",
 	diary = "diary",
 
@@ -105,6 +106,7 @@ enum I18nKey {
 	diaryMinutesAgo = "diaryMinutesAgo",
 	diaryHoursAgo = "diaryHoursAgo",
 	diaryDaysAgo = "diaryDaysAgo",
+	diaryNoResults = "diaryNoResults",
 
 	// 404页面
 	notFound = "notFound",
@@ -144,6 +146,8 @@ enum I18nKey {
 	albumsBackToList = "albumsBackToList",
 	albumsPhotoCount = "albumsPhotoCount",
 	albumsPhotosCount = "albumsPhotosCount",
+	albumsFilterAll = "albumsFilterAll",
+	albumsNoResults = "albumsNoResults",
 
 	// 设备页面
 	devices = "devices",

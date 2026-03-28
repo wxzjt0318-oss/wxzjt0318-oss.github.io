@@ -1,155 +1,146 @@
 ---
-import MomentCard from "@components/features/diary/MomentCard.astro";
+import { FilterTabs } from "@components/atoms/filter-tabs";
+import { MomentCard } from "@components/features/diary";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 
 import { siteConfig } from "../config";
-import { getDiaryList, getDiaryStats } from "../data/diary";
+import { getAllTags, getDiaryList } from "../data/diary";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
-import MainGridLayout from "../layouts/MainGridLayout.astro";
-
-export const prerender = true;
 
 if (!siteConfig.featurePages.diary) {
 	return Astro.redirect("/404/");
 }
 
 const moments = getDiaryList();
-const diaryStats = getDiaryStats();
+const allTags = getAllTags();
+
+const filterTabs = [
+	{
+		value: "all",
+		label: i18n(I18nKey.albumsFilterAll),
+		icon: "material-symbols:apps",
+		count: moments.length,
+	},
+	...allTags.map((tag) => ({
+		value: tag,
+		label: tag,
+		count: moments.filter((m) => m.tags && m.tags.includes(tag)).length,
+	})),
+];
 
 const minutesAgo = i18n(I18nKey.diaryMinutesAgo);
 const hoursAgo = i18n(I18nKey.diaryHoursAgo);
 const daysAgo = i18n(I18nKey.diaryDaysAgo);
+
+const title = i18n(I18nKey.diary);
+const subtitle = i18n(I18nKey.diarySubtitle);
 ---
 
-<MainGridLayout title={i18n(I18nKey.diary)} description="即刻短文">
+<MainGridLayout title={title} description={subtitle}>
 	<script>
-		import('../scripts/right-sidebar-layout.js');
+		import("../scripts/right-sidebar-layout.js");
+		import { loadIconify } from "../utils/icon-loader";
+
+		loadIconify().catch((error) => {
+			console.error("Failed to load Iconify:", error);
+		});
 	</script>
 
-	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-		<div class="card-base z-10 px-4 py-4 md:px-6 md:py-5 relative w-full">
-			<div class="relative max-w-4xl w-full px-2 md:px-0">
-				<!-- 页面头部 -->
-				<div class="moments-header mb-6">
-					<div class="header-content">
-						<div class="header-info">
-							<h1 class="moments-title text-xl md:text-2xl lg:text-3xl font-bold text-90 mb-1">
-								{i18n(I18nKey.diary)}
+	<script is:inline src="/js/filter-tabs-handler.js"></script>
+
+	<div
+		class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32"
+	>
+		<div class="card-base z-10 relative w-full overflow-hidden">
+			<div class="px-6 sm:px-9 py-6">
+				<div
+					class="rounded-xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark,var(--primary))] p-5 sm:p-6"
+				>
+					<div
+						class="flex items-center justify-between gap-4"
+					>
+						<div class="min-w-0">
+							<h1
+								class="text-2xl sm:text-3xl font-bold text-white mb-1 drop-shadow-sm truncate"
+							>
+								{title}
 							</h1>
-							<p class="moments-subtitle text-sm md:text-base lg:text-lg text-75">
-								{i18n(I18nKey.diarySubtitle)}
+							<p
+								class="text-sm sm:text-base text-white/80 truncate"
+							>
+								{subtitle}
 							</p>
 						</div>
-						<div class="header-stats">
-							<div class="stat-item text-center">
-								<span class="stat-number text-lg md:text-xl lg:text-2xl font-bold text-[var(--primary)]">
-									{diaryStats.total}
-								</span>
-								<span class="stat-label text-xs md:text-sm lg:text-base text-75">
-									{i18n(I18nKey.diaryCount)}
-								</span>
-							</div>
+						<div class="shrink-0 text-center">
+							<span
+								class="block text-2xl sm:text-3xl font-bold text-white drop-shadow-sm"
+							>
+								{moments.length}
+							</span>
+							<span
+								class="block text-xs sm:text-sm text-white/70"
+							>
+								{i18n(I18nKey.diaryCount)}
+							</span>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<!-- 短文列表 -->
-				<div class="moments-timeline">
-					<div class="timeline-list space-y-4">
-						{moments.map((moment, index) => (
-							<MomentCard
-								moment={moment}
-								index={index}
-								minutesAgo={minutesAgo}
-								hoursAgo={hoursAgo}
-								daysAgo={daysAgo}
-							/>
-						))}
+			<div class="px-6 sm:px-9 pt-2 pb-6">
+				{moments.length > 0 && allTags.length > 0 && (
+					<div class="mb-8">
+						<FilterTabs tabs={filterTabs} dataAttr="tags" />
 					</div>
+				)}
+
+				<div id="diary-list" class="space-y-4">
+					{moments.map((moment, index) => (
+						<MomentCard
+							moment={moment}
+							index={index}
+							minutesAgo={minutesAgo}
+							hoursAgo={hoursAgo}
+							daysAgo={daysAgo}
+						/>
+					))}
 				</div>
 
-				<!-- 底部提示 -->
-				<div class="moments-tips text-center mt-6 md:mt-8 lg:mt-10 text-75 text-xs md:text-sm lg:text-base italic">
+				<div id="no-results" class="hidden text-center py-16">
+					<iconify-icon
+						icon="material-symbols:edit-note"
+						width="64"
+						height="64"
+						class="text-black/15 dark:text-white/15 mb-4"
+					></iconify-icon>
+					<p class="text-black/40 dark:text-white/40 text-lg">
+						{i18n(I18nKey.diaryNoResults)}
+					</p>
+				</div>
+
+				{moments.length === 0 && (
+					<div class="text-center py-16">
+						<iconify-icon
+							icon="material-symbols:edit-note"
+							width="64"
+							height="64"
+							class="text-black/15 dark:text-white/15 mb-4"
+						></iconify-icon>
+						<h3
+							class="text-lg font-medium text-black/90 dark:text-white/90 mb-2"
+						>
+							{i18n(I18nKey.diaryNoResults)}
+						</h3>
+					</div>
+				)}
+
+				<div
+					class="text-center mt-8 text-black/50 dark:text-white/50 text-sm italic"
+				>
 					{i18n(I18nKey.diaryTips)}
 				</div>
 			</div>
 		</div>
 	</div>
 </MainGridLayout>
-
-<style>
-	.moments-header {
-		padding: 1rem;
-		border-radius: 8px;
-		background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark, var(--primary)) 100%);
-		color: white;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.header-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		position: relative;
-		z-index: 1;
-	}
-
-	.moments-title {
-		color: white;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	}
-
-	.moments-subtitle {
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.stat-number {
-		color: white;
-	}
-
-	.stat-label {
-		color: rgba(255, 255, 255, 0.8);
-	}
-
-	/* 响应式设计 */
-	/* 手机端 (小于768px) */
-	@media (max-width: 768px) {
-		.moments-header {
-			padding: 0.75rem;
-		}
-
-		.header-content {
-			flex-direction: column;
-			text-align: center;
-			gap: 0.75rem;
-		}
-	}
-
-	/* 平板竖屏 (769px - 1280px) */
-	@media (min-width: 769px) and (max-width: 1280px) {
-		.moments-header {
-			padding: 1.25rem;
-		}
-
-		.header-content {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-	}
-
-	/* 平板横屏和桌面端 (大于1280px) */
-	@media (min-width: 1281px) {
-		.moments-header {
-			padding: 1.5rem;
-		}
-	}
-
-	/* 优化小屏幕显示 */
-	@media (max-width: 480px) {
-		.moments-header {
-			border-radius: 6px;
-		}
-	}
-</style>

@@ -35,6 +35,7 @@ export const zh_CN: Translation = {
 	[Key.friendsCopyLink]: "复制链接",
 	[Key.friendsCopySuccess]: "已复制",
 	[Key.friendsTags]: "标签",
+	[Key.friendsCount]: "个友链",
 	[Key.untitled]: "无标题",
 	[Key.uncategorized]: "未分类",
 	[Key.noTags]: "无标签",
@@ -109,6 +110,7 @@ export const zh_CN: Translation = {
 	[Key.diaryMinutesAgo]: "分钟前",
 	[Key.diaryHoursAgo]: "小时前",
 	[Key.diaryDaysAgo]: "天前",
+	[Key.diaryNoResults]: "暂无日记内容",
 
 	// 404页面
 	[Key.notFound]: "404",
@@ -148,6 +150,8 @@ export const zh_CN: Translation = {
 	[Key.albumsBackToList]: "返回相册",
 	[Key.albumsPhotoCount]: "张照片",
 	[Key.albumsPhotosCount]: "张照片",
+	[Key.albumsFilterAll]: "全部",
+	[Key.albumsNoResults]: "未找到匹配的相册",
 
 	// 设备页面
 	[Key.devices]: "我的设备",

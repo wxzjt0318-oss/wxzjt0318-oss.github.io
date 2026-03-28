@@ -35,6 +35,7 @@ export const en: Translation = {
 	[Key.friendsCopyLink]: "Copy Link",
 	[Key.friendsCopySuccess]: "Copied",
 	[Key.friendsTags]: "Tags",
+	[Key.friendsCount]: "friends",
 	[Key.untitled]: "Untitled",
 	[Key.uncategorized]: "Uncategorized",
 	[Key.noTags]: "No Tags",
@@ -113,6 +114,7 @@ export const en: Translation = {
 	[Key.diaryMinutesAgo]: "minutes ago",
 	[Key.diaryHoursAgo]: "hours ago",
 	[Key.diaryDaysAgo]: "days ago",
+	[Key.diaryNoResults]: "No diary entries",
 
 	// 404 Page
 	[Key.notFound]: "404",
@@ -159,6 +161,8 @@ export const en: Translation = {
 	[Key.devicesViewDetails]: "View Details",
 	[Key.albumsPhotoCount]: "photo",
 	[Key.albumsPhotosCount]: "photos",
+	[Key.albumsFilterAll]: "All",
+	[Key.albumsNoResults]: "No matching albums found",
 
 	// Projects Page
 	[Key.projects]: "Projects",

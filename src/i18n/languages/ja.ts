@@ -35,6 +35,7 @@ export const ja: Translation = {
 	[Key.friendsCopyLink]: "リンク",
 	[Key.friendsCopySuccess]: "コピーしました",
 	[Key.friendsTags]: "タグ",
+	[Key.friendsCount]: "件の友達",
 	[Key.untitled]: "無題",
 	[Key.uncategorized]: "未分類",
 	[Key.noTags]: "タグはありません",
@@ -113,6 +114,7 @@ export const ja: Translation = {
 	[Key.diaryMinutesAgo]: "分前",
 	[Key.diaryHoursAgo]: "時間前",
 	[Key.diaryDaysAgo]: "日前",
+	[Key.diaryNoResults]: "日記のエントリーはありません",
 
 	// 404ページ
 	[Key.notFound]: "404",
@@ -160,6 +162,8 @@ export const ja: Translation = {
 	[Key.devicesViewDetails]: "詳細を表示",
 	[Key.albumsPhotoCount]: "件の写真",
 	[Key.albumsPhotosCount]: "件の写真",
+	[Key.albumsFilterAll]: "すべて",
+	[Key.albumsNoResults]: "一致するアルバムが見つかりません",
 
 	// プロジェクトページ
 	[Key.projects]: "プロジェクト",

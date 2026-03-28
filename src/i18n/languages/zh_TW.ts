@@ -35,6 +35,7 @@ export const zh_TW: Translation = {
 	[Key.friendsCopyLink]: "複製鏈接",
 	[Key.friendsCopySuccess]: "已複製",
 	[Key.friendsTags]: "標籤",
+	[Key.friendsCount]: "個友鏈",
 	[Key.untitled]: "無標題",
 	[Key.uncategorized]: "未分類",
 	[Key.noTags]: "無標籤",
@@ -114,6 +115,7 @@ export const zh_TW: Translation = {
 	[Key.diaryMinutesAgo]: "分鐘前",
 	[Key.diaryHoursAgo]: "小時前",
 	[Key.diaryDaysAgo]: "天前",
+	[Key.diaryNoResults]: "暫無日記內容",
 
 	// 404頁面
 	[Key.notFound]: "404",
@@ -153,6 +155,8 @@ export const zh_TW: Translation = {
 	[Key.albumsBackToList]: "返回相冊",
 	[Key.albumsPhotoCount]: "張照片",
 	[Key.albumsPhotosCount]: "張照片",
+	[Key.albumsFilterAll]: "全部",
+	[Key.albumsNoResults]: "未找到匹配的相冊",
 
 	// 專案展示頁面
 	[Key.projects]: "專案展示",
