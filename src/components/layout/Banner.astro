@@ -1,7 +1,8 @@
 ---
 /**
- * Banner 组件 - 高性能版本
- * 支持：动态API获取图片、响应式图片、智能懒加载、图片缓存、失败重试、弱网络优化
+ * Banner 组件
+ * 支持动态API获取图片、轮播图模式、文字覆盖层和水波纹效果
+ * 轮播模式使用 Ken Burns + Crossfade 动画
  */
 
 import TypewriterText from "@components/atoms/typewriter-text/TypewriterText.astro";
@@ -56,12 +57,10 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`}
 	style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
 >
-	<!-- 骨架屏占位 -->
+	<!-- 骨架屏占位 - 图片加载时显示 -->
 	<div id="banner-skeleton" class="absolute inset-0 z-0 banner-skeleton">
-		<div class="banner-loading-text absolute inset-0 flex flex-col items-center justify-center">
-			<div class="banner-spinner mb-3"></div>
-			<div class="text-white/60 text-lg" id="banner-loading-status">加载中...</div>
-			<div class="text-white/40 text-xs mt-1" id="banner-loading-progress"></div>
+		<div class="banner-loading-text absolute inset-0 flex items-center justify-center">
+			<div class="text-white/60 text-lg animate-pulse">加载中...</div>
 		</div>
 	</div>
 	
@@ -73,6 +72,7 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		data-fade-ms={fadeMs}
 		data-position={siteConfig.banner.position}
 	>
+		<!-- 图片将通过JavaScript动态加载 -->
 	</div>
 
 	{siteConfig.banner.homeText?.enable && (
@@ -211,13 +211,9 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	fallbackDesktopImages,
 	fallbackMobileImages
 }}>
-(function initHighPerfBanner() {
-	'use strict';
-	
+(function initDynamicBanner() {
 	var container = document.getElementById('banner-carousel');
 	var skeleton = document.getElementById('banner-skeleton');
-	var loadingStatus = document.getElementById('banner-loading-status');
-	var loadingProgress = document.getElementById('banner-loading-progress');
 	if (!container) return;
 
 	var position = container.dataset.position || 'center';
@@ -230,15 +226,6 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	var currentIndex = { desktop: 0, mobile: 0 };
 	var isCrossfading = { desktop: false, mobile: false };
 	var carouselTimer = null;
-	var imageCache = new Map();
-	var MAX_RETRIES = 3;
-	var RETRY_DELAY = 1000;
-	var LOAD_TIMEOUT = 15000;
-
-	function updateLoadingStatus(status, progress) {
-		if (loadingStatus) loadingStatus.textContent = status;
-		if (loadingProgress) loadingProgress.textContent = progress || '';
-	}
 
 	function hideSkeleton() {
 		if (skeleton) {
@@ -250,100 +237,17 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		}
 	}
 
-	function showSkeletonError(message, showRetry) {
+	function showSkeletonError(message) {
 		if (skeleton) {
 			var loadingText = skeleton.querySelector('.banner-loading-text');
 			if (loadingText) {
-				var html = '<div class="text-white/40 text-sm mb-2">' + message + '</div>';
-				if (showRetry) {
-					html += '<button onclick="location.reload()" class="px-4 py-1 bg-white/20 hover:bg-white/30 rounded text-white/70 text-xs transition">重新加载</button>';
-				}
-				loadingText.innerHTML = html;
+				loadingText.innerHTML = '<div class="text-white/40 text-sm">' + (message || '图片加载失败') + '</div>';
 			}
 		}
 	}
 
 	function isMobile() {
 		return window.innerWidth < 768;
-	}
-
-	function getCachedImage(src) {
-		if (imageCache.has(src)) {
-			var cached = imageCache.get(src);
-			if (cached.status === 'loaded') {
-				return cached.blob;
-			}
-		}
-		return null;
-	}
-
-	function setCachedImage(src, blob) {
-		imageCache.set(src, { status: 'loaded', blob: blob, timestamp: Date.now() });
-		if (imageCache.size > 20) {
-			var oldestKey = imageCache.keys().next().value;
-			imageCache.delete(oldestKey);
-		}
-	}
-
-	function loadImageWithRetry(src, retryNum) {
-		if (retryNum === undefined) retryNum = 0;
-		
-		return new Promise(function(resolve, reject) {
-			var cached = getCachedImage(src);
-			if (cached) {
-				resolve(URL.createObjectURL(cached));
-				return;
-			}
-
-			var timeoutId = setTimeout(function() {
-				img.onload = null;
-				img.onerror = null;
-				if (retryNum < MAX_RETRIES) {
-					console.warn('[Banner] Image timeout, retrying:', retryNum + 1, src);
-					setTimeout(function() {
-						loadImageWithRetry(src, retryNum + 1).then(resolve).catch(reject);
-					}, RETRY_DELAY * (retryNum + 1));
-				} else {
-					reject(new Error('Image load timeout after ' + MAX_RETRIES + ' retries'));
-				}
-			}, LOAD_TIMEOUT);
-
-			var img = new Image();
-			img.crossOrigin = 'anonymous';
-			
-			img.onload = function() {
-				clearTimeout(timeoutId);
-				try {
-					var canvas = document.createElement('canvas');
-					canvas.width = img.naturalWidth;
-					canvas.height = img.naturalHeight;
-					var ctx = canvas.getContext('2d');
-					ctx.drawImage(img, 0, 0);
-					canvas.toBlob(function(blob) {
-						if (blob) {
-							setCachedImage(src, blob);
-						}
-						resolve(src);
-					}, 'image/webp', 0.85);
-				} catch (e) {
-					resolve(src);
-				}
-			};
-			
-			img.onerror = function() {
-				clearTimeout(timeoutId);
-				if (retryNum < MAX_RETRIES) {
-					console.warn('[Banner] Image error, retrying:', retryNum + 1, src);
-					setTimeout(function() {
-						loadImageWithRetry(src, retryNum + 1).then(resolve).catch(reject);
-					}, RETRY_DELAY * (retryNum + 1));
-				} else {
-					reject(new Error('Image load failed after ' + MAX_RETRIES + ' retries'));
-				}
-			};
-			
-			img.src = src;
-		});
 	}
 
 	function createImageElement(src, type, index) {
@@ -355,7 +259,6 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		img.fetchPriority = index === 0 ? 'high' : 'low';
 		img.dataset.position = position;
 		img.style.objectPosition = position;
-		img.decoding = index === 0 ? 'sync' : 'async';
 		return img;
 	}
 
@@ -372,71 +275,63 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		return slot;
 	}
 
+	function preloadImage(src) {
+		return new Promise(function(resolve, reject) {
+			var img = new Image();
+			img.onload = function() { resolve(src); };
+			img.onerror = function() { reject(src); };
+			img.src = src;
+		});
+	}
+
 	async function preloadImages(urls, type) {
-		var total = urls.length;
-		var loaded = 0;
-		
 		var promises = urls.map(async function(url, index) {
 			try {
-				await loadImageWithRetry(url);
+				await preloadImage(url);
 				loadedImages[type][index] = true;
-				loaded++;
-				updateLoadingStatus('预加载图片', loaded + '/' + total);
 				return { success: true, src: url, index: index };
-			} catch (error) {
+			} catch (src) {
 				loadedImages[type][index] = false;
-				loaded++;
-				return { success: false, src: url, index: index, error: error };
+				return { success: false, src: src, index: index };
 			}
 		});
-		
 		return Promise.all(promises);
 	}
 
-	async function showFirstImage() {
+	function showFirstImage() {
 		var type = isMobile() ? 'mobile' : 'desktop';
 		var images = type === 'mobile' ? mobileImages : desktopImages;
 		
 		if (images.length === 0) {
 			hideSkeleton();
-			showSkeletonError('暂无图片资源', true);
+			showSkeletonError('暂无图片');
 			return;
 		}
 
-		updateLoadingStatus('加载首张图片...', '');
-
-		try {
-			await loadImageWithRetry(images[0]);
-			
-			var slot = createImageSlot(type, 0, images[0]);
-			var img = slot.querySelector('img');
-			
-			if (img.complete) {
+		var slot = createImageSlot(type, 0, images[0]);
+		var img = slot.querySelector('img');
+		
+		if (img.complete) {
+			slot.style.opacity = '1';
+			hideSkeleton();
+			container.appendChild(slot);
+			if (isCarouselEnabled) {
+				slot.classList.add('banner-kb');
+			}
+		} else {
+			img.onload = function() {
 				slot.style.opacity = '1';
 				hideSkeleton();
-				container.appendChild(slot);
 				if (isCarouselEnabled) {
 					slot.classList.add('banner-kb');
 				}
-			} else {
-				img.onload = function() {
-					slot.style.opacity = '1';
-					hideSkeleton();
-					if (isCarouselEnabled) {
-						slot.classList.add('banner-kb');
-					}
-				};
-				img.onerror = function() {
-					console.warn('[Banner] First image display failed');
-					hideSkeleton();
-					showSkeletonError('图片显示失败', true);
-				};
-				container.appendChild(slot);
-			}
-		} catch (error) {
-			console.error('[Banner] Failed to load first image:', error);
-			hideSkeleton();
-			showSkeletonError('图片加载失败，请检查网络', true);
+			};
+			img.onerror = function() {
+				console.warn('First banner image failed to load:', images[0]);
+				hideSkeleton();
+				showSkeletonError('首张图片加载失败');
+			};
+			container.appendChild(slot);
 		}
 	}
 
@@ -533,43 +428,12 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		}
 	}
 
-	function checkNetworkStatus() {
-		if (navigator.connection) {
-			var connection = navigator.connection;
-			var slowConnection = connection.effectiveType === '2g' || connection.effectiveType === 'slow-2g';
-			var saveData = connection.saveData;
-			
-			if (slowConnection || saveData) {
-				console.log('[Banner] Slow network detected, optimizing loading');
-				LOAD_TIMEOUT = 30000;
-				return true;
-			}
-		}
-		return false;
-	}
-
 	async function fetchBannerImages() {
 		var imageCount = 6;
-		var isSlowNetwork = checkNetworkStatus();
-		
-		if (isSlowNetwork) {
-			updateLoadingStatus('检测到慢速网络，优化加载中...', '');
-		}
 		
 		try {
-			var controller = new AbortController();
-			var timeoutId = setTimeout(function() {
-				controller.abort();
-			}, 10000);
-
-			var desktopResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=desktop', {
-				signal: controller.signal
-			});
-			var mobileResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=mobile', {
-				signal: controller.signal
-			});
-			
-			clearTimeout(timeoutId);
+			var desktopResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=desktop');
+			var mobileResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=mobile');
 			
 			if (desktopResponse.ok && mobileResponse.ok) {
 				var desktopData = await desktopResponse.json();
@@ -585,7 +449,7 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 				throw new Error('API response not ok');
 			}
 		} catch (error) {
-			console.warn('[Banner] Failed to fetch from API, using fallback:', error);
+			console.warn('Failed to fetch banner images from API, using fallback:', error);
 			desktopImages = Array.isArray(fallbackDesktopImages) ? fallbackDesktopImages : [fallbackDesktopImages];
 			mobileImages = Array.isArray(fallbackMobileImages) ? fallbackMobileImages : [fallbackMobileImages];
 		}
@@ -597,7 +461,7 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 			mobileImages = fallbackMobileImages;
 		}
 
-		await showFirstImage();
+		showFirstImage();
 		
 		if (isCarouselEnabled && (desktopImages.length > 1 || mobileImages.length > 1)) {
 			preloadImages(desktopImages.slice(1), 'desktop');
@@ -620,7 +484,6 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		}
 		container.removeEventListener('touchstart', handleTouchStart);
 		container.removeEventListener('touchend', handleTouchEnd);
-		imageCache.clear();
 	};
 
 	fetchBannerImages();
@@ -685,20 +548,5 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	.banner-loading-text {
 		z-index: 1;
-	}
-
-	.banner-spinner {
-		width: 32px;
-		height: 32px;
-		border: 3px solid rgba(255, 255, 255, 0.2);
-		border-top-color: rgba(255, 255, 255, 0.8);
-		border-radius: 50%;
-		animation: bannerSpin 1s linear infinite;
-	}
-
-	@keyframes bannerSpin {
-		to {
-			transform: rotate(360deg);
-		}
 	}
 </style>

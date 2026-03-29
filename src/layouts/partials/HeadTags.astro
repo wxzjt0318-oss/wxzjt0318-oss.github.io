@@ -130,12 +130,6 @@ const cdnDomains = [
 <link rel="preconnect" href="https://www.dmoe.cc" crossorigin />
 <link rel="dns-prefetch" href="https://www.dmoe.cc" />
 
-<!-- Banner API 预连接 - 加速图片列表获取 -->
-<link rel="preconnect" href="/" />
-
-<!-- 预加载关键资源 -->
-<link rel="preload" href="/api/banner-images.json?count=6&type=desktop" as="fetch" crossorigin />
-
 <!-- 字体预加载（使用压缩后的 woff2 格式） -->
 <!-- 注意：字体文件由 scripts/compress-fonts.js 在构建时生成到 /assets/font/ 目录 -->
 <!-- 仅预加载主要字体，次要字体使用 font-display: swap 延迟加载 -->
