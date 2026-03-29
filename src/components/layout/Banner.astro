@@ -532,9 +532,12 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 		var imageCount = 6;
 		var imageFormat = 'webp';
+		var cacheBuster = Date.now();
 		
 		try {
-			var response = await fetch('/api/banner-images.json?count=' + imageCount + '&format=' + imageFormat);
+			var response = await fetch('/api/banner-images.json?count=' + imageCount + '&format=' + imageFormat + '&_t=' + cacheBuster, {
+				cache: 'no-store'
+			});
 			
 			if (response.ok) {
 				var data = await response.json();
