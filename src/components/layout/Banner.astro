@@ -1,21 +1,16 @@
 ---
 /**
  * Banner 组件
- * 支持单图模式和轮播图模式，包含文字覆盖层和水波纹效果
- * 轮播模式使用 Ken Burns + Crossfade 动画（参考 Firefly 实现）
+ * 支持动态API获取图片、轮播图模式、文字覆盖层和水波纹效果
+ * 轮播模式使用 Ken Burns + Crossfade 动画
  */
 
 import TypewriterText from "@components/atoms/typewriter-text/TypewriterText.astro";
-import Image from "@components/atoms/Image/Image.astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "../../config";
 import { BANNER_HEIGHT_EXTEND } from "../../constants/constants";
 
 interface Props {
-	bannerImages: {
-		desktop: string | string[];
-		mobile: string | string[];
-	};
 	mobileNonHomeBannerClass?: string;
 	showTextOverlay?: boolean;
 	overlayTitle?: string;
@@ -25,7 +20,6 @@ interface Props {
 }
 
 const {
-	bannerImages,
 	mobileNonHomeBannerClass = "",
 	showTextOverlay = false,
 	overlayTitle = siteConfig.banner.homeText?.title,
@@ -34,27 +28,28 @@ const {
 	showWave = siteConfig.banner.waves?.enable ?? true,
 } = Astro.props;
 
-const normalizeToArray = (images: string | string[]): string[] =>
-	Array.isArray(images) ? images : [images];
-
-const desktopImages = normalizeToArray(bannerImages.desktop).filter(Boolean);
-const mobileImages = normalizeToArray(bannerImages.mobile).filter(Boolean);
-
-const isCarouselEnabled =
-	siteConfig.banner.carousel?.enable &&
-	(desktopImages.length > 1 || mobileImages.length > 1);
-
+const isCarouselEnabled = siteConfig.banner.carousel?.enable;
 const carouselIntervalMs = Math.max(
 	(siteConfig.banner.carousel?.interval || 6) * 1000,
 	1500,
 );
-
 const fadeMs = Math.min(Math.max(Math.round(carouselIntervalMs * 0.4), 500), 1500);
-
 const kbDurationMs = carouselIntervalMs + fadeMs;
 
 const hasBannerCredit = siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;
+
+const bannerSrc = siteConfig.banner.src;
+let fallbackDesktopImages: string | string[];
+let fallbackMobileImages: string | string[];
+
+if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
+	fallbackDesktopImages = bannerSrc;
+	fallbackMobileImages = bannerSrc;
+} else {
+	fallbackDesktopImages = bannerSrc.desktop || [];
+	fallbackMobileImages = bannerSrc.mobile || [];
+}
 ---
 
 <div
@@ -62,132 +57,23 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 	class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`}
 	style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
 >
-	{isCarouselEnabled ? (
-		<div
-			id="banner-carousel"
-			class="relative h-full w-full"
-			data-mobile-count={mobileImages.length}
-			data-desktop-count={desktopImages.length}
-			data-carousel-interval={carouselIntervalMs}
-			data-fade-ms={fadeMs}
-		>
-			{mobileImages.length > 0 && (
-				<div class="banner-image-slot-mobile absolute inset-0 block md:hidden">
-					<Image
-						alt="Mobile banner image 1"
-						class="object-cover h-full w-full"
-						src={mobileImages[0]}
-						position={siteConfig.banner.position}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</div>
-			)}
-			{mobileImages.slice(1).map((src, i) => (
-				<template class="banner-tpl-mobile">
-					<Image
-						alt={`Mobile banner image ${i + 2}`}
-						class="object-cover h-full w-full"
-						src={src}
-						position={siteConfig.banner.position}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</template>
-			))}
-
-			{desktopImages.length > 0 && (
-				<div class="banner-image-slot-desktop absolute inset-0 hidden md:block">
-					<Image
-						id="banner"
-						alt="Desktop banner image 1"
-						class="object-cover h-full w-full"
-						src={desktopImages[0]}
-						position={siteConfig.banner.position}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</div>
-			)}
-			{desktopImages.slice(1).map((src, i) => (
-				<template class="banner-tpl-desktop">
-					<Image
-						alt={`Desktop banner image ${i + 2}`}
-						class="object-cover h-full w-full"
-						src={src}
-						position={siteConfig.banner.position}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</template>
-			))}
+	<!-- 骨架屏占位 - 图片加载时显示 -->
+	<div id="banner-skeleton" class="absolute inset-0 z-0 banner-skeleton">
+		<div class="banner-loading-text absolute inset-0 flex items-center justify-center">
+			<div class="text-white/60 text-lg animate-pulse">加载中...</div>
 		</div>
-	) : (
-		<div id="banner-single-container" class="relative h-full w-full">
-			<script
-				is:inline
-				define:vars={{
-					desktopImages: bannerImages.desktop,
-					mobileImages: bannerImages.mobile,
-					position: siteConfig.banner.position,
-				}}
-			>
-				(function () {
-					const getRandomImage = (images, storageKey) => {
-						if (Array.isArray(images)) {
-							if (images.length === 0) {return null;}
-							if (images.length === 1) {return images[0];}
-
-							const lastIndex = sessionStorage.getItem(storageKey);
-							let newIndex;
-
-							do {
-								newIndex = Math.floor(Math.random() * images.length);
-							} while (newIndex === parseInt(lastIndex || "-1"));
-
-							sessionStorage.setItem(storageKey, newIndex.toString());
-							return images[newIndex];
-						}
-						return images || null;
-					};
-
-					const container = document.getElementById("banner-single-container");
-
-					if (container.querySelector("img")) {
-						return;
-					}
-
-					const desktopSrc = getRandomImage(desktopImages, "banner_desktop_index");
-					const mobileSrc = getRandomImage(mobileImages, "banner_mobile_index");
-
-					if (mobileSrc) {
-						const mobileImg = document.createElement("img");
-						mobileImg.alt = "Mobile banner image of the blog";
-						mobileImg.className =
-							"block md:hidden object-cover h-full w-full transition duration-700 opacity-100";
-						mobileImg.src = mobileSrc;
-						mobileImg.loading = "eager";
-						mobileImg.fetchPriority = "high";
-						mobileImg.dataset.position = position;
-						container.appendChild(mobileImg);
-					}
-
-					if (desktopSrc) {
-						const desktopImg = document.createElement("img");
-						desktopImg.id = "banner";
-						desktopImg.alt = "Desktop banner image of the blog";
-						desktopImg.className =
-							"hidden md:block object-cover h-full w-full transition duration-700 opacity-100";
-						desktopImg.src = desktopSrc;
-						desktopImg.loading = "eager";
-						desktopImg.fetchPriority = "high";
-						desktopImg.dataset.position = position;
-						container.appendChild(desktopImg);
-					}
-				})();
-			</script>
-		</div>
-	)}
+	</div>
+	
+	<!-- 图片容器 -->
+	<div
+		id="banner-carousel"
+		class="relative h-full w-full"
+		data-carousel-interval={carouselIntervalMs}
+		data-fade-ms={fadeMs}
+		data-position={siteConfig.banner.position}
+	>
+		<!-- 图片将通过JavaScript动态加载 -->
+	</div>
 
 	{siteConfig.banner.homeText?.enable && (
 		<div class={`banner-text-overlay absolute inset-0 z-20 flex items-center justify-center ${!showTextOverlay ? "hidden" : ""}`}>
@@ -318,227 +204,291 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 	</style>`} />
 )}
 
-{isCarouselEnabled && (
-	<script is:inline data-swup-ignore-script>
-		(function initBannerCarousel() {
-			var container = document.getElementById('banner-carousel');
-			if (!container) return;
+<script is:inline data-swup-ignore-script define:vars={{ 
+	isCarouselEnabled, 
+	carouselIntervalMs, 
+	fadeMs,
+	fallbackDesktopImages,
+	fallbackMobileImages
+}}>
+(function initDynamicBanner() {
+	var container = document.getElementById('banner-carousel');
+	var skeleton = document.getElementById('banner-skeleton');
+	if (!container) return;
 
-			var mobileCount = parseInt(container.dataset.mobileCount || '0', 10);
-			var desktopCount = parseInt(container.dataset.desktopCount || '0', 10);
-			var interval = parseInt(container.dataset.carouselInterval || '6000', 10);
-			var FADE_MS = parseInt(container.dataset.fadeMs || '1500', 10);
+	var position = container.dataset.position || 'center';
+	var interval = parseInt(container.dataset.carouselInterval || '6000', 10);
+	var FADE_MS = parseInt(container.dataset.fadeMs || '1500', 10);
 
-			if (mobileCount <= 1 && desktopCount <= 1) return;
+	var desktopImages = [];
+	var mobileImages = [];
+	var loadedImages = { desktop: [], mobile: [] };
+	var currentIndex = { desktop: 0, mobile: 0 };
+	var isCrossfading = { desktop: false, mobile: false };
+	var carouselTimer = null;
 
-			if (window.__bannerCarouselCleanup) {
-				window.__bannerCarouselCleanup();
-				window.__bannerCarouselCleanup = null;
+	function hideSkeleton() {
+		if (skeleton) {
+			skeleton.style.transition = 'opacity 0.5s ease';
+			skeleton.style.opacity = '0';
+			setTimeout(function() {
+				skeleton.style.display = 'none';
+			}, 500);
+		}
+	}
+
+	function showSkeletonError(message) {
+		if (skeleton) {
+			var loadingText = skeleton.querySelector('.banner-loading-text');
+			if (loadingText) {
+				loadingText.innerHTML = '<div class="text-white/40 text-sm">' + (message || '图片加载失败') + '</div>';
 			}
+		}
+	}
 
-			if (typeof window.__bannerInitialFrameHtml === 'undefined') {
-				window.__bannerInitialFrameHtml = {};
+	function isMobile() {
+		return window.innerWidth < 768;
+	}
+
+	function createImageElement(src, type, index) {
+		var img = document.createElement('img');
+		img.alt = type + ' banner image ' + (index + 1);
+		img.className = 'object-cover h-full w-full';
+		img.src = src;
+		img.loading = index === 0 ? 'eager' : 'lazy';
+		img.fetchPriority = index === 0 ? 'high' : 'low';
+		img.dataset.position = position;
+		img.style.objectPosition = position;
+		return img;
+	}
+
+	function createImageSlot(type, index, imgSrc) {
+		var slot = document.createElement('div');
+		slot.className = type === 'mobile' 
+			? 'banner-image-slot-mobile absolute inset-0 block md:hidden'
+			: 'banner-image-slot-desktop absolute inset-0 hidden md:block';
+		slot.dataset.index = index;
+		
+		var img = createImageElement(imgSrc, type, index);
+		slot.appendChild(img);
+		
+		return slot;
+	}
+
+	function preloadImage(src) {
+		return new Promise(function(resolve, reject) {
+			var img = new Image();
+			img.onload = function() { resolve(src); };
+			img.onerror = function() { reject(src); };
+			img.src = src;
+		});
+	}
+
+	async function preloadImages(urls, type) {
+		var promises = urls.map(async function(url, index) {
+			try {
+				await preloadImage(url);
+				loadedImages[type][index] = true;
+				return { success: true, src: url, index: index };
+			} catch (src) {
+				loadedImages[type][index] = false;
+				return { success: false, src: src, index: index };
 			}
+		});
+		return Promise.all(promises);
+	}
 
-			function rememberInitialFrame(slotClass) {
-				var slot = container.querySelector('.' + slotClass);
-				if (!slot) return;
-				if (!window.__bannerInitialFrameHtml[slotClass]) {
-					window.__bannerInitialFrameHtml[slotClass] = slot.innerHTML;
-				}
-			}
+	function showFirstImage() {
+		var type = isMobile() ? 'mobile' : 'desktop';
+		var images = type === 'mobile' ? mobileImages : desktopImages;
+		
+		if (images.length === 0) {
+			hideSkeleton();
+			showSkeletonError('暂无图片');
+			return;
+		}
 
-			rememberInitialFrame('banner-image-slot-mobile');
-			rememberInitialFrame('banner-image-slot-desktop');
-
-			if (typeof window.__bannerRandomIndex === 'undefined') {
-				window.__bannerRandomIndex = {
-					mobile: mobileCount > 1 ? Math.floor(Math.random() * mobileCount) : 0,
-					desktop: desktopCount > 1 ? Math.floor(Math.random() * desktopCount) : 0
-				};
-			}
-
-			function applyRandom(slotClass, tplClass, randomIndex) {
-				if (randomIndex === 0) return;
-				var slot = container.querySelector('.' + slotClass);
-				var templates = container.querySelectorAll('.' + tplClass);
-				if (!slot || !templates.length) return;
-				var tpl = templates[randomIndex - 1];
-				if (!tpl) return;
-				slot.innerHTML = '';
-				slot.appendChild(tpl.content.cloneNode(true));
-			}
-
-			applyRandom('banner-image-slot-mobile', 'banner-tpl-mobile', window.__bannerRandomIndex.mobile);
-			applyRandom('banner-image-slot-desktop', 'banner-tpl-desktop', window.__bannerRandomIndex.desktop);
-
-			if (!window.__bannerCarouselFrames) window.__bannerCarouselFrames = {};
-
-			function collectFrames(slotClass, tplClass) {
-				if (window.__bannerCarouselFrames[slotClass]) return;
-				var frames = [];
-				var initialFrame = window.__bannerInitialFrameHtml && window.__bannerInitialFrameHtml[slotClass];
-				var slot = container.querySelector('.' + slotClass);
-				if (initialFrame) {
-					frames.push(initialFrame);
-				} else if (slot) {
-					frames.push(slot.innerHTML);
-				}
-				var tpls = container.querySelectorAll('.' + tplClass);
-				for (var i = 0; i < tpls.length; i++) {
-					frames.push(tpls[i].innerHTML);
-				}
-				window.__bannerCarouselFrames[slotClass] = frames;
-			}
-
-			collectFrames('banner-image-slot-mobile', 'banner-tpl-mobile');
-			collectFrames('banner-image-slot-desktop', 'banner-tpl-desktop');
-
-			if (typeof window.__bannerCarouselIndex === 'undefined') {
-				window.__bannerCarouselIndex = {
-					mobile: window.__bannerRandomIndex ? window.__bannerRandomIndex.mobile : 0,
-					desktop: window.__bannerRandomIndex ? window.__bannerRandomIndex.desktop : 0
-				};
-			}
-
-			function isSlotHiddenByBreakpoint(slot) {
-				var cl = slot.classList;
-				var isMd = window.matchMedia('(min-width: 768px)').matches;
-				if (cl.contains('md:hidden') && isMd) return true;
-				if (cl.contains('hidden') && !cl.contains('md:hidden') && !isMd) return true;
-				return false;
-			}
-
-			function applyInitialKB(slotClass) {
-				var slot = container.querySelector('.' + slotClass);
-				if (!slot || isSlotHiddenByBreakpoint(slot)) return;
-				slot.classList.remove('banner-kb');
-				void slot.offsetWidth;
+		var slot = createImageSlot(type, 0, images[0]);
+		var img = slot.querySelector('img');
+		
+		if (img.complete) {
+			slot.style.opacity = '1';
+			hideSkeleton();
+			container.appendChild(slot);
+			if (isCarouselEnabled) {
 				slot.classList.add('banner-kb');
 			}
-
-			var isCrossfading = { mobile: false, desktop: false };
-
-			function cleanupOrphanedLayers(slotClass, currentSlot) {
-				var allSlots = container.querySelectorAll('.' + slotClass);
-				for (var i = 0; i < allSlots.length; i++) {
-					if (allSlots[i] !== currentSlot && allSlots[i].parentNode) {
-						allSlots[i].parentNode.removeChild(allSlots[i]);
-					}
+		} else {
+			img.onload = function() {
+				slot.style.opacity = '1';
+				hideSkeleton();
+				if (isCarouselEnabled) {
+					slot.classList.add('banner-kb');
 				}
-			}
-
-			function crossfadeToIndex(slotClass, totalCount, type, targetIndex) {
-				if (totalCount <= 1) return;
-				if (isCrossfading[type]) return;
-
-				var frames = window.__bannerCarouselFrames[slotClass];
-				if (!frames || frames.length === 0) return;
-
-				var oldSlot = container.querySelector('.' + slotClass);
-				if (!oldSlot) return;
-				if (isSlotHiddenByBreakpoint(oldSlot)) return;
-
-				isCrossfading[type] = true;
-				window.__bannerCarouselIndex[type] = targetIndex;
-
-				cleanupOrphanedLayers(slotClass, oldSlot);
-
-				var newSlot = document.createElement('div');
-				newSlot.className = slotClass + ' absolute inset-0';
-				if (type === 'mobile') {
-					newSlot.classList.add('block', 'md:hidden');
-				} else {
-					newSlot.classList.add('hidden', 'md:block');
-				}
-				newSlot.innerHTML = frames[targetIndex];
-				newSlot.style.opacity = '0';
-				newSlot.style.zIndex = '2';
-
-				var img = newSlot.querySelector('img');
-				if (img) {
-					img.classList.add('banner-kb');
-				}
-
-				oldSlot.style.zIndex = '1';
-				oldSlot.style.opacity = '1';
-				container.appendChild(newSlot);
-
-				void newSlot.offsetWidth;
-
-				newSlot.style.transition = 'opacity ' + FADE_MS + 'ms ease-in-out';
-				newSlot.style.opacity = '1';
-
-				oldSlot.style.transition = 'opacity ' + FADE_MS + 'ms ease-in-out';
-				oldSlot.style.opacity = '0';
-
-				setTimeout(function() {
-					if (oldSlot.parentNode) {
-						oldSlot.parentNode.removeChild(oldSlot);
-					}
-					isCrossfading[type] = false;
-				}, FADE_MS);
-			}
-
-			function advanceCarousel() {
-				var isMd = window.matchMedia('(min-width: 768px)').matches;
-
-				if (isMd && desktopCount > 1) {
-					var nextDesktop = (window.__bannerCarouselIndex.desktop + 1) % desktopCount;
-					crossfadeToIndex('banner-image-slot-desktop', desktopCount, 'desktop', nextDesktop);
-				} else if (!isMd && mobileCount > 1) {
-					var nextMobile = (window.__bannerCarouselIndex.mobile + 1) % mobileCount;
-					crossfadeToIndex('banner-image-slot-mobile', mobileCount, 'mobile', nextMobile);
-				}
-			}
-
-			applyInitialKB('banner-image-slot-mobile');
-			applyInitialKB('banner-image-slot-desktop');
-
-			var carouselTimer = setInterval(advanceCarousel, interval);
-
-			var touchStartX = 0;
-			var touchEndX = 0;
-
-			function handleTouchStart(e) {
-				touchStartX = e.touches[0].clientX;
-			}
-
-			function handleTouchEnd(e) {
-				touchEndX = e.changedTouches[0].clientX;
-				handleSwipe();
-			}
-
-			function handleSwipe() {
-				var diff = touchStartX - touchEndX;
-				if (Math.abs(diff) > 50) {
-					var isMd = window.matchMedia('(min-width: 768px)').matches;
-
-					if (isMd && desktopCount > 1) {
-						var nextIndex = diff > 0
-							? (window.__bannerCarouselIndex.desktop + 1) % desktopCount
-							: (window.__bannerCarouselIndex.desktop - 1 + desktopCount) % desktopCount;
-						crossfadeToIndex('banner-image-slot-desktop', desktopCount, 'desktop', nextIndex);
-					} else if (!isMd && mobileCount > 1) {
-						var nextIndex = diff > 0
-							? (window.__bannerCarouselIndex.mobile + 1) % mobileCount
-							: (window.__bannerCarouselIndex.mobile - 1 + mobileCount) % mobileCount;
-						crossfadeToIndex('banner-image-slot-mobile', mobileCount, 'mobile', nextIndex);
-					}
-				}
-			}
-
-			container.addEventListener('touchstart', handleTouchStart, { passive: true });
-			container.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-			window.__bannerCarouselCleanup = function() {
-				clearInterval(carouselTimer);
-				container.removeEventListener('touchstart', handleTouchStart);
-				container.removeEventListener('touchend', handleTouchEnd);
 			};
-		})();
-	</script>
-)}
+			img.onerror = function() {
+				console.warn('First banner image failed to load:', images[0]);
+				hideSkeleton();
+				showSkeletonError('首张图片加载失败');
+			};
+			container.appendChild(slot);
+		}
+	}
+
+	function crossfadeToIndex(type, targetIndex) {
+		var images = type === 'mobile' ? mobileImages : desktopImages;
+		if (images.length <= 1) return;
+		if (isCrossfading[type]) return;
+		if (targetIndex >= images.length) targetIndex = 0;
+		if (targetIndex < 0) targetIndex = images.length - 1;
+
+		var slotClass = type === 'mobile' 
+			? 'banner-image-slot-mobile' 
+			: 'banner-image-slot-desktop';
+		
+		var oldSlot = container.querySelector('.' + slotClass);
+		if (!oldSlot) return;
+
+		isCrossfading[type] = true;
+		currentIndex[type] = targetIndex;
+
+		var newSlot = createImageSlot(type, targetIndex, images[targetIndex]);
+		newSlot.style.opacity = '0';
+		newSlot.style.zIndex = '2';
+
+		var img = newSlot.querySelector('img');
+		if (img && isCarouselEnabled) {
+			img.classList.add('banner-kb');
+		}
+
+		oldSlot.style.zIndex = '1';
+		oldSlot.style.opacity = '1';
+		container.appendChild(newSlot);
+
+		void newSlot.offsetWidth;
+
+		newSlot.style.transition = 'opacity ' + FADE_MS + 'ms ease-in-out';
+		newSlot.style.opacity = '1';
+
+		oldSlot.style.transition = 'opacity ' + FADE_MS + 'ms ease-in-out';
+		oldSlot.style.opacity = '0';
+
+		setTimeout(function() {
+			if (oldSlot.parentNode) {
+				oldSlot.parentNode.removeChild(oldSlot);
+			}
+			isCrossfading[type] = false;
+		}, FADE_MS);
+	}
+
+	function advanceCarousel() {
+		var type = isMobile() ? 'mobile' : 'desktop';
+		var images = type === 'mobile' ? mobileImages : desktopImages;
+		
+		if (images.length > 1) {
+			var nextIndex = (currentIndex[type] + 1) % images.length;
+			crossfadeToIndex(type, nextIndex);
+		}
+	}
+
+	function startCarousel() {
+		if (!isCarouselEnabled) return;
+		
+		if (carouselTimer) {
+			clearInterval(carouselTimer);
+		}
+		
+		carouselTimer = setInterval(advanceCarousel, interval);
+	}
+
+	var touchStartX = 0;
+	var touchEndX = 0;
+
+	function handleTouchStart(e) {
+		touchStartX = e.touches[0].clientX;
+	}
+
+	function handleTouchEnd(e) {
+		touchEndX = e.changedTouches[0].clientX;
+		handleSwipe();
+	}
+
+	function handleSwipe() {
+		var diff = touchStartX - touchEndX;
+		if (Math.abs(diff) > 50) {
+			var type = isMobile() ? 'mobile' : 'desktop';
+			var images = type === 'mobile' ? mobileImages : desktopImages;
+			
+			if (images.length > 1) {
+				var nextIndex = diff > 0
+					? (currentIndex[type] + 1) % images.length
+					: (currentIndex[type] - 1 + images.length) % images.length;
+				crossfadeToIndex(type, nextIndex);
+			}
+		}
+	}
+
+	async function fetchBannerImages() {
+		var imageCount = 6;
+		
+		try {
+			var desktopResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=desktop');
+			var mobileResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=mobile');
+			
+			if (desktopResponse.ok && mobileResponse.ok) {
+				var desktopData = await desktopResponse.json();
+				var mobileData = await mobileResponse.json();
+				
+				if (desktopData.images && desktopData.images.length > 0) {
+					desktopImages = desktopData.images;
+				}
+				if (mobileData.images && mobileData.images.length > 0) {
+					mobileImages = mobileData.images;
+				}
+			} else {
+				throw new Error('API response not ok');
+			}
+		} catch (error) {
+			console.warn('Failed to fetch banner images from API, using fallback:', error);
+			desktopImages = Array.isArray(fallbackDesktopImages) ? fallbackDesktopImages : [fallbackDesktopImages];
+			mobileImages = Array.isArray(fallbackMobileImages) ? fallbackMobileImages : [fallbackMobileImages];
+		}
+
+		if (desktopImages.length === 0 && Array.isArray(fallbackDesktopImages)) {
+			desktopImages = fallbackDesktopImages;
+		}
+		if (mobileImages.length === 0 && Array.isArray(fallbackMobileImages)) {
+			mobileImages = fallbackMobileImages;
+		}
+
+		showFirstImage();
+		
+		if (isCarouselEnabled && (desktopImages.length > 1 || mobileImages.length > 1)) {
+			preloadImages(desktopImages.slice(1), 'desktop');
+			preloadImages(mobileImages.slice(1), 'mobile');
+			startCarousel();
+		}
+
+		container.addEventListener('touchstart', handleTouchStart, { passive: true });
+		container.addEventListener('touchend', handleTouchEnd, { passive: true });
+	}
+
+	if (window.__bannerCarouselCleanup) {
+		window.__bannerCarouselCleanup();
+		window.__bannerCarouselCleanup = null;
+	}
+
+	window.__bannerCarouselCleanup = function() {
+		if (carouselTimer) {
+			clearInterval(carouselTimer);
+		}
+		container.removeEventListener('touchstart', handleTouchStart);
+		container.removeEventListener('touchend', handleTouchEnd);
+	};
+
+	fetchBannerImages();
+})();
+</script>
 
 <style>
 	.banner-title {
@@ -563,5 +513,40 @@ const hasBannerLink = !!siteConfig.banner.credit.url;
 			opacity: 1;
 			transform: translateY(0);
 		}
+	}
+
+	.banner-skeleton {
+		background: linear-gradient(
+			90deg,
+			var(--card-bg) 0%,
+			var(--btn-hover-bg, rgba(0, 0, 0, 0.05)) 50%,
+			var(--card-bg) 100%
+		);
+		background-size: 200% 100%;
+		animation: bannerShimmer 1.5s ease-in-out infinite;
+		transition: opacity 0.5s ease;
+	}
+
+	@keyframes bannerShimmer {
+		0% {
+			background-position: 200% 0;
+		}
+		100% {
+			background-position: -200% 0;
+		}
+	}
+
+	:global(.dark) .banner-skeleton {
+		background: linear-gradient(
+			90deg,
+			var(--card-bg) 0%,
+			rgba(255, 255, 255, 0.05) 50%,
+			var(--card-bg) 100%
+		);
+		background-size: 200% 100%;
+	}
+
+	.banner-loading-text {
+		z-index: 1;
 	}
 </style>

@@ -15,7 +15,6 @@ import { fullscreenWallpaperConfig, siteConfig } from "../config";
 import { BANNER_HEIGHT } from "../constants/constants";
 import {
 	calculateGridLayout,
-	getBannerImages,
 	getMainPanelTop,
 	getTransparencyClass,
 	shouldEnableTransparency,
@@ -33,9 +32,6 @@ interface Props {
 	postSlug?: string;
 	headings?: MarkdownHeading[];
 }
-
-// 获取 banner 图片
-const bannerImages = await getBannerImages(siteConfig);
 
 const {
 	title,
@@ -128,7 +124,6 @@ const defaultPostListLayout = siteConfig.postListLayout?.defaultMode || "list";
 
 	<!-- Banner 组件 -->
 	<Banner
-		bannerImages={bannerImages}
 		mobileNonHomeBannerClass={mobileNonHomeBannerClass}
 		showTextOverlay={isHomePage && (siteConfig.banner.homeText?.enable ?? false)}
 	/>
