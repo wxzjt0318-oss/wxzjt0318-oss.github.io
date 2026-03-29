@@ -275,7 +275,11 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		return window.innerWidth < 768;
 	}
 
-	function preloadImageAsBlob(src) {
+	function isBase64DataUrl(url) {
+		return url && url.startsWith('data:image');
+	}
+
+	function preloadExternalImage(src) {
 		return new Promise(function(resolve, reject) {
 			fetch(src, { mode: 'cors', credentials: 'omit' })
 				.then(function(response) {
@@ -289,7 +293,7 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 					resolve(blobUrl);
 				})
 				.catch(function(error) {
-					console.warn('Failed to preload image as blob:', src, error);
+					console.warn('Failed to preload external image:', src, error);
 					reject(src);
 				});
 		});
@@ -297,13 +301,18 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	async function preloadAllImages(urls, type) {
 		var promises = urls.map(async function(url, index) {
+			if (isBase64DataUrl(url)) {
+				preloadedImages[type][index] = url;
+				return { success: true, src: url, isBase64: true, index: index };
+			}
+			
 			try {
-				var blobUrl = await preloadImageAsBlob(url);
+				var blobUrl = await preloadExternalImage(url);
 				preloadedImages[type][index] = blobUrl;
-				return { success: true, src: blobUrl, originalSrc: url, index: index };
+				return { success: true, src: blobUrl, isBase64: false, index: index };
 			} catch (error) {
 				preloadedImages[type][index] = url;
-				return { success: false, src: url, originalSrc: url, index: index };
+				return { success: false, src: url, isBase64: false, index: index };
 			}
 		});
 		return Promise.all(promises);
