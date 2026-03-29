@@ -275,27 +275,35 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		return window.innerWidth < 768;
 	}
 
-	function preloadImage(src) {
+	function preloadImageAsBlob(src) {
 		return new Promise(function(resolve, reject) {
-			var img = new Image();
-			img.onload = function() {
-				resolve(src);
-			};
-			img.onerror = function() {
-				reject(src);
-			};
-			img.src = src;
+			fetch(src, { mode: 'cors', credentials: 'omit' })
+				.then(function(response) {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.blob();
+				})
+				.then(function(blob) {
+					var blobUrl = URL.createObjectURL(blob);
+					resolve(blobUrl);
+				})
+				.catch(function(error) {
+					console.warn('Failed to preload image as blob:', src, error);
+					reject(src);
+				});
 		});
 	}
 
 	async function preloadAllImages(urls, type) {
 		var promises = urls.map(async function(url, index) {
 			try {
-				await preloadImage(url);
+				var blobUrl = await preloadImageAsBlob(url);
+				preloadedImages[type][index] = blobUrl;
+				return { success: true, src: blobUrl, originalSrc: url, index: index };
+			} catch (error) {
 				preloadedImages[type][index] = url;
-				return { success: true, src: url, index: index };
-			} catch (src) {
-				return { success: false, src: src, index: index };
+				return { success: false, src: url, originalSrc: url, index: index };
 			}
 		});
 		return Promise.all(promises);
@@ -473,7 +481,9 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	function showFirstImage() {
 		var type = isMobile() ? 'mobile' : 'desktop';
-		var images = type === 'mobile' ? mobileImages : desktopImages;
+		var images = type === 'mobile' 
+			? (preloadedImages.mobile.length > 0 ? preloadedImages.mobile : mobileImages)
+			: (preloadedImages.desktop.length > 0 ? preloadedImages.desktop : desktopImages);
 		var slotClass = type === 'mobile' ? 'banner-image-slot-mobile' : 'banner-image-slot-desktop';
 		
 		if (images.length === 0) {
@@ -546,8 +556,11 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 			preloadAllImages(mobileImages, 'mobile')
 		]);
 
-		window.__bannerCarouselFrames['banner-image-slot-mobile'] = collectFrames(mobileImages);
-		window.__bannerCarouselFrames['banner-image-slot-desktop'] = collectFrames(desktopImages);
+		var finalDesktopImages = preloadedImages.desktop.length > 0 ? preloadedImages.desktop : desktopImages;
+		var finalMobileImages = preloadedImages.mobile.length > 0 ? preloadedImages.mobile : mobileImages;
+
+		window.__bannerCarouselFrames['banner-image-slot-mobile'] = collectFrames(finalMobileImages);
+		window.__bannerCarouselFrames['banner-image-slot-desktop'] = collectFrames(finalDesktopImages);
 
 		showFirstImage();
 		
@@ -576,6 +589,19 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		container.removeEventListener('mouseenter', onMouseEnter);
 		container.removeEventListener('mouseleave', onMouseLeave);
 		isCrossfading = { mobile: false, desktop: false };
+		
+		// 释放Blob URL
+		preloadedImages.desktop.forEach(function(url) {
+			if (url && url.startsWith('blob:')) {
+				URL.revokeObjectURL(url);
+			}
+		});
+		preloadedImages.mobile.forEach(function(url) {
+			if (url && url.startsWith('blob:')) {
+				URL.revokeObjectURL(url);
+			}
+		});
+		preloadedImages = { desktop: [], mobile: [] };
 	};
 
 	fetchBannerImages();
