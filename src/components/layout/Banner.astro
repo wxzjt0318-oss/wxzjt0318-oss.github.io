@@ -235,7 +235,6 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	var carouselTimer = null;
 	var isPaused = false;
 	var isCrossfading = { mobile: false, desktop: false };
-	var preloadedImages = { desktop: [], mobile: [] };
 	var apiCalled = false;
 
 	// 清理上一次遗留
@@ -279,43 +278,17 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		return url && url.startsWith('data:image');
 	}
 
-	function preloadExternalImage(src) {
-		return new Promise(function(resolve, reject) {
-			fetch(src, { mode: 'cors', credentials: 'omit' })
-				.then(function(response) {
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					}
-					return response.blob();
-				})
-				.then(function(blob) {
-					var blobUrl = URL.createObjectURL(blob);
-					resolve(blobUrl);
-				})
-				.catch(function(error) {
-					console.warn('Failed to preload external image:', src, error);
-					reject(src);
-				});
-		});
-	}
-
-	async function preloadAllImages(urls, type) {
-		var promises = urls.map(async function(url, index) {
-			if (isBase64DataUrl(url)) {
-				preloadedImages[type][index] = url;
-				return { success: true, src: url, isBase64: true, index: index };
+	function validateImages(urls, type) {
+		var validImages = [];
+		for (var i = 0; i < urls.length; i++) {
+			if (isBase64DataUrl(urls[i])) {
+				validImages.push(urls[i]);
+			} else {
+				console.warn('Non-Base64 image detected at index ' + i + ' for ' + type + ', this may cause image change during carousel');
+				validImages.push(urls[i]);
 			}
-			
-			try {
-				var blobUrl = await preloadExternalImage(url);
-				preloadedImages[type][index] = blobUrl;
-				return { success: true, src: blobUrl, isBase64: false, index: index };
-			} catch (error) {
-				preloadedImages[type][index] = url;
-				return { success: false, src: url, isBase64: false, index: index };
-			}
-		});
-		return Promise.all(promises);
+		}
+		return validImages;
 	}
 
 	function createImageHTML(src, index) {
@@ -490,9 +463,7 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	function showFirstImage() {
 		var type = isMobile() ? 'mobile' : 'desktop';
-		var images = type === 'mobile' 
-			? (preloadedImages.mobile.length > 0 ? preloadedImages.mobile : mobileImages)
-			: (preloadedImages.desktop.length > 0 ? preloadedImages.desktop : desktopImages);
+		var images = type === 'mobile' ? mobileImages : desktopImages;
 		var slotClass = type === 'mobile' ? 'banner-image-slot-mobile' : 'banner-image-slot-desktop';
 		
 		if (images.length === 0) {
@@ -543,14 +514,17 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 				var data = await response.json();
 				
 				if (data.desktop && data.desktop.length > 0) {
-					desktopImages = data.desktop;
+					desktopImages = validateImages(data.desktop, 'desktop');
 				}
 				if (data.mobile && data.mobile.length > 0) {
-					mobileImages = data.mobile;
+					mobileImages = validateImages(data.mobile, 'mobile');
 				}
 				
 				if (data.stats) {
-					console.log('Banner images optimized:', data.stats);
+					console.log('Banner images loaded:', data.stats);
+					if (data.stats.failCount > 0) {
+						console.warn(data.stats.failCount + ' images failed to load');
+					}
 				}
 			} else {
 				throw new Error('API response not ok');
@@ -568,16 +542,8 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 			mobileImages = fallbackMobileImages;
 		}
 
-		await Promise.all([
-			preloadAllImages(desktopImages, 'desktop'),
-			preloadAllImages(mobileImages, 'mobile')
-		]);
-
-		var finalDesktopImages = preloadedImages.desktop.length > 0 ? preloadedImages.desktop : desktopImages;
-		var finalMobileImages = preloadedImages.mobile.length > 0 ? preloadedImages.mobile : mobileImages;
-
-		window.__bannerCarouselFrames['banner-image-slot-mobile'] = collectFrames(finalMobileImages);
-		window.__bannerCarouselFrames['banner-image-slot-desktop'] = collectFrames(finalDesktopImages);
+		window.__bannerCarouselFrames['banner-image-slot-mobile'] = collectFrames(mobileImages);
+		window.__bannerCarouselFrames['banner-image-slot-desktop'] = collectFrames(desktopImages);
 
 		showFirstImage();
 		
@@ -606,19 +572,6 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		container.removeEventListener('mouseenter', onMouseEnter);
 		container.removeEventListener('mouseleave', onMouseLeave);
 		isCrossfading = { mobile: false, desktop: false };
-		
-		// 释放Blob URL
-		preloadedImages.desktop.forEach(function(url) {
-			if (url && url.startsWith('blob:')) {
-				URL.revokeObjectURL(url);
-			}
-		});
-		preloadedImages.mobile.forEach(function(url) {
-			if (url && url.startsWith('blob:')) {
-				URL.revokeObjectURL(url);
-			}
-		});
-		preloadedImages = { desktop: [], mobile: [] };
 	};
 
 	fetchBannerImages();

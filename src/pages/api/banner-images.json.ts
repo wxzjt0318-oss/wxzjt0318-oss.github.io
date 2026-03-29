@@ -74,56 +74,68 @@ export async function GET({ request }: { request: Request }) {
 	async function fetchAndOptimizeImage(
 		imageUrl: string,
 		isMobile: boolean,
+		retryCount = 3,
 	): Promise<{ base64: string | null; originalSize: number; optimizedSize: number; format: string }> {
-		try {
-			const response = await fetch(imageUrl, {
-				headers: {
-					"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-					Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-					"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-					Referer: "https://www.dmoe.cc/",
-				},
-			});
+		for (let attempt = 0; attempt < retryCount; attempt++) {
+			try {
+				const response = await fetch(imageUrl, {
+					headers: {
+						"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+						Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+						"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+						Referer: "https://www.dmoe.cc/",
+					},
+				});
 
-			if (!response.ok) {
-				console.error(`Failed to fetch image: ${response.status} ${response.statusText}`);
-				return { base64: null, originalSize: 0, optimizedSize: 0, format: "" };
+				if (!response.ok) {
+					console.error(`Failed to fetch image (attempt ${attempt + 1}/${retryCount}): ${response.status}`);
+					if (attempt < retryCount - 1) {
+						await new Promise((resolve) => setTimeout(resolve, 500));
+						continue;
+					}
+					return { base64: null, originalSize: 0, optimizedSize: 0, format: "" };
+				}
+
+				const arrayBuffer = await response.arrayBuffer();
+				const buffer = Buffer.from(arrayBuffer);
+				const originalSize = buffer.length;
+
+				const optimizationOptions: ImageOptimizationOptions = {
+					width: isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH,
+					height: isMobile ? MOBILE_HEIGHT : DESKTOP_HEIGHT,
+					quality: QUALITY,
+					format,
+				};
+
+				const optimized = await optimizeImage(buffer, optimizationOptions);
+
+				const base64 = optimized.data.toString("base64");
+				const dataUrl = `data:${optimized.format};base64,${base64}`;
+
+				return {
+					base64: dataUrl,
+					originalSize,
+					optimizedSize: optimized.size,
+					format: optimized.format,
+				};
+			} catch (error) {
+				console.error(`Error fetching/optimizing image (attempt ${attempt + 1}/${retryCount}):`, error);
+				if (attempt < retryCount - 1) {
+					await new Promise((resolve) => setTimeout(resolve, 500));
+				}
 			}
-
-			const arrayBuffer = await response.arrayBuffer();
-			const buffer = Buffer.from(arrayBuffer);
-			const originalSize = buffer.length;
-
-			const optimizationOptions: ImageOptimizationOptions = {
-				width: isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH,
-				height: isMobile ? MOBILE_HEIGHT : DESKTOP_HEIGHT,
-				quality: QUALITY,
-				format,
-			};
-
-			const optimized = await optimizeImage(buffer, optimizationOptions);
-
-			const base64 = optimized.data.toString("base64");
-			const dataUrl = `data:${optimized.format};base64,${base64}`;
-
-			return {
-				base64: dataUrl,
-				originalSize,
-				optimizedSize: optimized.size,
-				format: optimized.format,
-			};
-		} catch (error) {
-			console.error(`Error fetching/optimizing image ${imageUrl}:`, error);
-			return { base64: null, originalSize: 0, optimizedSize: 0, format: "" };
 		}
+		return { base64: null, originalSize: 0, optimizedSize: 0, format: "" };
 	}
 
 	const desktopImages: string[] = [];
 	const mobileImages: string[] = [];
-	const stats: { originalTotal: number; optimizedTotal: number; compressionRatio: number } = {
+	const stats: { originalTotal: number; optimizedTotal: number; compressionRatio: number; successCount: number; failCount: number } = {
 		originalTotal: 0,
 		optimizedTotal: 0,
 		compressionRatio: 0,
+		successCount: 0,
+		failCount: 0,
 	};
 
 	const timestamp = Date.now();
@@ -141,8 +153,21 @@ export async function GET({ request }: { request: Request }) {
 					desktopImages[i] = result.base64;
 					stats.originalTotal += result.originalSize;
 					stats.optimizedTotal += result.optimizedSize;
+					stats.successCount++;
 				} else {
-					desktopImages[i] = desktopUrl;
+					console.error(`Failed to get Base64 for desktop image ${i}, will retry with new URL`);
+					const retryUrl = `https://www.dmoe.cc/random.php?t=${timestamp}_retry_${i}`;
+					return fetchAndOptimizeImage(retryUrl, false).then((retryResult) => {
+						if (retryResult.base64) {
+							desktopImages[i] = retryResult.base64;
+							stats.originalTotal += retryResult.originalSize;
+							stats.optimizedTotal += retryResult.optimizedSize;
+							stats.successCount++;
+						} else {
+							stats.failCount++;
+							console.error(`Failed to get Base64 for desktop image ${i} after retry`);
+						}
+					});
 				}
 			}),
 		);
@@ -153,8 +178,21 @@ export async function GET({ request }: { request: Request }) {
 					mobileImages[i] = result.base64;
 					stats.originalTotal += result.originalSize;
 					stats.optimizedTotal += result.optimizedSize;
+					stats.successCount++;
 				} else {
-					mobileImages[i] = mobileUrl;
+					console.error(`Failed to get Base64 for mobile image ${i}, will retry with new URL`);
+					const retryUrl = `https://www.dmoe.cc/random.php?t=m${timestamp}_retry_${i}`;
+					return fetchAndOptimizeImage(retryUrl, true).then((retryResult) => {
+						if (retryResult.base64) {
+							mobileImages[i] = retryResult.base64;
+							stats.originalTotal += retryResult.originalSize;
+							stats.optimizedTotal += retryResult.optimizedSize;
+							stats.successCount++;
+						} else {
+							stats.failCount++;
+							console.error(`Failed to get Base64 for mobile image ${i} after retry`);
+						}
+					});
 				}
 			}),
 		);
@@ -177,6 +215,8 @@ export async function GET({ request }: { request: Request }) {
 				originalSizeKB: Math.round(stats.originalTotal / 1024),
 				optimizedSizeKB: Math.round(stats.optimizedTotal / 1024),
 				compressionRatio: `${stats.compressionRatio}%`,
+				successCount: stats.successCount,
+				failCount: stats.failCount,
 			},
 		}),
 		{
