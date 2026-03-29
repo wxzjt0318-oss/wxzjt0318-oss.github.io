@@ -531,9 +531,10 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		apiCalled = true;
 
 		var imageCount = 6;
+		var imageFormat = 'webp';
 		
 		try {
-			var response = await fetch('/api/banner-images.json?count=' + imageCount);
+			var response = await fetch('/api/banner-images.json?count=' + imageCount + '&format=' + imageFormat);
 			
 			if (response.ok) {
 				var data = await response.json();
@@ -543,6 +544,10 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 				}
 				if (data.mobile && data.mobile.length > 0) {
 					mobileImages = data.mobile;
+				}
+				
+				if (data.stats) {
+					console.log('Banner images optimized:', data.stats);
 				}
 			} else {
 				throw new Error('API response not ok');
