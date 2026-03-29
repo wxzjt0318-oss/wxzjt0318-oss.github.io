@@ -235,6 +235,8 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	var carouselTimer = null;
 	var isPaused = false;
 	var isCrossfading = { mobile: false, desktop: false };
+	var preloadedImages = { desktop: [], mobile: [] };
+	var apiCalled = false;
 
 	// 清理上一次遗留
 	if (window.__bannerCarouselCleanup) {
@@ -273,11 +275,35 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		return window.innerWidth < 768;
 	}
 
+	function preloadImage(src) {
+		return new Promise(function(resolve, reject) {
+			var img = new Image();
+			img.onload = function() {
+				resolve(src);
+			};
+			img.onerror = function() {
+				reject(src);
+			};
+			img.src = src;
+		});
+	}
+
+	async function preloadAllImages(urls, type) {
+		var promises = urls.map(async function(url, index) {
+			try {
+				await preloadImage(url);
+				preloadedImages[type][index] = url;
+				return { success: true, src: url, index: index };
+			} catch (src) {
+				return { success: false, src: src, index: index };
+			}
+		});
+		return Promise.all(promises);
+	}
+
 	function createImageHTML(src, index) {
 		var imgClass = 'object-cover h-full w-full';
-		var loading = index === 0 ? 'eager' : 'lazy';
-		var fetchPriority = index === 0 ? 'high' : 'auto';
-		return '<img alt="Banner image ' + (index + 1) + '" class="' + imgClass + '" src="' + src + '" loading="' + loading + '" fetchpriority="' + fetchPriority + '" style="object-position: ' + position + ';" />';
+		return '<img alt="Banner image ' + (index + 1) + '" class="' + imgClass + '" src="' + src + '" style="object-position: ' + position + ';" />';
 	}
 
 	function collectFrames(images) {
@@ -480,6 +506,11 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	}
 
 	async function fetchBannerImages() {
+		if (apiCalled) {
+			return;
+		}
+		apiCalled = true;
+
 		var imageCount = 6;
 		
 		try {
@@ -510,7 +541,11 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 			mobileImages = fallbackMobileImages;
 		}
 
-		// 收集帧缓存
+		await Promise.all([
+			preloadAllImages(desktopImages, 'desktop'),
+			preloadAllImages(mobileImages, 'mobile')
+		]);
+
 		window.__bannerCarouselFrames['banner-image-slot-mobile'] = collectFrames(mobileImages);
 		window.__bannerCarouselFrames['banner-image-slot-desktop'] = collectFrames(desktopImages);
 
@@ -520,7 +555,6 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 			startCarousel();
 		}
 
-		// 注册事件
 		if ('ontouchstart' in window) {
 			container.addEventListener('touchstart', onTouchStart, { passive: true });
 			container.addEventListener('touchmove', onTouchMove, { passive: false });
