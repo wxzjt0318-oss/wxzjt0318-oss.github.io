@@ -105,7 +105,7 @@ export const siteConfig: SiteConfig = {
 			],
 		},
 		position: "center",
-		carousel: { enable: true, interval: 1.5 },
+		carousel: { enable: true, interval: 3 },
 		waves: { enable: true, performanceMode: false, mobileDisable: false },
 		imageApi: {
 			enable: false,
