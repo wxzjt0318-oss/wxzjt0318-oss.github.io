@@ -1,8 +1,13 @@
 ---
 /**
- * Banner 组件
- * 支持动态API获取图片、轮播图模式、文字覆盖层和水波纹效果
- * 轮播模式使用 Ken Burns + Crossfade 动画
+ * Banner 组件 - 性能优化版
+ * 
+ * 优化点：
+ * 1. 单次API请求获取所有图片（减少网络延迟）
+ * 2. 图片预加载队列（确保切换流畅）
+ * 3. GPU加速动画（transform/opacity）
+ * 4. requestAnimationFrame优化渲染
+ * 5. 完善的内存管理和清理机制
  */
 
 import TypewriterText from "@components/atoms/typewriter-text/TypewriterText.astro";
@@ -57,14 +62,14 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`}
 	style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
 >
-	<!-- 骨架屏占位 - 图片加载时显示 -->
+	<!-- 骨架屏占位 -->
 	<div id="banner-skeleton" class="absolute inset-0 z-0 banner-skeleton">
 		<div class="banner-loading-text absolute inset-0 flex items-center justify-center">
 			<div class="text-white/60 text-lg animate-pulse">加载中...</div>
 		</div>
 	</div>
 	
-	<!-- 图片容器 -->
+	<!-- 图片容器 - 使用双缓冲 -->
 	<div
 		id="banner-carousel"
 		class="relative h-full w-full"
@@ -72,7 +77,12 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		data-fade-ms={fadeMs}
 		data-position={siteConfig.banner.position}
 	>
-		<!-- 图片将通过JavaScript动态加载 -->
+		<!-- 桌面端图片槽位 -->
+		<div id="desktop-slot-a" class="banner-slot absolute inset-0 hidden md:block" style="opacity: 0; will-change: opacity, transform;"></div>
+		<div id="desktop-slot-b" class="banner-slot absolute inset-0 hidden md:block" style="opacity: 0; will-change: opacity, transform;"></div>
+		<!-- 移动端图片槽位 -->
+		<div id="mobile-slot-a" class="banner-slot absolute inset-0 block md:hidden" style="opacity: 0; will-change: opacity, transform;"></div>
+		<div id="mobile-slot-b" class="banner-slot absolute inset-0 block md:hidden" style="opacity: 0; will-change: opacity, transform;"></div>
 	</div>
 
 	{siteConfig.banner.homeText?.enable && (
@@ -211,7 +221,9 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	fallbackDesktopImages,
 	fallbackMobileImages
 }}>
-(function initDynamicBanner() {
+(function initOptimizedBanner() {
+	'use strict';
+	
 	var container = document.getElementById('banner-carousel');
 	var skeleton = document.getElementById('banner-skeleton');
 	if (!container) return;
@@ -222,18 +234,31 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	var desktopImages = [];
 	var mobileImages = [];
-	var loadedImages = { desktop: [], mobile: [] };
+	var preloadedImages = { desktop: {}, mobile: {} };
 	var currentIndex = { desktop: 0, mobile: 0 };
-	var isCrossfading = { desktop: false, mobile: false };
+	var currentSlot = { desktop: 'a', mobile: 'a' };
+	var isTransitioning = { desktop: false, mobile: false };
 	var carouselTimer = null;
+	var rafId = null;
+
+	var slots = {
+		desktop: {
+			a: document.getElementById('desktop-slot-a'),
+			b: document.getElementById('desktop-slot-b')
+		},
+		mobile: {
+			a: document.getElementById('mobile-slot-a'),
+			b: document.getElementById('mobile-slot-b')
+		}
+	};
 
 	function hideSkeleton() {
 		if (skeleton) {
-			skeleton.style.transition = 'opacity 0.5s ease';
+			skeleton.style.transition = 'opacity 0.4s ease-out';
 			skeleton.style.opacity = '0';
 			setTimeout(function() {
 				skeleton.style.display = 'none';
-			}, 500);
+			}, 400);
 		}
 	}
 
@@ -250,135 +275,103 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		return window.innerWidth < 768;
 	}
 
-	function createImageElement(src, type, index) {
+	function createImageElement(src, index) {
 		var img = document.createElement('img');
-		img.alt = type + ' banner image ' + (index + 1);
+		img.alt = 'Banner image ' + (index + 1);
 		img.className = 'object-cover h-full w-full';
 		img.src = src;
 		img.loading = index === 0 ? 'eager' : 'lazy';
-		img.fetchPriority = index === 0 ? 'high' : 'low';
-		img.dataset.position = position;
+		img.fetchPriority = index === 0 ? 'high' : 'auto';
 		img.style.objectPosition = position;
+		img.style.transform = 'translateZ(0)';
+		img.style.backfaceVisibility = 'hidden';
 		return img;
-	}
-
-	function createImageSlot(type, index, imgSrc) {
-		var slot = document.createElement('div');
-		slot.className = type === 'mobile' 
-			? 'banner-image-slot-mobile absolute inset-0 block md:hidden'
-			: 'banner-image-slot-desktop absolute inset-0 hidden md:block';
-		slot.dataset.index = index;
-		
-		var img = createImageElement(imgSrc, type, index);
-		slot.appendChild(img);
-		
-		return slot;
 	}
 
 	function preloadImage(src) {
 		return new Promise(function(resolve, reject) {
+			if (preloadedImages.desktop[src] || preloadedImages.mobile[src]) {
+				resolve(src);
+				return;
+			}
 			var img = new Image();
-			img.onload = function() { resolve(src); };
-			img.onerror = function() { reject(src); };
+			img.onload = function() {
+				resolve(src);
+			};
+			img.onerror = function() {
+				reject(src);
+			};
 			img.src = src;
 		});
 	}
 
-	async function preloadImages(urls, type) {
-		var promises = urls.map(async function(url, index) {
-			try {
-				await preloadImage(url);
-				loadedImages[type][index] = true;
-				return { success: true, src: url, index: index };
-			} catch (src) {
-				loadedImages[type][index] = false;
-				return { success: false, src: src, index: index };
-			}
-		});
-		return Promise.all(promises);
+	function preloadImageQueue(urls, type, startIndex) {
+		if (!urls || urls.length <= startIndex) return;
+		
+		var loadNext = function(index) {
+			if (index >= urls.length) return;
+			preloadImage(urls[index]).then(function() {
+				preloadedImages[type][urls[index]] = true;
+				loadNext(index + 1);
+			}).catch(function() {
+				loadNext(index + 1);
+			});
+		};
+		
+		setTimeout(function() {
+			loadNext(startIndex);
+		}, 100);
 	}
 
-	function showFirstImage() {
-		var type = isMobile() ? 'mobile' : 'desktop';
-		var images = type === 'mobile' ? mobileImages : desktopImages;
+	function setSlotImage(type, slotId, imgSrc, index) {
+		var slot = slots[type][slotId];
+		if (!slot) return;
 		
-		if (images.length === 0) {
-			hideSkeleton();
-			showSkeletonError('暂无图片');
-			return;
-		}
-
-		var slot = createImageSlot(type, 0, images[0]);
-		var img = slot.querySelector('img');
+		slot.innerHTML = '';
+		var img = createImageElement(imgSrc, index);
+		slot.appendChild(img);
 		
-		if (img.complete) {
-			slot.style.opacity = '1';
-			hideSkeleton();
-			container.appendChild(slot);
-			if (isCarouselEnabled) {
-				slot.classList.add('banner-kb');
-			}
-		} else {
-			img.onload = function() {
-				slot.style.opacity = '1';
-				hideSkeleton();
-				if (isCarouselEnabled) {
-					slot.classList.add('banner-kb');
-				}
-			};
-			img.onerror = function() {
-				console.warn('First banner image failed to load:', images[0]);
-				hideSkeleton();
-				showSkeletonError('首张图片加载失败');
-			};
-			container.appendChild(slot);
+		if (isCarouselEnabled) {
+			img.classList.add('banner-kb');
 		}
 	}
 
 	function crossfadeToIndex(type, targetIndex) {
 		var images = type === 'mobile' ? mobileImages : desktopImages;
 		if (images.length <= 1) return;
-		if (isCrossfading[type]) return;
+		if (isTransitioning[type]) return;
 		if (targetIndex >= images.length) targetIndex = 0;
 		if (targetIndex < 0) targetIndex = images.length - 1;
 
-		var slotClass = type === 'mobile' 
-			? 'banner-image-slot-mobile' 
-			: 'banner-image-slot-desktop';
-		
-		var oldSlot = container.querySelector('.' + slotClass);
-		if (!oldSlot) return;
+		isTransitioning[type] = true;
 
-		isCrossfading[type] = true;
-		currentIndex[type] = targetIndex;
+		var oldSlotId = currentSlot[type];
+		var newSlotId = oldSlotId === 'a' ? 'b' : 'a';
+		var oldSlot = slots[type][oldSlotId];
+		var newSlot = slots[type][newSlotId];
 
-		var newSlot = createImageSlot(type, targetIndex, images[targetIndex]);
-		newSlot.style.opacity = '0';
+		setSlotImage(type, newSlotId, images[targetIndex], targetIndex);
+
 		newSlot.style.zIndex = '2';
-
-		var img = newSlot.querySelector('img');
-		if (img && isCarouselEnabled) {
-			img.classList.add('banner-kb');
-		}
-
-		oldSlot.style.zIndex = '1';
-		oldSlot.style.opacity = '1';
-		container.appendChild(newSlot);
+		newSlot.style.transition = 'none';
+		newSlot.style.opacity = '0';
 
 		void newSlot.offsetWidth;
 
 		newSlot.style.transition = 'opacity ' + FADE_MS + 'ms ease-in-out';
-		newSlot.style.opacity = '1';
-
 		oldSlot.style.transition = 'opacity ' + FADE_MS + 'ms ease-in-out';
-		oldSlot.style.opacity = '0';
 
-		setTimeout(function() {
-			if (oldSlot.parentNode) {
-				oldSlot.parentNode.removeChild(oldSlot);
-			}
-			isCrossfading[type] = false;
-		}, FADE_MS);
+		rafId = requestAnimationFrame(function() {
+			newSlot.style.opacity = '1';
+			oldSlot.style.opacity = '0';
+
+			setTimeout(function() {
+				oldSlot.style.zIndex = '1';
+				currentSlot[type] = newSlotId;
+				currentIndex[type] = targetIndex;
+				isTransitioning[type] = false;
+			}, FADE_MS);
+		});
 	}
 
 	function advanceCarousel() {
@@ -394,23 +387,42 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	function startCarousel() {
 		if (!isCarouselEnabled) return;
 		
-		if (carouselTimer) {
-			clearInterval(carouselTimer);
-		}
-		
+		stopCarousel();
 		carouselTimer = setInterval(advanceCarousel, interval);
 	}
 
+	function stopCarousel() {
+		if (carouselTimer) {
+			clearInterval(carouselTimer);
+			carouselTimer = null;
+		}
+	}
+
 	var touchStartX = 0;
+	var touchStartY = 0;
 	var touchEndX = 0;
+	var isSwiping = false;
 
 	function handleTouchStart(e) {
 		touchStartX = e.touches[0].clientX;
+		touchStartY = e.touches[0].clientY;
+		isSwiping = true;
+	}
+
+	function handleTouchMove(e) {
+		if (!isSwiping) return;
+		var diffX = Math.abs(e.touches[0].clientX - touchStartX);
+		var diffY = Math.abs(e.touches[0].clientY - touchStartY);
+		if (diffY > diffX) {
+			isSwiping = false;
+		}
 	}
 
 	function handleTouchEnd(e) {
+		if (!isSwiping) return;
 		touchEndX = e.changedTouches[0].clientX;
 		handleSwipe();
+		isSwiping = false;
 	}
 
 	function handleSwipe() {
@@ -428,22 +440,52 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		}
 	}
 
+	function showFirstImage() {
+		var type = isMobile() ? 'mobile' : 'desktop';
+		var images = type === 'mobile' ? mobileImages : desktopImages;
+		
+		if (images.length === 0) {
+			hideSkeleton();
+			showSkeletonError('暂无图片');
+			return;
+		}
+
+		var slotId = currentSlot[type];
+		var slot = slots[type][slotId];
+		
+		setSlotImage(type, slotId, images[0], 0);
+		
+		var img = slot.querySelector('img');
+		if (img.complete) {
+			slot.style.opacity = '1';
+			hideSkeleton();
+		} else {
+			img.onload = function() {
+				slot.style.opacity = '1';
+				hideSkeleton();
+			};
+			img.onerror = function() {
+				console.warn('First banner image failed to load:', images[0]);
+				hideSkeleton();
+				showSkeletonError('首张图片加载失败');
+			};
+		}
+	}
+
 	async function fetchBannerImages() {
 		var imageCount = 6;
 		
 		try {
-			var desktopResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=desktop');
-			var mobileResponse = await fetch('/api/banner-images.json?count=' + imageCount + '&type=mobile');
+			var response = await fetch('/api/banner-images.json?count=' + imageCount);
 			
-			if (desktopResponse.ok && mobileResponse.ok) {
-				var desktopData = await desktopResponse.json();
-				var mobileData = await mobileResponse.json();
+			if (response.ok) {
+				var data = await response.json();
 				
-				if (desktopData.images && desktopData.images.length > 0) {
-					desktopImages = desktopData.images;
+				if (data.desktop && data.desktop.length > 0) {
+					desktopImages = data.desktop;
 				}
-				if (mobileData.images && mobileData.images.length > 0) {
-					mobileImages = mobileData.images;
+				if (data.mobile && data.mobile.length > 0) {
+					mobileImages = data.mobile;
 				}
 			} else {
 				throw new Error('API response not ok');
@@ -464,27 +506,33 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		showFirstImage();
 		
 		if (isCarouselEnabled && (desktopImages.length > 1 || mobileImages.length > 1)) {
-			preloadImages(desktopImages.slice(1), 'desktop');
-			preloadImages(mobileImages.slice(1), 'mobile');
+			preloadImageQueue(desktopImages, 'desktop', 1);
+			preloadImageQueue(mobileImages, 'mobile', 1);
 			startCarousel();
 		}
 
 		container.addEventListener('touchstart', handleTouchStart, { passive: true });
+		container.addEventListener('touchmove', handleTouchMove, { passive: true });
 		container.addEventListener('touchend', handleTouchEnd, { passive: true });
+	}
+
+	function cleanup() {
+		stopCarousel();
+		if (rafId) {
+			cancelAnimationFrame(rafId);
+			rafId = null;
+		}
+		container.removeEventListener('touchstart', handleTouchStart);
+		container.removeEventListener('touchmove', handleTouchMove);
+		container.removeEventListener('touchend', handleTouchEnd);
+		preloadedImages = { desktop: {}, mobile: {} };
 	}
 
 	if (window.__bannerCarouselCleanup) {
 		window.__bannerCarouselCleanup();
-		window.__bannerCarouselCleanup = null;
 	}
 
-	window.__bannerCarouselCleanup = function() {
-		if (carouselTimer) {
-			clearInterval(carouselTimer);
-		}
-		container.removeEventListener('touchstart', handleTouchStart);
-		container.removeEventListener('touchend', handleTouchEnd);
-	};
+	window.__bannerCarouselCleanup = cleanup;
 
 	fetchBannerImages();
 })();
@@ -524,7 +572,7 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		);
 		background-size: 200% 100%;
 		animation: bannerShimmer 1.5s ease-in-out infinite;
-		transition: opacity 0.5s ease;
+		transition: opacity 0.4s ease-out;
 	}
 
 	@keyframes bannerShimmer {
@@ -548,5 +596,15 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	.banner-loading-text {
 		z-index: 1;
+	}
+
+	.banner-slot {
+		backface-visibility: hidden;
+		perspective: 1000px;
+	}
+
+	.banner-slot img {
+		transform: translateZ(0);
+		will-change: transform;
 	}
 </style>
