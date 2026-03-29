@@ -16,12 +16,18 @@ export async function GET({ request }: { request: Request }) {
 		}
 	}
 
+	const cacheMaxAge = 60;
+	const staleWhileRevalidate = 300;
+
 	return new Response(JSON.stringify({ images, timestamp, type, count: limitedCount }), {
 		status: 200,
 		headers: {
 			"Content-Type": "application/json",
-			"Cache-Control": "no-store, no-cache, must-revalidate",
+			"Cache-Control": `public, max-age=${cacheMaxAge}, stale-while-revalidate=${staleWhileRevalidate}`,
 			"Access-Control-Allow-Origin": "*",
+			"CDN-Cache-Control": `public, max-age=${cacheMaxAge}`,
+			"Vercel-CDN-Cache-Control": `public, max-age=${cacheMaxAge}, stale-while-revalidate=${staleWhileRevalidate}`,
+			"X-Content-Type-Options": "nosniff",
 		},
 	});
 }
