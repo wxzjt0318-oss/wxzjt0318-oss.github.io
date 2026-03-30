@@ -243,13 +243,9 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		window.__bannerCarouselCleanup = null;
 	}
 
-	// 帧缓存 - 核心优化：避免每次切换重建DOM
-	if (!window.__bannerCarouselFrames) {
-		window.__bannerCarouselFrames = {};
-	}
-	if (!window.__bannerCarouselIndex) {
-		window.__bannerCarouselIndex = { mobile: 0, desktop: 0 };
-	}
+	// 强制重新初始化帧缓存（确保每次刷新都获取新图片）
+	window.__bannerCarouselFrames = {};
+	window.__bannerCarouselIndex = { mobile: 0, desktop: 0 };
 
 	function hideSkeleton() {
 		if (skeleton) {
@@ -572,6 +568,10 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		container.removeEventListener('mouseenter', onMouseEnter);
 		container.removeEventListener('mouseleave', onMouseLeave);
 		isCrossfading = { mobile: false, desktop: false };
+		
+		// 清理帧缓存，确保下次加载获取新图片
+		window.__bannerCarouselFrames = null;
+		window.__bannerCarouselIndex = null;
 	};
 
 	fetchBannerImages();
