@@ -55,18 +55,45 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	fallbackDesktopImages = bannerSrc.desktop || [];
 	fallbackMobileImages = bannerSrc.mobile || [];
 }
+
+// 预加载Banner图片 - 在页面渲染时立即发起请求
+const preloadBannerImages = `
+(function() {
+	if (window.__bannerPreloadStarted) return;
+	window.__bannerPreloadStarted = true;
+	
+	var cacheBuster = Date.now();
+	var preloadUrl = '/api/banner-images.json?count=6&format=webp&_t=' + cacheBuster;
+	
+	// 使用fetch发起预加载请求
+	fetch(preloadUrl, { 
+		cache: 'no-store',
+		priority: 'high'
+	})
+	.then(function(response) { return response.json(); })
+	.then(function(data) {
+		window.__bannerPreloadedData = data;
+		console.log('Banner images preloaded:', data.stats);
+	})
+	.catch(function(error) {
+		console.warn('Banner preload failed:', error);
+	});
+})();
+`;
 ---
+
+<!-- Banner图片预加载脚本 - 最早执行 -->
+<script is:inline define:vars={{ preloadBannerImages }}>
+	{preloadBannerImages}
+</script>
 
 <div
 	id="banner-wrapper"
 	class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`}
 	style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
 >
-	<!-- 骨架屏占位 -->
-	<div id="banner-skeleton" class="absolute inset-0 z-0 banner-skeleton">
-		<div class="banner-loading-text absolute inset-0 flex items-center justify-center">
-			<div class="text-white/60 text-lg animate-pulse">加载中...</div>
-		</div>
+	<!-- 骨架屏占位 - 无感知过渡 -->
+	<div id="banner-skeleton" class="absolute inset-0 z-0 banner-skeleton banner-skeleton-minimal" style="opacity: 0.3;">
 	</div>
 	
 	<!-- 轮播容器 -->
@@ -249,11 +276,11 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 
 	function hideSkeleton() {
 		if (skeleton) {
-			skeleton.style.transition = 'opacity 0.4s ease-out';
+			skeleton.style.transition = 'opacity 0.15s ease-out';
 			skeleton.style.opacity = '0';
 			setTimeout(function() {
 				skeleton.style.display = 'none';
-			}, 400);
+			}, 150);
 		}
 	}
 
@@ -502,28 +529,34 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 		var cacheBuster = Date.now();
 		
 		try {
-			var response = await fetch('/api/banner-images.json?count=' + imageCount + '&format=' + imageFormat + '&_t=' + cacheBuster, {
-				cache: 'no-store'
-			});
-			
-			if (response.ok) {
-				var data = await response.json();
-				
-				if (data.desktop && data.desktop.length > 0) {
-					desktopImages = validateImages(data.desktop, 'desktop');
-				}
-				if (data.mobile && data.mobile.length > 0) {
-					mobileImages = validateImages(data.mobile, 'mobile');
-				}
-				
-				if (data.stats) {
-					console.log('Banner images loaded:', data.stats);
-					if (data.stats.failCount > 0) {
-						console.warn(data.stats.failCount + ' images failed to load');
-					}
-				}
+			// 优先使用预加载的数据
+			if (window.__bannerPreloadedData && window.__bannerPreloadedData.desktop) {
+				var data = window.__bannerPreloadedData;
+				console.log('Using preloaded banner images:', data.stats);
 			} else {
-				throw new Error('API response not ok');
+				var response = await fetch('/api/banner-images.json?count=' + imageCount + '&format=' + imageFormat + '&_t=' + cacheBuster, {
+					cache: 'no-store'
+				});
+				
+				if (response.ok) {
+					var data = await response.json();
+				} else {
+					throw new Error('API response not ok');
+				}
+			}
+			
+			if (data && data.desktop && data.desktop.length > 0) {
+				desktopImages = validateImages(data.desktop, 'desktop');
+			}
+			if (data && data.mobile && data.mobile.length > 0) {
+				mobileImages = validateImages(data.mobile, 'mobile');
+			}
+			
+			if (data && data.stats) {
+				console.log('Banner images loaded:', data.stats);
+				if (data.stats.failCount > 0) {
+					console.warn(data.stats.failCount + ' images failed to load');
+				}
 			}
 		} catch (error) {
 			console.warn('Failed to fetch banner images from API, using fallback:', error);
@@ -604,37 +637,26 @@ if (typeof bannerSrc === 'string' || Array.isArray(bannerSrc)) {
 	}
 
 	.banner-skeleton {
+		background: var(--card-bg);
+		transition: opacity 0.15s ease-out;
+		pointer-events: none;
+	}
+
+	.banner-skeleton-minimal {
 		background: linear-gradient(
-			90deg,
-			var(--card-bg) 0%,
-			var(--btn-hover-bg, rgba(0, 0, 0, 0.05)) 50%,
-			var(--card-bg) 100%
+			135deg,
+			rgba(0, 0, 0, 0.1) 0%,
+			rgba(0, 0, 0, 0.05) 50%,
+			rgba(0, 0, 0, 0.1) 100%
 		);
-		background-size: 200% 100%;
-		animation: bannerShimmer 1.5s ease-in-out infinite;
-		transition: opacity 0.4s ease-out;
 	}
 
-	@keyframes bannerShimmer {
-		0% {
-			background-position: 200% 0;
-		}
-		100% {
-			background-position: -200% 0;
-		}
-	}
-
-	:global(.dark) .banner-skeleton {
+	:global(.dark) .banner-skeleton-minimal {
 		background: linear-gradient(
-			90deg,
-			var(--card-bg) 0%,
-			rgba(255, 255, 255, 0.05) 50%,
-			var(--card-bg) 100%
+			135deg,
+			rgba(255, 255, 255, 0.05) 0%,
+			rgba(255, 255, 255, 0.02) 50%,
+			rgba(255, 255, 255, 0.05) 100%
 		);
-		background-size: 200% 100%;
-	}
-
-	.banner-loading-text {
-		z-index: 1;
 	}
 </style>

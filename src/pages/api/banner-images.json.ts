@@ -7,11 +7,11 @@ interface ImageOptimizationOptions {
 	format: "webp" | "avif" | "jpeg";
 }
 
-const DESKTOP_WIDTH = 1920;
-const DESKTOP_HEIGHT = 1080;
-const MOBILE_WIDTH = 768;
-const MOBILE_HEIGHT = 1024;
-const QUALITY = 80;
+const DESKTOP_WIDTH = 1600;
+const DESKTOP_HEIGHT = 900;
+const MOBILE_WIDTH = 640;
+const MOBILE_HEIGHT = 800;
+const QUALITY = 70;
 
 async function optimizeImage(
 	buffer: Buffer,
@@ -36,14 +36,14 @@ async function optimizeImage(
 		case "webp":
 			sharpInstance = sharpInstance.webp({
 				quality,
-				effort: 4,
+				effort: 2,
 				smartSubsample: true,
 			});
 			break;
 		case "avif":
 			sharpInstance = sharpInstance.avif({
 				quality,
-				effort: 4,
+				effort: 2,
 				chromaSubsampling: "4:2:0",
 			});
 			break;
