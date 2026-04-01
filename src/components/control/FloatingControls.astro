@@ -223,6 +223,7 @@ const { headings = [] } = Astro.props;
 </style>
 
 <script is:inline>
+	(() => {
 	if (!window.__floatingControlObservers) {
 		window.__floatingControlObservers = new Map();
 	}
@@ -431,4 +432,5 @@ const { headings = [] } = Astro.props;
 			}
 		});
 	}
+	})();
 </script>
