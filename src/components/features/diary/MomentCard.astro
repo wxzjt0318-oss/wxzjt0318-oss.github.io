@@ -1,0 +1,112 @@
+---
+import { formatRelativeTime } from '../../../utils/timeFormat';
+
+interface Props {
+	moment: {
+		content: string;
+		date: string;
+		images?: string[];
+	};
+	index: number;
+	minutesAgo: string;
+	hoursAgo: string;
+	daysAgo: string;
+}
+
+const { moment, index, minutesAgo, hoursAgo, daysAgo } = Astro.props;
+const relativeTime = formatRelativeTime(moment.date, minutesAgo, hoursAgo, daysAgo);
+---
+
+<div class="moment-item card-base-daily p-4 md:p-6 lg:p-8 hover:shadow-lg transition-all" data-index={index}>
+	<div class="moment-content">
+		<p class="moment-text text-sm md:text-base lg:text-lg text-90 leading-relaxed mb-3 md:mb-4">{moment.content}</p>
+
+		{moment.images && moment.images.length > 0 && (
+			<div class="diary-images grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4 mb-3 md:mb-4">
+				{moment.images.map((image, imgIndex) => (
+					<div class="image-item relative rounded-md overflow-hidden aspect-square cursor-pointer hover:scale-105 transition-transform">
+						<a href="javascript:void(0)" data-src={image} data-fancybox={`gallery-${index}-${imgIndex}`} class="block w-full h-full">
+							<img
+								src={image}
+								alt="diary moment image"
+								class="w-full h-full object-cover"
+								loading="lazy"
+							/>
+						</a>
+					</div>
+				))}
+			</div>
+		)}
+	</div>
+
+	<hr class="moment-divider border-t border-[var(--line-divider)] my-3 md:my-4" />
+
+	<div class="moment-footer flex justify-between items-center">
+		<div class="moment-time flex items-center gap-1.5 text-75 text-xs md:text-sm lg:text-base">
+			<i class="time-icon text-xs md:text-sm">🕐</i>
+			<time datetime={moment.date}>{relativeTime}</time>
+		</div>
+	</div>
+</div>
+
+<style>
+	.card-base-daily {
+		border-radius: var(--radius-large);
+		overflow: hidden;
+		background: var(--card-bg);
+		border: 1px solid var(--line-divider);
+		transition: all 0.3s ease;
+	}
+
+	.image-item img {
+		transition: transform 0.3s ease;
+	}
+
+	.image-item:hover img {
+		transform: scale(1.05);
+	}
+
+	@media (min-width: 769px) and (max-width: 1280px) {
+		.card-base-daily {
+			padding: 1.5rem;
+		}
+
+		.diary-images {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.75rem;
+			max-width: 500px;
+		}
+
+		.moment-text {
+			font-size: 1rem;
+			line-height: 1.7;
+		}
+
+		.moment-footer {
+			margin-top: 1rem;
+		}
+	}
+
+	@media (min-width: 1281px) {
+		.card-base-daily {
+			padding: 2rem;
+		}
+
+		.diary-images {
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+			max-width: 600px;
+			gap: 1rem;
+		}
+
+		.moment-text {
+			font-size: 1.1rem;
+			line-height: 1.8;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.card-base-daily {
+			border-radius: 8px;
+		}
+	}
+</style>

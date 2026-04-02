@@ -1,0 +1,130 @@
+---
+import { PageHeader } from "@components/features/page-header";
+import { StatsGrid } from "@components/features/stats-grid";
+import { TimelineCurrent } from "@components/features/timeline-current";
+import { TimelineHistory } from "@components/features/timeline-history";
+import IconifyLoader from "@components/misc/IconifyLoader.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+
+import { siteConfig } from "../config";
+import {
+	getCurrentItems,
+	getTimelineByType,
+	getTimelineStats,
+	getTotalWorkExperience,
+	timelineData,
+} from "../data/timeline";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
+if (!siteConfig.featurePages.timeline) {
+	return Astro.redirect("/404/");
+}
+
+const getTypeIcon = (type: string) => {
+	switch (type) {
+		case "education":
+			return "material-symbols:school";
+		case "work":
+			return "material-symbols:work";
+		case "project":
+			return "material-symbols:code";
+		case "achievement":
+			return "material-symbols:emoji-events";
+		default:
+			return "material-symbols:event";
+	}
+};
+
+const stats = getTimelineStats();
+const currentItems = getCurrentItems();
+const workExperience = getTotalWorkExperience();
+const allTimelineItems = getTimelineByType();
+
+const allIcons = timelineData
+	.map((item) => item.icon || getTypeIcon(item.type))
+	.filter(Boolean);
+
+const title = i18n(I18nKey.timeline);
+const subtitle = i18n(I18nKey.timelineSubtitle);
+
+const statItems = [
+	{ title: i18n(I18nKey.timelineTotal), value: stats.total.toString(), color: "#3B82F6" },
+	{ title: i18n(I18nKey.timelineWork), value: stats.byType.work.toString(), color: "#22C55E" },
+	{ title: i18n(I18nKey.timelineProjects), value: stats.byType.project.toString(), color: "#A855F7" },
+	{ title: i18n(I18nKey.timelineExperience), value: `${workExperience.years}+`, color: "#F97316" },
+];
+---
+
+<MainGridLayout title={title} description={subtitle}>
+	<script>
+		import("../scripts/right-sidebar-layout.js");
+	</script>
+	<IconifyLoader preloadIcons={allIcons} />
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<PageHeader title={title} subtitle={subtitle} />
+
+			<StatsGrid stats={statItems} columns={4} />
+
+			<TimelineCurrent items={currentItems} />
+
+			<TimelineHistory items={allTimelineItems} />
+		</div>
+	</div>
+</MainGridLayout>
+
+<style>
+	@keyframes pulse {
+		0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+		70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+		100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+	}
+
+	.timeline-node {
+		animation: pulse 2s infinite;
+	}
+
+	.timeline-horizontal-scroll::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.timeline-horizontal-scroll::-webkit-scrollbar-track {
+		background: #e5e7eb;
+		border-radius: 4px;
+	}
+
+	.timeline-horizontal-scroll::-webkit-scrollbar-thumb {
+		background: hsl(var(--hue), 70%, 60%);
+		border-radius: 4px;
+	}
+
+	.timeline-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+		background: hsl(var(--hue), 70%, 50%);
+	}
+</style>
+
+<script>
+	function initTimelinePage() {
+		if (window.__iconifyLoader) {
+			window.__iconifyLoader.load().catch(function(error) {
+				console.error("Failed to load icons on timeline page:", error);
+			});
+		}
+
+		const timelineNodes = document.querySelectorAll(".timeline-node");
+		timelineNodes.forEach(function(node, index) {
+			(node as HTMLElement).style.animationDelay = index * 0.2 + "s";
+		});
+	}
+
+	document.addEventListener("DOMContentLoaded", function() {
+		initTimelinePage();
+	});
+
+	if (typeof window !== "undefined") {
+		document.addEventListener("astro:page-load", function() {
+			setTimeout(initTimelinePage, 100);
+		});
+	}
+</script>

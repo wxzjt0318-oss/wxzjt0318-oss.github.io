@@ -1,0 +1,95 @@
+---
+import FriendCard from "@components/features/friends/FriendCard.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getEntry, render } from "astro:content";
+
+import { siteConfig } from "../config";
+import { getShuffledFriendsList } from "../data/friends";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+
+export const prerender = true;
+
+if (!siteConfig.featurePages.friends) {
+	return Astro.redirect("/404/");
+}
+
+const friendsPost = await getEntry("spec", "friends");
+
+if (!friendsPost) {
+	throw new Error("friends page content not found");
+}
+
+const { Content } = await render(friendsPost);
+const friendsList = getShuffledFriendsList();
+---
+
+<MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
+	<script is:inline>
+		window.isFriendsPage = true;
+	</script>
+	<script>
+		import('../scripts/right-sidebar-layout.js');
+		import { loadIconify } from '../utils/icon-loader';
+
+		loadIconify().catch((error) => {
+			console.error('Failed to load Iconify:', error);
+		});
+	</script>
+
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 relative w-full overflow-hidden">
+			<div class="px-6 sm:px-9 py-6">
+				<div class="rounded-xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark,var(--primary))] p-5 sm:p-6">
+					<div class="flex items-center justify-between gap-4">
+						<div class="min-w-0">
+							<h1 class="text-2xl sm:text-3xl font-bold text-white mb-1 drop-shadow-sm truncate">
+								{i18n(I18nKey.friends)}
+							</h1>
+							<p class="text-sm sm:text-base text-white/80 truncate">
+								{i18n(I18nKey.friendsSubtitle)}
+							</p>
+						</div>
+						<div class="shrink-0 text-center">
+							<span class="block text-2xl sm:text-3xl font-bold text-white drop-shadow-sm">
+								{friendsList.length}
+							</span>
+							<span class="block text-xs sm:text-sm text-white/70">
+								{i18n(I18nKey.friendsCount)}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="px-6 sm:px-9 pt-2 pb-6">
+				<div id="friends-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
+					{friendsList.map((item) => (
+						<FriendCard friend={item} />
+					))}
+				</div>
+
+				<div id="no-results" class="hidden text-center py-16">
+					<iconify-icon
+						icon="material-symbols:group-off"
+						width="64"
+						height="64"
+						class="text-black/15 dark:text-white/15 mb-4"
+					></iconify-icon>
+					<p class="text-black/40 dark:text-white/40 text-lg">
+						{i18n(I18nKey.friendsNoResults)}
+					</p>
+				</div>
+
+				<Markdown class="mt-8 prose dark:prose-invert max-w-none">
+					<Content />
+				</Markdown>
+
+				<div id="friends-copy-success-text" style="display: none;">{i18n(I18nKey.friendsCopySuccess)}</div>
+			</div>
+		</div>
+	</div>
+
+	<script is:inline defer src="/js/friends-page-handler.js"></script>
+</MainGridLayout>
