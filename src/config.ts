@@ -158,7 +158,7 @@ export const siteConfig: SiteConfig = {
 		cjkFont: {
 			fontFamily: "萝莉体 第二版",
 			fontWeight: "400",
-			localFonts: ["萝莉体 第二版.ttf"],
+			localFonts: ["loli.ttf"],
 			enableCompress: true,
 		},
 	},
