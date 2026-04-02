@@ -14,6 +14,30 @@ export interface FriendItem {
 export const friendsData: FriendItem[] = [
 	{
 		id: 1,
+		title: "灵梦资源站",
+		imgurl: "https://www.lingmenggal.top/favicon.ico",
+		desc: "个人收集资源分享小站",
+		siteurl: "https://www.lingmenggal.top/",
+		tags: ["资源", "个人站"],
+	},
+	{
+		id: 2,
+		title: "灵梦小盘",
+		imgurl: "https://pan.043034.xyz/favicon.ico",
+		desc: "个人 OpenList 集成站",
+		siteurl: "https://pan.043034.xyz/",
+		tags: ["网盘", "OpenList"],
+	},
+	{
+		id: 3,
+		title: "羽生小站",
+		imgurl: "https://ysjjzi.top/favicon.ico",
+		desc: "galacg 介绍与资源分享站",
+		siteurl: "https://ysjjzi.top/",
+		tags: ["GAL", "ACG", "资源"],
+	},
+	{
+		id: 4,
 		title: "Astro",
 		imgurl: "https://avatars.githubusercontent.com/u/44914786?v=4&s=640",
 		desc: "The web framework for content-driven websites",
@@ -21,7 +45,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Framework"],
 	},
 	{
-		id: 2,
+		id: 5,
 		title: "Mizuki Docs",
 		imgurl: "https://q.qlogo.cn/headimg_dl?dst_uin=3231515355&spec=640&img_type=jpg",
 		desc: "Mizuki User Manual",
@@ -29,7 +53,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Docs"],
 	},
 	{
-		id: 3,
+		id: 6,
 		title: "Vercel",
 		imgurl: "https://avatars.githubusercontent.com/u/14985020?v=4&s=640",
 		desc: "Develop. Preview. Ship.",
@@ -37,7 +61,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Hosting", "Cloud"],
 	},
 	{
-		id: 4,
+		id: 7,
 		title: "Tailwind CSS",
 		imgurl: "https://avatars.githubusercontent.com/u/67109815?v=4&s=640",
 		desc: "A utility-first CSS framework for rapidly building custom designs",
@@ -45,7 +69,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["CSS", "Framework"],
 	},
 	{
-		id: 5,
+		id: 8,
 		title: "TypeScript",
 		imgurl: "https://avatars.githubusercontent.com/u/6154722?v=4&s=640",
 		desc: "TypeScript is JavaScript with syntax for types",
@@ -53,7 +77,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Language", "JavaScript"],
 	},
 	{
-		id: 6,
+		id: 9,
 		title: "React",
 		imgurl: "https://avatars.githubusercontent.com/u/6412038?v=4&s=640",
 		desc: "A JavaScript library for building user interfaces",
@@ -61,7 +85,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Framework", "JavaScript"],
 	},
 	{
-		id: 7,
+		id: 10,
 		title: "GitHub",
 		imgurl: "https://avatars.githubusercontent.com/u/9919?v=4&s=640",
 		desc: "Where the world builds software",
@@ -69,7 +93,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Development", "Platform"],
 	},
 	{
-		id: 8,
+		id: 11,
 		title: "MDN Web Docs",
 		imgurl: "https://avatars.githubusercontent.com/u/7565578?v=4&s=640",
 		desc: "The web's most comprehensive resource for web developers",
