@@ -133,8 +133,7 @@ const allTags = Array.from(new Set(friendsList.flatMap((item) => item.tags)));
 		</div>
 	</div>
 
-	<!-- 引用全局脚本 -->
-	<script is:inline src="/js/friends-page-handler.js"></script>
+	<!-- 友链交互脚本由全局 Layout 统一加载 -->
 </MainGridLayout>
 
 <style>
