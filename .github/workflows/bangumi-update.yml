@@ -154,14 +154,6 @@ jobs:
           
           echo "cache_timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_OUTPUT
 
-      - name: Upload Bangumi cache artifact
-        if: steps.check.outputs.needs_update == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: bangumi-cache
-          path: ${{ env.CACHE_DIR }}
-          if-no-files-found: error
-
       - name: Commit cache update
         if: steps.check.outputs.needs_update == 'true'
         run: |
@@ -214,13 +206,6 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - name: Download Bangumi cache artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: bangumi-cache
-          path: ${{ env.CACHE_DIR }}
-        continue-on-error: true
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
