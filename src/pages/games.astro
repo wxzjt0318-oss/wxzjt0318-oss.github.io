@@ -19,6 +19,9 @@ const T = {
   paginationLast: i18n((I18nKey as any).paginationLast ?? "paginationLast") || "Last",
 };
 
+const ENABLE_REMOTE_GAME_HTML_FALLBACK =
+  process.env.ENABLE_REMOTE_GAME_HTML_FALLBACK === "true";
+
 type GameStatus = "playing" | "completed" | "planned" | "onhold" | "dropped";
 type GameItem = {
   id: number;
@@ -43,7 +46,7 @@ if (!siteConfig.featurePages.games) {
 }
 
 const isBothSidebarMode = sidebarLayoutConfig.position === "both";
-const userAgent = Astro.request?.headers?.get("user-agent") || "";
+const userAgent = "";
 
 const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
 const BANGUMI_API_BASE = "https://api.bgm.tv";
@@ -723,7 +726,7 @@ async function processBangumiData(data: any, status: GameStatus): Promise<GameIt
       ]),
     );
     let htmlDeveloperList: string[] = [];
-    if (primaryDeveloperList.length === 0) {
+    if (ENABLE_REMOTE_GAME_HTML_FALLBACK && primaryDeveloperList.length === 0) {
       htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
       if (htmlDeveloperList.length === 0) {
         await new Promise((resolve) => setTimeout(resolve, 150));

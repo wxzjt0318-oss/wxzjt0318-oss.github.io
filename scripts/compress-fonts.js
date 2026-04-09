@@ -6,6 +6,10 @@ import Fontmin from "fontmin";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// 是否允许在构建时发起远程抓取来补充字体子集
+const ENABLE_REMOTE_FONT_TEXT_FETCH =
+	process.env.ENABLE_REMOTE_FONT_TEXT_FETCH === "true";
+
 // 读取配置文件获取语言设置和字体配置
 async function getConfig() {
 	const configPath = path.join(__dirname, "../src/config.ts");
@@ -907,8 +911,13 @@ async function collectText() {
 		textSet.add(char);
 	}
 
-	// 5. 从 Meting API 获取歌单数据中的文字
-	const metingTextSet = await fetchMetingPlaylistText();
+	// 5. 从 Meting API 获取歌单数据中的文字（默认关闭远程抓取以缩短构建时间）
+	let metingTextSet = new Set();
+	if (ENABLE_REMOTE_FONT_TEXT_FETCH) {
+		metingTextSet = await fetchMetingPlaylistText();
+	} else {
+		console.log("ℹ Skipping remote Meting text collection during build");
+	}
 
 	// 将 Meting API 的文字添加到主文字集合中
 	for (const char of metingTextSet) {
@@ -921,8 +930,13 @@ async function collectText() {
 		);
 	}
 
-	// 6. 从 Bangumi API 获取番剧数据中的文字
-	const bangumiTextSet = await fetchBangumiAnimeText();
+	// 6. 从 Bangumi API 获取番剧数据中的文字（默认关闭远程抓取以缩短构建时间）
+	let bangumiTextSet = new Set();
+	if (ENABLE_REMOTE_FONT_TEXT_FETCH) {
+		bangumiTextSet = await fetchBangumiAnimeText();
+	} else {
+		console.log("ℹ Skipping remote Bangumi text collection during build");
+	}
 
 	// 将 Bangumi API 的文字添加到主文字集合中
 	for (const char of bangumiTextSet) {

@@ -1,4 +1,5 @@
-import assert from "assert/strict";
+import { describe, expect, it } from "vitest";
+
 import {
 	buildAltTitles,
 	buildSearchIndex,
@@ -54,8 +55,7 @@ function matchSearchIndex(index, term) {
 	const compact = compactQuery(term);
 	if (compact && index.includes(compact)) return true;
 	const tokens = norm.split(" ").filter(Boolean);
-	if (tokens.length > 1 && tokens.every((t) => index.includes(t)))
-		return true;
+	if (tokens.length > 1 && tokens.every((t) => index.includes(t))) return true;
 	if (norm.length < 3) return false;
 	const idxTokens = index.split(/\s+/).filter(Boolean);
 	const maxDistance = Math.max(1, Math.floor(norm.length * 0.25));
@@ -67,31 +67,34 @@ function matchSearchIndex(index, term) {
 	return false;
 }
 
-const altTitles = buildAltTitles(
-	"鬼灭之刃 第2季",
-	"Demon Slayer: Kimetsu no Yaiba Season 2",
-	"劇場版 鬼灭之刃",
-);
-assert(altTitles.some((t) => t.includes("鬼灭之刃")));
-assert(altTitles.some((t) => t.includes("Demon Slayer")));
+describe("anime search helpers", () => {
+	it("builds alt titles and search index correctly", () => {
+		const altTitles = buildAltTitles(
+			"鬼灭之刃 第2季",
+			"Demon Slayer: Kimetsu no Yaiba Season 2",
+			"劇場版 鬼灭之刃",
+		);
+		expect(altTitles.some((t) => t.includes("鬼灭之刃"))).toBe(true);
+		expect(altTitles.some((t) => t.includes("Demon Slayer"))).toBe(true);
 
-const index = buildSearchIndex([
-	"Re:ゼロから始める異世界生活",
-	"Re Zero",
-	"异世界",
-	"Studio White Fox",
-]);
-assert(index.includes("re zero"));
-assert(index.includes(normalizeText("Re:ゼロから始める異世界生活")));
-assert(index.includes("rezero"));
-assert(matchSearchIndex(index, "Re Zero"));
-assert(matchSearchIndex(index, "Re:ゼロ"));
-assert(matchSearchIndex(index, "异世界"));
+		const index = buildSearchIndex([
+			"Re:ゼロから始める異世界生活",
+			"Re Zero",
+			"异世界",
+			"Studio White Fox",
+		]);
+		expect(index.includes("re zero")).toBe(true);
+		expect(index.includes(normalizeText("Re:ゼロから始める異世界生活"))).toBe(true);
+		expect(index.includes("rezero")).toBe(true);
+		expect(matchSearchIndex(index, "Re Zero")).toBe(true);
+		expect(matchSearchIndex(index, "Re:ゼロ")).toBe(true);
+		expect(matchSearchIndex(index, "异世界")).toBe(true);
+	});
 
-assert.equal(isValidStudio("WIT STUDIO", "未知"), true);
-assert.equal(isValidStudio(undefined, "未知"), false);
-assert.equal(isValidStudio("", "未知"), false);
-assert.equal(isValidStudio("??", "未知"), false);
-
-console.log("anime-search.test.mjs passed");
-
+	it("validates studio names", () => {
+		expect(isValidStudio("WIT STUDIO", "未知")).toBe(true);
+		expect(isValidStudio(undefined, "未知")).toBe(false);
+		expect(isValidStudio("", "未知")).toBe(false);
+		expect(isValidStudio("??", "未知")).toBe(false);
+	});
+});

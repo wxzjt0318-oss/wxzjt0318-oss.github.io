@@ -2,10 +2,10 @@
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import { sidebarLayoutConfig, siteConfig } from "../config";
 import localAnimeList from "../data/anime";
+import bangumiAnimeList from "../data/bangumi-data.json";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-import { getCollectionUpdatedAt, mergeCollectionData } from "../utils/anime-collection.js";
 import { buildAltTitles, buildSearchIndex, isValidStudio } from "../utils/anime-search.js";
 
 // i18n helpers with safe fallbacks（采用第二版）
@@ -48,139 +48,15 @@ if (!siteConfig.featurePages.anime) {
 // 双侧边栏
 const isBothSidebarMode = sidebarLayoutConfig.position === "both";
 
-// Bangumi API 配置
+// Bangumi 配置
 const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
-const BANGUMI_API_BASE = "https://api.bgm.tv";
 const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
 
 // 获取模式
-const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
-
-// 上限与缓存 TTL（小时）
 type AnimeConfigExt = { mode?: "bangumi" | "local"; maxItems?: number; cacheTtlHours?: number };
+const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
 const animeCfg = (siteConfig.anime || {}) as AnimeConfigExt;
 const MAX_ITEMS = Number(animeCfg.maxItems) > 0 ? Number(animeCfg.maxItems) : Infinity;
-const CACHE_TTL_HOURS = Number(animeCfg.cacheTtlHours) >= 0 ? Number(animeCfg.cacheTtlHours) : 24;
-let cacheNotice = "";
-
-// 简易磁盘持久缓存（Node 端有效）；支持通过 env 禁用（采用第二版的 mkdir 防御）
-type CacheEntry<T> = { ts: number; data: T };
-const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
-const DISK_CACHE = isNode && !(process as any).env?.BANGUMI_DISABLE_DISK_CACHE;
-
-let fs: typeof import("fs/promises") | null = null;
-let path: typeof import("path") | null = null;
-if (isNode && DISK_CACHE) {
-  const fsMod = await import("fs/promises");
-  const pathMod = await import("path");
-  fs = fsMod;
-  path = pathMod;
-}
-
-const cacheRoot = isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
-if (isNode && DISK_CACHE && fs && cacheRoot) {
-  await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-}
-
-async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
-  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) {return null;}
-  try {
-    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(cacheRoot, `${key}.json`);
-    const buf = await fs.readFile(file, { encoding: "utf8" as any });
-    const jsonStr = typeof buf === "string" ? buf : String(buf);
-    const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
-    const ageHours = (Date.now() - parsed.ts) / 3.6e6;
-    if (ageHours <= ttlHours) {return parsed.data;}
-  } catch {}
-  return null;
-}
-async function diskCacheSet<T>(key: string, data: T): Promise<void> {
-  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) {return;}
-  try {
-    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(cacheRoot, `${key}.json`);
-    const payload: CacheEntry<T> = { ts: Date.now(), data };
-    await fs.writeFile(file, JSON.stringify(payload), { encoding: "utf8" });
-  } catch {
-    // ignore
-  }
-}
-
-// fetch 带重试与 429/5xx 退避
-async function fetchWithRetry(url: string, init?: RequestInit, retries = 4, baseDelayMs = 400): Promise<Response> {
-  let lastErr: unknown = null;
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    let res: Response | null = null;
-    try {
-      res = (await fetch(url, init)) as Response;
-    } catch (e) {
-      lastErr = e;
-    }
-    if (res && res.ok) {return res;}
-
-    const status = res?.status ?? 0;
-    const retryable = status === 429 || (status >= 500 && status <= 599);
-    if (attempt < retries && retryable) {
-      let delay = baseDelayMs * Math.pow(2, attempt);
-      const ra = res?.headers?.get("Retry-After");
-      const s = ra ? Number(ra) : NaN;
-      if (!Number.isNaN(s) && s > 0) {delay = s * 1000;}
-      delay += Math.floor(Math.random() * 200);
-      await new Promise((r) => setTimeout(r, delay));
-      continue;
-    }
-    if (res) {throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);}
-    throw new Error(`Network error: ${String(lastErr)}`);
-  }
-  throw new Error(`fetchWithRetry exhausted for ${url}`);
-}
-
-// 安全提取 infobox
-function pickFirstUsefulValue(v: any): string | undefined {
-  if (v == null) {return undefined;}
-  if (typeof v === "string") {return v.trim() || undefined;}
-  if (Array.isArray(v)) {
-    for (const it of v) {
-      const got = pickFirstUsefulValue(it);
-      if (got) {return got;}
-    }
-    return undefined;
-  }
-  if (typeof v === "object") {
-    if (typeof (v as any).v === "string") {return (v as any).v.trim() || undefined;}
-    if (typeof (v as any).value === "string") {return (v as any).value.trim() || undefined;}
-  }
-  return undefined;
-}
-
-function getStartDateFromInfobox(subject: any): string | undefined {
-  const keys = [
-    "放送开始", "放送開始", "首播", "首映", "首播日期", "上映日期", "上映年度", "上映时间",
-    "发售日", "開始", "開始日", "开始", "開始時間", "开始时间", "开播", "首播时间",
-  ];
-  const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) {return undefined;}
-  for (const k of keys) {
-    const entry = infobox.find((x: any) => x?.key === k);
-    if (!entry) {continue;}
-    const v = pickFirstUsefulValue(entry?.value);
-    if (v) {return v;}
-  }
-  return undefined;
-}
-function getStudioFromInfobox(subject: any): string | undefined {
-  const keys = ["动画制作", "製作", "制作", "动画公司", "Studio", "制作公司", "制作スタジオ"];
-  const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) {return undefined;}
-  for (const k of keys) {
-    const entry = infobox.find((x: any) => x?.key === k);
-    if (!entry) {continue;}
-    const v = pickFirstUsefulValue(entry?.value);
-    if (v) {return v;}
-  }
-  return undefined;
-}
 
 // 展示日期
 function toDisplayYearOrYearMonth(input?: string): string {
@@ -218,143 +94,6 @@ function toTime(input?: string) {
   if (/^\d{4}-\d{2}$/.test(s)) {return Date.parse(`${s}-01T00:00:00Z`);}
   const t = Date.parse(s);
   return Number.isNaN(t) ? 0 : t;
-}
-
-// 人员与详情 API
-async function fetchSubjectPersonsRaw(subjectId: number) {
-  try {
-    const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}/persons`);
-    const ct = res.headers.get("content-type") || "";
-    if (!ct.includes("application/json")) {return [];}
-    const data = await res.json().catch(() => []);
-    return Array.isArray(data) ? data : [];
-  } catch (e) {
-    console.error(`Error fetching persons for subject ${subjectId}:`, e);
-    return [];
-  }
-}
-async function fetchSubjectDetailRaw(subjectId: number) {
-  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`);
-  const ct = res.headers.get("content-type") || "";
-  if (!ct.includes("application/json")) {throw new Error(`Bangumi subject ${subjectId} non-JSON`);}
-  return await res.json();
-}
-
-// 内存缓存 + 磁盘缓存
-const subjectDetailCache = new Map<number, any>();
-const subjectPersonsCache = new Map<number, any[]>();
-
-async function fetchSubjectDetailCached(id: number) {
-  if (subjectDetailCache.has(id)) {return subjectDetailCache.get(id);}
-  const diskKey = `subject-${id}`;
-  const disk = await diskCacheGet<any>(diskKey, CACHE_TTL_HOURS);
-  if (disk) {
-    subjectDetailCache.set(id, disk);
-    return disk;
-  }
-  const d = await fetchSubjectDetailRaw(id).catch((e) => {
-    console.error(`Error fetching subject ${id} detail:`, e);
-    return null;
-  });
-  subjectDetailCache.set(id, d);
-  if (d) {await diskCacheSet(diskKey, d);}
-  return d;
-}
-async function fetchSubjectPersonsCached(id: number) {
-  if (subjectPersonsCache.has(id)) {return subjectPersonsCache.get(id);}
-  const diskKey = `persons-${id}`;
-  const disk = await diskCacheGet<any[]>(diskKey, CACHE_TTL_HOURS);
-  if (disk) {
-    subjectPersonsCache.set(id, disk);
-    return disk;
-  }
-  const p = await fetchSubjectPersonsRaw(id).catch(() => []);
-  subjectPersonsCache.set(id, p);
-  if (p?.length) {await diskCacheSet(diskKey, p);}
-  return p;
-}
-
-// 并发限制
-async function mapWithConcurrency<T, R>(
-  items: T[],
-  limit: number,
-  fn: (item: T, idx: number) => Promise<R>,
-): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let i = 0;
-  const runners = new Array(Math.min(limit, items.length)).fill(0).map(async () => {
-    while (true) {
-      const idx = i++;
-      if (idx >= items.length) {return;}
-      results[idx] = await fn(items[idx], idx);
-    }
-  });
-  await Promise.all(runners);
-  return results;
-}
-
-type CollectionCache = { data: any[]; lastSync?: string };
-
-// 收藏列表抓取（分页 + 上限 + 可缓存）
-async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
-  const cacheKey = `collection-${userId}-${subjectType}-${type}`;
-  const cached = await diskCacheGet<CollectionCache>(cacheKey, CACHE_TTL_HOURS);
-  const cachedList = cached?.data || [];
-  const lastSyncTime = cached?.lastSync ? toTime(cached.lastSync) : 0;
-
-  try {
-    let allData: any[] = [];
-    let offset = 0;
-    const pageLimit = 50;
-    let canShortCircuit = true;
-    let prevUpdated = Number.POSITIVE_INFINITY;
-
-    while (true) {
-      const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
-      const response = await fetchWithRetry(url);
-      const data = await response.json();
-      const batch = data.data || [];
-      if (batch.length > 0) {allData = [...allData, ...batch];}
-
-      if (lastSyncTime > 0 && batch.length > 0) {
-        let batchMax = 0;
-        let batchMin = Number.POSITIVE_INFINITY;
-        for (const item of batch) {
-          const t = toTime(getCollectionUpdatedAt(item));
-          if (t > batchMax) {batchMax = t;}
-          if (t < batchMin) {batchMin = t;}
-          if (t > prevUpdated) {canShortCircuit = false;}
-          prevUpdated = t;
-        }
-        if (canShortCircuit && batchMax <= lastSyncTime && batchMin <= lastSyncTime) {
-          break;
-        }
-      }
-
-      if (allData.length >= MAX_ITEMS) {
-        allData = allData.slice(0, MAX_ITEMS as number);
-        break;
-      }
-
-      const hasMore = batch.length === pageLimit;
-      if (!hasMore) {break;}
-      offset += pageLimit;
-
-      await new Promise((resolve) => setTimeout(resolve, 120)); // 轻微节流
-    }
-
-    const merged = mergeCollectionData(cachedList, allData);
-    const payload: CollectionCache = { data: merged, lastSync: new Date().toISOString() };
-    await diskCacheSet(cacheKey, payload);
-    return payload;
-  } catch (error) {
-    console.error("Error fetching Bangumi data:", error);
-    if (cachedList.length > 0) {
-      cacheNotice = "Bangumi API 异常，已展示缓存数据";
-      return { data: cachedList, lastSync: cached?.lastSync };
-    }
-    return null;
-  }
 }
 
 // 统一 episodes 文案
@@ -402,93 +141,6 @@ function getStatusInfo(status: string) {
   }
 }
 
-// 转换为页面数据
-async function processBangumiData(data: any, status: AnimeStatus): Promise<AnimeItem[]> {
-  if (!data || !data.data) {return [];}
-  const items: any[] = data.data;
-
-  const detailedItems = await mapWithConcurrency(items, 6, async (item: any) => {
-    const subjectId = item.subject_id;
-    const subject = item.subject || {};
-    const detail = await fetchSubjectDetailCached(subjectId);
-
-    const rawDate = (subject?.date || "").trim();
-    const isUnknown = !rawDate || /^unknown$/i.test(rawDate) || rawDate === "0000-00-00";
-    const detailDate = (detail?.date || "").trim();
-    const infoboxStart = getStartDateFromInfobox(detail);
-    const startCandidate = !isUnknown ? rawDate : detailDate || infoboxStart || "";
-    const startDate = startCandidate || undefined;
-    const displayDate = toDisplayYearOrYearMonth(startDate);
-
-    const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : 0;
-    const progress = item.ep_status || 0;
-    const totalEpisodes =
-      typeof subject?.eps === "number" && subject?.eps > 0 ? subject.eps : progress;
-
-    let studio = getStudioFromInfobox(detail) || T.unknown;
-    if (!studio || studio === T.unknown) {
-      const subjectPersons = await fetchSubjectPersonsCached(subjectId);
-      if (Array.isArray(subjectPersons)) {
-        const priorities = ["动画制作", "製作", "制作"];
-        for (const relation of priorities) {
-          const match = subjectPersons.find((person) => person.relation === relation);
-          if (match?.name) {
-            studio = match.name;
-            break;
-          }
-        }
-      }
-      if (!studio) {studio = T.unknown;}
-    }
-
-    const genre: string[] = Array.isArray(subject?.tags)
-      ? subject.tags
-          .slice(0, 4)
-          .map((t: any) => {
-            if (typeof t === "string") {return t.trim();}
-            if (t && typeof t.name === "string") {return t.name.trim();}
-            return "";
-          })
-          .filter(Boolean)
-      : [];
-
-    const updatedAtRaw =
-      item.updated_at || item.comment_updated_at || item.created_at || detail?.date || subject?.date || "";
-    let updatedAt: string | undefined = undefined;
-    if (updatedAtRaw) {
-      const ts = toTime(updatedAtRaw);
-      if (ts > 0) {updatedAt = new Date(ts).toISOString();}
-    }
-
-    const cover = subject?.images?.medium || "/assets/anime/default.webp";
-    const title = subject?.name_cn || subject?.name || T.unknown;
-    const studioValue = isValidStudio(studio, T.unknown) ? studio : "";
-    const altTitles = buildAltTitles(subject?.name_cn, subject?.name, detail?.name_cn, detail?.name);
-    const searchIndex = buildSearchIndex([title, ...altTitles, studioValue, ...genre, status]);
-
-    return {
-      title,
-      status,
-      rating,
-      cover,
-      description: (subject?.short_summary || subject?.name_cn || "").trimStart(),
-      displayDate,
-      studio: studioValue,
-      link: `https://bgm.tv/subject/${subjectId}`,
-      progress,
-      totalEpisodes,
-      startDate: startDate || "",
-      updatedAt,
-      altTitles,
-      searchIndex,
-      genre,
-      episodes: episodesText(totalEpisodes),
-    } as AnimeItem;
-  });
-
-  return detailedItems as AnimeItem[];
-}
-
 // 根据模式获取番剧列表
 let animeList: AnimeItem[] = [];
 if (ANIME_MODE === "local") {
@@ -516,21 +168,26 @@ if (ANIME_MODE === "local") {
 } else if (!isValidUserId) {
   animeList = [];
 } else {
-  const [watchingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 3),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 1),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 2),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 4),
-    fetchBangumiCollection(BANGUMI_USER_ID, 2, 5),
-  ]);
-
-  const watchingList = watchingData ? await processBangumiData(watchingData, "watching") : [];
-  const plannedList = plannedData ? await processBangumiData(plannedData, "planned") : [];
-  const completedList = completedData ? await processBangumiData(completedData, "completed") : [];
-  const onHoldList = onHoldData ? await processBangumiData(onHoldData, "onhold") : [];
-  const droppedList = droppedData ? await processBangumiData(droppedData, "dropped") : [];
-
-  animeList = [...watchingList, ...plannedList, ...completedList, ...onHoldList, ...droppedList];
+  animeList = (bangumiAnimeList as AnimeItem[]).map((a) => {
+    const genre = Array.isArray((a as any).genre) ? (a as any).genre.slice(0, 4) : [];
+    const altTitles = buildAltTitles(a.title);
+    const studioValue = isValidStudio(a.studio, T.unknown) ? a.studio : "";
+    return {
+      ...a,
+      displayDate: toDisplayYearOrYearMonth((a as any).startDate || (a as any).year),
+      genre,
+      episodes: (a as any).episodes || episodesText((a as any).totalEpisodes),
+      updatedAt: (a as any).updatedAt
+        ? (() => {
+            const ts = toTime((a as any).updatedAt);
+            return ts > 0 ? new Date(ts).toISOString() : undefined;
+          })()
+        : undefined,
+      studio: studioValue,
+      altTitles,
+      searchIndex: buildSearchIndex([a.title, ...altTitles, studioValue, ...genre, a.status]),
+    } as AnimeItem;
+  });
   if (Number.isFinite(MAX_ITEMS)) {
     animeList = animeList.slice(0, MAX_ITEMS as number);
   }
@@ -581,12 +238,6 @@ const sortedAnimeList = [...animeList].sort((a, b) => {
           <p class="text-black/75 dark:text-white/75">{i18n(I18nKey.animeSubtitle)}</p>
         </div>
 
-        {cacheNotice ? (
-          <div class="mb-4 rounded-[var(--radius-large)] border border-amber-400/30 bg-amber-50/70 dark:bg-amber-900/20 px-4 py-2 text-sm text-amber-800 dark:text-amber-200">
-            {cacheNotice}
-          </div>
-        ) : null}
-        
         <!-- 统计信息卡片 -->
         <div class="stats-container grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div class="stat-card relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-indigo-500/20 dark:border-indigo-400/20 bg-gradient-to-br from-indigo-500/20 via-indigo-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300">

@@ -1,4 +1,5 @@
-import assert from "assert/strict";
+import { describe, expect, it } from "vitest";
+
 import { fetchMetingListWithFailover } from "../src/utils/music-api.js";
 
 function createDualFetch(primaryHandlers, backupHandlers) {
@@ -19,7 +20,8 @@ function createDualFetch(primaryHandlers, backupHandlers) {
 		}
 		if (url.includes("backup.test")) {
 			const handler =
-				backupHandlers[backupCalls] ?? backupHandlers[backupHandlers.length - 1];
+				backupHandlers[backupCalls] ??
+				backupHandlers[backupHandlers.length - 1];
 			backupCalls += 1;
 			if (handler.throw) throw handler.throw;
 			return {
@@ -49,81 +51,84 @@ const commonArgs = {
 	unknownArtist: "Unknown Artist",
 };
 
-const fetch1 = createDualFetch(
-	[
-		{
-			ok: true,
-			json: {
-				data: [
-					{ id: 1, name: "Song A", artist: "Artist A", duration: 120, url: "u" },
-				],
-			},
-		},
-	],
-	[]
-);
-const result1 = await fetchMetingListWithFailover({
-	...commonArgs,
-	fetchImpl: fetch1,
-});
-assert.equal(result1.usedBackup, false);
-assert.equal(result1.list.length, 1);
-assert.equal(result1.list[0].title, "Song A");
-
-const fetch2 = createDualFetch(
-	[
-		{ ok: false, status: 500, json: {} },
-		{ ok: false, status: 500, json: {} },
-		{ ok: false, status: 500, json: {} },
-	],
-	[
-		{
-			ok: true,
-			json: [
+describe("fetchMetingListWithFailover", () => {
+	it("uses primary API when it succeeds", async () => {
+		const fetch1 = createDualFetch(
+			[
 				{
-					id: 2,
-					title: "Song B",
-					author: "Artist B",
-					duration: 10001,
-					url: "u2",
-					pic: "c2",
+					ok: true,
+					json: {
+						data: [
+							{ id: 1, name: "Song A", artist: "Artist A", duration: 120, url: "u" },
+						],
+					},
 				},
 			],
-		},
-	]
-);
-const result2 = await fetchMetingListWithFailover({
-	...commonArgs,
-	fetchImpl: fetch2,
-});
-assert.equal(result2.usedBackup, true);
-assert.equal(result2.list.length, 1);
-assert.equal(result2.list[0].duration, 10);
-const counts2 = fetch2.getCounts();
-assert.equal(counts2.primaryCalls, 3);
-assert.equal(counts2.backupCalls, 1);
-
-const fetch3 = createDualFetch(
-	[
-		{ throw: new Error("network") },
-		{ throw: new Error("network") },
-		{ throw: new Error("network") },
-	],
-	[
-		{ ok: false, status: 500, json: {} },
-		{ ok: false, status: 500, json: {} },
-		{ ok: false, status: 500, json: {} },
-	]
-);
-let failed = false;
-try {
-	await fetchMetingListWithFailover({
-		...commonArgs,
-		fetchImpl: fetch3,
+			[],
+		);
+		const result = await fetchMetingListWithFailover({
+			...commonArgs,
+			fetchImpl: fetch1,
+		});
+		expect(result.usedBackup).toBe(false);
+		expect(result.list).toHaveLength(1);
+		expect(result.list[0].title).toBe("Song A");
 	});
-} catch {
-	failed = true;
-}
-assert.equal(failed, true);
 
-console.log("music-api.test.mjs passed");
+	it("falls back to backup API after primary failures", async () => {
+		const fetch2 = createDualFetch(
+			[
+				{ ok: false, status: 500, json: {} },
+				{ ok: false, status: 500, json: {} },
+				{ ok: false, status: 500, json: {} },
+			],
+			[
+				{
+					ok: true,
+					json: [
+						{
+							id: 2,
+							title: "Song B",
+							author: "Artist B",
+							duration: 10001,
+							url: "u2",
+							pic: "c2",
+						},
+					],
+				},
+			],
+		);
+		const result = await fetchMetingListWithFailover({
+			...commonArgs,
+			fetchImpl: fetch2,
+		});
+		expect(result.usedBackup).toBe(true);
+		expect(result.list).toHaveLength(1);
+		expect(result.list[0].duration).toBe(10);
+		const counts = fetch2.getCounts();
+		expect(counts.primaryCalls).toBe(3);
+		expect(counts.backupCalls).toBe(1);
+	});
+
+	it("throws when both primary and backup fail", async () => {
+		const fetch3 = createDualFetch(
+			[
+				{ throw: new Error("network") },
+				{ throw: new Error("network") },
+				{ throw: new Error("network") },
+			],
+			[
+				{ ok: false, status: 500, json: {} },
+				{ ok: false, status: 500, json: {} },
+				{ ok: false, status: 500, json: {} },
+			],
+		);
+
+		await expect(
+			fetchMetingListWithFailover({
+				...commonArgs,
+				fetchImpl: fetch3,
+			}),
+		).rejects.toBeTruthy();
+	});
+});

@@ -1,7 +1,7 @@
 {
 	"name": "灵梦Mizuki",
 	"type": "module",
-	"version": "9.0.0",
+	"version": "9.1.0",
 	"scripts": {
 		"sync-content": "node scripts/sync-content.js",
 		"init-content": "node scripts/init-content-repo.js",
@@ -11,13 +11,14 @@
 		"start": "astro dev",
 		"check": "astro check",
 		"update-anime": "node scripts/update-anime.mjs",
+		"build:data": "node scripts/update-anime.mjs",
 		"update-bangumi": "node scripts/update-bangumi.mjs",
 		"update-bilibili": "node scripts/update-bilibili.mjs",
-		"build": "node scripts/update-anime.mjs && astro build && pagefind --site dist && node scripts/compress-fonts.js",
+		"build": "astro build && pagefind --site dist && node scripts/compress-fonts.js",
 		"submit": "node scripts/indexnow-submit.js",
 		"preview": "astro preview",
 		"astro": "astro",
-		"type-check": "tsc --noEmit --isolatedDeclarations",
+		"type-check": "tsc --noEmit",
 		"new-post": "node scripts/new-post.js",
 		"format": "prettier --write ./src",
 		"lint": "eslint ./src --fix",
@@ -110,7 +111,12 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"@emmetio/css-parser": "https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660"
+			"@emmetio/css-parser": "https://codeload.github.com/ramya-rao-a/css-parser/tar.gz/370c480ac103bd17c7bcfb34bf5d577dc40d3660",
+			"serialize-javascript": "^7.0.3",
+			"fast-xml-parser": "^5.5.6",
+			"picomatch": "^4.0.4",
+			"defu": "^6.1.5",
+			"vite": "^7.3.2"
 		}
 	}
 }

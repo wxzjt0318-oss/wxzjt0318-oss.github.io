@@ -29,6 +29,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: lts/*
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -39,7 +41,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - name: Build site
-        run: pnpm run build
+        run: pnpm run build:data && pnpm run build
         env:
           UMAMI_SHARE_URL: ${{ secrets.UMAMI_SHARE_URL }}
           ENABLE_CONTENT_SYNC: false

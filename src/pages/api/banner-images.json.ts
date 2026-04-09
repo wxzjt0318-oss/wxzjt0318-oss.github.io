@@ -5,16 +5,14 @@ export async function GET({ request }: { request: Request }) {
 	const limitedCount = Math.min(Math.max(count, 1), 10);
 
 	const timestamp = Date.now();
-	const desktopImages: string[] = [];
-	const mobileImages: string[] = [];
-
-	for (let i = 0; i < limitedCount; i++) {
-		const desktopUrl = await fetchActualImageUrl(`https://www.dmoe.cc/random.php?t=${timestamp}_d${i}`);
-		const mobileUrl = await fetchActualImageUrl(`https://www.dmoe.cc/random.php?t=${timestamp}_m${i}`);
-		
-		desktopImages.push(desktopUrl);
-		mobileImages.push(mobileUrl);
-	}
+	const desktopImages = Array.from(
+		{ length: limitedCount },
+		(_, i) => `https://www.dmoe.cc/random.php?t=${timestamp}_d${i}`,
+	);
+	const mobileImages = Array.from(
+		{ length: limitedCount },
+		(_, i) => `https://www.dmoe.cc/random.php?t=${timestamp}_m${i}`,
+	);
 
 	return new Response(
 		JSON.stringify({
@@ -34,24 +32,3 @@ export async function GET({ request }: { request: Request }) {
 	);
 }
 
-async function fetchActualImageUrl(redirectUrl: string): Promise<string> {
-	try {
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 5000);
-		
-		const response = await fetch(redirectUrl, {
-			method: 'HEAD',
-			redirect: 'follow',
-			signal: controller.signal,
-		});
-		
-		clearTimeout(timeoutId);
-		
-		if (response.ok) {
-			return response.url;
-		}
-		return redirectUrl;
-	} catch (error) {
-		return redirectUrl;
-	}
-}
