@@ -1,4 +1,5 @@
 import { siteConfig } from "../config";
+import { bannerApiService, bannerLogger } from "./banner-api";
 
 const IMAGE_CACHE_TTL = 3600000;
 const DEFAULT_TIMEOUT_MS = 5000;
@@ -103,7 +104,7 @@ async function requestBannerApi(baseUrl: string, count: number, device: BannerDe
 		const response = await fetch(requestUrl, {
 			method: "GET",
 			signal: controller.signal,
-			headers: { accept: "text/plain, application/json;q=0.9, */*;q=0.8" },
+			headers: { accept: "text/plain, application/json;q=0.9, */*;q=0.8", "Cache-Control": "no-cache" },
 		});
 		if (!response.ok) {
 			throw new Error(`HTTP ${response.status}`);
@@ -113,19 +114,10 @@ async function requestBannerApi(baseUrl: string, count: number, device: BannerDe
 		if (urls.length === 0) {
 			throw new Error("empty or invalid response");
 		}
-		logBannerEvent("info", `${apiRole} banner API request succeeded`, {
-			device,
-			count: urls.length,
-			baseUrl,
-			format: text.trim().startsWith("{") || text.trim().startsWith("[") ? "json" : "text",
-		});
+		bannerLogger.logApiRequest(baseUrl, apiRole, true, 0);
 		return urls.slice(0, count);
 	} catch (error) {
-		logBannerEvent(apiRole === "primary" ? "warn" : "error", `${apiRole} banner API request failed`, {
-			device,
-			baseUrl,
-			reason: error instanceof Error ? error.message : String(error),
-		});
+		bannerLogger.logApiRequest(baseUrl, apiRole, false, 0, error instanceof Error ? error.message : String(error));
 		throw error;
 	} finally {
 		clearTimeout(timeoutId);
@@ -156,11 +148,7 @@ async function fetchBannerImagesFromApi(config: BannerImageApiConfig, count: num
 			if (!endpoints.fallbackUrl) {
 				throw primaryError;
 			}
-			logBannerEvent("warn", "switching to fallback banner API", {
-				device,
-				primaryUrl: endpoints.primaryUrl,
-				fallbackUrl: endpoints.fallbackUrl,
-			});
+			bannerLogger.logApiSwitch(endpoints.primaryUrl, endpoints.fallbackUrl, "Primary API failed");
 			return await requestBannerApi(endpoints.fallbackUrl, count, device, "fallback");
 		}
 	};
@@ -170,6 +158,38 @@ async function fetchBannerImagesFromApi(config: BannerImageApiConfig, count: num
 		fetchWithFallback("mobile"),
 	]);
 	return { desktop, mobile };
+}
+
+async function fetchDmoeImages(count: number = DEFAULT_IMAGE_COUNT): Promise<BannerImageResult> {
+	const dmoeApi = "https://www.dmoe.cc/random.php";
+	const desktopUrls: string[] = [];
+	const mobileUrls: string[] = [];
+
+	try {
+		for (let i = 0; i < count; i++) {
+			const response = await fetch(`${dmoeApi}?return=json`, {
+				method: "GET",
+				headers: { "Cache-Control": "no-cache" },
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				const url = data.img || data.url || data.random || data[0];
+				if (url && isLikelyImageUrl(url)) {
+					desktopUrls.push(url);
+					mobileUrls.push(url);
+				}
+			}
+		}
+	} catch (error) {
+		bannerLogger.error("DMOE API request failed", { error: error instanceof Error ? error.message : String(error) });
+	}
+
+	if (desktopUrls.length === 0) {
+		throw new Error("DMOE API returned no valid images");
+	}
+
+	return { desktop: desktopUrls, mobile: mobileUrls };
 }
 
 async function resolveImageResponse(url: string, method: "HEAD" | "GET") {
@@ -261,7 +281,7 @@ export async function fetchActualImageUrl(redirectUrl: string): Promise<string |
 			imageCache.set(redirectUrl, { url: actualUrl, timestamp: Date.now() });
 			return actualUrl;
 		} catch (getError) {
-			logBannerEvent("warn", "banner image probe failed", {
+			bannerLogger.warn("Banner image probe failed", {
 				redirectUrl,
 				headReason: headError instanceof Error ? headError.message : String(headError),
 				getReason: getError instanceof Error ? getError.message : String(getError),
@@ -285,7 +305,7 @@ async function fetchBannerImagesFromDefaultSource(count: number): Promise<Banner
 	const validMobile = mobileResults.filter((item): item is string => Boolean(item));
 
 	if (validDesktop.length < configuredSources.desktop.length || validMobile.length < configuredSources.mobile.length) {
-		logBannerEvent("warn", "configured banner sources returned insufficient valid images, filling with configured fallback entries", {
+		bannerLogger.warn("Configured banner sources returned insufficient valid images, filling with configured fallback entries", {
 			desktopValid: validDesktop.length,
 			mobileValid: validMobile.length,
 			requiredDesktop: configuredSources.desktop.length,
@@ -301,14 +321,44 @@ async function fetchBannerImagesFromDefaultSource(count: number): Promise<Banner
 
 export async function fetchBannerImages(count: number = DEFAULT_IMAGE_COUNT): Promise<BannerImageResult> {
 	const imageApi = siteConfig.banner.imageApi;
+
 	if (imageApi?.enable && imageApi.url) {
 		try {
 			return await fetchBannerImagesFromApi(imageApi, count);
 		} catch (error) {
-			logBannerEvent("warn", "all banner image API sources failed, falling back to built-in source", {
+			bannerLogger.warn("Banner image API sources failed, trying DMOE fallback", {
 				reason: error instanceof Error ? error.message : String(error),
 			});
+
+			try {
+				const dmoeResult = await fetchDmoeImages(count);
+				return dmoeResult;
+			} catch (dmoeError) {
+				bannerLogger.warn("DMOE API also failed, falling back to built-in source", {
+					reason: dmoeError instanceof Error ? dmoeError.message : String(dmoeError),
+				});
+			}
 		}
 	}
-	return await fetchBannerImagesFromDefaultSource(count);
+
+	try {
+		const dmoeResult = await fetchDmoeImages(count);
+		return dmoeResult;
+	} catch {
+		return await fetchBannerImagesFromDefaultSource(count);
+	}
 }
+
+export function getBannerServiceStatus() {
+	return bannerApiService.getHealthStatus();
+}
+
+export function getBannerCacheStats() {
+	return bannerApiService.getCacheStats();
+}
+
+export function getBannerDisplayReport() {
+	return bannerApiService.getDisplayReport();
+}
+
+export { bannerApiService };
