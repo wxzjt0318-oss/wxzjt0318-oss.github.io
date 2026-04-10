@@ -5,8 +5,8 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
-      force_update:
-        description: 'Force update even if cache is valid'
+      skip_build:
+        description: 'Skip build and deploy (only update cache)'
         required: false
         default: 'false'
         type: boolean
@@ -25,22 +25,35 @@ permissions:
 
 concurrency:
   group: "bangumi-update"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
-  BANGUMI_USER_ID: "1180323"
+  BANGUMI_USER_ID: ${{ vars.BANGUMI_USER_ID || '1180323' }}
   CACHE_DIR: ".cache/bangumi"
 
 jobs:
-  check-and-update:
+  update-bangumi-data:
     runs-on: ubuntu-latest
     outputs:
-      needs_update: ${{ steps.check.outputs.needs_update }}
-      anime_count: ${{ steps.fetch.outputs.anime_count }}
-      game_count: ${{ steps.fetch.outputs.game_count }}
+      anime_count: ${{ steps.fetch-anime.outputs.anime_count }}
+      game_count: ${{ steps.fetch-games.outputs.game_count }}
+      has_changes: ${{ steps.commit.outputs.has_changes }}
+      cache_updated: ${{ steps.fetch-anime.outputs.cache_updated }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .cache/
+            src/
+            reports/
+          sparse-checkout-cone-mode: false
+
+      - name: Clear cache
+        if: inputs.clear_cache == 'true'
+        run: |
+          rm -rf ${{ env.CACHE_DIR }}
+          echo "Cache cleared"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -67,81 +80,50 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Check cache status
-        id: check
+      - name: Fetch Bangumi Anime Data
+        id: fetch-anime
         run: |
-          if [ "${{ inputs.clear_cache }}" = "true" ]; then
-            echo "Clearing cache..."
-            rm -rf ${{ env.CACHE_DIR }}
-            echo "needs_update=true" >> $GITHUB_OUTPUT
-            echo "Cache cleared, forcing update."
-            exit 0
-          fi
-
-          if [ "${{ inputs.force_update }}" = "true" ]; then
-            echo "needs_update=true" >> $GITHUB_OUTPUT
-            echo "Force update requested."
-            exit 0
-          fi
-
-          if [ -d "${{ env.CACHE_DIR }}" ]; then
-            LATEST_CACHE=$(find ${{ env.CACHE_DIR }} -name "*.json" -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-)
-            if [ -n "$LATEST_CACHE" ]; then
-              CACHE_AGE=$(( $(date +%s) - $(stat -c %Y "$LATEST_CACHE" 2>/dev/null || stat -f %m "$LATEST_CACHE") ))
-              CACHE_AGE_HOURS=$(( CACHE_AGE / 3600 ))
-              echo "Latest cache age: ${CACHE_AGE_HOURS} hours"
-              
-              if [ $CACHE_AGE_HOURS -lt 24 ]; then
-                echo "needs_update=false" >> $GITHUB_OUTPUT
-                echo "Cache is fresh (${CACHE_AGE_HOURS}h < 24h), skipping update."
-                exit 0
-              fi
-            fi
-          fi
-          
-          echo "needs_update=true" >> $GITHUB_OUTPUT
-          echo "Cache is stale or missing, update needed."
-
-      - name: Install dependencies
-        if: steps.check.outputs.needs_update == 'true'
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Fetch Bangumi data
-        id: fetch
-        if: steps.check.outputs.needs_update == 'true'
-        run: |
-          echo "Fetching Bangumi data for user: ${{ env.BANGUMI_USER_ID }}"
-          
+          echo "Fetching Bangumi anime data for user: ${{ env.BANGUMI_USER_ID }}"
           mkdir -p ${{ env.CACHE_DIR }}
-          
+
           ANIME_RESPONSE=$(curl -s -w "\n%{http_code}" \
             "https://api.bgm.tv/v0/users/${{ env.BANGUMI_USER_ID }}/collections?subject_type=2&limit=500" \
             -H "Accept: application/json" \
+            -H "Cache-Control: no-cache" \
             --connect-timeout 30 \
             --max-time 120)
-          
+
           ANIME_CODE=$(echo "$ANIME_RESPONSE" | tail -1)
           ANIME_DATA=$(echo "$ANIME_RESPONSE" | sed '$d')
-          
+
           if [ "$ANIME_CODE" = "200" ]; then
             echo "$ANIME_DATA" > ${{ env.CACHE_DIR }}/anime.json
             ANIME_COUNT=$(echo "$ANIME_DATA" | jq '.data | length' 2>/dev/null || echo "0")
             echo "anime_count=$ANIME_COUNT" >> $GITHUB_OUTPUT
+            echo "cache_updated=true" >> $GITHUB_OUTPUT
             echo "✅ Fetched $ANIME_COUNT anime entries"
           else
             echo "anime_count=0" >> $GITHUB_OUTPUT
+            echo "cache_updated=false" >> $GITHUB_OUTPUT
             echo "⚠️ Failed to fetch anime data (HTTP $ANIME_CODE)"
+            exit 1
           fi
-          
+
+      - name: Fetch Bangumi Game Data
+        id: fetch-games
+        run: |
+          echo "Fetching Bangumi game data for user: ${{ env.BANGUMI_USER_ID }}"
+
           GAME_RESPONSE=$(curl -s -w "\n%{http_code}" \
             "https://api.bgm.tv/v0/users/${{ env.BANGUMI_USER_ID }}/collections?subject_type=4&limit=500" \
             -H "Accept: application/json" \
+            -H "Cache-Control: no-cache" \
             --connect-timeout 30 \
             --max-time 120)
-          
+
           GAME_CODE=$(echo "$GAME_RESPONSE" | tail -1)
           GAME_DATA=$(echo "$GAME_RESPONSE" | sed '$d')
-          
+
           if [ "$GAME_CODE" = "200" ]; then
             echo "$GAME_DATA" > ${{ env.CACHE_DIR }}/games.json
             GAME_COUNT=$(echo "$GAME_DATA" | jq '.data | length' 2>/dev/null || echo "0")
@@ -151,44 +133,48 @@ jobs:
             echo "game_count=0" >> $GITHUB_OUTPUT
             echo "⚠️ Failed to fetch game data (HTTP $GAME_CODE)"
           fi
-          
-          echo "cache_timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_OUTPUT
 
-      - name: Generate daily Bangumi article
-        if: steps.check.outputs.needs_update == 'true'
-        run: pnpm run generate-bangumi-post
+      - name: Install dependencies and generate daily article
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm run generate-bangumi-post
         env:
           BANGUMI_POSTS_PER_RUN: 1
           BANGUMI_POST_REVIEW_MODE: ${{ vars.BANGUMI_POST_REVIEW_MODE || 'false' }}
 
-      - name: Commit cache update
-        if: steps.check.outputs.needs_update == 'true'
+      - name: Commit changes
+        id: commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          if [ -d "${{ env.CACHE_DIR }}" ]; then
-            git add ${{ env.CACHE_DIR }} || true
-            git add src/content/posts src/data/bangumi-posts-state.json reports/bangumi-daily-posts-latest.json || true
-            if git diff --staged --quiet; then
-              echo "No changes to commit"
-            else
-              COMMIT_MSG="chore: update bangumi cache and daily anime post [skip ci] - Anime: ${{ steps.fetch.outputs.anime_count }}, Games: ${{ steps.fetch.outputs.game_count }}"
-              git commit -m "$COMMIT_MSG"
-              git push
-              echo "Cache committed and pushed"
-            fi
+
+          git add ${{ env.CACHE_DIR }} src/content/posts src/data/bangumi-posts-state.json reports/bangumi-daily-posts-latest.json 2>/dev/null || true
+
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes to commit"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            COMMIT_MSG="chore: update bangumi cache and daily anime post [skip ci]
+            
+Anime: ${{ steps.fetch-anime.outputs.anime_count }}
+Games: ${{ steps.fetch-games.outputs.game_count }}
+Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+            git commit -m "$COMMIT_MSG"
+            git push
+            echo "✅ Changes committed and pushed"
           fi
 
   build-and-deploy:
-    needs: check-and-update
-    if: needs.check-and-update.outputs.needs_update == 'true'
+    needs: update-bangumi-data
+    if: needs.update-bangumi-data.outputs.has_changes == 'true' && inputs.skip_build != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: true
+          ref: ${{ github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -236,13 +222,26 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  notify-success:
-    needs: [check-and-update, build-and-deploy]
-    if: success() && needs.check-and-update.outputs.needs_update == 'true'
+  notify:
+    needs: [update-bangumi-data, build-and-deploy]
     runs-on: ubuntu-latest
     steps:
+      - name: Summary
+        run: |
+          echo "## Bangumi Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Item | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Anime Count | ${{ needs.update-bangumi-data.outputs.anime_count }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Game Count | ${{ needs.update-bangumi-data.outputs.game_count }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Cache Updated | ${{ needs.update-bangumi-data.outputs.cache_updated }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Changes Committed | ${{ needs.update-bangumi-data.outputs.has_changes }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Triggered | ${{ needs.update-bangumi-data.outputs.has_changes == 'true' && inputs.skip_build != 'true' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger Type | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Run ID | #${{ github.run_number }} |" >> $GITHUB_STEP_SUMMARY
+
       - name: Notify Slack - Success
-        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
+        if: success() && needs.update-bangumi-data.outputs.cache_updated == 'true'
         continue-on-error: true
         uses: slackapi/slack-github-action@v1.26.0
         with:
@@ -262,15 +261,15 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Anime Entries:*\n${{ needs.check-and-update.outputs.anime_count }}"
+                      "text": "*Anime Entries:*\n${{ needs.update-bangumi-data.outputs.anime_count }}"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Game Entries:*\n${{ needs.check-and-update.outputs.game_count }}"
+                      "text": "*Game Entries:*\n${{ needs.update-bangumi-data.outputs.game_count }}"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Trigger:*\n${{ github.event_name }}"
+                      "text": "*Build Triggered:*\n${{ needs.update-bangumi-data.outputs.has_changes == 'true' && inputs.skip_build != 'true' }}"
                     },
                     {
                       "type": "mrkdwn",
@@ -304,84 +303,3 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
-      - name: Notify Discord - Success
-        if: ${{ vars.ENABLE_DISCORD_NOTIFY == 'true' }}
-        continue-on-error: true
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "✅ **Bangumi Data Updated**\n📺 Anime: ${{ needs.check-and-update.outputs.anime_count }} entries\n🎮 Games: ${{ needs.check-and-update.outputs.game_count }} entries\n🔗 [View Site](https://lm520.cc/anime/) | [Workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-
-  notify-failure:
-    needs: [check-and-update, build-and-deploy]
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Notify Slack - Failure
-        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
-        continue-on-error: true
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          payload: |
-            {
-              "text": "❌ Bangumi Update Failed",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "❌ Bangumi Data Update Failed"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Repository:*\n${{ github.repository }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Run Number:*\n#${{ github.run_number }}"
-                    }
-                  ]
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Logs"
-                      },
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
-      - name: Notify Discord - Failure
-        if: ${{ vars.ENABLE_DISCORD_NOTIFY == 'true' }}
-        continue-on-error: true
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "❌ **Bangumi Data Update Failed**\n📦 Repository: ${{ github.repository }}\n🔢 Run: #${{ github.run_number }}\n🔗 [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-
-  skip-notify:
-    needs: check-and-update
-    if: needs.check-and-update.outputs.needs_update == 'false'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log skip reason
-        run: |
-          echo "ℹ️ Bangumi data update skipped - cache is fresh (less than 24 hours old)"
-          echo "To force an update, use the 'workflow_dispatch' trigger with force_update=true"
