@@ -1,0 +1,610 @@
+---
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import { Icon } from "astro-icon/components";
+
+import { getCategoryList, getSortedPostsList } from "@/utils/content-utils";
+import { getCategoryUrl, url } from "@/utils/url-utils";
+
+const categories = await getCategoryList();
+const totalPosts = (await getSortedPostsList()).length;
+const homeUrl = url("/");
+const archiveUrl = url("/archive/");
+---
+
+<div
+	class="card-base category-bar p-3 onload-animation"
+	id="category-bar"
+	data-home-path={homeUrl}
+	data-archive-path={archiveUrl}
+>
+	<div class="category-bar-inner flex gap-2 items-center">
+		<a
+			href={homeUrl}
+			class="category-pill category-fixed text-sm px-2 py-1 rounded-lg flex-shrink-0
+				   transition-colors duration-200 flex items-center justify-center"
+			data-category-name=""
+			aria-label={i18n(I18nKey.home)}
+		>
+			<Icon name="material-symbols:home" class="text-lg" />
+		</a>
+		<a
+			href={archiveUrl}
+			class="category-pill category-fixed text-sm px-3 py-1 rounded-lg whitespace-nowrap flex-shrink-0
+				   transition-colors duration-200 flex items-center justify-center"
+			data-category-name="__archive__"
+		>
+			{i18n(I18nKey.archive)}
+			<span class="text-xs opacity-60 ml-1">{totalPosts}</span>
+		</a>
+		<div class="category-divider flex-shrink-0"></div>
+		
+		<div class="scroll-area relative flex-1">
+			<div class="category-scroll-wrapper overflow-hidden" id="category-scroll-wrapper">
+				<div class="category-scroll flex gap-2" id="category-scroll-container">
+					{
+						categories.map((cat) => (
+							<a
+								href={getCategoryUrl(cat.name)}
+								class="category-pill text-sm px-3 py-1 rounded-lg whitespace-nowrap flex-shrink-0
+									   transition-colors duration-200 flex items-center justify-center"
+								data-category-name={cat.name}
+							>
+								{cat.name}
+								<span class="text-xs opacity-60 ml-1">{cat.count}</span>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.category-bar {
+		margin-bottom: 1rem;
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: pan-y;
+	}
+	.category-divider {
+		width: 1px;
+		align-self: stretch;
+		background: var(--line-divider);
+		margin: 0 0.25rem;
+	}
+	.scroll-area {
+		flex: 1;
+		min-width: 0;
+		position: relative;
+	}
+	.category-scroll-wrapper {
+		width: 100%;
+		position: relative;
+	}
+	.category-scroll {
+		display: flex;
+		gap: 0.5rem;
+		will-change: transform;
+		transition: transform 0.1s ease-out;
+	}
+	.category-scroll.smooth-snap {
+		transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	}
+	.category-pill {
+		border: 1.5px solid var(--line-divider);
+		color: var(--btn-content);
+		background: transparent;
+	}
+	.category-pill:hover {
+		border-color: var(--primary);
+		color: var(--primary);
+		background: transparent;
+	}
+	.category-pill[data-active] {
+		background: var(--primary);
+		border-color: var(--primary);
+		color: white;
+	}
+	.category-pill[data-active]:hover {
+		background: var(--primary);
+		border-color: var(--primary);
+		opacity: 0.9;
+	}
+
+	@media (max-width: 768px) {
+		.category-bar {
+			padding: 0.75rem;
+			margin-bottom: 0.75rem;
+		}
+		.category-pill {
+			font-size: 0.8rem;
+			padding: 0.25rem 0.6rem;
+		}
+	}
+</style>
+
+<script>
+	const AUTO_SCROLL_SPEED = 0.3;
+	const AUTO_SCROLL_RESUME_DELAY = 2500;
+	const DRAG_SENSITIVITY = 1.0;
+	const MOMENTUM_FRICTION = 0.95;
+	const MIN_MOMENTUM = 0.5;
+	const TOUCH_MOVE_THRESHOLD = 5;
+
+	const autoScrollState = {
+	isEnabled: true,
+	animationId: 0,
+	speed: AUTO_SCROLL_SPEED,
+	currentOffset: 0,
+	isPaused: false,
+	items: [document.documentElement]
+};
+
+	const dragState = {
+	isDragging: false,
+	startX: 0,
+	startY: 0,
+	lastX: 0,
+	lastTime: 0,
+	momentum: 0,
+	animationId: 0,
+	isTouch: false,
+	hasMoved: false
+};
+
+	const bounceState = {
+	isBouncing: false,
+	animationId: 0
+};
+
+	function updateCategoryBar() {
+		const bar = document.getElementById("category-bar");
+		if (!bar) {return;}
+
+		const pathname = window.location.pathname.replace(/\/$/, "");
+		const homePath = (bar.getAttribute("data-home-path") || "/").replace(/\/$/, "");
+		const archivePath = (bar.getAttribute("data-archive-path") || "/archive").replace(/\/$/, "");
+		const isHome = pathname === homePath || pathname === "" || pathname === "/";
+		const isArchive = pathname === archivePath;
+		const isHomePagination = /^\/\d+$/.test(pathname) || (homePath !== "" && new RegExp("^" + homePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + "\\/\\d+$").test(pathname));
+
+		if (!isHome && !isHomePagination && !isArchive) {
+			bar.style.display = "none";
+			return;
+		}
+		bar.style.display = "";
+
+		const pills = bar.querySelectorAll(".category-pill");
+		const params = new URLSearchParams(window.location.search);
+		const activeCategory = params.get("category") || "";
+		const hasTag = params.has("tag");
+		const hasUncategorized = params.has("uncategorized");
+
+		pills.forEach((pill) => pill.removeAttribute("data-active"));
+
+		if (isHome || isHomePagination) {
+			bar.querySelector('.category-pill[data-category-name=""]')
+				?.setAttribute("data-active", "");
+		} else if (activeCategory) {
+			pills.forEach((pill) => {
+				if (pill.getAttribute("data-category-name") === activeCategory) {
+					pill.setAttribute("data-active", "");
+				}
+			});
+		} else if (isArchive && !hasTag && !hasUncategorized) {
+			bar.querySelector('.category-pill[data-category-name="__archive__"]')
+				?.setAttribute("data-active", "");
+		}
+
+		if (isArchive && activeCategory) {
+			const bannerTitle = document.querySelector(".banner-page-title-text");
+			if (bannerTitle) {
+				bannerTitle.textContent = decodeURIComponent(activeCategory);
+			}
+		}
+	}
+
+	function findNearestItem(offset: number, items: HTMLElement[]): number {
+		let nearestOffset = 0;
+		let minDistance = Infinity;
+		let currentPos = 0;
+
+		for (const item of items) {
+			const distance = Math.abs(currentPos - offset);
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearestOffset = currentPos;
+			}
+			currentPos += item.offsetWidth + 8;
+		}
+
+		return nearestOffset;
+	}
+
+	function scrollToActiveItem(scrollContainer: HTMLElement, items: HTMLElement[], wrapper: HTMLElement): void {
+		const activeItem = items.find((item: HTMLElement) => item.hasAttribute("data-active"));
+		if (!activeItem) {return;}
+
+		const itemIndex = items.indexOf(activeItem);
+		if (itemIndex === -1) {return;}
+
+		let targetOffset = 0;
+		for (let i = 0; i < itemIndex; i++) {
+			targetOffset += items[i].offsetWidth + 8;
+		}
+
+		const containerWidth = wrapper.offsetWidth;
+		const itemWidth = activeItem.offsetWidth;
+		const centeredOffset = targetOffset - (containerWidth / 2) + (itemWidth / 2);
+
+		autoScrollState.currentOffset = Math.max(0, centeredOffset);
+		scrollContainer.classList.add("smooth-snap");
+		scrollContainer.style.transform = `translateX(${-autoScrollState.currentOffset}px)`;
+		
+		setTimeout(() => {
+			scrollContainer.classList.remove("smooth-snap");
+		}, 300);
+	}
+
+	function initInfiniteScroll() {
+		const bar = document.getElementById("category-bar");
+		if (!bar) {return;}
+
+		const wrapper = document.getElementById("category-scroll-wrapper");
+		const scrollContainer = bar.querySelector("#category-scroll-container");
+		
+		if (!wrapper || !(scrollContainer instanceof HTMLElement)) {return;}
+
+		const originalItems = Array.from(scrollContainer.children).filter(
+			(item) => item instanceof HTMLElement,
+		);
+		if (originalItems.length === 0) {return;}
+
+		autoScrollState.items = originalItems;
+
+		const totalOriginalWidth = originalItems.reduce((sum, item) => sum + item.offsetWidth + 8, 0);
+		const containerWidth = wrapper.offsetWidth;
+
+		if (totalOriginalWidth <= containerWidth) {
+			return;
+		}
+
+		const cloneCount = Math.ceil((containerWidth * 3) / totalOriginalWidth) + 1;
+		
+		for (let i = 0; i < cloneCount; i++) {
+			originalItems.forEach(item => {
+				const clone = item.cloneNode(true);
+				if (!(clone instanceof HTMLElement)) {
+					return;
+				}
+				clone.removeAttribute("data-active");
+				scrollContainer.appendChild(clone);
+			});
+		}
+
+		const maxOffset = totalOriginalWidth;
+		let minOffset = -containerWidth;
+
+		function setOffset(offset: number, smooth: boolean = false): void {
+			const container = scrollContainer;
+			if (!(container instanceof HTMLElement)) {return;}
+			
+			const normalizedOffset = offset;
+			
+			if (normalizedOffset < minOffset || normalizedOffset > maxOffset) {
+				if (!bounceState.isBouncing) {
+					applyBounce(normalizedOffset, minOffset, maxOffset);
+				}
+				return;
+			}
+			
+			autoScrollState.currentOffset = normalizedOffset;
+			
+			if (smooth) {
+				container.classList.add("smooth-snap");
+			}
+			
+			container.style.transform = `translateX(${-normalizedOffset}px)`;
+			
+			if (smooth) {
+				setTimeout(() => {
+					container.classList.remove("smooth-snap");
+				}, 300);
+			}
+		}
+
+		function applyBounce(currentOffset: number, min: number, max: number): void {
+			const container = scrollContainer;
+			if (!(container instanceof HTMLElement)) {return;}
+			bounceState.isBouncing = true;
+			
+			let targetOffset = currentOffset;
+			if (currentOffset < min) {
+				targetOffset = min;
+			} else if (currentOffset > max) {
+				targetOffset = max;
+			}
+
+			container.classList.add("smooth-snap");
+			container.style.transform = `translateX(${-targetOffset}px)`;
+			autoScrollState.currentOffset = targetOffset;
+			
+			setTimeout(() => {
+				if (!(container instanceof HTMLElement)) {return;}
+				container.classList.remove("smooth-snap");
+				bounceState.isBouncing = false;
+				resumeAutoScroll(500);
+			}, 300);
+		}
+
+		function snapToNearestItem() {
+			const container = scrollContainer;
+			if (!(container instanceof HTMLElement)) {return;}
+			const nearestOffset = findNearestItem(autoScrollState.currentOffset, originalItems);
+			
+			container.classList.add("smooth-snap");
+			container.style.transform = `translateX(${-nearestOffset}px)`;
+			autoScrollState.currentOffset = nearestOffset;
+			
+			setTimeout(() => {
+				if (!(container instanceof HTMLElement)) {return;}
+				container.classList.remove("smooth-snap");
+				resumeAutoScroll(1000);
+			}, 300);
+		}
+
+		function startAutoScroll() {
+			if (autoScrollState.animationId) {
+				cancelAnimationFrame(autoScrollState.animationId);
+			}
+
+			function animate() {
+				if (!autoScrollState.isEnabled || autoScrollState.isPaused || dragState.isDragging) {
+					autoScrollState.animationId = 0;
+					return;
+				}
+
+				autoScrollState.currentOffset += autoScrollState.speed;
+				
+				if (autoScrollState.currentOffset >= maxOffset) {
+					autoScrollState.currentOffset = 0;
+				}
+				
+				setOffset(autoScrollState.currentOffset);
+
+				autoScrollState.animationId = requestAnimationFrame(animate);
+			}
+
+			autoScrollState.animationId = requestAnimationFrame(animate);
+		}
+
+		function stopAutoScroll() {
+			autoScrollState.isEnabled = false;
+			if (autoScrollState.animationId) {
+				cancelAnimationFrame(autoScrollState.animationId);
+				autoScrollState.animationId = 0;
+			}
+		}
+
+		function resumeAutoScroll(delay = AUTO_SCROLL_RESUME_DELAY) {
+			setTimeout(() => {
+				if (!autoScrollState.isEnabled && !dragState.isDragging) {
+					autoScrollState.isEnabled = true;
+					autoScrollState.isPaused = false;
+					startAutoScroll();
+				}
+			}, delay);
+		}
+
+		function applyMomentum() {
+			if (Math.abs(dragState.momentum) < MIN_MOMENTUM) {
+				snapToNearestItem();
+				return;
+			}
+
+			let velocity = dragState.momentum;
+
+			function animate() {
+				if (Math.abs(velocity) < MIN_MOMENTUM || dragState.isDragging) {
+					dragState.animationId = 0;
+					snapToNearestItem();
+					return;
+				}
+
+				autoScrollState.currentOffset -= velocity;
+				setOffset(autoScrollState.currentOffset);
+				velocity *= MOMENTUM_FRICTION;
+
+				dragState.animationId = requestAnimationFrame(animate);
+			}
+
+			dragState.animationId = requestAnimationFrame(animate);
+		}
+
+		// PC端鼠标事件
+		wrapper.addEventListener("mouseenter", () => {
+			autoScrollState.isPaused = true;
+		});
+
+		wrapper.addEventListener("mouseleave", () => {
+			if (!dragState.isDragging) {
+				autoScrollState.isPaused = false;
+				if (autoScrollState.isEnabled && !autoScrollState.animationId) {
+					startAutoScroll();
+				}
+			}
+		});
+
+		wrapper.addEventListener("mousedown", (e) => {
+			e.preventDefault();
+			stopAutoScroll();
+			dragState.isDragging = true;
+			dragState.isTouch = false;
+			dragState.startX = e.clientX;
+			dragState.lastX = e.clientX;
+			dragState.lastTime = Date.now();
+			dragState.momentum = 0;
+			dragState.hasMoved = false;
+			
+			if (dragState.animationId) {
+				cancelAnimationFrame(dragState.animationId);
+				dragState.animationId = 0;
+			}
+			
+			wrapper.style.cursor = "grabbing";
+		});
+
+		window.addEventListener("mousemove", (e) => {
+			if (!dragState.isDragging || dragState.isTouch) {return;}
+			e.preventDefault();
+
+			const currentX = e.clientX;
+			const deltaX = currentX - dragState.lastX;
+			const now = Date.now();
+			const dt = now - dragState.lastTime;
+
+			if (dt > 0) {
+				dragState.momentum = deltaX / dt * 16;
+			}
+
+			dragState.lastX = currentX;
+			dragState.lastTime = now;
+
+			autoScrollState.currentOffset -= deltaX * DRAG_SENSITIVITY;
+			setOffset(autoScrollState.currentOffset);
+		});
+
+		window.addEventListener("mouseup", () => {
+			if (!dragState.isDragging || dragState.isTouch) {return;}
+			
+			dragState.isDragging = false;
+			wrapper.style.cursor = "grab";
+			applyMomentum();
+		});
+
+		// 移动端触摸事件
+		wrapper.addEventListener("touchstart", (e) => {
+			if (e.touches.length !== 1) {return;}
+			
+			stopAutoScroll();
+			dragState.isDragging = true;
+			dragState.isTouch = true;
+			dragState.startX = e.touches[0].clientX;
+			dragState.startY = e.touches[0].clientY;
+			dragState.lastX = e.touches[0].clientX;
+			dragState.lastTime = Date.now();
+			dragState.momentum = 0;
+			dragState.hasMoved = false;
+			
+			if (dragState.animationId) {
+				cancelAnimationFrame(dragState.animationId);
+				dragState.animationId = 0;
+			}
+			
+			scrollContainer.classList.remove("smooth-snap");
+		}, { passive: true });
+
+		wrapper.addEventListener("touchmove", (e) => {
+			if (!dragState.isDragging || !dragState.isTouch) {return;}
+			if (e.touches.length !== 1) {return;}
+
+			const currentX = e.touches[0].clientX;
+			const currentY = e.touches[0].clientY;
+			const deltaX = currentX - dragState.startX;
+			const deltaY = currentY - dragState.startY;
+
+			if (!dragState.hasMoved) {
+				if (Math.abs(deltaX) > TOUCH_MOVE_THRESHOLD || Math.abs(deltaY) > TOUCH_MOVE_THRESHOLD) {
+					if (Math.abs(deltaY) > Math.abs(deltaX)) {
+						dragState.isDragging = false;
+						return;
+					}
+					dragState.hasMoved = true;
+				} else {
+					return;
+				}
+			}
+
+			e.preventDefault();
+
+			const moveX = currentX - dragState.lastX;
+			const now = Date.now();
+			const dt = now - dragState.lastTime;
+
+			if (dt > 0) {
+				dragState.momentum = moveX / dt * 16;
+			}
+
+			dragState.lastX = currentX;
+			dragState.lastTime = now;
+
+			autoScrollState.currentOffset -= moveX * DRAG_SENSITIVITY;
+			setOffset(autoScrollState.currentOffset);
+		}, { passive: false });
+
+		wrapper.addEventListener("touchend", () => {
+			if (!dragState.isDragging || !dragState.isTouch) {return;}
+			
+			dragState.isDragging = false;
+			
+			if (dragState.hasMoved) {
+				applyMomentum();
+			} else {
+				resumeAutoScroll(500);
+			}
+		}, { passive: true });
+
+		wrapper.addEventListener("touchcancel", () => {
+			if (!dragState.isDragging || !dragState.isTouch) {return;}
+			
+			dragState.isDragging = false;
+			snapToNearestItem();
+		}, { passive: true });
+
+		// 滚轮事件
+		wrapper.addEventListener("wheel", (e) => {
+			e.preventDefault();
+			stopAutoScroll();
+			
+			const delta = e.deltaY || e.deltaX;
+			autoScrollState.currentOffset += delta * 0.5;
+			setOffset(autoScrollState.currentOffset);
+			
+			resumeAutoScroll();
+		}, { passive: false });
+
+		// 初始化
+		wrapper.style.cursor = "grab";
+		
+		setTimeout(() => {
+			scrollToActiveItem(scrollContainer, originalItems, wrapper);
+		}, 100);
+		
+		startAutoScroll();
+
+		// 响应式处理
+		const resizeObserver = new ResizeObserver(() => {
+			const newContainerWidth = wrapper.offsetWidth;
+			minOffset = -newContainerWidth;
+			
+			if (totalOriginalWidth > newContainerWidth && !autoScrollState.animationId && autoScrollState.isEnabled) {
+				startAutoScroll();
+			} else if (totalOriginalWidth <= newContainerWidth) {
+				stopAutoScroll();
+				setOffset(0, true);
+			}
+		});
+		resizeObserver.observe(wrapper);
+	}
+
+	updateCategoryBar();
+	initInfiniteScroll();
+	
+	document.addEventListener("astro:page-load", () => {
+		updateCategoryBar();
+		initInfiniteScroll();
+	});
+	document.addEventListener("swup:contentReplaced", updateCategoryBar);
+</script>

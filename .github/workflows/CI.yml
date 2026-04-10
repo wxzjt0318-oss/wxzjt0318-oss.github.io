@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Astro Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare content data
+        run: pnpm run build:data
+        env:
+          ENABLE_CONTENT_SYNC: false
+
+      - name: Run Astro Check
+        run: pnpm astro check
+        env:
+          ENABLE_CONTENT_SYNC: false
+
+  build:
+    name: Astro Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare content data
+        run: pnpm run build:data
+        env:
+          ENABLE_CONTENT_SYNC: false
+
+      - name: Run Build
+        run: pnpm build
+        env:
+          ENABLE_CONTENT_SYNC: false
+          UMAMI_SHARE_URL: ${{ secrets.UMAMI_SHARE_URL }}

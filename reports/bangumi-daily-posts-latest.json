@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-04-09T15:38:32.349Z",
+  "reviewMode": false,
+  "selectedAnime": {
+    "subjectId": 501963,
+    "title": "《无职转生 第三季 ～到了异世界就拿出真本事～》",
+    "originalTitle": "无职转生 第三季 ～到了异世界就拿出真本事～",
+    "description": "无职转生 第三季 ～到了异世界就拿出真本事～",
+    "summary": "无职转生 第三季 ～到了异世界就拿出真本事～",
+    "tags": [
+      "异世界",
+      "轻小说改",
+      "无职转生",
+      "星期日",
+      "Bangumi"
+    ],
+    "category": "异世界作品介绍",
+    "sourceLink": "https://bgm.tv/subject/501963",
+    "published": "2026-04-09",
+    "alias": "bangumi-501963",
+    "image": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+    "bodyImages": [
+      {
+        "url": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+        "alt": "无职转生 第三季 ～到了异世界就拿出真本事～ 相关图片"
+      },
+      {
+        "url": "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+        "alt": "无职转生 第三季 ～到了异世界就拿出真本事～ 相关图片"
+      },
+      {
+        "url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+        "alt": "无职转生 第三季 ～到了异世界就拿出真本事～ 相关图片"
+      }
+    ],
+    "draft": false,
+    "meta": {
+      "studio": "",
+      "airDate": "2026-07-05",
+      "episodes": "",
+      "progress": "",
+      "statusLabel": "想看"
+    },
+    "staff": [
+      {
+        "relation": "导演",
+        "name": "渋谷亮介"
+      },
+      {
+        "relation": "人物设定",
+        "name": "嶋田真恵・古川良太"
+      }
+    ],
+    "statusLabel": "想看",
+    "reviewMode": false
+  },
+  "coverCandidates": [
+    {
+      "url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+      "source": "bangumi-large",
+      "width": 1200,
+      "height": 1700,
+      "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
+      "score": 175
+    },
+    {
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+      "source": "bangumi-large",
+      "width": 1200,
+      "height": 1700,
+      "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
+      "score": 175
+    },
+    {
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+      "source": "bangumi-common",
+      "width": 900,
+      "height": 1280,
+      "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
+      "score": 137.5
+    }
+  ],
+  "outputPath": "src/content/posts/无职转生 第三季 ～到了异世界就拿出真本事～.md",
+  "statePath": "src/data/bangumi-posts-state.json"
+}
