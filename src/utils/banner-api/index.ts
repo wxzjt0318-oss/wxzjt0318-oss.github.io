@@ -124,7 +124,7 @@ class BannerApiService {
 		};
 	}
 
-	getCacheStats(): { size: string; entries: number; hitRate: string } {
+	getCacheStats(): { size: number; maxSize: number; entries: number; hitRate: string } {
 		return bannerCache.getCacheInfo();
 	}
 

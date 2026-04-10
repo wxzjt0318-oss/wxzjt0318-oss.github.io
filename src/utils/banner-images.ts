@@ -20,11 +20,6 @@ type BannerImageResult = {
 	mobile: string[];
 };
 
-function logBannerEvent(level: "info" | "warn" | "error", message: string, extra?: Record<string, unknown>) {
-	const payload = extra ? ` ${JSON.stringify(extra)}` : "";
-	console[level](`[banner-images] ${message}${payload}`);
-}
-
 function buildApiUrl(baseUrl: string, count: number, device: BannerDevice, index: number) {
 	const url = new URL(baseUrl);
 	const params = siteConfig.banner.imageApi?.requestParams || {};

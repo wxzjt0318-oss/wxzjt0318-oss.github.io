@@ -1,8 +1,6 @@
 import type { BannerConfig, BannerImage, BannerImagePool, BannerUpdateResult, ImageFormat } from "./types";
 import { bannerLogger } from "./logger";
-import { bannerCache } from "./cache";
 import { bannerApiManager } from "./api-manager";
-import { weightedRandomSelector } from "./weighted-random";
 
 const DEFAULT_CONFIG: Partial<BannerConfig> = {
 	cacheTtlHours: 24,

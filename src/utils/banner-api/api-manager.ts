@@ -54,7 +54,6 @@ class BannerApiManager {
 
 	private config: BannerConfig;
 	private currentApi: ApiRole = "primary";
-	private lastSwitchAt = 0;
 	private switchCooldownUntil = 0;
 
 	constructor(config?: Partial<BannerConfig>) {
@@ -204,7 +203,7 @@ class BannerApiManager {
 		}
 	}
 
-	private recordFailure(endpoint: ApiEndpoint, responseTimeMs: number): void {
+	private recordFailure(endpoint: ApiEndpoint, _responseTimeMs: number): void {
 		if (endpoint.role === "primary") {
 			this.primaryHealth.consecutiveFailures++;
 			this.primaryHealth.lastFailureAt = Date.now();
@@ -248,14 +247,12 @@ class BannerApiManager {
 		return false;
 	}
 
-	private switchToFallback(fallbackUrl: string, primaryUrl: string, reason: Record<string, unknown>): void {
+	private switchToFallback(fallbackUrl: string, primaryUrl: string, _reason: Record<string, unknown>): void {
 		this.currentApi = "fallback";
-		this.lastSwitchAt = Date.now();
 		this.switchCooldownUntil = Date.now() + this.config.switchCooldownMs;
 
 		bannerLogger.logApiSwitch(primaryUrl, fallbackUrl, "Primary API failed threshold reached", {
-			consecutiveFailures: this.primaryHealth.consecutiveFailures,
-			...reason,
+			errorCode: "threshold_exceeded",
 		});
 	}
 
@@ -279,7 +276,7 @@ class BannerApiManager {
 		return this.currentApi;
 	}
 
-	getHealthStatus(device: BannerDevice): { primary: ApiHealthStatus; fallback: ApiHealthStatus } {
+	getHealthStatus(_device: BannerDevice): { primary: ApiHealthStatus; fallback: ApiHealthStatus } {
 		return {
 			primary: { ...this.primaryHealth },
 			fallback: { ...this.fallbackHealth },

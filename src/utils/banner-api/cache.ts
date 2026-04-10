@@ -1,4 +1,4 @@
-import type { CacheEntry, CacheStats, ImageFormat } from "./types";
+import type { CacheEntry, CacheStats } from "./types";
 import { bannerLogger } from "./logger";
 
 const MAX_CACHE_SIZE_MB = 100;
@@ -6,7 +6,6 @@ const BYTES_PER_MB = 1024 * 1024;
 
 class BannerCache {
 	private memoryCache = new Map<string, CacheEntry<unknown>>();
-	private diskCache: Map<string, CacheEntry<unknown>> = new Map();
 	private stats: CacheStats = {
 		hits: 0,
 		misses: 0,
@@ -14,18 +13,6 @@ class BannerCache {
 		size: 0,
 		hitRate: 0,
 	};
-
-	private calculateKey(resourceType: string, resourceId?: string, timestamp?: number): string {
-		const parts = [resourceType];
-		if (timestamp) {
-			const date = new Date(timestamp);
-			parts.push(date.toISOString().split("T")[0]);
-		}
-		if (resourceId) {
-			parts.push(resourceId);
-		}
-		return parts.join("-");
-	}
 
 	private calculateMd5(str: string): string {
 		let hash = 0;

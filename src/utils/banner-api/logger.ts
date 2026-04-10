@@ -143,7 +143,7 @@ class BannerLogger {
 		}, responseTimeMs);
 	}
 
-	logCacheOperation(operation: "hit" | "miss" | "evict" | "clear", key: string, details?: Record<string, unknown>): void {
+	logCacheOperation(operation: "hit" | "miss" | "evict" | "clear" | "set" | "delete", key: string, details?: Record<string, unknown>): void {
 		this.info(`Cache ${operation}`, { key, ...details });
 	}
 
@@ -153,7 +153,8 @@ class BannerLogger {
 			weight,
 			allWeights,
 			weightDeviation: this.calculateWeightDeviation(allWeights),
-		}, responseTimeMs);
+			responseTimeMs,
+		});
 	}
 
 	private calculateWeightDeviation(weights: number[]): number {
