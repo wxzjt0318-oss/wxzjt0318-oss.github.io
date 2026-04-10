@@ -1,15 +1,224 @@
 {
   "generated": [
     {
-      "subjectId": 501963,
-      "title": "《无职转生 第三季 ～到了异世界就拿出真本事～》",
-      "filePath": "src/content/posts/无职转生 第三季 ～到了异世界就拿出真本事～.md",
-      "alias": "bangumi-501963",
-      "sourceLink": "https://bgm.tv/subject/501963",
-      "image": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
-      "published": "2026-04-09",
+      "subjectId": 590353,
+      "title": "《婚姻剧毒》",
+      "filePath": "src/content/posts/婚姻剧毒.md",
+      "alias": "bangumi-590353",
+      "sourceLink": "https://bgm.tv/subject/590353",
+      "image": "https://lain.bgm.tv/pic/cover/l/ed/dc/590353_M0laM.jpg",
+      "published": "2026-04-10",
       "status": "published",
-      "generatedAt": "2026-04-09T15:38:32.348Z"
+      "generatedAt": "2026-04-10T09:52:35.326Z"
+    },
+    {
+      "subjectId": 567234,
+      "title": "《身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季》",
+      "filePath": "src/content/posts/身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季.md",
+      "alias": "boss",
+      "sourceLink": "https://bgm.tv/subject/567234",
+      "image": "https://lain.bgm.tv/pic/cover/l/ff/35/567234_c36h5.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:43:28.178Z"
+    },
+    {
+      "subjectId": 623854,
+      "title": "《女神“异世界转生想成为什么”我“勇者的肋骨”》",
+      "filePath": "src/content/posts/女神“异世界转生想成为什么”我“勇者的肋骨”.md",
+      "alias": "bangumi-623854",
+      "sourceLink": "https://bgm.tv/subject/623854",
+      "image": "https://lain.bgm.tv/pic/cover/l/c4/47/623854_02HSu.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:39:44.555Z"
+    },
+    {
+      "subjectId": 537722,
+      "title": "《复制品的我也会谈恋爱。》",
+      "filePath": "src/content/posts/复制品的我也会谈恋爱。.md",
+      "alias": "bangumi-537722",
+      "sourceLink": "https://bgm.tv/subject/537722",
+      "image": "https://lain.bgm.tv/pic/cover/l/6a/a4/537722_4SIF6.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:38:13.203Z"
+    },
+    {
+      "subjectId": 547888,
+      "title": "《Re：从零开始的异世界生活 第四季 丧失篇》",
+      "filePath": "src/content/posts/Re：从零开始的异世界生活 第四季 丧失篇.md",
+      "alias": "re",
+      "sourceLink": "https://bgm.tv/subject/547888",
+      "image": "https://lain.bgm.tv/pic/cover/l/8e/70/547888_46dnk.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:36:50.244Z"
+    },
+    {
+      "subjectId": 564289,
+      "title": "《想结束这场“我爱你”的游戏》",
+      "filePath": "src/content/posts/想结束这场“我爱你”的游戏.md",
+      "alias": "bangumi-564289",
+      "sourceLink": "https://bgm.tv/subject/564289",
+      "image": "https://lain.bgm.tv/pic/cover/l/5d/5a/564289_b6sb7.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:33:40.212Z"
+    },
+    {
+      "subjectId": 533027,
+      "title": "《租借女友 第五季》",
+      "filePath": "src/content/posts/租借女友 第五季.md",
+      "alias": "bangumi-533027",
+      "sourceLink": "https://bgm.tv/subject/533027",
+      "image": "https://lain.bgm.tv/pic/cover/l/97/ba/533027_I1FHy.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:27:31.646Z"
+    },
+    {
+      "subjectId": 526789,
+      "title": "《弱弱老师》",
+      "filePath": "src/content/posts/弱弱老师.md",
+      "alias": "bangumi-526789",
+      "sourceLink": "https://bgm.tv/subject/526789",
+      "image": "https://lain.bgm.tv/pic/cover/l/ac/ec/526789_707JL.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:26:08.260Z"
+    },
+    {
+      "subjectId": 515856,
+      "title": "《杖与剑的魔剑谭 第二季》",
+      "filePath": "src/content/posts/杖与剑的魔剑谭 第二季.md",
+      "alias": "bangumi-515856",
+      "sourceLink": "https://bgm.tv/subject/515856",
+      "image": "https://lain.bgm.tv/pic/cover/l/28/19/515856_RNj5p.jpg",
+      "published": "2026-04-10",
+      "status": "published",
+      "generatedAt": "2026-04-10T09:17:57.885Z"
+    },
+    {
+      "subjectId": 445334,
+      "title": "《米塔》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-445334.md",
+      "alias": "bangumi-445334",
+      "sourceLink": "https://bgm.tv/subject/445334",
+      "image": "https://lain.bgm.tv/pic/cover/l/74/3f/445334_ooaC8.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T16:13:19.772Z"
+    },
+    {
+      "subjectId": 495794,
+      "title": "《职场浮生记》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-495794.md",
+      "alias": "bangumi-495794",
+      "sourceLink": "https://bgm.tv/subject/495794",
+      "image": "https://lain.bgm.tv/pic/cover/l/b5/ad/495794_RcHww.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T16:37:41.351Z"
+    },
+    {
+      "subjectId": 442350,
+      "title": "《永恒世界》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-442350.md",
+      "alias": "bangumi-442350",
+      "sourceLink": "https://bgm.tv/subject/442350",
+      "image": "https://lain.bgm.tv/pic/cover/l/90/a1/442350_9hmWj.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T16:41:24.482Z"
+    },
+    {
+      "subjectId": 431610,
+      "title": "《TNT弹道轨迹》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\tnt.md",
+      "alias": "tnt",
+      "sourceLink": "https://bgm.tv/subject/431610",
+      "image": "https://lain.bgm.tv/pic/cover/l/77/b6/431610_455VE.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T16:43:21.598Z"
+    },
+    {
+      "subjectId": 510710,
+      "title": "《欢迎来到实力至上主义教室 第四季》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-510710.md",
+      "alias": "bangumi-510710",
+      "sourceLink": "https://bgm.tv/subject/510710",
+      "image": "https://lain.bgm.tv/pic/cover/l/43/46/510710_rHO8M.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T17:06:57.522Z"
+    },
+    {
+      "subjectId": 600675,
+      "title": "《幽灵音乐会》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-600675.md",
+      "alias": "bangumi-600675",
+      "sourceLink": "https://bgm.tv/subject/600675",
+      "image": "https://lain.bgm.tv/pic/cover/l/3a/89/600675_6yR2O.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T17:23:54.688Z"
+    },
+    {
+      "subjectId": 567418,
+      "title": "《灰原同学重返过去，开启所向无敌的第二轮青春游戏》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-567418.md",
+      "alias": "bangumi-567418",
+      "sourceLink": "https://bgm.tv/subject/567418",
+      "image": "https://lain.bgm.tv/pic/cover/l/d5/a9/567418_LTStp.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T17:51:42.001Z"
+    },
+    {
+      "subjectId": 576121,
+      "title": "《落语朱音》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-576121.md",
+      "alias": "bangumi-576121",
+      "sourceLink": "https://bgm.tv/subject/576121",
+      "image": "https://lain.bgm.tv/pic/cover/l/71/03/576121_sqqIH.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T18:01:04.293Z"
+    },
+    {
+      "subjectId": 590393,
+      "title": "《没有辣妹会对阿宅温柔!?》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-590393.md",
+      "alias": "bangumi-590393",
+      "sourceLink": "https://bgm.tv/subject/590393",
+      "image": "https://lain.bgm.tv/pic/cover/l/50/b9/590393_4so3z.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T18:06:11.889Z"
+    },
+    {
+      "subjectId": 608227,
+      "title": "《又被杀掉了呢，侦探大人》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-608227.md",
+      "alias": "bangumi-608227",
+      "sourceLink": "https://bgm.tv/subject/608227",
+      "image": "https://lain.bgm.tv/pic/cover/l/2e/f4/608227_44kWb.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T18:20:46.796Z"
+    },
+    {
+      "subjectId": 543360,
+      "title": "《上伊那牡丹，酒醉身姿似百合花般》",
+      "filePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-543360.md",
+      "alias": "bangumi-543360",
+      "sourceLink": "https://bgm.tv/subject/543360",
+      "image": "https://lain.bgm.tv/pic/cover/l/30/1b/543360_tZvht.jpg",
+      "published": "2026-04-11",
+      "status": "published",
+      "generatedAt": "2026-04-10T18:22:59.703Z"
     }
   ]
 }

@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import {
 	DEFAULT_FALLBACK_IMAGE,
 	buildAnimeArticleMarkdown,
+	buildEnhancedArticleMarkdown,
 	buildReviewReport,
 	chooseBestCoverImage,
 	createStateRecord,
@@ -15,20 +16,40 @@ import {
 	slugifyTitle,
 	truncateText,
 	pickInfoboxValue,
-	pickRandomBodyImages,
 	writeJson,
 } from "./bangumi-daily-posts.mjs";
+
+import {
+	initializeMoegirlMcp,
+	searchMoegirl,
+	getMoegirlPage,
+	stopMoegirlMcpServer,
+} from "./moegirl-mcp-client.mjs";
+
+import {
+	searchMoegirlDirect,
+	getMoegirlPageDirect,
+} from "./moegirl-api-direct.mjs";
+
+import {
+	searchMoegirlSDK,
+	getMoegirlPageSDK,
+} from "./moegirl-sdk.mjs";
+
+import {
+	analyzeMoegirlArticle,
+	polishArticleContent,
+	qualityCheck,
+	getMoegirlCharacters,
+} from "./moegirl-article-analyzer.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
 const POSTS_DIR = path.join(ROOT_DIR, "src", "content", "posts");
-const CACHE_DIR = path.join(ROOT_DIR, ".cache", "bangumi");
 const STATE_FILE = path.join(ROOT_DIR, "src", "data", "bangumi-posts-state.json");
 const REPORT_FILE = path.join(ROOT_DIR, "reports", "bangumi-daily-posts-latest.json");
-const DEFAULT_CACHE_FILE = path.join(CACHE_DIR, "anime.json");
 
 const BANGUMI_API_BASE = "https://api.bgm.tv/v0";
-const JIKAN_API_BASE = "https://api.jikan.moe/v4";
 
 function getEnvBoolean(name, defaultValue = false) {
 	const raw = process.env[name];
@@ -160,29 +181,11 @@ async function fetchBangumiSubjectDetail(subjectId) {
 	}
 }
 
-async function fetchJikanImageCandidates(name) {
-	if (!name) return [];
+async function fetchBangumiCharacters(subjectId) {
 	try {
-		const result = await fetchJson(`${JIKAN_API_BASE}/anime?q=${encodeURIComponent(name)}&limit=5`);
-		const list = Array.isArray(result?.data) ? result.data : [];
-		return list
-			.flatMap((item) => {
-				const jpg = item?.images?.jpg?.large_image_url || item?.images?.jpg?.image_url;
-				const webp = item?.images?.webp?.large_image_url || item?.images?.webp?.image_url;
-				return [jpg, webp]
-					.filter(Boolean)
-					.map((url) => ({
-						url,
-						title: item?.title || item?.title_english || item?.title_japanese || "",
-						year: item?.year || "",
-						width: 720,
-						height: 1080,
-						source: "jikan-search",
-					}));
-			})
-			.slice(0, 6);
+		return await fetchJson(`${BANGUMI_API_BASE}/subjects/${subjectId}/characters`);
 	} catch (error) {
-		console.warn(`⚠ Failed to search fallback image via Jikan: ${error.message}`);
+		console.warn(`⚠ Failed to fetch Bangumi characters for ${subjectId}: ${error.message}`);
 		return [];
 	}
 }
@@ -203,37 +206,16 @@ function collectBangumiImageCandidates(candidate, detail) {
 	return images;
 }
 
-async function resolveCoverImage(candidate, detail) {
+function resolveCoverImage(candidate, detail) {
 	const names = [candidate?.subject?.name_cn, candidate?.subject?.name, detail?.name_cn, detail?.name].filter(Boolean);
 	const bangumiCandidates = collectBangumiImageCandidates(candidate, detail);
-	const jikanCandidates = bangumiCandidates.length > 0 ? [] : await fetchJikanImageCandidates(names[0] || names[1] || "");
-	const allCandidates = [...bangumiCandidates, ...jikanCandidates];
-	const result = chooseBestCoverImage(allCandidates, {
-		names,
-		year: (candidate?.subject?.date || "").slice(0, 4),
-	});
+	const result = chooseBestCoverImage(bangumiCandidates, { names });
 	if (result.selected) {
-		return {
-			...result,
-			bodyImages: pickRandomBodyImages(
-				result.candidates.map((item) => ({
-					url: item.url,
-					alt: `${names[0] || names[1] || "动漫作品"} 相关图片`,
-				})),
-				result.selected.url,
-				3,
-				`${candidate.subject_id}-${names[0] || names[1] || "anime"}`,
-			),
-		};
+		return result;
 	}
 	return {
 		selected: { url: DEFAULT_FALLBACK_IMAGE, source: "fallback-default", title: names[0] || "fallback" },
 		candidates: [{ url: DEFAULT_FALLBACK_IMAGE, source: "fallback-default", title: names[0] || "fallback", score: 0 }],
-		bodyImages: [
-			{ url: DEFAULT_FALLBACK_IMAGE, alt: `${names[0] || "动漫作品"} 相关图片 1` },
-			{ url: DEFAULT_FALLBACK_IMAGE, alt: `${names[0] || "动漫作品"} 相关图片 2` },
-			{ url: DEFAULT_FALLBACK_IMAGE, alt: `${names[0] || "动漫作品"} 相关图片 3` },
-		],
 	};
 }
 
@@ -260,21 +242,20 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 		published: formatDate(options.now),
 		alias,
 		image: imageSelection.selected?.url || DEFAULT_FALLBACK_IMAGE,
-		bodyImages: imageSelection.bodyImages || [],
 		draft: options.reviewMode,
 		meta,
 		staff: extractStaff(detail),
 		statusLabel,
 		reviewMode: options.reviewMode,
+		moegirlContent: options.moegirlContent || null,
+		characters: options.characters || [],
 	};
 }
 
 async function main() {
 	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
 	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
-	const cacheFile = process.env.BANGUMI_ANIME_CACHE_FILE
-		? path.resolve(ROOT_DIR, process.env.BANGUMI_ANIME_CACHE_FILE)
-		: path.join(ROOT_DIR, "src", "data", "bangumi-data.json");
+	const cacheFile = path.join(ROOT_DIR, ".cache", "bangumi", "anime.json");
 	const now = new Date();
 
 	const rawCollections = await readJsonIfExists(cacheFile, null);
@@ -330,51 +311,165 @@ async function main() {
 
 	const candidate = selected[0];
 	console.log(`📝 Generating Bangumi daily post for subject ${candidate.subject_id}...`);
-	const detail = (await fetchBangumiSubjectDetail(candidate.subject_id)) || {};
-	const imageSelection = await resolveCoverImage(candidate, detail);
-	const payload = buildArticlePayload(candidate, detail, imageSelection, { reviewMode, now });
-	const markdown = buildAnimeArticleMarkdown(payload);
-	const fileName = `${sanitizeFileName(payload.title.replace(/^《|》$/g, ""))}.md`;
-	const outputPath = path.join(POSTS_DIR, fileName);
+	const titleText = candidate?.subject?.name_cn || candidate?.subject?.name || "";
+	console.log(`📡 Fetching Bangumi subject detail for ${candidate.subject_id}...`);
+	const detail = await fetchBangumiSubjectDetail(candidate.subject_id);
+	console.log(`📡 Fetching Bangumi characters for ${candidate.subject_id}...`);
+	const characters = await fetchBangumiCharacters(candidate.subject_id);
 
-	try {
-		await fs.access(outputPath);
-		console.log(`ℹ Post already exists at ${outputPath}, skipping write.`);
-		return;
-	} catch {}
+	console.log(`🖼️ Resolving cover image...`);
+	const imageSelection = resolveCoverImage(candidate, detail);
+	console.log(`✅ Selected cover: ${imageSelection.selected?.url || "default"}`);
 
-	await fs.writeFile(outputPath, markdown, "utf8");
-	console.log(`✅ Wrote generated article: ${path.relative(ROOT_DIR, outputPath)}`);
+	let moegirlContent = null;
+	const useMoegirl = getEnvBoolean("BANGUMI_POST_USE_MOEIRL", false);
+	if (useMoegirl) {
+		console.log(`🔍 尝试从萌娘百科获取补充资料...`);
 
-	const nextState = {
-		generated: [
-			createStateRecord({
-				subjectId: payload.subjectId,
-				title: payload.title,
-				filePath: path.relative(ROOT_DIR, outputPath).replace(/\\/g, "/"),
-				alias: payload.alias,
-				sourceLink: payload.sourceLink,
-				published: payload.published,
-				image: payload.image,
-				reviewMode,
-			}),
-			...((generatedState?.generated || []).filter((entry) => Number(entry.subjectId) !== Number(payload.subjectId))),
-		],
-	};
-	await writeJson(STATE_FILE, nextState);
+		try {
+			let searchSuccess = false;
+
+			console.log(`🔍 方式1: 使用官方 SDK (wiki-saikou)...`);
+			try {
+				const sdkResults = await searchMoegirlSDK(titleText, 5);
+				if (sdkResults && sdkResults.length > 0) {
+					console.log(`✅ 官方SDK找到 ${sdkResults.length} 条结果`);
+					moegirlContent = sdkResults.slice(0, 3);
+					searchSuccess = true;
+				}
+			} catch (sdkError) {
+				console.warn(`⚠️ 官方 SDK 方式失败: ${sdkError.message}`);
+			}
+
+			if (!searchSuccess || !moegirlContent || moegirlContent.length === 0) {
+				console.log(`🔍 方式2: 使用直接 API...`);
+				try {
+					const directResults = await searchMoegirlDirect(titleText, 5);
+					if (directResults && directResults.length > 0) {
+						console.log(`✅ 直接API找到 ${directResults.length} 条结果`);
+						moegirlContent = directResults.slice(0, 3);
+						searchSuccess = true;
+					}
+				} catch (directError) {
+					console.warn(`⚠️ 直接 API 方式失败: ${directError.message}`);
+				}
+			}
+
+			if (!searchSuccess || !moegirlContent || moegirlContent.length === 0) {
+				console.log(`🔍 方式3: 尝试 MCP 服务器...`);
+				try {
+					const mcInitialized = await initializeMoegirlMcp();
+					if (mcInitialized) {
+						const mcpResults = await searchMoegirl(titleText, false);
+						if (mcpResults && mcpResults.length > 0) {
+							console.log(`✅ MCP 找到 ${mcpResults.length} 条结果`);
+							moegirlContent = mcpResults.slice(0, 3);
+							searchSuccess = true;
+						}
+						await stopMoegirlMcpServer();
+					}
+				} catch (mcpError) {
+					console.warn(`⚠️ MCP 服务器方式失败: ${mcpError.message}`);
+				}
+			}
+
+			if (moegirlContent && moegirlContent.length > 0) {
+				console.log(`✅ 已获取萌娘百科补充资料`);
+
+				const moegirlChars = await getMoegirlCharacters(titleText);
+				if (moegirlChars && moegirlChars.length > 0) {
+					console.log(`✅ 从萌娘百科获取到 ${moegirlChars.length} 个角色信息`);
+					characters.unshift(...moegirlChars.map(c => ({
+						...c,
+						source: "moegirl"
+					})));
+				}
+			} else {
+				console.log(`ℹ️ 萌娘百科未找到相关条目`);
+			}
+		} catch (error) {
+			console.warn(`⚠️ 获取萌娘百科资料失败: ${error.message}`);
+		}
+	} else {
+		console.log(`ℹ️ 萌娘百科功能已禁用 (BANGUMI_POST_USE_MOEIRL=false)`);
+	}
+
+	const payload = buildArticlePayload(candidate, detail, imageSelection, {
+		now,
+		reviewMode,
+		moegirlContent,
+		characters,
+	});
+
+	const useEnhancedFormat = getEnvBoolean("BANGUMI_POST_USE_ENHANCED_FORMAT", true);
+	console.log(`📝 Building article markdown (${useEnhancedFormat ? "enhanced" : "standard"})...`);
+	let articleContent = useEnhancedFormat
+		? buildEnhancedArticleMarkdown(payload)
+		: buildAnimeArticleMarkdown(payload);
+
+	const enablePolishing = getEnvBoolean("BANGUMI_POST_ENABLE_POLISHING", true);
+	if (enablePolishing) {
+		console.log(`🔍 执行萌娘百科风格分析与专业润色...`);
+		const analysis = await analyzeMoegirlArticle(articleContent, payload.title);
+		console.log(`📊 文章分析得分: ${analysis.score}/100`);
+		if (analysis.suggestions.length > 0) {
+			console.log(`📋 优化建议 (${analysis.suggestions.length} 项):`);
+			for (const s of analysis.suggestions.slice(0, 5)) {
+				console.log(`   - [${s.priority}] ${s.message}`);
+			}
+		}
+
+		console.log(`✏️ 执行内容润色...`);
+		articleContent = polishArticleContent(articleContent, analysis);
+
+		console.log(`🔍 执行二次质量检查...`);
+		const qcResult = qualityCheck(articleContent, payload.title);
+		if (qcResult.passed) {
+			console.log(`✅ 质量检查通过`);
+		} else {
+			console.log(`⚠️ 质量检查未完全通过，将继续发布`);
+			const failedChecks = Object.entries(qcResult.checks).filter(([k, v]) => !v.passed).map(([k]) => k);
+			console.log(`   未通过项目: ${failedChecks.join(", ")}`);
+		}
+	}
+
+	const safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
+	const outputFileName = `${safeAlias}.md`;
+	const outputPath = path.join(POSTS_DIR, outputFileName);
+
+	await fs.writeFile(outputPath, articleContent, "utf8");
+	console.log(`✅ Article written to ${outputPath}`);
+
+	const newRecord = createStateRecord({
+		subjectId: candidate.subject_id,
+		title: payload.title,
+		filePath: outputPath,
+		alias: payload.alias,
+		sourceLink: payload.sourceLink,
+		published: payload.published,
+		image: payload.image,
+		reviewMode,
+	});
+
+	generatedState.generated = [
+		...(generatedState.generated || []),
+		newRecord,
+	];
+	await writeJson(STATE_FILE, generatedState);
+	console.log(`✅ Updated state file ${STATE_FILE}`);
+
 	await writeJson(REPORT_FILE, buildReviewReport({
-		selected: payload,
+		selected: candidate,
 		candidates: imageSelection.candidates,
-		outputPath: path.relative(ROOT_DIR, outputPath).replace(/\\/g, "/"),
-		statePath: path.relative(ROOT_DIR, STATE_FILE).replace(/\\/g, "/"),
+		outputPath,
+		statePath: STATE_FILE,
 		reviewMode,
 	}));
-	console.log(`✅ Updated state: ${path.relative(ROOT_DIR, STATE_FILE)}`);
-	console.log(`✅ Wrote review report: ${path.relative(ROOT_DIR, REPORT_FILE)}`);
+	console.log(`✅ Generated report ${REPORT_FILE}`);
+	console.log(`🎉 Bangumi daily post generation completed successfully!`);
 }
 
 main().catch((error) => {
-	console.error("✘ Bangumi daily post generation failed");
-	console.error(error);
+	console.error("❌ Bangumi daily post generation failed:", error);
 	process.exit(1);
 });

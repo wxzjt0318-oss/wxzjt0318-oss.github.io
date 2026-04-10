@@ -5,7 +5,6 @@ import {
 	chooseBestCoverImage,
 	createStateRecord,
 	normalizeText,
-	pickRandomBodyImages,
 	selectNextAnimeCandidate,
 	slugifyTitle,
 } from "./bangumi-daily-posts.mjs";
@@ -34,16 +33,16 @@ describe("bangumi daily post helpers", () => {
 		expect(selected[0].subject_id).toBe(101);
 	});
 
-	it("prefers bangumi large cover over fallback search results", () => {
+	it("prefers bangumi large cover over common cover", () => {
 		const result = chooseBestCoverImage([
-			{ url: "https://example.com/jikan.jpg", source: "jikan-search", title: "Anime A", width: 720, height: 1080 },
-			{ url: "https://example.com/bangumi.jpg", source: "bangumi-large", title: "Anime A", width: 1200, height: 1700 },
+			{ url: "https://example.com/common.jpg", source: "bangumi-common", title: "Anime A", width: 900, height: 1280 },
+			{ url: "https://example.com/large.jpg", source: "bangumi-large", title: "Anime A", width: 1200, height: 1700 },
 		], { names: ["Anime A"] });
 
-		expect(result.selected?.url).toBe("https://example.com/bangumi.jpg");
+		expect(result.selected?.url).toBe("https://example.com/large.jpg");
 	});
 
-	it("builds compatible markdown article with three inline images", () => {
+	it("builds compatible markdown article without body images", () => {
 		const markdown = buildAnimeArticleMarkdown({
 			subjectId: 123,
 			title: "《测试动画》",
@@ -56,11 +55,6 @@ describe("bangumi daily post helpers", () => {
 			published: "2026-04-09",
 			alias: "test-anime",
 			image: "https://example.com/cover.jpg",
-			bodyImages: [
-				{ url: "https://example.com/body-1.jpg", alt: "测试动画 相关图片 1" },
-				{ url: "https://example.com/body-2.jpg", alt: "测试动画 相关图片 2" },
-				{ url: "https://example.com/body-3.jpg", alt: "测试动画 相关图片 3" },
-			],
 			draft: true,
 			meta: {
 				studio: "P.A.WORKS",
@@ -76,20 +70,7 @@ describe("bangumi daily post helpers", () => {
 		expect(markdown).toContain("title: \"《测试动画》\"");
 		expect(markdown).toContain("draft: true");
 		expect(markdown).toContain("## 一、作品概述");
-		expect((markdown.match(/!\[/g) || []).length).toBe(3);
-	});
-
-	it("picks three body images from related candidates", () => {
-		const picked = pickRandomBodyImages([
-			{ url: "https://example.com/cover.jpg", alt: "cover" },
-			{ url: "https://example.com/1.jpg", alt: "1" },
-			{ url: "https://example.com/2.jpg", alt: "2" },
-			{ url: "https://example.com/3.jpg", alt: "3" },
-			{ url: "https://example.com/4.jpg", alt: "4" },
-		], "https://example.com/cover.jpg", 3, "seed");
-
-		expect(picked).toHaveLength(3);
-		expect(picked.some((item) => item.url === "https://example.com/cover.jpg")).toBe(false);
+		expect(markdown).not.toContain("![]");
 	});
 
 	it("creates stable aliases and state records", () => {
@@ -98,15 +79,39 @@ describe("bangumi daily post helpers", () => {
 
 		const record = createStateRecord({
 			subjectId: 321,
-			title: "《测试动画》",
-			filePath: "src/content/posts/测试动画.md",
-			alias: "test-anime",
+			title: "《测试》",
+			filePath: "/path/to/test.md",
+			alias: "test",
 			sourceLink: "https://bgm.tv/subject/321",
 			published: "2026-04-09",
 			image: "https://example.com/cover.jpg",
-			reviewMode: true,
+			reviewMode: false,
 		});
-		expect(record.status).toBe("review");
+
 		expect(record.subjectId).toBe(321);
+		expect(record.status).toBe("published");
+		expect(record.generatedAt).toBeTruthy();
+	});
+
+	it("handles missing summary gracefully", () => {
+		const markdown = buildAnimeArticleMarkdown({
+			subjectId: 456,
+			title: "《无摘要动画》",
+			originalTitle: "Anime Without Summary",
+			description: "",
+			summary: "",
+			tags: ["动画"],
+			category: "动画作品介绍",
+			sourceLink: "https://bgm.tv/subject/456",
+			published: "2026-04-09",
+			alias: "anime-no-summary",
+			image: "https://example.com/cover.jpg",
+			draft: false,
+			meta: {},
+			staff: [],
+			statusLabel: "想看",
+		});
+
+		expect(markdown).toContain("目前公开资料主要集中在作品定位与基础设定层面");
 	});
 });

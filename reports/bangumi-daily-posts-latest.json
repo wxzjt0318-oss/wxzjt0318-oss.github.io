@@ -1,85 +1,52 @@
 {
-  "generatedAt": "2026-04-09T15:38:32.349Z",
+  "generatedAt": "2026-04-10T18:22:59.705Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subjectId": 501963,
-    "title": "《无职转生 第三季 ～到了异世界就拿出真本事～》",
-    "originalTitle": "无职转生 第三季 ～到了异世界就拿出真本事～",
-    "description": "无职转生 第三季 ～到了异世界就拿出真本事～",
-    "summary": "无职转生 第三季 ～到了异世界就拿出真本事～",
-    "tags": [
-      "异世界",
-      "轻小说改",
-      "无职转生",
-      "星期日",
-      "Bangumi"
-    ],
-    "category": "异世界作品介绍",
-    "sourceLink": "https://bgm.tv/subject/501963",
-    "published": "2026-04-09",
-    "alias": "bangumi-501963",
-    "image": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
-    "bodyImages": [
-      {
-        "url": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_h8jWc.jpg",
-        "alt": "无职转生 第三季 ～到了异世界就拿出真本事～ 相关图片"
-      },
-      {
-        "url": "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_h8jWc.jpg",
-        "alt": "无职转生 第三季 ～到了异世界就拿出真本事～ 相关图片"
-      },
-      {
-        "url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
-        "alt": "无职转生 第三季 ～到了异世界就拿出真本事～ 相关图片"
+    "subject_id": 543360,
+    "type": 0,
+    "ep_status": 0,
+    "updated_at": "1970-01-01",
+    "subject": {
+      "id": 543360,
+      "name": "上伊那牡丹，酒醉身姿似百合花般",
+      "name_cn": "上伊那牡丹，酒醉身姿似百合花般",
+      "date": "",
+      "eps": 0,
+      "short_summary": "",
+      "tags": [],
+      "images": {
+        "large": "http://lain.bgm.tv/pic/cover/l/30/1b/543360_tZvht.jpg",
+        "common": "http://lain.bgm.tv/pic/cover/l/30/1b/543360_tZvht.jpg",
+        "medium": "http://lain.bgm.tv/pic/cover/l/30/1b/543360_tZvht.jpg"
       }
-    ],
-    "draft": false,
-    "meta": {
-      "studio": "",
-      "airDate": "2026-07-05",
-      "episodes": "",
-      "progress": "",
-      "statusLabel": "想看"
-    },
-    "staff": [
-      {
-        "relation": "导演",
-        "name": "渋谷亮介"
-      },
-      {
-        "relation": "人物设定",
-        "name": "嶋田真恵・古川良太"
-      }
-    ],
-    "statusLabel": "想看",
-    "reviewMode": false
+    }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/30/1b/543360_tZvht.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
-      "score": 175
+      "title": "上伊那牡丹，酒醉身姿似百合花般",
+      "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+      "url": "http://lain.bgm.tv/pic/cover/l/30/1b/543360_tZvht.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
-      "score": 175
+      "title": "上伊那牡丹，酒醉身姿似百合花般",
+      "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/30/1b/543360_tZvht.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
-      "score": 137.5
+      "title": "上伊那牡丹，酒醉身姿似百合花般",
+      "score": 80
     }
   ],
-  "outputPath": "src/content/posts/无职转生 第三季 ～到了异世界就拿出真本事～.md",
-  "statePath": "src/data/bangumi-posts-state.json"
+  "outputPath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-543360.md",
+  "statePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\data\\bangumi-posts-state.json"
 }
