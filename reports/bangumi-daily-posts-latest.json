@@ -1,52 +1,52 @@
 {
-  "generatedAt": "2026-04-10T18:31:29.384Z",
+  "generatedAt": "2026-04-11T04:43:38.991Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 622634,
+    "subject_id": 501796,
     "type": 0,
     "ep_status": 0,
     "updated_at": "1970-01-01",
     "subject": {
-      "id": 622634,
-      "name": "拜托了偶像公主",
-      "name_cn": "拜托了偶像公主",
+      "id": 501796,
+      "name": "魔法姐妹露露特莉莉",
+      "name_cn": "魔法姐妹露露特莉莉",
       "date": "",
       "eps": 0,
       "short_summary": "",
       "tags": [],
       "images": {
-        "large": "http://lain.bgm.tv/pic/cover/l/9b/c4/622634_hZZDP.jpg",
-        "common": "http://lain.bgm.tv/pic/cover/l/9b/c4/622634_hZZDP.jpg",
-        "medium": "http://lain.bgm.tv/pic/cover/l/9b/c4/622634_hZZDP.jpg"
+        "large": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
+        "common": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
+        "medium": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/9b/c4/622634_hZZDP.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "拜托了偶像公主",
+      "title": "魔法姐妹露露特莉莉",
       "score": 100
     },
     {
-      "url": "http://lain.bgm.tv/pic/cover/l/9b/c4/622634_hZZDP.jpg",
+      "url": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "拜托了偶像公主",
+      "title": "魔法姐妹露露特莉莉",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/9b/c4/622634_hZZDP.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/9f/c3/501796_xXYqn.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "拜托了偶像公主",
+      "title": "魔法姐妹露露特莉莉",
       "score": 80
     }
   ],
-  "outputPath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-622634.md",
-  "statePath": "c:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\data\\bangumi-posts-state.json"
+  "outputPath": "C:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-501796.md",
+  "statePath": "C:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\data\\bangumi-posts-state.json"
 }

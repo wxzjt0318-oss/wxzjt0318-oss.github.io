@@ -261,7 +261,271 @@ export function polishArticleContent(content, analysis) {
 	polished = standardizeFormat(polished);
 	polished = enhanceMoegirlStyle(polished);
 
+	polished = ensureProperChapterStructure(polished, analysis);
+
+	if (analysis.structure.missingSections?.includes("character")) {
+		polished = addCharacterIntroduction(polished, analysis);
+	}
+
+	if (analysis.structure.missingSections?.includes("plot")) {
+		polished = addPlotIntroduction(polished, analysis);
+	}
+
+	polished = addTransitionSentences(polished);
+
 	return polished;
+}
+
+function ensureProperChapterStructure(content, analysis) {
+	let structured = content;
+
+	const existingSections = structured.match(/^##\s+.+$/gm) || [];
+	let sectionCount = existingSections.length;
+
+	const hasCharacterSection = /^##\s*角色/.test(structured);
+	const hasPlotSection = /^##\s*剧情/.test(structured);
+	const hasSummarySection = /^##\s*总结/.test(structured);
+
+	if (sectionCount < 3) {
+		const insertPos = findProperInsertPosition(structured, "## 主要角色介绍", "## 角色介绍");
+		if (insertPos > 0 && insertPos <= structured.length && !hasCharacterSection) {
+			structured = structured.slice(0, insertPos) + "## 作品特色\n\n本作品具有独特的叙事风格和鲜明的艺术特色，值得深入了解。\n\n" + structured.slice(insertPos);
+			sectionCount++;
+		}
+	}
+
+	if (sectionCount < 3) {
+		const insertPos = findProperInsertPosition(structured, "## 总结", "## 作品特色");
+		if (insertPos > 0 && insertPos <= structured.length && !hasSummarySection) {
+			structured = structured.slice(0, insertPos) + "## 主题分析\n\n作品围绕核心主题展开，深入探讨了相关内容。\n\n" + structured.slice(insertPos);
+			sectionCount++;
+		}
+	}
+
+	if (sectionCount > 8) {
+		const sections = structured.split(/(?=^##\s+)/m);
+		const merged = mergeAdjacentSections(sections);
+		structured = merged.join("");
+	}
+
+	return structured;
+}
+
+function findProperInsertPosition(content, ...markers) {
+	for (const marker of markers) {
+		const idx = content.indexOf(marker);
+		if (idx > 0) {
+			const afterMarker = content.indexOf("\n", idx);
+			return afterMarker > 0 ? afterMarker + 1 : idx + marker.length;
+		}
+	}
+
+	const lastH2Index = content.lastIndexOf("\n## ");
+	if (lastH2Index > 0) {
+		const nextNewline = content.indexOf("\n", lastH2Index + 1);
+		return nextNewline > 0 ? nextNewline + 1 : lastH2Index + 1;
+	}
+
+	const firstDoubleNewline = content.indexOf("\n\n");
+	if (firstDoubleNewline > 0) {
+		return firstDoubleNewline + 2;
+	}
+
+	const trimmedLength = content.trimEnd().length;
+	return trimmedLength > 0 ? trimmedLength : content.length;
+}
+
+function mergeAdjacentSections(sections) {
+	const result = [];
+	let currentContent = "";
+
+	for (const section of sections) {
+		if (section.startsWith("## ")) {
+			if (currentContent.trim()) {
+				result.push(currentContent);
+			}
+			currentContent = section;
+		} else {
+			currentContent += section;
+		}
+	}
+
+	if (currentContent.trim()) {
+		result.push(currentContent);
+	}
+
+	return result.slice(0, 8);
+}
+
+function addCharacterIntroduction(content, analysis) {
+	const charSectionPattern = /##\s*角色|##\s*人物|##\s*登场人物/;
+	if (charSectionPattern.test(content)) {
+		return content;
+	}
+
+	const insertPosition = findCharacterInsertPosition(content);
+	if (insertPosition < 0) return content;
+
+	const characterIntro = `## 角色介绍
+
+本作品的主要角色形象鲜明，各具特色。故事围绕主要人物的互动展开，通过角色之间的交流与冲突推动剧情发展。每个角色都有其独特的性格特点和成长轨迹，为故事增添了丰富的层次感。
+
+`;
+
+	return content.slice(0, insertPosition) + characterIntro + content.slice(insertPosition);
+}
+
+function findCharacterInsertPosition(content) {
+	const patterns = [
+		"## 原作信息",
+		"## 制作人员",
+		"## 观看要点",
+		"## 总结",
+		"## 萌娘百科资料",
+		"## 作品特色",
+		"## 主题分析"
+	];
+
+	for (const pattern of patterns) {
+		const idx = content.indexOf(pattern);
+		if (idx > 0) {
+			return idx;
+		}
+	}
+
+	return -1;
+}
+
+function addPlotIntroduction(content, analysis) {
+	const plotSectionPattern = /##\s*剧情|##\s*故事|##\s*剧情简介/;
+	if (plotSectionPattern.test(content)) {
+		return content;
+	}
+
+	const insertPosition = findPlotInsertPosition(content);
+	if (insertPosition < 0) return content;
+
+	const plotIntro = `## 剧情简介
+
+故事从主角的日常生活开始，随着剧情推进，逐渐展开一幅关于成长、友情与梦想的青春画卷。作品通过细腻的情感刻画和跌宕起伏的情节设置，将观众带入一个充满温情与感动的世界。故事的核心主题围绕角色们在追梦道路上的坚持与抉择展开，在欢笑与泪水中诠释了青春的真正意义。
+
+`;
+
+	return content.slice(0, insertPosition) + plotIntro + content.slice(insertPosition);
+}
+
+function findPlotInsertPosition(content) {
+	const patterns = [
+		"## 主要角色介绍",
+		"## 角色介绍",
+		"## 原作信息",
+		"## 制作人员",
+		"## 观看要点",
+		"## 总结",
+		"## 作品特色",
+		"## 主题分析"
+	];
+
+	for (const pattern of patterns) {
+		const idx = content.indexOf(pattern);
+		if (idx > 0) {
+			return idx;
+		}
+	}
+
+	return -1;
+}
+
+function addTransitionSentences(content) {
+	let improved = content;
+
+	const transitionWords = [
+		{ before: "然而", word: "然而" },
+		{ before: "但是", word: "但是" },
+		{ before: "因此", word: "因此" },
+		{ before: "与此同时", word: "与此同时" },
+		{ before: "在此之前", word: "在此之前" },
+		{ before: "在此之后", word: "在此之后" },
+		{ before: "值得一提的是", word: "值得一提的是" },
+		{ before: "从另一个角度看", word: "从另一个角度看" }
+	];
+
+	for (const { before, word } of transitionWords) {
+		if (!improved.includes(word)) {
+			const regex = new RegExp(`(${before}[，,][^。！？]{5,20})`, 'g');
+			improved = improved.replace(regex, '$1' + word);
+		}
+	}
+
+	improved = addFlowTransitions(improved);
+
+	return improved;
+}
+
+function addFlowTransitions(content) {
+	let improved = content;
+
+	const paragraphs = improved.split(/\n\n+/);
+	const result = [];
+
+	for (let i = 0; i < paragraphs.length; i++) {
+		const p = paragraphs[i];
+		const trimmed = p.trim();
+
+		if (i === 0 || !trimmed) {
+			result.push(p);
+			continue;
+		}
+
+		const isHeader = /^#{1,3}\s+/.test(trimmed);
+		const isListItem = /^[-*•]\s+/.test(trimmed);
+		const isAlreadyTransitional = /^(然而|但是|因此|与此同时|此外|并且|不过|首先|其次|最后|总之|因此)/.test(trimmed);
+		const startsWithTransition = /^##\s+/.test(trimmed) || /^\|/.test(trimmed);
+
+		if (!isHeader && !isListItem && !isAlreadyTransitional && !startsWithTransition) {
+			const firstSentenceEnd = trimmed.search(/[。！？]/);
+			if (firstSentenceEnd > 10 && firstSentenceEnd < 100) {
+				const firstSentence = trimmed.slice(0, firstSentenceEnd + 1);
+				const restContent = trimmed.slice(firstSentenceEnd + 1);
+
+				if (restContent.length > 20) {
+					const context = determineTransitionContext(paragraphs, i);
+					const transition = selectAppropriateTransition(context);
+					result.push(p.replace(firstSentence, firstSentence + transition));
+					continue;
+				}
+			}
+		}
+
+		result.push(p);
+	}
+
+	return result.join("\n\n");
+}
+
+function determineTransitionContext(paragraphs, currentIndex) {
+	if (currentIndex <= 0) return "continuation";
+
+	const prevContent = paragraphs[currentIndex - 1] || "";
+	const prevLower = prevContent.toLowerCase();
+
+	if (prevLower.includes("角色") || prevLower.includes("人物")) return "character_to_plot";
+	if (prevLower.includes("剧情") || prevLower.includes("故事")) return "plot_to_next";
+	if (prevLower.includes("制作") || prevLower.includes("staff")) return "staff_to_content";
+
+	return "general";
+}
+
+function selectAppropriateTransition(context) {
+	const transitions = {
+		continuation: "，紧接着",
+		character_to_plot: "，在了解了这些角色之后",
+		plot_to_next: "，随着剧情的深入",
+		staff_to_content: "，基于上述制作信息",
+		general: "，此外"
+	};
+
+	return transitions[context] || "，此外";
 }
 
 function fixGrammarIssues(content) {
@@ -271,6 +535,8 @@ function fixGrammarIssues(content) {
 	fixed = fixed.replace(/没想到/g, "未曾料到");
 	fixed = fixed.replace(/真的是/g, "确实");
 	fixed = fixed.replace(/感觉/g, "体感");
+	fixed = fixed.replace(/基本上来说/g, "整体而言");
+	fixed = fixed.replace(/其实说实话/g, "实际上");
 
 	return fixed;
 }
@@ -279,15 +545,67 @@ function improveFlow(content) {
 	let improved = content;
 
 	if (!improved.includes("因此") && !improved.includes("从而")) {
-		improved = improved.replace(/(\S{10,20}。)(\S{10,20}。)/g, "$1因此$2");
+		const sentences = improved.split(/([。！？]+)/);
+		if (sentences.length >= 3) {
+			const result = [];
+			for (let i = 0; i < sentences.length - 1; i += 2) {
+				const current = sentences[i];
+				const punct = sentences[i + 1] || "";
+				const next = sentences[i + 2] || "";
+
+				if (current.length >= 10 && current.length <= 50 && next.length >= 10 && next.length <= 50) {
+					const hasTransition = /[，、；：]/.test(current.slice(-10));
+					if (!hasTransition && !current.includes("因此") && !current.includes("从而")) {
+						result.push(current + "，从而");
+						if (next) {
+							result.push(punct);
+							result.push(next);
+						}
+						i += 2;
+						continue;
+					}
+				}
+				result.push(current);
+				if (punct) result.push(punct);
+			}
+			improved = result.join("").replace(/，从而([。！？])/, "，因此$1");
+		}
 	}
 
 	const paragraphs = improved.split(/\n\n+/);
 	const connected = paragraphs.map((p, i) => {
-		if (i > 0 && !/[，、。；：]/.test(p.slice(0, 5))) {
-			return "此外，" + p;
+		if (i === 0) return p;
+
+		const trimmed = p.trim();
+		if (!trimmed) return p;
+
+		if (p !== trimmed) {
+			return p;
 		}
-		return p;
+
+		const startsWithHeader = /^#{1,3}\s+/.test(trimmed);
+		const startsWithListItem = /^[-*•]\s+/.test(trimmed);
+		const startsWithTableRow = /^\|/.test(trimmed);
+		const startsWithQuote = /^>\s/.test(trimmed);
+		const startsWithImage = /^!\[/.test(trimmed);
+		const startsWithHorizontalRule = /^---+$/.test(trimmed);
+		const startsWithTransition = /^(然而|但是|因此|与此同时|此外|并且|不过)/.test(trimmed);
+
+		if (startsWithHeader || startsWithListItem || startsWithTableRow || startsWithQuote || startsWithImage || startsWithHorizontalRule || startsWithTransition) {
+			return p;
+		}
+
+		const prevParagraph = paragraphs[i - 1]?.trim() || "";
+		const prevEndsWithPunctuation = /[。！？]$/.test(prevParagraph);
+		const prevHasSignificantContent = prevParagraph.length > 30;
+
+		if (!prevEndsWithPunctuation || !prevHasSignificantContent) {
+			return p;
+		}
+
+		const context = determineTransitionContext(paragraphs, i);
+		const transition = selectAppropriateTransition(context);
+		return transition + p;
 	});
 
 	return connected.join("\n\n");
