@@ -60,14 +60,14 @@ async function fetchAnimeCollections(userId = "@me") {
 	console.log(`📡 正在获取用户 ${userId} 的动漫收藏...`);
 
 	const collections = [];
-	const pageSize = 30;
-	let page = 1;
+	const pageSize = 50;
+	let offset = 0;
 	let hasMore = true;
 
 	while (hasMore) {
 		try {
-			const url = `${BANGUMI_API_BASE}/users/${userId}/collections?type=${BANGUMI_TYPE.ANIME}&page=${page}&max_results=${pageSize}`;
-			console.log(`📄 获取第 ${page} 页...`);
+			const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${BANGUMI_TYPE.ANIME}&limit=${pageSize}&offset=${offset}`;
+			console.log(`📄 获取第 ${Math.floor(offset / pageSize) + 1} 页... (offset: ${offset})`);
 
 			const data = await fetchWithRetry(url);
 
@@ -81,12 +81,12 @@ async function fetchAnimeCollections(userId = "@me") {
 			if (data.data.length < pageSize) {
 				hasMore = false;
 			} else {
-				page++;
+				offset += pageSize;
 			}
 
-			await new Promise(resolve => setTimeout(resolve, 500));
+			await new Promise(resolve => setTimeout(resolve, 300));
 		} catch (error) {
-			console.error(`❌ 获取第 ${page} 页失败: ${error.message}`);
+			console.error(`❌ 获取第 ${Math.floor(offset / pageSize) + 1} 页失败: ${error.message}`);
 			hasMore = false;
 		}
 	}
@@ -183,8 +183,10 @@ async function buildAnimeCacheFromCollections() {
 	console.log("🔄 开始构建动漫缓存...\n");
 
 	let animeSubjects = [];
+	const userId = "1180323";
 
 	const entries = await fs.readdir(CACHE_DIR, { withFileTypes: true });
+
 	const subjectFiles = entries
 		.filter(e => e.isFile() && e.name.startsWith("subject-") && e.name.endsWith(".json"))
 		.map(e => e.name);
@@ -200,6 +202,30 @@ async function buildAnimeCacheFromCollections() {
 
 				if (subject.type === BANGUMI_TYPE.ANIME) {
 					animeSubjects.push(subject);
+				}
+			} catch (error) {
+				console.warn(`⚠️ 读取 ${fileName} 失败: ${error.message}`);
+			}
+		}
+	}
+
+	const collectionFiles = entries
+		.filter(e => e.isFile() && e.name.startsWith("collection-") && e.name.includes("-2-"))
+		.map(e => e.name);
+
+	if (collectionFiles.length > 0) {
+		console.log(`📁 发现 ${collectionFiles.length} 个动漫收藏缓存文件`);
+
+		for (const fileName of collectionFiles) {
+			try {
+				const content = await fs.readFile(path.join(CACHE_DIR, fileName), "utf8");
+				const data = JSON.parse(content);
+				const items = data?.data || [];
+
+				for (const item of items) {
+					if (item.subject && item.subject.type === BANGUMI_TYPE.ANIME) {
+						animeSubjects.push(item.subject);
+					}
 				}
 			} catch (error) {
 				console.warn(`⚠️ 读取 ${fileName} 失败: ${error.message}`);
@@ -337,16 +363,27 @@ function getStatusLabel(type) {
 const command = process.argv[2] || "build";
 
 if (command === "build") {
-	buildAnimeCacheFromCollections().catch(console.error);
+	buildAnimeCacheFromCollections()
+		.then(() => {
+			console.log("\n✅ Build completed successfully");
+			process.exit(0);
+		})
+		.catch((err) => {
+			console.error("\n❌ Build failed:", err.message);
+			process.exit(1);
+		});
 } else if (command === "fetch") {
 	const userId = process.argv[3] || "@me";
-	fetchAnimeCollections(userId).then(data => {
-		console.log(`\n✅ 获取到 ${data.length} 条收藏`);
-		process.exit(0);
-	}).catch(err => {
-		console.error(`❌ 获取失败: ${err.message}`);
-		process.exit(1);
-	});
+	fetchAnimeCollections(userId)
+		.then((data) => {
+			console.log(`\n✅ 获取到 ${data.length} 条收藏`);
+			process.exit(0);
+		})
+		.catch((err) => {
+			console.error(`\n❌ 获取失败: ${err.message}`);
+			process.exit(1);
+		});
 } else {
 	console.log("用法: node fetch-anime-cache.mjs [build|fetch] [userId]");
+	process.exit(0);
 }

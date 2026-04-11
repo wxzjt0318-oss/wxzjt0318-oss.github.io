@@ -1,0 +1,305 @@
+name: Bangumi Daily Update
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: "Force update even if data exists"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-bangumi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        continue-on-error: true
+
+      - name: Fetch Bangumi Collections
+        id: fetch-collections
+        run: |
+          echo "=========================================="
+          echo "Fetching Bangumi Collections"
+          echo "=========================================="
+          
+          mkdir -p .cache/bangumi
+          
+          USER_ID="1180323"
+          SUBJECT_TYPE=2
+          LIMIT=50
+          
+          for TYPE in 1 2 3 4 5; do
+            echo ""
+            echo "📦 Fetching collections type $TYPE..."
+            OFFSET=0
+            PAGE=1
+            TOTAL=0
+            
+            while true; do
+              response=$(curl -s -w "\n%{http_code}" \
+                -H "User-Agent: Mozilla/5.0 BangumiDailyPosts/1.0" \
+                "https://api.bgm.tv/v0/users/${USER_ID}/collections?subject_type=${SUBJECT_TYPE}&type=${TYPE}&limit=${LIMIT}&offset=${OFFSET}")
+              
+              http_code=$(echo "$response" | tail -n1)
+              body=$(echo "$response" | sed '$d')
+              
+              if [ "$http_code" != "200" ]; then
+                echo "⚠️ HTTP $http_code at offset $OFFSET, stopping"
+                break
+              fi
+              
+              count=$(echo "$body" | node -e "let d=''; process.stdin.on('data',c=>d+=c); process.stdin.on('end',()=>console.log((JSON.parse(d).data||[]).length))" 2>/dev/null || echo "0")
+              
+              if [ "$count" = "0" ] || [ -z "$count" ]; then
+                echo "✅ Type $TYPE: $TOTAL items fetched"
+                break
+              fi
+              
+              echo "$body" > ".cache/bangumi/collection-${USER_ID}-${SUBJECT_TYPE}-${TYPE}-page${PAGE}.json"
+              TOTAL=$((TOTAL + count))
+              OFFSET=$((OFFSET + LIMIT))
+              PAGE=$((PAGE + 1))
+              
+              if [ "$count" -lt "$LIMIT" ]; then
+                echo "✅ Type $TYPE: $TOTAL items fetched (last page)"
+                break
+              fi
+              
+              sleep 0.3
+            done
+          done
+          
+          echo ""
+          echo "📊 All collections fetched"
+
+      - name: Build anime cache
+        id: build
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "Building Anime Cache"
+          echo "=========================================="
+          
+          RETRY_COUNT=0
+          MAX_RETRIES=3
+          SUCCESS=false
+          
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ] && [ "$SUCCESS" = "false" ]; do
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            echo ""
+            echo "Build attempt $RETRY_COUNT of $MAX_RETRIES..."
+            
+            if node scripts/fetch-anime-cache.mjs build 2>&1; then
+              SUCCESS=true
+              echo "Build completed successfully"
+            else
+              echo "Build failed, retrying in 10 seconds..."
+              sleep 10
+            fi
+          done
+          
+          if [ "$SUCCESS" = "false" ]; then
+            echo "ERROR: All build attempts failed"
+            exit 1
+          fi
+
+      - name: Update bangumi-data.json
+        run: |
+          echo ""
+          echo "Updating bangumi-data.json..."
+          
+          if [ -f ".cache/bangumi/anime.json" ]; then
+            cp .cache/bangumi/anime.json src/data/bangumi-data.json
+            echo "✅ Updated src/data/bangumi-data.json"
+            
+            ITEM_COUNT=$(node -e "console.log(require('./src/data/bangumi-data.json').length)")
+            echo "📊 Total items: $ITEM_COUNT"
+          else
+            echo "⚠️ anime.json not found, checking calendar data..."
+            if [ -f "src/data/bangumi-data.json" ]; then
+              echo "ℹ️ Keeping existing bangumi-data.json"
+            fi
+          fi
+
+      - name: Verify data integrity
+        run: |
+          echo ""
+          echo "Verifying data integrity..."
+          
+          if [ -f "src/data/bangumi-data.json" ]; then
+            VALID=$(node -e "
+              try {
+                const data = require('./src/data/bangumi-data.json');
+                if (Array.isArray(data) && data.length > 0) {
+                  console.log('true');
+                } else {
+                  console.log('false');
+                }
+              } catch(e) {
+                console.log('false');
+              }
+            ")
+            
+            if [ "$VALID" = "true" ]; then
+              echo "✅ Data integrity verified"
+            else
+              echo "❌ Data integrity check failed"
+              exit 1
+            fi
+          else
+            echo "⚠️ No data file found, skipping verification"
+          fi
+
+      - name: Create update log
+        run: |
+          echo ""
+          echo "Recording update log..."
+          
+          LOG_FILE=".cache/bangumi/update-log.json"
+          mkdir -p .cache/bangumi
+          
+          node -e "
+            const fs = require('fs');
+            const log = {
+              timestamp: new Date().toISOString(),
+              date: new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }),
+              status: 'success',
+              itemsUpdated: 0
+            };
+            
+            try {
+              const data = JSON.parse(fs.readFileSync('src/data/bangumi-data.json', 'utf8'));
+              log.itemsUpdated = Array.isArray(data) ? data.length : 0;
+            } catch(e) {}
+            
+            let logs = [];
+            try {
+              logs = JSON.parse(fs.readFileSync('$LOG_FILE', 'utf8'));
+            } catch(e) {}
+            
+            logs.push(log);
+            if (logs.length > 30) logs = logs.slice(-30);
+            
+            fs.writeFileSync('$LOG_FILE', JSON.stringify(logs, null, 2));
+            console.log('✅ Update log recorded');
+            console.log('📊 Items in database:', log.itemsUpdated);
+          "
+
+      - name: Commit and push changes
+        run: |
+          echo ""
+          echo "Checking for updates to commit..."
+          
+          CHANGES=$(git status --porcelain src/data/bangumi-data.json)
+          
+          if [ -n "$CHANGES" ]; then
+            echo "Changes detected, committing..."
+            
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            
+            git add src/data/bangumi-data.json
+            git commit -m "chore: update bangumi data [skip ci]"
+            
+            git push origin main
+            echo "✅ Changes pushed successfully"
+          else
+            echo "ℹ️ No changes to commit"
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo ""
+          echo "=========================================="
+          echo "❌ Bangumi Update Failed"
+          echo "=========================================="
+          echo "Time: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "=========================================="
+          
+          if [ "${{ vars.ENABLE_SLACK_NOTIFY }}" = "true" ]; then
+            echo "Sending Slack notification..."
+          fi
+
+  notify-success:
+    runs-on: ubuntu-latest
+    needs: update-bangumi
+    if: success()
+    steps:
+      - name: Notify Slack - Success
+        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
+        continue-on-error: true
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "✅ Bangumi Daily Update Successful",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ *Bangumi Daily Update* completed successfully\n📅 Time: ${{ needs.update-bangumi.outputs.time }}\n📊 Items: ${{ needs.update-bangumi.outputs.item_count }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      - name: Create success artifact
+        if: always()
+        run: |
+          echo "Update completed at $(date)" >> update-status.txt
+          echo "Status: ${{ job.status }}" >> update-status.txt
+
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: update-bangumi
+    if: failure()
+    steps:
+      - name: Notify Slack - Failure
+        if: ${{ vars.ENABLE_SLACK_NOTIFY == 'true' }}
+        continue-on-error: true
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "❌ Bangumi Daily Update Failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "❌ *Bangumi Daily Update* failed\n⏰ Time: $(date '+%Y-%m-%d %H:%M:%S')\n🔗 Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

@@ -68,8 +68,12 @@ async function main() {
 			return;
 		}
 
-		console.log("Detected anime mode: bangumi, running update-bangumi.mjs");
-		await runScript(path.join(scriptsDir, "update-bangumi.mjs"));
+		if (hasExistingData) {
+			console.log("Detected anime mode: bangumi, using existing bangumi-data.json");
+			return;
+		}
+
+		console.log("Detected anime mode: bangumi, but update-bangumi.mjs has been removed. Skipping.");
 	} else {
 		console.log(`Anime mode is "${mode}", skipping data update.`);
 	}

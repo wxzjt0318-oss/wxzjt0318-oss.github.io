@@ -168,7 +168,7 @@ if (ANIME_MODE === "local") {
 } else if (!isValidUserId) {
   animeList = [];
 } else {
-  animeList = (bangumiAnimeList as AnimeItem[]).map((a) => {
+  animeList = (bangumiAnimeList as unknown as AnimeItem[]).map((a) => {
     const genre = Array.isArray((a as any).genre) ? (a as any).genre.slice(0, 4) : [];
     const altTitles = buildAltTitles(a.title);
     const studioValue = isValidStudio(a.studio, T.unknown) ? a.studio : "";
