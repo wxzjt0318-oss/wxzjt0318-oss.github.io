@@ -289,13 +289,7 @@ jobs:
             echo "ℹ️ No changes to commit (cache may already be up to date)"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            COMMIT_MSG="chore: update bangumi cache and daily anime post [skip ci]
-
-Anime: ${{ steps.fetch-anime.outputs.anime_count }}
-Games: ${{ steps.fetch-games.outputs.game_count }}
-Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
-Trigger: ${{ github.event_name }}"
-            git commit -m "$COMMIT_MSG"
+            git commit -m "chore: update bangumi cache and daily anime post [skip ci]"
             git push
             echo "✅ Changes committed and pushed"
           fi
