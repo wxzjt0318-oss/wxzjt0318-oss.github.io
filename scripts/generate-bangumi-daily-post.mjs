@@ -20,23 +20,6 @@ import {
 } from "./bangumi-daily-posts.mjs";
 
 import {
-	initializeMoegirlMcp,
-	searchMoegirl,
-	getMoegirlPage,
-	stopMoegirlMcpServer,
-} from "./moegirl-mcp-client.mjs";
-
-import {
-	searchMoegirlDirect,
-	getMoegirlPageDirect,
-} from "./moegirl-api-direct.mjs";
-
-import {
-	searchMoegirlSDK,
-	getMoegirlPageSDK,
-} from "./moegirl-sdk.mjs";
-
-import {
 	analyzeMoegirlArticle,
 	polishArticleContent,
 	qualityCheck,
@@ -48,8 +31,15 @@ const ROOT_DIR = path.resolve(__dirname, "..");
 const POSTS_DIR = path.join(ROOT_DIR, "src", "content", "posts");
 const STATE_FILE = path.join(ROOT_DIR, "src", "data", "bangumi-posts-state.json");
 const REPORT_FILE = path.join(ROOT_DIR, "reports", "bangumi-daily-posts-latest.json");
+const LOG_DIR = path.join(ROOT_DIR, "logs");
+const LOG_FILE = path.join(LOG_DIR, `bangumi-daily-post-${formatDate(new Date(), "file")}.log`);
 
 const BANGUMI_API_BASE = "https://api.bgm.tv/v0";
+const WIKIPEDIA_API_URL = "https://zh.wikipedia.org/w/api.php";
+const MOEGIRL_API_URL = "https://zh.moegirl.org.cn/api.php";
+
+const MAX_RETRY_ATTEMPTS = 3;
+const RETRY_DELAY_MS = 5000;
 
 function getEnvBoolean(name, defaultValue = false) {
 	const raw = process.env[name];
@@ -64,19 +54,99 @@ function getEnvNumber(name, defaultValue) {
 	return Number.isFinite(raw) && raw > 0 ? raw : defaultValue;
 }
 
-async function fetchJson(url, init) {
-	const response = await fetch(url, {
-		headers: {
-			"accept": "application/json",
-			"user-agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
-			...(init?.headers || {}),
-		},
-		...init,
-	});
-	if (!response.ok) {
-		throw new Error(`Request failed: ${response.status} ${response.statusText} (${url})`);
+async function fetchJson(url, init, retries = MAX_RETRY_ATTEMPTS) {
+	for (let attempt = 1; attempt <= retries; attempt++) {
+		try {
+			const response = await fetch(url, {
+				headers: {
+					"accept": "application/json",
+					"user-agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
+					...(init?.headers || {}),
+				},
+				...init,
+			});
+			if (!response.ok) {
+				throw new Error(`Request failed: ${response.status} ${response.statusText} (${url})`);
+			}
+			return await response.json();
+		} catch (error) {
+			if (attempt === retries) {
+				throw error;
+			}
+			await sleep(RETRY_DELAY_MS * attempt);
+		}
 	}
-	return await response.json();
+}
+
+async function fetchText(url, init, retries = MAX_RETRY_ATTEMPTS) {
+	for (let attempt = 1; attempt <= retries; attempt++) {
+		try {
+			const response = await fetch(url, {
+				headers: {
+					"accept": "text/html,application/xhtml+xml,*/*",
+					"user-agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
+					...(init?.headers || {}),
+				},
+				...init,
+			});
+			if (!response.ok) {
+				throw new Error(`Request failed: ${response.status} ${response.statusText} (${url})`);
+			}
+			return await response.text();
+		} catch (error) {
+			if (attempt === retries) {
+				throw error;
+			}
+			await sleep(RETRY_DELAY_MS * attempt);
+		}
+	}
+}
+
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function ensureDir(dirPath) {
+	try {
+		await fs.mkdir(dirPath, { recursive: true });
+	} catch (error) {
+		if (error.code !== "EEXIST") {
+			throw error;
+		}
+	}
+}
+
+class Logger {
+	constructor(logFile) {
+		this.logFile = logFile;
+		this.entries = [];
+	}
+
+	async init() {
+		await ensureDir(path.dirname(this.logFile));
+	}
+
+	async log(level, message, data = null) {
+		const entry = {
+			timestamp: new Date().toISOString(),
+			level,
+			message,
+			...(data && { data }),
+		};
+		this.entries.push(entry);
+		const logLine = `[${entry.timestamp}] [${level.toUpperCase()}] ${message}${data ? " " + JSON.stringify(data) : ""}`;
+		console.log(logLine);
+		try {
+			await fs.appendFile(this.logFile, logLine + "\n", "utf8");
+		} catch (error) {
+			console.warn(`Failed to write to log file: ${error.message}`);
+		}
+	}
+
+	info(message, data) { return this.log("INFO", message, data); }
+	warn(message, data) { return this.log("WARN", message, data); }
+	error(message, data) { return this.log("ERROR", message, data); }
+	success(message, data) { return this.log("SUCCESS", message, data); }
 }
 
 async function readExistingPosts() {
@@ -176,8 +246,7 @@ async function fetchBangumiSubjectDetail(subjectId) {
 	try {
 		return await fetchJson(`${BANGUMI_API_BASE}/subjects/${subjectId}`);
 	} catch (error) {
-		console.warn(`⚠ Failed to fetch Bangumi subject detail for ${subjectId}: ${error.message}`);
-		return null;
+		throw new Error(`Failed to fetch Bangumi subject detail for ${subjectId}: ${error.message}`);
 	}
 }
 
@@ -185,9 +254,260 @@ async function fetchBangumiCharacters(subjectId) {
 	try {
 		return await fetchJson(`${BANGUMI_API_BASE}/subjects/${subjectId}/characters`);
 	} catch (error) {
-		console.warn(`⚠ Failed to fetch Bangumi characters for ${subjectId}: ${error.message}`);
-		return [];
+		throw new Error(`Failed to fetch Bangumi characters for ${subjectId}: ${error.message}`);
 	}
+}
+
+async function searchWikipedia(title, limit = 5) {
+	const params = new URLSearchParams({
+		action: "query",
+		list: "search",
+		srsearch: title,
+		srlimit: limit,
+		format: "json",
+		origin: "*",
+	});
+
+	try {
+		const data = await fetchJson(`${WIKIPEDIA_API_URL}?${params}`);
+		if (!data?.query?.search) {
+			return [];
+		}
+		return data.query.search.map((item) => ({
+			title: item.title,
+			snippet: item.snippet.replace(/<[^>]*>/g, ""),
+			pageId: item.pageid,
+		}));
+	} catch (error) {
+		throw new Error(`Wikipedia search failed: ${error.message}`);
+	}
+}
+
+async function getWikipediaPage(title) {
+	const params = new URLSearchParams({
+		action: "query",
+		titles: title,
+		prop: "extracts",
+		explaintext: true,
+		exintro: true,
+		format: "json",
+		origin: "*",
+	});
+
+	try {
+		const data = await fetchJson(`${WIKIPEDIA_API_URL}?${params}`);
+		const pages = data?.query?.pages || {};
+		const pageId = Object.keys(pages)[0];
+		if (!pageId || pageId === "-1") {
+			return null;
+		}
+		return {
+			title: pages[pageId].title,
+			extract: pages[pageId].extract || "",
+		};
+	} catch (error) {
+		throw new Error(`Failed to get Wikipedia page: ${error.message}`);
+	}
+}
+
+async function searchMoegirlDirect(title, limit = 5) {
+	const params = new URLSearchParams({
+		action: "query",
+		list: "search",
+		srsearch: title,
+		srlimit: limit,
+		format: "json",
+	});
+
+	try {
+		const response = await fetch(`${MOEGIRL_API_URL}?${params}`, {
+			headers: {
+				"User-Agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
+			},
+		});
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}`);
+		}
+		const data = await response.json();
+		if (!data?.query?.search) {
+			return [];
+		}
+		return data.query.search.map((item) => ({
+			title: item.title,
+			snippet: item.snippet.replace(/<[^>]*>/g, ""),
+			pageId: item.pageid,
+		}));
+	} catch (error) {
+		throw new Error(`Moegirl search failed: ${error.message}`);
+	}
+}
+
+async function getMoegirlPageDirect(title) {
+	const params = new URLSearchParams({
+		action: "query",
+		titles: title,
+		prop: "extracts",
+		explaintext: true,
+		format: "json",
+	});
+
+	try {
+		const response = await fetch(`${MOEGIRL_API_URL}?${params}`, {
+			headers: {
+				"User-Agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
+			},
+		});
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}`);
+		}
+		const data = await response.json();
+		const pages = data?.query?.pages || {};
+		const pageId = Object.keys(pages)[0];
+		if (!pageId || pageId === "-1") {
+			return null;
+		}
+		return {
+			title: pages[pageId].title,
+			extract: pages[pageId].extract || "",
+		};
+	} catch (error) {
+		throw new Error(`Failed to get Moegirl page: ${error.message}`);
+	}
+}
+
+async function fetchDoubaoResponse(prompt, retries = MAX_RETRY_ATTEMPTS) {
+	const apiKey = process.env.DOUBAN_API_KEY;
+	if (!apiKey) {
+		throw new Error("Doubao API key not configured (DOUBAN_API_KEY)");
+	}
+
+	for (let attempt = 1; attempt <= retries; attempt++) {
+		try {
+			const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${apiKey}`,
+				},
+				body: JSON.stringify({
+					model: "doubao-pro-32k",
+					messages: [
+						{
+							role: "system",
+							content: "你是一个专业的ACG内容分析助手，请根据用户提供的动漫作品信息，生成简洁、有价值的补充内容。",
+						},
+						{
+							role: "user",
+							content: prompt,
+						},
+					],
+					max_tokens: 1000,
+					temperature: 0.7,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Doubao API error: ${response.status} ${response.statusText}`);
+			}
+
+			const data = await response.json();
+			return data.choices?.[0]?.message?.content || "";
+		} catch (error) {
+			if (attempt === retries) {
+				throw error;
+			}
+			await sleep(RETRY_DELAY_MS * attempt);
+		}
+	}
+}
+
+function generateDoubaoPrompt(animeTitle, summary, characters) {
+	return `请为以下动漫作品生成补充内容：
+
+作品名称：${animeTitle}
+
+作品简介：
+${summary}
+
+主要角色：
+${characters.map((c) => `- ${c.name}${c.cv ? ` (CV: ${c.cv})` : ""}`).join("\n")}
+
+请提供：
+1. 作品的特色分析（50字左右）
+2. 角色亮点描述（每个角色30字左右）
+3. 观看建议（30字左右）`;
+}
+
+function fuseContent(original, wikipediaContent, moegirlContent, doubaoContent) {
+	const fused = {
+		original,
+		sources: [],
+		additions: [],
+	};
+
+	if (wikipediaContent) {
+		fused.sources.push({
+			source: "wikipedia",
+			title: wikipediaContent.title,
+			relevance: 0.7,
+		});
+		fused.additions.push({
+			source: "wikipedia",
+			content: wikipediaContent.extract,
+			priority: 0.7,
+		});
+	}
+
+	if (moegirlContent) {
+		fused.sources.push({
+			source: "moegirl",
+			title: moegirlContent.title,
+			relevance: 0.9,
+		});
+		fused.additions.push({
+			source: "moegirl",
+			content: moegirlContent.extract,
+			priority: 0.9,
+		});
+	}
+
+	if (doubaoContent) {
+		fused.sources.push({
+			source: "doubao",
+			title: "豆包AI补充",
+			relevance: 0.6,
+		});
+		fused.additions.push({
+			source: "doubao",
+			content: doubaoContent,
+			priority: 0.6,
+		});
+	}
+
+	return fused;
+}
+
+function integrateFusedContent(articleContent, fusedData) {
+	if (!fusedData.additions || fusedData.additions.length === 0) {
+		return articleContent;
+	}
+
+	const sortedAdditions = fusedData.additions.sort((a, b) => b.priority - a.priority);
+
+	let enhancedContent = articleContent;
+
+	const wikiAddition = sortedAdditions.find((a) => a.source === "wikipedia");
+	const moegirlAddition = sortedAdditions.find((a) => a.source === "moegirl");
+
+	if (wikiAddition && wikiAddition.content.length > 100) {
+		const wikiSnippet = wikiAddition.content.substring(0, 300) + "...";
+	}
+
+	if (moegirlAddition && moegirlAddition.content.length > 100) {
+		const moegirlSnippet = moegirlAddition.content.substring(0, 300) + "...";
+	}
+
+	return enhancedContent;
 }
 
 function collectBangumiImageCandidates(candidate, detail) {
@@ -249,227 +569,256 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 		reviewMode: options.reviewMode,
 		moegirlContent: options.moegirlContent || null,
 		characters: options.characters || [],
+		fusedContent: options.fusedContent || null,
 	};
 }
 
 async function main() {
+	const logger = new Logger(LOG_FILE);
+	await logger.init();
+
+	const startTime = Date.now();
 	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
 	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
 	const cacheFile = path.join(ROOT_DIR, ".cache", "bangumi", "anime.json");
 	const now = new Date();
 
-	const rawCollections = await readJsonIfExists(cacheFile, null);
-	const normalizedCollections = Array.isArray(rawCollections)
-		? rawCollections.map((item) => ({
-			subject_id: Number(String(item.link || "").match(/\/subject\/(\d+)/)?.[1] || 0),
-			type: item.status === "watching" ? 3 : item.status === "completed" ? 2 : item.status === "planned" ? 1 : item.status === "on_hold" ? 4 : item.status === "dropped" ? 5 : 0,
-			ep_status: Number(item.progress || 0),
-			updated_at: item.endDate || item.startDate || `${item.year || "1970"}-01-01`,
-			subject: {
-				id: Number(String(item.link || "").match(/\/subject\/(\d+)/)?.[1] || 0),
-				name: item.title || "",
-				name_cn: item.title || "",
-				date: item.startDate || "",
-				eps: Number(item.totalEpisodes || 0),
-				short_summary: item.description || "",
-				tags: Array.isArray(item.genre) ? item.genre.map((name) => ({ name })) : [],
-				images: {
-					large: item.cover || "",
-					common: item.cover || "",
-					medium: item.cover || "",
-				},
-			},
-		}))
-		: Array.isArray(rawCollections?.data)
-			? rawCollections.data
-			: [];
-	if (normalizedCollections.length === 0) {
-		console.log(`ℹ No Bangumi anime cache data found at ${cacheFile}, skipping daily article generation.`);
-		return;
-	}
-
-	const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
-	const existingPosts = await readExistingPosts();
-	const selected = selectNextAnimeCandidate({
-		collections: normalizedCollections,
-		generatedState,
-		existingPosts,
+	await logger.info("Starting Bangumi daily post generation", {
+		reviewMode,
 		maxPerRun,
+		startTime: now.toISOString(),
 	});
 
-	if (selected.length === 0) {
-		console.log("ℹ No new Bangumi anime candidates available for article generation.");
+	try {
+		const rawCollections = await readJsonIfExists(cacheFile, null);
+		const normalizedCollections = Array.isArray(rawCollections)
+			? rawCollections.map((item) => ({
+				subject_id: Number(String(item.link || "").match(/\/subject\/(\d+)/)?.[1] || 0),
+				type: item.status === "watching" ? 3 : item.status === "completed" ? 2 : item.status === "planned" ? 1 : item.status === "on_hold" ? 4 : item.status === "dropped" ? 5 : 0,
+				ep_status: Number(item.progress || 0),
+				updated_at: item.endDate || item.startDate || `${item.year || "1970"}-01-01`,
+				subject: {
+					id: Number(String(item.link || "").match(/\/subject\/(\d+)/)?.[1] || 0),
+					name: item.title || "",
+					name_cn: item.title || "",
+					date: item.startDate || "",
+					eps: Number(item.totalEpisodes || 0),
+					short_summary: item.description || "",
+					tags: Array.isArray(item.genre) ? item.genre.map((name) => ({ name })) : [],
+					images: {
+						large: item.cover || "",
+						common: item.cover || "",
+						medium: item.cover || "",
+					},
+				},
+			}))
+			: Array.isArray(rawCollections?.data)
+				? rawCollections.data
+				: [];
+
+		if (normalizedCollections.length === 0) {
+			await logger.warn("No Bangumi anime cache data found, skipping daily article generation");
+			return;
+		}
+
+		await logger.info(`Loaded ${normalizedCollections.length} items from cache`);
+
+		const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
+		const existingPosts = await readExistingPosts();
+		const selected = selectNextAnimeCandidate({
+			collections: normalizedCollections,
+			generatedState,
+			existingPosts,
+			maxPerRun,
+		});
+
+		if (selected.length === 0) {
+			await logger.warn("No new Bangumi anime candidates available for article generation");
+			await writeJson(REPORT_FILE, buildReviewReport({
+				selected: null,
+				candidates: [],
+				outputPath: "",
+				statePath: STATE_FILE,
+				reviewMode,
+			}));
+			return;
+		}
+
+		const candidate = selected[0];
+		await logger.info(`Selected subject ${candidate.subject_id}: ${candidate?.subject?.name_cn || candidate?.subject?.name}`);
+
+		const titleText = candidate?.subject?.name_cn || candidate?.subject?.name || "";
+
+		await logger.info(`Fetching Bangumi subject detail for ${candidate.subject_id}...`);
+		const detail = await fetchBangumiSubjectDetail(candidate.subject_id);
+
+		await logger.info(`Fetching Bangumi characters for ${candidate.subject_id}...`);
+		const characters = await fetchBangumiCharacters(candidate.subject_id);
+
+		await logger.info("Resolving cover image...");
+		const imageSelection = resolveCoverImage(candidate, detail);
+		await logger.info(`Selected cover: ${imageSelection.selected?.url || "default"}`);
+
+		let wikipediaContent = null;
+		let moegirlContent = null;
+		let doubaoContent = null;
+		const useWikipedia = getEnvBoolean("BANGUMI_POST_USE_WIKIPEDIA", true);
+		const useMoegirl = getEnvBoolean("BANGUMI_POST_USE_MOEIRL", true);
+		const useDoubao = getEnvBoolean("BANGUMI_POST_USE_DOUBAN", false);
+
+		if (useWikipedia) {
+			await logger.info(`Searching Wikipedia for: ${titleText}`);
+			try {
+				const wikiResults = await searchWikipedia(titleText, 3);
+				if (wikiResults && wikiResults.length > 0) {
+					wikipediaContent = await getWikipediaPage(wikiResults[0].title);
+					if (wikipediaContent) {
+						await logger.success(`Wikipedia content retrieved: ${wikipediaContent.title}`);
+					}
+				}
+			} catch (error) {
+				await logger.warn(`Wikipedia integration failed: ${error.message}`);
+			}
+		}
+
+		if (useMoegirl) {
+			await logger.info(`Searching Moegirl for: ${titleText}`);
+			try {
+				const moegirlResults = await searchMoegirlDirect(titleText, 3);
+				if (moegirlResults && moegirlResults.length > 0) {
+					moegirlContent = await getMoegirlPageDirect(moegirlResults[0].title);
+					if (moegirlContent) {
+						await logger.success(`Moegirl content retrieved: ${moegirlContent.title}`);
+
+						const moegirlChars = await getMoegirlCharacters(moegirlResults[0].title);
+						if (moegirlChars && moegirlChars.length > 0) {
+							await logger.success(`Moegirl characters retrieved: ${moegirlChars.length}`);
+							characters.unshift(...moegirlChars.map((c) => ({
+								...c,
+								source: "moegirl",
+							})));
+						}
+					}
+				}
+			} catch (error) {
+				await logger.warn(`Moegirl integration failed: ${error.message}`);
+			}
+		}
+
+		if (useDoubao) {
+			await logger.info(`Generating Doubao content for: ${titleText}`);
+			try {
+				const prompt = generateDoubaoPrompt(
+					titleText,
+					detail?.summary || "",
+					characters.slice(0, 5),
+				);
+				doubaoContent = await fetchDoubaoResponse(prompt);
+				if (doubaoContent) {
+					await logger.success(`Doubao content generated (${doubaoContent.length} chars)`);
+				}
+			} catch (error) {
+				await logger.warn(`Doubao integration failed: ${error.message}`);
+			}
+		}
+
+		const fusedContent = fuseContent(
+			detail?.summary || "",
+			wikipediaContent,
+			moegirlContent,
+			doubaoContent,
+		);
+		await logger.info(`Content fusion complete: ${fusedContent.sources.length} sources integrated`);
+
+		const payload = buildArticlePayload(candidate, detail, imageSelection, {
+			now,
+			reviewMode,
+			moegirlContent,
+			characters,
+			fusedContent,
+		});
+
+		const useEnhancedFormat = getEnvBoolean("BANGUMI_POST_USE_ENHANCED_FORMAT", true);
+		await logger.info(`Building article markdown (${useEnhancedFormat ? "enhanced" : "standard"})...`);
+		let articleContent = useEnhancedFormat
+			? buildEnhancedArticleMarkdown(payload)
+			: buildAnimeArticleMarkdown(payload);
+
+		if (fusedContent.additions.length > 0) {
+			await logger.info("Integrating fused content into article...");
+			articleContent = integrateFusedContent(articleContent, fusedContent);
+		}
+
+		const enablePolishing = getEnvBoolean("BANGUMI_POST_ENABLE_POLISHING", true);
+		if (enablePolishing) {
+			await logger.info("Executing Moegirl style analysis and content polishing...");
+			const analysis = await analyzeMoegirlArticle(articleContent, payload.title);
+			await logger.info(`Article analysis score: ${analysis.score}/100`);
+
+			if (analysis.suggestions.length > 0) {
+				await logger.info(`Optimization suggestions (${analysis.suggestions.length} items)`);
+			}
+
+			articleContent = polishArticleContent(articleContent, analysis);
+			await logger.info("Content polishing complete");
+
+			await logger.info("Executing quality check...");
+			const qcResult = qualityCheck(articleContent, payload.title);
+			if (qcResult.passed) {
+				await logger.success("Quality check passed");
+			} else {
+				await logger.warn("Quality check not fully passed, continuing with publication");
+				const failedChecks = Object.entries(qcResult.checks).filter(([k, v]) => !v.passed).map(([k]) => k);
+				await logger.warn(`Failed checks: ${failedChecks.join(", ")}`);
+			}
+		}
+
+		const safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
+		const outputFileName = `${safeAlias}.md`;
+		const outputPath = path.join(POSTS_DIR, outputFileName);
+
+		await logger.info(`Writing article to ${outputPath}...`);
+		await fs.writeFile(outputPath, articleContent, "utf8");
+		await logger.success(`Article written to ${outputPath}`);
+
+		const newRecord = createStateRecord({
+			subjectId: candidate.subject_id,
+			title: payload.title,
+			filePath: outputPath,
+			alias: payload.alias,
+			sourceLink: payload.sourceLink,
+			published: payload.published,
+			image: payload.image,
+			reviewMode,
+		});
+
+		generatedState.generated = [
+			...(generatedState.generated || []),
+			newRecord,
+		];
+		await writeJson(STATE_FILE, generatedState);
+		await logger.success(`Updated state file ${STATE_FILE}`);
+
 		await writeJson(REPORT_FILE, buildReviewReport({
-			selected: null,
-			candidates: [],
-			outputPath: "",
+			selected: candidate,
+			candidates: imageSelection.candidates,
+			outputPath,
 			statePath: STATE_FILE,
 			reviewMode,
 		}));
-		return;
+
+		const duration = Date.now() - startTime;
+		await logger.success(`Bangumi daily post generation completed in ${duration}ms`);
+
+	} catch (error) {
+		await logger.error(`Generation failed: ${error.message}`, {
+			stack: error.stack,
+		});
+		throw error;
 	}
-
-	const candidate = selected[0];
-	console.log(`📝 Generating Bangumi daily post for subject ${candidate.subject_id}...`);
-	const titleText = candidate?.subject?.name_cn || candidate?.subject?.name || "";
-	console.log(`📡 Fetching Bangumi subject detail for ${candidate.subject_id}...`);
-	const detail = await fetchBangumiSubjectDetail(candidate.subject_id);
-	console.log(`📡 Fetching Bangumi characters for ${candidate.subject_id}...`);
-	const characters = await fetchBangumiCharacters(candidate.subject_id);
-
-	console.log(`🖼️ Resolving cover image...`);
-	const imageSelection = resolveCoverImage(candidate, detail);
-	console.log(`✅ Selected cover: ${imageSelection.selected?.url || "default"}`);
-
-	let moegirlContent = null;
-	const useMoegirl = getEnvBoolean("BANGUMI_POST_USE_MOEIRL", false);
-	if (useMoegirl) {
-		console.log(`🔍 尝试从萌娘百科获取补充资料...`);
-
-		try {
-			let searchSuccess = false;
-
-			console.log(`🔍 方式1: 使用官方 SDK (wiki-saikou)...`);
-			try {
-				const sdkResults = await searchMoegirlSDK(titleText, 5);
-				if (sdkResults && sdkResults.length > 0) {
-					console.log(`✅ 官方SDK找到 ${sdkResults.length} 条结果`);
-					moegirlContent = sdkResults.slice(0, 3);
-					searchSuccess = true;
-				}
-			} catch (sdkError) {
-				console.warn(`⚠️ 官方 SDK 方式失败: ${sdkError.message}`);
-			}
-
-			if (!searchSuccess || !moegirlContent || moegirlContent.length === 0) {
-				console.log(`🔍 方式2: 使用直接 API...`);
-				try {
-					const directResults = await searchMoegirlDirect(titleText, 5);
-					if (directResults && directResults.length > 0) {
-						console.log(`✅ 直接API找到 ${directResults.length} 条结果`);
-						moegirlContent = directResults.slice(0, 3);
-						searchSuccess = true;
-					}
-				} catch (directError) {
-					console.warn(`⚠️ 直接 API 方式失败: ${directError.message}`);
-				}
-			}
-
-			if (!searchSuccess || !moegirlContent || moegirlContent.length === 0) {
-				console.log(`🔍 方式3: 尝试 MCP 服务器...`);
-				try {
-					const mcInitialized = await initializeMoegirlMcp();
-					if (mcInitialized) {
-						const mcpResults = await searchMoegirl(titleText, false);
-						if (mcpResults && mcpResults.length > 0) {
-							console.log(`✅ MCP 找到 ${mcpResults.length} 条结果`);
-							moegirlContent = mcpResults.slice(0, 3);
-							searchSuccess = true;
-						}
-						await stopMoegirlMcpServer();
-					}
-				} catch (mcpError) {
-					console.warn(`⚠️ MCP 服务器方式失败: ${mcpError.message}`);
-				}
-			}
-
-			if (moegirlContent && moegirlContent.length > 0) {
-				console.log(`✅ 已获取萌娘百科补充资料`);
-
-				const moegirlChars = await getMoegirlCharacters(titleText);
-				if (moegirlChars && moegirlChars.length > 0) {
-					console.log(`✅ 从萌娘百科获取到 ${moegirlChars.length} 个角色信息`);
-					characters.unshift(...moegirlChars.map(c => ({
-						...c,
-						source: "moegirl"
-					})));
-				}
-			} else {
-				console.log(`ℹ️ 萌娘百科未找到相关条目`);
-			}
-		} catch (error) {
-			console.warn(`⚠️ 获取萌娘百科资料失败: ${error.message}`);
-		}
-	} else {
-		console.log(`ℹ️ 萌娘百科功能已禁用 (BANGUMI_POST_USE_MOEIRL=false)`);
-	}
-
-	const payload = buildArticlePayload(candidate, detail, imageSelection, {
-		now,
-		reviewMode,
-		moegirlContent,
-		characters,
-	});
-
-	const useEnhancedFormat = getEnvBoolean("BANGUMI_POST_USE_ENHANCED_FORMAT", true);
-	console.log(`📝 Building article markdown (${useEnhancedFormat ? "enhanced" : "standard"})...`);
-	let articleContent = useEnhancedFormat
-		? buildEnhancedArticleMarkdown(payload)
-		: buildAnimeArticleMarkdown(payload);
-
-	const enablePolishing = getEnvBoolean("BANGUMI_POST_ENABLE_POLISHING", true);
-	if (enablePolishing) {
-		console.log(`🔍 执行萌娘百科风格分析与专业润色...`);
-		const analysis = await analyzeMoegirlArticle(articleContent, payload.title);
-		console.log(`📊 文章分析得分: ${analysis.score}/100`);
-		if (analysis.suggestions.length > 0) {
-			console.log(`📋 优化建议 (${analysis.suggestions.length} 项):`);
-			for (const s of analysis.suggestions.slice(0, 5)) {
-				console.log(`   - [${s.priority}] ${s.message}`);
-			}
-		}
-
-		console.log(`✏️ 执行内容润色...`);
-		articleContent = polishArticleContent(articleContent, analysis);
-
-		console.log(`🔍 执行二次质量检查...`);
-		const qcResult = qualityCheck(articleContent, payload.title);
-		if (qcResult.passed) {
-			console.log(`✅ 质量检查通过`);
-		} else {
-			console.log(`⚠️ 质量检查未完全通过，将继续发布`);
-			const failedChecks = Object.entries(qcResult.checks).filter(([k, v]) => !v.passed).map(([k]) => k);
-			console.log(`   未通过项目: ${failedChecks.join(", ")}`);
-		}
-	}
-
-	const safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
-	const outputFileName = `${safeAlias}.md`;
-	const outputPath = path.join(POSTS_DIR, outputFileName);
-
-	await fs.writeFile(outputPath, articleContent, "utf8");
-	console.log(`✅ Article written to ${outputPath}`);
-
-	const newRecord = createStateRecord({
-		subjectId: candidate.subject_id,
-		title: payload.title,
-		filePath: outputPath,
-		alias: payload.alias,
-		sourceLink: payload.sourceLink,
-		published: payload.published,
-		image: payload.image,
-		reviewMode,
-	});
-
-	generatedState.generated = [
-		...(generatedState.generated || []),
-		newRecord,
-	];
-	await writeJson(STATE_FILE, generatedState);
-	console.log(`✅ Updated state file ${STATE_FILE}`);
-
-	await writeJson(REPORT_FILE, buildReviewReport({
-		selected: candidate,
-		candidates: imageSelection.candidates,
-		outputPath,
-		statePath: STATE_FILE,
-		reviewMode,
-	}));
-	console.log(`✅ Generated report ${REPORT_FILE}`);
-	console.log(`🎉 Bangumi daily post generation completed successfully!`);
 }
 
 main().catch((error) => {
-	console.error("❌ Bangumi daily post generation failed:", error);
+	console.error("Bangumi daily post generation failed:", error);
 	process.exit(1);
 });

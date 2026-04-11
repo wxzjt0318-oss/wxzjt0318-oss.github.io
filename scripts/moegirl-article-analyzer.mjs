@@ -1,12 +1,8 @@
-import { getMoegirlPageSDK } from "./moegirl-sdk.mjs";
-import { MediaWikiApi } from 'wiki-saikou';
-
-const MOEGIRL_API_URL = 'https://zh.moegirl.org.cn/api.php';
-const api = new MediaWikiApi(MOEGIRL_API_URL);
+import { getMoegirlPageDirect } from "./moegirl-api-direct.mjs";
 
 export async function getMoegirlCharacters(pageName) {
 	try {
-		const page = await getMoegirlPageSDK(pageName);
+		const page = await getMoegirlPageDirect(pageName);
 		if (!page) return null;
 
 		const charPattern = /{{角色信息([^}]+)}}/gi;
