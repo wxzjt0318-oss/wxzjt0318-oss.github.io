@@ -213,6 +213,8 @@ async function buildAnimeCacheFromCollections() {
 		.filter(e => e.isFile() && e.name.startsWith("collection-") && e.name.includes("-2-"))
 		.map(e => e.name);
 
+	const collectionMap = new Map();
+
 	if (collectionFiles.length > 0) {
 		console.log(`📁 发现 ${collectionFiles.length} 个动漫收藏缓存文件`);
 
@@ -224,6 +226,15 @@ async function buildAnimeCacheFromCollections() {
 
 				for (const item of items) {
 					if (item.subject && item.subject.type === BANGUMI_TYPE.ANIME) {
+						collectionMap.set(item.subject.id, {
+							type: item.type,
+							rate: item.rate,
+							epStatus: item.ep_status,
+							volStatus: item.vol_status,
+							tags: item.tags,
+							comment: item.comment,
+							updatedAt: item.updated_at,
+						});
 						animeSubjects.push(item.subject);
 					}
 				}
@@ -272,24 +283,29 @@ async function buildAnimeCacheFromCollections() {
 			continue;
 		}
 
+		const collectionInfo = collectionMap.get(subject.id);
+		const statusMap = { 1: "watching", 2: "completed", 3: "planned", 4: "onhold", 5: "dropped" };
+		const watchStatus = statusMap[collectionInfo?.type] || "planned";
+
 		animeItems.push({
 			link: `/subject/${subject.id}`,
 			title: subject.name_cn || subject.name || "",
 			titleRaw: subject.name || "",
-			status: "collect",
-			progress: 0,
+			status: watchStatus,
+			progress: collectionInfo?.epStatus || 0,
 			startDate: subject.date || "",
 			endDate: "",
 			year: subject.date ? subject.date.split("-")[0] : "",
 			totalEpisodes: subject.eps || 0,
-			description: subject.summary || "",
+			description: subject.short_summary || subject.summary || "",
 			cover: subject.images?.large || subject.images?.common || "",
 			genre: subject.tags?.slice(0, 5).map(t => t.name) || [],
 			contentType: "anime",
 			subjectId: subject.id,
 			subjectType: subjectType,
 			tags: subject.tags?.map(t => t.name) || [],
-			raw: subject,
+			rating: collectionInfo?.rate || 0,
+			raw: { ...subject, collection: collectionInfo },
 		});
 	}
 
