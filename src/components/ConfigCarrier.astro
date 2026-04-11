@@ -1,0 +1,21 @@
+---
+
+import { expressiveCodeConfig, siteConfig } from "../config";
+---
+
+<!-- 全局配置载体 -->
+<div id="config-carrier" data-hue={siteConfig.themeColor.hue} data-hide-code-blocks-during-transition={expressiveCodeConfig.hideDuringThemeTransition ? "true" : "false"}>
+</div>
+
+<script is:inline defer define:vars={{ tocEnable: siteConfig.toc.enable, tocDepth: siteConfig.toc.depth, tocUseJapaneseBadge: siteConfig.toc.useJapaneseBadge }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    window.siteConfig = window.siteConfig || {};
+    window.siteConfig.toc = {
+      enable: tocEnable,
+      depth: tocDepth,
+      useJapaneseBadge: tocUseJapaneseBadge
+    };
+  });
+</script>
+
+<script is:inline defer src="/js/umami-share.js"></script>
