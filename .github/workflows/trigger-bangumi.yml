@@ -13,6 +13,16 @@ on:
         required: false
         default: 'false'
         type: boolean
+      skip_build:
+        description: 'Skip website build and deploy'
+        required: false
+        default: 'false'
+        type: boolean
+      force_sync:
+        description: 'Force sync latest cache into webpage data before deploy'
+        required: false
+        default: 'true'
+        type: boolean
 
 jobs:
   trigger:
@@ -27,6 +37,8 @@ jobs:
             {
               "force_update": "${{ inputs.force_update }}",
               "clear_cache": "${{ inputs.clear_cache }}",
+              "skip_build": "${{ inputs.skip_build }}",
+              "force_sync": "${{ inputs.force_sync }}",
               "source": "manual-trigger"
             }
 
@@ -35,5 +47,7 @@ jobs:
           echo "✅ Bangumi update workflow triggered"
           echo "Force update: ${{ inputs.force_update }}"
           echo "Clear cache: ${{ inputs.clear_cache }}"
+          echo "Skip build: ${{ inputs.skip_build }}"
+          echo "Force sync: ${{ inputs.force_sync }}"
           echo ""
           echo "View progress at: ${{ github.server_url }}/${{ github.repository }}/actions"

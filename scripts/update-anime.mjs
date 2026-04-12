@@ -62,18 +62,21 @@ async function main() {
 		console.log("Detected anime mode: bilibili, running update-bilibili.mjs");
 		await runScript(path.join(scriptsDir, "update-bilibili.mjs"));
 	} else if (mode === "bangumi") {
+		if (process.env.CI) {
+			console.log("Detected anime mode: bangumi, skipping direct API fetch in CI");
+			console.log("Use checked-in src/data/bangumi-data.json or run pnpm sync-bangumi-cache from workflow cache.");
+			return;
+		}
+
 		const hasExistingData = await hasExistingBangumiData();
-		if (process.env.CI && hasExistingData) {
-			console.log("Detected anime mode: bangumi, using checked-in bangumi-data.json in CI");
-			return;
-		}
-
 		if (hasExistingData) {
-			console.log("Detected anime mode: bangumi, using existing bangumi-data.json");
+			console.log("Detected anime mode: bangumi, existing bangumi-data.json found");
+			console.log("If you need fresh data locally, run: pnpm update-bangumi && pnpm sync-bangumi-cache");
 			return;
 		}
 
-		console.log("Detected anime mode: bangumi, but update-bangumi.mjs has been removed. Skipping.");
+		console.log("Detected anime mode: bangumi, running update-bangumi.mjs");
+		await runScript(path.join(scriptsDir, "update-bangumi.mjs"));
 	} else {
 		console.log(`Anime mode is "${mode}", skipping data update.`);
 	}

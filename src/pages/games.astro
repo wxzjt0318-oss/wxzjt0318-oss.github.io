@@ -55,11 +55,11 @@ const isValidUserId = !!BANGUMI_USER_ID && BANGUMI_USER_ID !== "your-user-id";
 type GameConfigExt = { mode?: "bangumi"; maxItems?: number; cacheTtlHours?: number };
 const gameCfg = (siteConfig.game || {}) as GameConfigExt;
 const MAX_ITEMS = Number(gameCfg.maxItems) > 0 ? Number(gameCfg.maxItems) : Infinity;
-const CACHE_TTL_HOURS = Number(gameCfg.cacheTtlHours) >= 0 ? Number(gameCfg.cacheTtlHours) : 24;
+const CACHE_TTL_HOURS = 0; // 禁用缓存，确保每次都从 API 获取最新数据
 
 type CacheEntry<T> = { ts: number; data: T };
 const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
-const DISK_CACHE = isNode && !(process as any).env?.BANGUMI_DISABLE_DISK_CACHE;
+const DISK_CACHE = false; // 强制禁用磁盘缓存
 
 let fs: typeof import("fs/promises") | null = null;
 let path: typeof import("path") | null = null;
@@ -81,26 +81,10 @@ if (isNode && DISK_CACHE && fs && logRoot) {
 }
 
 async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
-  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) {return null;}
-  try {
-    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(cacheRoot, `${key}.json`);
-    const buf = await fs.readFile(file, { encoding: "utf8" as any });
-    const jsonStr = typeof buf === "string" ? buf : String(buf);
-    const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
-    const ageHours = (Date.now() - parsed.ts) / 3.6e6;
-    if (ageHours <= ttlHours) {return parsed.data;}
-  } catch {}
-  return null;
+  return null; // 禁用缓存，始终返回 null
 }
 async function diskCacheSet<T>(key: string, data: T): Promise<void> {
-  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) {return;}
-  try {
-    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(cacheRoot, `${key}.json`);
-    const payload: CacheEntry<T> = { ts: Date.now(), data };
-    await fs.writeFile(file, JSON.stringify(payload), { encoding: "utf8" });
-  } catch {}
+  // 禁用缓存，不执行任何操作
 }
 
 async function appendLog(fileName: string, line: string): Promise<void> {
@@ -604,12 +588,9 @@ async function fetchSubjectDetailRaw(subjectId: number) {
 }
 
 async function fetchSubjectDetailCached(subjectId: number) {
-  const cacheKey = `subject-${subjectId}`;
-  const cached = await diskCacheGet<any>(cacheKey, CACHE_TTL_HOURS);
-  if (cached) {return cached;}
+  // 禁用缓存，直接从 API 获取最新数据
   try {
     const detail = await fetchSubjectDetailRaw(subjectId);
-    await diskCacheSet(cacheKey, detail);
     return detail;
   } catch {
     return null;
@@ -637,13 +618,10 @@ function extractDeveloperFromHtml(html: string): string[] {
 }
 
 async function fetchDeveloperFromHtml(subjectId: number): Promise<string[]> {
-  const cacheKey = `subject-html-${subjectId}`;
-  const cached = await diskCacheGet<string>(cacheKey, CACHE_TTL_HOURS);
-  if (cached) {return extractDeveloperFromHtml(cached);}
+  // 禁用缓存，直接从 API 获取最新数据
   try {
     const res = await fetchWithRetry(`https://bgm.tv/subject/${subjectId}`, undefined, 1, 200, 500);
     const html = await res.text();
-    await diskCacheSet(cacheKey, html);
     return extractDeveloperFromHtml(html);
   } catch {
     return [];

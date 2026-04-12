@@ -60,13 +60,13 @@ const ANIME_MODE = siteConfig.anime?.mode || "bangumi";
 type AnimeConfigExt = { mode?: "bangumi" | "local"; maxItems?: number; cacheTtlHours?: number };
 const animeCfg = (siteConfig.anime || {}) as AnimeConfigExt;
 const MAX_ITEMS = Number(animeCfg.maxItems) > 0 ? Number(animeCfg.maxItems) : Infinity;
-const CACHE_TTL_HOURS = Number(animeCfg.cacheTtlHours) >= 0 ? Number(animeCfg.cacheTtlHours) : 24;
+const CACHE_TTL_HOURS = 0; // 禁用缓存，确保每次都从 API 获取最新数据
 let cacheNotice = "";
 
-// 简易磁盘持久缓存（Node 端有效）；支持通过 env 禁用（采用第二版的 mkdir 防御）
+// 禁用磁盘缓存，确保每次都从 API 获取最新数据
 type CacheEntry<T> = { ts: number; data: T };
 const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
-const DISK_CACHE = isNode && !(process as any).env?.BANGUMI_DISABLE_DISK_CACHE;
+const DISK_CACHE = false; // 强制禁用磁盘缓存
 
 let fs: typeof import("fs/promises") | null = null;
 let path: typeof import("path") | null = null;
@@ -83,28 +83,10 @@ if (isNode && DISK_CACHE && fs && cacheRoot) {
 }
 
 async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
-  if (!isNode || !fs || !path || !DISK_CACHE || ttlHours <= 0) return null;
-  try {
-    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(cacheRoot, `${key}.json`);
-    const buf = await fs.readFile(file, { encoding: "utf8" as any });
-    const jsonStr = typeof buf === "string" ? buf : String(buf);
-    const parsed = JSON.parse(jsonStr) as CacheEntry<T>;
-    const ageHours = (Date.now() - parsed.ts) / 3.6e6;
-    if (ageHours <= ttlHours) return parsed.data;
-  } catch {}
-  return null;
+  return null; // 禁用缓存，始终返回 null
 }
 async function diskCacheSet<T>(key: string, data: T): Promise<void> {
-  if (!isNode || !fs || !path || !DISK_CACHE || CACHE_TTL_HOURS <= 0) return;
-  try {
-    await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(cacheRoot, `${key}.json`);
-    const payload: CacheEntry<T> = { ts: Date.now(), data };
-    await fs.writeFile(file, JSON.stringify(payload), { encoding: "utf8" });
-  } catch {
-    // ignore
-  }
+  // 禁用缓存，不执行任何操作
 }
 
 // fetch 带重试与 429/5xx 退避
@@ -240,37 +222,19 @@ async function fetchSubjectDetailRaw(subjectId: number) {
   return await res.json();
 }
 
-// 内存缓存 + 磁盘缓存
-const subjectDetailCache = new Map<number, any>();
-const subjectPersonsCache = new Map<number, any[]>();
+// 禁用内存缓存，确保每次都从 API 获取最新数据
 
 async function fetchSubjectDetailCached(id: number) {
-  if (subjectDetailCache.has(id)) return subjectDetailCache.get(id);
-  const diskKey = `subject-${id}`;
-  const disk = await diskCacheGet<any>(diskKey, CACHE_TTL_HOURS);
-  if (disk) {
-    subjectDetailCache.set(id, disk);
-    return disk;
-  }
+  // 禁用缓存，直接从 API 获取最新数据
   const d = await fetchSubjectDetailRaw(id).catch((e) => {
     console.error(`Error fetching subject ${id} detail:`, e);
     return null;
   });
-  subjectDetailCache.set(id, d);
-  if (d) await diskCacheSet(diskKey, d);
   return d;
 }
 async function fetchSubjectPersonsCached(id: number) {
-  if (subjectPersonsCache.has(id)) return subjectPersonsCache.get(id);
-  const diskKey = `persons-${id}`;
-  const disk = await diskCacheGet<any[]>(diskKey, CACHE_TTL_HOURS);
-  if (disk) {
-    subjectPersonsCache.set(id, disk);
-    return disk;
-  }
+  // 禁用缓存，直接从 API 获取最新数据
   const p = await fetchSubjectPersonsRaw(id).catch(() => []);
-  subjectPersonsCache.set(id, p);
-  if (p?.length) await diskCacheSet(diskKey, p);
   return p;
 }
 

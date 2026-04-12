@@ -54,7 +54,7 @@ export default defineConfig({
 			animationClass: "transition-swup-",
 			containers: ["main"],
 			smoothScrolling: false, // 禁用平滑滚动以提升性能，避免与锚点导航冲突
-			cache: true,
+			cache: !import.meta.env.DEV,
 			preload: true, // swup 默认鼠标悬停预加载
 			accessibility: true,
 			updateHead: true,

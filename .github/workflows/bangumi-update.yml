@@ -15,6 +15,11 @@ on:
         required: false
         default: 'false'
         type: boolean
+      force_sync:
+        description: 'Force sync cache to page data and deploy website'
+        required: false
+        default: 'true'
+        type: boolean
   repository_dispatch:
     types: [update-bangumi]
 
@@ -71,7 +76,7 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Clear cache
-        if: inputs.clear_cache == 'true'
+        if: (github.event_name == 'workflow_dispatch' && inputs.clear_cache == true) || (github.event_name == 'repository_dispatch' && github.event.client_payload.clear_cache == 'true')
         run: |
           echo "🗑️ Clearing cache directory..."
           rm -rf ${{ env.CACHE_DIR }}
@@ -232,37 +237,64 @@ jobs:
             echo "⚠️ games.json not found (optional)"
           fi
 
-      - name: Install dependencies
+      - name: Sync Bangumi Anime Data File
+        id: sync-bangumi
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.force_sync == true) || (github.event_name == 'repository_dispatch' && github.event.client_payload.force_sync != 'false')
         run: |
           echo ""
           echo "========================================"
-          echo "📝 Installing Dependencies"
+          echo "🔄 Syncing Bangumi Anime Data File"
+          echo "========================================"
+          pnpm sync-bangumi-cache
+
+          SYNC_COUNT=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('src/data/bangumi-data.json','utf8')); process.stdout.write(String(Array.isArray(data)?data.length:0));")
+          SYNC_UPDATED_AT=$(node -e "const fs=require('fs'); const stat=fs.statSync('src/data/bangumi-data.json'); process.stdout.write(new Date(stat.mtimeMs).toISOString());")
+          STATUS_STATS=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('src/data/bangumi-data.json','utf8')); const stats={watching:0,completed:0,planned:0,onhold:0,dropped:0}; for (const item of Array.isArray(data)?data:[]) { if (item && stats[item.status] !== undefined) stats[item.status]++; } process.stdout.write(JSON.stringify(stats));")
+          echo "sync_executed=true" >> $GITHUB_OUTPUT
+          echo "sync_count=$SYNC_COUNT" >> $GITHUB_OUTPUT
+          echo "sync_updated_at=$SYNC_UPDATED_AT" >> $GITHUB_OUTPUT
+          echo "status_stats=$STATUS_STATS" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies and generate daily article
+        run: |
+          echo ""
+          echo "========================================"
+          echo "📝 Installing Dependencies & Generating Article"
           echo "========================================"
 
           pnpm install --no-frozen-lockfile
 
-      - name: Verify Cache Files
+          echo "Running: pnpm generate-bangumi-post"
+          pnpm generate-bangumi-post
+        env:
+          BANGUMI_POSTS_PER_RUN: 1
+          BANGUMI_POST_REVIEW_MODE: ${{ vars.BANGUMI_POST_REVIEW_MODE || 'false' }}
+
+      - name: Verify Generated Content
         run: |
           echo ""
           echo "========================================"
-          echo "🔍 Verifying Cache Files"
+          echo "🔍 Verifying Generated Content"
           echo "========================================"
 
-          if [ -f "${{ env.CACHE_DIR }}/anime.json" ]; then
-            ANIME_SIZE=$(wc -c < "${{ env.CACHE_DIR }}/anime.json")
-            echo "✅ anime.json exists ($ANIME_SIZE bytes)"
+          if [ -f "reports/bangumi-daily-posts-latest.json" ]; then
+            REPORT_SIZE=$(wc -c < "reports/bangumi-daily-posts-latest.json")
+            echo "✅ Report exists ($REPORT_SIZE bytes)"
+
+            SELECTED_TITLE=$(jq -r '.selectedAnime.subject.name_cn // .selectedAnime.subject.name // "N/A"' reports/bangumi-daily-posts-latest.json 2>/dev/null || echo "N/A")
+            echo "📌 Selected Anime: $SELECTED_TITLE"
           else
-            echo "❌ anime.json not found"
+            echo "⚠️ Report not found"
           fi
 
-          if [ -f "${{ env.CACHE_DIR }}/games.json" ]; then
-            GAME_SIZE=$(wc -c < "${{ env.CACHE_DIR }}/games.json")
-            echo "✅ games.json exists ($GAME_SIZE bytes)"
+          if ls src/content/posts/*.md 1> /dev/null 2>&3; then
+            POST_COUNT=$(ls -1 src/content/posts/*.md 2>/dev/null | wc -l)
+            echo "✅ Found $POST_COUNT markdown posts"
           else
-            echo "⚠️ games.json not found (optional)"
+            echo "⚠️ No posts generated"
           fi
 
-      - name: Commit cache changes
+      - name: Commit changes
         id: commit
         run: |
           echo ""
@@ -273,14 +305,14 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          git add ${{ env.CACHE_DIR }} 2>/dev/null || true
+          git add ${{ env.CACHE_DIR }} src/content/posts src/data/bangumi-data.json src/data/bangumi-posts-state.json reports/bangumi-daily-posts-latest.json 2>/dev/null || true
 
           if git diff --staged --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes to commit (cache may already be up to date)"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            git commit -m "chore: update bangumi cache [skip ci]"
+            git commit -m "chore: update bangumi cache and daily anime post [skip ci]"
             git push
             echo "✅ Changes committed and pushed"
           fi
@@ -290,6 +322,21 @@ jobs:
         run: |
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
+          FETCH_COUNT="${{ steps.fetch-anime.outputs.anime_count || '0' }}"
+          SYNC_COUNT="${{ steps.sync-bangumi.outputs.sync_count || '0' }}"
+          SYNC_EXECUTED="${{ steps.sync-bangumi.outputs.sync_executed || 'false' }}"
+          STATUS_STATS='${{ steps.sync-bangumi.outputs.status_stats || '{"watching":0,"completed":0,"planned":0,"onhold":0,"dropped":0}' }}'
+          WATCHING_COUNT=$(node -e "const stats = JSON.parse(process.argv[1]); process.stdout.write(String(stats.watching ?? 0));" "$STATUS_STATS")
+          COMPLETED_COUNT=$(node -e "const stats = JSON.parse(process.argv[1]); process.stdout.write(String(stats.completed ?? 0));" "$STATUS_STATS")
+          PLANNED_COUNT=$(node -e "const stats = JSON.parse(process.argv[1]); process.stdout.write(String(stats.planned ?? 0));" "$STATUS_STATS")
+          ONHOLD_COUNT=$(node -e "const stats = JSON.parse(process.argv[1]); process.stdout.write(String(stats.onhold ?? 0));" "$STATUS_STATS")
+          DROPPED_COUNT=$(node -e "const stats = JSON.parse(process.argv[1]); process.stdout.write(String(stats.dropped ?? 0));" "$STATUS_STATS")
+          SYNC_WARNING="none"
+          SYNC_ACTION="none"
+          if [ "$SYNC_EXECUTED" = "true" ] && [ "$FETCH_COUNT" != "$SYNC_COUNT" ]; then
+            SYNC_WARNING="warning: fetched anime count does not match synced page-data count"
+            SYNC_ACTION="re-run workflow with clear_cache=true and force_sync=true, then verify src/data/bangumi-data.json"
+          fi
           echo "" | tee -a $GITHUB_STEP_SUMMARY
           echo "========================================" | tee -a $GITHUB_STEP_SUMMARY
           echo "✅ Bangumi Update Workflow Completed" | tee -a $GITHUB_STEP_SUMMARY
@@ -298,10 +345,34 @@ jobs:
           echo "|------|-------|" | tee -a $GITHUB_STEP_SUMMARY
           echo "| End Time | $(date -u +"%Y-%m-%dT%H:%M:%SZ") |" | tee -a $GITHUB_STEP_SUMMARY
           echo "| Duration | ${DURATION}s |" | tee -a $GITHUB_STEP_SUMMARY
-          echo "| Anime Count | ${{ steps.fetch-anime.outputs.anime_count }} |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Anime Count | $FETCH_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
           echo "| Game Count | ${{ steps.fetch-games.outputs.game_count }} |" | tee -a $GITHUB_STEP_SUMMARY
-          echo "| Changes Made | ${{ steps.commit.outputs.has_changes }} |" | tee -a $GITHUB_STEP_SUMMARY
           echo "| Cache Updated | ${{ steps.fetch-anime.outputs.cache_updated }} |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Sync Executed | $SYNC_EXECUTED |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Synced Anime Count | $SYNC_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Page Data Updated At | ${{ steps.sync-bangumi.outputs.sync_updated_at || 'not-synced' }} |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Status Watching | $WATCHING_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Status Completed | $COMPLETED_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Status Planned | $PLANNED_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Status On Hold | $ONHOLD_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Status Dropped | $DROPPED_COUNT |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Sync Count Check | $SYNC_WARNING |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Suggested Action | $SYNC_ACTION |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Changes Committed | ${{ steps.commit.outputs.has_changes }} |" | tee -a $GITHUB_STEP_SUMMARY
+
+      - name: Validate Sync Count Consistency
+        if: steps.sync-bangumi.outputs.sync_executed == 'true'
+        run: |
+          FETCH_COUNT="${{ steps.fetch-anime.outputs.anime_count || '0' }}"
+          SYNC_COUNT="${{ steps.sync-bangumi.outputs.sync_count || '0' }}"
+          if [ "$FETCH_COUNT" != "$SYNC_COUNT" ]; then
+            echo "❌ Sync count mismatch detected"
+            echo "Fetched anime count: $FETCH_COUNT"
+            echo "Synced page-data count: $SYNC_COUNT"
+            echo "Suggested action: re-run workflow with clear_cache=true and force_sync=true"
+            exit 1
+          fi
+          echo "✅ Sync count consistency check passed"
 
       - name: Handle Errors
         id: handle-error
@@ -312,7 +383,7 @@ jobs:
           echo "❌ Workflow Failed - Error Handling"
           echo "========================================"
           echo "::error title=Bangumi Update Failed::The workflow encountered an error"
-          echo "error_message=Workflow failed at step ${{ strategy.job-index }}.${{ strategy.step-index }}" >> $GITHUB_OUTPUT
+          echo "error_message=Workflow failed during data fetch, sync, validation, or deployment" >> $GITHUB_OUTPUT
 
       - name: Log Final Status
         if: always()
@@ -332,7 +403,7 @@ jobs:
 
   build-and-deploy:
     needs: update-bangumi-data
-    if: needs.update-bangumi-data.outputs.has_changes == 'true' && inputs.skip_build != 'true'
+    if: needs.update-bangumi-data.outputs.has_changes == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.skip_build != true) || (github.event_name == 'repository_dispatch' && github.event.client_payload.skip_build != 'true'))
     runs-on: ubuntu-latest
     steps:
       - name: Log Build Start
@@ -401,6 +472,15 @@ jobs:
       - name: Log Deploy Complete
         if: success()
         run: |
+          echo "" | tee -a $GITHUB_STEP_SUMMARY
+          echo "========================================" | tee -a $GITHUB_STEP_SUMMARY
+          echo "🚀 Website Deploy Completed" | tee -a $GITHUB_STEP_SUMMARY
+          echo "========================================" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Item | Value |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "|------|-------|" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Deploy Status | success |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Pages URL | ${{ steps.deployment.outputs.page_url }} |" | tee -a $GITHUB_STEP_SUMMARY
+          echo "| Source Commit Changes | ${{ needs.update-bangumi-data.outputs.has_changes }} |" | tee -a $GITHUB_STEP_SUMMARY
           echo "========================================"
           echo "🚀 Deploy Completed Successfully"
           echo "========================================"
