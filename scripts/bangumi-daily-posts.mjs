@@ -506,48 +506,51 @@ export function buildAnimeArticleMarkdown(payload) {
 	const genreTags = ensureArray(filled.tags);
 	const finalQuote = quote || selectOpeningQuote(cleanTitle, genreTags);
 	const introText = buildIntroText({ cleanTitle, description, summary, genreTags, meta });
-	const infoRows = buildInfoTableRows({
-		"作品名": cleanTitle,
-		...(originalTitle && originalTitle !== cleanTitle ? { "原名": originalTitle } : {}),
-		...(meta.studio ? { "动画制作": meta.studio } : {}),
-		...(meta.airDate ? { "首播时间": meta.airDate } : {}),
-		...(meta.episodes ? { "话数": meta.episodes } : {}),
-		...(genreTags.length > 0 ? { "题材标签": genreTags.join(" / ") } : {}),
-		...(meta.statusLabel ? { "追番状态": meta.statusLabel } : {}),
-		"Bangumi 链接": `[条目页面](${filled.sourceLink})`,
+	const infoSection = buildInfoSection({
+		cleanTitle,
+		originalTitle,
+		genreTags,
+		filled,
+		meta,
 	});
-	const plotSection = buildPlotSection({ cleanTitle, summary, description });
-	const staffSection = buildStaffSection(staff);
+	const plotSection = buildPlotSection({ cleanTitle, summary, description, meta });
 	const characterSection = buildCharacterSection(characters);
-	const viewingPoints = buildViewingPoints({ cleanTitle, genreTags, meta });
-	const summarySection = buildSummarySection({ cleanTitle, genreTags });
+	const staffSection = buildStaffSection(staff);
+	const viewingPoints = buildViewingPoints({ cleanTitle, genreTags, meta, summary, characters });
+	const summarySection = buildSummarySection({ cleanTitle, genreTags, meta });
 	const contentOverride = manualEdits.content || {};
 
 	return `${frontmatter}
 
 > ${finalQuote}
 
+---
+
+# ${cleanTitle}
+
+## 一、作品概述
+
 ${contentOverride.intro || introText}
 
-![封面图片](${filled.image})
+![${cleanTitle}封面](${filled.image})
 
-## 作品信息
+## 二、基础信息
 
-${infoRows}
+${contentOverride.info || infoSection}
 
-## 剧情概述
+## 三、剧情简介
 
 ${contentOverride.plot || plotSection}
 
-${contentOverride.staff || staffSection}
-
 ${contentOverride.characters || characterSection}
 
-## 观看要点
+${contentOverride.staff || staffSection}
+
+## 四、作品看点
 
 ${contentOverride.viewingPoints || viewingPoints}
 
-## 总结
+## 五、综合评价
 
 ${contentOverride.summary || summarySection}`;
 }
@@ -577,31 +580,46 @@ function selectOpeningQuote(cleanTitle, genreTags) {
 	return selectedQuote;
 }
 
+function buildInfoSection({ cleanTitle, originalTitle, genreTags, filled, meta }) {
+	const infoRows = [
+		`- **作品名称**：${cleanTitle}`,
+		originalTitle && originalTitle !== cleanTitle ? `- **原作标题**：${originalTitle}` : "",
+		meta.studio ? `- **动画制作**：${meta.studio}` : "",
+		meta.airDate ? `- **首播时间**：${meta.airDate}` : "",
+		meta.episodes ? `- **话数信息**：${meta.episodes}` : "",
+		genreTags.length > 0 ? `- **题材标签**：${genreTags.join(" / ")}` : "",
+		meta.statusLabel ? `- **追番状态**：${meta.statusLabel}` : "",
+		`- **条目链接**：[Bangumi 页面](${filled.sourceLink})`,
+	].filter(Boolean);
+
+	return infoRows.join("\n");
+}
+
 function buildIntroText({ cleanTitle, description, summary, genreTags, meta }) {
 	const sourceContent = summary || description || "";
 	const sentences = sourceContent
 		.split(/[。！？]/)
 		.map((sentence) => sentence.trim())
-		.filter((sentence) => sentence.length > 10);
-	if (sentences.length > 0) {
-		const introParts = sentences.slice(0, 3);
-		const lead = `${cleanTitle}给人的第一印象很明确：${introParts[0]}。`;
-		const followUp = introParts.slice(1).map((sentence) => `${sentence}。`).join("");
-		return `${lead}${followUp}`;
+		.filter((sentence) => sentence.length > 10)
+		.slice(0, 3);
+	const primaryTag = genreTags[0] || "动画";
+
+	if (sentences.length >= 2) {
+		return `《${cleanTitle}》给人的观感并不是靠单一噱头硬撑起来的，真正吸引人的地方，在于它很快就把作品的核心气质摆到了台面上：${sentences[0]}。${sentences[1]}。${sentences[2] ? `${sentences[2]}。` : ""}\n\n如果只看题材标签，它会被归到${primaryTag}这一类之中；但真正让它成立的，还是设定展开后的节奏感，以及角色关系慢慢铺开的过程。`;
 	}
 
-	const primaryTag = genreTags[0] || "动画";
-	const fallbackSummary = meta.summary ? truncateText(meta.summary, 80) : "一段值得慢慢展开的故事";
-	return `《${cleanTitle}》是一部以${primaryTag}气质见长的作品，整体观感并不依赖夸张噱头，而是通过设定、人物和情绪推进逐步建立吸引力。就现有资料来看，它最值得关注的部分在于：${fallbackSummary}。`;
+	const fallbackSummary = meta.summary ? truncateText(meta.summary, 100) : "它并不是靠高强度冲突推进，而是依靠设定、氛围与人物互动慢慢建立吸引力。";
+	return `《${cleanTitle}》是一部很典型、但又不完全落入套路的${primaryTag}作品。${fallbackSummary}\n\n如果你平时会在一堆新作里挑那种“看起来不吵、但越看越顺”的类型，那么它大概率会是能留在片单里的那一部。`;
 }
 
-function buildPlotSection({ cleanTitle, summary, description }) {
+function buildPlotSection({ cleanTitle, summary, description, meta }) {
 	const content = (summary || description || "").trim();
 	if (content) {
-		return `${content}\n\n从现有公开资料来看，这部作品的切入点非常直接，核心看点也已经交代得相当清楚。哪怕还没正式补完，只看设定与剧情引子，也能大致判断它更偏向怎样的叙事节奏，以及它想重点呈现的人物关系或世界观。`;
+		return `${content}\n\n单从剧情入口来看，《${cleanTitle}》并没有把门槛设得很高。它会先用一个足够明确的设定把观众带进去，再通过后续展开补足人物关系、情绪变化与世界观层次。因此即使只是先了解简介，也基本能判断这部作品适不适合自己的口味。`;
 	}
 
-	return `目前公开资料主要集中在作品定位与基础设定层面，但《${cleanTitle}》已经具备明确的类型标签、条目资料与封面信息。即使简介还不算丰富，也依然足够帮助读者先建立第一印象，再决定要不要继续深入了解。`;
+	const fallbackTag = meta.statusLabel ? `结合目前的追番状态「${meta.statusLabel}」来看` : "就目前公开资料来看";
+	return `${fallbackTag}，《${cleanTitle}》已经具备比较完整的基础信息。虽然详细剧情仍有待进一步补充，但它的类型定位、核心设定与整体观感都足够清晰，适合作为一部可以先收藏、再慢慢确认的作品。`;
 }
 
 function buildStaffSection(staff) {
@@ -614,8 +632,7 @@ function buildStaffSection(staff) {
 		.map((item) => `- **${item.relation || "相关人员"}**：${item.name}`)
 		.join("\n");
 
-	return `- **制作人员**：
-${staffLines}`;
+	return `## 制作阵容\n\n${staffLines}`;
 }
 
 function buildCharacterSection(characters) {
@@ -623,7 +640,7 @@ function buildCharacterSection(characters) {
 		return "";
 	}
 
-	const validatedChars = characters.slice(0, 6).map((char) => {
+	const validatedChars = characters.slice(0, 5).map((char) => {
 		const validation = validateCharacterData(char);
 		if (!validation.valid) {
 			console.warn("角色数据验证警告:", validation.errors);
@@ -631,58 +648,37 @@ function buildCharacterSection(characters) {
 		return char;
 	});
 
-	return `## 主要角色介绍
+	return `## 主要角色\n\n${validatedChars.map((char) => {
+		const charName = char.name || char.name_cn || "未知角色";
+		const charDesc = (char.comment || char.summary || char.description || "").trim();
+		const charCV = char.cv ? `- **CV**：${char.cv}` : "";
 
-${validatedChars.map((char) => {
-	const charName = char.name || char.name_cn || "未知角色";
-	const charDesc = char.comment || char.summary || char.description || "";
-	const charCV = char.cv ? `**CV**：${char.cv}` : "";
-	const charBackground = char.background || "";
-	const charPersonality = char.personality || "";
-	const charArc = char.arc || "";
-
-	let charContent = `### ${charName}\n\n${charDesc}`;
-
-	if (charCV) {
-		charContent += `\n\n${charCV}`;
-	}
-
-	if (charBackground) {
-		charContent += `\n\n**角色背景**：${charBackground}`;
-	}
-
-	if (charPersonality) {
-		charContent += `\n\n**性格特点**：${charPersonality}`;
-	}
-
-	if (charArc) {
-		charContent += `\n\n**角色弧线**：${charArc}`;
-	}
-
-	return charContent;
-}).join("\n\n")}`;
+		return `### ${charName}\n\n${charDesc || "当前公开资料中对该角色的描述还比较有限，但从已知信息来看，这个角色在作品里的存在感并不低。"}\n${charCV ? `\n${charCV}` : ""}`;
+	}).join("\n\n")}`;
 }
 
-function buildViewingPoints({ cleanTitle, genreTags, meta }) {
+function buildViewingPoints({ cleanTitle, genreTags, meta, summary, characters }) {
 	const tagText = genreTags.length > 0 ? genreTags.slice(0, 5).join("、") : "综合向";
-	const statusLine = meta.statusLabel
-		? `目前它在追番列表中的状态是「${meta.statusLabel}」，这也让这篇文章不只是资料摘录，更像一次带着个人观看记录的整理。`
-		: "它已经被纳入追番列表，因此这篇文章不只是资料摘录，也是一份后续补番时可以反复回看的索引。";
+	const hasCharacters = Array.isArray(characters) && characters.length > 0;
+	const statusLine = meta.statusLabel ? `目前在追番记录里，它对应的状态是「${meta.statusLabel}」，说明它已经不只是“看起来可能不错”的候选，而是确实进入了整理范围。` : "它已经被纳入追番整理列表，因此这篇文章也具备持续更新和回看的价值。";
+	const summaryLine = summary ? "简介本身已经能提供比较明确的剧情入口，不需要额外查很多资料就能判断它的基本调性。" : "即使目前公开简介不算长，作品的类型与观看预期仍然比较好把握。";
 
-	return `如果你想快速判断《${cleanTitle}》值不值得加入片单，我会优先看这三个维度：
+	return `如果要从入坑角度快速判断《${cleanTitle}》值不值得看，我会先看下面这几点：
 
-- **设定是否足够抓人**：从 ${tagText} 这些标签里，已经能看出作品主打的风格、题材与受众偏好。
-- **公开资料是否足够完整**：Bangumi 条目、简介、角色和制作信息都比较齐全，说明它至少具备被系统了解的基础。
-- **个人追番价值是否明确**：${statusLine}
+- **题材方向够不够明确**：从 ${tagText} 这些标签出发，基本已经能判断它的风格核心与受众取向。
+- **第一印象是否顺畅**：${summaryLine}
+- **角色或制作信息是否有延伸价值**：${hasCharacters ? "角色资料相对完整，说明后续展开和人物关系会是这部作品的重要组成部分。" : "虽然角色资料暂时不算丰富，但条目基础已经足够支撑一次稳定的入门整理。"}
+- **是否值得继续关注**：${statusLine}
 
-换句话说，这部作品的优势不一定在于一眼惊艳，而在于信息足够清晰、入口足够明确，适合先了解核心卖点，再决定是否继续补完。`;
+对我来说，这类作品最重要的不是第一眼有多炸裂，而是它能不能在你点进去之后，让你愿意继续往下看。只要这一点成立，它就已经完成了最关键的任务。`;
 }
 
-function buildSummarySection({ cleanTitle, genreTags }) {
-	const primaryTag = genreTags[0] || "这类作品";
-	return `整体来看，《${cleanTitle}》已经具备单独成篇介绍的条件：条目信息清楚、题材标签明确、封面与基础资料完整，足以帮助读者在较短时间内建立对作品的第一印象。
+function buildSummarySection({ cleanTitle, genreTags, meta }) {
+	const primaryTag = genreTags[0] || "这类题材";
+	const progressLine = meta.progress ? `如果你已经看到 ${meta.progress.replace(/^已看到\s*/, "")}` : "如果你还在犹豫要不要补这部作品";
+	return `综合来看，《${cleanTitle}》最稳的优势，在于它的信息结构足够完整：题材明确、基础设定清晰、条目资料可核对，文章整理起来也能自然形成一个比较完整的阅读入口。
 
-如果你本来就对${primaryTag}题材感兴趣，那么它值得放进待看列表慢慢确认；如果你还在犹豫，这篇整理至少能帮你先看清它的风格、看点与适合的观看方式。`;
+${progressLine}，那么它至少值得你先留在片单里。尤其是当你本来就对${primaryTag}作品有兴趣时，这类不靠噱头、但节奏和气质都比较稳定的作品，往往更容易留下来。`;
 }
 
 export async function readJsonIfExists(filePath, fallback) {
