@@ -241,6 +241,17 @@
       "published": "2026-04-11",
       "status": "published",
       "generatedAt": "2026-04-11T04:43:38.989Z"
+    },
+    {
+      "subjectId": 100403,
+      "title": "《路人女主的养成方法》",
+      "filePath": "src/content/posts/bangumi-100403.md",
+      "alias": "bangumi-100403",
+      "sourceLink": "https://bgm.tv/subject/100403",
+      "image": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
+      "published": "2026-04-13",
+      "status": "published",
+      "generatedAt": "2026-04-13T08:25:25.242Z"
     }
   ]
 }

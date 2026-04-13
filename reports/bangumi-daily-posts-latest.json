@@ -1,52 +1,121 @@
 {
-  "generatedAt": "2026-04-11T04:43:38.991Z",
+  "generatedAt": "2026-04-13T08:25:25.242Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 501796,
-    "type": 0,
-    "ep_status": 0,
-    "updated_at": "1970-01-01",
+    "updated_at": "2026-03-28T01:16:22+08:00",
+    "comment": null,
+    "tags": [
+      "轻小说改",
+      "A-1Pictures",
+      "后宫",
+      "丸户史明"
+    ],
     "subject": {
-      "id": 501796,
-      "name": "魔法姐妹露露特莉莉",
-      "name_cn": "魔法姐妹露露特莉莉",
-      "date": "",
-      "eps": 0,
-      "short_summary": "",
-      "tags": [],
+      "date": "2015-01-08",
       "images": {
-        "large": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
-        "common": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
-        "medium": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg"
-      }
-    }
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6b/01/100403_R8KN2.jpg"
+      },
+      "name": "冴えない彼女の育てかた",
+      "name_cn": "路人女主的养成方法",
+      "short_summary": "春假时，为了购买动画蓝光片而打工的御宅族安艺伦也，在开满樱花的坡道上邂逅一位少女，帮她捡一顶被风吹走的帽子。于是有了以该少女为女主角制作同人游戏的构想。一个月后，才知道该少女是他的同班同学，名叫加藤惠。\r\n\r\n为了制作游戏，安艺伦也还要说服",
+      "tags": [
+        {
+          "name": "轻小说改",
+          "count": 3758,
+          "total_cont": 0
+        },
+        {
+          "name": "A-1Pictures",
+          "count": 3382,
+          "total_cont": 0
+        },
+        {
+          "name": "后宫",
+          "count": 3081,
+          "total_cont": 0
+        },
+        {
+          "name": "丸户史明",
+          "count": 2325,
+          "total_cont": 0
+        },
+        {
+          "name": "2015年1月",
+          "count": 2253,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 2214,
+          "total_cont": 0
+        },
+        {
+          "name": "路人女主的养成方法",
+          "count": 1983,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 1727,
+          "total_cont": 0
+        },
+        {
+          "name": "恋爱",
+          "count": 1600,
+          "total_cont": 0
+        },
+        {
+          "name": "深崎暮人",
+          "count": 1022,
+          "total_cont": 0
+        }
+      ],
+      "score": 7.2,
+      "type": 2,
+      "id": 100403,
+      "eps": 13,
+      "volumes": 0,
+      "collection_total": 39825,
+      "rank": 1679
+    },
+    "subject_id": 100403,
+    "vol_status": 0,
+    "ep_status": 0,
+    "subject_type": 2,
+    "type": 2,
+    "rate": 10,
+    "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "魔法姐妹露露特莉莉",
+      "title": "路人女主的养成方法",
       "score": 100
     },
     {
-      "url": "http://lain.bgm.tv/pic/cover/l/9f/c3/501796_xXYqn.jpg",
-      "source": "bangumi-large",
-      "width": 1200,
-      "height": 1700,
-      "title": "魔法姐妹露露特莉莉",
-      "score": 100
-    },
-    {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/9f/c3/501796_xXYqn.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6b/01/100403_R8KN2.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "魔法姐妹露露特莉莉",
+      "title": "路人女主的养成方法",
       "score": 80
+    },
+    {
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6b/01/100403_R8KN2.jpg",
+      "source": "bangumi-medium",
+      "width": 600,
+      "height": 800,
+      "title": "路人女主的养成方法",
+      "score": 0
     }
   ],
-  "outputPath": "C:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\content\\posts\\bangumi-501796.md",
-  "statePath": "C:\\Users\\Administrator\\Downloads\\Compressed\\wxzjt0318-oss.github.io-main\\src\\data\\bangumi-posts-state.json"
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-100403.md",
+  "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
