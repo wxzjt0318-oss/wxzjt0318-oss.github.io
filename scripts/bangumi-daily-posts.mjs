@@ -324,8 +324,9 @@ export function selectNextAnimeCandidate({ collections, generatedState, existing
 
 	const generatedIds = new Set(ensureArray(generatedState?.generated).map((entry) => Number(entry.subjectId)));
 	const existing = buildExistingPostIndex(existingPosts || []);
-
-	const shuffled = [...items];
+	const recentWindow = Math.min(items.length, Math.max(maxPerRun * 10, 20));
+	const recentItems = items.slice(0, recentWindow);
+	const shuffled = [...recentItems];
 	for (let i = shuffled.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -435,7 +436,11 @@ function determineCategory(tags, meta) {
 }
 
 export function buildFrontmatter(metadata) {
-	const filled = autoFillMetadata(metadata);
+	const filled = {
+		...autoFillMetadata(metadata),
+		...(typeof metadata.draft === "boolean" ? { draft: metadata.draft } : {}),
+		...(typeof metadata.pinned === "boolean" ? { pinned: metadata.pinned } : {}),
+	};
 	const validation = validateArticleMetadata(filled);
 
 	if (!validation.valid) {
@@ -455,7 +460,7 @@ function buildInfoTableRows(info) {
 		.join("\n");
 }
 
-export function buildEnhancedArticleMarkdown(payload) {
+export function buildAnimeArticleMarkdown(payload) {
 	const {
 		subjectId,
 		title,
@@ -472,7 +477,6 @@ export function buildEnhancedArticleMarkdown(payload) {
 		meta = {},
 		staff = [],
 		characters = [],
-		moegirlContent = null,
 		quote = null,
 		manualEdits = {},
 	} = payload;
@@ -500,7 +504,55 @@ export function buildEnhancedArticleMarkdown(payload) {
 
 	const cleanTitle = filled.title.replace(/^《|》$/g, "");
 	const genreTags = ensureArray(filled.tags);
+	const finalQuote = quote || selectOpeningQuote(cleanTitle, genreTags);
+	const introText = buildIntroText({ cleanTitle, description, summary, genreTags, meta });
+	const infoRows = buildInfoTableRows({
+		"作品名": cleanTitle,
+		...(originalTitle && originalTitle !== cleanTitle ? { "原名": originalTitle } : {}),
+		...(meta.studio ? { "动画制作": meta.studio } : {}),
+		...(meta.airDate ? { "首播时间": meta.airDate } : {}),
+		...(meta.episodes ? { "话数": meta.episodes } : {}),
+		...(genreTags.length > 0 ? { "题材标签": genreTags.join(" / ") } : {}),
+		...(meta.statusLabel ? { "追番状态": meta.statusLabel } : {}),
+		"Bangumi 链接": `[条目页面](${filled.sourceLink})`,
+	});
+	const plotSection = buildPlotSection({ cleanTitle, summary, description });
+	const staffSection = buildStaffSection(staff);
+	const characterSection = buildCharacterSection(characters);
+	const viewingPoints = buildViewingPoints({ cleanTitle, genreTags, meta });
+	const summarySection = buildSummarySection({ cleanTitle, genreTags });
+	const contentOverride = manualEdits.content || {};
 
+	return `${frontmatter}
+
+> ${finalQuote}
+
+${contentOverride.intro || introText}
+
+![封面图片](${filled.image})
+
+## 作品信息
+
+${infoRows}
+
+## 剧情概述
+
+${contentOverride.plot || plotSection}
+
+${contentOverride.staff || staffSection}
+
+${contentOverride.characters || characterSection}
+
+## 观看要点
+
+${contentOverride.viewingPoints || viewingPoints}
+
+## 总结
+
+${contentOverride.summary || summarySection}`;
+}
+
+function selectOpeningQuote(cleanTitle, genreTags) {
 	const genreQuotes = {
 		"漫画": `"${cleanTitle}——两个完全不同的人，因为某种奇妙的化学反应走到了一起。"`,
 		"动画": `"每一部作品都是一扇通往异世界的门——而这，正是为你敞开的某一扇。"`,
@@ -514,101 +566,34 @@ export function buildEnhancedArticleMarkdown(payload) {
 		"日常": "最打动人心的，往往不是波澜壮阔——而是那些真切可感的点滴瞬间。",
 	};
 
-	const finalQuote = quote || (() => {
-		let selectedQuote = genreQuotes[genreTags[0]] || genreQuotes["动画"];
-		const tagSet = new Set(genreTags.map((t) => t.toLowerCase()));
-		for (const [genre, tmpl] of Object.entries(genreQuotes)) {
-			if (tagSet.has(genre.toLowerCase())) {
-				selectedQuote = tmpl;
-				break;
-			}
+	let selectedQuote = genreQuotes[genreTags[0]] || genreQuotes["动画"];
+	const tagSet = new Set(genreTags.map((t) => t.toLowerCase()));
+	for (const [genre, tmpl] of Object.entries(genreQuotes)) {
+		if (tagSet.has(genre.toLowerCase())) {
+			selectedQuote = tmpl;
+			break;
 		}
-		return selectedQuote;
-	})();
-
-	const introText = buildIntroText({
-		cleanTitle,
-		originalTitle,
-		description,
-		summary,
-		genreTags,
-		meta,
-		moegirlData: moegirlContent?.[0] || null,
-	});
-
-	const infoRows = buildInfoTableRows({
-		"作品名": cleanTitle,
-		...(originalTitle && originalTitle !== cleanTitle ? { "原名": originalTitle } : {}),
-		...(meta.studio ? { "动画制作": meta.studio } : {}),
-		...(meta.airDate ? { "首播时间": meta.airDate } : {}),
-		...(meta.episodes ? { "话数": meta.episodes } : {}),
-		...(genreTags.length > 0 ? { "题材标签": genreTags.join(" / ") } : {}),
-		...(meta.statusLabel ? { "追番状态": meta.statusLabel } : {}),
-	});
-
-	const staffSection = buildStaffSection(staff);
-	const characterSection = buildCharacterSection(characters);
-	const moegirlSection = buildMoegirlSection(moegirlContent);
-	const viewingPoints = buildViewingPoints({ cleanTitle, genreTags, meta });
-	const summarySection = buildSummarySection({ cleanTitle, genreTags });
-
-	const contentOverride = manualEdits.content || {};
-
-	return `${frontmatter}
-
-> ${finalQuote}
-
-${contentOverride.intro || introText}
-
-![封面图片](${filled.image})
-
-## 原作信息
-
-${infoRows}
-
-${contentOverride.staff || staffSection}
-
-${contentOverride.characters || characterSection}
-
-${contentOverride.moegirl || moegirlSection}
-
-## 观看要点
-
-${contentOverride.viewingPoints || viewingPoints}
-
-## 总结
-
-${contentOverride.summary || summarySection}`;
+	}
+	return selectedQuote;
 }
 
-function buildIntroText({ cleanTitle, originalTitle, description, summary, genreTags, meta, moegirlData }) {
-	let introText = "";
-
-	if (moegirlData && moegirlData.extract) {
-		const cleaned = moegirlData.extract
-			.replace(/\[\[来源::[^\]]+\]\]/g, "")
-			.replace(/<ref[^>]*>[\s\S]*?<\/ref>/gi, "")
-			.replace(/{{[^}]+}}/g, "")
-			.trim();
-
-		if (cleaned.length > 100) {
-			introText = cleaned;
-		}
+function buildIntroText({ cleanTitle, description, summary, genreTags, meta }) {
+	const sourceContent = summary || description || "";
+	const sentences = sourceContent.split(/[。！？]/).filter(s => s.trim().length > 10);
+	if (sentences.length > 0) {
+		return sentences.slice(0, 3).join("。") + "。";
 	}
 
-	if (!introText && (summary || description)) {
-		const sourceContent = summary || description || "";
-		const sentences = sourceContent.split(/[。！？]/).filter(s => s.trim().length > 10);
-		if (sentences.length > 0) {
-			introText = sentences.slice(0, 3).join("。") + "。";
-		}
+	return `${cleanTitle}是${genreTags[0] || "动画"}作品中的代表作之一，讲述了${meta.summary ? truncateText(meta.summary, 80) : "一段值得驻足的故事"}。`;
+}
+
+function buildPlotSection({ cleanTitle, summary, description }) {
+	const content = (summary || description || "").trim();
+	if (content) {
+		return content;
 	}
 
-	if (!introText) {
-		introText = `${cleanTitle}是${genreTags[0] || "动画"}作品中的代表作之一，讲述了${meta.summary ? truncateText(meta.summary, 80) : "一段值得驻足的故事"}。`;
-	}
-
-	return introText;
+	return `目前公开资料主要集中在作品定位与基础设定层面。《${cleanTitle}》已经具备清晰的条目资料、封面资源与基础标签，因此即使在简介较少的情况下，也依然适合先从设定与类型入手了解这部作品。`;
 }
 
 function buildStaffSection(staff) {
@@ -670,33 +655,6 @@ ${validatedChars.map((char) => {
 }).join("\n\n")}`;
 }
 
-function buildMoegirlSection(moegirlData) {
-	if (!moegirlData) {
-		return "";
-	}
-
-	const items = [];
-	if (moegirlData.categories) {
-		moegirlData.categories.forEach(cat => {
-			if (!cat.includes("条目") && !cat.includes("分类")) {
-				items.push(cat);
-			}
-		});
-	}
-
-	if (moegirlData.relatedPages && moegirlData.relatedPages.length > 0) {
-		items.push(...moegirlData.relatedPages.slice(0, 5).map(p => p.title));
-	}
-
-	if (items.length === 0) {
-		return "";
-	}
-
-	return `## 萌娘百科资料
-
-本文节选自萌娘百科条目，内容经过重新编写整理。`;
-}
-
 function buildViewingPoints({ cleanTitle, genreTags, meta }) {
 	const tagText = genreTags.length > 0 ? genreTags.slice(0, 5).join("、") : "综合向";
 
@@ -713,50 +671,6 @@ function buildSummarySection({ cleanTitle, genreTags }) {
 	return `总的来说，《${cleanTitle}》已经满足「可自动生成单篇介绍文章」的基本条件：有明确条目、有可核实简介、有追番状态、有可用封面，也有足够的标签信息来组织内容。
 
 对于还没入坑的朋友，我的建议是：如果你的阅番量足够大、对快节奏作品已经审美疲劳，那么它值得你花时间去慢慢品味——很多作品的魅力，往往需要静下心来才能发现。`;
-}
-
-export function buildAnimeArticleMarkdown(payload) {
-	const {
-		subjectId,
-		title,
-		originalTitle,
-		description,
-		summary,
-		tags,
-		category,
-		sourceLink,
-		published,
-		alias,
-		image,
-		draft,
-		meta = {},
-		staff = [],
-		characters = [],
-		moegirlContent = null,
-		quote,
-		manualEdits,
-	} = payload;
-
-	return buildEnhancedArticleMarkdown({
-		subjectId,
-		title,
-		originalTitle,
-		description,
-		summary,
-		tags,
-		category,
-		sourceLink,
-		published,
-		alias,
-		image,
-		draft,
-		meta,
-		staff,
-		characters,
-		moegirlContent,
-		quote,
-		manualEdits,
-	});
 }
 
 export async function readJsonIfExists(filePath, fallback) {

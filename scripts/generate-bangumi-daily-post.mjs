@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 import {
 	DEFAULT_FALLBACK_IMAGE,
 	buildAnimeArticleMarkdown,
-	buildEnhancedArticleMarkdown,
 	buildReviewReport,
 	chooseBestCoverImage,
 	createStateRecord,
@@ -18,30 +17,6 @@ import {
 	pickInfoboxValue,
 	writeJson,
 } from "./bangumi-daily-posts.mjs";
-
-import {
-	initializeMoegirlMcp,
-	searchMoegirl,
-	getMoegirlPage,
-	stopMoegirlMcpServer,
-} from "./moegirl-mcp-client.mjs";
-
-import {
-	searchMoegirlDirect,
-	getMoegirlPageDirect,
-} from "./moegirl-api-direct.mjs";
-
-import {
-	searchMoegirlSDK,
-	getMoegirlPageSDK,
-} from "./moegirl-sdk.mjs";
-
-import {
-	analyzeMoegirlArticle,
-	polishArticleContent,
-	qualityCheck,
-	getMoegirlCharacters,
-} from "./moegirl-article-analyzer.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -246,8 +221,6 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 		meta,
 		staff: extractStaff(detail),
 		statusLabel,
-		reviewMode: options.reviewMode,
-		moegirlContent: options.moegirlContent || null,
 		characters: options.characters || [],
 	};
 }
@@ -321,121 +294,19 @@ async function main() {
 	const imageSelection = resolveCoverImage(candidate, detail);
 	console.log(`✅ Selected cover: ${imageSelection.selected?.url || "default"}`);
 
-	let moegirlContent = null;
-	const useMoegirl = getEnvBoolean("BANGUMI_POST_USE_MOEIRL", false);
-	if (useMoegirl) {
-		console.log(`🔍 尝试从萌娘百科获取补充资料...`);
-
-		try {
-			let searchSuccess = false;
-
-			console.log(`🔍 方式1: 使用官方 SDK (wiki-saikou)...`);
-			try {
-				const sdkResults = await searchMoegirlSDK(titleText, 5);
-				if (sdkResults && sdkResults.length > 0) {
-					console.log(`✅ 官方SDK找到 ${sdkResults.length} 条结果`);
-					moegirlContent = sdkResults.slice(0, 3);
-					searchSuccess = true;
-				}
-			} catch (sdkError) {
-				console.warn(`⚠️ 官方 SDK 方式失败: ${sdkError.message}`);
-			}
-
-			if (!searchSuccess || !moegirlContent || moegirlContent.length === 0) {
-				console.log(`🔍 方式2: 使用直接 API...`);
-				try {
-					const directResults = await searchMoegirlDirect(titleText, 5);
-					if (directResults && directResults.length > 0) {
-						console.log(`✅ 直接API找到 ${directResults.length} 条结果`);
-						moegirlContent = directResults.slice(0, 3);
-						searchSuccess = true;
-					}
-				} catch (directError) {
-					console.warn(`⚠️ 直接 API 方式失败: ${directError.message}`);
-				}
-			}
-
-			if (!searchSuccess || !moegirlContent || moegirlContent.length === 0) {
-				console.log(`🔍 方式3: 尝试 MCP 服务器...`);
-				try {
-					const mcInitialized = await initializeMoegirlMcp();
-					if (mcInitialized) {
-						const mcpResults = await searchMoegirl(titleText, false);
-						if (mcpResults && mcpResults.length > 0) {
-							console.log(`✅ MCP 找到 ${mcpResults.length} 条结果`);
-							moegirlContent = mcpResults.slice(0, 3);
-							searchSuccess = true;
-						}
-						await stopMoegirlMcpServer();
-					}
-				} catch (mcpError) {
-					console.warn(`⚠️ MCP 服务器方式失败: ${mcpError.message}`);
-				}
-			}
-
-			if (moegirlContent && moegirlContent.length > 0) {
-				console.log(`✅ 已获取萌娘百科补充资料`);
-
-				const moegirlChars = await getMoegirlCharacters(titleText);
-				if (moegirlChars && moegirlChars.length > 0) {
-					console.log(`✅ 从萌娘百科获取到 ${moegirlChars.length} 个角色信息`);
-					characters.unshift(...moegirlChars.map(c => ({
-						...c,
-						source: "moegirl"
-					})));
-				}
-			} else {
-				console.log(`ℹ️ 萌娘百科未找到相关条目`);
-			}
-		} catch (error) {
-			console.warn(`⚠️ 获取萌娘百科资料失败: ${error.message}`);
-		}
-	} else {
-		console.log(`ℹ️ 萌娘百科功能已禁用 (BANGUMI_POST_USE_MOEIRL=false)`);
-	}
-
 	const payload = buildArticlePayload(candidate, detail, imageSelection, {
 		now,
 		reviewMode,
-		moegirlContent,
 		characters,
 	});
 
-	const useEnhancedFormat = getEnvBoolean("BANGUMI_POST_USE_ENHANCED_FORMAT", true);
-	console.log(`📝 Building article markdown (${useEnhancedFormat ? "enhanced" : "standard"})...`);
-	let articleContent = useEnhancedFormat
-		? buildEnhancedArticleMarkdown(payload)
-		: buildAnimeArticleMarkdown(payload);
-
-	const enablePolishing = getEnvBoolean("BANGUMI_POST_ENABLE_POLISHING", true);
-	if (enablePolishing) {
-		console.log(`🔍 执行萌娘百科风格分析与专业润色...`);
-		const analysis = await analyzeMoegirlArticle(articleContent, payload.title);
-		console.log(`📊 文章分析得分: ${analysis.score}/100`);
-		if (analysis.suggestions.length > 0) {
-			console.log(`📋 优化建议 (${analysis.suggestions.length} 项):`);
-			for (const s of analysis.suggestions.slice(0, 5)) {
-				console.log(`   - [${s.priority}] ${s.message}`);
-			}
-		}
-
-		console.log(`✏️ 执行内容润色...`);
-		articleContent = polishArticleContent(articleContent, analysis);
-
-		console.log(`🔍 执行二次质量检查...`);
-		const qcResult = qualityCheck(articleContent, payload.title);
-		if (qcResult.passed) {
-			console.log(`✅ 质量检查通过`);
-		} else {
-			console.log(`⚠️ 质量检查未完全通过，将继续发布`);
-			const failedChecks = Object.entries(qcResult.checks).filter(([k, v]) => !v.passed).map(([k]) => k);
-			console.log(`   未通过项目: ${failedChecks.join(", ")}`);
-		}
-	}
+	console.log("📝 Building Bangumi article markdown...");
+	const articleContent = buildAnimeArticleMarkdown(payload);
 
 	const safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
 	const outputFileName = `${safeAlias}.md`;
 	const outputPath = path.join(POSTS_DIR, outputFileName);
+	const relativeOutputPath = path.relative(ROOT_DIR, outputPath).split(path.sep).join("/");
 
 	await fs.writeFile(outputPath, articleContent, "utf8");
 	console.log(`✅ Article written to ${outputPath}`);
@@ -443,7 +314,7 @@ async function main() {
 	const newRecord = createStateRecord({
 		subjectId: candidate.subject_id,
 		title: payload.title,
-		filePath: outputPath,
+		filePath: relativeOutputPath,
 		alias: payload.alias,
 		sourceLink: payload.sourceLink,
 		published: payload.published,

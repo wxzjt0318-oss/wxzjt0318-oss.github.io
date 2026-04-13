@@ -42,7 +42,23 @@ describe("bangumi daily post helpers", () => {
 		expect(result.selected?.url).toBe("https://example.com/large.jpg");
 	});
 
-	it("builds compatible markdown article without body images", () => {
+	it("prefers recent unseen candidates before random choice", () => {
+		const collections = Array.from({ length: 30 }, (_, index) => ({
+			subject_id: index + 1,
+			type: 3,
+			updated_at: new Date(Date.UTC(2026, 3, 30 - index)).toISOString(),
+			subject: { name_cn: `新番 ${index + 1}`, name: `Anime ${index + 1}` },
+		}));
+		const generatedState = { generated: [] };
+		const existingPosts = [];
+
+		const selected = selectNextAnimeCandidate({ collections, generatedState, existingPosts, maxPerRun: 1 });
+		expect(selected).toHaveLength(1);
+		expect(selected[0].subject_id).toBeGreaterThanOrEqual(1);
+		expect(selected[0].subject_id).toBeLessThanOrEqual(20);
+	});
+
+	it("builds pure bangumi markdown article without moegirl sections", () => {
 		const markdown = buildAnimeArticleMarkdown({
 			subjectId: 123,
 			title: "《测试动画》",
@@ -61,16 +77,18 @@ describe("bangumi daily post helpers", () => {
 				airDate: "2026-04-01",
 				episodes: "12 话",
 				progress: "已看到 1 话",
+				statusLabel: "在看",
 			},
 			staff: [{ relation: "监督", name: "测试监督" }],
-			statusLabel: "在看",
-			reviewMode: true,
+			characters: [{ name: "主角A", cv: "测试声优", description: "核心角色。" }],
 		});
 
 		expect(markdown).toContain("title: \"《测试动画》\"");
 		expect(markdown).toContain("draft: true");
-		expect(markdown).toContain("## 一、作品概述");
-		expect(markdown).not.toContain("![]");
+		expect(markdown).toContain("## 作品信息");
+		expect(markdown).toContain("## 剧情概述");
+		expect(markdown).toContain("## 主要角色介绍");
+		expect(markdown).not.toContain("## 萌娘百科资料");
 	});
 
 	it("creates stable aliases and state records", () => {
@@ -80,7 +98,7 @@ describe("bangumi daily post helpers", () => {
 		const record = createStateRecord({
 			subjectId: 321,
 			title: "《测试》",
-			filePath: "/path/to/test.md",
+			filePath: "src/content/posts/test.md",
 			alias: "test",
 			sourceLink: "https://bgm.tv/subject/321",
 			published: "2026-04-09",
@@ -109,7 +127,7 @@ describe("bangumi daily post helpers", () => {
 			draft: false,
 			meta: {},
 			staff: [],
-			statusLabel: "想看",
+			characters: [],
 		});
 
 		expect(markdown).toContain("目前公开资料主要集中在作品定位与基础设定层面");
