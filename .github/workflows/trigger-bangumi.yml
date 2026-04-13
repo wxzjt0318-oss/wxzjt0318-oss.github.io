@@ -14,7 +14,7 @@ on:
         default: 'false'
         type: boolean
       skip_build:
-        description: 'Skip website build and deploy'
+        description: 'Reserved for compatibility; website deploy now runs via deploy workflow after push'
         required: false
         default: 'false'
         type: boolean
@@ -47,7 +47,8 @@ jobs:
           echo "✅ Bangumi update workflow triggered"
           echo "Force update: ${{ inputs.force_update }}"
           echo "Clear cache: ${{ inputs.clear_cache }}"
-          echo "Skip build: ${{ inputs.skip_build }}"
+          echo "Skip build (compat only): ${{ inputs.skip_build }}"
           echo "Force sync: ${{ inputs.force_sync }}"
           echo ""
+          echo "Bangumi workflow will push updated data to main, then deploy workflow will publish the site."
           echo "View progress at: ${{ github.server_url }}/${{ github.repository }}/actions"

@@ -44,8 +44,9 @@ jobs:
       anime_count: ${{ steps.fetch-anime.outputs.anime_count }}
       game_count: ${{ steps.fetch-games.outputs.game_count }}
       has_changes: ${{ steps.commit.outputs.has_changes }}
+      commit_sha: ${{ steps.commit.outputs.commit_sha }}
       cache_updated: ${{ steps.fetch-anime.outputs.cache_updated }}
-      execution_time: ${{ steps.log-execution.outputs.execution_time }}
+      execution_time: ${{ steps.log-completion.outputs.execution_time }}
       error_message: ${{ steps.handle-error.outputs.error_message || 'none' }}
     steps:
       - name: Log Execution Start
@@ -69,11 +70,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          sparse-checkout: |
-            .cache/
-            src/
-            reports/
-          sparse-checkout-cone-mode: false
+          submodules: true
 
       - name: Clear cache
         if: (github.event_name == 'workflow_dispatch' && inputs.clear_cache == true) || (github.event_name == 'repository_dispatch' && github.event.client_payload.clear_cache == 'true')
@@ -309,12 +306,16 @@ jobs:
 
           if git diff --staged --quiet; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "commit_sha=${GITHUB_SHA}" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes to commit (cache may already be up to date)"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            git commit -m "chore: update bangumi cache and daily anime post [skip ci]"
-            git push
+            git commit -m "chore: update bangumi cache and daily anime post"
+            git push origin HEAD:main
+            COMMIT_SHA=$(git rev-parse HEAD)
+            echo "commit_sha=$COMMIT_SHA" >> $GITHUB_OUTPUT
             echo "✅ Changes committed and pushed"
+            echo "📌 Pushed commit: $COMMIT_SHA"
           fi
 
       - name: Log Execution Completion
@@ -322,6 +323,7 @@ jobs:
         run: |
           END_TIME=$(date +%s)
           DURATION=$((END_TIME - START_TIME))
+          echo "execution_time=${DURATION}s" >> $GITHUB_OUTPUT
           FETCH_COUNT="${{ steps.fetch-anime.outputs.anime_count || '0' }}"
           SYNC_COUNT="${{ steps.sync-bangumi.outputs.sync_count || '0' }}"
           SYNC_EXECUTED="${{ steps.sync-bangumi.outputs.sync_executed || 'false' }}"
@@ -401,93 +403,8 @@ jobs:
           echo "| Job Status | ${{ job.status }} |" | tee -a $GITHUB_STEP_SUMMARY
           echo "| Final Status | $FINAL_STATUS |" | tee -a $GITHUB_STEP_SUMMARY
 
-  build-and-deploy:
-    needs: update-bangumi-data
-    if: needs.update-bangumi-data.outputs.has_changes == 'true' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.skip_build != true) || (github.event_name == 'repository_dispatch' && github.event.client_payload.skip_build != 'true'))
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log Build Start
-        run: |
-          echo "========================================"
-          echo "🏗️ Build and Deploy Started"
-          echo "========================================"
-          echo "Reason: Content changes detected"
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          ref: ${{ github.ref }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.22.0
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
-        id: pnpm-cache
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: |
-          echo "Installing dependencies..."
-          pnpm install --no-frozen-lockfile
-
-      - name: Build site
-        run: |
-          echo "Building site..."
-          pnpm run build
-        env:
-          UMAMI_SHARE_URL: ${{ secrets.UMAMI_SHARE_URL }}
-          ENABLE_CONTENT_SYNC: false
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: Log Deploy Complete
-        if: success()
-        run: |
-          echo "" | tee -a $GITHUB_STEP_SUMMARY
-          echo "========================================" | tee -a $GITHUB_STEP_SUMMARY
-          echo "🚀 Website Deploy Completed" | tee -a $GITHUB_STEP_SUMMARY
-          echo "========================================" | tee -a $GITHUB_STEP_SUMMARY
-          echo "| Item | Value |" | tee -a $GITHUB_STEP_SUMMARY
-          echo "|------|-------|" | tee -a $GITHUB_STEP_SUMMARY
-          echo "| Deploy Status | success |" | tee -a $GITHUB_STEP_SUMMARY
-          echo "| Pages URL | ${{ steps.deployment.outputs.page_url }} |" | tee -a $GITHUB_STEP_SUMMARY
-          echo "| Source Commit Changes | ${{ needs.update-bangumi-data.outputs.has_changes }} |" | tee -a $GITHUB_STEP_SUMMARY
-          echo "========================================"
-          echo "🚀 Deploy Completed Successfully"
-          echo "========================================"
-          echo "🌐 Site URL: https://lm520.cc/anime/"
-
   notify:
-    needs: [update-bangumi-data, build-and-deploy]
+    needs: update-bangumi-data
     if: always()
     runs-on: ubuntu-latest
     steps:
