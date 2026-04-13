@@ -579,21 +579,29 @@ function selectOpeningQuote(cleanTitle, genreTags) {
 
 function buildIntroText({ cleanTitle, description, summary, genreTags, meta }) {
 	const sourceContent = summary || description || "";
-	const sentences = sourceContent.split(/[。！？]/).filter(s => s.trim().length > 10);
+	const sentences = sourceContent
+		.split(/[。！？]/)
+		.map((sentence) => sentence.trim())
+		.filter((sentence) => sentence.length > 10);
 	if (sentences.length > 0) {
-		return sentences.slice(0, 3).join("。") + "。";
+		const introParts = sentences.slice(0, 3);
+		const lead = `${cleanTitle}给人的第一印象很明确：${introParts[0]}。`;
+		const followUp = introParts.slice(1).map((sentence) => `${sentence}。`).join("");
+		return `${lead}${followUp}`;
 	}
 
-	return `${cleanTitle}是${genreTags[0] || "动画"}作品中的代表作之一，讲述了${meta.summary ? truncateText(meta.summary, 80) : "一段值得驻足的故事"}。`;
+	const primaryTag = genreTags[0] || "动画";
+	const fallbackSummary = meta.summary ? truncateText(meta.summary, 80) : "一段值得慢慢展开的故事";
+	return `《${cleanTitle}》是一部以${primaryTag}气质见长的作品，整体观感并不依赖夸张噱头，而是通过设定、人物和情绪推进逐步建立吸引力。就现有资料来看，它最值得关注的部分在于：${fallbackSummary}。`;
 }
 
 function buildPlotSection({ cleanTitle, summary, description }) {
 	const content = (summary || description || "").trim();
 	if (content) {
-		return content;
+		return `${content}\n\n从现有公开资料来看，这部作品的切入点非常直接，核心看点也已经交代得相当清楚。哪怕还没正式补完，只看设定与剧情引子，也能大致判断它更偏向怎样的叙事节奏，以及它想重点呈现的人物关系或世界观。`;
 	}
 
-	return `目前公开资料主要集中在作品定位与基础设定层面。《${cleanTitle}》已经具备清晰的条目资料、封面资源与基础标签，因此即使在简介较少的情况下，也依然适合先从设定与类型入手了解这部作品。`;
+	return `目前公开资料主要集中在作品定位与基础设定层面，但《${cleanTitle}》已经具备明确的类型标签、条目资料与封面信息。即使简介还不算丰富，也依然足够帮助读者先建立第一印象，再决定要不要继续深入了解。`;
 }
 
 function buildStaffSection(staff) {
@@ -657,20 +665,24 @@ ${validatedChars.map((char) => {
 
 function buildViewingPoints({ cleanTitle, genreTags, meta }) {
 	const tagText = genreTags.length > 0 ? genreTags.slice(0, 5).join("、") : "综合向";
+	const statusLine = meta.statusLabel
+		? `目前它在追番列表中的状态是「${meta.statusLabel}」，这也让这篇文章不只是资料摘录，更像一次带着个人观看记录的整理。`
+		: "它已经被纳入追番列表，因此这篇文章不只是资料摘录，也是一份后续补番时可以反复回看的索引。";
 
-	return `从追番视角来看，这部作品之所以值得单独整理，原因主要有三点：
+	return `如果你想快速判断《${cleanTitle}》值不值得加入片单，我会优先看这三个维度：
 
-- **信息密度足够**：无论是 Bangumi 条目本身，还是作品公开简介，都已经能支撑起一篇较完整的入门介绍。
-- **题材卖点明确**：从 ${tagText} 这些标签里，可以迅速看出作品最核心的表达方向。
-- **追番记录真实可追踪**：它已经进入个人追番列表，因此这篇文章不仅是资料整理，也是在为后续补番/追更建立可复用索引。
+- **设定是否足够抓人**：从 ${tagText} 这些标签里，已经能看出作品主打的风格、题材与受众偏好。
+- **公开资料是否足够完整**：Bangumi 条目、简介、角色和制作信息都比较齐全，说明它至少具备被系统了解的基础。
+- **个人追番价值是否明确**：${statusLine}
 
-如果要用一句话概括这部作品在追番列表中的价值，我会说：它不是那种必须靠一口气补完才能理解魅力的类型，而是很适合先抓住基础设定、再根据个人口味决定是否深挖的作品。`;
+换句话说，这部作品的优势不一定在于一眼惊艳，而在于信息足够清晰、入口足够明确，适合先了解核心卖点，再决定是否继续补完。`;
 }
 
 function buildSummarySection({ cleanTitle, genreTags }) {
-	return `总的来说，《${cleanTitle}》已经满足「可自动生成单篇介绍文章」的基本条件：有明确条目、有可核实简介、有追番状态、有可用封面，也有足够的标签信息来组织内容。
+	const primaryTag = genreTags[0] || "这类作品";
+	return `整体来看，《${cleanTitle}》已经具备单独成篇介绍的条件：条目信息清楚、题材标签明确、封面与基础资料完整，足以帮助读者在较短时间内建立对作品的第一印象。
 
-对于还没入坑的朋友，我的建议是：如果你的阅番量足够大、对快节奏作品已经审美疲劳，那么它值得你花时间去慢慢品味——很多作品的魅力，往往需要静下心来才能发现。`;
+如果你本来就对${primaryTag}题材感兴趣，那么它值得放进待看列表慢慢确认；如果你还在犹豫，这篇整理至少能帮你先看清它的风格、看点与适合的观看方式。`;
 }
 
 export async function readJsonIfExists(filePath, fallback) {
