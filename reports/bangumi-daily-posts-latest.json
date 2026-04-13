@@ -1,8 +1,122 @@
 {
-  "generatedAt": "2026-04-13T08:32:54.893Z",
+  "generatedAt": "2026-04-13T09:51:23.170Z",
   "reviewMode": false,
-  "selectedAnime": null,
-  "coverCandidates": [],
-  "outputPath": "",
+  "selectedAnime": {
+    "updated_at": "2026-04-13T12:37:34+08:00",
+    "comment": null,
+    "tags": [
+      "恋爱",
+      "原创",
+      "校园",
+      "后宫",
+      "2017年1月"
+    ],
+    "subject": {
+      "date": "2017-01-05",
+      "images": {
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/f8/38/195229_l5ydB.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/f8/38/195229_l5ydB.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/f8/38/195229_l5ydB.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/f8/38/195229_l5ydB.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/f8/38/195229_l5ydB.jpg"
+      },
+      "name": "セイレン",
+      "name_cn": "清恋",
+      "short_summary": "高中二年级的夏天。\r\n嘉味田正一由于志愿调查表的内容而被班主任叫出来，以此为契机开始感受到对于长大成人的不安。\r\n这样的他，与各种各样的女孩子相遇……他将会以怎样的未来为目标呢。\r\n奔向未来的等身大高中生与清廉可怜的女主角们的恋爱物语，现在",
+      "tags": [
+        {
+          "name": "恋爱",
+          "count": 878,
+          "total_cont": 0
+        },
+        {
+          "name": "原创",
+          "count": 661,
+          "total_cont": 0
+        },
+        {
+          "name": "2017年1月",
+          "count": 627,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 502,
+          "total_cont": 0
+        },
+        {
+          "name": "Studio五组",
+          "count": 422,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 416,
+          "total_cont": 0
+        },
+        {
+          "name": "2017",
+          "count": 243,
+          "total_cont": 0
+        },
+        {
+          "name": "后宫",
+          "count": 216,
+          "total_cont": 0
+        },
+        {
+          "name": "佐仓绫音",
+          "count": 211,
+          "total_cont": 0
+        },
+        {
+          "name": "污恋",
+          "count": 177,
+          "total_cont": 0
+        }
+      ],
+      "score": 6.4,
+      "type": 2,
+      "id": 195229,
+      "eps": 12,
+      "volumes": 0,
+      "collection_total": 7588,
+      "rank": 6051
+    },
+    "subject_id": 195229,
+    "vol_status": 0,
+    "ep_status": 0,
+    "subject_type": 2,
+    "type": 1,
+    "rate": 0,
+    "private": false
+  },
+  "coverCandidates": [
+    {
+      "url": "https://lain.bgm.tv/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "source": "bangumi-large",
+      "width": 1200,
+      "height": 1700,
+      "title": "清恋",
+      "score": 100
+    },
+    {
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "source": "bangumi-common",
+      "width": 900,
+      "height": 1280,
+      "title": "清恋",
+      "score": 80
+    },
+    {
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "source": "bangumi-medium",
+      "width": 600,
+      "height": 800,
+      "title": "清恋",
+      "score": 0
+    }
+  ],
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-195229.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

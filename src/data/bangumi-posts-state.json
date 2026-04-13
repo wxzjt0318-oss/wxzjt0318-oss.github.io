@@ -241,6 +241,17 @@
       "published": "2026-04-11",
       "status": "published",
       "generatedAt": "2026-04-11T04:43:38.989Z"
+    },
+    {
+      "subjectId": 195229,
+      "title": "《清恋》",
+      "filePath": "src/content/posts/bangumi-195229.md",
+      "alias": "bangumi-195229",
+      "sourceLink": "https://bgm.tv/subject/195229",
+      "image": "https://lain.bgm.tv/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "published": "2026-04-13",
+      "status": "published",
+      "generatedAt": "2026-04-13T09:51:23.169Z"
     }
   ]
 }
