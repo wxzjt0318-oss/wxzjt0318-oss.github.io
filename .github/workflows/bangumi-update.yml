@@ -128,48 +128,74 @@ jobs:
 
           mkdir -p ${{ env.CACHE_DIR }}
 
-          ANIME_RESPONSE=$(curl -s -w "\n%{http_code}" \
-            "https://api.bgm.tv/v0/users/${{ env.BANGUMI_USER_ID }}/collections?subject_type=2&limit=500" \
-            -H "Accept: application/json" \
-            -H "User-Agent: wxzjt0318-oss-bangumi-daily-posts/1.0" \
-            -H "Cache-Control: no-cache" \
-            --connect-timeout 30 \
-            --max-time 120)
+          fetch_collections_page() {
+            local subject_type="$1"
+            local offset="$2"
+            curl -sS \
+              "https://api.bgm.tv/v0/users/${{ env.BANGUMI_USER_ID }}/collections?subject_type=${subject_type}&limit=100&offset=${offset}" \
+              -H "Accept: application/json" \
+              -H "User-Agent: wxzjt0318-oss-bangumi-daily-posts/1.0" \
+              -H "Cache-Control: no-cache" \
+              --connect-timeout 30 \
+              --max-time 120 \
+              -w "\n%{http_code}"
+          }
 
-          ANIME_CODE=$(echo "$ANIME_RESPONSE" | tail -1)
-          ANIME_DATA=$(echo "$ANIME_RESPONSE" | sed '$d')
+          ANIME_TMP=$(mktemp)
+          echo '{"data":[]}' > "$ANIME_TMP"
+          ANIME_OFFSET=0
+          ANIME_TOTAL=0
 
-          echo "HTTP Status Code: $ANIME_CODE"
+          while true; do
+            echo "➡️ Fetching anime page with offset=$ANIME_OFFSET limit=100"
+            ANIME_RESPONSE=$(fetch_collections_page 2 "$ANIME_OFFSET")
+            ANIME_CODE=$(echo "$ANIME_RESPONSE" | tail -1)
+            ANIME_DATA=$(echo "$ANIME_RESPONSE" | sed '$d')
 
-          if [ "$ANIME_CODE" = "200" ]; then
-            if echo "$ANIME_DATA" | jq -e '.data' > /dev/null 2>&1; then
-              echo "$ANIME_DATA" > ${{ env.CACHE_DIR }}/anime.json
-              ANIME_COUNT=$(echo "$ANIME_DATA" | jq '.data | length' 2>/dev/null || echo "0")
-              CACHE_DATE=$(echo "$ANIME_DATA" | jq -r '.date // empty' 2>/dev/null || echo "")
-              echo "✅ Successfully fetched $ANIME_COUNT anime entries"
-              [ -n "$CACHE_DATE" ] && echo "Cache Date: $CACHE_DATE"
-              echo "anime_count=$ANIME_COUNT" >> $GITHUB_OUTPUT
-              echo "cache_updated=true" >> $GITHUB_OUTPUT
-            else
+            echo "HTTP Status Code: $ANIME_CODE"
+
+            if [ "$ANIME_CODE" = "429" ]; then
+              echo "⚠️ Rate limited by Bangumi API"
+              echo "anime_count=0" >> $GITHUB_OUTPUT
+              echo "cache_updated=false" >> $GITHUB_OUTPUT
+              echo "::error::Rate limited by Bangumi API. Please try again later."
+              exit 1
+            fi
+
+            if [ "$ANIME_CODE" != "200" ]; then
+              echo "❌ Failed to fetch anime data (HTTP $ANIME_CODE)"
+              echo "anime_count=0" >> $GITHUB_OUTPUT
+              echo "cache_updated=false" >> $GITHUB_OUTPUT
+              echo "::error::Failed to fetch Bangumi anime data with HTTP status $ANIME_CODE at offset $ANIME_OFFSET"
+              exit 1
+            fi
+
+            if ! echo "$ANIME_DATA" | jq -e '.data and (.data | type == "array")' > /dev/null 2>&1; then
               echo "❌ Response JSON format is invalid"
               echo "Response preview: $(echo "$ANIME_DATA" | head -c 200)"
               echo "anime_count=0" >> $GITHUB_OUTPUT
               echo "cache_updated=false" >> $GITHUB_OUTPUT
               exit 1
             fi
-          elif [ "$ANIME_CODE" = "429" ]; then
-            echo "⚠️ Rate limited by Bangumi API"
-            echo "anime_count=0" >> $GITHUB_OUTPUT
-            echo "cache_updated=false" >> $GITHUB_OUTPUT
-            echo "::error::Rate limited by Bangumi API. Please try again later."
-            exit 1
-          else
-            echo "❌ Failed to fetch anime data (HTTP $ANIME_CODE)"
-            echo "anime_count=0" >> $GITHUB_OUTPUT
-            echo "cache_updated=false" >> $GITHUB_OUTPUT
-            echo "::error::Failed to fetch Bangumi anime data with HTTP status $ANIME_CODE"
-            exit 1
-          fi
+
+            PAGE_COUNT=$(echo "$ANIME_DATA" | jq '.data | length')
+            ANIME_TOTAL=$((ANIME_TOTAL + PAGE_COUNT))
+            jq -s '{data: (.[0].data + .[1].data)}' "$ANIME_TMP" <(echo "$ANIME_DATA") > "$ANIME_TMP.next"
+            mv "$ANIME_TMP.next" "$ANIME_TMP"
+
+            if [ "$PAGE_COUNT" -lt 100 ]; then
+              break
+            fi
+
+            ANIME_OFFSET=$((ANIME_OFFSET + 100))
+          done
+
+          mv "$ANIME_TMP" ${{ env.CACHE_DIR }}/anime.json
+          CACHE_DATE=$(jq -r '.date // empty' ${{ env.CACHE_DIR }}/anime.json 2>/dev/null || echo "")
+          echo "✅ Successfully fetched $ANIME_TOTAL anime entries"
+          [ -n "$CACHE_DATE" ] && echo "Cache Date: $CACHE_DATE"
+          echo "anime_count=$ANIME_TOTAL" >> $GITHUB_OUTPUT
+          echo "cache_updated=true" >> $GITHUB_OUTPUT
 
       - name: Fetch Bangumi Game Data
         id: fetch-games
@@ -182,36 +208,65 @@ jobs:
           echo "Subject Type: game (4)"
           echo ""
 
-          GAME_RESPONSE=$(curl -s -w "\n%{http_code}" \
-            "https://api.bgm.tv/v0/users/${{ env.BANGUMI_USER_ID }}/collections?subject_type=4&limit=500" \
-            -H "Accept: application/json" \
-            -H "User-Agent: wxzjt0318-oss-bangumi-daily-posts/1.0" \
-            -H "Cache-Control: no-cache" \
-            --connect-timeout 30 \
-            --max-time 120)
+          fetch_collections_page() {
+            local subject_type="$1"
+            local offset="$2"
+            curl -sS \
+              "https://api.bgm.tv/v0/users/${{ env.BANGUMI_USER_ID }}/collections?subject_type=${subject_type}&limit=100&offset=${offset}" \
+              -H "Accept: application/json" \
+              -H "User-Agent: wxzjt0318-oss-bangumi-daily-posts/1.0" \
+              -H "Cache-Control: no-cache" \
+              --connect-timeout 30 \
+              --max-time 120 \
+              -w "\n%{http_code}"
+          }
 
-          GAME_CODE=$(echo "$GAME_RESPONSE" | tail -1)
-          GAME_DATA=$(echo "$GAME_RESPONSE" | sed '$d')
+          GAME_TMP=$(mktemp)
+          echo '{"data":[]}' > "$GAME_TMP"
+          GAME_OFFSET=0
+          GAME_TOTAL=0
 
-          echo "HTTP Status Code: $GAME_CODE"
+          while true; do
+            echo "➡️ Fetching game page with offset=$GAME_OFFSET limit=100"
+            GAME_RESPONSE=$(fetch_collections_page 4 "$GAME_OFFSET")
+            GAME_CODE=$(echo "$GAME_RESPONSE" | tail -1)
+            GAME_DATA=$(echo "$GAME_RESPONSE" | sed '$d')
 
-          if [ "$GAME_CODE" = "200" ]; then
-            if echo "$GAME_DATA" | jq -e '.data' > /dev/null 2>&1; then
-              echo "$GAME_DATA" > ${{ env.CACHE_DIR }}/games.json
-              GAME_COUNT=$(echo "$GAME_DATA" | jq '.data | length' 2>/dev/null || echo "0")
-              echo "✅ Successfully fetched $GAME_COUNT game entries"
-              echo "game_count=$GAME_COUNT" >> $GITHUB_OUTPUT
-            else
+            echo "HTTP Status Code: $GAME_CODE"
+
+            if [ "$GAME_CODE" = "429" ]; then
+              echo "⚠️ Rate limited by Bangumi API"
+              echo "game_count=0" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+
+            if [ "$GAME_CODE" != "200" ]; then
+              echo "⚠️ Failed to fetch game data (HTTP $GAME_CODE)"
+              echo "game_count=0" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+
+            if ! echo "$GAME_DATA" | jq -e '.data and (.data | type == "array")' > /dev/null 2>&1; then
               echo "⚠️ Response JSON format is invalid or empty"
               echo "game_count=0" >> $GITHUB_OUTPUT
+              exit 1
             fi
-          elif [ "$GAME_CODE" = "429" ]; then
-            echo "⚠️ Rate limited by Bangumi API"
-            echo "game_count=0" >> $GITHUB_OUTPUT
-          else
-            echo "⚠️ Failed to fetch game data (HTTP $GAME_CODE)"
-            echo "game_count=0" >> $GITHUB_OUTPUT
-          fi
+
+            PAGE_COUNT=$(echo "$GAME_DATA" | jq '.data | length')
+            GAME_TOTAL=$((GAME_TOTAL + PAGE_COUNT))
+            jq -s '{data: (.[0].data + .[1].data)}' "$GAME_TMP" <(echo "$GAME_DATA") > "$GAME_TMP.next"
+            mv "$GAME_TMP.next" "$GAME_TMP"
+
+            if [ "$PAGE_COUNT" -lt 100 ]; then
+              break
+            fi
+
+            GAME_OFFSET=$((GAME_OFFSET + 100))
+          done
+
+          mv "$GAME_TMP" ${{ env.CACHE_DIR }}/games.json
+          echo "✅ Successfully fetched $GAME_TOTAL game entries"
+          echo "game_count=$GAME_TOTAL" >> $GITHUB_OUTPUT
 
       - name: Verify Cache Files
         run: |
