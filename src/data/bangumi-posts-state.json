@@ -252,6 +252,17 @@
       "published": "2026-04-13",
       "status": "published",
       "generatedAt": "2026-04-13T09:51:23.169Z"
+    },
+    {
+      "subjectId": 69944,
+      "title": "《跟班×服务》",
+      "filePath": "src/content/posts/bangumi-69944.md",
+      "alias": "bangumi-69944",
+      "sourceLink": "https://bgm.tv/subject/69944",
+      "image": "https://lain.bgm.tv/pic/cover/l/b0/46/69944_FZmY2.jpg",
+      "published": "2026-04-14",
+      "status": "published",
+      "generatedAt": "2026-04-14T09:13:47.860Z"
     }
   ]
 }

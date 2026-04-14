@@ -1,5 +1,26 @@
 [
   {
+    "title": "异世界悠闲农家 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "异世界",
+      "后宫"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/575057",
+    "progress": 2,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-06",
+    "endDate": "2026-04-06",
+    "updatedAt": "2026-04-14T16:18:08+08:00"
+  },
+  {
     "title": "清恋",
     "status": "planned",
     "rating": 0,
@@ -187,27 +208,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-04-11T11:51:28+08:00"
-  },
-  {
-    "title": "异世界悠闲农家 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
-    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "异世界",
-      "后宫"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/575057",
-    "progress": 1,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-06",
-    "endDate": "2026-04-06",
-    "updatedAt": "2026-04-09T22:21:00+08:00"
   },
   {
     "title": "异世界悠闲农家",
@@ -786,8 +786,8 @@
     "year": "2025",
     "genre": [
       "里番",
-      "漫画改",
-      "纯爱"
+      "纯爱",
+      "漫画改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/567265",
@@ -1542,8 +1542,8 @@
     "year": "2026",
     "genre": [
       "2026年4月",
-      "异世界",
-      "TV"
+      "TV",
+      "异世界"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/567234",
@@ -2949,8 +2949,8 @@
     "year": "2025",
     "genre": [
       "恋爱",
-      "校园",
-      "CloverWorks"
+      "CloverWorks",
+      "校园"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/398951",
@@ -4651,7 +4651,7 @@
     "genre": [
       "卖肉",
       "2025年4月",
-      "校园"
+      "漫画改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/506407",
@@ -4670,9 +4670,9 @@
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
-      "轻小说改",
       "SILVERLINK.",
-      "TV"
+      "TV",
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/456077",
@@ -5050,7 +5050,7 @@
     "genre": [
       "GAL改",
       "2024年7月",
-      "花田十辉"
+      "游戏改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/397604",
@@ -5846,8 +5846,8 @@
     "episodes": "11 episodes",
     "year": "2025",
     "genre": [
-      "搞笑",
       "2025年10月",
+      "搞笑",
       "奇幻"
     ],
     "studio": "Unknown",

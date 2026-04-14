@@ -1,122 +1,121 @@
 {
-  "generatedAt": "2026-04-13T09:51:23.170Z",
+  "generatedAt": "2026-04-14T09:13:47.861Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-13T12:37:34+08:00",
+    "updated_at": "2026-04-12T13:00:07+08:00",
     "comment": null,
     "tags": [
+      "搞笑",
+      "漫画改",
       "恋爱",
-      "原创",
-      "校园",
-      "后宫",
-      "2017年1月"
+      "日常"
     ],
     "subject": {
-      "date": "2017-01-05",
+      "date": "2013-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/f8/38/195229_l5ydB.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/f8/38/195229_l5ydB.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/f8/38/195229_l5ydB.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/f8/38/195229_l5ydB.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/f8/38/195229_l5ydB.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b0/46/69944_FZmY2.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b0/46/69944_FZmY2.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/b0/46/69944_FZmY2.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b0/46/69944_FZmY2.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b0/46/69944_FZmY2.jpg"
       },
-      "name": "セイレン",
-      "name_cn": "清恋",
-      "short_summary": "高中二年级的夏天。\r\n嘉味田正一由于志愿调查表的内容而被班主任叫出来，以此为契机开始感受到对于长大成人的不安。\r\n这样的他，与各种各样的女孩子相遇……他将会以怎样的未来为目标呢。\r\n奔向未来的等身大高中生与清廉可怜的女主角们的恋爱物语，现在",
+      "name": "サーバント×サービス",
+      "name_cn": "跟班×服务",
+      "short_summary": "本作是人气漫画《WORKING》（迷糊餐厅）作者高津KARINO的另一部连载中作品，自2007年开始在《增刊Young GANGAN》（现已改名为《月刊BIG GANGAN》）连载。 \r\n\r\n作品舞台是北海道某市某区役所 的 保健福祉课，描",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 878,
+          "name": "日常",
+          "count": 637,
           "total_cont": 0
         },
         {
-          "name": "原创",
-          "count": 661,
+          "name": "A-1Pictures",
+          "count": 571,
           "total_cont": 0
         },
         {
-          "name": "2017年1月",
-          "count": 627,
+          "name": "2013年7月",
+          "count": 511,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 502,
+          "name": "搞笑",
+          "count": 487,
           "total_cont": 0
         },
         {
-          "name": "Studio五组",
-          "count": 422,
+          "name": "漫画改",
+          "count": 405,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 416,
+          "count": 325,
           "total_cont": 0
         },
         {
-          "name": "2017",
-          "count": 243,
+          "name": "公务员",
+          "count": 314,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 216,
+          "name": "2013",
+          "count": 218,
           "total_cont": 0
         },
         {
-          "name": "佐仓绫音",
-          "count": 211,
+          "name": "Servant×Service",
+          "count": 178,
           "total_cont": 0
         },
         {
-          "name": "污恋",
-          "count": 177,
+          "name": "恋爱",
+          "count": 174,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 7.3,
       "type": 2,
-      "id": 195229,
-      "eps": 12,
+      "id": 69944,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 7588,
-      "rank": 6051
+      "collection_total": 6659,
+      "rank": 1549
     },
-    "subject_id": 195229,
+    "subject_id": 69944,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 1,
     "subject_type": 2,
-    "type": 1,
-    "rate": 0,
+    "type": 4,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b0/46/69944_FZmY2.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "清恋",
+      "title": "跟班×服务",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b0/46/69944_FZmY2.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "清恋",
+      "title": "跟班×服务",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/f8/38/195229_l5ydB.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b0/46/69944_FZmY2.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "清恋",
+      "title": "跟班×服务",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-195229.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-69944.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
