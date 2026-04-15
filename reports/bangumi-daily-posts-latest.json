@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-04-14T09:13:47.861Z",
+  "generatedAt": "2026-04-15T09:14:34.670Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-12T13:00:07+08:00",
+    "updated_at": "2026-04-15T00:35:07+08:00",
     "comment": null,
     "tags": [
-      "搞笑",
-      "漫画改",
+      "轻小说改",
       "恋爱",
-      "日常"
+      "2026",
+      "TV"
     ],
     "subject": {
-      "date": "2013-07-04",
+      "date": "2026-04-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b0/46/69944_FZmY2.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b0/46/69944_FZmY2.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/b0/46/69944_FZmY2.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b0/46/69944_FZmY2.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b0/46/69944_FZmY2.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/13/2a/456079_4171E.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/13/2a/456079_4171E.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/13/2a/456079_4171E.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/13/2a/456079_4171E.jpg"
       },
-      "name": "サーバント×サービス",
-      "name_cn": "跟班×服务",
-      "short_summary": "本作是人气漫画《WORKING》（迷糊餐厅）作者高津KARINO的另一部连载中作品，自2007年开始在《增刊Young GANGAN》（现已改名为《月刊BIG GANGAN》）连载。 \r\n\r\n作品舞台是北海道某市某区役所 的 保健福祉课，描",
+      "name": "クラスで2番目に可愛い女の子と友だちになった",
+      "name_cn": "和班上第二可爱的女孩成为朋友",
+      "short_summary": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
       "tags": [
         {
-          "name": "日常",
-          "count": 637,
-          "total_cont": 0
-        },
-        {
-          "name": "A-1Pictures",
-          "count": 571,
-          "total_cont": 0
-        },
-        {
-          "name": "2013年7月",
-          "count": 511,
-          "total_cont": 0
-        },
-        {
-          "name": "搞笑",
-          "count": 487,
-          "total_cont": 0
-        },
-        {
-          "name": "漫画改",
-          "count": 405,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 325,
-          "total_cont": 0
-        },
-        {
-          "name": "公务员",
-          "count": 314,
-          "total_cont": 0
-        },
-        {
-          "name": "2013",
-          "count": 218,
-          "total_cont": 0
-        },
-        {
-          "name": "Servant×Service",
-          "count": 178,
+          "name": "2026年4月",
+          "count": 270,
           "total_cont": 0
         },
         {
           "name": "恋爱",
+          "count": 269,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 225,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
+          "count": 181,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
           "count": 174,
+          "total_cont": 0
+        },
+        {
+          "name": "CONNECT",
+          "count": 120,
+          "total_cont": 0
+        },
+        {
+          "name": "2026",
+          "count": 107,
+          "total_cont": 0
+        },
+        {
+          "name": "小说改",
+          "count": 85,
+          "total_cont": 0
+        },
+        {
+          "name": "日本",
+          "count": 84,
+          "total_cont": 0
+        },
+        {
+          "name": "轻改",
+          "count": 78,
           "total_cont": 0
         }
       ],
-      "score": 7.3,
+      "score": 5.7,
       "type": 2,
-      "id": 69944,
-      "eps": 13,
+      "id": 456079,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 6659,
-      "rank": 1549
+      "collection_total": 3216,
+      "rank": 8260
     },
-    "subject_id": 69944,
+    "subject_id": 456079,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 2,
     "subject_type": 2,
-    "type": 4,
-    "rate": 8,
+    "type": 3,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b0/46/69944_FZmY2.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/13/2a/456079_4171E.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "跟班×服务",
+      "title": "和班上第二可爱的女孩成为朋友",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b0/46/69944_FZmY2.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/13/2a/456079_4171E.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "跟班×服务",
+      "title": "和班上第二可爱的女孩成为朋友",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b0/46/69944_FZmY2.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "跟班×服务",
+      "title": "和班上第二可爱的女孩成为朋友",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-69944.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

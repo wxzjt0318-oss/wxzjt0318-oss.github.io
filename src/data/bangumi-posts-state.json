@@ -263,6 +263,17 @@
       "published": "2026-04-14",
       "status": "published",
       "generatedAt": "2026-04-14T09:13:47.860Z"
+    },
+    {
+      "subjectId": 456079,
+      "title": "《和班上第二可爱的女孩成为朋友》",
+      "filePath": "src/content/posts/2.md",
+      "alias": "2",
+      "sourceLink": "https://bgm.tv/subject/456079",
+      "image": "https://lain.bgm.tv/pic/cover/l/13/2a/456079_4171E.jpg",
+      "published": "2026-04-15",
+      "status": "published",
+      "generatedAt": "2026-04-15T09:14:34.669Z"
     }
   ]
 }
