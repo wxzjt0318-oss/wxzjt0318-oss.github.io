@@ -1,88 +1,88 @@
 {
-  "generatedAt": "2026-04-15T09:14:34.670Z",
+  "generatedAt": "2026-04-16T09:14:36.273Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-15T00:35:07+08:00",
-    "comment": null,
+    "updated_at": "2026-04-13T12:29:19+08:00",
+    "comment": "甜甜甜！！！！！！！！！！！！！！！！！！！！！",
     "tags": [
-      "轻小说改",
       "恋爱",
-      "2026",
-      "TV"
+      "TV",
+      "校园",
+      "轻小说改"
     ],
     "subject": {
-      "date": "2026-04-07",
+      "date": "2026-04-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/13/2a/456079_4171E.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/13/2a/456079_4171E.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/13/2a/456079_4171E.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/13/2a/456079_4171E.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/53/22/458684_28O4i.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/53/22/458684_28O4i.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/22/458684_28O4i.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/53/22/458684_28O4i.jpg"
       },
-      "name": "クラスで2番目に可愛い女の子と友だちになった",
-      "name_cn": "和班上第二可爱的女孩成为朋友",
-      "short_summary": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
+      "name": "お隣の天使様にいつの間にか駄目人間にされていた件2",
+      "name_cn": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
+      "short_summary": "因成为了公寓邻居而开始交流的藤宫周与椎名真昼，在高中二年级的运动会结束后，终于正式交往。无论是亲手制作的料理还是浴衣约会，两人间充满了如新婚夫妻般的氛围，但那份怦然心动的感觉却依然让他们不知所措。随着各种事件的发生，两人也逐渐携手跨越了各自",
       "tags": [
         {
-          "name": "2026年4月",
-          "count": 270,
+          "name": "恋爱",
+          "count": 196,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 269,
+          "name": "2026年4月",
+          "count": 180,
           "total_cont": 0
         },
         {
           "name": "校园",
-          "count": 225,
+          "count": 164,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 181,
+          "count": 162,
+          "total_cont": 0
+        },
+        {
+          "name": "projectNo.9",
+          "count": 152,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 174,
-          "total_cont": 0
-        },
-        {
-          "name": "CONNECT",
-          "count": 120,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 107,
+          "count": 144,
           "total_cont": 0
         },
         {
           "name": "小说改",
-          "count": 85,
+          "count": 68,
+          "total_cont": 0
+        },
+        {
+          "name": "日常",
+          "count": 61,
+          "total_cont": 0
+        },
+        {
+          "name": "2026",
+          "count": 57,
           "total_cont": 0
         },
         {
           "name": "日本",
-          "count": 84,
-          "total_cont": 0
-        },
-        {
-          "name": "轻改",
-          "count": 78,
+          "count": 48,
           "total_cont": 0
         }
       ],
       "score": 5.7,
       "type": 2,
-      "id": 456079,
+      "id": 458684,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 3216,
-      "rank": 8260
+      "collection_total": 3062,
+      "rank": 8175
     },
-    "subject_id": 456079,
+    "subject_id": 458684,
     "vol_status": 0,
     "ep_status": 2,
     "subject_type": 2,
@@ -92,27 +92,27 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/13/2a/456079_4171E.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "和班上第二可爱的女孩成为朋友",
+      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/13/2a/456079_4171E.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/22/458684_28O4i.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "和班上第二可爱的女孩成为朋友",
+      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/22/458684_28O4i.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "和班上第二可爱的女孩成为朋友",
+      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
       "score": 0
     }
   ],
