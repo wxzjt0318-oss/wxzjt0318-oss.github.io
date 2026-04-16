@@ -75,8 +75,14 @@ import { i18n } from "../../../i18n/translation";
     profileStatsVisits: i18n(I18nKey.profileStatsVisits),
     profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable)
 }}>
+    function formatCount(n) {
+        if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        return String(n);
+    }
+
     function generateStatsText(pageViews, visits) {
-        return `${profileStatsPageViews} ${pageViews} · ${profileStatsVisits} ${visits}`;
+        return `${profileStatsPageViews} ${formatCount(pageViews)} · ${profileStatsVisits} ${formatCount(visits)}`;
     }
 
     function updateAllSiteStats(pageViews, visits) {

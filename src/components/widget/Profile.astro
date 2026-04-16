@@ -72,52 +72,63 @@ const umamiBaseUrl = umamiConfig.baseUrl || "";
 </div>
 
 {umamiEnabled && (
-    <script is:inline type="module" define:vars={{ 
-        umamiBaseUrl, 
-        umamiApiKey, 
-        umamiWebsiteId, 
-        umamiConfig,
+    <script is:inline define:vars={{ 
         profileStatsPageViews: i18n(I18nKey.profileStatsPageViews),
         profileStatsVisits: i18n(I18nKey.profileStatsVisits),
         profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable)
     }}>
-        // 客户端统计文案生成函数
-        function generateStatsText(pageViews, visits) {
-            return `${profileStatsPageViews} ${pageViews} · ${profileStatsVisits} ${visits}`;
+        function formatCount(n) {
+            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+            return String(n);
         }
-        
-        // 获取访问量统计
-        async function fetchSiteStats() {
-            if (!umamiConfig.enabled) {
+
+        function generateStatsText(pageViews, visits) {
+            return `${profileStatsPageViews} ${formatCount(pageViews)} · ${profileStatsVisits} ${formatCount(visits)}`;
+        }
+
+        async function fetchSiteStats(isRetry = false) {
+            if (!window.oddmisc) {
+                if (!isRetry) {
+                    setTimeout(() => fetchSiteStats(true), 500);
+                } else {
+                    console.warn('[Profile Stats] oddmisc not available after retry');
+                    document.querySelectorAll('.site-stats-display').forEach(el => {
+                        el.textContent = profileStatsUnavailable;
+                    });
+                }
                 return;
             }
-            
+
             try {
-                // 调用全局工具获取 Umami 统计数据
-                const stats = await getUmamiWebsiteStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId);
-                
-                // 从返回的数据中提取页面浏览量和访客数
+                const stats = await window.oddmisc.getSiteStats();
                 const pageViews = stats.pageviews || 0;
                 const visits = stats.visits || 0;
-                
-                const displayElements = document.querySelectorAll('.site-stats-display');
-                displayElements.forEach(element => {
-                    element.textContent = generateStatsText(pageViews, visits);
+
+                if (pageViews === 0 && visits === 0) {
+                    document.querySelectorAll('.site-stats-display').forEach(el => {
+                        el.textContent = profileStatsUnavailable;
+                    });
+                    return;
+                }
+
+                document.querySelectorAll('.site-stats-display').forEach(el => {
+                    el.textContent = generateStatsText(pageViews, visits);
                 });
             } catch (error) {
-                console.error('Error fetching site stats:', error);
-                const displayElements = document.querySelectorAll('.site-stats-display');
-                displayElements.forEach(element => {
-                    element.textContent = profileStatsUnavailable;
+                console.error('[Profile Stats] Error fetching site stats:', error);
+                document.querySelectorAll('.site-stats-display').forEach(el => {
+                    el.textContent = profileStatsUnavailable;
                 });
             }
         }
 
         if (document.readyState === 'loading') {
-            // 页面加载完成后获取统计数据
             document.addEventListener('DOMContentLoaded', () => fetchSiteStats());
         } else {
             fetchSiteStats();
         }
+
+        document.addEventListener('astro:page-load', () => fetchSiteStats());
     </script>
 )}

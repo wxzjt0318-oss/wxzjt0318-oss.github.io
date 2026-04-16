@@ -117,43 +117,46 @@ const {
 </div>
 
 {!isHome && umamiEnabled && id && (
-    <script is:inline define:vars={{ id, umamiBaseUrl, umamiApiKey, umamiWebsiteId, umamiConfig, pageViewsText: i18n(I18nKey.profileStatsPageViews), visitsText: i18n(I18nKey.profileStatsVisits) }}>
-        function generateStatsText(pageViews, visitors) {
-            return `${pageViewsText} ${pageViews} · ${visitsText} ${visitors}`;
+    <script is:inline define:vars={{ id, pageViewsText: i18n(I18nKey.profileStatsPageViews), visitsText: i18n(I18nKey.profileStatsVisits) }}>
+        function formatCount(n) {
+            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+            return String(n);
         }
-        
-        async function fetchPageViews() {
+
+        function generateStatsText(pageViews, visitors) {
+            return `${pageViewsText} ${formatCount(pageViews)} · ${visitsText} ${formatCount(visitors)}`;
+        }
+
+        async function fetchPageViews(isRetry = false) {
             const displayElement = document.getElementById('page-views-display');
             if (!displayElement) {return;}
-            
-            if (!umamiConfig.enabled || !umamiWebsiteId || !id || !umamiBaseUrl || !umamiApiKey) {
-                displayElement.textContent = '统计不可用';
+
+            if (!window.oddmisc) {
+                if (!isRetry) {
+                    setTimeout(() => fetchPageViews(true), 500);
+                } else {
+                    console.warn('[Page Views] oddmisc not available after retry');
+                    displayElement.textContent = '统计不可用';
+                }
                 return;
             }
 
-            const pageUrl = (window && window.location && window.location.pathname) ? window.location.pathname : `/posts/${id}/`;
-            const maxRetry = 6;
-            const baseDelay = 300;
+            try {
+                const pageUrl = (window && window.location && window.location.pathname) ? window.location.pathname : `/posts/${id}/`;
+                const stats = await window.oddmisc.getStats(pageUrl);
+                const pageViews = stats.pageviews || 0;
+                const visitors = stats.visitors || 0;
 
-            for (let attempt = 0; attempt <= maxRetry; attempt++) {
-                try {
-                    if (typeof getUmamiPageStats !== 'function') {
-                        throw new Error('getUmamiPageStats not ready');
-                    }
-                    const stats = await getUmamiPageStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId, pageUrl);
-                    const pageViews = stats.pageviews || 0;
-                    const visitors = stats.visitors || 0;
-                    displayElement.textContent = generateStatsText(pageViews, visitors);
+                if (pageViews === 0 && visitors === 0) {
+                    displayElement.textContent = '统计不可用';
                     return;
-                } catch (error) {
-                    if (attempt >= maxRetry) {
-                        console.error('Error fetching page views:', error);
-                        displayElement.textContent = '统计不可用';
-                        return;
-                    }
-                    const delay = baseDelay * Math.pow(2, attempt);
-                    await new Promise((resolve) => setTimeout(resolve, delay));
                 }
+
+                displayElement.textContent = generateStatsText(pageViews, visitors);
+            } catch (error) {
+                console.error('[Page Views] Error fetching page views:', error);
+                displayElement.textContent = '统计不可用';
             }
         }
 
@@ -162,5 +165,7 @@ const {
         } else {
             fetchPageViews();
         }
+
+        document.addEventListener('astro:page-load', () => fetchPageViews());
     </script>
 )}

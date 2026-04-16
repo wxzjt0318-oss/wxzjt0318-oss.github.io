@@ -111,8 +111,14 @@ const {
     pageViewsText: i18n(I18nKey.profileStatsPageViews),
     visitsText: i18n(I18nKey.profileStatsVisits)
 }}>
+    function formatCount(n) {
+        if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        return String(n);
+    }
+
     function generateStatsText(pageViews, visits) {
-        return `${pageViewsText} ${pageViews} · ${visitsText} ${visits}`;
+        return `${pageViewsText} ${formatCount(pageViews)} · ${visitsText} ${formatCount(visits)}`;
     }
 
     async function fetchAllPageViews(isRetry = false) {
