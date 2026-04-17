@@ -35,7 +35,7 @@ const env = loadEnv("", process.cwd(), "");
 
 // Umami 分享 URL 配置
 // 从环境变量读取，如果未配置则使用空字符串（禁用统计显示功能）
-const UMAMI_SHARE_URL = env.UMAMI_SHARE_URL || "";
+const UMAMI_SHARE_URL = env.UMAMI_SHARE_URL || "https://cloud.umami.is/share/vVGo1Enb3uXkkNYz";
 
 // https://astro.build/config
 export default defineConfig({

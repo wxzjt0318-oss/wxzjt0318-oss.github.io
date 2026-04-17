@@ -94,7 +94,7 @@ const {
     )}
     
     {!isHome && (postUrl || id) && (
-        <div class="flex items-center umami-page-views hidden" data-page-url={postUrl} data-page-id={id}>
+        <div class="flex items-center umami-page-views hidden" data-page-url={postUrl} data-page-id={id} data-umami-page-views>
             <div class="meta-icon">
                 <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
             </div>
@@ -111,98 +111,81 @@ const {
     pageViewsText: i18n(I18nKey.profileStatsPageViews),
     visitsText: i18n(I18nKey.profileStatsVisits)
 }}>
-    function formatCount(n) {
-        if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
-        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-        return String(n);
-    }
-
-    function generateStatsText(pageViews, visits) {
-        return `${pageViewsText} ${formatCount(pageViews)} · ${visitsText} ${formatCount(visits)}`;
-    }
-
-    async function fetchAllPageViews(isRetry = false) {
-        if (!window.oddmisc) {
-            if (!isRetry) {
-                setTimeout(() => fetchAllPageViews(true), 500);
-            } else {
-                console.warn('[Page Views] oddmisc not available after retry');
-                document.querySelectorAll('.umami-page-views').forEach(container => {
-                    container.classList.add('hidden');
-                });
-            }
-            return;
+    try {
+        function formatCount(n) {
+            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+            return String(n);
         }
 
-        const containers = document.querySelectorAll('.umami-page-views');
-        console.log('[Page Views] Found containers:', containers.length);
+        function generateStatsText(pageViews, visits) {
+            return pageViewsText + ' ' + formatCount(pageViews) + ' \u00B7 ' + visitsText + ' ' + formatCount(visits);
+        }
 
-        const fetchPromises = Array.from(containers).map(async (container) => {
-            const pageUrl = container.dataset.pageUrl;
-            const pageId = container.dataset.pageId;
-            
-            let statsPath;
-            if (pageUrl) {
-                statsPath = pageUrl;
-            } else if (pageId) {
-                statsPath = '/posts/' + pageId.replace(/\.(md|mdx|markdown)$/i, '') + '/';
-            } else {
-                console.warn('[Page Views] Container missing data-page-url and data-page-id');
+        var _pageViewsRetryCount = 0;
+
+        async function fetchAllPageViews() {
+            if (!window.oddmisc || typeof window.oddmisc.getStats !== 'function') {
+                _pageViewsRetryCount++;
+                if (_pageViewsRetryCount <= 2) {
+                    setTimeout(fetchAllPageViews, 600);
+                } else {
+                    document.querySelectorAll('[data-umami-page-views]').forEach(function(container) {
+                        container.classList.add('hidden');
+                    });
+                }
                 return;
             }
 
-            try {
-                console.log(`[Page Views] Fetching stats for: ${statsPath}`);
-                const stats = await window.oddmisc.getStats(statsPath);
-                const pageViews = stats.pageviews || 0;
-                const visits = stats.visits || 0;
-                console.log(`[Page Views] Stats for ${statsPath}:`, { pageViews, visits });
+            var containers = document.querySelectorAll('[data-umami-page-views]');
 
-                if (pageViews === 0 && visits === 0) {
-                    container.classList.add('hidden');
+            var fetchPromises = Array.from(containers).map(async function(container) {
+                var pageUrl = container.dataset.pageUrl;
+                var pageId = container.dataset.pageId;
+                
+                var statsPath;
+                if (pageUrl) {
+                    statsPath = pageUrl;
+                } else if (pageId) {
+                    statsPath = '/posts/' + pageId.replace(/\.(md|mdx|markdown)$/i, '') + '/';
+                } else {
                     return;
                 }
 
-                container.classList.remove('hidden');
-                const display = container.querySelector('.page-views-display');
-                if (display) {
-                    display.textContent = generateStatsText(pageViews, visits);
+                try {
+                    var stats = await window.oddmisc.getStats(statsPath);
+                    var pageViews = stats.pageviews || 0;
+                    var visits = stats.visitors || 0;
+
+                    if (pageViews === 0 && visits === 0) {
+                        container.classList.add('hidden');
+                        return;
+                    }
+
+                    container.classList.remove('hidden');
+                    var display = container.querySelector('.page-views-display');
+                    if (display) {
+                        display.textContent = generateStatsText(pageViews, visits);
+                    }
+                } catch (error) {
+                    container.classList.add('hidden');
                 }
-            } catch (error) {
-                console.error(`[Page Views] Error fetching stats for ${statsPath}:`, error);
-                container.classList.add('hidden');
-            }
-        });
+            });
 
-        await Promise.all(fetchPromises);
-    }
+            await Promise.all(fetchPromises);
+        }
 
-    function initPageViews() {
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => fetchAllPageViews());
+            document.addEventListener('DOMContentLoaded', fetchAllPageViews);
         } else {
             fetchAllPageViews();
         }
-    }
 
-    initPageViews();
-
-    if (window.swup) {
-        window.swup.hooks.on('page:view', () => {
-            setTimeout(() => fetchAllPageViews(), 100);
-        });
-    } else {
-        document.addEventListener('swup:enable', () => {
-            if (window.swup) {
-                window.swup.hooks.on('page:view', () => {
-                    setTimeout(() => fetchAllPageViews(), 100);
-                });
-            }
+        document.addEventListener('astro:page-load', fetchAllPageViews);
+    } catch (e) {
+        document.querySelectorAll('[data-umami-page-views]').forEach(function(c) {
+            c.classList.add('hidden');
         });
     }
-
-    document.addEventListener('astro:page-load', () => {
-        fetchAllPageViews();
-    });
 </script>
 )}

@@ -77,58 +77,61 @@ const umamiBaseUrl = umamiConfig.baseUrl || "";
         profileStatsVisits: i18n(I18nKey.profileStatsVisits),
         profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable)
     }}>
-        function formatCount(n) {
-            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
-            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-            return String(n);
-        }
-
-        function generateStatsText(pageViews, visits) {
-            return `${profileStatsPageViews} ${formatCount(pageViews)} · ${profileStatsVisits} ${formatCount(visits)}`;
-        }
-
-        async function fetchSiteStats(isRetry = false) {
-            if (!window.oddmisc) {
-                if (!isRetry) {
-                    setTimeout(() => fetchSiteStats(true), 500);
-                } else {
-                    console.warn('[Profile Stats] oddmisc not available after retry');
-                    document.querySelectorAll('.site-stats-display').forEach(el => {
-                        el.textContent = profileStatsUnavailable;
-                    });
-                }
-                return;
+        try {
+            function formatCount(n) {
+                if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+                if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+                return String(n);
             }
 
-            try {
-                const stats = await window.oddmisc.getSiteStats();
-                const pageViews = stats.pageviews || 0;
-                const visits = stats.visits || 0;
+            function generateStatsText(pageViews, visits) {
+                return profileStatsPageViews + ' ' + formatCount(pageViews) + ' \u00B7 ' + profileStatsVisits + ' ' + formatCount(visits);
+            }
 
-                if (pageViews === 0 && visits === 0) {
-                    document.querySelectorAll('.site-stats-display').forEach(el => {
-                        el.textContent = profileStatsUnavailable;
-                    });
+            var _oldProfileRetryCount = 0;
+
+            async function fetchSiteStats() {
+                if (!window.oddmisc || typeof window.oddmisc.getSiteStats !== 'function') {
+                    _oldProfileRetryCount++;
+                    if (_oldProfileRetryCount <= 2) {
+                        setTimeout(fetchSiteStats, 600);
+                    } else {
+                        document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                            el.textContent = profileStatsUnavailable;
+                        });
+                    }
                     return;
                 }
 
-                document.querySelectorAll('.site-stats-display').forEach(el => {
-                    el.textContent = generateStatsText(pageViews, visits);
-                });
-            } catch (error) {
-                console.error('[Profile Stats] Error fetching site stats:', error);
-                document.querySelectorAll('.site-stats-display').forEach(el => {
-                    el.textContent = profileStatsUnavailable;
-                });
+                try {
+                    var stats = await window.oddmisc.getSiteStats();
+                    var pageViews = stats.pageviews || 0;
+                    var visits = stats.visits || 0;
+
+                    if (pageViews === 0 && visits === 0) {
+                        document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                            el.textContent = profileStatsUnavailable;
+                        });
+                        return;
+                    }
+
+                    document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                        el.textContent = generateStatsText(pageViews, visits);
+                    });
+                } catch (error) {
+                    document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                        el.textContent = profileStatsUnavailable;
+                    });
+                }
             }
-        }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => fetchSiteStats());
-        } else {
-            fetchSiteStats();
-        }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fetchSiteStats);
+            } else {
+                fetchSiteStats();
+            }
 
-        document.addEventListener('astro:page-load', () => fetchSiteStats());
+            document.addEventListener('astro:page-load', fetchSiteStats);
+        } catch (e) {}
     </script>
 )}

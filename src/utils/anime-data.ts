@@ -11,6 +11,8 @@ export interface RawAnimeItem {
 	link?: string;
 	status?: string;
 	rating?: number | string;
+	userRating?: number | string;
+	platformRating?: number | string;
 	progress?: number | string;
 	totalEpisodes?: number | string;
 	description?: string;
@@ -25,6 +27,8 @@ export interface AnimeItem {
 	link: string;
 	status: string;
 	rating: number;
+	userRating: number;
+	platformRating: number;
 	progress: number;
 	totalEpisodes: number;
 	description: string;
@@ -60,6 +64,8 @@ export function loadAnimeData(filename: string): AnimeItem[] {
 			link: item.link || "",
 			status: item.status || "planned",
 			rating: Number(item.rating) || 0,
+			userRating: Number(item.userRating) || 0,
+			platformRating: Number(item.platformRating) || 0,
 			progress: Number(item.progress) || 0,
 			totalEpisodes: Number(item.totalEpisodes) || 12,
 			description: item.description || "",

@@ -58,7 +58,7 @@ import { i18n } from "../../../i18n/translation";
             }
         </div>
         
-        <div class="umami-stats-container hidden">
+        <div class="umami-stats-container hidden" data-umami-stats>
             <hr class="my-2 border-t border-dashed border-black/10 dark:border-white/10 transition-colors duration-150" />
             <div class="flex justify-center items-center gap-3 mt-2 transition-colors duration-150">
                 <div class="flex items-center gap-1.5 text-sm text-50">
@@ -72,94 +72,76 @@ import { i18n } from "../../../i18n/translation";
 
 <script is:inline define:vars={{
     profileStatsPageViews: i18n(I18nKey.profileStatsPageViews),
-    profileStatsVisits: i18n(I18nKey.profileStatsVisits),
-    profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable)
+    profileStatsVisits: i18n(I18nKey.profileStatsVisits)
 }}>
-    function formatCount(n) {
-        if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
-        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-        return String(n);
-    }
-
-    function generateStatsText(pageViews, visits) {
-        return `${profileStatsPageViews} ${formatCount(pageViews)} · ${profileStatsVisits} ${formatCount(visits)}`;
-    }
-
-    function updateAllSiteStats(pageViews, visits) {
-        document.querySelectorAll('.site-stats-display').forEach(el => {
-            el.textContent = generateStatsText(pageViews, visits);
-        });
-    }
-
-    function showAllStatsContainers() {
-        document.querySelectorAll('.umami-stats-container').forEach(container => {
-            container.classList.remove('hidden');
-        });
-    }
-
-    function hideAllStatsContainers() {
-        document.querySelectorAll('.umami-stats-container').forEach(container => {
-            container.classList.add('hidden');
-        });
-    }
-
-    async function fetchSiteStats(isRetry = false) {
-        if (!window.oddmisc) {
-            if (!isRetry) {
-                setTimeout(() => fetchSiteStats(true), 500);
-            } else {
-                console.warn('[Profile Stats] oddmisc not available after retry');
-                hideAllStatsContainers();
-            }
-            return;
+    try {
+        function formatCount(n) {
+            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+            return String(n);
         }
 
-        try {
-            console.log('[Profile Stats] Fetching site stats...');
-            const stats = await window.oddmisc.getSiteStats();
-            const pageViews = stats.pageviews || 0;
-            const visits = stats.visits || 0;
-            console.log('[Profile Stats] Stats received:', { pageViews, visits });
+        function generateStatsText(pageViews, visits) {
+            return profileStatsPageViews + ' ' + formatCount(pageViews) + ' \u00B7 ' + profileStatsVisits + ' ' + formatCount(visits);
+        }
 
-            if (pageViews === 0 && visits === 0) {
-                console.log('[Profile Stats] No data, hiding containers');
-                hideAllStatsContainers();
+        function updateAllSiteStats(pageViews, visits) {
+            document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                el.textContent = generateStatsText(pageViews, visits);
+            });
+        }
+
+        function showAllStatsContainers() {
+            document.querySelectorAll('[data-umami-stats]').forEach(function(container) {
+                container.classList.remove('hidden');
+            });
+        }
+
+        function hideAllStatsContainers() {
+            document.querySelectorAll('[data-umami-stats]').forEach(function(container) {
+                container.classList.add('hidden');
+            });
+        }
+
+        var _profileStatsRetryCount = 0;
+
+        async function fetchSiteStats() {
+            if (!window.oddmisc || typeof window.oddmisc.getSiteStats !== 'function') {
+                _profileStatsRetryCount++;
+                if (_profileStatsRetryCount <= 2) {
+                    setTimeout(fetchSiteStats, 600);
+                } else {
+                    hideAllStatsContainers();
+                }
                 return;
             }
 
-            showAllStatsContainers();
-            updateAllSiteStats(pageViews, visits);
-        } catch (error) {
-            console.error('[Profile Stats] Error fetching site stats:', error);
-            hideAllStatsContainers();
-        }
-    }
+            try {
+                var stats = await window.oddmisc.getSiteStats();
+                var pageViews = stats.pageviews || 0;
+                var visits = stats.visits || 0;
 
-    function initProfileStats() {
+                if (pageViews === 0 && visits === 0) {
+                    hideAllStatsContainers();
+                    return;
+                }
+
+                showAllStatsContainers();
+                updateAllSiteStats(pageViews, visits);
+            } catch (error) {
+                hideAllStatsContainers();
+            }
+        }
+
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => fetchSiteStats());
+            document.addEventListener('DOMContentLoaded', fetchSiteStats);
         } else {
             fetchSiteStats();
         }
+
+        document.addEventListener('astro:page-load', fetchSiteStats);
+    } catch (e) {
+        var containers = document.querySelectorAll('[data-umami-stats]');
+        containers.forEach(function(c) { c.classList.add('hidden'); });
     }
-
-    initProfileStats();
-
-    if (window.swup) {
-        window.swup.hooks.on('page:view', () => {
-            setTimeout(() => fetchSiteStats(), 100);
-        });
-    } else {
-        document.addEventListener('swup:enable', () => {
-            if (window.swup) {
-                window.swup.hooks.on('page:view', () => {
-                    setTimeout(() => fetchSiteStats(), 100);
-                });
-            }
-        });
-    }
-
-    document.addEventListener('astro:page-load', () => {
-        fetchSiteStats();
-    });
 </script>

@@ -118,54 +118,57 @@ const {
 
 {!isHome && umamiEnabled && id && (
     <script is:inline define:vars={{ id, pageViewsText: i18n(I18nKey.profileStatsPageViews), visitsText: i18n(I18nKey.profileStatsVisits) }}>
-        function formatCount(n) {
-            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
-            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-            return String(n);
-        }
-
-        function generateStatsText(pageViews, visitors) {
-            return `${pageViewsText} ${formatCount(pageViews)} · ${visitsText} ${formatCount(visitors)}`;
-        }
-
-        async function fetchPageViews(isRetry = false) {
-            const displayElement = document.getElementById('page-views-display');
-            if (!displayElement) {return;}
-
-            if (!window.oddmisc) {
-                if (!isRetry) {
-                    setTimeout(() => fetchPageViews(true), 500);
-                } else {
-                    console.warn('[Page Views] oddmisc not available after retry');
-                    displayElement.textContent = '统计不可用';
-                }
-                return;
+        try {
+            function formatCount(n) {
+                if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
+                if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+                return String(n);
             }
 
-            try {
-                const pageUrl = (window && window.location && window.location.pathname) ? window.location.pathname : `/posts/${id}/`;
-                const stats = await window.oddmisc.getStats(pageUrl);
-                const pageViews = stats.pageviews || 0;
-                const visitors = stats.visitors || 0;
+            function generateStatsText(pageViews, visitors) {
+                return pageViewsText + ' ' + formatCount(pageViews) + ' \u00B7 ' + visitsText + ' ' + formatCount(visitors);
+            }
 
-                if (pageViews === 0 && visitors === 0) {
-                    displayElement.textContent = '统计不可用';
+            var _oldPageViewsRetryCount = 0;
+
+            async function fetchPageViews() {
+                var displayElement = document.getElementById('page-views-display');
+                if (!displayElement) return;
+
+                if (!window.oddmisc || typeof window.oddmisc.getStats !== 'function') {
+                    _oldPageViewsRetryCount++;
+                    if (_oldPageViewsRetryCount <= 2) {
+                        setTimeout(fetchPageViews, 600);
+                    } else {
+                        displayElement.textContent = '\u7EDF\u8BA1\u4E0D\u53EF\u7528';
+                    }
                     return;
                 }
 
-                displayElement.textContent = generateStatsText(pageViews, visitors);
-            } catch (error) {
-                console.error('[Page Views] Error fetching page views:', error);
-                displayElement.textContent = '统计不可用';
+                try {
+                    var pageUrl = (window && window.location && window.location.pathname) ? window.location.pathname : '/posts/' + id + '/';
+                    var stats = await window.oddmisc.getStats(pageUrl);
+                    var pageViews = stats.pageviews || 0;
+                    var visitors = stats.visitors || 0;
+
+                    if (pageViews === 0 && visitors === 0) {
+                        displayElement.textContent = '\u7EDF\u8BA1\u4E0D\u53EF\u7528';
+                        return;
+                    }
+
+                    displayElement.textContent = generateStatsText(pageViews, visitors);
+                } catch (error) {
+                    displayElement.textContent = '\u7EDF\u8BA1\u4E0D\u53EF\u7528';
+                }
             }
-        }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', fetchPageViews);
-        } else {
-            fetchPageViews();
-        }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fetchPageViews);
+            } else {
+                fetchPageViews();
+            }
 
-        document.addEventListener('astro:page-load', () => fetchPageViews());
+            document.addEventListener('astro:page-load', fetchPageViews);
+        } catch (e) {}
     </script>
 )}
