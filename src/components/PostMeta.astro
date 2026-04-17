@@ -121,11 +121,20 @@ const {
         function generateStatsText(pageViews, visitors) {
             return `${pageViewsText} ${pageViews} · ${visitsText} ${visitors}`;
         }
-        
+
+        async function fetchUmamiStats(pageUrl) {
+            const url = umamiBaseUrl + '/websites/' + umamiWebsiteId + '/stats?startAt=0&endAt=' + Date.now() + '&path=' + encodeURIComponent(pageUrl);
+            const response = await fetch(url, {
+                headers: { 'Authorization': 'Bearer ' + umamiApiKey }
+            });
+            if (!response.ok) throw new Error('API error: ' + response.status);
+            return response.json();
+        }
+
         async function fetchPageViews() {
             const displayElement = document.getElementById('page-views-display');
             if (!displayElement) {return;}
-            
+
             if (!umamiConfig.enabled || !umamiWebsiteId || !id || !umamiBaseUrl || !umamiApiKey) {
                 displayElement.textContent = '统计不可用';
                 return;
@@ -137,10 +146,7 @@ const {
 
             for (let attempt = 0; attempt <= maxRetry; attempt++) {
                 try {
-                    if (typeof window.oddmisc?.getStats !== 'function') {
-                        throw new Error('oddmisc.getStats not ready');
-                    }
-                    const stats = await window.oddmisc.getStats(pageUrl);
+                    const stats = await fetchUmamiStats(pageUrl);
                     const pageViews = stats.pageviews || 0;
                     const visitors = stats.visitors || 0;
                     displayElement.textContent = generateStatsText(pageViews, visitors);

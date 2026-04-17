@@ -85,20 +85,29 @@ const umamiBaseUrl = umamiConfig.baseUrl || "";
         function generateStatsText(pageViews, visits) {
             return `${profileStatsPageViews} ${pageViews} · ${profileStatsVisits} ${visits}`;
         }
-        
+
+        async function fetchUmamiSiteStats() {
+            const url = umamiBaseUrl + '/websites/' + umamiWebsiteId + '/stats?startAt=0&endAt=' + Date.now();
+            const response = await fetch(url, {
+                headers: { 'Authorization': 'Bearer ' + umamiApiKey }
+            });
+            if (!response.ok) throw new Error('API error: ' + response.status);
+            return response.json();
+        }
+
         // 获取访问量统计
         async function fetchSiteStats() {
             if (!umamiConfig.enabled) {
                 return;
             }
-            
+
             try {
-                const stats = await window.oddmisc.getSiteStats();
-                
+                const stats = await fetchUmamiSiteStats();
+
                 // 从返回的数据中提取页面浏览量和访客数
                 const pageViews = stats.pageviews || 0;
                 const visits = stats.visits || 0;
-                
+
                 const displayElements = document.querySelectorAll('.site-stats-display');
                 displayElements.forEach(element => {
                     element.textContent = generateStatsText(pageViews, visits);
