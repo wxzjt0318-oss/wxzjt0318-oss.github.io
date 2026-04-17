@@ -57,7 +57,6 @@ const gameCfg = (siteConfig.game || {}) as GameConfigExt;
 const MAX_ITEMS = Number(gameCfg.maxItems) > 0 ? Number(gameCfg.maxItems) : Infinity;
 const CACHE_TTL_HOURS = 0; // 禁用缓存，确保每次都从 API 获取最新数据
 
-type CacheEntry<T> = { ts: number; data: T };
 const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
 const DISK_CACHE = false; // 强制禁用磁盘缓存
 
@@ -80,10 +79,10 @@ if (isNode && DISK_CACHE && fs && logRoot) {
   await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
 }
 
-async function diskCacheGet<T>(key: string, ttlHours: number): Promise<T | null> {
+async function diskCacheGet<T>(_key: string, _ttlHours: number): Promise<T | null> {
   return null; // 禁用缓存，始终返回 null
 }
-async function diskCacheSet<T>(key: string, data: T): Promise<void> {
+async function diskCacheSet<T>(_key: string, _data: T): Promise<void> {
   // 禁用缓存，不执行任何操作
 }
 
