@@ -123,15 +123,20 @@ const {
         }
 
         var _pageViewsRetryCount = 0;
+        var _pageViewsMaxRetries = 5;
 
         async function fetchAllPageViews() {
             if (!window.oddmisc || typeof window.oddmisc.getStats !== 'function') {
                 _pageViewsRetryCount++;
-                if (_pageViewsRetryCount <= 2) {
-                    setTimeout(fetchAllPageViews, 600);
+                if (_pageViewsRetryCount < _pageViewsMaxRetries) {
+                    setTimeout(fetchAllPageViews, 1500);
                 } else {
                     document.querySelectorAll('[data-umami-page-views]').forEach(function(container) {
-                        container.classList.add('hidden');
+                        var display = container.querySelector('.page-views-display');
+                        if (display) {
+                            display.textContent = '\u7B49\u5F85\u7EDF\u8BA1\u52A0\u8F7D';
+                        }
+                        container.classList.remove('hidden');
                     });
                 }
                 return;
@@ -158,17 +163,25 @@ const {
                     var visits = stats.visitors || 0;
 
                     if (pageViews === 0 && visits === 0) {
-                        container.classList.add('hidden');
+                        var display = container.querySelector('.page-views-display');
+                        if (display) {
+                            display.textContent = '\u6682\u65E0\u7EDF\u8BA1';
+                        }
+                        container.classList.remove('hidden');
                         return;
                     }
 
                     container.classList.remove('hidden');
-                    var display = container.querySelector('.page-views-display');
-                    if (display) {
-                        display.textContent = generateStatsText(pageViews, visits);
+                    var displayEl = container.querySelector('.page-views-display');
+                    if (displayEl) {
+                        displayEl.textContent = generateStatsText(pageViews, visits);
                     }
                 } catch (error) {
-                    container.classList.add('hidden');
+                    var displayErr = container.querySelector('.page-views-display');
+                    if (displayErr) {
+                        displayErr.textContent = '\u7EDF\u8BA1\u52A0\u8F7D\u5931\u8D25';
+                    }
+                    container.classList.remove('hidden');
                 }
             });
 

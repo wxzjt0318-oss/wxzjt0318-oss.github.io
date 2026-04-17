@@ -87,7 +87,11 @@ import { i18n } from "../../../i18n/translation";
 
         function updateAllSiteStats(pageViews, visits) {
             document.querySelectorAll('.site-stats-display').forEach(function(el) {
-                el.textContent = generateStatsText(pageViews, visits);
+                if (pageViews === 0 && visits === 0) {
+                    el.textContent = '\u6682\u65E0\u7EDF\u8BA1';
+                } else {
+                    el.textContent = generateStatsText(pageViews, visits);
+                }
             });
         }
 
@@ -104,14 +108,18 @@ import { i18n } from "../../../i18n/translation";
         }
 
         var _profileStatsRetryCount = 0;
+        var _profileStatsMaxRetries = 5;
 
         async function fetchSiteStats() {
             if (!window.oddmisc || typeof window.oddmisc.getSiteStats !== 'function') {
                 _profileStatsRetryCount++;
-                if (_profileStatsRetryCount <= 2) {
-                    setTimeout(fetchSiteStats, 600);
+                if (_profileStatsRetryCount < _profileStatsMaxRetries) {
+                    setTimeout(fetchSiteStats, 1500);
                 } else {
-                    hideAllStatsContainers();
+                    document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                        el.textContent = '\u7B49\u5F85\u7EDF\u8BA1\u52A0\u8F7D';
+                    });
+                    showAllStatsContainers();
                 }
                 return;
             }
@@ -121,15 +129,13 @@ import { i18n } from "../../../i18n/translation";
                 var pageViews = stats.pageviews || 0;
                 var visits = stats.visits || 0;
 
-                if (pageViews === 0 && visits === 0) {
-                    hideAllStatsContainers();
-                    return;
-                }
-
                 showAllStatsContainers();
                 updateAllSiteStats(pageViews, visits);
             } catch (error) {
-                hideAllStatsContainers();
+                showAllStatsContainers();
+                document.querySelectorAll('.site-stats-display').forEach(function(el) {
+                    el.textContent = '\u7EDF\u8BA1\u52A0\u8F7D\u5931\u8D25';
+                });
             }
         }
 
