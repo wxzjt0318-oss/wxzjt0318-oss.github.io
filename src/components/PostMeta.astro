@@ -137,10 +137,10 @@ const {
 
             for (let attempt = 0; attempt <= maxRetry; attempt++) {
                 try {
-                    if (typeof getUmamiPageStats !== 'function') {
-                        throw new Error('getUmamiPageStats not ready');
+                    if (typeof window.oddmisc?.getStats !== 'function') {
+                        throw new Error('oddmisc.getStats not ready');
                     }
-                    const stats = await getUmamiPageStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId, pageUrl);
+                    const stats = await window.oddmisc.getStats(pageUrl);
                     const pageViews = stats.pageviews || 0;
                     const visitors = stats.visitors || 0;
                     displayElement.textContent = generateStatsText(pageViews, visitors);

@@ -93,8 +93,7 @@ const umamiBaseUrl = umamiConfig.baseUrl || "";
             }
             
             try {
-                // 调用全局工具获取 Umami 统计数据
-                const stats = await getUmamiWebsiteStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId);
+                const stats = await window.oddmisc.getSiteStats();
                 
                 // 从返回的数据中提取页面浏览量和访客数
                 const pageViews = stats.pageviews || 0;
