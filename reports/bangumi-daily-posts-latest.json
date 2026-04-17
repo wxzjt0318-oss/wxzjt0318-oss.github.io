@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-04-16T09:14:36.273Z",
+  "generatedAt": "2026-04-17T09:13:10.283Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-13T12:29:19+08:00",
-    "comment": "甜甜甜！！！！！！！！！！！！！！！！！！！！！",
+    "updated_at": "2026-04-07T18:08:30+08:00",
+    "comment": null,
     "tags": [
+      "2026年1月",
+      "漫画改",
       "恋爱",
-      "TV",
-      "校园",
-      "轻小说改"
+      "校园"
     ],
     "subject": {
-      "date": "2026-04-03",
+      "date": "2026-01-11",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/53/22/458684_28O4i.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/53/22/458684_28O4i.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/22/458684_28O4i.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/53/22/458684_28O4i.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/71/50/525565_OxOv7.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/71/50/525565_OxOv7.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/71/50/525565_OxOv7.jpg"
       },
-      "name": "お隣の天使様にいつの間にか駄目人間にされていた件2",
-      "name_cn": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
-      "short_summary": "因成为了公寓邻居而开始交流的藤宫周与椎名真昼，在高中二年级的运动会结束后，终于正式交往。无论是亲手制作的料理还是浴衣约会，两人间充满了如新婚夫妻般的氛围，但那份怦然心动的感觉却依然让他们不知所措。随着各种事件的发生，两人也逐渐携手跨越了各自",
+      "name": "正反対な君と僕",
+      "name_cn": "相反的你和我",
+      "short_summary": "总是活力充沛，却又很在意周遭目光的女孩：铃木实优\r\n以及个性文静，却能清楚表达自己意见的男生：谷悠介\r\n\r\n本次故事将讲述这两人的生活点滴。铃木喜欢着谷，却一直无法鼓起勇气告白。直到某天，两人放学回家时走在同一条路上并牵起了手。借由该契机，",
       "tags": [
         {
           "name": "恋爱",
-          "count": 196,
-          "total_cont": 0
-        },
-        {
-          "name": "2026年4月",
-          "count": 180,
+          "count": 2208,
           "total_cont": 0
         },
         {
           "name": "校园",
-          "count": 164,
+          "count": 1745,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 162,
+          "name": "2026年1月",
+          "count": 1380,
           "total_cont": 0
         },
         {
-          "name": "projectNo.9",
-          "count": 152,
+          "name": "漫画改",
+          "count": 1280,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 144,
+          "count": 993,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 68,
+          "name": "LapinTrack",
+          "count": 807,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 61,
+          "name": "搞笑",
+          "count": 782,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 57,
+          "count": 648,
           "total_cont": 0
         },
         {
           "name": "日本",
-          "count": 48,
+          "count": 566,
+          "total_cont": 0
+        },
+        {
+          "name": "日常",
+          "count": 503,
           "total_cont": 0
         }
       ],
-      "score": 5.7,
+      "score": 7.7,
       "type": 2,
-      "id": 458684,
+      "id": 525565,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 3062,
-      "rank": 8175
+      "collection_total": 16132,
+      "rank": 572
     },
-    "subject_id": 458684,
+    "subject_id": 525565,
     "vol_status": 0,
-    "ep_status": 2,
+    "ep_status": 12,
     "subject_type": 2,
-    "type": 3,
+    "type": 2,
     "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
+      "title": "相反的你和我",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/22/458684_28O4i.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/71/50/525565_OxOv7.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
+      "title": "相反的你和我",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/22/458684_28O4i.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
+      "title": "相反的你和我",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-525565.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

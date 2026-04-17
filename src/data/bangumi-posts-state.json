@@ -285,6 +285,17 @@
       "published": "2026-04-16",
       "status": "published",
       "generatedAt": "2026-04-16T09:14:36.272Z"
+    },
+    {
+      "subjectId": 525565,
+      "title": "《相反的你和我》",
+      "filePath": "src/content/posts/bangumi-525565.md",
+      "alias": "bangumi-525565",
+      "sourceLink": "https://bgm.tv/subject/525565",
+      "image": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "published": "2026-04-17",
+      "status": "published",
+      "generatedAt": "2026-04-17T09:13:10.282Z"
     }
   ]
 }
