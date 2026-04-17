@@ -72,66 +72,52 @@ const umamiBaseUrl = umamiConfig.baseUrl || "";
 </div>
 
 {umamiEnabled && (
-    <script is:inline define:vars={{ 
+    <script is:inline type="module" define:vars={{ 
+        umamiBaseUrl, 
+        umamiApiKey, 
+        umamiWebsiteId, 
+        umamiConfig,
         profileStatsPageViews: i18n(I18nKey.profileStatsPageViews),
         profileStatsVisits: i18n(I18nKey.profileStatsVisits),
         profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable)
     }}>
-        try {
-            function formatCount(n) {
-                if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + 'w';
-                if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-                return String(n);
+        // 客户端统计文案生成函数
+        function generateStatsText(pageViews, visits) {
+            return `${profileStatsPageViews} ${pageViews} · ${profileStatsVisits} ${visits}`;
+        }
+        
+        // 获取访问量统计
+        async function fetchSiteStats() {
+            if (!umamiConfig.enabled) {
+                return;
             }
-
-            function generateStatsText(pageViews, visits) {
-                return profileStatsPageViews + ' ' + formatCount(pageViews) + ' \u00B7 ' + profileStatsVisits + ' ' + formatCount(visits);
+            
+            try {
+                // 调用全局工具获取 Umami 统计数据
+                const stats = await getUmamiWebsiteStats(umamiBaseUrl, umamiApiKey, umamiWebsiteId);
+                
+                // 从返回的数据中提取页面浏览量和访客数
+                const pageViews = stats.pageviews || 0;
+                const visits = stats.visits || 0;
+                
+                const displayElements = document.querySelectorAll('.site-stats-display');
+                displayElements.forEach(element => {
+                    element.textContent = generateStatsText(pageViews, visits);
+                });
+            } catch (error) {
+                console.error('Error fetching site stats:', error);
+                const displayElements = document.querySelectorAll('.site-stats-display');
+                displayElements.forEach(element => {
+                    element.textContent = profileStatsUnavailable;
+                });
             }
+        }
 
-            var _oldProfileRetryCount = 0;
-
-            async function fetchSiteStats() {
-                if (!window.oddmisc || typeof window.oddmisc.getSiteStats !== 'function') {
-                    _oldProfileRetryCount++;
-                    if (_oldProfileRetryCount <= 2) {
-                        setTimeout(fetchSiteStats, 600);
-                    } else {
-                        document.querySelectorAll('.site-stats-display').forEach(function(el) {
-                            el.textContent = profileStatsUnavailable;
-                        });
-                    }
-                    return;
-                }
-
-                try {
-                    var stats = await window.oddmisc.getSiteStats();
-                    var pageViews = stats.pageviews || 0;
-                    var visits = stats.visits || 0;
-
-                    if (pageViews === 0 && visits === 0) {
-                        document.querySelectorAll('.site-stats-display').forEach(function(el) {
-                            el.textContent = profileStatsUnavailable;
-                        });
-                        return;
-                    }
-
-                    document.querySelectorAll('.site-stats-display').forEach(function(el) {
-                        el.textContent = generateStatsText(pageViews, visits);
-                    });
-                } catch (error) {
-                    document.querySelectorAll('.site-stats-display').forEach(function(el) {
-                        el.textContent = profileStatsUnavailable;
-                    });
-                }
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', fetchSiteStats);
-            } else {
-                fetchSiteStats();
-            }
-
-            document.addEventListener('astro:page-load', fetchSiteStats);
-        } catch (e) {}
+        if (document.readyState === 'loading') {
+            // 页面加载完成后获取统计数据
+            document.addEventListener('DOMContentLoaded', () => fetchSiteStats());
+        } else {
+            fetchSiteStats();
+        }
     </script>
 )}

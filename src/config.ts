@@ -515,7 +515,7 @@ export const umamiConfig: {
 	enabled: true,
 	apiKey:
 		import.meta.env.UMAMI_API_KEY || "api_en9RqdmWT5ad7Q9SaQtkbuRTByUwKMXi",
-	baseUrl: "https://api.umami.is",
+	baseUrl: "https://api.umami.is/v1",
 	scripts: `
 <script defer src="https://cloud.umami.is/script.js" data-website-id="5529ac8c-8065-46d2-b0dc-83960ac4163c"></script>
   `.trim(),

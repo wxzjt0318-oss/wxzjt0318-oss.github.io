@@ -1,9 +1,8 @@
+// 本地番剧数据配置
 export type AnimeItem = {
 	title: string;
 	status: "watching" | "completed" | "planned";
 	rating: number;
-	userRating: number;
-	platformRating: number;
 	cover: string;
 	description: string;
 	episodes: string;
@@ -22,8 +21,6 @@ const localAnimeList: AnimeItem[] = [
 		title: "Lycoris Recoil",
 		status: "completed",
 		rating: 9.8,
-		userRating: 9.8,
-		platformRating: 0,
 		cover: "/assets/anime/lkls.webp",
 		description: "Girl's gunfight",
 		episodes: "12 episodes",
@@ -40,8 +37,6 @@ const localAnimeList: AnimeItem[] = [
 		title: "Yowamushi Pedal",
 		status: "watching",
 		rating: 9.5,
-		userRating: 9.5,
-		platformRating: 0,
 		cover: "/assets/anime/rynh.webp",
 		description: "Girl's daily life, sweet and healing",
 		episodes: "12 episodes",
@@ -58,8 +53,6 @@ const localAnimeList: AnimeItem[] = [
 		title: "Asteroid in Love",
 		status: "watching",
 		rating: 9.2,
-		userRating: 9.2,
-		platformRating: 0,
 		cover: "/assets/anime/laxxx.webp",
 		description: "Meeting girls among the stars, pure love and healing",
 		episodes: "12 episodes",
@@ -76,8 +69,6 @@ const localAnimeList: AnimeItem[] = [
 		title: "Is the Order a Rabbit?",
 		status: "planned",
 		rating: 9.0,
-		userRating: 9.0,
-		platformRating: 0,
 		cover: "/assets/anime/tz1.webp",
 		description: "A group of girls' warm daily life",
 		episodes: "12 episodes",
@@ -94,8 +85,6 @@ const localAnimeList: AnimeItem[] = [
 		title: "The Secret of the Magic Girl",
 		status: "watching",
 		rating: 9.0,
-		userRating: 9.0,
-		platformRating: 0,
 		cover: "/assets/anime/cmmn.webp",
 		description: "Muli, Muli!",
 		episodes: "12 episodes",
