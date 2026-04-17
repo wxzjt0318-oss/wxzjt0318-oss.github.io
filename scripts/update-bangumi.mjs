@@ -157,8 +157,8 @@ async function processData(items, status) {
 		const userRating = item.rate
 			? Number.parseFloat(item.rate.toFixed(1))
 			: 0;
-		const platformRating = item.subject?.score
-			? Number.parseFloat(item.subject.score.toFixed(1))
+		const platformRating = subjectDetail?.score
+			? Number.parseFloat(subjectDetail.score.toFixed(1))
 			: 0;
 		const rating = userRating || platformRating;
 
