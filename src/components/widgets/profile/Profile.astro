@@ -1,11 +1,16 @@
 ---
 import { Icon } from "astro-icon/components";
-import { profileConfig } from "../../../config";
+import { profileConfig, umamiConfig } from "../../../config";
 import { url } from "../../../utils/url-utils";
 import Image from "../../atoms/Image/Image.astro";
 import TypewriterText from "../../atoms/typewriter-text/TypewriterText.astro";
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
+
+const umamiEnabled = umamiConfig.enabled;
+const umamiWebsiteId = umamiConfig.scripts.match(/data-website-id="([^"]+)"/)?.[1] || "";
+const umamiBaseUrl = umamiConfig.baseUrl;
+const umamiApiKey = umamiConfig.apiKey;
 ---
 
 <div class="card-base p-3">
@@ -73,7 +78,11 @@ import { i18n } from "../../../i18n/translation";
 <script is:inline define:vars={{
     profileStatsPageViews: i18n(I18nKey.profileStatsPageViews),
     profileStatsVisits: i18n(I18nKey.profileStatsVisits),
-    profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable)
+    profileStatsUnavailable: i18n(I18nKey.profileStatsUnavailable),
+    umamiEnabled,
+    umamiWebsiteId,
+    umamiBaseUrl,
+    umamiApiKey
 }}>
     function generateStatsText(pageViews, visits) {
         return `${profileStatsPageViews} ${pageViews} · ${profileStatsVisits} ${visits}`;
@@ -97,20 +106,24 @@ import { i18n } from "../../../i18n/translation";
         });
     }
 
-    async function fetchSiteStats(isRetry = false) {
-        if (!window.oddmisc) {
-            if (!isRetry) {
-                setTimeout(() => fetchSiteStats(true), 500);
-            } else {
-                console.warn('[Profile Stats] oddmisc not available after retry');
-                hideAllStatsContainers();
-            }
+    async function fetchUmamiSiteStats() {
+        const url = umamiBaseUrl + '/websites/' + umamiWebsiteId + '/stats?startAt=0&endAt=' + Date.now();
+        const response = await fetch(url, {
+            headers: { 'Authorization': 'Bearer ' + umamiApiKey }
+        });
+        if (!response.ok) throw new Error('API error: ' + response.status);
+        return response.json();
+    }
+
+    async function fetchSiteStats() {
+        if (!umamiEnabled) {
+            hideAllStatsContainers();
             return;
         }
 
         try {
             console.log('[Profile Stats] Fetching site stats...');
-            const stats = await window.oddmisc.getSiteStats();
+            const stats = await fetchUmamiSiteStats();
             const pageViews = stats.pageviews || 0;
             const visits = stats.visits || 0;
             console.log('[Profile Stats] Stats received:', { pageViews, visits });

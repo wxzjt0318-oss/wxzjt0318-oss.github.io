@@ -10,6 +10,12 @@ import { Category } from "./atoms";
 import { WordCount } from "./atoms";
 import { ReadingTime } from "./atoms";
 import { EncryptedBadge } from "./atoms";
+import { umamiConfig } from "../../../config";
+
+const umamiEnabled = umamiConfig.enabled;
+const umamiWebsiteId = umamiConfig.scripts.match(/data-website-id="([^"]+)"/)?.[1] || "";
+const umamiBaseUrl = umamiConfig.baseUrl;
+const umamiApiKey = umamiConfig.apiKey;
 
 interface Props {
 	published: Date;
@@ -109,22 +115,30 @@ const {
     {!isHome && (postUrl || id) && (
 <script is:inline define:vars={{
     pageViewsText: i18n(I18nKey.profileStatsPageViews),
-    visitsText: i18n(I18nKey.profileStatsVisits)
+    visitsText: i18n(I18nKey.profileStatsVisits),
+    umamiEnabled,
+    umamiWebsiteId,
+    umamiBaseUrl,
+    umamiApiKey
 }}>
     function generateStatsText(pageViews, visits) {
         return `${pageViewsText} ${pageViews} · ${visitsText} ${visits}`;
     }
 
-    async function fetchAllPageViews(isRetry = false) {
-        if (!window.oddmisc) {
-            if (!isRetry) {
-                setTimeout(() => fetchAllPageViews(true), 500);
-            } else {
-                console.warn('[Page Views] oddmisc not available after retry');
-                document.querySelectorAll('.umami-page-views').forEach(container => {
-                    container.classList.add('hidden');
-                });
-            }
+    async function fetchUmamiStats(pageUrl) {
+        const url = umamiBaseUrl + '/websites/' + umamiWebsiteId + '/stats?startAt=0&endAt=' + Date.now() + '&path=' + encodeURIComponent(pageUrl);
+        const response = await fetch(url, {
+            headers: { 'Authorization': 'Bearer ' + umamiApiKey }
+        });
+        if (!response.ok) throw new Error('API error: ' + response.status);
+        return response.json();
+    }
+
+    async function fetchAllPageViews() {
+        if (!umamiEnabled) {
+            document.querySelectorAll('.umami-page-views').forEach(container => {
+                container.classList.add('hidden');
+            });
             return;
         }
 
@@ -134,7 +148,7 @@ const {
         const fetchPromises = Array.from(containers).map(async (container) => {
             const pageUrl = container.dataset.pageUrl;
             const pageId = container.dataset.pageId;
-            
+
             let statsPath;
             if (pageUrl) {
                 statsPath = pageUrl;
@@ -147,7 +161,7 @@ const {
 
             try {
                 console.log(`[Page Views] Fetching stats for: ${statsPath}`);
-                const stats = await window.oddmisc.getStats(statsPath);
+                const stats = await fetchUmamiStats(statsPath);
                 const pageViews = stats.pageviews || 0;
                 const visits = stats.visits || 0;
                 console.log(`[Page Views] Stats for ${statsPath}:`, { pageViews, visits });
