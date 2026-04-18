@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-04-17T09:13:10.283Z",
+  "generatedAt": "2026-04-18T08:42:16.528Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-07T18:08:30+08:00",
+    "updated_at": "2026-04-14T20:13:23+08:00",
     "comment": null,
     "tags": [
-      "2026年1月",
-      "漫画改",
+      "2026年4月",
       "恋爱",
-      "校园"
+      "漫画改",
+      "2026"
     ],
     "subject": {
-      "date": "2026-01-11",
+      "date": "2026-04-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/71/50/525565_OxOv7.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/71/50/525565_OxOv7.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/71/50/525565_OxOv7.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/50/ac/609183_hr8ZH.jpg"
       },
-      "name": "正反対な君と僕",
-      "name_cn": "相反的你和我",
-      "short_summary": "总是活力充沛，却又很在意周遭目光的女孩：铃木实优\r\n以及个性文静，却能清楚表达自己意见的男生：谷悠介\r\n\r\n本次故事将讲述这两人的生活点滴。铃木喜欢着谷，却一直无法鼓起勇气告白。直到某天，两人放学回家时走在同一条路上并牵起了手。借由该契机，",
+      "name": "茉莉花ちゃんの好感度はぶっ壊れている",
+      "name_cn": "茉莉花酱的好感度正在崩坏",
+      "short_summary": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
       "tags": [
         {
+          "name": "2026年4月",
+          "count": 233,
+          "total_cont": 0
+        },
+        {
           "name": "恋爱",
-          "count": 2208,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 1745,
-          "total_cont": 0
-        },
-        {
-          "name": "2026年1月",
-          "count": 1380,
+          "count": 181,
           "total_cont": 0
         },
         {
           "name": "漫画改",
-          "count": 1280,
+          "count": 158,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 993,
+          "count": 119,
           "total_cont": 0
         },
         {
-          "name": "LapinTrack",
-          "count": 807,
-          "total_cont": 0
-        },
-        {
-          "name": "搞笑",
-          "count": 782,
+          "name": "校园",
+          "count": 118,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 648,
+          "count": 102,
+          "total_cont": 0
+        },
+        {
+          "name": "泡面番",
+          "count": 86,
+          "total_cont": 0
+        },
+        {
+          "name": "StudioLeo",
+          "count": 82,
           "total_cont": 0
         },
         {
           "name": "日本",
-          "count": 566,
+          "count": 76,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 503,
+          "name": "后宫",
+          "count": 72,
           "total_cont": 0
         }
       ],
-      "score": 7.7,
+      "score": 5.3,
       "type": 2,
-      "id": 525565,
-      "eps": 12,
+      "id": 609183,
+      "eps": 8,
       "volumes": 0,
-      "collection_total": 16132,
-      "rank": 572
+      "collection_total": 2534,
+      "rank": 9099
     },
-    "subject_id": 525565,
+    "subject_id": 609183,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 2,
     "subject_type": 2,
-    "type": 2,
-    "rate": 10,
+    "type": 3,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/50/ac/609183_hr8ZH.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "相反的你和我",
+      "title": "茉莉花酱的好感度正在崩坏",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/50/ac/609183_hr8ZH.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "相反的你和我",
+      "title": "茉莉花酱的好感度正在崩坏",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "相反的你和我",
+      "title": "茉莉花酱的好感度正在崩坏",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-525565.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-609183.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

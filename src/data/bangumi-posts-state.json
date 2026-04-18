@@ -296,6 +296,17 @@
       "published": "2026-04-17",
       "status": "published",
       "generatedAt": "2026-04-17T09:13:10.282Z"
+    },
+    {
+      "subjectId": 609183,
+      "title": "《茉莉花酱的好感度正在崩坏》",
+      "filePath": "src/content/posts/bangumi-609183.md",
+      "alias": "bangumi-609183",
+      "sourceLink": "https://bgm.tv/subject/609183",
+      "image": "https://lain.bgm.tv/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+      "published": "2026-04-18",
+      "status": "published",
+      "generatedAt": "2026-04-18T08:42:16.527Z"
     }
   ]
 }
