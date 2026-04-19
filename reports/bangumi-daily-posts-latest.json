@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-04-18T08:42:16.528Z",
+  "generatedAt": "2026-04-19T08:49:38.912Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-14T20:13:23+08:00",
+    "updated_at": "2026-03-28T01:16:22+08:00",
     "comment": null,
     "tags": [
-      "2026年4月",
-      "恋爱",
-      "漫画改",
-      "2026"
+      "轻小说改",
+      "A-1Pictures",
+      "后宫",
+      "丸户史明"
     ],
     "subject": {
-      "date": "2026-04-05",
+      "date": "2015-01-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/50/ac/609183_hr8ZH.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6b/01/100403_R8KN2.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6b/01/100403_R8KN2.jpg"
       },
-      "name": "茉莉花ちゃんの好感度はぶっ壊れている",
-      "name_cn": "茉莉花酱的好感度正在崩坏",
-      "short_summary": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
+      "name": "冴えない彼女の育てかた",
+      "name_cn": "路人女主的养成方法",
+      "short_summary": "春假时，为了购买动画蓝光片而打工的御宅族安艺伦也，在开满樱花的坡道上邂逅一位少女，帮她捡一顶被风吹走的帽子。于是有了以该少女为女主角制作同人游戏的构想。一个月后，才知道该少女是他的同班同学，名叫加藤惠。\r\n\r\n为了制作游戏，安艺伦也还要说服",
       "tags": [
         {
-          "name": "2026年4月",
-          "count": 233,
+          "name": "轻小说改",
+          "count": 3764,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 181,
-          "total_cont": 0
-        },
-        {
-          "name": "漫画改",
-          "count": 158,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 119,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 118,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 102,
-          "total_cont": 0
-        },
-        {
-          "name": "泡面番",
-          "count": 86,
-          "total_cont": 0
-        },
-        {
-          "name": "StudioLeo",
-          "count": 82,
-          "total_cont": 0
-        },
-        {
-          "name": "日本",
-          "count": 76,
+          "name": "A-1Pictures",
+          "count": 3390,
           "total_cont": 0
         },
         {
           "name": "后宫",
-          "count": 72,
+          "count": 3086,
+          "total_cont": 0
+        },
+        {
+          "name": "丸户史明",
+          "count": 2333,
+          "total_cont": 0
+        },
+        {
+          "name": "2015年1月",
+          "count": 2259,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 2224,
+          "total_cont": 0
+        },
+        {
+          "name": "路人女主的养成方法",
+          "count": 1988,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 1735,
+          "total_cont": 0
+        },
+        {
+          "name": "恋爱",
+          "count": 1608,
+          "total_cont": 0
+        },
+        {
+          "name": "深崎暮人",
+          "count": 1023,
           "total_cont": 0
         }
       ],
-      "score": 5.3,
+      "score": 7.2,
       "type": 2,
-      "id": 609183,
-      "eps": 8,
+      "id": 100403,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 2534,
-      "rank": 9099
+      "collection_total": 39941,
+      "rank": 1681
     },
-    "subject_id": 609183,
+    "subject_id": 100403,
     "vol_status": 0,
-    "ep_status": 2,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 3,
-    "rate": 8,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "茉莉花酱的好感度正在崩坏",
+      "title": "路人女主的养成方法",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6b/01/100403_R8KN2.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "茉莉花酱的好感度正在崩坏",
+      "title": "路人女主的养成方法",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6b/01/100403_R8KN2.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "茉莉花酱的好感度正在崩坏",
+      "title": "路人女主的养成方法",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-609183.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-100403.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
