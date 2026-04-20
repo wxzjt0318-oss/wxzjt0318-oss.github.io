@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-04-19T08:49:38.912Z",
+  "generatedAt": "2026-04-20T09:55:05.286Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-03-28T01:16:22+08:00",
+    "updated_at": "2026-04-17T02:18:58+08:00",
     "comment": null,
-    "tags": [
-      "轻小说改",
-      "A-1Pictures",
-      "后宫",
-      "丸户史明"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2015-01-08",
+      "date": "2019-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6b/01/100403_R8KN2.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6b/01/100403_R8KN2.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6b/01/100403_R8KN2.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6b/01/100403_R8KN2.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/97/29/275352_KlYI2.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/97/29/275352_KlYI2.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/97/29/275352_KlYI2.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/97/29/275352_KlYI2.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/97/29/275352_KlYI2.jpg"
       },
-      "name": "冴えない彼女の育てかた",
-      "name_cn": "路人女主的养成方法",
-      "short_summary": "春假时，为了购买动画蓝光片而打工的御宅族安艺伦也，在开满樱花的坡道上邂逅一位少女，帮她捡一顶被风吹走的帽子。于是有了以该少女为女主角制作同人游戏的构想。一个月后，才知道该少女是他的同班同学，名叫加藤惠。\r\n\r\n为了制作游戏，安艺伦也还要说服",
+      "name": "うちの娘の為ならば、俺はもしかしたら魔王も倒せるかもしれない。",
+      "name_cn": "为了女儿，我说不定连魔王都能干掉。",
+      "short_summary": "年纪轻轻便崭露头角成为远近闻名的青年冒险者“戴尔”，由于某次委托而步入了幽深的森林中的他，与骨瘦如柴的年幼的魔族少女“拉提娜”相遇了。\r\n戴尔无法对背负着罪人烙印的拉提娜置之不理，并下定决心要成为她的监护人——\r\n“拉提娜太可爱了，我不想去",
       "tags": [
         {
+          "name": "萝莉",
+          "count": 480,
+          "total_cont": 0
+        },
+        {
+          "name": "异世界",
+          "count": 449,
+          "total_cont": 0
+        },
+        {
           "name": "轻小说改",
-          "count": 3764,
+          "count": 434,
           "total_cont": 0
         },
         {
-          "name": "A-1Pictures",
-          "count": 3390,
+          "name": "2019年7月",
+          "count": 416,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 3086,
-          "total_cont": 0
-        },
-        {
-          "name": "丸户史明",
-          "count": 2333,
-          "total_cont": 0
-        },
-        {
-          "name": "2015年1月",
-          "count": 2259,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 2224,
-          "total_cont": 0
-        },
-        {
-          "name": "路人女主的养成方法",
-          "count": 1988,
+          "name": "治愈",
+          "count": 346,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 1735,
+          "count": 274,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 228,
+          "total_cont": 0
+        },
+        {
+          "name": "MAHOFILM",
+          "count": 157,
           "total_cont": 0
         },
         {
           "name": "恋爱",
-          "count": 1608,
+          "count": 154,
           "total_cont": 0
         },
         {
-          "name": "深崎暮人",
-          "count": 1023,
+          "name": "轻改",
+          "count": 150,
           "total_cont": 0
         }
       ],
-      "score": 7.2,
+      "score": 6,
       "type": 2,
-      "id": 100403,
-      "eps": 13,
+      "id": 275352,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 39941,
-      "rank": 1681
+      "collection_total": 5743,
+      "rank": 7638
     },
-    "subject_id": 100403,
+    "subject_id": 275352,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/6b/01/100403_R8KN2.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/97/29/275352_KlYI2.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "路人女主的养成方法",
+      "title": "为了女儿，我说不定连魔王都能干掉。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6b/01/100403_R8KN2.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/97/29/275352_KlYI2.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "路人女主的养成方法",
+      "title": "为了女儿，我说不定连魔王都能干掉。",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6b/01/100403_R8KN2.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/97/29/275352_KlYI2.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "路人女主的养成方法",
+      "title": "为了女儿，我说不定连魔王都能干掉。",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-100403.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-275352.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

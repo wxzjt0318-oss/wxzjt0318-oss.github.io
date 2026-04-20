@@ -318,6 +318,17 @@
       "published": "2026-04-19",
       "status": "published",
       "generatedAt": "2026-04-19T08:49:38.912Z"
+    },
+    {
+      "subjectId": 275352,
+      "title": "《为了女儿，我说不定连魔王都能干掉。》",
+      "filePath": "src/content/posts/bangumi-275352.md",
+      "alias": "bangumi-275352",
+      "sourceLink": "https://bgm.tv/subject/275352",
+      "image": "https://lain.bgm.tv/pic/cover/l/97/29/275352_KlYI2.jpg",
+      "published": "2026-04-20",
+      "status": "published",
+      "generatedAt": "2026-04-20T09:55:05.285Z"
     }
   ]
 }
