@@ -329,6 +329,17 @@
       "published": "2026-04-20",
       "status": "published",
       "generatedAt": "2026-04-20T09:55:05.285Z"
+    },
+    {
+      "subjectId": 236224,
+      "title": "《异世界魔王与召唤少女的奴隶魔术》",
+      "filePath": "src/content/posts/bangumi-236224.md",
+      "alias": "bangumi-236224",
+      "sourceLink": "https://bgm.tv/subject/236224",
+      "image": "https://lain.bgm.tv/pic/cover/l/53/20/236224_OcW1t.jpg",
+      "published": "2026-04-21",
+      "status": "published",
+      "generatedAt": "2026-04-21T09:21:47.650Z"
     }
   ]
 }

@@ -1,5 +1,47 @@
 [
   {
+    "title": "茉莉花酱的好感度正在崩坏",
+    "status": "watching",
+    "rating": 8,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+    "description": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
+    "episodes": "8 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "漫画改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/609183",
+    "progress": 3,
+    "totalEpisodes": 8,
+    "startDate": "2026-04-05",
+    "endDate": "2026-04-05",
+    "updatedAt": "2026-04-21T00:41:17+08:00"
+  },
+  {
+    "title": "异世界悠闲农家 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "异世界",
+      "后宫"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/575057",
+    "progress": 3,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-06",
+    "endDate": "2026-04-06",
+    "updatedAt": "2026-04-21T00:36:24+08:00"
+  },
+  {
     "title": "满怀美梦的少年是现实主义者",
     "status": "watching",
     "rating": 0,
@@ -103,48 +145,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-04-15T00:35:07+08:00"
-  },
-  {
-    "title": "茉莉花酱的好感度正在崩坏",
-    "status": "watching",
-    "rating": 8,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-    "description": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
-    "episodes": "8 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "漫画改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/609183",
-    "progress": 2,
-    "totalEpisodes": 8,
-    "startDate": "2026-04-05",
-    "endDate": "2026-04-05",
-    "updatedAt": "2026-04-14T20:13:23+08:00"
-  },
-  {
-    "title": "异世界悠闲农家 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
-    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "异世界",
-      "后宫"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/575057",
-    "progress": 2,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-06",
-    "endDate": "2026-04-06",
-    "updatedAt": "2026-04-14T16:18:08+08:00"
   },
   {
     "title": "清恋",
@@ -1584,8 +1584,8 @@
     "year": "2026",
     "genre": [
       "2026年4月",
-      "异世界",
-      "TV"
+      "TV",
+      "异世界"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/567234",
@@ -1942,7 +1942,7 @@
     "genre": [
       "游戏改",
       "2026年4月",
-      "YostarPictures"
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/606263",
@@ -2004,8 +2004,8 @@
     "year": "1996",
     "genre": [
       "柯南",
-      "推理",
-      "名探偵コナン"
+      "-完结摇摇无指日……",
+      "推理"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/899",
@@ -3328,7 +3328,7 @@
     "genre": [
       "治愈",
       "公路片",
-      "奇幻"
+      "MADHouse"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/400602",

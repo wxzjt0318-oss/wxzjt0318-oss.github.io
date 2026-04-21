@@ -1,116 +1,122 @@
 {
-  "generatedAt": "2026-04-20T09:55:05.286Z",
+  "generatedAt": "2026-04-21T09:21:47.651Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-17T02:18:58+08:00",
+    "updated_at": "2026-04-07T23:03:13+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "后宫",
+      "异世界",
+      "2018年7月",
+      "龙傲天",
+      "轻小说改"
+    ],
     "subject": {
-      "date": "2019-07-04",
+      "date": "2018-07-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/97/29/275352_KlYI2.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/97/29/275352_KlYI2.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/97/29/275352_KlYI2.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/97/29/275352_KlYI2.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/97/29/275352_KlYI2.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/53/20/236224_OcW1t.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/53/20/236224_OcW1t.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/53/20/236224_OcW1t.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/20/236224_OcW1t.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/53/20/236224_OcW1t.jpg"
       },
-      "name": "うちの娘の為ならば、俺はもしかしたら魔王も倒せるかもしれない。",
-      "name_cn": "为了女儿，我说不定连魔王都能干掉。",
-      "short_summary": "年纪轻轻便崭露头角成为远近闻名的青年冒险者“戴尔”，由于某次委托而步入了幽深的森林中的他，与骨瘦如柴的年幼的魔族少女“拉提娜”相遇了。\r\n戴尔无法对背负着罪人烙印的拉提娜置之不理，并下定决心要成为她的监护人——\r\n“拉提娜太可爱了，我不想去",
+      "name": "異世界魔王と召喚少女の奴隷魔術",
+      "name_cn": "异世界魔王与召唤少女的奴隶魔术",
+      "short_summary": "坂本拓真，MMORPG《十字幻想曲》中被其他玩家称为“魔王”，拥有压倒性的强悍力量。\r\n有一天，他竟然以游戏中的身份被召唤至异世界，遇到了两个各自都坚称自己才是“召唤主”的少女。两名少女对拓真施展了驯服召唤兽的奴隶法术，却因此启动了拓真的特",
       "tags": [
         {
-          "name": "萝莉",
-          "count": 480,
+          "name": "后宫",
+          "count": 1187,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 449,
+          "count": 1063,
+          "total_cont": 0
+        },
+        {
+          "name": "2018年7月",
+          "count": 696,
+          "total_cont": 0
+        },
+        {
+          "name": "龙傲天",
+          "count": 687,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 434,
+          "count": 656,
           "total_cont": 0
         },
         {
-          "name": "2019年7月",
-          "count": 416,
-          "total_cont": 0
-        },
-        {
-          "name": "治愈",
-          "count": 346,
+          "name": "卖肉",
+          "count": 615,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 274,
+          "count": 463,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 228,
-          "total_cont": 0
-        },
-        {
-          "name": "MAHOFILM",
-          "count": 157,
-          "total_cont": 0
-        },
-        {
-          "name": "恋爱",
-          "count": 154,
+          "name": "2018",
+          "count": 284,
           "total_cont": 0
         },
         {
           "name": "轻改",
-          "count": 150,
+          "count": 284,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 234,
           "total_cont": 0
         }
       ],
-      "score": 6,
+      "score": 5.9,
       "type": 2,
-      "id": 275352,
+      "id": 236224,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 5743,
-      "rank": 7638
+      "collection_total": 10030,
+      "rank": 8257
     },
-    "subject_id": 275352,
+    "subject_id": 236224,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 0,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/97/29/275352_KlYI2.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/53/20/236224_OcW1t.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "为了女儿，我说不定连魔王都能干掉。",
+      "title": "异世界魔王与召唤少女的奴隶魔术",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/97/29/275352_KlYI2.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/20/236224_OcW1t.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "为了女儿，我说不定连魔王都能干掉。",
+      "title": "异世界魔王与召唤少女的奴隶魔术",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/97/29/275352_KlYI2.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/20/236224_OcW1t.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "为了女儿，我说不定连魔王都能干掉。",
+      "title": "异世界魔王与召唤少女的奴隶魔术",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-275352.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-236224.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
