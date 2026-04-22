@@ -340,6 +340,17 @@
       "published": "2026-04-21",
       "status": "published",
       "generatedAt": "2026-04-21T09:21:47.650Z"
+    },
+    {
+      "subjectId": 544106,
+      "title": "《转生之后的我变成了龙蛋》",
+      "filePath": "src/content/posts/bangumi-544106.md",
+      "alias": "bangumi-544106",
+      "sourceLink": "https://bgm.tv/subject/544106",
+      "image": "https://lain.bgm.tv/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
+      "published": "2026-04-22",
+      "status": "published",
+      "generatedAt": "2026-04-22T09:16:03.997Z"
     }
   ]
 }
