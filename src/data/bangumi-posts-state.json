@@ -351,6 +351,17 @@
       "published": "2026-04-22",
       "status": "published",
       "generatedAt": "2026-04-22T09:16:03.997Z"
+    },
+    {
+      "subjectId": 575057,
+      "title": "《异世界悠闲农家 第二季》",
+      "filePath": "src/content/posts/2.md",
+      "alias": "2",
+      "sourceLink": "https://bgm.tv/subject/575057",
+      "image": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
+      "published": "2026-04-23",
+      "status": "published",
+      "generatedAt": "2026-04-23T09:23:26.990Z"
     }
   ]
 }

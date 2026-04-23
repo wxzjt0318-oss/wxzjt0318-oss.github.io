@@ -1,120 +1,122 @@
 {
-  "generatedAt": "2026-04-22T09:16:03.998Z",
+  "generatedAt": "2026-04-23T09:23:26.990Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-03-28T23:29:59+08:00",
+    "updated_at": "2026-04-21T00:36:24+08:00",
     "comment": null,
     "tags": [
-      "冒险",
-      "奇幻",
-      "日本"
+      "2026年4月",
+      "异世界",
+      "TV",
+      "后宫",
+      "日常"
     ],
     "subject": {
-      "date": "2026-01-10",
+      "date": "2026-04-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b7/ce/544106_L6Pj1.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cd/71/575057_BCS8O.jpg"
       },
-      "name": "転生したらドラゴンの卵だった",
-      "name_cn": "转生之后的我变成了龙蛋",
-      "short_summary": "睁开眼睛后，进入眼帘的是一片陌生的森林。看来这里是我所不知晓的奇幻世界。环顾四周，到处都是可怕的异形魔兽。我看了一下自己的模样后发现……不会吧！我竟然转生成一颗蛋了！？\r\n虽然进化型中有龙的选项，但要从蛋孵化出来似乎得先去狩猎魔兽、提升等级",
+      "name": "異世界のんびり農家２",
+      "name_cn": "异世界悠闲农家 第二季",
+      "short_summary": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
       "tags": [
         {
-          "name": "2026年1月",
-          "count": 91,
+          "name": "2026年4月",
+          "count": 181,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 89,
+          "count": 138,
           "total_cont": 0
         },
         {
-          "name": "TV",
-          "count": 62,
+          "name": "后宫",
+          "count": 138,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 61,
+          "count": 99,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 54,
+          "name": "日常",
+          "count": 98,
           "total_cont": 0
         },
         {
-          "name": "FelixFilm",
-          "count": 46,
+          "name": "TV",
+          "count": 91,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 44,
+          "count": 67,
           "total_cont": 0
         },
         {
-          "name": "冒险",
-          "count": 44,
+          "name": "ZERO-G",
+          "count": 56,
+          "total_cont": 0
+        },
+        {
+          "name": "种田",
+          "count": 53,
           "total_cont": 0
         },
         {
           "name": "小说改",
-          "count": 36,
-          "total_cont": 0
-        },
-        {
-          "name": "转生",
-          "count": 29,
+          "count": 50,
           "total_cont": 0
         }
       ],
-      "score": 4.3,
+      "score": 6.6,
       "type": 2,
-      "id": 544106,
+      "id": 575057,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 1295,
-      "rank": 9914
+      "collection_total": 2502,
+      "rank": 4037
     },
-    "subject_id": 544106,
+    "subject_id": 575057,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 3,
     "subject_type": 2,
-    "type": 2,
-    "rate": 3,
+    "type": 3,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "转生之后的我变成了龙蛋",
+      "title": "异世界悠闲农家 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cd/71/575057_BCS8O.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "转生之后的我变成了龙蛋",
+      "title": "异世界悠闲农家 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b7/ce/544106_L6Pj1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "转生之后的我变成了龙蛋",
+      "title": "异世界悠闲农家 第二季",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-544106.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
