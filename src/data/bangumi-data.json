@@ -1,5 +1,47 @@
 [
   {
+    "title": "和班上第二可爱的女孩成为朋友",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
+    "description": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "校园"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/456079",
+    "progress": 3,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-07",
+    "endDate": "2026-04-07",
+    "updatedAt": "2026-04-24T00:01:37+08:00"
+  },
+  {
+    "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/53/22/458684_28O4i.jpg",
+    "description": "因成为了公寓邻居而开始交流的藤宫周与椎名真昼，在高中二年级的运动会结束后，终于正式交往。无论是亲手制作的料理还是浴衣约会，两人间充满了如新婚夫妻般的氛围，但那份怦然心动的感觉却依然让他们不知所措。随着各种事件的发生，两人也逐渐携手跨越了各自",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "恋爱",
+      "2026年4月",
+      "校园"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/458684",
+    "progress": 3,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-03",
+    "endDate": "2026-04-03",
+    "updatedAt": "2026-04-23T23:59:45+08:00"
+  },
+  {
     "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
     "status": "watching",
     "rating": 8,
@@ -51,8 +93,8 @@
     "year": "2026",
     "genre": [
       "2026年4月",
-      "异世界",
-      "后宫"
+      "后宫",
+      "异世界"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/575057",
@@ -126,27 +168,6 @@
     "updatedAt": "2026-04-17T02:18:58+08:00"
   },
   {
-    "title": "和班上第二可爱的女孩成为朋友",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
-    "description": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "校园"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/456079",
-    "progress": 2,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-07",
-    "endDate": "2026-04-07",
-    "updatedAt": "2026-04-15T00:35:07+08:00"
-  },
-  {
     "title": "清恋",
     "status": "planned",
     "rating": 0,
@@ -166,27 +187,6 @@
     "startDate": "2017-01-05",
     "endDate": "2017-01-05",
     "updatedAt": "2026-04-13T12:37:34+08:00"
-  },
-  {
-    "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/53/22/458684_28O4i.jpg",
-    "description": "因成为了公寓邻居而开始交流的藤宫周与椎名真昼，在高中二年级的运动会结束后，终于正式交往。无论是亲手制作的料理还是浴衣约会，两人间充满了如新婚夫妻般的氛围，但那份怦然心动的感觉却依然让他们不知所措。随着各种事件的发生，两人也逐渐携手跨越了各自",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "恋爱",
-      "2026年4月",
-      "校园"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/458684",
-    "progress": 2,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-03",
-    "endDate": "2026-04-03",
-    "updatedAt": "2026-04-13T12:29:19+08:00"
   },
   {
     "title": "前辈是男孩子",
@@ -974,8 +974,8 @@
     "episodes": "24 episodes",
     "year": "2024",
     "genre": [
-      "2024年7月",
       "恋爱",
+      "2024年7月",
       "J.C.STAFF"
     ],
     "studio": "Unknown",
@@ -1396,7 +1396,7 @@
     "genre": [
       "2026年1月",
       "TV",
-      "轻小说改"
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/568174",
@@ -1417,7 +1417,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "奇幻"
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/537904",
@@ -1878,8 +1878,8 @@
     "year": "Unknown",
     "genre": [
       "战斗",
-      "小说改",
-      "2026"
+      "TV",
+      "2026年4月"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/590786",
@@ -1963,7 +1963,7 @@
     "genre": [
       "小说改",
       "龙傲天",
-      "TV"
+      "東山奈央"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/579787",
@@ -2887,7 +2887,7 @@
     "genre": [
       "奇幻",
       "2025年7月",
-      "轻小说改"
+      "校园"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/506677",
@@ -4707,14 +4707,14 @@
     "title": "世界顶尖的暗杀者转生为异世界贵族 第二季",
     "status": "planned",
     "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/0a/9d/456077_45W33.jpg",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/0a/9d/456077_sbcQF.jpg",
     "description": "世界顶尖的暗杀者转生为异世界贵族 第二季",
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
+      "轻小说改",
       "SILVERLINK.",
-      "TV",
-      "轻小说改"
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/456077",

@@ -1,122 +1,120 @@
 {
-  "generatedAt": "2026-04-23T09:23:26.990Z",
+  "generatedAt": "2026-04-24T09:27:50.628Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-21T00:36:24+08:00",
+    "updated_at": "2026-04-12T13:00:22+08:00",
     "comment": null,
     "tags": [
-      "2026年4月",
-      "异世界",
-      "TV",
-      "后宫",
-      "日常"
+      "恋爱",
+      "日常",
+      "校园"
     ],
     "subject": {
-      "date": "2026-04-06",
+      "date": "2024-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cd/71/575057_BCS8O.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cd/71/575057_BCS8O.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cd/71/575057_BCS8O.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/53/76/425988_RH9UK.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/53/76/425988_RH9UK.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/53/76/425988_RH9UK.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/76/425988_RH9UK.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/53/76/425988_RH9UK.jpg"
       },
-      "name": "異世界のんびり農家２",
-      "name_cn": "异世界悠闲农家 第二季",
-      "short_summary": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
+      "name": "先輩はおとこのこ",
+      "name_cn": "前辈是男孩子",
+      "short_summary": "花冈真琴，一位男生，却对可爱的事物情有独钟，常常以女生的形象出现在学校。\r\n某日的放学后，真琴遭遇了一个意外。一直被误认为女生的学妹苍井咲，突然向他表白了。面对学妹的深情告白，真琴坦诚地告诉她：“其实我是男生。”然而，这一拒绝并未让咲退缩。",
       "tags": [
         {
-          "name": "2026年4月",
-          "count": 181,
+          "name": "伪娘",
+          "count": 792,
           "total_cont": 0
         },
         {
-          "name": "异世界",
-          "count": 138,
+          "name": "恋爱",
+          "count": 779,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 138,
+          "name": "projectNo.9",
+          "count": 765,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 99,
+          "name": "2024年7月",
+          "count": 734,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 98,
+          "name": "校园",
+          "count": 643,
+          "total_cont": 0
+        },
+        {
+          "name": "漫画改",
+          "count": 516,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 91,
+          "count": 376,
           "total_cont": 0
         },
         {
-          "name": "2026",
-          "count": 67,
+          "name": "漫改",
+          "count": 266,
           "total_cont": 0
         },
         {
-          "name": "ZERO-G",
-          "count": 56,
+          "name": "2024",
+          "count": 262,
           "total_cont": 0
         },
         {
-          "name": "种田",
-          "count": 53,
-          "total_cont": 0
-        },
-        {
-          "name": "小说改",
-          "count": 50,
+          "name": "百合",
+          "count": 195,
           "total_cont": 0
         }
       ],
-      "score": 6.6,
+      "score": 6.4,
       "type": 2,
-      "id": 575057,
+      "id": 425988,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 2502,
-      "rank": 4037
+      "collection_total": 7484,
+      "rank": 5960
     },
-    "subject_id": 575057,
+    "subject_id": 425988,
     "vol_status": 0,
-    "ep_status": 3,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 3,
-    "rate": 10,
+    "type": 4,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/53/76/425988_RH9UK.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "异世界悠闲农家 第二季",
+      "title": "前辈是男孩子",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cd/71/575057_BCS8O.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/76/425988_RH9UK.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "异世界悠闲农家 第二季",
+      "title": "前辈是男孩子",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/76/425988_RH9UK.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "异世界悠闲农家 第二季",
+      "title": "前辈是男孩子",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-425988.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

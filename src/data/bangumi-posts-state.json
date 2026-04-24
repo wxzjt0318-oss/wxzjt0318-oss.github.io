@@ -362,6 +362,17 @@
       "published": "2026-04-23",
       "status": "published",
       "generatedAt": "2026-04-23T09:23:26.990Z"
+    },
+    {
+      "subjectId": 425988,
+      "title": "《前辈是男孩子》",
+      "filePath": "src/content/posts/bangumi-425988.md",
+      "alias": "bangumi-425988",
+      "sourceLink": "https://bgm.tv/subject/425988",
+      "image": "https://lain.bgm.tv/pic/cover/l/53/76/425988_RH9UK.jpg",
+      "published": "2026-04-24",
+      "status": "published",
+      "generatedAt": "2026-04-24T09:27:50.628Z"
     }
   ]
 }
