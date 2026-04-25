@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-04-24T09:27:50.628Z",
+  "generatedAt": "2026-04-25T08:46:37.704Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-12T13:00:22+08:00",
+    "updated_at": "2026-04-12T13:00:13+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "日常",
+      "我的后宫很多",
+      "后宫",
+      "轻小说改",
       "校园"
     ],
     "subject": {
-      "date": "2024-07-04",
+      "date": "2011-10-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/53/76/425988_RH9UK.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/53/76/425988_RH9UK.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/53/76/425988_RH9UK.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/76/425988_RH9UK.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/53/76/425988_RH9UK.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/80/d1/17883_58mrm.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/80/d1/17883_58mrm.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/80/d1/17883_58mrm.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/80/d1/17883_58mrm.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/80/d1/17883_58mrm.jpg"
       },
-      "name": "先輩はおとこのこ",
-      "name_cn": "前辈是男孩子",
-      "short_summary": "花冈真琴，一位男生，却对可爱的事物情有独钟，常常以女生的形象出现在学校。\r\n某日的放学后，真琴遭遇了一个意外。一直被误认为女生的学妹苍井咲，突然向他表白了。面对学妹的深情告白，真琴坦诚地告诉她：“其实我是男生。”然而，这一拒绝并未让咲退缩。",
+      "name": "僕は友達が少ない",
+      "name_cn": "我的朋友很少",
+      "short_summary": "由于混血的外貌和金色的头发，个性其实十分善良的少年羽濑川小鹰成为了众人孤立的对象，这让他十分的苦恼。同样的，脸色难看个性孤僻的少女三日月夜空也只能在课后和自己幻想中的朋友有说有笑。这样两个孤独的人相遇了，一个专门为了交朋友而成立的社团“邻人",
       "tags": [
         {
-          "name": "伪娘",
-          "count": 792,
+          "name": "后宫",
+          "count": 1583,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 779,
+          "name": "我的后宫很多",
+          "count": 1533,
           "total_cont": 0
         },
         {
-          "name": "projectNo.9",
-          "count": 765,
+          "name": "轻小说改",
+          "count": 1381,
           "total_cont": 0
         },
         {
-          "name": "2024年7月",
-          "count": 734,
+          "name": "2011年10月",
+          "count": 1213,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 643,
+          "name": "我的朋友很少，后宫很多！",
+          "count": 1074,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 516,
+          "name": "肉",
+          "count": 1022,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 376,
+          "count": 860,
           "total_cont": 0
         },
         {
-          "name": "漫改",
-          "count": 266,
+          "name": "AIC",
+          "count": 641,
           "total_cont": 0
         },
         {
-          "name": "2024",
-          "count": 262,
+          "name": "校园",
+          "count": 578,
           "total_cont": 0
         },
         {
-          "name": "百合",
-          "count": 195,
+          "name": "2011",
+          "count": 531,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 6.8,
       "type": 2,
-      "id": 425988,
+      "id": 17883,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 7484,
-      "rank": 5960
+      "collection_total": 21363,
+      "rank": 3638
     },
-    "subject_id": 425988,
+    "subject_id": 17883,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 4,
-    "rate": 8,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/53/76/425988_RH9UK.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/80/d1/17883_58mrm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "前辈是男孩子",
+      "title": "我的朋友很少",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/76/425988_RH9UK.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/80/d1/17883_58mrm.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "前辈是男孩子",
+      "title": "我的朋友很少",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/76/425988_RH9UK.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/80/d1/17883_58mrm.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "前辈是男孩子",
+      "title": "我的朋友很少",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-425988.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-17883.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

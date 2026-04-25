@@ -373,6 +373,17 @@
       "published": "2026-04-24",
       "status": "published",
       "generatedAt": "2026-04-24T09:27:50.628Z"
+    },
+    {
+      "subjectId": 17883,
+      "title": "《我的朋友很少》",
+      "filePath": "src/content/posts/bangumi-17883.md",
+      "alias": "bangumi-17883",
+      "sourceLink": "https://bgm.tv/subject/17883",
+      "image": "https://lain.bgm.tv/pic/cover/l/80/d1/17883_58mrm.jpg",
+      "published": "2026-04-25",
+      "status": "published",
+      "generatedAt": "2026-04-25T08:46:37.703Z"
     }
   ]
 }
