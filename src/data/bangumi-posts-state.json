@@ -384,6 +384,17 @@
       "published": "2026-04-25",
       "status": "published",
       "generatedAt": "2026-04-25T08:46:37.703Z"
+    },
+    {
+      "subjectId": 406736,
+      "title": "《因想当冒险者而前往大都市的女儿已经升到了S级》",
+      "filePath": "src/content/posts/s.md",
+      "alias": "s",
+      "sourceLink": "https://bgm.tv/subject/406736",
+      "image": "https://lain.bgm.tv/pic/cover/l/cd/d6/406736_2raEH.jpg",
+      "published": "2026-04-26",
+      "status": "published",
+      "generatedAt": "2026-04-26T08:55:50.947Z"
     }
   ]
 }
