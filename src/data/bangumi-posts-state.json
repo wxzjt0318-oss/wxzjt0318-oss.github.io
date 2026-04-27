@@ -395,6 +395,17 @@
       "published": "2026-04-26",
       "status": "published",
       "generatedAt": "2026-04-26T08:55:50.947Z"
+    },
+    {
+      "subjectId": 132754,
+      "title": "《骇客娃娃》",
+      "filePath": "src/content/posts/the.md",
+      "alias": "the",
+      "sourceLink": "https://bgm.tv/subject/132754",
+      "image": "https://lain.bgm.tv/pic/cover/l/70/6d/132754_SwRnc.jpg",
+      "published": "2026-04-27",
+      "status": "published",
+      "generatedAt": "2026-04-27T10:10:59.377Z"
     }
   ]
 }
