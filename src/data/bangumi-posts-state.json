@@ -406,6 +406,17 @@
       "published": "2026-04-27",
       "status": "published",
       "generatedAt": "2026-04-27T10:10:59.377Z"
+    },
+    {
+      "subjectId": 486054,
+      "title": "《魔都精兵的奴隶 第二季》",
+      "filePath": "src/content/posts/2.md",
+      "alias": "2",
+      "sourceLink": "https://bgm.tv/subject/486054",
+      "image": "https://lain.bgm.tv/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
+      "published": "2026-04-28",
+      "status": "published",
+      "generatedAt": "2026-04-28T10:10:07.193Z"
     }
   ]
 }
