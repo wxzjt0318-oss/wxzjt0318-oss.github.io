@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-04-28T10:10:07.194Z",
+  "generatedAt": "2026-04-29T10:01:31.025Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-04-28T11:10:44+08:00",
-    "comment": "好看啊！",
+    "updated_at": "2026-03-28T01:16:36+08:00",
+    "comment": null,
     "tags": [
-      "卖肉",
-      "后宫",
-      "奇幻",
-      "战斗"
+      "恋爱",
+      "校园",
+      "2021年10月",
+      "漫画改"
     ],
     "subject": {
-      "date": "2026-01-08",
+      "date": "2021-10-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/d9/61/486054_Hl0Cx.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/e4/44/335225_UmKwl.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/e4/44/335225_UmKwl.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/e4/44/335225_UmKwl.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e4/44/335225_UmKwl.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/e4/44/335225_UmKwl.jpg"
       },
-      "name": "魔都精兵のスレイブ2",
-      "name_cn": "魔都精兵的奴隶 第二季",
-      "short_summary": "最强战力──组长全员集结。\r\n寻求着能大显身手的舞台的男高中生・和仓优希，因为魔防队第七组组长・羽前京香的能力，使他身为「奴隶」的力量觉醒，并成功讨伐了京香故乡的仇敌・一根角，实现了复仇的宿愿。然而在台面下，全新的威胁《八雷神》已经开始在魔",
+      "name": "古見さんは、コミュ症です。",
+      "name_cn": "古见同学有交流障碍症",
+      "short_summary": "所谓的“交流障碍症”——\r\n是不擅于与人交流的症状，亦或有该症状的人。\r\n应该注意的是——这种情况只是自我觉得不擅长，不想和别人有接触。\r\n樱花烂漫的高中1年级，有着极度的交流障碍症的古见遇到了“过于普通”的同班同学・只野。\r\n面对人群会感",
       "tags": [
         {
-          "name": "后宫",
-          "count": 704,
+          "name": "恋爱",
+          "count": 1979,
           "total_cont": 0
         },
         {
-          "name": "2026年1月",
-          "count": 603,
+          "name": "校园",
+          "count": 1551,
+          "total_cont": 0
+        },
+        {
+          "name": "2021年10月",
+          "count": 1129,
           "total_cont": 0
         },
         {
           "name": "漫画改",
-          "count": 565,
+          "count": 1089,
           "total_cont": 0
         },
         {
-          "name": "战斗",
-          "count": 543,
-          "total_cont": 0
-        },
-        {
-          "name": "肉番",
-          "count": 471,
+          "name": "搞笑",
+          "count": 1012,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 450,
+          "count": 766,
           "total_cont": 0
         },
         {
-          "name": "卖肉",
-          "count": 370,
+          "name": "日常",
+          "count": 745,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 359,
+          "name": "OLM",
+          "count": 522,
           "total_cont": 0
         },
         {
-          "name": "Passione",
-          "count": 301,
+          "name": "2021",
+          "count": 509,
           "total_cont": 0
         },
         {
           "name": "漫改",
-          "count": 271,
+          "count": 457,
           "total_cont": 0
         }
       ],
-      "score": 6.5,
+      "score": 7,
       "type": 2,
-      "id": 486054,
+      "id": 335225,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 8677,
-      "rank": 5151
+      "collection_total": 16082,
+      "rank": 2625
     },
-    "subject_id": 486054,
+    "subject_id": 335225,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 2,
-    "rate": 10,
+    "type": 1,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/e4/44/335225_UmKwl.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "魔都精兵的奴隶 第二季",
+      "title": "古见同学有交流障碍症",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e4/44/335225_UmKwl.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "魔都精兵的奴隶 第二季",
+      "title": "古见同学有交流障碍症",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d9/61/486054_Hl0Cx.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e4/44/335225_UmKwl.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "魔都精兵的奴隶 第二季",
+      "title": "古见同学有交流障碍症",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-335225.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

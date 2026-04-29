@@ -1,5 +1,47 @@
 [
   {
+    "title": "异世界悠闲农家 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "异世界",
+      "后宫"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/575057",
+    "progress": 4,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-06",
+    "endDate": "2026-04-06",
+    "updatedAt": "2026-04-29T03:31:52+08:00"
+  },
+  {
+    "title": "和班上第二可爱的女孩成为朋友",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
+    "description": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "校园"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/456079",
+    "progress": 4,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-07",
+    "endDate": "2026-04-07",
+    "updatedAt": "2026-04-29T03:08:17+08:00"
+  },
+  {
     "title": "魔都精兵的奴隶 第二季",
     "status": "completed",
     "rating": 10,
@@ -19,27 +61,6 @@
     "startDate": "2026-01-08",
     "endDate": "2026-01-08",
     "updatedAt": "2026-04-28T11:10:44+08:00"
-  },
-  {
-    "title": "和班上第二可爱的女孩成为朋友",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
-    "description": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "校园"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/456079",
-    "progress": 3,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-07",
-    "endDate": "2026-04-07",
-    "updatedAt": "2026-04-24T00:01:37+08:00"
   },
   {
     "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
@@ -103,27 +124,6 @@
     "startDate": "2026-04-05",
     "endDate": "2026-04-05",
     "updatedAt": "2026-04-21T00:41:17+08:00"
-  },
-  {
-    "title": "异世界悠闲农家 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
-    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "异世界",
-      "后宫"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/575057",
-    "progress": 3,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-06",
-    "endDate": "2026-04-06",
-    "updatedAt": "2026-04-21T00:36:24+08:00"
   },
   {
     "title": "满怀美梦的少年是现实主义者",
@@ -388,7 +388,7 @@
     "genre": [
       "2026年1月",
       "异世界",
-      "轻小说改"
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/544106",
@@ -1584,8 +1584,8 @@
     "year": "2026",
     "genre": [
       "2026年4月",
-      "异世界",
-      "TV"
+      "TV",
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/567234",

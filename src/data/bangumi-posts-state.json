@@ -417,6 +417,17 @@
       "published": "2026-04-28",
       "status": "published",
       "generatedAt": "2026-04-28T10:10:07.193Z"
+    },
+    {
+      "subjectId": 335225,
+      "title": "《古见同学有交流障碍症》",
+      "filePath": "src/content/posts/bangumi-335225.md",
+      "alias": "bangumi-335225",
+      "sourceLink": "https://bgm.tv/subject/335225",
+      "image": "https://lain.bgm.tv/pic/cover/l/e4/44/335225_UmKwl.jpg",
+      "published": "2026-04-29",
+      "status": "published",
+      "generatedAt": "2026-04-29T10:01:31.024Z"
     }
   ]
 }
