@@ -1,8 +1,120 @@
 {
-  "generatedAt": "2026-05-02T09:01:47.172Z",
+  "generatedAt": "2026-05-03T09:19:15.785Z",
   "reviewMode": false,
-  "selectedAnime": null,
-  "coverCandidates": [],
-  "outputPath": "",
+  "selectedAnime": {
+    "updated_at": "2026-05-03T03:47:00+08:00",
+    "comment": null,
+    "tags": [
+      "日常",
+      "校园",
+      "漫画改"
+    ],
+    "subject": {
+      "date": "2026-04-04",
+      "images": {
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ec/61/552589_CqLqQ.jpg"
+      },
+      "name": "カナン様はあくまでチョロい",
+      "name_cn": "迦楠大人的白给是恶魔级",
+      "short_summary": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
+      "tags": [
+        {
+          "name": "2026年4月",
+          "count": 306,
+          "total_cont": 0
+        },
+        {
+          "name": "恋爱",
+          "count": 294,
+          "total_cont": 0
+        },
+        {
+          "name": "漫画改",
+          "count": 245,
+          "total_cont": 0
+        },
+        {
+          "name": "喜剧",
+          "count": 205,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 182,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 163,
+          "total_cont": 0
+        },
+        {
+          "name": "StudioKAI",
+          "count": 132,
+          "total_cont": 0
+        },
+        {
+          "name": "2026",
+          "count": 130,
+          "total_cont": 0
+        },
+        {
+          "name": "日本",
+          "count": 108,
+          "total_cont": 0
+        },
+        {
+          "name": "漫改",
+          "count": 94,
+          "total_cont": 0
+        }
+      ],
+      "score": 6.2,
+      "type": 2,
+      "id": 552589,
+      "eps": 12,
+      "volumes": 0,
+      "collection_total": 3547,
+      "rank": 6564
+    },
+    "subject_id": 552589,
+    "vol_status": 0,
+    "ep_status": 2,
+    "subject_type": 2,
+    "type": 3,
+    "rate": 0,
+    "private": false
+  },
+  "coverCandidates": [
+    {
+      "url": "https://lain.bgm.tv/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+      "source": "bangumi-large",
+      "width": 1200,
+      "height": 1700,
+      "title": "迦楠大人的白给是恶魔级",
+      "score": 100
+    },
+    {
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+      "source": "bangumi-common",
+      "width": 900,
+      "height": 1280,
+      "title": "迦楠大人的白给是恶魔级",
+      "score": 80
+    },
+    {
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+      "source": "bangumi-medium",
+      "width": 600,
+      "height": 800,
+      "title": "迦楠大人的白给是恶魔级",
+      "score": 0
+    }
+  ],
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-552589.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

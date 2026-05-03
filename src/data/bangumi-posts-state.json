@@ -428,6 +428,17 @@
       "published": "2026-04-29",
       "status": "published",
       "generatedAt": "2026-04-29T10:01:31.024Z"
+    },
+    {
+      "subjectId": 552589,
+      "title": "《迦楠大人的白给是恶魔级》",
+      "filePath": "src/content/posts/bangumi-552589.md",
+      "alias": "bangumi-552589",
+      "sourceLink": "https://bgm.tv/subject/552589",
+      "image": "https://lain.bgm.tv/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+      "published": "2026-05-03",
+      "status": "published",
+      "generatedAt": "2026-05-03T09:19:15.784Z"
     }
   ]
 }
