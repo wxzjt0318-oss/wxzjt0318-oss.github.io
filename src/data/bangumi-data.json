@@ -1,5 +1,47 @@
 [
   {
+    "title": "迦楠大人的白给是恶魔级",
+    "status": "watching",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+    "description": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "漫画改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/552589",
+    "progress": 3,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-04",
+    "endDate": "2026-04-04",
+    "updatedAt": "2026-05-07T16:33:30+08:00"
+  },
+  {
+    "title": "和班上第二可爱的女孩成为朋友",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
+    "description": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "恋爱",
+      "2026年4月",
+      "校园"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/456079",
+    "progress": 5,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-07",
+    "endDate": "2026-04-07",
+    "updatedAt": "2026-05-07T00:52:28+08:00"
+  },
+  {
     "title": "异世界悠闲农家 第二季",
     "status": "watching",
     "rating": 10,
@@ -42,27 +84,6 @@
     "updatedAt": "2026-05-05T23:35:15+08:00"
   },
   {
-    "title": "迦楠大人的白给是恶魔级",
-    "status": "watching",
-    "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
-    "description": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "漫画改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/552589",
-    "progress": 2,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-04",
-    "endDate": "2026-04-04",
-    "updatedAt": "2026-05-03T03:47:00+08:00"
-  },
-  {
     "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
     "status": "watching",
     "rating": 8,
@@ -82,27 +103,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-05-03T02:51:00+08:00"
-  },
-  {
-    "title": "和班上第二可爱的女孩成为朋友",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/13/2a/456079_4171E.jpg",
-    "description": "在班上是边缘人的前原真树，交到了人生第一个朋友──朝凪海。她总是站在圈子中心，还被其他男生私下传说是「班上第二可爱」的女生。本以为她和我这种边缘人根本不是同一个世界的人──没想到……？系列累计突破130万册！阴影男与「第二女主角」，最贴近真",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "校园"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/456079",
-    "progress": 4,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-07",
-    "endDate": "2026-04-07",
-    "updatedAt": "2026-04-29T03:08:17+08:00"
   },
   {
     "title": "魔都精兵的奴隶 第二季",
@@ -1081,7 +1081,7 @@
     "genre": [
       "恋爱",
       "2026年1月",
-      "J.C.STAFF"
+      "偶像"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/498791",
@@ -1438,7 +1438,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "TV"
+      "奇幻"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/537904",
@@ -1773,8 +1773,8 @@
     "year": "2026",
     "genre": [
       "2026年1月",
-      "战斗",
-      "漫画改"
+      "漫画改",
+      "战斗"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/543772",
@@ -1961,9 +1961,9 @@
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
-      "龙傲天",
       "小说改",
-      "TV"
+      "龙傲天",
+      "東山奈央"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/579787",
@@ -5092,7 +5092,7 @@
     "genre": [
       "GAL改",
       "2024年7月",
-      "游戏改"
+      "花田十辉"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/397604",
