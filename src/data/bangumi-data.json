@@ -1,5 +1,47 @@
 [
   {
+    "title": "茉莉花酱的好感度正在崩坏",
+    "status": "watching",
+    "rating": 8,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+    "description": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
+    "episodes": "8 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "漫画改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/609183",
+    "progress": 5,
+    "totalEpisodes": 8,
+    "startDate": "2026-04-05",
+    "endDate": "2026-04-05",
+    "updatedAt": "2026-05-12T07:46:44+08:00"
+  },
+  {
+    "title": "异世界悠闲农家 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "异世界",
+      "后宫"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/575057",
+    "progress": 6,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-06",
+    "endDate": "2026-04-06",
+    "updatedAt": "2026-05-12T07:46:01+08:00"
+  },
+  {
     "title": "迦楠大人的白给是恶魔级",
     "status": "watching",
     "rating": 10,
@@ -40,48 +82,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-05-07T00:52:28+08:00"
-  },
-  {
-    "title": "异世界悠闲农家 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
-    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "异世界",
-      "后宫"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/575057",
-    "progress": 5,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-06",
-    "endDate": "2026-04-06",
-    "updatedAt": "2026-05-05T23:35:30+08:00"
-  },
-  {
-    "title": "茉莉花酱的好感度正在崩坏",
-    "status": "watching",
-    "rating": 8,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-    "description": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
-    "episodes": "8 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "漫画改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/609183",
-    "progress": 4,
-    "totalEpisodes": 8,
-    "startDate": "2026-04-05",
-    "endDate": "2026-04-05",
-    "updatedAt": "2026-05-05T23:35:15+08:00"
   },
   {
     "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
@@ -1416,8 +1416,8 @@
     "year": "2026",
     "genre": [
       "2026年1月",
-      "TV",
-      "恋爱"
+      "恋爱",
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/568174",
@@ -1961,9 +1961,9 @@
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
-      "小说改",
       "龙傲天",
-      "東山奈央"
+      "小说改",
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/579787",
@@ -3454,7 +3454,7 @@
     "genre": [
       "轻小说改",
       "后宫",
-      "龙傲天"
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/459601",
@@ -4315,7 +4315,7 @@
     "genre": [
       "J.C.STAFF",
       "校园",
-      "樱花庄的宠物女孩"
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/41488",
