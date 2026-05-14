@@ -1,5 +1,26 @@
 [
   {
+    "title": "迦楠大人的白给是恶魔级",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+    "description": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "漫画改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/552589",
+    "progress": 6,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-04",
+    "endDate": "2026-04-04",
+    "updatedAt": "2026-05-13T19:33:07+08:00"
+  },
+  {
     "title": "和班上第二可爱的女孩成为朋友",
     "status": "watching",
     "rating": 10,
@@ -61,27 +82,6 @@
     "startDate": "2026-04-06",
     "endDate": "2026-04-06",
     "updatedAt": "2026-05-12T07:46:01+08:00"
-  },
-  {
-    "title": "迦楠大人的白给是恶魔级",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
-    "description": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "漫画改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/552589",
-    "progress": 5,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-04",
-    "endDate": "2026-04-04",
-    "updatedAt": "2026-05-10T23:44:10+08:00"
   },
   {
     "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
@@ -1058,9 +1058,9 @@
     "episodes": "12 episodes",
     "year": "2026",
     "genre": [
-      "2026年1月",
       "日常",
-      "漫画改"
+      "2026年1月",
+      "搞笑"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/486763",
@@ -1416,8 +1416,8 @@
     "year": "2026",
     "genre": [
       "2026年1月",
-      "恋爱",
-      "TV"
+      "TV",
+      "恋爱"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/568174",
@@ -1605,8 +1605,8 @@
     "year": "2026",
     "genre": [
       "2026年4月",
-      "TV",
-      "轻小说改"
+      "轻小说改",
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/567234",
@@ -1625,8 +1625,8 @@
     "episodes": "12 episodes",
     "year": "2026",
     "genre": [
-      "2026年4月",
       "恋爱",
+      "2026年4月",
       "漫画改"
     ],
     "studio": "Unknown",
@@ -2550,8 +2550,8 @@
     "year": "2025",
     "genre": [
       "科普",
-      "StudioBind",
-      "日常"
+      "日常",
+      "StudioBind"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/512190",
@@ -2887,7 +2887,7 @@
     "genre": [
       "奇幻",
       "2025年7月",
-      "校园"
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/506677",
