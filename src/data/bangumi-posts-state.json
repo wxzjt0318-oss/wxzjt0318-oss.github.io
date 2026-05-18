@@ -450,6 +450,17 @@
       "published": "2026-05-16",
       "status": "published",
       "generatedAt": "2026-05-16T09:26:33.228Z"
+    },
+    {
+      "subjectId": 43197,
+      "title": "《魔王勇者》",
+      "filePath": "src/content/posts/bangumi-43197.md",
+      "alias": "bangumi-43197",
+      "sourceLink": "https://bgm.tv/subject/43197",
+      "image": "https://lain.bgm.tv/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "published": "2026-05-18",
+      "status": "published",
+      "generatedAt": "2026-05-18T11:40:59.240Z"
     }
   ]
 }

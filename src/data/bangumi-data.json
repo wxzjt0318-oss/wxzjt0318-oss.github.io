@@ -1,5 +1,89 @@
 [
   {
+    "title": "公主连结 Re:Dive 第二季",
+    "status": "planned",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
+    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
+    "episodes": "12 episodes",
+    "year": "2022",
+    "genre": [
+      "游戏改",
+      "CygamesPictures",
+      "2022年1月"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/312958",
+    "progress": 0,
+    "totalEpisodes": 12,
+    "startDate": "2022-01-10",
+    "endDate": "2022-01-10",
+    "updatedAt": "2026-05-18T19:39:59+08:00"
+  },
+  {
+    "title": "公主连结 Re:Dive",
+    "status": "watching",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/b0/09/274646_yTEYw.jpg",
+    "description": "和风吹拂的美丽大地·阿斯特雷亚大陆。\r\n在大陆的一角，失去记忆的少年·佑树醒了过来。\r\n照顾他的小小向导·可可萝。\r\n总是肚子空空的美少女剑士·佩可莉姆。\r\n略显高冷的猫耳魔法少女·凯露。\r\n他们就这么在命运引导下，建立起名为「美食殿」的公",
+    "episodes": "13 episodes",
+    "year": "2020",
+    "genre": [
+      "游戏改",
+      "2020年4月",
+      "CygamesPictures"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/274646",
+    "progress": 0,
+    "totalEpisodes": 13,
+    "startDate": "2020-04-06",
+    "endDate": "2020-04-06",
+    "updatedAt": "2026-05-18T19:39:50+08:00"
+  },
+  {
+    "title": "魔王勇者",
+    "status": "watching",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+    "description": "这是一个人类与魔族持续着征战的世界。\r\n      某日，拥有着强大力量的“勇者”闯入了魔王的城堡，他为了拯救人类世界而向魔王挑战。但是，等着他的却是一位外貌与人类女性极其相似的“魔王”。这位魔王并没有选择与勇者开战，而是希望立",
+    "episodes": "12 episodes",
+    "year": "2013",
+    "genre": [
+      "2013年1月",
+      "魔王勇者",
+      "轻小说改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/43197",
+    "progress": 0,
+    "totalEpisodes": 12,
+    "startDate": "2013-01-04",
+    "endDate": "2013-01-04",
+    "updatedAt": "2026-05-18T11:55:42+08:00"
+  },
+  {
+    "title": "茉莉花酱的好感度正在崩坏",
+    "status": "watching",
+    "rating": 8,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
+    "description": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
+    "episodes": "8 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "恋爱",
+      "漫画改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/609183",
+    "progress": 6,
+    "totalEpisodes": 8,
+    "startDate": "2026-04-05",
+    "endDate": "2026-04-05",
+    "updatedAt": "2026-05-18T11:46:28+08:00"
+  },
+  {
     "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～ SP",
     "status": "completed",
     "rating": 10,
@@ -10,7 +94,7 @@
     "genre": [
       "轻小说改",
       "后宫",
-      "龙傲天"
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/459601",
@@ -82,27 +166,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-05-13T00:12:54+08:00"
-  },
-  {
-    "title": "茉莉花酱的好感度正在崩坏",
-    "status": "watching",
-    "rating": 8,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/50/ac/609183_hr8ZH.jpg",
-    "description": "「要是能像玩恋爱游戏一样能看见别人的好感度就好了。」\r\n北见彼方一直暗恋身为青梅竹马的千岁茉莉花，但因为自身原因迟迟不敢跟她告白。某日，他对着流星许愿，没想到隔天竟然真的能看到女生对他的好感度计量条了！\r\n不过当他看到正在单恋中的茉莉花的好",
-    "episodes": "8 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "漫画改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/609183",
-    "progress": 5,
-    "totalEpisodes": 8,
-    "startDate": "2026-04-05",
-    "endDate": "2026-04-05",
-    "updatedAt": "2026-05-12T07:46:44+08:00"
   },
   {
     "title": "异世界悠闲农家 第二季",
@@ -975,8 +1038,8 @@
     "year": "2019",
     "genre": [
       "异世界",
-      "轻小说改",
-      "2019年10月"
+      "2019年10月",
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/277399",
@@ -1459,7 +1522,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "TV"
+      "战斗"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/537904",
@@ -1606,7 +1669,7 @@
     "genre": [
       "2026年4月",
       "漫画改",
-      "战斗"
+      "奇幻"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/515856",
@@ -1899,8 +1962,8 @@
     "year": "Unknown",
     "genre": [
       "2026年7月",
-      "2026",
-      "战斗"
+      "战斗",
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/590786",
@@ -1963,7 +2026,7 @@
     "genre": [
       "游戏改",
       "2026年4月",
-      "TV"
+      "YostarPictures"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/606263",

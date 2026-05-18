@@ -1,8 +1,116 @@
 {
-  "generatedAt": "2026-05-17T09:43:19.536Z",
+  "generatedAt": "2026-05-18T11:40:59.241Z",
   "reviewMode": false,
-  "selectedAnime": null,
-  "coverCandidates": [],
-  "outputPath": "",
+  "selectedAnime": {
+    "updated_at": "2026-05-18T11:55:42+08:00",
+    "comment": null,
+    "tags": [],
+    "subject": {
+      "date": "2013-01-04",
+      "images": {
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ad/6b/43197_0bLWN.jpg"
+      },
+      "name": "まおゆう魔王勇者",
+      "name_cn": "魔王勇者",
+      "short_summary": "      这是一个人类与魔族持续着征战的世界。\r\n      某日，拥有着强大力量的“勇者”闯入了魔王的城堡，他为了拯救人类世界而向魔王挑战。但是，等着他的却是一位外貌与人类女性极其相似的“魔王”。这位魔王并没有选择与勇者开战，而是希望立",
+      "tags": [
+        {
+          "name": "2013年1月",
+          "count": 1014,
+          "total_cont": 0
+        },
+        {
+          "name": "魔王勇者",
+          "count": 930,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
+          "count": 728,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 614,
+          "total_cont": 0
+        },
+        {
+          "name": "福山润",
+          "count": 589,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 448,
+          "total_cont": 0
+        },
+        {
+          "name": "小清水亚美",
+          "count": 444,
+          "total_cont": 0
+        },
+        {
+          "name": "小说改",
+          "count": 375,
+          "total_cont": 0
+        },
+        {
+          "name": "2013",
+          "count": 370,
+          "total_cont": 0
+        },
+        {
+          "name": "恋爱",
+          "count": 346,
+          "total_cont": 0
+        }
+      ],
+      "score": 6.9,
+      "type": 2,
+      "id": 43197,
+      "eps": 12,
+      "volumes": 0,
+      "collection_total": 13424,
+      "rank": 3155
+    },
+    "subject_id": 43197,
+    "vol_status": 0,
+    "ep_status": 0,
+    "subject_type": 2,
+    "type": 3,
+    "rate": 0,
+    "private": false
+  },
+  "coverCandidates": [
+    {
+      "url": "https://lain.bgm.tv/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "source": "bangumi-large",
+      "width": 1200,
+      "height": 1700,
+      "title": "魔王勇者",
+      "score": 100
+    },
+    {
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "source": "bangumi-common",
+      "width": 900,
+      "height": 1280,
+      "title": "魔王勇者",
+      "score": 80
+    },
+    {
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "source": "bangumi-medium",
+      "width": 600,
+      "height": 800,
+      "title": "魔王勇者",
+      "score": 0
+    }
+  ],
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-43197.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
