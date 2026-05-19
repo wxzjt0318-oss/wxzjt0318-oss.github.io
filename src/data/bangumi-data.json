@@ -1,5 +1,47 @@
 [
   {
+    "title": "公主连结 Re:Dive",
+    "status": "watching",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/b0/09/274646_yTEYw.jpg",
+    "description": "和风吹拂的美丽大地·阿斯特雷亚大陆。\r\n在大陆的一角，失去记忆的少年·佑树醒了过来。\r\n照顾他的小小向导·可可萝。\r\n总是肚子空空的美少女剑士·佩可莉姆。\r\n略显高冷的猫耳魔法少女·凯露。\r\n他们就这么在命运引导下，建立起名为「美食殿」的公",
+    "episodes": "13 episodes",
+    "year": "2020",
+    "genre": [
+      "游戏改",
+      "2020年4月",
+      "CygamesPictures"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/274646",
+    "progress": 3,
+    "totalEpisodes": 13,
+    "startDate": "2020-04-06",
+    "endDate": "2020-04-06",
+    "updatedAt": "2026-05-18T21:10:58+08:00"
+  },
+  {
+    "title": "魔王勇者",
+    "status": "watching",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+    "description": "这是一个人类与魔族持续着征战的世界。\r\n      某日，拥有着强大力量的“勇者”闯入了魔王的城堡，他为了拯救人类世界而向魔王挑战。但是，等着他的却是一位外貌与人类女性极其相似的“魔王”。这位魔王并没有选择与勇者开战，而是希望立",
+    "episodes": "12 episodes",
+    "year": "2013",
+    "genre": [
+      "2013年1月",
+      "魔王勇者",
+      "轻小说改"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/43197",
+    "progress": 2,
+    "totalEpisodes": 12,
+    "startDate": "2013-01-04",
+    "endDate": "2013-01-04",
+    "updatedAt": "2026-05-18T21:10:57+08:00"
+  },
+  {
     "title": "公主连结 Re:Dive 第二季",
     "status": "planned",
     "rating": 0,
@@ -19,48 +61,6 @@
     "startDate": "2022-01-10",
     "endDate": "2022-01-10",
     "updatedAt": "2026-05-18T19:39:59+08:00"
-  },
-  {
-    "title": "公主连结 Re:Dive",
-    "status": "watching",
-    "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/b0/09/274646_yTEYw.jpg",
-    "description": "和风吹拂的美丽大地·阿斯特雷亚大陆。\r\n在大陆的一角，失去记忆的少年·佑树醒了过来。\r\n照顾他的小小向导·可可萝。\r\n总是肚子空空的美少女剑士·佩可莉姆。\r\n略显高冷的猫耳魔法少女·凯露。\r\n他们就这么在命运引导下，建立起名为「美食殿」的公",
-    "episodes": "13 episodes",
-    "year": "2020",
-    "genre": [
-      "游戏改",
-      "2020年4月",
-      "CygamesPictures"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/274646",
-    "progress": 0,
-    "totalEpisodes": 13,
-    "startDate": "2020-04-06",
-    "endDate": "2020-04-06",
-    "updatedAt": "2026-05-18T19:39:50+08:00"
-  },
-  {
-    "title": "魔王勇者",
-    "status": "watching",
-    "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
-    "description": "这是一个人类与魔族持续着征战的世界。\r\n      某日，拥有着强大力量的“勇者”闯入了魔王的城堡，他为了拯救人类世界而向魔王挑战。但是，等着他的却是一位外貌与人类女性极其相似的“魔王”。这位魔王并没有选择与勇者开战，而是希望立",
-    "episodes": "12 episodes",
-    "year": "2013",
-    "genre": [
-      "2013年1月",
-      "魔王勇者",
-      "轻小说改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/43197",
-    "progress": 0,
-    "totalEpisodes": 12,
-    "startDate": "2013-01-04",
-    "endDate": "2013-01-04",
-    "updatedAt": "2026-05-18T11:55:42+08:00"
   },
   {
     "title": "茉莉花酱的好感度正在崩坏",
@@ -94,7 +94,7 @@
     "genre": [
       "轻小说改",
       "后宫",
-      "2026"
+      "龙傲天"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/459601",
@@ -1038,8 +1038,8 @@
     "year": "2019",
     "genre": [
       "异世界",
-      "2019年10月",
-      "轻小说改"
+      "轻小说改",
+      "2019年10月"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/277399",
@@ -1522,7 +1522,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "战斗"
+      "奇幻"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/537904",
@@ -1620,7 +1620,7 @@
     "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
     "status": "planned",
     "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_h8jWc.jpg",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_vU916.jpg",
     "description": "无职转生 第三季 ～到了异世界就拿出真本事～",
     "episodes": "Unknown",
     "year": "2026",
@@ -5526,7 +5526,7 @@
     "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
     "status": "completed",
     "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/7c/8e/424883_5X5X2.jpg",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/7c/8e/424883_BpzVb.jpg",
     "description": "久世政近的邻座坐着一位名叫艾莉莎的女孩，她总是对他投以冰冷的目光。\r\n然而，她偶尔会小声地用俄语对他撒娇……\r\n政近当然不会错过这些话。\r\n因为他竟然拥有着母语级别的俄语听力！\r\n\r\n艾莉莎误以为政近听不懂俄语，所以才偶尔在他面前流露出真实",
     "episodes": "12 episodes",
     "year": "2024",

@@ -1,116 +1,116 @@
 {
-  "generatedAt": "2026-05-18T11:40:59.241Z",
+  "generatedAt": "2026-05-19T10:58:46.964Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-05-18T11:55:42+08:00",
+    "updated_at": "2026-05-18T19:39:59+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2013-01-04",
+      "date": "2022-01-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ad/6b/43197_0bLWN.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ad/6b/43197_0bLWN.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ad/6b/43197_0bLWN.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ad/6b/43197_0bLWN.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/36/67/312958_vbCCV.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/36/67/312958_vbCCV.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/36/67/312958_vbCCV.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/36/67/312958_vbCCV.jpg"
       },
-      "name": "まおゆう魔王勇者",
-      "name_cn": "魔王勇者",
-      "short_summary": "      这是一个人类与魔族持续着征战的世界。\r\n      某日，拥有着强大力量的“勇者”闯入了魔王的城堡，他为了拯救人类世界而向魔王挑战。但是，等着他的却是一位外貌与人类女性极其相似的“魔王”。这位魔王并没有选择与勇者开战，而是希望立",
+      "name": "プリンセスコネクト！Re:Dive Season 2",
+      "name_cn": "公主连结 Re:Dive 第二季",
+      "short_summary": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
       "tags": [
         {
-          "name": "2013年1月",
-          "count": 1014,
+          "name": "游戏改",
+          "count": 675,
           "total_cont": 0
         },
         {
-          "name": "魔王勇者",
-          "count": 930,
-          "total_cont": 0
-        },
-        {
-          "name": "轻小说改",
-          "count": 728,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 614,
-          "total_cont": 0
-        },
-        {
-          "name": "福山润",
+          "name": "CygamesPictures",
           "count": 589,
           "total_cont": 0
         },
         {
+          "name": "2022年1月",
+          "count": 521,
+          "total_cont": 0
+        },
+        {
+          "name": "搞笑",
+          "count": 393,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 369,
+          "total_cont": 0
+        },
+        {
+          "name": "公主连结",
+          "count": 289,
+          "total_cont": 0
+        },
+        {
+          "name": "异世界",
+          "count": 284,
+          "total_cont": 0
+        },
+        {
           "name": "奇幻",
-          "count": 448,
+          "count": 270,
           "total_cont": 0
         },
         {
-          "name": "小清水亚美",
-          "count": 444,
+          "name": "手游改",
+          "count": 255,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 375,
-          "total_cont": 0
-        },
-        {
-          "name": "2013",
-          "count": 370,
-          "total_cont": 0
-        },
-        {
-          "name": "恋爱",
-          "count": 346,
+          "name": "2022",
+          "count": 228,
           "total_cont": 0
         }
       ],
-      "score": 6.9,
+      "score": 5.5,
       "type": 2,
-      "id": 43197,
+      "id": 312958,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 13424,
-      "rank": 3155
+      "collection_total": 6763,
+      "rank": 9183
     },
-    "subject_id": 43197,
+    "subject_id": 312958,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
-    "type": 3,
+    "type": 1,
     "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/36/67/312958_vbCCV.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "魔王勇者",
+      "title": "公主连结 Re:Dive 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/36/67/312958_vbCCV.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "魔王勇者",
+      "title": "公主连结 Re:Dive 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ad/6b/43197_0bLWN.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "魔王勇者",
+      "title": "公主连结 Re:Dive 第二季",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-43197.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-dive-season-2.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -461,6 +461,17 @@
       "published": "2026-05-18",
       "status": "published",
       "generatedAt": "2026-05-18T11:40:59.240Z"
+    },
+    {
+      "subjectId": 312958,
+      "title": "《公主连结 Re:Dive 第二季》",
+      "filePath": "src/content/posts/re-dive-season-2.md",
+      "alias": "re-dive-season-2",
+      "sourceLink": "https://bgm.tv/subject/312958",
+      "image": "https://lain.bgm.tv/pic/cover/l/36/67/312958_vbCCV.jpg",
+      "published": "2026-05-19",
+      "status": "published",
+      "generatedAt": "2026-05-19T10:58:46.963Z"
     }
   ]
 }
