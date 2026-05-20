@@ -472,6 +472,17 @@
       "published": "2026-05-19",
       "status": "published",
       "generatedAt": "2026-05-19T10:58:46.963Z"
+    },
+    {
+      "subjectId": 274646,
+      "title": "《公主连结 Re:Dive》",
+      "filePath": "src/content/posts/re-dive.md",
+      "alias": "re-dive",
+      "sourceLink": "https://bgm.tv/subject/274646",
+      "image": "https://lain.bgm.tv/pic/cover/l/b0/09/274646_yTEYw.jpg",
+      "published": "2026-05-20",
+      "status": "published",
+      "generatedAt": "2026-05-20T10:46:53.412Z"
     }
   ]
 }

@@ -1,116 +1,116 @@
 {
-  "generatedAt": "2026-05-19T10:58:46.964Z",
+  "generatedAt": "2026-05-20T10:46:53.413Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-05-18T19:39:59+08:00",
+    "updated_at": "2026-05-20T01:07:08+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2022-01-10",
+      "date": "2020-04-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/36/67/312958_vbCCV.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/36/67/312958_vbCCV.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/36/67/312958_vbCCV.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/36/67/312958_vbCCV.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b0/09/274646_yTEYw.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b0/09/274646_yTEYw.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/b0/09/274646_yTEYw.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b0/09/274646_yTEYw.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b0/09/274646_yTEYw.jpg"
       },
-      "name": "プリンセスコネクト！Re:Dive Season 2",
-      "name_cn": "公主连结 Re:Dive 第二季",
-      "short_summary": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
+      "name": "プリンセスコネクト！Re:Dive",
+      "name_cn": "公主连结 Re:Dive",
+      "short_summary": "和风吹拂的美丽大地·阿斯特雷亚大陆。\r\n在大陆的一角，失去记忆的少年·佑树醒了过来。\r\n照顾他的小小向导·可可萝。\r\n总是肚子空空的美少女剑士·佩可莉姆。\r\n略显高冷的猫耳魔法少女·凯露。\r\n他们就这么在命运引导下，建立起名为「美食殿」的公",
       "tags": [
         {
           "name": "游戏改",
-          "count": 675,
+          "count": 1623,
+          "total_cont": 0
+        },
+        {
+          "name": "2020年4月",
+          "count": 1049,
           "total_cont": 0
         },
         {
           "name": "CygamesPictures",
-          "count": 589,
-          "total_cont": 0
-        },
-        {
-          "name": "2022年1月",
-          "count": 521,
+          "count": 971,
           "total_cont": 0
         },
         {
           "name": "搞笑",
-          "count": 393,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 369,
-          "total_cont": 0
-        },
-        {
-          "name": "公主连结",
-          "count": 289,
+          "count": 889,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 284,
+          "count": 788,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 751,
+          "total_cont": 0
+        },
+        {
+          "name": "后宫",
+          "count": 717,
           "total_cont": 0
         },
         {
           "name": "奇幻",
-          "count": 270,
+          "count": 540,
           "total_cont": 0
         },
         {
-          "name": "手游改",
-          "count": 255,
+          "name": "cygames",
+          "count": 509,
           "total_cont": 0
         },
         {
-          "name": "2022",
-          "count": 228,
+          "name": "2020",
+          "count": 468,
           "total_cont": 0
         }
       ],
-      "score": 5.5,
+      "score": 6.5,
       "type": 2,
-      "id": 312958,
-      "eps": 12,
+      "id": 274646,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 6763,
-      "rank": 9183
+      "collection_total": 13258,
+      "rank": 5445
     },
-    "subject_id": 312958,
+    "subject_id": 274646,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 13,
     "subject_type": 2,
-    "type": 1,
-    "rate": 0,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/36/67/312958_vbCCV.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b0/09/274646_yTEYw.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "公主连结 Re:Dive 第二季",
+      "title": "公主连结 Re:Dive",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/36/67/312958_vbCCV.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b0/09/274646_yTEYw.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "公主连结 Re:Dive 第二季",
+      "title": "公主连结 Re:Dive",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b0/09/274646_yTEYw.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "公主连结 Re:Dive 第二季",
+      "title": "公主连结 Re:Dive",
       "score": 0
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-dive-season-2.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-dive.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

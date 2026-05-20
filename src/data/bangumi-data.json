@@ -1,8 +1,50 @@
 [
   {
-    "title": "公主连结 Re:Dive",
+    "title": "异世界悠闲农家 第二季",
     "status": "watching",
-    "rating": 0,
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
+    "episodes": "12 episodes",
+    "year": "2026",
+    "genre": [
+      "2026年4月",
+      "异世界",
+      "后宫"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/575057",
+    "progress": 7,
+    "totalEpisodes": 12,
+    "startDate": "2026-04-06",
+    "endDate": "2026-04-06",
+    "updatedAt": "2026-05-20T01:32:01+08:00"
+  },
+  {
+    "title": "公主连结 Re:Dive 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
+    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
+    "episodes": "12 episodes",
+    "year": "2022",
+    "genre": [
+      "游戏改",
+      "CygamesPictures",
+      "2022年1月"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/312958",
+    "progress": 1,
+    "totalEpisodes": 12,
+    "startDate": "2022-01-10",
+    "endDate": "2022-01-10",
+    "updatedAt": "2026-05-20T01:31:48+08:00"
+  },
+  {
+    "title": "公主连结 Re:Dive",
+    "status": "completed",
+    "rating": 10,
     "cover": "https://lain.bgm.tv/r/800/pic/cover/l/b0/09/274646_yTEYw.jpg",
     "description": "和风吹拂的美丽大地·阿斯特雷亚大陆。\r\n在大陆的一角，失去记忆的少年·佑树醒了过来。\r\n照顾他的小小向导·可可萝。\r\n总是肚子空空的美少女剑士·佩可莉姆。\r\n略显高冷的猫耳魔法少女·凯露。\r\n他们就这么在命运引导下，建立起名为「美食殿」的公",
     "episodes": "13 episodes",
@@ -14,11 +56,11 @@
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/274646",
-    "progress": 3,
+    "progress": 13,
     "totalEpisodes": 13,
     "startDate": "2020-04-06",
     "endDate": "2020-04-06",
-    "updatedAt": "2026-05-18T21:10:58+08:00"
+    "updatedAt": "2026-05-20T01:07:08+08:00"
   },
   {
     "title": "魔王勇者",
@@ -40,27 +82,6 @@
     "startDate": "2013-01-04",
     "endDate": "2013-01-04",
     "updatedAt": "2026-05-18T21:10:57+08:00"
-  },
-  {
-    "title": "公主连结 Re:Dive 第二季",
-    "status": "planned",
-    "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
-    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
-    "episodes": "12 episodes",
-    "year": "2022",
-    "genre": [
-      "游戏改",
-      "CygamesPictures",
-      "2022年1月"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/312958",
-    "progress": 0,
-    "totalEpisodes": 12,
-    "startDate": "2022-01-10",
-    "endDate": "2022-01-10",
-    "updatedAt": "2026-05-18T19:39:59+08:00"
   },
   {
     "title": "茉莉花酱的好感度正在崩坏",
@@ -94,7 +115,7 @@
     "genre": [
       "轻小说改",
       "后宫",
-      "龙傲天"
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/459601",
@@ -166,27 +187,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-05-13T00:12:54+08:00"
-  },
-  {
-    "title": "异世界悠闲农家 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
-    "description": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "异世界",
-      "后宫"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/575057",
-    "progress": 6,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-06",
-    "endDate": "2026-04-06",
-    "updatedAt": "2026-05-12T07:46:01+08:00"
   },
   {
     "title": "魔都精兵的奴隶 第二季",
@@ -1038,8 +1038,8 @@
     "year": "2019",
     "genre": [
       "异世界",
-      "轻小说改",
-      "2019年10月"
+      "2019年10月",
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/277399",
@@ -1522,7 +1522,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "奇幻"
+      "战斗"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/537904",
@@ -1620,7 +1620,7 @@
     "title": "无职转生 第三季 ～到了异世界就拿出真本事～",
     "status": "planned",
     "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_vU916.jpg",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/1f/9e/501963_bXlEP.jpg",
     "description": "无职转生 第三季 ～到了异世界就拿出真本事～",
     "episodes": "Unknown",
     "year": "2026",
@@ -1751,9 +1751,9 @@
     "episodes": "Unknown",
     "year": "2026",
     "genre": [
-      "百合",
       "漫画改",
-      "TV"
+      "TV",
+      "百合"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/325767",
@@ -1962,8 +1962,8 @@
     "year": "Unknown",
     "genre": [
       "2026年7月",
-      "战斗",
-      "TV"
+      "TV",
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/590786",
@@ -1984,7 +1984,7 @@
     "genre": [
       "漫画改",
       "日本",
-      "2026"
+      "2026年7月"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/572613",
@@ -2045,9 +2045,9 @@
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
-      "小说改",
       "2026",
-      "龙傲天"
+      "龙傲天",
+      "异世界"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/579787",
