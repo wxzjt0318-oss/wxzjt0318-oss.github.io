@@ -1,5 +1,26 @@
 [
   {
+    "title": "公主连结 Re:Dive 第二季",
+    "status": "watching",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
+    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
+    "episodes": "12 episodes",
+    "year": "2022",
+    "genre": [
+      "游戏改",
+      "CygamesPictures",
+      "2022年1月"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/312958",
+    "progress": 3,
+    "totalEpisodes": 12,
+    "startDate": "2022-01-10",
+    "endDate": "2022-01-10",
+    "updatedAt": "2026-05-21T20:13:51+08:00"
+  },
+  {
     "title": "异世界悠闲农家 第二季",
     "status": "watching",
     "rating": 10,
@@ -19,27 +40,6 @@
     "startDate": "2026-04-06",
     "endDate": "2026-04-06",
     "updatedAt": "2026-05-20T01:32:01+08:00"
-  },
-  {
-    "title": "公主连结 Re:Dive 第二季",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
-    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
-    "episodes": "12 episodes",
-    "year": "2022",
-    "genre": [
-      "游戏改",
-      "CygamesPictures",
-      "2022年1月"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/312958",
-    "progress": 1,
-    "totalEpisodes": 12,
-    "startDate": "2022-01-10",
-    "endDate": "2022-01-10",
-    "updatedAt": "2026-05-20T01:31:48+08:00"
   },
   {
     "title": "公主连结 Re:Dive",
@@ -1096,7 +1096,7 @@
     "status": "planned",
     "rating": 0,
     "cover": "https://lain.bgm.tv/r/800/pic/cover/l/d0/61/220631_2nNMt.jpg",
-    "description": "異世界に転生した主人公の珍道中を描いた人気ライトノベルを原作に、テレビアニメが第2期まで放送されたファンタジーコメディ「この素晴らしい世界に祝福を！」の劇場版。交通事故によりあっけなく人生を終えたはずの引きこもり高校生・佐藤和馬（カズマ）は",
+    "description": "在异世界生活连返乡之旅都是大冒险……！？\r\n爱打电玩的茧居族‧佐藤和真原本应该因为交通意外（！？）草草结束人生，却出人意料地带着女神‧阿克娅转生到异世界。\r\n「在有如RPG游戏般的异世界，享受憧憬的冒险家生活！目标是成为勇者！」\r\n转生后的",
     "episodes": "1 episodes",
     "year": "2019",
     "genre": [
@@ -1522,7 +1522,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "战斗"
+      "奇幻"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/537904",
@@ -1962,8 +1962,8 @@
     "year": "Unknown",
     "genre": [
       "2026年7月",
-      "TV",
-      "2026"
+      "战斗",
+      "TV"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/590786",
@@ -1984,7 +1984,7 @@
     "genre": [
       "漫画改",
       "日本",
-      "TV"
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/572613",
@@ -3727,7 +3727,7 @@
     "genre": [
       "后宫",
       "恋爱",
-      "漫画改"
+      "2026"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/598058",
