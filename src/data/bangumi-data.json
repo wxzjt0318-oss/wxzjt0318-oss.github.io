@@ -1,24 +1,24 @@
 [
   {
-    "title": "公主连结 Re:Dive 第二季",
+    "title": "迦楠大人的白给是恶魔级",
     "status": "watching",
     "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
-    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
+    "description": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
     "episodes": "12 episodes",
-    "year": "2022",
+    "year": "2026",
     "genre": [
-      "游戏改",
-      "CygamesPictures",
-      "2022年1月"
+      "2026年4月",
+      "恋爱",
+      "漫画改"
     ],
     "studio": "Unknown",
-    "link": "https://bgm.tv/subject/312958",
-    "progress": 3,
+    "link": "https://bgm.tv/subject/552589",
+    "progress": 8,
     "totalEpisodes": 12,
-    "startDate": "2022-01-10",
-    "endDate": "2022-01-10",
-    "updatedAt": "2026-05-21T20:13:51+08:00"
+    "startDate": "2026-04-04",
+    "endDate": "2026-04-04",
+    "updatedAt": "2026-05-26T22:00:58+08:00"
   },
   {
     "title": "异世界悠闲农家 第二季",
@@ -35,11 +35,32 @@
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/575057",
-    "progress": 7,
+    "progress": 8,
     "totalEpisodes": 12,
     "startDate": "2026-04-06",
     "endDate": "2026-04-06",
-    "updatedAt": "2026-05-20T01:32:01+08:00"
+    "updatedAt": "2026-05-26T11:23:10+08:00"
+  },
+  {
+    "title": "公主连结 Re:Dive 第二季",
+    "status": "completed",
+    "rating": 10,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/36/67/312958_vbCCV.jpg",
+    "description": "怀着对编织好的情谊的思念，佑树他们的冒险再次开始。\r\n他们的相遇很突然。\r\n情投意合的他们组成了某个公会——名字是“美食殿堂”。\r\n以探索美食为目的的他们和伙伴们加深了友谊，吃着美味的饭菜，有时也会投身于危险的冒险中，过着忙碌而平静的生活。",
+    "episodes": "12 episodes",
+    "year": "2022",
+    "genre": [
+      "游戏改",
+      "CygamesPictures",
+      "2022年1月"
+    ],
+    "studio": "Unknown",
+    "link": "https://bgm.tv/subject/312958",
+    "progress": 12,
+    "totalEpisodes": 12,
+    "startDate": "2022-01-10",
+    "endDate": "2022-01-10",
+    "updatedAt": "2026-05-25T22:05:11+08:00"
   },
   {
     "title": "公主连结 Re:Dive",
@@ -145,27 +166,6 @@
     "startDate": "2026-04-07",
     "endDate": "2026-04-07",
     "updatedAt": "2026-05-14T20:30:42+08:00"
-  },
-  {
-    "title": "迦楠大人的白给是恶魔级",
-    "status": "watching",
-    "rating": 10,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ec/61/552589_CqLqQ.jpg",
-    "description": "吞噬人类灵魂的恶魔降临人间！\r\n美食恶魔「果南」为了享用年轻甜美的灵魂，来到人间的高中。她选定的第一个祭品，是普通男生「供犠羊司」。结果却莫名其妙地和供犠同学签下「情侣契约」！？活了数千年却没谈过恋爱的纯情恶魔果南，每天都被人类的恋爱事件逼",
-    "episodes": "12 episodes",
-    "year": "2026",
-    "genre": [
-      "2026年4月",
-      "恋爱",
-      "漫画改"
-    ],
-    "studio": "Unknown",
-    "link": "https://bgm.tv/subject/552589",
-    "progress": 6,
-    "totalEpisodes": 12,
-    "startDate": "2026-04-04",
-    "endDate": "2026-04-04",
-    "updatedAt": "2026-05-13T19:33:07+08:00"
   },
   {
     "title": "和班上第二可爱的女孩成为朋友",
@@ -1669,7 +1669,7 @@
     "genre": [
       "2026年4月",
       "漫画改",
-      "战斗"
+      "奇幻"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/515856",
@@ -1689,8 +1689,8 @@
     "year": "2026",
     "genre": [
       "2026年4月",
-      "轻小说改",
-      "TV"
+      "TV",
+      "轻小说改"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/567234",
@@ -1956,10 +1956,10 @@
     "title": "『你们先走我断后』，于是10年后我成为了传说",
     "status": "planned",
     "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/2c/93/590786_48D8M.jpg",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/2c/93/590786_66lw7.jpg",
     "description": "勇者パーティのSランク魔導士ラックは\r\n勇者エリック、戦士ゴランとともに次元の狭間で\r\n魔神王を倒すために激しい戦いを繰り広げていた。\r\n\r\n仲間の全滅を避けるため、\r\nラックはたった一人で敵と戦い続ける決意をし叫ぶ。\r\n「ここは俺に任せて",
     "episodes": "Unknown",
-    "year": "Unknown",
+    "year": "2026",
     "genre": [
       "2026年7月",
       "2026",
@@ -1969,8 +1969,8 @@
     "link": "https://bgm.tv/subject/590786",
     "progress": 0,
     "totalEpisodes": 0,
-    "startDate": "",
-    "endDate": "",
+    "startDate": "2026-07-06",
+    "endDate": "2026-07-06",
     "updatedAt": "2025-12-19T08:32:16+08:00"
   },
   {
@@ -1983,8 +1983,8 @@
     "year": "Unknown",
     "genre": [
       "漫画改",
-      "日本",
-      "2026"
+      "2026",
+      "日本"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/572613",
@@ -2045,9 +2045,9 @@
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
-      "异世界",
-      "小说改",
-      "2026"
+      "2026",
+      "龙傲天",
+      "异世界"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/579787",
