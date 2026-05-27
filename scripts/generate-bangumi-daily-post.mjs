@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -39,19 +40,34 @@ function getEnvNumber(name, defaultValue) {
 	return Number.isFinite(raw) && raw > 0 ? raw : defaultValue;
 }
 
-async function fetchJson(url, init) {
-	const response = await fetch(url, {
-		headers: {
-			"accept": "application/json",
-			"user-agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
-			...(init?.headers || {}),
-		},
-		...init,
-	});
-	if (!response.ok) {
-		throw new Error(`Request failed: ${response.status} ${response.statusText} (${url})`);
+async function fetchJson(url, init, retries = 3) {
+	for (let attempt = 0; attempt < retries; attempt++) {
+		try {
+			const response = await fetch(url, {
+				headers: {
+					"accept": "application/json",
+					"user-agent": "wxzjt0318-oss-bangumi-daily-posts/1.0",
+					...(init?.headers || {}),
+				},
+				...init,
+			});
+			if (response.status === 429) {
+				const waitMs = Math.min(2000 * Math.pow(2, attempt), 10000);
+				console.warn(`⚠ Rate limited (429) on ${url}, waiting ${waitMs}ms before retry...`);
+				await new Promise(r => setTimeout(r, waitMs));
+				continue;
+			}
+			if (!response.ok) {
+				throw new Error(`Request failed: ${response.status} ${response.statusText} (${url})`);
+			}
+			return await response.json();
+		} catch (error) {
+			if (attempt === retries - 1) throw error;
+			const waitMs = 1000 * (attempt + 1);
+			console.warn(`⚠ Request failed (attempt ${attempt + 1}/${retries}): ${error.message}, retrying in ${waitMs}ms...`);
+			await new Promise(r => setTimeout(r, waitMs));
+		}
 	}
-	return await response.json();
 }
 
 async function readExistingPosts() {
@@ -303,9 +319,16 @@ async function main() {
 	console.log("📝 Building Bangumi article markdown...");
 	const articleContent = buildAnimeArticleMarkdown(payload);
 
-	const safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
-	const outputFileName = `${safeAlias}.md`;
-	const outputPath = path.join(POSTS_DIR, outputFileName);
+	let safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
+	let outputFileName = `${safeAlias}.md`;
+	let outputPath = path.join(POSTS_DIR, outputFileName);
+
+	if (existsSync(outputPath)) {
+		safeAlias = `bangumi-${candidate.subject_id}`;
+		outputFileName = `${safeAlias}.md`;
+		outputPath = path.join(POSTS_DIR, outputFileName);
+	}
+
 	const relativeOutputPath = path.relative(ROOT_DIR, outputPath).split(path.sep).join("/");
 
 	await fs.writeFile(outputPath, articleContent, "utf8");

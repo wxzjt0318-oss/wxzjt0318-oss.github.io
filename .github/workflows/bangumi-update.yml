@@ -2,7 +2,7 @@ name: Update Bangumi Data
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 8 * * *'  # UTC 08:00 = 北京时间 16:00
   workflow_dispatch:
     inputs:
       skip_build:

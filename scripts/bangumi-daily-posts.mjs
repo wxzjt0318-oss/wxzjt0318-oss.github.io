@@ -226,7 +226,7 @@ export function slugifyTitle(value, fallback = "") {
 		.replace(/\s+/g, "-")
 		.replace(/-+/g, "-")
 		.replace(/^-|-$/g, "");
-	if (normalized) {
+	if (normalized && normalized.length >= 5) {
 		return normalized.slice(0, 80);
 	}
 	return fallback || "bangumi-subject";
@@ -324,7 +324,7 @@ export function selectNextAnimeCandidate({ collections, generatedState, existing
 
 	const generatedIds = new Set(ensureArray(generatedState?.generated).map((entry) => Number(entry.subjectId)));
 	const existing = buildExistingPostIndex(existingPosts || []);
-	const recentWindow = Math.min(items.length, Math.max(maxPerRun * 10, 20));
+	const recentWindow = Math.min(items.length, Math.max(maxPerRun * 50, 100));
 	const recentItems = items.slice(0, recentWindow);
 	const shuffled = [...recentItems];
 	for (let i = shuffled.length - 1; i > 0; i--) {
@@ -366,6 +366,7 @@ export function chooseBestCoverImage(candidates, context = {}) {
 		let score = 0;
 		if (candidate.source === "bangumi-large") score = 100;
 		else if (candidate.source === "bangumi-common") score = 80;
+		else if (candidate.source === "bangumi-medium") score = 60;
 		unique.push({ ...candidate, score });
 	}
 	unique.sort((a, b) => b.score - a.score);

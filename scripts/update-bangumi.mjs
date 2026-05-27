@@ -159,7 +159,7 @@ function cleanStudioName(raw, key) {
 async function fetchCollection(userId, type) {
 	let allData = [];
 	let offset = 0;
-	const limit = 50;
+	const limit = 100;
 	let hasMore = true;
 
 	console.log(`Fetching type: ${type}...`);
