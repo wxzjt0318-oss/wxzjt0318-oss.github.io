@@ -8,7 +8,7 @@
   --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-easing-out: cubic-bezier(0.55, 0.055, 0.675, 0.19);
   --transition-translate: 1.5rem;
-  --transition-stagger: 35ms;
+  --transition-stagger: 20ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
