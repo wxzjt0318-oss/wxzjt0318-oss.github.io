@@ -55,7 +55,7 @@ describe("bangumi daily post helpers", () => {
 		const selected = selectNextAnimeCandidate({ collections, generatedState, existingPosts, maxPerRun: 1 });
 		expect(selected).toHaveLength(1);
 		expect(selected[0].subject_id).toBeGreaterThanOrEqual(1);
-		expect(selected[0].subject_id).toBeLessThanOrEqual(20);
+		expect(selected[0].subject_id).toBeLessThanOrEqual(30);
 	});
 
 	it("builds pure bangumi markdown article without moegirl sections", () => {
@@ -85,9 +85,9 @@ describe("bangumi daily post helpers", () => {
 
 		expect(markdown).toContain("title: \"《测试动画》\"");
 		expect(markdown).toContain("draft: true");
-		expect(markdown).toContain("## 作品信息");
-		expect(markdown).toContain("## 剧情概述");
-		expect(markdown).toContain("## 主要角色介绍");
+		expect(markdown).toContain("## 二、基础信息");
+		expect(markdown).toContain("## 三、剧情简介");
+		expect(markdown).toContain("## 主要角色");
 		expect(markdown).not.toContain("## 萌娘百科资料");
 	});
 
@@ -130,6 +130,80 @@ describe("bangumi daily post helpers", () => {
 			characters: [],
 		});
 
-		expect(markdown).toContain("目前公开资料主要集中在作品定位与基础设定层面");
+		expect(markdown).toContain("《无摘要动画》");
+		expect(markdown).toContain("## 一、作品概述");
+		expect(markdown).toContain("## 五、综合评价");
+	});
+
+	it("prioritizes watching (type 3) over completed (type 2) and planned (type 1)", () => {
+		const collections = [
+			{
+				subject_id: 201,
+				type: 2,
+				updated_at: "2026-04-10T10:00:00Z",
+				subject: { name_cn: "看过动画 A", name: "Watched Anime A" },
+			},
+			{
+				subject_id: 202,
+				type: 1,
+				updated_at: "2026-04-11T10:00:00Z",
+				subject: { name_cn: "想看动画 B", name: "Planned Anime B" },
+			},
+			{
+				subject_id: 203,
+				type: 3,
+				updated_at: "2026-04-09T10:00:00Z",
+				subject: { name_cn: "在看动画 C", name: "Watching Anime C" },
+			},
+			{
+				subject_id: 204,
+				type: 4,
+				updated_at: "2026-04-12T10:00:00Z",
+				subject: { name_cn: "搁置动画 D", name: "On Hold Anime D" },
+			},
+			{
+				subject_id: 205,
+				type: 5,
+				updated_at: "2026-04-13T10:00:00Z",
+				subject: { name_cn: "抛弃动画 E", name: "Dropped Anime E" },
+			},
+		];
+		const generatedState = { generated: [] };
+		const existingPosts = [];
+
+		const selected = selectNextAnimeCandidate({ collections, generatedState, existingPosts, maxPerRun: 1 });
+		expect(selected).toHaveLength(1);
+		expect(selected[0].type).toBe(3);
+		expect(selected[0].subject_id).toBe(203);
+	});
+
+	it("falls back to completed when no watching candidates available", () => {
+		const collections = [
+			{
+				subject_id: 301,
+				type: 1,
+				updated_at: "2026-04-11T10:00:00Z",
+				subject: { name_cn: "想看动画 F", name: "Planned Anime F" },
+			},
+			{
+				subject_id: 302,
+				type: 2,
+				updated_at: "2026-04-10T10:00:00Z",
+				subject: { name_cn: "看过动画 G", name: "Watched Anime G" },
+			},
+			{
+				subject_id: 303,
+				type: 4,
+				updated_at: "2026-04-12T10:00:00Z",
+				subject: { name_cn: "搁置动画 H", name: "On Hold Anime H" },
+			},
+		];
+		const generatedState = { generated: [] };
+		const existingPosts = [];
+
+		const selected = selectNextAnimeCandidate({ collections, generatedState, existingPosts, maxPerRun: 1 });
+		expect(selected).toHaveLength(1);
+		expect(selected[0].type).toBe(2);
+		expect(selected[0].subject_id).toBe(302);
 	});
 });
