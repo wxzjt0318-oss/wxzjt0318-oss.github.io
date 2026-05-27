@@ -61,7 +61,12 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchSubjectDetail(subjectId) {
 	try {
-		const response = await fetch(`${API_BASE}/v0/subjects/${subjectId}`);
+		const response = await fetch(`${API_BASE}/v0/subjects/${subjectId}`, {
+			headers: {
+				accept: "application/json",
+				"user-agent": "wxzjt0318-oss-update-bangumi/1.0",
+			},
+		});
 		if (!response.ok) return null;
 		return await response.json();
 	} catch (error) {
@@ -78,15 +83,77 @@ function getStudioFromInfobox(infobox) {
 		const item = infobox.find((i) => i.key === key);
 		if (item) {
 			if (typeof item.value === "string") {
-				return item.value;
+				return cleanStudioName(item.value, key);
 			}
 			if (Array.isArray(item.value)) {
 				const validItem = item.value.find((v) => v.v);
-				if (validItem) return validItem.v;
+				if (validItem) return cleanStudioName(validItem.v, key);
 			}
 		}
 	}
 	return "Unknown";
+}
+
+const KNOWN_STUDIOS = new Set([
+	"a-1 pictures", "a-1pictures", "bones", "kyoto animation", "kyotoanimation",
+	"madhouse", "shaft", "ufotable", "trigger", "cloverworks", "clover works",
+	"lidenfilms", "liden films", "p.a. works", "pa works", "passione",
+	"white fox", "silver link", "silverlink", "diomedéa", "diomedea",
+	"typhoon graphics", "connect", "tezuka productions", "toei animation",
+	"tms entertainment", "sunrise", "production ig", "production.ig",
+	"j.c.staff", "jc staff", "feel.", "feel", "studio 3hz", "3hz",
+	"studio bind", "mappa", "studio kafka", "kafka", "studio kai", "studiokai",
+	"studio colorido", "colorido", "studio pierrot", "pierrot",
+	"studio deen", "deen", "asread", "tnk", "satelight", "brains base",
+	"brainsbase", "production ims", "lerche", "studio gokumi", "gokumi",
+	"studio mili", "encourage films", "project no.9", "project no.6",
+	"studio elle", "seven", "seven arcs", "arvo animation", "cloud hearts",
+	"yokohama animation laboratory", "na", "signal.md", "liberation",
+	"c2c", "studio polon", "bazooka studios", "studio massket",
+	"hornet", "rabbit gate", "quad", "studio ling", "studio hōkiboshi",
+]);
+
+function getStudioFromTags(tags) {
+	if (!Array.isArray(tags)) return "Unknown";
+	for (const tag of tags) {
+		const name = (typeof tag === "string" ? tag : tag?.name || "").trim();
+		if (!name) continue;
+		const norm = name.toLowerCase().replace(/[\s\-_.]/g, "");
+		if (KNOWN_STUDIOS.has(norm)) return name;
+		for (const studio of KNOWN_STUDIOS) {
+			if (norm.includes(studio.replace(/[\s\-_.]/g, ""))) return name;
+		}
+	}
+	return "Unknown";
+}
+
+function cleanStudioName(raw, key) {
+	if (!raw || typeof raw !== "string") return raw;
+	if (key === "动画制作") return raw;
+	if (raw.length <= 40) return raw;
+	const PERSON_RE = /^[\u3040-\u309f\u30a0-\u30ff]{1,3}[\u4e00-\u9fff]{1,4}$/;
+	const inSquare = raw.match(/[【\[]([^】\]]+)[】\]]/);
+	if (inSquare) {
+		const parts = inSquare[1].split(/[、,，]/);
+		for (const p of parts) {
+			const cleaned = p.replace(/[（(][^）)]*[）)]/g, "").trim();
+			if (cleaned.length > 1 && !PERSON_RE.test(cleaned)) return cleaned;
+		}
+	}
+	const inParens = raw.match(/[（(]([^）)]+)[）)]/);
+	if (inParens) {
+		const parts = inParens[1].split(/[、,，]/);
+		for (const p of parts) {
+			const trimmed = p.trim();
+			if (trimmed.length > 1 && !PERSON_RE.test(trimmed)) return trimmed;
+		}
+	}
+	const before = raw.split(/製作委員会|制作委员会|製作委員/)[0];
+	if (before && before !== raw) {
+		const cleaned = before.replace(/[「」『』【】\[\]]/g, "").trim();
+		if (cleaned.length > 1) return cleaned;
+	}
+	return raw.length > 60 ? raw.slice(0, 57) + "..." : raw;
 }
 
 async function fetchCollection(userId, type) {
@@ -164,7 +231,11 @@ async function processData(items, status) {
 		const totalEpisodes = item.subject?.eps || progress;
 
 		const studio = subjectDetail
-			? getStudioFromInfobox(subjectDetail.infobox)
+			? (() => {
+					const fromInfobox = getStudioFromInfobox(subjectDetail.infobox);
+					if (fromInfobox !== "Unknown") return fromInfobox;
+					return getStudioFromTags(subjectDetail.tags || item.subject?.tags || []);
+				})()
 			: "Unknown";
 
 		const description = (
