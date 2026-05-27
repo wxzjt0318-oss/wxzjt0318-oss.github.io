@@ -1,85 +1,88 @@
 {
-  "generatedAt": "2026-05-27T11:22:53.615Z",
+  "generatedAt": "2026-05-27T11:34:18.363Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-19T08:31:16+08:00",
+    "updated_at": "2025-12-19T08:36:40+08:00",
     "comment": null,
     "tags": [
-      "龙傲天"
+      "漫画改",
+      "恋爱",
+      "后宫",
+      "2026"
     ],
     "subject": {
-      "date": null,
+      "date": "2026-04-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/e4/57/579787_9UZ4h.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/e4/57/579787_9UZ4h.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/e4/57/579787_9UZ4h.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e4/57/579787_9UZ4h.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/e4/57/579787_9UZ4h.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/97/ba/533027_I1FHy.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/97/ba/533027_I1FHy.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/97/ba/533027_I1FHy.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/97/ba/533027_I1FHy.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/97/ba/533027_I1FHy.jpg"
       },
-      "name": "LV999の村人",
-      "name_cn": "LV999的村民",
-      "short_summary": "剣と魔法の世界、アースクリア。\r\nこの世界で人々はレベルと生まれながらの役割を持つ。\r\n\r\n戦士、武闘家、僧侶、魔法使い、盗賊、商人、狩人、呪術師、王、賢者、勇者。\r\nそして最もその人口が多く、力無き、最弱の役割……「村人」。\r\n\r\nある日",
+      "name": "彼女、お借りします 第5期",
+      "name_cn": "租借女友 第五季",
+      "short_summary": "水原千鶴のことを家族にも友人にも“本当”の彼女だと紹介してしまった、ダメダメ大学生・木ノ下和也。嘘だと言い出せないまま“偽り”の関係を続ける和也は、さまざまなイベントを一緒に乗り越えるなかで、次第に千鶴への“本物”の想いを募らせていく。映画",
       "tags": [
         {
-          "name": "龙傲天",
-          "count": 4,
+          "name": "恋爱",
+          "count": 102,
           "total_cont": 0
         },
         {
-          "name": "异世界",
-          "count": 4,
+          "name": "2026年4月",
+          "count": 96,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 4,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 4,
-          "total_cont": 0
-        },
-        {
-          "name": "轻改",
-          "count": 3,
-          "total_cont": 0
-        },
-        {
-          "name": "東山奈央",
-          "count": 3,
+          "name": "漫画改",
+          "count": 96,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 3,
+          "count": 75,
           "total_cont": 0
         },
         {
-          "name": "葛西良信",
-          "count": 3,
+          "name": "后宫",
+          "count": 68,
           "total_cont": 0
         },
         {
-          "name": "TVA",
-          "count": 2,
+          "name": "2026",
+          "count": 65,
           "total_cont": 0
         },
         {
-          "name": "Brain’sBase",
-          "count": 2,
+          "name": "日本",
+          "count": 41,
+          "total_cont": 0
+        },
+        {
+          "name": "TMS",
+          "count": 38,
+          "total_cont": 0
+        },
+        {
+          "name": "党争",
+          "count": 36,
+          "total_cont": 0
+        },
+        {
+          "name": "续作",
+          "count": 31,
           "total_cont": 0
         }
       ],
-      "score": 8.5,
+      "score": 3.5,
       "type": 2,
-      "id": 579787,
-      "eps": 0,
+      "id": 533027,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 75,
-      "rank": 0
+      "collection_total": 1583,
+      "rank": 9999
     },
-    "subject_id": 579787,
+    "subject_id": 533027,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -89,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/e4/57/579787_9UZ4h.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/97/ba/533027_I1FHy.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "LV999的村民",
+      "title": "租借女友 第五季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e4/57/579787_9UZ4h.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/97/ba/533027_I1FHy.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "LV999的村民",
+      "title": "租借女友 第五季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e4/57/579787_9UZ4h.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/97/ba/533027_I1FHy.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "LV999的村民",
+      "title": "租借女友 第五季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/lv999.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-533027.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
