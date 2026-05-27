@@ -2,7 +2,7 @@
 title: "《公主连结！Re：Dive 第二季》"
 description: "失忆的骑士佑树与美食殿堂的伙伴们继续在兰德索尔的冒险。第二季延续了游戏改编的欢乐日常与热血战斗，揭开了更多关于这个奇幻世界的秘密。"
 tags: ["游戏改", "奇幻", "2022年1月", "TV", "冒险", "第二季"]
-category: "游戏改编动画作品介绍"
+category: "美食殿堂的兰德索尔决战"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/351737"
@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-05-05
 published: 2026-05-05
 pinned: false
-alias: "公主连结！Re：Dive 第二季"
+alias: "princess-connect-redive-s2"
 image: "https://lain.bgm.tv/pic/cover/l/24/6e/351737_Gc9sF.jpg"
 ---
 

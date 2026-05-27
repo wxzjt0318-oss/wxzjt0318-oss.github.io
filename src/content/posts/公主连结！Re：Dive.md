@@ -2,7 +2,7 @@
 title: "《公主连结！Re：Dive》"
 description: "失忆的少年佑树在奇幻世界兰德索尔醒来，与猫耳兽人可可萝、美食研究会会长佩可莉姆、中二病少女凯露等人组成了美食殿堂。一部改编自人气手游的欢乐冒险动画。"
 tags: ["游戏改", "奇幻", "2020年4月", "TV", "冒险", "喜剧"]
-category: "游戏改编动画作品介绍"
+category: "美食殿堂的奇幻冒险谭"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/277032"
@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-05-01
 published: 2026-05-01
 pinned: false
-alias: "公主连结！Re：Dive"
+alias: "princess-connect-redive"
 image: "https://lain.bgm.tv/pic/cover/l/fe/4c/277032_kd9xr.jpg"
 ---
 
