@@ -7,6 +7,64 @@ const ROOT_DIR = path.resolve(__dirname, "..");
 const CACHE_FILE = path.join(ROOT_DIR, ".cache", "bangumi", "anime.json");
 const OUTPUT_FILE = path.join(ROOT_DIR, "src", "data", "bangumi-data.json");
 
+const BANGUMI_API_BASE = "https://api.bgm.tv/v0";
+const MAX_CONCURRENT = 5;
+const REQUEST_DELAY_MS = 200;
+
+async function fetchJson(url) {
+	const response = await fetch(url, {
+		headers: {
+			accept: "application/json",
+			"user-agent": "wxzjt0318-oss-sync-bangumi-cache/1.0",
+		},
+	});
+	if (!response.ok) {
+		throw new Error(`HTTP ${response.status} ${response.statusText} (${url})`);
+	}
+	return response.json();
+}
+
+async function fetchSubjectDetail(subjectId) {
+	try {
+		return await fetchJson(`${BANGUMI_API_BASE}/subjects/${subjectId}`);
+	} catch (error) {
+		console.warn(`⚠ Failed to fetch detail for subject ${subjectId}: ${error.message}`);
+		return null;
+	}
+}
+
+async function fetchAllSubjectDetails(subjectIds) {
+	const detailMap = new Map();
+	const queue = [...subjectIds];
+	let running = 0;
+
+	await new Promise((resolve) => {
+		function runNext() {
+			if (queue.length === 0 && running === 0) {
+				resolve();
+				return;
+			}
+			while (running < MAX_CONCURRENT && queue.length > 0) {
+				const id = queue.shift();
+				running++;
+				setTimeout(() => {
+					fetchSubjectDetail(id).then((detail) => {
+						if (detail) {
+							detailMap.set(id, detail);
+						}
+					}).finally(() => {
+						running--;
+						runNext();
+					});
+				}, REQUEST_DELAY_MS);
+			}
+		}
+		runNext();
+	});
+
+	return detailMap;
+}
+
 function getStudioFromInfobox(infobox) {
 	if (!Array.isArray(infobox)) return "Unknown";
 
@@ -53,9 +111,9 @@ function normalizeArray(input) {
 	return [];
 }
 
-function transformItem(item) {
+function transformItem(item, detailFromApi) {
 	const subject = item?.subject || {};
-	const detail = item?.subjectDetail || {};
+	const detail = detailFromApi || item?.subjectDetail || {};
 	const subjectId = subject.id || item?.subject_id || 0;
 	const ratingValue = item?.rate ?? subject.score ?? 0;
 	const progress = Number(item?.ep_status || 0);
@@ -88,7 +146,19 @@ function transformItem(item) {
 async function main() {
 	const raw = JSON.parse(await fs.readFile(CACHE_FILE, "utf8"));
 	const items = normalizeArray(raw);
-	const result = items.map(transformItem);
+
+	const subjectIds = items
+		.map((item) => Number(item?.subject?.id || item?.subject_id || 0))
+		.filter((id) => id > 0);
+
+	console.log(`📡 Fetching subject details for ${subjectIds.length} items...`);
+	const detailMap = await fetchAllSubjectDetails(subjectIds);
+	console.log(`✅ Fetched details for ${detailMap.size}/${subjectIds.length} items`);
+
+	const result = items.map((item) => {
+		const subjectId = Number(item?.subject?.id || item?.subject_id || 0);
+		return transformItem(item, detailMap.get(subjectId) || null);
+	});
 	const statusStats = result.reduce(
 		(stats, item) => {
 			stats[item.status] = (stats[item.status] || 0) + 1;
