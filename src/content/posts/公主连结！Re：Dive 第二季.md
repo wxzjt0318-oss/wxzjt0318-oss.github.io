@@ -11,7 +11,7 @@ pubDate: 2026-05-05
 published: 2026-05-05
 pinned: false
 alias: "princess-connect-redive-s2"
-image: "https://lain.bgm.tv/pic/cover/l/35/3e/351737_ui1vQ.jpg"
+image: "https://lain.bgm.tv/pic/cover/l/36/67/312958_vbCCV.jpg"
 ---
 
 > 在兰德索尔的天空下，少年与少女们的冒险仍在继续——这一次，他们将面对更强大的敌人和更深刻的羁绊。
