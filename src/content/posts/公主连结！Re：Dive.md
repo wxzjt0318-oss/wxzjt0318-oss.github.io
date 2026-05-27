@@ -11,7 +11,7 @@ pubDate: 2026-05-01
 published: 2026-05-01
 pinned: false
 alias: "princess-connect-redive"
-image: "https://lain.bgm.tv/pic/cover/l/fe/4c/277032_kd9xr.jpg"
+image: "https://lain.bgm.tv/pic/cover/l/0c/ec/277032_15Yc2.jpg"
 ---
 
 > 在兰德索尔的奇幻世界中，一位失忆的少年与少女们相遇——美食与冒险的故事就此展开。
@@ -28,7 +28,7 @@ image: "https://lain.bgm.tv/pic/cover/l/fe/4c/277032_kd9xr.jpg"
 
 本作以精美的画面、丰富的角色群像和轻松愉快的基调著称。动画版在还原游戏世界观的同时，加入了大量原创的日常场景，让观众能够更深入地了解每个角色的个性与魅力。
 
-![公主连结！Re:Dive封面](https://lain.bgm.tv/pic/cover/l/fe/4c/277032_kd9xr.jpg)
+![公主连结！Re:Dive封面](https://lain.bgm.tv/pic/cover/l/0c/ec/277032_15Yc2.jpg)
 
 ## 基础信息
 

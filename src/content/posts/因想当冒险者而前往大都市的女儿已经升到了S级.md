@@ -2,7 +2,7 @@
 title: "《因想当冒险者而前往大都市的女儿已经升到了S级》"
 description: "退役冒险者贝尔格里夫的女儿尤莉娅为了成为冒险者而前往大都市。在父亲的担忧与支持下，她凭借卓越的才能一路晋升至S级。一部描绘父女羁绊与冒险成长的温馨作品。"
 tags: ["奇幻", "冒险", "2023年7月", "治愈", "轻小说改", "亲情"]
-category: "治愈系冒险作品介绍"
+category: "S级女儿与老父亲的异乡思念"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/415erta"
@@ -10,8 +10,8 @@ draft: false
 pubDate: 2026-05-10
 published: 2026-05-10
 pinned: false
-alias: "因想当冒险者而前往大都市的女儿已经升到了S级"
-image: "https://lain.bgm.tv/pic/cover/l/6b/3d/415036_LJFIB.jpg"
+alias: "s-rank-daughter"
+image: "https://lain.bgm.tv/pic/cover/l/3c/6c/415036_1hGgG.jpg"
 ---
 
 > 父亲的背影是女儿前进的方向，而女儿的成长是父亲最大的骄傲。

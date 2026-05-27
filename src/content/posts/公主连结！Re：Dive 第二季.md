@@ -11,7 +11,7 @@ pubDate: 2026-05-05
 published: 2026-05-05
 pinned: false
 alias: "princess-connect-redive-s2"
-image: "https://lain.bgm.tv/pic/cover/l/24/6e/351737_Gc9sF.jpg"
+image: "https://lain.bgm.tv/pic/cover/l/35/3e/351737_ui1vQ.jpg"
 ---
 
 > 在兰德索尔的天空下，少年与少女们的冒险仍在继续——这一次，他们将面对更强大的敌人和更深刻的羁绊。
@@ -28,7 +28,7 @@ image: "https://lain.bgm.tv/pic/cover/l/24/6e/351737_Gc9sF.jpg"
 
 本作以精美的画面、丰富的角色群像和轻松愉快的基调著称，是游戏改编动画中的佳作。第二季在制作质量上更上一层楼，战斗场景的演出尤为精彩。
 
-![公主连结！Re:Dive 第二季封面](https://lain.bgm.tv/pic/cover/l/24/6e/351737_Gc9sF.jpg)
+![公主连结！Re:Dive 第二季封面](https://lain.bgm.tv/pic/cover/l/35/3e/351737_ui1vQ.jpg)
 
 ## 基础信息
 
