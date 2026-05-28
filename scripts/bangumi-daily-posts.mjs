@@ -225,8 +225,7 @@ export function slugifyTitle(value, fallback = "") {
 		.replace(/[^a-z0-9\s-]/g, " ")
 		.replace(/\s+/g, "-")
 		.replace(/-+/g, "-")
-Test Files  1 passed (1)
-Tests  8 passed (8)		.replace(/^-|-$/g, "");
+		.replace(/^-|-$/g, "");
 	if (normalized && normalized.length >= 5) {
 		return normalized.slice(0, 80);
 	}
