@@ -1,121 +1,122 @@
 {
-  "generatedAt": "2026-05-27T11:34:18.363Z",
+  "generatedAt": "2026-05-28T13:57:33.577Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-19T08:36:40+08:00",
+    "updated_at": "2026-05-26T11:23:10+08:00",
     "comment": null,
     "tags": [
-      "漫画改",
-      "恋爱",
+      "2026年4月",
+      "TV",
       "后宫",
-      "2026"
+      "异世界",
+      "日常"
     ],
     "subject": {
-      "date": "2026-04-10",
+      "date": "2026-04-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/97/ba/533027_I1FHy.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/97/ba/533027_I1FHy.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/97/ba/533027_I1FHy.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/97/ba/533027_I1FHy.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/97/ba/533027_I1FHy.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cd/71/575057_BCS8O.jpg"
       },
-      "name": "彼女、お借りします 第5期",
-      "name_cn": "租借女友 第五季",
-      "short_summary": "水原千鶴のことを家族にも友人にも“本当”の彼女だと紹介してしまった、ダメダメ大学生・木ノ下和也。嘘だと言い出せないまま“偽り”の関係を続ける和也は、さまざまなイベントを一緒に乗り越えるなかで、次第に千鶴への“本物”の想いを募らせていく。映画",
+      "name": "異世界のんびり農家２",
+      "name_cn": "异世界悠闲农家 第二季",
+      "short_summary": "过去，抱着体弱多病的身体孤独地活过一生的青年・火乐，因为神的恩宠转生来到异世界。\r\n他在森林深处打造的小小农场，随着吸血鬼、精灵、兽人、天使族…等各式各样的同伴聚集前来，如今已经成长为被称为「大树村」的热闹聚落。\r\n耕作田地、饲养家畜，和同",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 102,
-          "total_cont": 0
-        },
-        {
           "name": "2026年4月",
-          "count": 96,
+          "count": 279,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 96,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 75,
+          "name": "异世界",
+          "count": 215,
           "total_cont": 0
         },
         {
           "name": "后宫",
-          "count": 68,
+          "count": 210,
+          "total_cont": 0
+        },
+        {
+          "name": "日常",
+          "count": 158,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
+          "count": 143,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 128,
+          "total_cont": 0
+        },
+        {
+          "name": "种田",
+          "count": 101,
+          "total_cont": 0
+        },
+        {
+          "name": "ZERO-G",
+          "count": 81,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 65,
+          "count": 80,
           "total_cont": 0
         },
         {
-          "name": "日本",
-          "count": 41,
-          "total_cont": 0
-        },
-        {
-          "name": "TMS",
-          "count": 38,
-          "total_cont": 0
-        },
-        {
-          "name": "党争",
-          "count": 36,
-          "total_cont": 0
-        },
-        {
-          "name": "续作",
-          "count": 31,
+          "name": "小说改",
+          "count": 66,
           "total_cont": 0
         }
       ],
-      "score": 3.5,
+      "score": 6.6,
       "type": 2,
-      "id": 533027,
+      "id": 575057,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 1583,
-      "rank": 9999
+      "collection_total": 3621,
+      "rank": 4337
     },
-    "subject_id": 533027,
+    "subject_id": 575057,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 8,
     "subject_type": 2,
-    "type": 1,
-    "rate": 0,
+    "type": 3,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/97/ba/533027_I1FHy.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "租借女友 第五季",
+      "title": "异世界悠闲农家 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/97/ba/533027_I1FHy.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cd/71/575057_BCS8O.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "租借女友 第五季",
+      "title": "异世界悠闲农家 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/97/ba/533027_I1FHy.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cd/71/575057_BCS8O.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "租借女友 第五季",
+      "title": "异世界悠闲农家 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-533027.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-575057.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
