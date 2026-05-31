@@ -338,7 +338,7 @@ async function main() {
 		subjectId: candidate.subject_id,
 		title: payload.title,
 		filePath: relativeOutputPath,
-		alias: payload.alias,
+		alias: safeAlias,
 		sourceLink: payload.sourceLink,
 		published: payload.published,
 		image: payload.image,
