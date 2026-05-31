@@ -295,6 +295,7 @@ export function pickInfoboxValue(subjectDetail, keys) {
 export function buildExistingPostIndex(posts) {
 	const subjectIds = new Set();
 	const titles = new Set();
+	const normalizedTitles = new Map();
 
 	for (const post of posts) {
 		const subjectIdMatch = String(post.sourceLink || "").match(/\/subject\/(\d+)/);
@@ -302,11 +303,94 @@ export function buildExistingPostIndex(posts) {
 			subjectIds.add(Number(subjectIdMatch[1]));
 		}
 		if (post.title) {
-			titles.add(normalizeText(post.title));
+			const normalized = normalizeText(post.title);
+			titles.add(normalized);
+			if (!normalizedTitles.has(normalized)) {
+				normalizedTitles.set(normalized, []);
+			}
+			normalizedTitles.get(normalized).push(post.title);
 		}
 	}
 
-	return { subjectIds, titles };
+	return { subjectIds, titles, normalizedTitles };
+}
+
+export function detectDuplicatePosts(existingPosts, newTitle, options = {}) {
+	const {
+		threshold = 0.8,
+		includeFilePath = false,
+	} = options;
+
+	if (!newTitle || !existingPosts || existingPosts.length === 0) {
+		return { hasDuplicate: false, duplicates: [], message: null };
+	}
+
+	const normalizedNewTitle = normalizeText(newTitle);
+	const duplicates = [];
+
+	for (const post of existingPosts) {
+		if (!post.title) continue;
+
+		const normalizedPostTitle = normalizeText(post.title);
+
+		if (normalizedNewTitle === normalizedPostTitle) {
+			duplicates.push({
+				type: "exact",
+				existingTitle: post.title,
+				newTitle,
+				filePath: includeFilePath ? post.filePath : null,
+				reason: "标题完全匹配（忽略标点符号和大小写）",
+			});
+			continue;
+		}
+
+		const similarity = calculateSimilarity(normalizedNewTitle, normalizedPostTitle);
+		if (similarity >= threshold) {
+			duplicates.push({
+				type: "similar",
+				existingTitle: post.title,
+				newTitle,
+				similarity: Math.round(similarity * 100) / 100,
+				filePath: includeFilePath ? post.filePath : null,
+				reason: `相似度 ${Math.round(similarity * 100)}% 超过阈值 ${Math.round(threshold * 100)}%`,
+			});
+		}
+	}
+
+	const message = duplicates.length > 0
+		? `⚠️ 检测到 ${duplicates.length} 个重复文章:\n${
+			duplicates.map((d, i) =>
+				`  [${i + 1}] ${d.type === "exact" ? "完全匹配" : "相似"}: "${d.existingTitle}" vs "${d.newTitle}" (${d.reason})`
+			).join("\n")
+		}`
+		: null;
+
+	return {
+		hasDuplicate: duplicates.length > 0,
+		duplicates,
+		message,
+		detectedAt: new Date().toISOString(),
+	};
+}
+
+function calculateSimilarity(str1, str2) {
+	if (str1 === str2) return 1;
+	if (!str1.length || !str2.length) return 0;
+
+	const chars1 = str1.split("");
+	const chars2 = str2.split("");
+
+	let matches = 0;
+	for (const char of chars1) {
+		const idx = chars2.indexOf(char);
+		if (idx !== -1) {
+			matches++;
+			chars2.splice(idx, 1);
+		}
+	}
+
+	const maxLength = Math.max(str1.length, str2.length);
+	return matches / maxLength;
 }
 
 const COLLECTION_TYPE_PRIORITY = {

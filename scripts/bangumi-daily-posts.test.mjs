@@ -4,6 +4,7 @@ import {
 	buildAnimeArticleMarkdown,
 	chooseBestCoverImage,
 	createStateRecord,
+	detectDuplicatePosts,
 	normalizeText,
 	selectNextAnimeCandidate,
 	slugifyTitle,
@@ -205,5 +206,48 @@ describe("bangumi daily post helpers", () => {
 		expect(selected).toHaveLength(1);
 		expect(selected[0].type).toBe(2);
 		expect(selected[0].subject_id).toBe(302);
+	});
+});
+
+describe("detectDuplicatePosts", () => {
+	it("returns no duplicate for empty inputs", () => {
+		const result = detectDuplicatePosts([], "新标题");
+		expect(result.hasDuplicate).toBe(false);
+		expect(result.duplicates).toHaveLength(0);
+	});
+
+	it("detects exact title match", () => {
+		const existingPosts = [{ title: "《和班上第二可爱的女孩子成了朋友》", sourceLink: "https://bgm.tv/subject/456079" }];
+		const result = detectDuplicatePosts(existingPosts, "《和班上第二可爱的女孩子成了朋友》");
+		expect(result.hasDuplicate).toBe(true);
+		expect(result.duplicates).toHaveLength(1);
+		expect(result.duplicates[0].type).toBe("exact");
+	});
+
+	it("ignores punctuation differences in title matching", () => {
+		const existingPosts = [{ title: "《和班上第二可爱的女孩子成了朋友》", sourceLink: "https://bgm.tv/subject/456079" }];
+		const result = detectDuplicatePosts(existingPosts, "和班上第二可爱的女孩子成了朋友");
+		expect(result.hasDuplicate).toBe(true);
+		expect(result.duplicates[0].type).toBe("exact");
+	});
+
+	it("detects similar titles above threshold", () => {
+		const existingPosts = [{ title: "《在异世界获得超强能力的我》", sourceLink: "https://bgm.tv/subject/1" }];
+		const result = detectDuplicatePosts(existingPosts, "《在异世界获得超强能力的我，在现实世界照样无敌》", { threshold: 0.5 });
+		expect(result.hasDuplicate).toBe(true);
+		expect(result.duplicates[0].type).toBe("similar");
+	});
+
+	it("does not detect duplicates below threshold", () => {
+		const existingPosts = [{ title: "《某科学的超电磁炮》", sourceLink: "https://bgm.tv/subject/1" }];
+		const result = detectDuplicatePosts(existingPosts, "《Re:从零开始的异世界生活》", { threshold: 0.8 });
+		expect(result.hasDuplicate).toBe(false);
+	});
+
+	it("includes filePath when includeFilePath is true", () => {
+		const existingPosts = [{ title: "《测试文章》", filePath: "src/content/posts/test.md", sourceLink: "https://bgm.tv/subject/1" }];
+		const result = detectDuplicatePosts(existingPosts, "《测试文章》", { includeFilePath: true });
+		expect(result.hasDuplicate).toBe(true);
+		expect(result.duplicates[0].filePath).toBe("src/content/posts/test.md");
 	});
 });
