@@ -483,6 +483,17 @@
       "published": "2026-05-20",
       "status": "published",
       "generatedAt": "2026-05-20T10:46:53.412Z"
+    },
+    {
+      "subjectId": 531724,
+      "title": "《贵族转生 ～得天眷顾一出生就获得最强力量～》",
+      "filePath": "src/content/posts/bangumi-531724.md",
+      "alias": "bangumi-531724",
+      "sourceLink": "https://bgm.tv/subject/531724",
+      "image": "https://lain.bgm.tv/pic/cover/l/08/c8/531724_U8Ti8.jpg",
+      "published": "2026-05-31",
+      "status": "published",
+      "generatedAt": "2026-05-31T10:11:52.237Z"
     }
   ]
 }
