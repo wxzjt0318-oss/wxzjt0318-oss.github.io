@@ -4,10 +4,15 @@ import {
 	buildAnimeArticleMarkdown,
 	chooseBestCoverImage,
 	createStateRecord,
+	detectContentDuplication,
 	detectDuplicatePosts,
 	normalizeText,
 	selectNextAnimeCandidate,
 	slugifyTitle,
+	tokenize,
+	calculateJaccard,
+	calculateCosineSimilarity,
+	extractContentFeatures,
 } from "./bangumi-daily-posts.mjs";
 
 describe("bangumi daily post helpers", () => {
@@ -249,5 +254,99 @@ describe("detectDuplicatePosts", () => {
 		const result = detectDuplicatePosts(existingPosts, "《测试文章》", { includeFilePath: true });
 		expect(result.hasDuplicate).toBe(true);
 		expect(result.duplicates[0].filePath).toBe("src/content/posts/test.md");
+	});
+});
+
+describe("content duplication detection", () => {
+	it("tokenizes text correctly", () => {
+		const tokens = tokenize("Hello World! Hello again.");
+		expect(tokens).toEqual(["hello", "world", "hello", "again"]);
+	});
+
+	it("calculates jaccard similarity", () => {
+		const set1 = new Set(["a", "b", "c"]);
+		const set2 = new Set(["b", "c", "d"]);
+		expect(calculateJaccard(set1, set2)).toBe(0.5);
+	});
+
+	it("calculates cosine similarity", () => {
+		const vec1 = { "a": 2, "b": 3 };
+		const vec2 = { "a": 2, "b": 3 };
+		expect(calculateCosineSimilarity(vec1, vec2)).toBeCloseTo(1, 2);
+	});
+
+	it("extracts content features", () => {
+		const article = {
+			title: "Test Title",
+			description: "Test description",
+			tags: ["tag1", "tag2"],
+			body: "This is a longer paragraph one. It has enough content.\n\nThis is a longer paragraph two. It also has enough content.\n\nThis is a longer paragraph three. It also has enough content.",
+		};
+		const features = extractContentFeatures(article);
+		expect(features.title).toBe("Test Title");
+		expect(features.keyParagraphs.length).toBeGreaterThan(0);
+	});
+
+	it("detects exact content duplication", () => {
+		const newArticle = {
+			title: "Test Article",
+			body: "This is the test body. It has content. This is a longer paragraph to increase similarity.",
+		};
+		const existing = [{
+			title: "Test Article",
+			body: "This is the test body. It has content. This is a longer paragraph to increase similarity.",
+		}];
+		const result = detectContentDuplication(newArticle, existing, { similarityThreshold: 70 });
+		expect(result.hasDuplicate).toBe(true);
+	});
+
+	it("detects partial content duplication", () => {
+		const newArticle = {
+			title: "New Article",
+			body: "This is the new article. It shares some content with the old one. This paragraph has common words.",
+		};
+		const existing = [{
+			title: "Old Article",
+			body: "This is the old article. It shares some content with the new one. This paragraph has common words.",
+		}];
+		const result = detectContentDuplication(newArticle, existing, { similarityThreshold: 30 });
+		expect(result.hasDuplicate).toBe(true);
+	});
+
+	it("does not detect unrelated content", () => {
+		const newArticle = {
+			title: "Space Article",
+			body: "This is about space and rockets. NASA and astronauts.",
+		};
+		const existing = [{
+			title: "Cooking Article",
+			body: "This is about cooking and recipes. Baking and ingredients.",
+		}];
+		const result = detectContentDuplication(newArticle, existing, { similarityThreshold: 70 });
+		expect(result.hasDuplicate).toBe(false);
+	});
+
+	it("supports override feature", () => {
+		const newArticle = { title: "Test", body: "Content" };
+		const existing = [{ title: "Test", body: "Content" }];
+		const result = detectContentDuplication(newArticle, existing, { similarityThreshold: 50 });
+		expect(result.canOverride).toBe(true);
+	});
+
+	it("returns detailed similarity breakdown", () => {
+		const newArticle = {
+			title: "Title",
+			description: "Description",
+			body: "Body content",
+		};
+		const existing = [{
+			title: "Title",
+			description: "Description",
+			body: "Body content",
+		}];
+		const result = detectContentDuplication(newArticle, existing, { similarityThreshold: 50 });
+		expect(result.duplicates[0].titleSimilarity).toBeDefined();
+		expect(result.duplicates[0].descriptionSimilarity).toBeDefined();
+		expect(result.duplicates[0].bodySimilarity).toBeDefined();
 	});
 });

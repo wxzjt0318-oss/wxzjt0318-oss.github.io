@@ -393,6 +393,163 @@ function calculateSimilarity(str1, str2) {
 	return matches / maxLength;
 }
 
+export const SIMILARITY_THRESHOLD = 70;
+
+export function tokenize(text) {
+	if (!text) return [];
+	return text
+		.toLowerCase()
+		.replace(/[^\p{L}\p{N}\s]/gu, " ")
+		.split(/\s+/)
+		.filter((t) => t.length >= 2);
+}
+
+export function calculateJaccard(set1, set2) {
+	if (set1.size === 0 || set2.size === 0) return 0;
+
+	const intersection = new Set([...set1].filter((x) => set2.has(x)));
+	const union = new Set([...set1, ...set2]);
+
+	return intersection.size / union.size;
+}
+
+export function calculateCosineSimilarity(vec1, vec2) {
+	if (!vec1 || !vec2) return 0;
+
+	const keys = new Set([...Object.keys(vec1), ...Object.keys(vec2)]);
+	let dotProduct = 0;
+	let norm1 = 0;
+	let norm2 = 0;
+
+	for (const key of keys) {
+		const v1 = vec1[key] || 0;
+		const v2 = vec2[key] || 0;
+		dotProduct += v1 * v2;
+		norm1 += v1 * v1;
+		norm2 += v2 * v2;
+	}
+
+	if (norm1 === 0 || norm2 === 0) return 0;
+	return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
+}
+
+export function createTFVector(tokens) {
+	const vector = {};
+	for (const token of tokens) {
+		vector[token] = (vector[token] || 0) + 1;
+	}
+	return vector;
+}
+
+export function extractContentFeatures(article) {
+	const features = {
+		title: article.title || "",
+		description: article.description || "",
+		tags: Array.isArray(article.tags) ? article.tags : [],
+		body: article.body || article.content || "",
+		keyParagraphs: [],
+	};
+
+	if (features.body) {
+		const paragraphs = features.body
+			.split(/\n\n+/)
+			.map((p) => p.trim())
+			.filter((p) => p.length >= 30);
+
+		features.keyParagraphs = paragraphs
+			.slice(0, 5)
+			.concat(paragraphs.slice(-3));
+	}
+
+	return features;
+}
+
+export function detectContentDuplication(
+	newArticle,
+	existingArticles,
+	options = {}
+) {
+	const {
+		similarityThreshold = SIMILARITY_THRESHOLD,
+		titleWeight = 0.4,
+		descriptionWeight = 0.3,
+		bodyWeight = 0.3,
+		includeDetails = true,
+	} = options;
+
+	const threshold = similarityThreshold / 100;
+	const duplicates = [];
+	const newFeatures = extractContentFeatures(newArticle);
+	const newTitleTokens = new Set(tokenize(newFeatures.title));
+	const newDescTokens = new Set(tokenize(newFeatures.description));
+	const newBodyTokens = new Set(tokenize(newFeatures.body));
+	const newBodyVector = createTFVector(tokenize(newFeatures.body));
+
+	for (const existing of existingArticles) {
+		if (!existing.title && !existing.body && !existing.content) continue;
+
+		const existingFeatures = extractContentFeatures(existing);
+
+		const titleJaccard = calculateJaccard(
+			newTitleTokens,
+			new Set(tokenize(existingFeatures.title))
+		);
+
+		const descJaccard = calculateJaccard(
+			newDescTokens,
+			new Set(tokenize(existingFeatures.description))
+		);
+
+		const existingBodyVector = createTFVector(tokenize(existingFeatures.body));
+		const bodyCosine = calculateCosineSimilarity(newBodyVector, existingBodyVector);
+
+		const overallSimilarity =
+			(titleJaccard * titleWeight) +
+			(descJaccard * descriptionWeight) +
+			(bodyCosine * bodyWeight);
+
+		if (overallSimilarity >= threshold) {
+			const duplicate = {
+				type: "content",
+				newTitle: newArticle.title || "Untitled",
+				existingTitle: existing.title || "Untitled",
+				overallSimilarity: Math.round(overallSimilarity * 10000) / 100,
+				titleSimilarity: Math.round(titleJaccard * 10000) / 100,
+				descriptionSimilarity: Math.round(descJaccard * 10000) / 100,
+				bodySimilarity: Math.round(bodyCosine * 10000) / 100,
+				reason: `内容相似度 ${Math.round(overallSimilarity * 100)}% 超过阈值 ${similarityThreshold}%`,
+				filePath: existing.filePath || null,
+				sourceLink: existing.sourceLink || null,
+				details: includeDetails ? {
+					newKeyParagraphs: newFeatures.keyParagraphs,
+					existingKeyParagraphs: existingFeatures.keyParagraphs,
+				} : null,
+			};
+
+			duplicates.push(duplicate);
+		}
+	}
+
+	duplicates.sort((a, b) => b.overallSimilarity - a.overallSimilarity);
+
+	const message = duplicates.length > 0
+		? `⚠️ 检测到 ${duplicates.length} 篇内容重复文章（阈值 ${similarityThreshold}%）:\n${
+			duplicates.slice(0, 3).map((d, i) =>
+				`  [${i + 1}] ${d.newTitle} ↔ ${d.existingTitle}\n      相似度: ${d.overallSimilarity}% (标题:${d.titleSimilarity}%, 摘要:${d.descriptionSimilarity}%, 正文:${d.bodySimilarity}%)`
+			).join("\n")
+		}${duplicates.length > 3 ? `\n      ... (显示前3篇，共${duplicates.length}篇)` : ""}`
+		: null;
+
+	return {
+		hasDuplicate: duplicates.length > 0,
+		duplicates,
+		message,
+		similarityThreshold,
+		detectedAt: new Date().toISOString(),
+		canOverride: true,
+	};
+}
+
 const COLLECTION_TYPE_PRIORITY = {
 	3: 1,  // 在看 - 最高优先级
 	2: 2,  // 看过

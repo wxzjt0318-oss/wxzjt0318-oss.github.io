@@ -9,6 +9,7 @@ import {
 	buildReviewReport,
 	chooseBestCoverImage,
 	createStateRecord,
+	detectContentDuplication,
 	formatDate,
 	readJsonIfExists,
 	selectNextAnimeCandidate,
@@ -84,14 +85,24 @@ async function readExistingPosts() {
 			continue;
 		}
 		const frontmatter = match[1];
+		const bodyStart = raw.indexOf(match[0]) + match[0].length;
+		const body = raw.slice(bodyStart).trim();
 		const getField = (name) => {
 			const fieldMatch = frontmatter.match(new RegExp(`^${name}:\\s*(.+)$`, "m"));
 			if (!fieldMatch) return "";
 			return fieldMatch[1].trim().replace(/^['\"]|['\"]$/g, "");
 		};
+		const getArrayField = (name) => {
+			const fieldMatch = frontmatter.match(new RegExp(`^${name}:\\s*\\[([\\s\\S]*?)\\]`, "m"));
+			if (!fieldMatch) return [];
+			return fieldMatch[1].split(",").map(s => s.trim().replace(/^['\"]|['\"]$/g, "")).filter(Boolean);
+		};
 		posts.push({
 			filePath: fullPath,
 			title: getField("title"),
+			description: getField("description"),
+			tags: getArrayField("tags"),
+			body,
 			alias: getField("alias"),
 			sourceLink: getField("sourceLink"),
 		});
@@ -318,6 +329,36 @@ async function main() {
 
 	console.log("📝 Building Bangumi article markdown...");
 	const articleContent = buildAnimeArticleMarkdown(payload);
+
+	console.log("🔍 Checking for content duplication...");
+	const newArticle = {
+		title: payload.title,
+		description: payload.description,
+		tags: payload.tags,
+		body: articleContent,
+	};
+	const duplicationCheck = detectContentDuplication(newArticle, existingPosts, {
+		similarityThreshold: 70,
+		titleWeight: 0.4,
+		descriptionWeight: 0.3,
+		bodyWeight: 0.3,
+		includeDetails: true,
+	});
+
+	if (duplicationCheck.hasDuplicate) {
+		console.warn(duplicationCheck.message);
+		console.warn("⚠️ Content duplication detected, stopping post generation to avoid duplicates.");
+		console.warn("   (Set BANGUMI_DAILY_POSTS_ALLOW_DUPLICATE=1 to override and continue)");
+
+		const allowDuplicate = getEnvBoolean("BANGUMI_DAILY_POSTS_ALLOW_DUPLICATE", false);
+		if (!allowDuplicate) {
+			console.warn("❌ Stopping due to duplicate content (override with BANGUMI_DAILY_POSTS_ALLOW_DUPLICATE=1)");
+			process.exit(0);
+		}
+		console.warn("ℹ️ Overriding duplicate check and continuing with post generation (BANGUMI_DAILY_POSTS_ALLOW_DUPLICATE=1)");
+	} else {
+		console.log("✅ No content duplication detected.");
+	}
 
 	let safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
 	let outputFileName = `${safeAlias}.md`;
