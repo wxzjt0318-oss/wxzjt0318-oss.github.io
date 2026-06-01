@@ -1,122 +1,122 @@
 {
-  "generatedAt": "2026-05-31T10:11:52.238Z",
+  "generatedAt": "2026-06-01T13:33:14.575Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-01-22T14:35:30+08:00",
+    "updated_at": "2026-05-31T23:08:34+08:00",
     "comment": null,
     "tags": [
       "异世界",
-      "轻小说改",
-      "奇幻",
-      "后宫",
-      "日本"
+      "TV",
+      "正太",
+      "日本",
+      "奇幻"
     ],
     "subject": {
-      "date": "2026-01-07",
+      "date": "2026-04-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/08/c8/531724_U8Ti8.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/08/c8/531724_U8Ti8.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/08/c8/531724_U8Ti8.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/08/c8/531724_U8Ti8.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/08/c8/531724_U8Ti8.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/24/7b/599171_9JGa4.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/24/7b/599171_9JGa4.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/24/7b/599171_9JGa4.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/24/7b/599171_9JGa4.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/24/7b/599171_9JGa4.jpg"
       },
-      "name": "貴族転生 ～恵まれた生まれから最強の力を得る～",
-      "name_cn": "贵族转生 ～得天眷顾一出生就获得最强力量～",
-      "short_summary": "拥有超常规作弊级技能与超常智力的最强贵族诺亚，率领部下纵横异世界，开启无双王子统治异世界的奇幻冒险传说！！\r\n一出生就是人生胜利组的皇帝第十三子，加上与生俱来的等级无上限∞，以及能将追随者的能力加诸于己身的作弊级技能。他是世界最强的6岁小孩",
+      "name": "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？",
+      "name_cn": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
+      "short_summary": "真名部响生是一名普通的男高中生。有一天，他突然被传送到了一片广阔无垠的异世界草原之中，草原中还潜伏着许多魔物。在这个陌生的奇幻世界里，响生漫无目的地四处游荡。然而，他发现自己被赋予了名为「鉴定」的技能，以及「鉴定士（暂定）」的职业……（暂定",
       "tags": [
         {
-          "name": "2026年1月",
-          "count": 243,
+          "name": "2026年4月",
+          "count": 96,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 236,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 172,
-          "total_cont": 0
-        },
-        {
-          "name": "奇幻",
-          "count": 161,
+          "count": 85,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 152,
+          "count": 61,
           "total_cont": 0
         },
         {
-          "name": "战斗",
-          "count": 137,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 100,
+          "name": "TV",
+          "count": 59,
           "total_cont": 0
         },
         {
           "name": "小说改",
-          "count": 94,
+          "count": 45,
+          "total_cont": 0
+        },
+        {
+          "name": "战斗",
+          "count": 40,
+          "total_cont": 0
+        },
+        {
+          "name": "冒险",
+          "count": 38,
           "total_cont": 0
         },
         {
           "name": "日本",
-          "count": 93,
+          "count": 34,
           "total_cont": 0
         },
         {
-          "name": "厕纸",
-          "count": 84,
+          "name": "2026",
+          "count": 34,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 33,
           "total_cont": 0
         }
       ],
-      "score": 4.8,
+      "score": 5,
       "type": 2,
-      "id": 531724,
-      "eps": 12,
+      "id": 599171,
+      "eps": 0,
       "volumes": 0,
-      "collection_total": 2762,
-      "rank": 9795
+      "collection_total": 1287,
+      "rank": 9264
     },
-    "subject_id": 531724,
+    "subject_id": 599171,
     "vol_status": 0,
-    "ep_status": 3,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 3,
-    "rate": 6,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/08/c8/531724_U8Ti8.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/24/7b/599171_9JGa4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "贵族转生 ～得天眷顾一出生就获得最强力量～",
+      "title": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/08/c8/531724_U8Ti8.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/24/7b/599171_9JGa4.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "贵族转生 ～得天眷顾一出生就获得最强力量～",
+      "title": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/08/c8/531724_U8Ti8.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/24/7b/599171_9JGa4.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "贵族转生 ～得天眷顾一出生就获得最强力量～",
+      "title": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-531724.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-599171.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

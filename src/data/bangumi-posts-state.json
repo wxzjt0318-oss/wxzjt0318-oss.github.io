@@ -494,6 +494,17 @@
       "published": "2026-05-31",
       "status": "published",
       "generatedAt": "2026-05-31T10:11:52.237Z"
+    },
+    {
+      "subjectId": 599171,
+      "title": "《最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?》",
+      "filePath": "src/content/posts/bangumi-599171.md",
+      "alias": "bangumi-599171",
+      "sourceLink": "https://bgm.tv/subject/599171",
+      "image": "https://lain.bgm.tv/pic/cover/l/24/7b/599171_9JGa4.jpg",
+      "published": "2026-06-01",
+      "status": "published",
+      "generatedAt": "2026-06-01T13:33:14.575Z"
     }
   ]
 }
