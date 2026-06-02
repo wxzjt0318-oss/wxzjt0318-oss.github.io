@@ -505,6 +505,17 @@
       "published": "2026-06-01",
       "status": "published",
       "generatedAt": "2026-06-01T13:33:14.575Z"
+    },
+    {
+      "subjectId": 458125,
+      "title": "《无职英雄 ～技能什么的毫无用处～》",
+      "filePath": "src/content/posts/bangumi-458125.md",
+      "alias": "bangumi-458125",
+      "sourceLink": "https://bgm.tv/subject/458125",
+      "image": "https://lain.bgm.tv/pic/cover/l/92/d0/458125_KsU95.jpg",
+      "published": "2026-06-02",
+      "status": "published",
+      "generatedAt": "2026-06-02T12:01:34.949Z"
     }
   ]
 }

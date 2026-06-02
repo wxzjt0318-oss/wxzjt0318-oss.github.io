@@ -1,122 +1,120 @@
 {
-  "generatedAt": "2026-06-01T13:33:14.575Z",
+  "generatedAt": "2026-06-02T12:01:34.950Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-05-31T23:08:34+08:00",
-    "comment": null,
+    "updated_at": "2025-12-15T02:31:19+08:00",
+    "comment": "好看好看好看",
     "tags": [
-      "异世界",
-      "TV",
-      "正太",
-      "日本",
-      "奇幻"
+      "龙傲天",
+      "战斗",
+      "厕纸"
     ],
     "subject": {
-      "date": "2026-04-04",
+      "date": "2025-10-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/24/7b/599171_9JGa4.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/24/7b/599171_9JGa4.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/24/7b/599171_9JGa4.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/24/7b/599171_9JGa4.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/24/7b/599171_9JGa4.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/92/d0/458125_KsU95.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/92/d0/458125_KsU95.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/92/d0/458125_KsU95.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/92/d0/458125_KsU95.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/92/d0/458125_KsU95.jpg"
       },
-      "name": "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？",
-      "name_cn": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
-      "short_summary": "真名部响生是一名普通的男高中生。有一天，他突然被传送到了一片广阔无垠的异世界草原之中，草原中还潜伏着许多魔物。在这个陌生的奇幻世界里，响生漫无目的地四处游荡。然而，他发现自己被赋予了名为「鉴定」的技能，以及「鉴定士（暂定）」的职业……（暂定",
+      "name": "無職の英雄 ～別にスキルなんか要らなかったんだが～",
+      "name_cn": "无职英雄 ～技能什么的毫无用处～",
+      "short_summary": "それは、女神から授けられる職業とスキルが人生を大きく左右する世界――。\r\n《剣姫》と《魔導王》の息子として生まれた主人公・アレルは\r\nどんな職業を授かるかと期待されるなか、「無職」の烙印を押されてしまう。\r\n周囲の人々からの失望と同情。しか",
       "tags": [
         {
-          "name": "2026年4月",
-          "count": 96,
+          "name": "2025年10月",
+          "count": 245,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 85,
-          "total_cont": 0
-        },
-        {
-          "name": "轻小说改",
-          "count": 61,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 59,
-          "total_cont": 0
-        },
-        {
-          "name": "小说改",
-          "count": 45,
-          "total_cont": 0
-        },
-        {
-          "name": "战斗",
-          "count": 40,
-          "total_cont": 0
-        },
-        {
-          "name": "冒险",
-          "count": 38,
-          "total_cont": 0
-        },
-        {
-          "name": "日本",
-          "count": 34,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 34,
+          "count": 197,
           "total_cont": 0
         },
         {
           "name": "奇幻",
-          "count": 33,
+          "count": 164,
+          "total_cont": 0
+        },
+        {
+          "name": "龙傲天",
+          "count": 160,
+          "total_cont": 0
+        },
+        {
+          "name": "战斗",
+          "count": 147,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
+          "count": 143,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 138,
+          "total_cont": 0
+        },
+        {
+          "name": "厕纸",
+          "count": 127,
+          "total_cont": 0
+        },
+        {
+          "name": "StudioA-CAT",
+          "count": 101,
+          "total_cont": 0
+        },
+        {
+          "name": "日本",
+          "count": 81,
           "total_cont": 0
         }
       ],
-      "score": 5,
+      "score": 4.9,
       "type": 2,
-      "id": 599171,
-      "eps": 0,
+      "id": 458125,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 1287,
-      "rank": 9264
+      "collection_total": 2965,
+      "rank": 9728
     },
-    "subject_id": 599171,
+    "subject_id": 458125,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 12,
     "subject_type": 2,
-    "type": 3,
-    "rate": 8,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/24/7b/599171_9JGa4.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/92/d0/458125_KsU95.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
+      "title": "无职英雄 ～技能什么的毫无用处～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/24/7b/599171_9JGa4.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/92/d0/458125_KsU95.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
+      "title": "无职英雄 ～技能什么的毫无用处～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/24/7b/599171_9JGa4.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/92/d0/458125_KsU95.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
+      "title": "无职英雄 ～技能什么的毫无用处～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-599171.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-458125.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
