@@ -516,6 +516,17 @@
       "published": "2026-06-02",
       "status": "published",
       "generatedAt": "2026-06-02T12:01:34.949Z"
+    },
+    {
+      "subjectId": 554013,
+      "title": "《安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～》",
+      "filePath": "src/content/posts/bangumi-554013.md",
+      "alias": "bangumi-554013",
+      "sourceLink": "https://bgm.tv/subject/554013",
+      "image": "https://lain.bgm.tv/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+      "published": "2026-06-03",
+      "status": "published",
+      "generatedAt": "2026-06-03T12:39:12.052Z"
     }
   ]
 }

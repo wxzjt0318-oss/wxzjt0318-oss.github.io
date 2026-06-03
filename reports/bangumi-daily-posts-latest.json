@@ -1,87 +1,86 @@
 {
-  "generatedAt": "2026-06-02T12:01:34.950Z",
+  "generatedAt": "2026-06-03T12:39:12.053Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-15T02:31:19+08:00",
-    "comment": "好看好看好看",
+    "updated_at": "2026-03-26T01:30:23+08:00",
+    "comment": null,
     "tags": [
-      "龙傲天",
-      "战斗",
-      "厕纸"
+      "奇幻",
+      "异世界"
     ],
     "subject": {
-      "date": "2025-10-01",
+      "date": "2026-01-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/92/d0/458125_KsU95.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/92/d0/458125_KsU95.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/92/d0/458125_KsU95.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/92/d0/458125_KsU95.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/92/d0/458125_KsU95.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cd/8c/554013_MGo2g.jpg"
       },
-      "name": "無職の英雄 ～別にスキルなんか要らなかったんだが～",
-      "name_cn": "无职英雄 ～技能什么的毫无用处～",
-      "short_summary": "それは、女神から授けられる職業とスキルが人生を大きく左右する世界――。\r\n《剣姫》と《魔導王》の息子として生まれた主人公・アレルは\r\nどんな職業を授かるかと期待されるなか、「無職」の烙印を押されてしまう。\r\n周囲の人々からの失望と同情。しか",
+      "name": "お気楽領主の楽しい領地防衛～生産系魔術で名もなき村を最強の城塞都市に～",
+      "name_cn": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
+      "short_summary": "转生到异世界，作为侯爵家的四子诞生的范恩从小就被称作神童，寄予厚望。\r\n然而在他八岁那年觉醒的力量，却是被认为毫无用处的「生产系魔法」！\r\n因此，父亲认为范恩不配做贵族，随即将他逐出家门，流放到一个无名的边境村庄担任领主。\r\n可那看似没用的",
       "tags": [
         {
-          "name": "2025年10月",
-          "count": 245,
-          "total_cont": 0
-        },
-        {
           "name": "异世界",
-          "count": 197,
+          "count": 344,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 164,
-          "total_cont": 0
-        },
-        {
-          "name": "龙傲天",
-          "count": 160,
-          "total_cont": 0
-        },
-        {
-          "name": "战斗",
-          "count": 147,
+          "name": "2026年1月",
+          "count": 308,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 143,
+          "count": 211,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 210,
           "total_cont": 0
         },
         {
           "name": "TV",
+          "count": 209,
+          "total_cont": 0
+        },
+        {
+          "name": "种田",
+          "count": 203,
+          "total_cont": 0
+        },
+        {
+          "name": "2026",
+          "count": 155,
+          "total_cont": 0
+        },
+        {
+          "name": "小说改",
           "count": 138,
           "total_cont": 0
         },
         {
-          "name": "厕纸",
-          "count": 127,
-          "total_cont": 0
-        },
-        {
-          "name": "StudioA-CAT",
-          "count": 101,
-          "total_cont": 0
-        },
-        {
           "name": "日本",
-          "count": 81,
+          "count": 121,
+          "total_cont": 0
+        },
+        {
+          "name": "NAZ",
+          "count": 121,
           "total_cont": 0
         }
       ],
-      "score": 4.9,
+      "score": 5.3,
       "type": 2,
-      "id": 458125,
+      "id": 554013,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 2965,
-      "rank": 9728
+      "collection_total": 3382,
+      "rank": 9322
     },
-    "subject_id": 458125,
+    "subject_id": 554013,
     "vol_status": 0,
     "ep_status": 12,
     "subject_type": 2,
@@ -91,30 +90,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/92/d0/458125_KsU95.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/cd/8c/554013_MGo2g.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职英雄 ～技能什么的毫无用处～",
+      "title": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/92/d0/458125_KsU95.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cd/8c/554013_MGo2g.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "无职英雄 ～技能什么的毫无用处～",
+      "title": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/92/d0/458125_KsU95.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cd/8c/554013_MGo2g.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "无职英雄 ～技能什么的毫无用处～",
+      "title": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-458125.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-554013.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
