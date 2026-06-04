@@ -527,6 +527,17 @@
       "published": "2026-06-03",
       "status": "published",
       "generatedAt": "2026-06-03T12:39:12.052Z"
+    },
+    {
+      "subjectId": 41028,
+      "title": "《三人行必有我妹》",
+      "filePath": "src/content/posts/bangumi-41028.md",
+      "alias": "bangumi-41028",
+      "sourceLink": "https://bgm.tv/subject/41028",
+      "image": "https://lain.bgm.tv/pic/cover/l/ad/52/41028_WRhd0.jpg",
+      "published": "2026-06-04",
+      "status": "published",
+      "generatedAt": "2026-06-04T10:58:49.188Z"
     }
   ]
 }

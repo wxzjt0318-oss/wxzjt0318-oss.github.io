@@ -1,86 +1,89 @@
 {
-  "generatedAt": "2026-06-03T12:39:12.053Z",
+  "generatedAt": "2026-06-04T10:58:49.189Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-03-26T01:30:23+08:00",
-    "comment": null,
+    "updated_at": "2025-11-19T13:01:44+08:00",
+    "comment": "古老番剧还是太烧脑了，还得猜妹妹是哪个= =",
     "tags": [
-      "奇幻",
-      "异世界"
+      "校园",
+      "后宫",
+      "推理",
+      "恋爱",
+      "妹系"
     ],
     "subject": {
-      "date": "2026-01-10",
+      "date": "2012-07-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cd/8c/554013_MGo2g.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cd/8c/554013_MGo2g.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/cd/8c/554013_MGo2g.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cd/8c/554013_MGo2g.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cd/8c/554013_MGo2g.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ad/52/41028_WRhd0.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ad/52/41028_WRhd0.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ad/52/41028_WRhd0.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ad/52/41028_WRhd0.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ad/52/41028_WRhd0.jpg"
       },
-      "name": "お気楽領主の楽しい領地防衛～生産系魔術で名もなき村を最強の城塞都市に～",
-      "name_cn": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
-      "short_summary": "转生到异世界，作为侯爵家的四子诞生的范恩从小就被称作神童，寄予厚望。\r\n然而在他八岁那年觉醒的力量，却是被认为毫无用处的「生产系魔法」！\r\n因此，父亲认为范恩不配做贵族，随即将他逐出家门，流放到一个无名的边境村庄担任领主。\r\n可那看似没用的",
+      "name": "この中に1人、妹がいる!",
+      "name_cn": "三人行必有我妹",
+      "short_summary": "　　将悟按照父亲的遗嘱，转入了大小姐们多数就读的学园——深流院学园。“务必在学园里找到终生伴侣的女性”，找到女朋友便是遗嘱里交待给将悟的任务。\r\n　　于此同时，将悟得到自己可能有一个不为人知、分别多年的妹妹的消息。在将悟生日的那天，他收到了",
       "tags": [
         {
-          "name": "异世界",
-          "count": 344,
+          "name": "后宫",
+          "count": 927,
           "total_cont": 0
         },
         {
-          "name": "2026年1月",
-          "count": 308,
+          "name": "妹系",
+          "count": 662,
+          "total_cont": 0
+        },
+        {
+          "name": "2012年7月",
+          "count": 514,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 211,
+          "count": 435,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 210,
+          "name": "三人行必有我妹",
+          "count": 339,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 320,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 209,
+          "count": 320,
           "total_cont": 0
         },
         {
-          "name": "种田",
-          "count": 203,
+          "name": "2012",
+          "count": 201,
           "total_cont": 0
         },
         {
-          "name": "2026",
-          "count": 155,
+          "name": "Studio五组",
+          "count": 174,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 138,
-          "total_cont": 0
-        },
-        {
-          "name": "日本",
-          "count": 121,
-          "total_cont": 0
-        },
-        {
-          "name": "NAZ",
-          "count": 121,
+          "name": "妹",
+          "count": 100,
           "total_cont": 0
         }
       ],
-      "score": 5.3,
+      "score": 5.7,
       "type": 2,
-      "id": 554013,
+      "id": 41028,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 3382,
-      "rank": 9322
+      "collection_total": 7259,
+      "rank": 8710
     },
-    "subject_id": 554013,
+    "subject_id": 41028,
     "vol_status": 0,
     "ep_status": 12,
     "subject_type": 2,
@@ -90,30 +93,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ad/52/41028_WRhd0.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
+      "title": "三人行必有我妹",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ad/52/41028_WRhd0.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
+      "title": "三人行必有我妹",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cd/8c/554013_MGo2g.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ad/52/41028_WRhd0.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "安逸领主的愉快领地防卫～以生产系魔术将无名小村打造成最强要塞都市～",
+      "title": "三人行必有我妹",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-554013.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-41028.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
