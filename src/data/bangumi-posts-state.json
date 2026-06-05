@@ -538,6 +538,17 @@
       "published": "2026-06-04",
       "status": "published",
       "generatedAt": "2026-06-04T10:58:49.188Z"
+    },
+    {
+      "subjectId": 329906,
+      "title": "《间谍过家家》",
+      "filePath": "src/content/posts/spy-family.md",
+      "alias": "spy-family",
+      "sourceLink": "https://bgm.tv/subject/329906",
+      "image": "https://lain.bgm.tv/pic/cover/l/de/4a/329906_hmtVD.jpg",
+      "published": "2026-06-05",
+      "status": "published",
+      "generatedAt": "2026-06-05T11:23:40.093Z"
     }
   ]
 }
