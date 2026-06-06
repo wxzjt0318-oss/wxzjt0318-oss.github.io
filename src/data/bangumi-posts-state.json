@@ -549,6 +549,17 @@
       "published": "2026-06-05",
       "status": "published",
       "generatedAt": "2026-06-05T11:23:40.093Z"
+    },
+    {
+      "subjectId": 376708,
+      "title": "《总之就是非常可爱 ～制服～》",
+      "filePath": "src/content/posts/bangumi-376708.md",
+      "alias": "bangumi-376708",
+      "sourceLink": "https://bgm.tv/subject/376708",
+      "image": "https://lain.bgm.tv/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+      "published": "2026-06-06",
+      "status": "published",
+      "generatedAt": "2026-06-06T10:00:02.420Z"
     }
   ]
 }

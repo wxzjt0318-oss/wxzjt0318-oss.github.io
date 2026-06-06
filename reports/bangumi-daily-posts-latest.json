@@ -1,90 +1,89 @@
 {
-  "generatedAt": "2026-06-05T11:23:40.094Z",
+  "generatedAt": "2026-06-06T10:00:02.421Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:43:29+08:00",
+    "updated_at": "2025-11-18T15:09:07+08:00",
     "comment": null,
     "tags": [
-      "搞笑",
-      "日常",
-      "治愈",
-      "家庭喜剧"
+      "恋爱",
+      "总之就是非常可爱",
+      "狗粮"
     ],
     "subject": {
-      "date": "2022-04-09",
+      "date": "2022-11-22",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/de/4a/329906_hmtVD.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/de/4a/329906_hmtVD.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/de/4a/329906_hmtVD.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/de/4a/329906_hmtVD.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/de/4a/329906_hmtVD.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/d2/c7/376708_Hznbs.jpg"
       },
-      "name": "SPY×FAMILY",
-      "name_cn": "间谍过家家",
-      "short_summary": "每个人都有着不让任何人所看见的一面——\r\n这是一个世界各国在暗地里展开激烈情报战的时代。东国和西国已经处于冷战状态长达十余年之久。\r\n隶属于西国情报局对东科（WISE）的精英间谍“黄昏”，为了调查东国国家统一党总裁多诺万·德斯蒙这一威胁东西",
+      "name": "トニカクカワイイ ～制服～",
+      "name_cn": "总之就是非常可爱 ～制服～",
+      "short_summary": "有栖川家で幸せな新婚生活を送る司とナサ。運命的な出会いを果たした一方、普通の高校生の恋愛、制服デートの経験もなかった 2人だったが、綾の手引きで司は制服を着ることになる。普段見ることのない制服姿の司に、ナサはドキドキを隠せず・・・。",
       "tags": [
         {
-          "name": "搞笑",
-          "count": 5344,
+          "name": "OVA",
+          "count": 512,
+          "total_cont": 0
+        },
+        {
+          "name": "恋爱",
+          "count": 470,
           "total_cont": 0
         },
         {
           "name": "日常",
-          "count": 3768,
-          "total_cont": 0
-        },
-        {
-          "name": "WITSTUDIO",
-          "count": 3695,
-          "total_cont": 0
-        },
-        {
-          "name": "家庭喜剧",
-          "count": 3312,
-          "total_cont": 0
-        },
-        {
-          "name": "CloverWorks",
-          "count": 3178,
+          "count": 281,
           "total_cont": 0
         },
         {
           "name": "漫画改",
-          "count": 3107,
-          "total_cont": 0
-        },
-        {
-          "name": "2022年4月",
-          "count": 2953,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 2123,
-          "total_cont": 0
-        },
-        {
-          "name": "漫改",
-          "count": 1600,
+          "count": 266,
           "total_cont": 0
         },
         {
           "name": "2022",
-          "count": 1408,
+          "count": 259,
+          "total_cont": 0
+        },
+        {
+          "name": "狗粮",
+          "count": 178,
+          "total_cont": 0
+        },
+        {
+          "name": "SevenArcs",
+          "count": 178,
+          "total_cont": 0
+        },
+        {
+          "name": "总之就是非常可爱",
+          "count": 156,
+          "total_cont": 0
+        },
+        {
+          "name": "漫改",
+          "count": 119,
+          "total_cont": 0
+        },
+        {
+          "name": "2022年11月",
+          "count": 54,
           "total_cont": 0
         }
       ],
-      "score": 7.2,
+      "score": 6.4,
       "type": 2,
-      "id": 329906,
-      "eps": 12,
+      "id": 376708,
+      "eps": 1,
       "volumes": 0,
-      "collection_total": 46863,
-      "rank": 1692
+      "collection_total": 3952,
+      "rank": 5695
     },
-    "subject_id": 329906,
+    "subject_id": 376708,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/de/4a/329906_hmtVD.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/d2/c7/376708_Hznbs.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "间谍过家家",
+      "title": "总之就是非常可爱 ～制服～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/de/4a/329906_hmtVD.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d2/c7/376708_Hznbs.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "间谍过家家",
+      "title": "总之就是非常可爱 ～制服～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/de/4a/329906_hmtVD.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d2/c7/376708_Hznbs.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "间谍过家家",
+      "title": "总之就是非常可爱 ～制服～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-376708.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
