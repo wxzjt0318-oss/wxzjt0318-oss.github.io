@@ -560,6 +560,17 @@
       "published": "2026-06-06",
       "status": "published",
       "generatedAt": "2026-06-06T10:00:02.420Z"
+    },
+    {
+      "subjectId": 277399,
+      "title": "《超人高校生在异世界也可以活的风生水起！》",
+      "filePath": "src/content/posts/bangumi-277399.md",
+      "alias": "bangumi-277399",
+      "sourceLink": "https://bgm.tv/subject/277399",
+      "image": "https://lain.bgm.tv/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+      "published": "2026-06-07",
+      "status": "published",
+      "generatedAt": "2026-06-07T10:25:30.273Z"
     }
   ]
 }

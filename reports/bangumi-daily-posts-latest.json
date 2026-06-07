@@ -1,120 +1,123 @@
 {
-  "generatedAt": "2026-06-06T10:00:02.421Z",
+  "generatedAt": "2026-06-07T10:25:30.274Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-18T15:09:07+08:00",
+    "updated_at": "2026-01-13T00:57:38+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "总之就是非常可爱",
-      "狗粮"
+      "异世界",
+      "龙傲天",
+      "轻小说改",
+      "轻改",
+      "装逼",
+      "后宫"
     ],
     "subject": {
-      "date": "2022-11-22",
+      "date": "2019-10-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/d2/c7/376708_Hznbs.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d2/c7/376708_Hznbs.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/d2/c7/376708_Hznbs.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d2/c7/376708_Hznbs.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/d2/c7/376708_Hznbs.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6a/c3/277399_YYYpv.jpg"
       },
-      "name": "トニカクカワイイ ～制服～",
-      "name_cn": "总之就是非常可爱 ～制服～",
-      "short_summary": "有栖川家で幸せな新婚生活を送る司とナサ。運命的な出会いを果たした一方、普通の高校生の恋愛、制服デートの経験もなかった 2人だったが、綾の手引きで司は制服を着ることになる。普段見ることのない制服姿の司に、ナサはドキドキを隠せず・・・。",
+      "name": "超人高校生たちは異世界でも余裕で生き抜くようです！",
+      "name_cn": "超人高校生在异世界也可以活的风生水起！",
+      "short_summary": "被卷入了飞机事故的七位高中生，醒来后发现自己身处在有魔法和兽人的异世界。突发的事态让他们陷入混乱——这种事情是不可能的（！？）在没有电力的世界中造了发电厂；稍微出外打拼一下，就掌握了整个大城市的经济；甚至是为了拯救饱受恶政欺压的恩人，与作恶",
       "tags": [
         {
-          "name": "OVA",
-          "count": 512,
+          "name": "异世界",
+          "count": 552,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 470,
+          "name": "2019年10月",
+          "count": 425,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 281,
+          "name": "轻小说改",
+          "count": 424,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 266,
+          "name": "龙傲天",
+          "count": 402,
           "total_cont": 0
         },
         {
-          "name": "2022",
-          "count": 259,
+          "name": "projectNo.9",
+          "count": 304,
           "total_cont": 0
         },
         {
-          "name": "狗粮",
-          "count": 178,
+          "name": "TV",
+          "count": 283,
           "total_cont": 0
         },
         {
-          "name": "SevenArcs",
-          "count": 178,
+          "name": "穿越",
+          "count": 277,
           "total_cont": 0
         },
         {
-          "name": "总之就是非常可爱",
-          "count": 156,
+          "name": "装逼",
+          "count": 216,
           "total_cont": 0
         },
         {
-          "name": "漫改",
-          "count": 119,
+          "name": "轻改",
+          "count": 190,
           "total_cont": 0
         },
         {
-          "name": "2022年11月",
-          "count": 54,
+          "name": "2019",
+          "count": 172,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 3.9,
       "type": 2,
-      "id": 376708,
-      "eps": 1,
+      "id": 277399,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 3952,
-      "rank": 5695
+      "collection_total": 5343,
+      "rank": 10034
     },
-    "subject_id": 376708,
+    "subject_id": 277399,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 5,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6a/c3/277399_YYYpv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "总之就是非常可爱 ～制服～",
+      "title": "超人高校生在异世界也可以活的风生水起！",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6a/c3/277399_YYYpv.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "总之就是非常可爱 ～制服～",
+      "title": "超人高校生在异世界也可以活的风生水起！",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d2/c7/376708_Hznbs.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6a/c3/277399_YYYpv.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "总之就是非常可爱 ～制服～",
+      "title": "超人高校生在异世界也可以活的风生水起！",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-376708.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-277399.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
