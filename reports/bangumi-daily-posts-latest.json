@@ -1,123 +1,121 @@
 {
-  "generatedAt": "2026-06-07T10:25:30.274Z",
+  "generatedAt": "2026-06-08T12:25:21.260Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-01-13T00:57:38+08:00",
+    "updated_at": "2025-11-21T10:19:32+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "龙傲天",
-      "轻小说改",
-      "轻改",
-      "装逼",
-      "后宫"
+      "搞笑",
+      "泡面番",
+      "校园",
+      "日常"
     ],
     "subject": {
-      "date": "2019-10-03",
+      "date": "2017-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6a/c3/277399_YYYpv.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6a/c3/277399_YYYpv.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/6a/c3/277399_YYYpv.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6a/c3/277399_YYYpv.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6a/c3/277399_YYYpv.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/bf/83/208450_0l5MJ.jpg"
       },
-      "name": "超人高校生たちは異世界でも余裕で生き抜くようです！",
-      "name_cn": "超人高校生在异世界也可以活的风生水起！",
-      "short_summary": "被卷入了飞机事故的七位高中生，醒来后发现自己身处在有魔法和兽人的异世界。突发的事态让他们陷入混乱——这种事情是不可能的（！？）在没有电力的世界中造了发电厂；稍微出外打拼一下，就掌握了整个大城市的经济；甚至是为了拯救饱受恶政欺压的恩人，与作恶",
+      "name": "アホガール",
+      "name_cn": "笨女孩",
+      "short_summary": "空前绝后的笨蛋，就在这里！ 笨到无可救药的女高中生·花畑佳子。 非常喜欢香蕉。 非常喜欢青梅竹马的阿君。 以上！",
       "tags": [
         {
-          "name": "异世界",
-          "count": 552,
+          "name": "搞笑",
+          "count": 3092,
           "total_cont": 0
         },
         {
-          "name": "2019年10月",
-          "count": 425,
+          "name": "漫画改",
+          "count": 1601,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 424,
+          "name": "2017年7月",
+          "count": 1368,
           "total_cont": 0
         },
         {
-          "name": "龙傲天",
-          "count": 402,
+          "name": "泡面番",
+          "count": 1335,
           "total_cont": 0
         },
         {
-          "name": "projectNo.9",
-          "count": 304,
+          "name": "校园",
+          "count": 1142,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 283,
+          "count": 1042,
           "total_cont": 0
         },
         {
-          "name": "穿越",
-          "count": 277,
+          "name": "日常",
+          "count": 1007,
           "total_cont": 0
         },
         {
-          "name": "装逼",
-          "count": 216,
+          "name": "悠木碧",
+          "count": 866,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 190,
+          "name": "Diomedéa",
+          "count": 767,
           "total_cont": 0
         },
         {
-          "name": "2019",
-          "count": 172,
+          "name": "2017",
+          "count": 667,
           "total_cont": 0
         }
       ],
-      "score": 3.9,
+      "score": 6.6,
       "type": 2,
-      "id": 277399,
+      "id": 208450,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 5343,
-      "rank": 10034
+      "collection_total": 21429,
+      "rank": 4873
     },
-    "subject_id": 277399,
+    "subject_id": 208450,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 5,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/bf/83/208450_0l5MJ.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "超人高校生在异世界也可以活的风生水起！",
+      "title": "笨女孩",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/bf/83/208450_0l5MJ.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "超人高校生在异世界也可以活的风生水起！",
+      "title": "笨女孩",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6a/c3/277399_YYYpv.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/bf/83/208450_0l5MJ.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "超人高校生在异世界也可以活的风生水起！",
+      "title": "笨女孩",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-277399.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-208450.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

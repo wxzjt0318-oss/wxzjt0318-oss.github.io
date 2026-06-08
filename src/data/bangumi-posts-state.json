@@ -571,6 +571,17 @@
       "published": "2026-06-07",
       "status": "published",
       "generatedAt": "2026-06-07T10:25:30.273Z"
+    },
+    {
+      "subjectId": 208450,
+      "title": "《笨女孩》",
+      "filePath": "src/content/posts/bangumi-208450.md",
+      "alias": "bangumi-208450",
+      "sourceLink": "https://bgm.tv/subject/208450",
+      "image": "https://lain.bgm.tv/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+      "published": "2026-06-08",
+      "status": "published",
+      "generatedAt": "2026-06-08T12:25:21.260Z"
     }
   ]
 }
