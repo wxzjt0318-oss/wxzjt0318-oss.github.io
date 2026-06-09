@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-06-08T12:25:21.260Z",
+  "generatedAt": "2026-06-09T10:57:07.545Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:19:32+08:00",
+    "updated_at": "2025-11-20T15:27:18+08:00",
     "comment": null,
-    "tags": [
-      "搞笑",
-      "泡面番",
-      "校园",
-      "日常"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2017-07-04",
+      "date": "2008-12-25",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/bf/83/208450_0l5MJ.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/bf/83/208450_0l5MJ.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/bf/83/208450_0l5MJ.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/bf/83/208450_0l5MJ.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/bf/83/208450_0l5MJ.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/20/a9/68681_t96av.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/20/a9/68681_t96av.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/20/a9/68681_t96av.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/20/a9/68681_t96av.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/20/a9/68681_t96av.jpg"
       },
-      "name": "アホガール",
-      "name_cn": "笨女孩",
-      "short_summary": "空前绝后的笨蛋，就在这里！ 笨到无可救药的女高中生·花畑佳子。 非常喜欢香蕉。 非常喜欢青梅竹马的阿君。 以上！",
+      "name": "ゼロの使い魔 ～三美姫の輪舞～OVA",
+      "name_cn": "零之使魔 三美姬的轮舞 OVA",
+      "short_summary": "      魔法学院决定去海边度假？连女王都要来？好色的才人等人怎能放过这么好的机会。可是到了海边，才人才知道露易丝这个世界的泳装是这么的保守。这时，校长以“水精灵”的谎言开始了他们的计划，让她们先穿上了标准游泳衣（虽然不是比基尼，但是能很",
       "tags": [
         {
-          "name": "搞笑",
-          "count": 3092,
+          "name": "OVA",
+          "count": 455,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 1601,
+          "name": "J.C.STAFF",
+          "count": 254,
           "total_cont": 0
         },
         {
-          "name": "2017年7月",
-          "count": 1368,
+          "name": "钉宫理惠",
+          "count": 230,
           "total_cont": 0
         },
         {
-          "name": "泡面番",
-          "count": 1335,
+          "name": "后宫",
+          "count": 203,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 1142,
+          "name": "零之使魔",
+          "count": 191,
           "total_cont": 0
         },
         {
-          "name": "TV",
-          "count": 1042,
+          "name": "轻小说改",
+          "count": 155,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 1007,
+          "name": "2008",
+          "count": 147,
           "total_cont": 0
         },
         {
-          "name": "悠木碧",
-          "count": 866,
+          "name": "傲娇",
+          "count": 129,
           "total_cont": 0
         },
         {
-          "name": "Diomedéa",
-          "count": 767,
+          "name": "魔法",
+          "count": 91,
           "total_cont": 0
         },
         {
-          "name": "2017",
-          "count": 667,
+          "name": "异世界",
+          "count": 70,
           "total_cont": 0
         }
       ],
-      "score": 6.6,
+      "score": 6.5,
       "type": 2,
-      "id": 208450,
-      "eps": 12,
+      "id": 68681,
+      "eps": 1,
       "volumes": 0,
-      "collection_total": 21429,
-      "rank": 4873
+      "collection_total": 3497,
+      "rank": 5252
     },
-    "subject_id": 208450,
+    "subject_id": 68681,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/20/a9/68681_t96av.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "笨女孩",
+      "title": "零之使魔 三美姬的轮舞 OVA",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/20/a9/68681_t96av.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "笨女孩",
+      "title": "零之使魔 三美姬的轮舞 OVA",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/bf/83/208450_0l5MJ.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/20/a9/68681_t96av.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "笨女孩",
+      "title": "零之使魔 三美姬的轮舞 OVA",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-208450.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-68681.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -582,6 +582,17 @@
       "published": "2026-06-08",
       "status": "published",
       "generatedAt": "2026-06-08T12:25:21.260Z"
+    },
+    {
+      "subjectId": 68681,
+      "title": "《零之使魔 三美姬的轮舞 OVA》",
+      "filePath": "src/content/posts/bangumi-68681.md",
+      "alias": "bangumi-68681",
+      "sourceLink": "https://bgm.tv/subject/68681",
+      "image": "https://lain.bgm.tv/pic/cover/l/20/a9/68681_t96av.jpg",
+      "published": "2026-06-09",
+      "status": "published",
+      "generatedAt": "2026-06-09T10:57:07.544Z"
     }
   ]
 }
