@@ -593,6 +593,17 @@
       "published": "2026-06-09",
       "status": "published",
       "generatedAt": "2026-06-09T10:57:07.544Z"
+    },
+    {
+      "subjectId": 302523,
+      "title": "《关于我转生变成史莱姆这档事 第二季 第2部分》",
+      "filePath": "src/content/posts/bangumi-302523.md",
+      "alias": "bangumi-302523",
+      "sourceLink": "https://bgm.tv/subject/302523",
+      "image": "https://lain.bgm.tv/pic/cover/l/c5/e7/302523_1wCsw.jpg",
+      "published": "2026-06-10",
+      "status": "published",
+      "generatedAt": "2026-06-10T11:35:53.454Z"
     }
   ]
 }

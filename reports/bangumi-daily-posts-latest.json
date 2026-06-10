@@ -1,85 +1,90 @@
 {
-  "generatedAt": "2026-06-09T10:57:07.545Z",
+  "generatedAt": "2026-06-10T11:35:53.460Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T15:27:18+08:00",
+    "updated_at": "2025-11-20T15:58:43+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "异世界",
+      "奇幻",
+      "日本",
+      "TV"
+    ],
     "subject": {
-      "date": "2008-12-25",
+      "date": "2021-07-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/20/a9/68681_t96av.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/20/a9/68681_t96av.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/20/a9/68681_t96av.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/20/a9/68681_t96av.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/20/a9/68681_t96av.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c5/e7/302523_1wCsw.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c5/e7/302523_1wCsw.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/c5/e7/302523_1wCsw.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c5/e7/302523_1wCsw.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c5/e7/302523_1wCsw.jpg"
       },
-      "name": "ゼロの使い魔 ～三美姫の輪舞～OVA",
-      "name_cn": "零之使魔 三美姬的轮舞 OVA",
-      "short_summary": "      魔法学院决定去海边度假？连女王都要来？好色的才人等人怎能放过这么好的机会。可是到了海边，才人才知道露易丝这个世界的泳装是这么的保守。这时，校长以“水精灵”的谎言开始了他们的计划，让她们先穿上了标准游泳衣（虽然不是比基尼，但是能很",
+      "name": "転生したらスライムだった件 第2期 2",
+      "name_cn": "关于我转生变成史莱姆这档事 第二季 第2部分",
+      "short_summary": "三上悟過著不起眼的人生，在隨機殺人魔肆虐下結束了三十七年生涯…… 看似如此。當他甦醒時，不僅眼睛看不見，就連耳朵也聽不到…… 面對一連串突發狀況，他意識到自己投胎轉世成「史萊姆」！儘管變成最弱魔物讓他頗有怨言，三上悟還是決定要快樂地過史萊姆",
       "tags": [
         {
-          "name": "OVA",
-          "count": 455,
+          "name": "异世界",
+          "count": 1610,
           "total_cont": 0
         },
         {
-          "name": "J.C.STAFF",
-          "count": 254,
-          "total_cont": 0
-        },
-        {
-          "name": "钉宫理惠",
-          "count": 230,
-          "total_cont": 0
-        },
-        {
-          "name": "后宫",
-          "count": 203,
-          "total_cont": 0
-        },
-        {
-          "name": "零之使魔",
-          "count": 191,
+          "name": "2021年7月",
+          "count": 1006,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 155,
+          "count": 992,
           "total_cont": 0
         },
         {
-          "name": "2008",
-          "count": 147,
+          "name": "奇幻",
+          "count": 822,
           "total_cont": 0
         },
         {
-          "name": "傲娇",
-          "count": 129,
+          "name": "战斗",
+          "count": 715,
           "total_cont": 0
         },
         {
-          "name": "魔法",
-          "count": 91,
+          "name": "TV",
+          "count": 687,
           "total_cont": 0
         },
         {
-          "name": "异世界",
-          "count": 70,
+          "name": "关于我转生变成史莱姆这档事",
+          "count": 520,
+          "total_cont": 0
+        },
+        {
+          "name": "龙傲天",
+          "count": 426,
+          "total_cont": 0
+        },
+        {
+          "name": "8-Bit",
+          "count": 350,
+          "total_cont": 0
+        },
+        {
+          "name": "2021",
+          "count": 347,
           "total_cont": 0
         }
       ],
-      "score": 6.5,
+      "score": 6.1,
       "type": 2,
-      "id": 68681,
-      "eps": 1,
+      "id": 302523,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 3497,
-      "rank": 5252
+      "collection_total": 14621,
+      "rank": 7561
     },
-    "subject_id": 68681,
+    "subject_id": 302523,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 8,
@@ -87,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/20/a9/68681_t96av.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c5/e7/302523_1wCsw.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "零之使魔 三美姬的轮舞 OVA",
+      "title": "关于我转生变成史莱姆这档事 第二季 第2部分",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/20/a9/68681_t96av.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c5/e7/302523_1wCsw.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "零之使魔 三美姬的轮舞 OVA",
+      "title": "关于我转生变成史莱姆这档事 第二季 第2部分",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/20/a9/68681_t96av.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c5/e7/302523_1wCsw.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "零之使魔 三美姬的轮舞 OVA",
+      "title": "关于我转生变成史莱姆这档事 第二季 第2部分",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-68681.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-302523.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
