@@ -604,6 +604,17 @@
       "published": "2026-06-10",
       "status": "published",
       "generatedAt": "2026-06-10T11:35:53.454Z"
+    },
+    {
+      "subjectId": 215425,
+      "title": "《电影 中二病也要谈恋爱！ -Take On Me-》",
+      "filePath": "src/content/posts/take-on-me.md",
+      "alias": "take-on-me",
+      "sourceLink": "https://bgm.tv/subject/215425",
+      "image": "https://lain.bgm.tv/pic/cover/l/d4/3b/215425_i1V31.jpg",
+      "published": "2026-06-11",
+      "status": "published",
+      "generatedAt": "2026-06-11T12:07:05.984Z"
     }
   ]
 }
