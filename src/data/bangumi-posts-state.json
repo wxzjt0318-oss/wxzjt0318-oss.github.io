@@ -615,6 +615,17 @@
       "published": "2026-06-11",
       "status": "published",
       "generatedAt": "2026-06-11T12:07:05.984Z"
+    },
+    {
+      "subjectId": 194036,
+      "title": "《剧场版总集篇 OVERLORD 不死者之王》",
+      "filePath": "src/content/posts/bangumi-194036.md",
+      "alias": "bangumi-194036",
+      "sourceLink": "https://bgm.tv/subject/194036",
+      "image": "https://lain.bgm.tv/pic/cover/l/1a/96/194036_iUGLE.jpg",
+      "published": "2026-06-12",
+      "status": "published",
+      "generatedAt": "2026-06-12T11:41:19.668Z"
     }
   ]
 }
