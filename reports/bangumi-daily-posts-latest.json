@@ -1,120 +1,120 @@
 {
-  "generatedAt": "2026-06-12T11:41:19.668Z",
+  "generatedAt": "2026-06-13T10:26:27.767Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:12:38+08:00",
+    "updated_at": "2026-02-14T06:48:25+08:00",
     "comment": null,
     "tags": [
-      "剧场版",
-      "骨傲天",
-      "异世界"
+      "纯爱",
+      "R18",
+      "里番"
     ],
     "subject": {
-      "date": "2017-02-25",
+      "date": "2025-09-26",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/1a/96/194036_iUGLE.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/1a/96/194036_iUGLE.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/1a/96/194036_iUGLE.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/1a/96/194036_iUGLE.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/1a/96/194036_iUGLE.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/46/38/567265_HR6fh.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/46/38/567265_HR6fh.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/46/38/567265_HR6fh.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/46/38/567265_HR6fh.jpg"
       },
-      "name": "劇場版総集編 オーバーロード 不死者の王",
-      "name_cn": "剧场版总集篇 OVERLORD 不死者之王",
-      "short_summary": "",
+      "name": "らぶみー『かくれんぼ』 THE ANIMATION",
+      "name_cn": "爱我「捉迷藏」THE ANIMATION",
+      "short_summary": "トロ顔マスター・きょくちょの代表作『楓と鈴』に連なる\r\nもう一つのシリーズが待望のOVA化！\r\n\r\n学校で一番の身体であるヒナの健康的な体操服ジャージえっち！\r\n恋人のリョウと修学旅行で学校で体育倉庫で…\r\nあまりの恥ずかしさに最初こそ抵抗",
       "tags": [
         {
-          "name": "剧场版",
-          "count": 272,
+          "name": "里番",
+          "count": 240,
           "total_cont": 0
         },
         {
-          "name": "总集篇",
-          "count": 168,
+          "name": "纯爱",
+          "count": 91,
           "total_cont": 0
         },
         {
-          "name": "MADHouse",
-          "count": 124,
+          "name": "漫画改",
+          "count": 90,
           "total_cont": 0
         },
         {
-          "name": "2017",
-          "count": 108,
+          "name": "R18",
+          "count": 80,
           "total_cont": 0
         },
         {
-          "name": "OVERLORD",
-          "count": 96,
+          "name": "OVA",
+          "count": 78,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
+          "name": "2025",
           "count": 77,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 66,
+          "name": "ピンクパイナップル",
+          "count": 45,
           "total_cont": 0
         },
         {
-          "name": "骨傲天",
-          "count": 55,
+          "name": "漫改",
+          "count": 40,
           "total_cont": 0
         },
         {
-          "name": "异世界",
-          "count": 52,
+          "name": "きょくちょ",
+          "count": 35,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 51,
+          "name": "局长",
+          "count": 28,
           "total_cont": 0
         }
       ],
       "score": 6.4,
       "type": 2,
-      "id": 194036,
+      "id": 567265,
       "eps": 1,
       "volumes": 0,
-      "collection_total": 2221,
-      "rank": 5632
+      "collection_total": 1115,
+      "rank": 5544
     },
-    "subject_id": 194036,
+    "subject_id": 567265,
     "vol_status": 0,
     "ep_status": 1,
     "subject_type": 2,
     "type": 2,
-    "rate": 9,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/1a/96/194036_iUGLE.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版总集篇 OVERLORD 不死者之王",
+      "title": "爱我「捉迷藏」THE ANIMATION",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/1a/96/194036_iUGLE.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/46/38/567265_HR6fh.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "剧场版总集篇 OVERLORD 不死者之王",
+      "title": "爱我「捉迷藏」THE ANIMATION",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/1a/96/194036_iUGLE.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/46/38/567265_HR6fh.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "剧场版总集篇 OVERLORD 不死者之王",
+      "title": "爱我「捉迷藏」THE ANIMATION",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-194036.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/the-animation.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

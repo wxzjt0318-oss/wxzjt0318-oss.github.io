@@ -626,6 +626,17 @@
       "published": "2026-06-12",
       "status": "published",
       "generatedAt": "2026-06-12T11:41:19.668Z"
+    },
+    {
+      "subjectId": 567265,
+      "title": "《爱我「捉迷藏」THE ANIMATION》",
+      "filePath": "src/content/posts/the-animation.md",
+      "alias": "the-animation",
+      "sourceLink": "https://bgm.tv/subject/567265",
+      "image": "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg",
+      "published": "2026-06-13",
+      "status": "published",
+      "generatedAt": "2026-06-13T10:26:27.765Z"
     }
   ]
 }
