@@ -1,89 +1,91 @@
 {
-  "generatedAt": "2026-06-13T10:26:27.767Z",
+  "generatedAt": "2026-06-14T10:46:42.822Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-02-14T06:48:25+08:00",
+    "updated_at": "2025-11-21T09:50:17+08:00",
     "comment": null,
     "tags": [
-      "纯爱",
-      "R18",
-      "里番"
+      "钉宫理惠",
+      "龙傲天",
+      "异世界",
+      "恋爱",
+      "后宫"
     ],
     "subject": {
-      "date": "2025-09-26",
+      "date": "2024-04-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/46/38/567265_HR6fh.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/46/38/567265_HR6fh.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/46/38/567265_HR6fh.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/46/38/567265_HR6fh.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ed/46/459725_Ur6Ap.jpg"
       },
-      "name": "らぶみー『かくれんぼ』 THE ANIMATION",
-      "name_cn": "爱我「捉迷藏」THE ANIMATION",
-      "short_summary": "トロ顔マスター・きょくちょの代表作『楓と鈴』に連なる\r\nもう一つのシリーズが待望のOVA化！\r\n\r\n学校で一番の身体であるヒナの健康的な体操服ジャージえっち！\r\n恋人のリョウと修学旅行で学校で体育倉庫で…\r\nあまりの恥ずかしさに最初こそ抵抗",
+      "name": "Lv2からチートだった元勇者候補のまったり異世界ライフ",
+      "name_cn": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
+      "short_summary": "巴那萨是个每天勤奋工作的商人，有一天突然被以“勇者候补”的身份召唤到库莱洛德魔法国这个从来没听过的异世界。然而，因为他在等级1时只有相当于一般市民的能力，被盖上了失格勇者的烙印，还因为国家的失误，让他无法回到原本的世界。\r\n巴那萨从王都被流",
       "tags": [
         {
-          "name": "里番",
-          "count": 240,
+          "name": "异世界",
+          "count": 739,
           "total_cont": 0
         },
         {
-          "name": "纯爱",
-          "count": 91,
+          "name": "2024年4月",
+          "count": 513,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 90,
+          "name": "钉宫理惠",
+          "count": 460,
           "total_cont": 0
         },
         {
-          "name": "R18",
-          "count": 80,
+          "name": "龙傲天",
+          "count": 398,
           "total_cont": 0
         },
         {
-          "name": "OVA",
-          "count": 78,
+          "name": "J.C.STAFF",
+          "count": 386,
           "total_cont": 0
         },
         {
-          "name": "2025",
-          "count": 77,
+          "name": "轻小说改",
+          "count": 306,
           "total_cont": 0
         },
         {
-          "name": "ピンクパイナップル",
-          "count": 45,
+          "name": "TV",
+          "count": 273,
           "total_cont": 0
         },
         {
-          "name": "漫改",
-          "count": 40,
+          "name": "厕纸",
+          "count": 204,
           "total_cont": 0
         },
         {
-          "name": "きょくちょ",
-          "count": 35,
+          "name": "奇幻",
+          "count": 201,
           "total_cont": 0
         },
         {
-          "name": "局长",
-          "count": 28,
+          "name": "2024",
+          "count": 187,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 5.5,
       "type": 2,
-      "id": 567265,
-      "eps": 1,
+      "id": 459725,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 1115,
-      "rank": 5544
+      "collection_total": 5693,
+      "rank": 9081
     },
-    "subject_id": 567265,
+    "subject_id": 459725,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +93,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "爱我「捉迷藏」THE ANIMATION",
+      "title": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/46/38/567265_HR6fh.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "爱我「捉迷藏」THE ANIMATION",
+      "title": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/46/38/567265_HR6fh.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "爱我「捉迷藏」THE ANIMATION",
+      "title": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/the-animation.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-459725.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

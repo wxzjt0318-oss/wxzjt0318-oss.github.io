@@ -637,6 +637,17 @@
       "published": "2026-06-13",
       "status": "published",
       "generatedAt": "2026-06-13T10:26:27.765Z"
+    },
+    {
+      "subjectId": 459725,
+      "title": "《从Lv2开始开挂的原勇者候补悠闲的异世界生活》",
+      "filePath": "src/content/posts/bangumi-459725.md",
+      "alias": "bangumi-459725",
+      "sourceLink": "https://bgm.tv/subject/459725",
+      "image": "https://lain.bgm.tv/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+      "published": "2026-06-14",
+      "status": "published",
+      "generatedAt": "2026-06-14T10:46:42.819Z"
     }
   ]
 }
