@@ -1,91 +1,89 @@
 {
-  "generatedAt": "2026-06-14T10:46:42.822Z",
+  "generatedAt": "2026-06-15T13:50:59.777Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T09:50:17+08:00",
+    "updated_at": "2025-11-21T10:17:40+08:00",
     "comment": null,
     "tags": [
-      "钉宫理惠",
-      "龙傲天",
       "异世界",
-      "恋爱",
+      "龙傲天",
       "后宫"
     ],
     "subject": {
-      "date": "2024-04-08",
+      "date": "2023-04-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ed/46/459725_Ur6Ap.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2a/46/397025_T8Z0D.jpg"
       },
-      "name": "Lv2からチートだった元勇者候補のまったり異世界ライフ",
-      "name_cn": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
-      "short_summary": "巴那萨是个每天勤奋工作的商人，有一天突然被以“勇者候补”的身份召唤到库莱洛德魔法国这个从来没听过的异世界。然而，因为他在等级1时只有相当于一般市民的能力，被盖上了失格勇者的烙印，还因为国家的失误，让他无法回到原本的世界。\r\n巴那萨从王都被流",
+      "name": "異世界でチート能力を手にした俺は、現実世界をも無双する～レベルアップは人生を変えた～",
+      "name_cn": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
+      "short_summary": "天上优夜是个从小便饱受残忍对待的少年，在他对人生绝望时，通往异世界的大门竟为他打开了。大门的另一头,是凶恶魔物横行的大魔境。第一次进入异世界的优夜,获得强到犯规的能力,他接连讨伐魔物,等级一再上升……最后脱胎换骨变成拥有最强体能、无懈可击的",
       "tags": [
         {
           "name": "异世界",
-          "count": 739,
+          "count": 850,
           "total_cont": 0
         },
         {
-          "name": "2024年4月",
-          "count": 513,
-          "total_cont": 0
-        },
-        {
-          "name": "钉宫理惠",
-          "count": 460,
-          "total_cont": 0
-        },
-        {
-          "name": "龙傲天",
-          "count": 398,
-          "total_cont": 0
-        },
-        {
-          "name": "J.C.STAFF",
-          "count": 386,
+          "name": "2023年4月",
+          "count": 600,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 306,
+          "count": 484,
+          "total_cont": 0
+        },
+        {
+          "name": "龙傲天",
+          "count": 468,
+          "total_cont": 0
+        },
+        {
+          "name": "后宫",
+          "count": 399,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 273,
+          "count": 343,
           "total_cont": 0
         },
         {
-          "name": "厕纸",
-          "count": 204,
+          "name": "millepensee",
+          "count": 280,
           "total_cont": 0
         },
         {
           "name": "奇幻",
-          "count": 201,
+          "count": 268,
           "total_cont": 0
         },
         {
-          "name": "2024",
-          "count": 187,
+          "name": "松岡禎丞",
+          "count": 227,
+          "total_cont": 0
+        },
+        {
+          "name": "厕纸",
+          "count": 212,
           "total_cont": 0
         }
       ],
-      "score": 5.5,
+      "score": 4.4,
       "type": 2,
-      "id": 459725,
-      "eps": 12,
+      "id": 397025,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 5693,
-      "rank": 9081
+      "collection_total": 6562,
+      "rank": 9979
     },
-    "subject_id": 459725,
+    "subject_id": 397025,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -93,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2a/46/397025_T8Z0D.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
+      "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2a/46/397025_T8Z0D.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
+      "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ed/46/459725_Ur6Ap.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2a/46/397025_T8Z0D.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
+      "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-459725.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-397025.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
