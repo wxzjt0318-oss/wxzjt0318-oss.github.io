@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-06-15T13:50:59.777Z",
+  "generatedAt": "2026-06-16T12:49:19.682Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:17:40+08:00",
+    "updated_at": "2026-06-16T06:23:07+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "龙傲天",
-      "后宫"
+      "2026年4月",
+      "女性向",
+      "恋爱",
+      "恶役"
     ],
     "subject": {
-      "date": "2023-04-06",
+      "date": "2026-04-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2a/46/397025_T8Z0D.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2a/46/397025_T8Z0D.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/2a/46/397025_T8Z0D.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2a/46/397025_T8Z0D.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2a/46/397025_T8Z0D.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/61/04/558088_BrFF1.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/61/04/558088_BrFF1.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/61/04/558088_BrFF1.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/61/04/558088_BrFF1.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/61/04/558088_BrFF1.jpg"
       },
-      "name": "異世界でチート能力を手にした俺は、現実世界をも無双する～レベルアップは人生を変えた～",
-      "name_cn": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
-      "short_summary": "天上优夜是个从小便饱受残忍对待的少年，在他对人生绝望时，通往异世界的大门竟为他打开了。大门的另一头,是凶恶魔物横行的大魔境。第一次进入异世界的优夜,获得强到犯规的能力,他接连讨伐魔物,等级一再上升……最后脱胎换骨变成拥有最强体能、无懈可击的",
+      "name": "自称悪役令嬢な婚約者の観察記録。",
+      "name_cn": "自称恶役大小姐的婚约者观察记录。",
+      "short_summary": "芭蒂雅转生到了一款乙女游戏的世界中，她自称是「恶役千金」，与完美到无可挑剔的王太子赛希尔订下了婚约。\r\n但是——\r\n「我的使命是要拆散殿下与女主角的关系，然后狠狠吃瘪！」\r\n为了让赛希尔获得幸福，她自身的毁灭是不可或缺的。\r\n芭蒂雅认定，在",
       "tags": [
         {
-          "name": "异世界",
-          "count": 850,
+          "name": "2026年4月",
+          "count": 204,
           "total_cont": 0
         },
         {
-          "name": "2023年4月",
-          "count": 600,
+          "name": "恋爱",
+          "count": 191,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 484,
+          "name": "女性向",
+          "count": 115,
           "total_cont": 0
         },
         {
-          "name": "龙傲天",
-          "count": 468,
-          "total_cont": 0
-        },
-        {
-          "name": "后宫",
-          "count": 399,
+          "name": "恶役",
+          "count": 114,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 343,
+          "count": 109,
           "total_cont": 0
         },
         {
-          "name": "millepensee",
-          "count": 280,
+          "name": "苇PRODUCTION",
+          "count": 78,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 268,
+          "name": "小说改",
+          "count": 64,
           "total_cont": 0
         },
         {
-          "name": "松岡禎丞",
-          "count": 227,
+          "name": "轻小说改",
+          "count": 63,
           "total_cont": 0
         },
         {
-          "name": "厕纸",
-          "count": 212,
+          "name": "日本",
+          "count": 60,
+          "total_cont": 0
+        },
+        {
+          "name": "2026",
+          "count": 54,
           "total_cont": 0
         }
       ],
-      "score": 4.4,
+      "score": 6.4,
       "type": 2,
-      "id": 397025,
-      "eps": 13,
+      "id": 558088,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 6562,
-      "rank": 9979
+      "collection_total": 1995,
+      "rank": 5458
     },
-    "subject_id": 397025,
+    "subject_id": 558088,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 11,
     "subject_type": 2,
-    "type": 2,
-    "rate": 10,
+    "type": 3,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/61/04/558088_BrFF1.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
+      "title": "自称恶役大小姐的婚约者观察记录。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/61/04/558088_BrFF1.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
+      "title": "自称恶役大小姐的婚约者观察记录。",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2a/46/397025_T8Z0D.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/61/04/558088_BrFF1.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "在异世界获得超强能力的我，在现实世界照样无敌～等级提升改变人生命运～",
+      "title": "自称恶役大小姐的婚约者观察记录。",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-397025.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-558088.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -659,6 +659,17 @@
       "published": "2026-06-15",
       "status": "published",
       "generatedAt": "2026-06-15T13:50:59.777Z"
+    },
+    {
+      "subjectId": 558088,
+      "title": "《自称恶役大小姐的婚约者观察记录。》",
+      "filePath": "src/content/posts/bangumi-558088.md",
+      "alias": "bangumi-558088",
+      "sourceLink": "https://bgm.tv/subject/558088",
+      "image": "https://lain.bgm.tv/pic/cover/l/61/04/558088_BrFF1.jpg",
+      "published": "2026-06-16",
+      "status": "published",
+      "generatedAt": "2026-06-16T12:49:19.678Z"
     }
   ]
 }
