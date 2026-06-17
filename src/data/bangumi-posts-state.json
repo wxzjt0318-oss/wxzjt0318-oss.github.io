@@ -670,6 +670,17 @@
       "published": "2026-06-16",
       "status": "published",
       "generatedAt": "2026-06-16T12:49:19.678Z"
+    },
+    {
+      "subjectId": 79226,
+      "title": "《精灵使的剑舞》",
+      "filePath": "src/content/posts/bangumi-79226.md",
+      "alias": "bangumi-79226",
+      "sourceLink": "https://bgm.tv/subject/79226",
+      "image": "https://lain.bgm.tv/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+      "published": "2026-06-17",
+      "status": "published",
+      "generatedAt": "2026-06-17T12:13:25.205Z"
     }
   ]
 }

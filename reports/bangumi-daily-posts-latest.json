@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-06-16T12:49:19.682Z",
+  "generatedAt": "2026-06-17T12:13:25.206Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-06-16T06:23:07+08:00",
+    "updated_at": "2025-11-25T00:43:56+08:00",
     "comment": null,
-    "tags": [
-      "2026年4月",
-      "女性向",
-      "恋爱",
-      "恶役"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2026-04-06",
+      "date": "2014-07-14",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/61/04/558088_BrFF1.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/61/04/558088_BrFF1.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/61/04/558088_BrFF1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/61/04/558088_BrFF1.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/61/04/558088_BrFF1.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c0/3b/79226_8EZ7i.jpg"
       },
-      "name": "自称悪役令嬢な婚約者の観察記録。",
-      "name_cn": "自称恶役大小姐的婚约者观察记录。",
-      "short_summary": "芭蒂雅转生到了一款乙女游戏的世界中，她自称是「恶役千金」，与完美到无可挑剔的王太子赛希尔订下了婚约。\r\n但是——\r\n「我的使命是要拆散殿下与女主角的关系，然后狠狠吃瘪！」\r\n为了让赛希尔获得幸福，她自身的毁灭是不可或缺的。\r\n芭蒂雅认定，在",
+      "name": "精霊使いの剣舞",
+      "name_cn": "精灵使的剑舞",
+      "short_summary": "仅限冰清玉洁少女的特权——精灵契约。艾雷西亚精灵学院，贵族大小姐们汇聚于此，进行着作为精灵使应受的训练，以及精英教育。少年风早神人是世界上第二位能与精灵沟通的男性，被格雷瓦丝叫到精灵学校，在前往的路上不幸遇见了正在洗澡的学院生克蕾儿，结果被",
       "tags": [
         {
-          "name": "2026年4月",
-          "count": 204,
-          "total_cont": 0
-        },
-        {
-          "name": "恋爱",
-          "count": 191,
-          "total_cont": 0
-        },
-        {
-          "name": "女性向",
-          "count": 115,
-          "total_cont": 0
-        },
-        {
-          "name": "恶役",
-          "count": 114,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 109,
-          "total_cont": 0
-        },
-        {
-          "name": "苇PRODUCTION",
-          "count": 78,
-          "total_cont": 0
-        },
-        {
-          "name": "小说改",
-          "count": 64,
+          "name": "后宫",
+          "count": 1257,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 63,
+          "count": 920,
           "total_cont": 0
         },
         {
-          "name": "日本",
-          "count": 60,
+          "name": "2014年7月",
+          "count": 709,
           "total_cont": 0
         },
         {
-          "name": "2026",
-          "count": 54,
+          "name": "TV",
+          "count": 527,
+          "total_cont": 0
+        },
+        {
+          "name": "战斗",
+          "count": 513,
+          "total_cont": 0
+        },
+        {
+          "name": "精灵使的剑舞",
+          "count": 416,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 403,
+          "total_cont": 0
+        },
+        {
+          "name": "TNK",
+          "count": 304,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 296,
+          "total_cont": 0
+        },
+        {
+          "name": "2014",
+          "count": 285,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 5.8,
       "type": 2,
-      "id": 558088,
+      "id": 79226,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 1995,
-      "rank": 5458
+      "collection_total": 10299,
+      "rank": 8444
     },
-    "subject_id": 558088,
+    "subject_id": 79226,
     "vol_status": 0,
-    "ep_status": 11,
+    "ep_status": 12,
     "subject_type": 2,
-    "type": 3,
-    "rate": 0,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/61/04/558088_BrFF1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "自称恶役大小姐的婚约者观察记录。",
+      "title": "精灵使的剑舞",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/61/04/558088_BrFF1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "自称恶役大小姐的婚约者观察记录。",
+      "title": "精灵使的剑舞",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/61/04/558088_BrFF1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "自称恶役大小姐的婚约者观察记录。",
+      "title": "精灵使的剑舞",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-558088.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-79226.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
