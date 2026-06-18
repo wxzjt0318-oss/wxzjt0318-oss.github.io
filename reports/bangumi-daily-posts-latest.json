@@ -1,116 +1,116 @@
 {
-  "generatedAt": "2026-06-17T12:13:25.206Z",
+  "generatedAt": "2026-06-18T11:48:17.259Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-25T00:43:56+08:00",
+    "updated_at": "2026-06-18T03:45:44+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2014-07-14",
+      "date": "2023-07-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c0/3b/79226_8EZ7i.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/3a/2b/406307_XOXhn.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/3a/2b/406307_XOXhn.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/3a/2b/406307_XOXhn.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3a/2b/406307_XOXhn.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/3a/2b/406307_XOXhn.jpg"
       },
-      "name": "精霊使いの剣舞",
-      "name_cn": "精灵使的剑舞",
-      "short_summary": "仅限冰清玉洁少女的特权——精灵契约。艾雷西亚精灵学院，贵族大小姐们汇聚于此，进行着作为精灵使应受的训练，以及精英教育。少年风早神人是世界上第二位能与精灵沟通的男性，被格雷瓦丝叫到精灵学校，在前往的路上不幸遇见了正在洗澡的学院生克蕾儿，结果被",
+      "name": "悲劇の元凶となる最強外道ラスボス女王は民の為に尽くします。",
+      "name_cn": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。",
+      "short_summary": "「要是……我成了最差劲的女王，记得杀了我喔。」\r\n普莱朵·罗耶尔·艾比是一位八岁的公主。她察觉到自己前世是个出生在日本普通家庭，随处可见的平凡少女。而现在的她则是女性向游戏中作恶多端的最后头目女王……\r\n她转生到的是女性向游戏──《你与一线",
       "tags": [
         {
-          "name": "后宫",
-          "count": 1257,
+          "name": "异世界",
+          "count": 250,
+          "total_cont": 0
+        },
+        {
+          "name": "2023年7月",
+          "count": 242,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 920,
+          "count": 184,
           "total_cont": 0
         },
         {
-          "name": "2014年7月",
-          "count": 709,
+          "name": "恶役大小姐",
+          "count": 150,
+          "total_cont": 0
+        },
+        {
+          "name": "恶役",
+          "count": 139,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 527,
+          "count": 136,
           "total_cont": 0
         },
         {
-          "name": "战斗",
-          "count": 513,
+          "name": "乙女向",
+          "count": 125,
           "total_cont": 0
         },
         {
-          "name": "精灵使的剑舞",
-          "count": 416,
+          "name": "OLM",
+          "count": 95,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 403,
+          "name": "2023",
+          "count": 94,
           "total_cont": 0
         },
         {
-          "name": "TNK",
-          "count": 304,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 296,
-          "total_cont": 0
-        },
-        {
-          "name": "2014",
-          "count": 285,
+          "name": "轻改",
+          "count": 80,
           "total_cont": 0
         }
       ],
-      "score": 5.8,
+      "score": 5.5,
       "type": 2,
-      "id": 79226,
+      "id": 406307,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 10299,
-      "rank": 8444
+      "collection_total": 2793,
+      "rank": 9182
     },
-    "subject_id": 79226,
+    "subject_id": 406307,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 2,
-    "rate": 10,
+    "type": 3,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/3a/2b/406307_XOXhn.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "精灵使的剑舞",
+      "title": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3a/2b/406307_XOXhn.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "精灵使的剑舞",
+      "title": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c0/3b/79226_8EZ7i.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3a/2b/406307_XOXhn.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "精灵使的剑舞",
+      "title": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-79226.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-406307.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
