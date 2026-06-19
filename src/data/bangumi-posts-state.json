@@ -692,6 +692,17 @@
       "published": "2026-06-18",
       "status": "published",
       "generatedAt": "2026-06-18T11:48:17.258Z"
+    },
+    {
+      "subjectId": 257369,
+      "title": "《我们真的学不来》",
+      "filePath": "src/content/posts/bangumi-257369.md",
+      "alias": "bangumi-257369",
+      "sourceLink": "https://bgm.tv/subject/257369",
+      "image": "https://lain.bgm.tv/pic/cover/l/21/a6/257369_32HM0.jpg",
+      "published": "2026-06-19",
+      "status": "published",
+      "generatedAt": "2026-06-19T12:02:30.415Z"
     }
   ]
 }
