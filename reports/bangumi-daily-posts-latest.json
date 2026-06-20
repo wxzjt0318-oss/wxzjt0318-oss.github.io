@@ -1,85 +1,90 @@
 {
-  "generatedAt": "2026-06-19T12:02:30.416Z",
+  "generatedAt": "2026-06-20T10:29:43.456Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T15:25:09+08:00",
+    "updated_at": "2025-11-20T14:41:51+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "校园",
+      "动画工房",
+      "恋爱",
+      "俄语"
+    ],
     "subject": {
-      "date": "2019-04-06",
+      "date": "2024-07-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/21/a6/257369_32HM0.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/21/a6/257369_32HM0.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/21/a6/257369_32HM0.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/21/a6/257369_32HM0.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/21/a6/257369_32HM0.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/7c/8e/424883_BpzVb.jpg"
       },
-      "name": "ぼくたちは勉強ができない",
-      "name_cn": "我们真的学不来",
-      "short_summary": "刻苦学习的高中3年生·唯我成幸，为了获得免缴大学学费的“特别VIP推荐”资格，而要去担任为备考而苦战的同级生们的教育指导员。教导的对象是“文学之森的睡美人”古桥文乃和“机关精巧的拇指姑娘”绪方理珠这两位学园顶尖的天才美少女！原本以为她们的学",
+      "name": "時々ボソッとロシア語でデレる隣のアーリャさん",
+      "name_cn": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "short_summary": "久世政近的邻座坐着一位名叫艾莉莎的女孩，她总是对他投以冰冷的目光。\r\n然而，她偶尔会小声地用俄语对他撒娇……\r\n政近当然不会错过这些话。\r\n因为他竟然拥有着母语级别的俄语听力！\r\n\r\n艾莉莎误以为政近听不懂俄语，所以才偶尔在他面前流露出真实",
       "tags": [
         {
-          "name": "后宫",
-          "count": 1184,
+          "name": "恋爱",
+          "count": 3509,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 1107,
+          "name": "动画工房",
+          "count": 3274,
           "total_cont": 0
         },
         {
           "name": "校园",
-          "count": 932,
+          "count": 2601,
           "total_cont": 0
         },
         {
-          "name": "2019年4月",
-          "count": 836,
+          "name": "2024年7月",
+          "count": 2458,
           "total_cont": 0
         },
         {
-          "name": "漫改",
-          "count": 590,
-          "total_cont": 0
-        },
-        {
-          "name": "漫画改",
-          "count": 569,
+          "name": "轻小说改",
+          "count": 2351,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 526,
+          "count": 1319,
           "total_cont": 0
         },
         {
-          "name": "搞笑",
-          "count": 523,
+          "name": "轻改",
+          "count": 982,
           "total_cont": 0
         },
         {
           "name": "日常",
-          "count": 411,
+          "count": 959,
           "total_cont": 0
         },
         {
-          "name": "st.SILVER",
-          "count": 351,
+          "name": "2024",
+          "count": 844,
+          "total_cont": 0
+        },
+        {
+          "name": "上坂すみれ",
+          "count": 777,
           "total_cont": 0
         }
       ],
-      "score": 6.3,
+      "score": 5.5,
       "type": 2,
-      "id": 257369,
-      "eps": 13,
+      "id": 424883,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 11375,
-      "rank": 6623
+      "collection_total": 27263,
+      "rank": 9153
     },
-    "subject_id": 257369,
+    "subject_id": 424883,
     "vol_status": 0,
-    "ep_status": 13,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -87,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/21/a6/257369_32HM0.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/7c/8e/424883_BpzVb.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "我们真的学不来",
+      "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/21/a6/257369_32HM0.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7c/8e/424883_BpzVb.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "我们真的学不来",
+      "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/21/a6/257369_32HM0.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7c/8e/424883_BpzVb.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "我们真的学不来",
+      "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-257369.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-424883.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

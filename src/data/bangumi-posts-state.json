@@ -703,6 +703,17 @@
       "published": "2026-06-19",
       "status": "published",
       "generatedAt": "2026-06-19T12:02:30.415Z"
+    },
+    {
+      "subjectId": 424883,
+      "title": "《不时轻声地以俄语遮羞的邻座艾莉同学》",
+      "filePath": "src/content/posts/bangumi-424883.md",
+      "alias": "bangumi-424883",
+      "sourceLink": "https://bgm.tv/subject/424883",
+      "image": "https://lain.bgm.tv/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+      "published": "2026-06-20",
+      "status": "published",
+      "generatedAt": "2026-06-20T10:29:43.455Z"
     }
   ]
 }
