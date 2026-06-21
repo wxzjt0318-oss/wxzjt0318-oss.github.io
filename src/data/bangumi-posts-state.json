@@ -714,6 +714,17 @@
       "published": "2026-06-20",
       "status": "published",
       "generatedAt": "2026-06-20T10:29:43.455Z"
+    },
+    {
+      "subjectId": 322130,
+      "title": "《异世界迷宫里的后宫生活》",
+      "filePath": "src/content/posts/bangumi-322130.md",
+      "alias": "bangumi-322130",
+      "sourceLink": "https://bgm.tv/subject/322130",
+      "image": "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+      "published": "2026-06-21",
+      "status": "published",
+      "generatedAt": "2026-06-21T11:13:20.753Z"
     }
   ]
 }

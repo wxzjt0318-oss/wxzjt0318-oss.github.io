@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-06-20T10:29:43.456Z",
+  "generatedAt": "2026-06-21T11:13:20.753Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:41:51+08:00",
+    "updated_at": "2026-06-20T01:47:40+08:00",
     "comment": null,
-    "tags": [
-      "校园",
-      "动画工房",
-      "恋爱",
-      "俄语"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2024-07-03",
+      "date": "2022-07-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/7c/8e/424883_BpzVb.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/7c/8e/424883_BpzVb.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/7c/8e/424883_BpzVb.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7c/8e/424883_BpzVb.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/7c/8e/424883_BpzVb.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b3/a6/322130_g6hkc.jpg"
       },
-      "name": "時々ボソッとロシア語でデレる隣のアーリャさん",
-      "name_cn": "不时轻声地以俄语遮羞的邻座艾莉同学",
-      "short_summary": "久世政近的邻座坐着一位名叫艾莉莎的女孩，她总是对他投以冰冷的目光。\r\n然而，她偶尔会小声地用俄语对他撒娇……\r\n政近当然不会错过这些话。\r\n因为他竟然拥有着母语级别的俄语听力！\r\n\r\n艾莉莎误以为政近听不懂俄语，所以才偶尔在他面前流露出真实",
+      "name": "異世界迷宮でハーレムを",
+      "name_cn": "异世界迷宫里的后宫生活",
+      "short_summary": "某一天，对这个世界绝望了的加贺道夫发现了一个奇怪的网络游戏。\r\n游戏中写着，如果这个世界不好生存的话，就在异世界生活就好了。等待着设定和角色创建结束的道夫的，是与现实不同的真正的异世界。\r\n以存在各种技能、任务、魔法、迷宫等宛如游戏般的异世",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 3509,
+          "name": "后宫",
+          "count": 1416,
           "total_cont": 0
         },
         {
-          "name": "动画工房",
-          "count": 3274,
+          "name": "异世界",
+          "count": 1302,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 2601,
+          "name": "卖肉",
+          "count": 989,
           "total_cont": 0
         },
         {
-          "name": "2024年7月",
-          "count": 2458,
+          "name": "2022年7月",
+          "count": 849,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 2351,
+          "name": "肉番",
+          "count": 821,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 1319,
+          "count": 566,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 982,
+          "name": "Passione",
+          "count": 443,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 959,
+          "name": "轻小说改",
+          "count": 416,
           "total_cont": 0
         },
         {
-          "name": "2024",
-          "count": 844,
+          "name": "2022",
+          "count": 329,
           "total_cont": 0
         },
         {
-          "name": "上坂すみれ",
-          "count": 777,
+          "name": "战斗",
+          "count": 296,
           "total_cont": 0
         }
       ],
-      "score": 5.5,
+      "score": 5.8,
       "type": 2,
-      "id": 424883,
+      "id": 322130,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 27263,
-      "rank": 9153
+      "collection_total": 11283,
+      "rank": 8592
     },
-    "subject_id": 424883,
+    "subject_id": 322130,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 14,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "title": "异世界迷宫里的后宫生活",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b3/a6/322130_g6hkc.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "title": "异世界迷宫里的后宫生活",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7c/8e/424883_BpzVb.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b3/a6/322130_g6hkc.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "title": "异世界迷宫里的后宫生活",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-424883.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-322130.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
