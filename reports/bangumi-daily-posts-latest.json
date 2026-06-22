@@ -1,116 +1,116 @@
 {
-  "generatedAt": "2026-06-21T11:13:20.753Z",
+  "generatedAt": "2026-06-22T13:31:14.862Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-06-20T01:47:40+08:00",
+    "updated_at": "2026-06-22T03:32:12+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2022-07-06",
+      "date": "2023-01-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b3/a6/322130_g6hkc.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b3/a6/322130_g6hkc.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b3/a6/322130_g6hkc.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b3/a6/322130_g6hkc.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fd/3c/395714_5EeZx.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fd/3c/395714_5EeZx.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/fd/3c/395714_5EeZx.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fd/3c/395714_5EeZx.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fd/3c/395714_5EeZx.jpg"
       },
-      "name": "異世界迷宮でハーレムを",
-      "name_cn": "异世界迷宫里的后宫生活",
-      "short_summary": "某一天，对这个世界绝望了的加贺道夫发现了一个奇怪的网络游戏。\r\n游戏中写着，如果这个世界不好生存的话，就在异世界生活就好了。等待着设定和角色创建结束的道夫的，是与现实不同的真正的异世界。\r\n以存在各种技能、任务、魔法、迷宫等宛如游戏般的异世",
+      "name": "転生王女と天才令嬢の魔法革命",
+      "name_cn": "转生公主与天才千金的魔法革命",
+      "short_summary": "转生至魔法理所当然存在的世界，并在童年时重拾前世记忆的公主「艾妮丝菲亚」，梦想是用魔法翱翔于天际这件史无前例又缺乏常识的事。然而，却不知道为何无法使用魔法而遭贵族鄙视，但却建立了独特的魔法理论并一直独自研究魔法。在某个机缘巧合下，艾妮丝菲亚",
       "tags": [
         {
-          "name": "后宫",
-          "count": 1416,
+          "name": "百合",
+          "count": 3635,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 1302,
+          "count": 2564,
           "total_cont": 0
         },
         {
-          "name": "卖肉",
-          "count": 989,
-          "total_cont": 0
-        },
-        {
-          "name": "2022年7月",
-          "count": 849,
-          "total_cont": 0
-        },
-        {
-          "name": "肉番",
-          "count": 821,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 566,
-          "total_cont": 0
-        },
-        {
-          "name": "Passione",
-          "count": 443,
+          "name": "2023年1月",
+          "count": 1632,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 416,
+          "count": 1540,
           "total_cont": 0
         },
         {
-          "name": "2022",
-          "count": 329,
+          "name": "TV",
+          "count": 988,
           "total_cont": 0
         },
         {
-          "name": "战斗",
-          "count": 296,
+          "name": "凤傲天",
+          "count": 890,
+          "total_cont": 0
+        },
+        {
+          "name": "Diomedéa",
+          "count": 861,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 849,
+          "total_cont": 0
+        },
+        {
+          "name": "2023",
+          "count": 703,
+          "total_cont": 0
+        },
+        {
+          "name": "轻改",
+          "count": 672,
           "total_cont": 0
         }
       ],
-      "score": 5.8,
+      "score": 6.4,
       "type": 2,
-      "id": 322130,
+      "id": 395714,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 11283,
-      "rank": 8592
+      "collection_total": 19249,
+      "rank": 5749
     },
-    "subject_id": 322130,
+    "subject_id": 395714,
     "vol_status": 0,
-    "ep_status": 14,
+    "ep_status": 7,
     "subject_type": 2,
-    "type": 2,
+    "type": 3,
     "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/fd/3c/395714_5EeZx.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "异世界迷宫里的后宫生活",
+      "title": "转生公主与天才千金的魔法革命",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fd/3c/395714_5EeZx.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "异世界迷宫里的后宫生活",
+      "title": "转生公主与天才千金的魔法革命",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b3/a6/322130_g6hkc.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fd/3c/395714_5EeZx.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "异世界迷宫里的后宫生活",
+      "title": "转生公主与天才千金的魔法革命",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-322130.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-395714.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

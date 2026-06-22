@@ -725,6 +725,17 @@
       "published": "2026-06-21",
       "status": "published",
       "generatedAt": "2026-06-21T11:13:20.753Z"
+    },
+    {
+      "subjectId": 395714,
+      "title": "《转生公主与天才千金的魔法革命》",
+      "filePath": "src/content/posts/bangumi-395714.md",
+      "alias": "bangumi-395714",
+      "sourceLink": "https://bgm.tv/subject/395714",
+      "image": "https://lain.bgm.tv/pic/cover/l/fd/3c/395714_5EeZx.jpg",
+      "published": "2026-06-22",
+      "status": "published",
+      "generatedAt": "2026-06-22T13:31:14.861Z"
     }
   ]
 }
