@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-06-23T10:58:44.854Z",
+  "generatedAt": "2026-06-24T10:45:01.513Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-19T13:02:15+08:00",
+    "updated_at": "2025-11-21T10:04:16+08:00",
     "comment": null,
     "tags": [
-      "校园",
-      "后宫",
-      "三人行必有我妹",
-      "OVA"
+      "异世界",
+      "搞笑",
+      "续作",
+      "后宫"
     ],
     "subject": {
-      "date": "2013-03-27",
+      "date": "2024-04-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/64/40/91350_2cGsq.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/64/40/91350_2cGsq.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/64/40/91350_2cGsq.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/64/40/91350_2cGsq.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/64/40/91350_2cGsq.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/4c/8a/342667_0RfU8.jpg"
       },
-      "name": "OVAの中に1人、妹がいる!",
-      "name_cn": "三人行必有我妹 OVA",
-      "short_summary": "テレビアニメ最終話の後のエピソード（第13話）と2012年7月16日に開催された「このイベントの中に1人、妹がいる!?」のイベント映像が収録されたOVA『OVAの中に1人、妹がいる!』が2013年3月27日に発売された。",
+      "name": "この素晴らしい世界に祝福を！3",
+      "name_cn": "为美好的世界献上祝福！第三季",
+      "short_summary": "交通事故（!?）によりあっけなく人生の幕を閉じるはずだった\r\nゲームを愛するひきこもり・佐藤和真（カズマ）は、\r\nひょんなことから、女神・アクアを道連れに\r\n異世界転生することに。\r\n「RPGゲームのような異世界で、\r\n憧れの冒険者生活エン",
       "tags": [
         {
-          "name": "OVA",
-          "count": 238,
+          "name": "搞笑",
+          "count": 3713,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 185,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 86,
-          "total_cont": 0
-        },
-        {
-          "name": "2013",
-          "count": 83,
-          "total_cont": 0
-        },
-        {
-          "name": "三人行必有我妹",
-          "count": 78,
-          "total_cont": 0
-        },
-        {
-          "name": "Studio五组",
-          "count": 70,
+          "name": "异世界",
+          "count": 3624,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 58,
+          "count": 1963,
           "total_cont": 0
         },
         {
-          "name": "2013年3月",
-          "count": 51,
+          "name": "2024年4月",
+          "count": 1895,
           "total_cont": 0
         },
         {
-          "name": "妹",
-          "count": 36,
+          "name": "为美好的世界献上祝福",
+          "count": 1399,
           "total_cont": 0
         },
         {
-          "name": "搞笑",
-          "count": 29,
+          "name": "TV",
+          "count": 1398,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 1196,
+          "total_cont": 0
+        },
+        {
+          "name": "J.C.STAFF",
+          "count": 1139,
+          "total_cont": 0
+        },
+        {
+          "name": "2024",
+          "count": 767,
+          "total_cont": 0
+        },
+        {
+          "name": "轻改",
+          "count": 707,
           "total_cont": 0
         }
       ],
-      "score": 5.8,
+      "score": 7.7,
       "type": 2,
-      "id": 91350,
-      "eps": 1,
+      "id": 342667,
+      "eps": 11,
       "volumes": 0,
-      "collection_total": 1573,
-      "rank": 7942
+      "collection_total": 30485,
+      "rank": 598
     },
-    "subject_id": 91350,
+    "subject_id": 342667,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/64/40/91350_2cGsq.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/4c/8a/342667_0RfU8.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "三人行必有我妹 OVA",
+      "title": "为美好的世界献上祝福！第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/64/40/91350_2cGsq.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/4c/8a/342667_0RfU8.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "三人行必有我妹 OVA",
+      "title": "为美好的世界献上祝福！第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/64/40/91350_2cGsq.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/4c/8a/342667_0RfU8.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "三人行必有我妹 OVA",
+      "title": "为美好的世界献上祝福！第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/ova-1.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-342667.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

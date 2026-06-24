@@ -747,6 +747,17 @@
       "published": "2026-06-23",
       "status": "published",
       "generatedAt": "2026-06-23T10:58:44.853Z"
+    },
+    {
+      "subjectId": 342667,
+      "title": "《为美好的世界献上祝福！第三季》",
+      "filePath": "src/content/posts/bangumi-342667.md",
+      "alias": "bangumi-342667",
+      "sourceLink": "https://bgm.tv/subject/342667",
+      "image": "https://lain.bgm.tv/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+      "published": "2026-06-24",
+      "status": "published",
+      "generatedAt": "2026-06-24T10:45:01.512Z"
     }
   ]
 }
