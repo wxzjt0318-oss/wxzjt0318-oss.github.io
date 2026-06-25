@@ -1,90 +1,89 @@
 {
-  "generatedAt": "2026-06-24T10:45:01.513Z",
+  "generatedAt": "2026-06-25T10:38:01.780Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:04:16+08:00",
+    "updated_at": "2025-11-19T12:43:05+08:00",
     "comment": null,
     "tags": [
+      "后宫",
       "异世界",
-      "搞笑",
-      "续作",
-      "后宫"
+      "龙傲天"
     ],
     "subject": {
-      "date": "2024-04-10",
+      "date": "2017-07-11",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/4c/8a/342667_0RfU8.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/4c/8a/342667_0RfU8.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/4c/8a/342667_0RfU8.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/4c/8a/342667_0RfU8.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/4c/8a/342667_0RfU8.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/28/7f/211723_EEfet.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/28/7f/211723_EEfet.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/28/7f/211723_EEfet.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/28/7f/211723_EEfet.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/28/7f/211723_EEfet.jpg"
       },
-      "name": "この素晴らしい世界に祝福を！3",
-      "name_cn": "为美好的世界献上祝福！第三季",
-      "short_summary": "交通事故（!?）によりあっけなく人生の幕を閉じるはずだった\r\nゲームを愛するひきこもり・佐藤和真（カズマ）は、\r\nひょんなことから、女神・アクアを道連れに\r\n異世界転生することに。\r\n「RPGゲームのような異世界で、\r\n憧れの冒険者生活エン",
+      "name": "異世界はスマートフォンとともに。",
+      "name_cn": "带着智能手机闯荡异世界。",
+      "short_summary": "由于神的失误而死去的主人公，让自己的第二段人生在异世界展开。\r\n他所拥有的是被神强化的身体，以及变得在异世界也可使用的智能手机。\r\n在与各种各样的人们相遇，并获得重要伙伴的过程中，主人公在不知不觉当中得知了这个世界的秘密。\r\n在继承了古代文",
       "tags": [
         {
-          "name": "搞笑",
-          "count": 3713,
+          "name": "后宫",
+          "count": 958,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 3624,
+          "count": 889,
+          "total_cont": 0
+        },
+        {
+          "name": "龙傲天",
+          "count": 654,
+          "total_cont": 0
+        },
+        {
+          "name": "2017年7月",
+          "count": 495,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 1963,
-          "total_cont": 0
-        },
-        {
-          "name": "2024年4月",
-          "count": 1895,
-          "total_cont": 0
-        },
-        {
-          "name": "为美好的世界献上祝福",
-          "count": 1399,
+          "count": 478,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 1398,
+          "count": 345,
           "total_cont": 0
         },
         {
           "name": "奇幻",
-          "count": 1196,
+          "count": 273,
           "total_cont": 0
         },
         {
-          "name": "J.C.STAFF",
-          "count": 1139,
+          "name": "2017",
+          "count": 248,
           "total_cont": 0
         },
         {
-          "name": "2024",
-          "count": 767,
+          "name": "搞笑",
+          "count": 232,
           "total_cont": 0
         },
         {
           "name": "轻改",
-          "count": 707,
+          "count": 219,
           "total_cont": 0
         }
       ],
-      "score": 7.7,
+      "score": 4.7,
       "type": 2,
-      "id": 342667,
-      "eps": 11,
+      "id": 211723,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 30485,
-      "rank": 598
+      "collection_total": 8006,
+      "rank": 9903
     },
-    "subject_id": 342667,
+    "subject_id": 211723,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/28/7f/211723_EEfet.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "为美好的世界献上祝福！第三季",
+      "title": "带着智能手机闯荡异世界。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/28/7f/211723_EEfet.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "为美好的世界献上祝福！第三季",
+      "title": "带着智能手机闯荡异世界。",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/4c/8a/342667_0RfU8.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/28/7f/211723_EEfet.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "为美好的世界献上祝福！第三季",
+      "title": "带着智能手机闯荡异世界。",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-342667.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-211723.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

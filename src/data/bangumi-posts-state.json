@@ -758,6 +758,17 @@
       "published": "2026-06-24",
       "status": "published",
       "generatedAt": "2026-06-24T10:45:01.512Z"
+    },
+    {
+      "subjectId": 211723,
+      "title": "《带着智能手机闯荡异世界。》",
+      "filePath": "src/content/posts/bangumi-211723.md",
+      "alias": "bangumi-211723",
+      "sourceLink": "https://bgm.tv/subject/211723",
+      "image": "https://lain.bgm.tv/pic/cover/l/28/7f/211723_EEfet.jpg",
+      "published": "2026-06-25",
+      "status": "published",
+      "generatedAt": "2026-06-25T10:38:01.779Z"
     }
   ]
 }
