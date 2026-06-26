@@ -1,89 +1,89 @@
 {
-  "generatedAt": "2026-06-25T10:38:01.780Z",
+  "generatedAt": "2026-06-26T10:47:21.588Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-19T12:43:05+08:00",
+    "updated_at": "2025-11-21T10:15:28+08:00",
     "comment": null,
     "tags": [
-      "后宫",
-      "异世界",
-      "龙傲天"
+      "恋爱",
+      "校园",
+      "党争"
     ],
     "subject": {
-      "date": "2017-07-11",
+      "date": "2022-04-23",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/28/7f/211723_EEfet.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/28/7f/211723_EEfet.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/28/7f/211723_EEfet.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/28/7f/211723_EEfet.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/28/7f/211723_EEfet.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ff/e5/327606_Q11Sq.jpg"
       },
-      "name": "異世界はスマートフォンとともに。",
-      "name_cn": "带着智能手机闯荡异世界。",
-      "short_summary": "由于神的失误而死去的主人公，让自己的第二段人生在异世界展开。\r\n他所拥有的是被神强化的身体，以及变得在异世界也可使用的智能手机。\r\n在与各种各样的人们相遇，并获得重要伙伴的过程中，主人公在不知不觉当中得知了这个世界的秘密。\r\n在继承了古代文",
+      "name": "カッコウの許嫁",
+      "name_cn": "杜鹃的婚约",
+      "short_summary": "刚出生时被抱错的高中生海野凪终于要和亲生父母见面了。\r\n当天，凪偶然遇到名门女子学校的女高中生天野绘里香，为了帮助不想和未婚夫结婚的她，他答应了她的请求，半强行地扮演了她男朋友这一角色……\r\n然而，这两个人刚好是当时被抱错的孩子，两人之间已",
       "tags": [
         {
-          "name": "后宫",
-          "count": 958,
+          "name": "恋爱",
+          "count": 703,
           "total_cont": 0
         },
         {
-          "name": "异世界",
-          "count": 889,
+          "name": "2022年4月",
+          "count": 511,
           "total_cont": 0
         },
         {
-          "name": "龙傲天",
-          "count": 654,
+          "name": "校园",
+          "count": 445,
           "total_cont": 0
         },
         {
-          "name": "2017年7月",
-          "count": 495,
+          "name": "党争",
+          "count": 443,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 478,
+          "name": "漫画改",
+          "count": 409,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 345,
+          "count": 294,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 273,
+          "name": "2022",
+          "count": 234,
           "total_cont": 0
         },
         {
-          "name": "2017",
-          "count": 248,
+          "name": "SHIN-EI",
+          "count": 190,
+          "total_cont": 0
+        },
+        {
+          "name": "漫改",
+          "count": 189,
           "total_cont": 0
         },
         {
           "name": "搞笑",
-          "count": 232,
-          "total_cont": 0
-        },
-        {
-          "name": "轻改",
-          "count": 219,
+          "count": 141,
           "total_cont": 0
         }
       ],
-      "score": 4.7,
+      "score": 5.5,
       "type": 2,
-      "id": 211723,
-      "eps": 12,
+      "id": 327606,
+      "eps": 24,
       "volumes": 0,
-      "collection_total": 8006,
-      "rank": 9903
+      "collection_total": 6053,
+      "rank": 9146
     },
-    "subject_id": 211723,
+    "subject_id": 327606,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/28/7f/211723_EEfet.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "带着智能手机闯荡异世界。",
+      "title": "杜鹃的婚约",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/28/7f/211723_EEfet.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "带着智能手机闯荡异世界。",
+      "title": "杜鹃的婚约",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/28/7f/211723_EEfet.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "带着智能手机闯荡异世界。",
+      "title": "杜鹃的婚约",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-211723.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-327606.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -769,6 +769,17 @@
       "published": "2026-06-25",
       "status": "published",
       "generatedAt": "2026-06-25T10:38:01.779Z"
+    },
+    {
+      "subjectId": 327606,
+      "title": "《杜鹃的婚约》",
+      "filePath": "src/content/posts/bangumi-327606.md",
+      "alias": "bangumi-327606",
+      "sourceLink": "https://bgm.tv/subject/327606",
+      "image": "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+      "published": "2026-06-26",
+      "status": "published",
+      "generatedAt": "2026-06-26T10:47:21.587Z"
     }
   ]
 }
