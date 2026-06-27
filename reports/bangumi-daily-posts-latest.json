@@ -1,89 +1,88 @@
 {
-  "generatedAt": "2026-06-26T10:47:21.588Z",
+  "generatedAt": "2026-06-27T10:01:51.661Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:15:28+08:00",
+    "updated_at": "2025-11-20T14:39:46+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "校园",
-      "党争"
+      "剧场版",
+      "时崎狂三"
     ],
     "subject": {
-      "date": "2022-04-23",
+      "date": "2021-03-24",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ff/e5/327606_Q11Sq.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/7d/d1/310178_fmSFj.jpg"
       },
-      "name": "カッコウの許嫁",
-      "name_cn": "杜鹃的婚约",
-      "short_summary": "刚出生时被抱错的高中生海野凪终于要和亲生父母见面了。\r\n当天，凪偶然遇到名门女子学校的女高中生天野绘里香，为了帮助不想和未婚夫结婚的她，他答应了她的请求，半强行地扮演了她男朋友这一角色……\r\n然而，这两个人刚好是当时被抱错的孩子，两人之间已",
+      "name": "デート・ア・バレット ナイトメア・オア・クイーン",
+      "name_cn": "约会大作战 赤黑新章：红或白",
+      "short_summary": "〈最悪の精霊〉時崎狂三　顕界——\r\n \r\nこの世界とは異なる隣界より顕現し、地上に厄災をもたらす精霊と呼ばれる少女たち——\r\n\r\n或る者は無垢であり、或る者は救いを求め、そして或る少女は己の目的のため、自らの心を殺し続けた——\r\n\r\n第３の",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 703,
+          "name": "剧场版",
+          "count": 657,
           "total_cont": 0
         },
         {
-          "name": "2022年4月",
-          "count": 511,
+          "name": "轻小说改",
+          "count": 501,
           "total_cont": 0
         },
         {
-          "name": "校园",
+          "name": "约会大作战",
           "count": 445,
           "total_cont": 0
         },
         {
-          "name": "党争",
-          "count": 443,
+          "name": "OVA",
+          "count": 395,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 409,
+          "name": "2020",
+          "count": 393,
           "total_cont": 0
         },
         {
-          "name": "TV",
-          "count": 294,
+          "name": "战斗",
+          "count": 370,
           "total_cont": 0
         },
         {
-          "name": "2022",
-          "count": 234,
+          "name": "GeekToys",
+          "count": 270,
           "total_cont": 0
         },
         {
-          "name": "SHIN-EI",
-          "count": 190,
+          "name": "奇幻",
+          "count": 254,
           "total_cont": 0
         },
         {
-          "name": "漫改",
+          "name": "轻改",
+          "count": 201,
+          "total_cont": 0
+        },
+        {
+          "name": "时崎狂三",
           "count": 189,
-          "total_cont": 0
-        },
-        {
-          "name": "搞笑",
-          "count": 141,
           "total_cont": 0
         }
       ],
-      "score": 5.5,
+      "score": 6.3,
       "type": 2,
-      "id": 327606,
-      "eps": 24,
+      "id": 310178,
+      "eps": 1,
       "volumes": 0,
-      "collection_total": 6053,
-      "rank": 9146
+      "collection_total": 6183,
+      "rank": 6613
     },
-    "subject_id": 327606,
+    "subject_id": 310178,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +90,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "杜鹃的婚约",
+      "title": "约会大作战 赤黑新章：红或白",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7d/d1/310178_fmSFj.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "杜鹃的婚约",
+      "title": "约会大作战 赤黑新章：红或白",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ff/e5/327606_Q11Sq.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7d/d1/310178_fmSFj.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "杜鹃的婚约",
+      "title": "约会大作战 赤黑新章：红或白",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-327606.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-310178.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

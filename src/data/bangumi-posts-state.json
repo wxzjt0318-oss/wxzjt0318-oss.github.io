@@ -780,6 +780,17 @@
       "published": "2026-06-26",
       "status": "published",
       "generatedAt": "2026-06-26T10:47:21.587Z"
+    },
+    {
+      "subjectId": 310178,
+      "title": "《约会大作战 赤黑新章：红或白》",
+      "filePath": "src/content/posts/bangumi-310178.md",
+      "alias": "bangumi-310178",
+      "sourceLink": "https://bgm.tv/subject/310178",
+      "image": "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+      "published": "2026-06-27",
+      "status": "published",
+      "generatedAt": "2026-06-27T10:01:51.656Z"
     }
   ]
 }
