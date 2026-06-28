@@ -1,119 +1,121 @@
 {
-  "generatedAt": "2026-06-27T10:01:51.661Z",
+  "generatedAt": "2026-06-28T10:24:28.225Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:39:46+08:00",
+    "updated_at": "2025-11-21T09:49:27+08:00",
     "comment": null,
     "tags": [
-      "剧场版",
-      "时崎狂三"
+      "龙傲天",
+      "轻小说改",
+      "异世界",
+      "后宫"
     ],
     "subject": {
-      "date": "2021-03-24",
+      "date": "2022-04-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/7d/d1/310178_fmSFj.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/7d/d1/310178_fmSFj.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7d/d1/310178_fmSFj.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/7d/d1/310178_fmSFj.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/38/2b/359980_JRjE0.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/38/2b/359980_JRjE0.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/38/2b/359980_JRjE0.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/38/2b/359980_JRjE0.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/38/2b/359980_JRjE0.jpg"
       },
-      "name": "デート・ア・バレット ナイトメア・オア・クイーン",
-      "name_cn": "约会大作战 赤黑新章：红或白",
-      "short_summary": "〈最悪の精霊〉時崎狂三　顕界——\r\n \r\nこの世界とは異なる隣界より顕現し、地上に厄災をもたらす精霊と呼ばれる少女たち——\r\n\r\n或る者は無垢であり、或る者は救いを求め、そして或る少女は己の目的のため、自らの心を殺し続けた——\r\n\r\n第３の",
+      "name": "乙女ゲー世界はモブに厳しい世界です",
+      "name_cn": "恋爱游戏世界对路人角色很不友好",
+      "short_summary": "从现代日本转生到“恋爱游戏”世界的里昂，发现这里女尊男卑，对男性很不友好。身为路人角色的他，为了摆脱自己因地位低下而被肆意决定的人生，决定活用从游戏中得到的知识，保持路人角色的身份，取得“失落物品”来改变自己的命运...然而，里昂的爵位越升",
       "tags": [
         {
-          "name": "剧场版",
-          "count": 657,
+          "name": "异世界",
+          "count": 953,
+          "total_cont": 0
+        },
+        {
+          "name": "后宫",
+          "count": 627,
+          "total_cont": 0
+        },
+        {
+          "name": "2022年4月",
+          "count": 586,
+          "total_cont": 0
+        },
+        {
+          "name": "龙傲天",
+          "count": 513,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 501,
+          "count": 510,
           "total_cont": 0
         },
         {
-          "name": "约会大作战",
-          "count": 445,
+          "name": "TV",
+          "count": 330,
           "total_cont": 0
         },
         {
-          "name": "OVA",
-          "count": 395,
-          "total_cont": 0
-        },
-        {
-          "name": "2020",
-          "count": 393,
-          "total_cont": 0
-        },
-        {
-          "name": "战斗",
-          "count": 370,
-          "total_cont": 0
-        },
-        {
-          "name": "GeekToys",
-          "count": 270,
+          "name": "搞笑",
+          "count": 323,
           "total_cont": 0
         },
         {
           "name": "奇幻",
-          "count": 254,
+          "count": 304,
           "total_cont": 0
         },
         {
           "name": "轻改",
-          "count": 201,
+          "count": 213,
           "total_cont": 0
         },
         {
-          "name": "时崎狂三",
-          "count": 189,
+          "name": "2022",
+          "count": 193,
           "total_cont": 0
         }
       ],
-      "score": 6.3,
+      "score": 5.9,
       "type": 2,
-      "id": 310178,
-      "eps": 1,
+      "id": 359980,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 6183,
-      "rank": 6613
+      "collection_total": 6992,
+      "rank": 7927
     },
-    "subject_id": 310178,
+    "subject_id": 359980,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 4,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/38/2b/359980_JRjE0.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 赤黑新章：红或白",
+      "title": "恋爱游戏世界对路人角色很不友好",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/38/2b/359980_JRjE0.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "约会大作战 赤黑新章：红或白",
+      "title": "恋爱游戏世界对路人角色很不友好",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7d/d1/310178_fmSFj.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/38/2b/359980_JRjE0.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "约会大作战 赤黑新章：红或白",
+      "title": "恋爱游戏世界对路人角色很不友好",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-310178.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-359980.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

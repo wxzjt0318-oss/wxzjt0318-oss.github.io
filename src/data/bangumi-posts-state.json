@@ -791,6 +791,17 @@
       "published": "2026-06-27",
       "status": "published",
       "generatedAt": "2026-06-27T10:01:51.656Z"
+    },
+    {
+      "subjectId": 359980,
+      "title": "《恋爱游戏世界对路人角色很不友好》",
+      "filePath": "src/content/posts/bangumi-359980.md",
+      "alias": "bangumi-359980",
+      "sourceLink": "https://bgm.tv/subject/359980",
+      "image": "https://lain.bgm.tv/pic/cover/l/38/2b/359980_JRjE0.jpg",
+      "published": "2026-06-28",
+      "status": "published",
+      "generatedAt": "2026-06-28T10:24:28.224Z"
     }
   ]
 }
