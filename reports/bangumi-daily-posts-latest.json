@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-06-28T10:24:28.225Z",
+  "generatedAt": "2026-06-29T12:28:02.760Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T09:49:27+08:00",
+    "updated_at": "2026-01-06T15:54:34+08:00",
     "comment": null,
     "tags": [
-      "龙傲天",
-      "轻小说改",
-      "异世界",
-      "后宫"
+      "校园",
+      "后宫",
+      "恋爱",
+      "漫改"
     ],
     "subject": {
-      "date": "2022-04-03",
+      "date": "2024-07-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/38/2b/359980_JRjE0.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/38/2b/359980_JRjE0.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/38/2b/359980_JRjE0.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/38/2b/359980_JRjE0.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/38/2b/359980_JRjE0.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/53/13/410346_MmQCm.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/53/13/410346_MmQCm.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/53/13/410346_MmQCm.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/13/410346_MmQCm.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/53/13/410346_MmQCm.jpg"
       },
-      "name": "乙女ゲー世界はモブに厳しい世界です",
-      "name_cn": "恋爱游戏世界对路人角色很不友好",
-      "short_summary": "从现代日本转生到“恋爱游戏”世界的里昂，发现这里女尊男卑，对男性很不友好。身为路人角色的他，为了摆脱自己因地位低下而被肆意决定的人生，决定活用从游戏中得到的知识，保持路人角色的身份，取得“失落物品”来改变自己的命运...然而，里昂的爵位越升",
+      "name": "2.5次元の誘惑",
+      "name_cn": "2.5次元的诱惑",
+      "short_summary": "“莉莉艾露！！！”\r\n对3次元的女生不感兴趣！漫画研究社社长奥村正宗今天也一个人在活动室里，喊着屏幕那头他深爱的二次元角色莉莉艾露的名字。\r\n但是，一位名叫“天乃莉莉纱”的3次元少女来到了奥村正宗身边，并表示“想成为莉莉艾露”。\r\n她非常喜",
       "tags": [
         {
-          "name": "异世界",
-          "count": 953,
+          "name": "恋爱",
+          "count": 1161,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 627,
+          "name": "2024年7月",
+          "count": 1140,
           "total_cont": 0
         },
         {
-          "name": "2022年4月",
-          "count": 586,
+          "name": "J.C.STAFF",
+          "count": 1006,
           "total_cont": 0
         },
         {
-          "name": "龙傲天",
-          "count": 513,
+          "name": "漫画改",
+          "count": 935,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 510,
+          "name": "校园",
+          "count": 925,
+          "total_cont": 0
+        },
+        {
+          "name": "cosplay",
+          "count": 762,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 330,
+          "count": 607,
           "total_cont": 0
         },
         {
-          "name": "搞笑",
-          "count": 323,
+          "name": "后宫",
+          "count": 597,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 304,
+          "name": "卖肉",
+          "count": 558,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 213,
-          "total_cont": 0
-        },
-        {
-          "name": "2022",
-          "count": 193,
+          "name": "漫改",
+          "count": 364,
           "total_cont": 0
         }
       ],
-      "score": 5.9,
+      "score": 6.7,
       "type": 2,
-      "id": 359980,
-      "eps": 12,
+      "id": 410346,
+      "eps": 24,
       "volumes": 0,
-      "collection_total": 6992,
-      "rank": 7927
+      "collection_total": 13215,
+      "rank": 4098
     },
-    "subject_id": 359980,
+    "subject_id": 410346,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 24,
     "subject_type": 2,
     "type": 2,
-    "rate": 4,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/38/2b/359980_JRjE0.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/53/13/410346_MmQCm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "恋爱游戏世界对路人角色很不友好",
+      "title": "2.5次元的诱惑",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/38/2b/359980_JRjE0.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/13/410346_MmQCm.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "恋爱游戏世界对路人角色很不友好",
+      "title": "2.5次元的诱惑",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/38/2b/359980_JRjE0.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/13/410346_MmQCm.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "恋爱游戏世界对路人角色很不友好",
+      "title": "2.5次元的诱惑",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-359980.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-410346.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

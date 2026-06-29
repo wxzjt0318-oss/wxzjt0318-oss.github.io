@@ -802,6 +802,17 @@
       "published": "2026-06-28",
       "status": "published",
       "generatedAt": "2026-06-28T10:24:28.224Z"
+    },
+    {
+      "subjectId": 410346,
+      "title": "《2.5次元的诱惑》",
+      "filePath": "src/content/posts/bangumi-410346.md",
+      "alias": "bangumi-410346",
+      "sourceLink": "https://bgm.tv/subject/410346",
+      "image": "https://lain.bgm.tv/pic/cover/l/53/13/410346_MmQCm.jpg",
+      "published": "2026-06-29",
+      "status": "published",
+      "generatedAt": "2026-06-29T12:28:02.756Z"
     }
   ]
 }
