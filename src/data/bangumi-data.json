@@ -1,5 +1,26 @@
 [
   {
+    "title": "龙王的工作！",
+    "status": "watching",
+    "rating": 0,
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/58/d3/219658_Reey1.jpg",
+    "description": "玄关门一打开，眼前冒出了一位小学女生——\r\n“我依照约定来了，请收我为弟子！”\r\n年仅十六岁便拥有将棋界最高头衔“龙王”的九头龙八一家里，出现一位名叫雏鹤爱的小学三年级生，九岁。\r\n“什么？……弟子？你在说什么？”\r\n“……您不记得了吗？”\r\n八一对自己答应过的事情完全没有印象，却展开了与小学女生同居的生活。受到爱直率的热情影响，八一也逐渐取回险些丧失的热忱——",
+    "episodes": "12 episodes",
+    "year": "2018",
+    "genre": [
+      "萝莉",
+      "轻小说改",
+      "将棋"
+    ],
+    "studio": "日本コロムビア",
+    "link": "https://bgm.tv/subject/219658",
+    "progress": 6,
+    "totalEpisodes": 12,
+    "startDate": "2018-01-08",
+    "endDate": "2018-01-08",
+    "updatedAt": "2026-06-30T04:39:14+08:00"
+  },
+  {
     "title": "弱弱老师",
     "status": "completed",
     "rating": 10,
@@ -213,14 +234,14 @@
     "title": "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
     "status": "planned",
     "rating": 0,
-    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ce/e2/456080_IskBl.jpg",
+    "cover": "https://lain.bgm.tv/r/800/pic/cover/l/ce/e2/456080_C4q4C.jpg",
     "description": "幼かった夏の終わり、大切な男友達と約束を交わした。\r\n\r\n７年後、都会の高校に転入した隼人が再会した幼馴染は清楚可憐な美少女になっていた！\r\n\r\n高嶺の花と呼ばれる春希は、隼人と２人きりになると昔のノリで笑いかけてきて…\r\n\r\n田舎と都会、少年と少女、成長した心と身体。\r\n\r\n離れていた間に変化したものがあれば、変わらない想いと約束があって——",
     "episodes": "Unknown",
     "year": "2026",
     "genre": [
       "2026年7月",
       "projectNo.9",
-      "TV"
+      "轻小说改"
     ],
     "studio": "project No.9",
     "link": "https://bgm.tv/subject/456080",
@@ -429,8 +450,8 @@
     "year": "2026",
     "genre": [
       "2026年7月",
-      "TV",
-      "恋爱"
+      "恋爱",
+      "TV"
     ],
     "studio": "『才女のお世話』製作委員会",
     "link": "https://bgm.tv/subject/602733",
@@ -492,8 +513,8 @@
     "year": "2026",
     "genre": [
       "轻小说改",
-      "后宫",
-      "2026年7月"
+      "2026年7月",
+      "后宫"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/412144",
@@ -1039,7 +1060,7 @@
     "genre": [
       "异世界",
       "2026年1月",
-      "TV"
+      "轻小说改"
     ],
     "studio": "画狂×FelixFilm",
     "link": "https://bgm.tv/subject/544106",
@@ -1375,7 +1396,7 @@
     "genre": [
       "异世界",
       "2026年1月",
-      "奇幻"
+      "轻小说改"
     ],
     "studio": "日本BS放送",
     "link": "https://bgm.tv/subject/554013",
@@ -1563,8 +1584,8 @@
     "year": "2019",
     "genre": [
       "异世界",
-      "2019年10月",
-      "轻小说改"
+      "轻小说改",
+      "2019年10月"
     ],
     "studio": "project No.9",
     "link": "https://bgm.tv/subject/277399",
@@ -2026,7 +2047,7 @@
     "genre": [
       "异世界",
       "2025年10月",
-      "奇幻"
+      "战斗"
     ],
     "studio": "ソニー・ピクチャーズ エンタテインメント",
     "link": "https://bgm.tv/subject/537904",
@@ -4167,8 +4188,8 @@
     "year": "2026",
     "genre": [
       "2026年7月",
-      "后宫",
-      "恋爱"
+      "漫画改",
+      "后宫"
     ],
     "studio": "Unknown",
     "link": "https://bgm.tv/subject/598058",
@@ -5216,8 +5237,8 @@
     "episodes": "Unknown",
     "year": "Unknown",
     "genre": [
-      "轻小说改",
       "TV",
+      "轻小说改",
       "SILVERLINK."
     ],
     "studio": "暗殺貴族２製作委員会",

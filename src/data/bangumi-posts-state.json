@@ -813,6 +813,17 @@
       "published": "2026-06-29",
       "status": "published",
       "generatedAt": "2026-06-29T12:28:02.756Z"
+    },
+    {
+      "subjectId": 219658,
+      "title": "《龙王的工作！》",
+      "filePath": "src/content/posts/bangumi-219658.md",
+      "alias": "bangumi-219658",
+      "sourceLink": "https://bgm.tv/subject/219658",
+      "image": "https://lain.bgm.tv/pic/cover/l/58/d3/219658_Reey1.jpg",
+      "published": "2026-06-30",
+      "status": "published",
+      "generatedAt": "2026-06-30T10:53:31.136Z"
     }
   ]
 }
