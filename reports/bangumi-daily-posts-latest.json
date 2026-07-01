@@ -1,116 +1,121 @@
 {
-  "generatedAt": "2026-06-30T10:53:31.137Z",
+  "generatedAt": "2026-07-01T11:20:34.909Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-06-30T04:39:14+08:00",
+    "updated_at": "2025-11-20T14:38:51+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "约会大作战",
+      "后宫",
+      "校园",
+      "科幻"
+    ],
     "subject": {
-      "date": "2018-01-08",
+      "date": "2013-04-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/58/d3/219658_Reey1.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/58/d3/219658_Reey1.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/58/d3/219658_Reey1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/58/d3/219658_Reey1.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/58/d3/219658_Reey1.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/99/08/49131_CIPjC.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/99/08/49131_CIPjC.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/99/08/49131_CIPjC.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/99/08/49131_CIPjC.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/99/08/49131_CIPjC.jpg"
       },
-      "name": "りゅうおうのおしごと！",
-      "name_cn": "龙王的工作！",
-      "short_summary": "玄关门一打开，眼前冒出了一位小学女生——\r\n“我依照约定来了，请收我为弟子！”\r\n年仅十六岁便拥有将棋界最高头衔“龙王”的九头龙八一家里，出现一位名叫雏鹤爱的小学三年级生，九岁。\r\n“什么？……弟子？你在说什么？”\r\n“……您不记得了吗？”",
+      "name": "デート・ア・ライブ",
+      "name_cn": "约会大作战",
+      "short_summary": "故事是讲述一名普通的高中二年级生五河士道，突然在某一天遇上了一场大爆炸，而在这场大爆炸之中竟然出现一名身穿盔甲手持大剑的神秘美少女。原来这名少女的真正身份是“精灵”，是会给世界带来毁灭性灾难的存在，她的再次出现，将会给地球带来毁灭性的未来！",
       "tags": [
         {
-          "name": "萝莉",
-          "count": 2667,
+          "name": "后宫",
+          "count": 4343,
+          "total_cont": 0
+        },
+        {
+          "name": "约会大作战",
+          "count": 2712,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 1996,
+          "count": 2521,
           "total_cont": 0
         },
         {
-          "name": "将棋",
-          "count": 1613,
+          "name": "校园",
+          "count": 1850,
           "total_cont": 0
         },
         {
-          "name": "2018年1月",
-          "count": 1564,
-          "total_cont": 0
-        },
-        {
-          "name": "后宫",
-          "count": 1431,
-          "total_cont": 0
-        },
-        {
-          "name": "projectNo.9",
-          "count": 1269,
+          "name": "2013年4月",
+          "count": 1766,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 1095,
+          "count": 1560,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 793,
+          "name": "战斗",
+          "count": 1323,
           "total_cont": 0
         },
         {
-          "name": "2018",
-          "count": 717,
+          "name": "AIC",
+          "count": 1199,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 690,
+          "name": "2013",
+          "count": 956,
+          "total_cont": 0
+        },
+        {
+          "name": "科幻",
+          "count": 823,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 6.7,
       "type": 2,
-      "id": 219658,
+      "id": 49131,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 22936,
-      "rank": 6181
+      "collection_total": 32976,
+      "rank": 4248
     },
-    "subject_id": 219658,
+    "subject_id": 49131,
     "vol_status": 0,
-    "ep_status": 6,
+    "ep_status": 12,
     "subject_type": 2,
-    "type": 3,
-    "rate": 0,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/58/d3/219658_Reey1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/99/08/49131_CIPjC.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "龙王的工作！",
+      "title": "约会大作战",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/58/d3/219658_Reey1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/99/08/49131_CIPjC.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "龙王的工作！",
+      "title": "约会大作战",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/58/d3/219658_Reey1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/99/08/49131_CIPjC.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "龙王的工作！",
+      "title": "约会大作战",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-219658.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-49131.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

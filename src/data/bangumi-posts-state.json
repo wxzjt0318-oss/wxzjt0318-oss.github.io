@@ -824,6 +824,17 @@
       "published": "2026-06-30",
       "status": "published",
       "generatedAt": "2026-06-30T10:53:31.136Z"
+    },
+    {
+      "subjectId": 49131,
+      "title": "《约会大作战》",
+      "filePath": "src/content/posts/bangumi-49131.md",
+      "alias": "bangumi-49131",
+      "sourceLink": "https://bgm.tv/subject/49131",
+      "image": "https://lain.bgm.tv/pic/cover/l/99/08/49131_CIPjC.jpg",
+      "published": "2026-07-01",
+      "status": "published",
+      "generatedAt": "2026-07-01T11:20:34.908Z"
     }
   ]
 }
