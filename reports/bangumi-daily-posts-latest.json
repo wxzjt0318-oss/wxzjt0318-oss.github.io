@@ -1,90 +1,85 @@
 {
-  "generatedAt": "2026-07-01T11:20:34.909Z",
+  "generatedAt": "2026-07-02T10:33:25.799Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:38:51+08:00",
+    "updated_at": "2025-11-20T14:43:46+08:00",
     "comment": null,
-    "tags": [
-      "约会大作战",
-      "后宫",
-      "校园",
-      "科幻"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2013-04-05",
+      "date": "2022-10-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/99/08/49131_CIPjC.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/99/08/49131_CIPjC.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/99/08/49131_CIPjC.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/99/08/49131_CIPjC.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/99/08/49131_CIPjC.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/3c/82/373267_ffBO8.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/3c/82/373267_ffBO8.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/3c/82/373267_ffBO8.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3c/82/373267_ffBO8.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/3c/82/373267_ffBO8.jpg"
       },
-      "name": "デート・ア・ライブ",
-      "name_cn": "约会大作战",
-      "short_summary": "故事是讲述一名普通的高中二年级生五河士道，突然在某一天遇上了一场大爆炸，而在这场大爆炸之中竟然出现一名身穿盔甲手持大剑的神秘美少女。原来这名少女的真正身份是“精灵”，是会给世界带来毁灭性灾难的存在，她的再次出现，将会给地球带来毁灭性的未来！",
+      "name": "SPY×FAMILY 第2クール",
+      "name_cn": "间谍过家家 第2部分",
+      "short_summary": "人人都有不愿对他人露出的一面。\r\n这是一个情报战的年代，全球各国都全力参与其中，表面上却不动声色。\r\n东国和西国已陷入冷战长达十多年。“黄昏”是一名顶尖间谍，隶属西国专门对付东国的情报局 WISE。他奉命执行一项秘密任务：追踪东国国家统一党",
       "tags": [
         {
-          "name": "后宫",
-          "count": 4343,
+          "name": "搞笑",
+          "count": 3202,
           "total_cont": 0
         },
         {
-          "name": "约会大作战",
-          "count": 2712,
+          "name": "日常",
+          "count": 2624,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 2521,
+          "name": "2022年10月",
+          "count": 2357,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 1850,
+          "name": "WITSTUDIO",
+          "count": 2198,
           "total_cont": 0
         },
         {
-          "name": "2013年4月",
-          "count": 1766,
+          "name": "CloverWorks",
+          "count": 2063,
+          "total_cont": 0
+        },
+        {
+          "name": "漫画改",
+          "count": 1941,
+          "total_cont": 0
+        },
+        {
+          "name": "家庭喜剧",
+          "count": 1656,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 1560,
+          "count": 1467,
           "total_cont": 0
         },
         {
-          "name": "战斗",
-          "count": 1323,
+          "name": "漫改",
+          "count": 1029,
           "total_cont": 0
         },
         {
-          "name": "AIC",
-          "count": 1199,
-          "total_cont": 0
-        },
-        {
-          "name": "2013",
-          "count": 956,
-          "total_cont": 0
-        },
-        {
-          "name": "科幻",
-          "count": 823,
+          "name": "2022",
+          "count": 968,
           "total_cont": 0
         }
       ],
-      "score": 6.7,
+      "score": 7.3,
       "type": 2,
-      "id": 49131,
-      "eps": 12,
+      "id": 373267,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 32976,
-      "rank": 4248
+      "collection_total": 29954,
+      "rank": 1358
     },
-    "subject_id": 49131,
+    "subject_id": 373267,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 13,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/99/08/49131_CIPjC.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/3c/82/373267_ffBO8.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战",
+      "title": "间谍过家家 第2部分",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/99/08/49131_CIPjC.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3c/82/373267_ffBO8.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "约会大作战",
+      "title": "间谍过家家 第2部分",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/99/08/49131_CIPjC.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3c/82/373267_ffBO8.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "约会大作战",
+      "title": "间谍过家家 第2部分",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-49131.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family-2.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
