@@ -1,116 +1,116 @@
 {
-  "generatedAt": "2026-07-02T10:33:25.799Z",
+  "generatedAt": "2026-07-03T10:31:11.035Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:43:46+08:00",
+    "updated_at": "2026-07-03T03:37:16+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2022-10-01",
+      "date": "2026-07-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/3c/82/373267_ffBO8.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/3c/82/373267_ffBO8.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/3c/82/373267_ffBO8.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3c/82/373267_ffBO8.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/3c/82/373267_ffBO8.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fd/f7/630163_y1Ql1.jpg"
       },
-      "name": "SPY×FAMILY 第2クール",
-      "name_cn": "间谍过家家 第2部分",
-      "short_summary": "人人都有不愿对他人露出的一面。\r\n这是一个情报战的年代，全球各国都全力参与其中，表面上却不动声色。\r\n东国和西国已陷入冷战长达十多年。“黄昏”是一名顶尖间谍，隶属西国专门对付东国的情报局 WISE。他奉命执行一项秘密任务：追踪东国国家统一党",
+      "name": "落第賢者の学院無双～二度目の転生、Sランクチート魔術師冒険録～",
+      "name_cn": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
+      "short_summary": "現代から転生し、人生のすべてを魔導の研究に費やした大賢者エフタル。しかし彼は己の才能の限界を知り、絶望と後悔の果てに命を落としてしまう。\r\n――それから400年。前世の知識と魔術を携え、二度目の転生を遂げたエフタルは、再び魔導の頂きを目指す",
       "tags": [
         {
-          "name": "搞笑",
-          "count": 3202,
-          "total_cont": 0
-        },
-        {
-          "name": "日常",
-          "count": 2624,
-          "total_cont": 0
-        },
-        {
-          "name": "2022年10月",
-          "count": 2357,
-          "total_cont": 0
-        },
-        {
-          "name": "WITSTUDIO",
-          "count": 2198,
-          "total_cont": 0
-        },
-        {
-          "name": "CloverWorks",
-          "count": 2063,
-          "total_cont": 0
-        },
-        {
-          "name": "漫画改",
-          "count": 1941,
-          "total_cont": 0
-        },
-        {
-          "name": "家庭喜剧",
-          "count": 1656,
+          "name": "2026年7月",
+          "count": 52,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 1467,
+          "count": 37,
           "total_cont": 0
         },
         {
-          "name": "漫改",
-          "count": 1029,
+          "name": "轻小说改",
+          "count": 37,
           "total_cont": 0
         },
         {
-          "name": "2022",
-          "count": 968,
+          "name": "异世界",
+          "count": 25,
+          "total_cont": 0
+        },
+        {
+          "name": "2026",
+          "count": 18,
+          "total_cont": 0
+        },
+        {
+          "name": "小说改",
+          "count": 17,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 17,
+          "total_cont": 0
+        },
+        {
+          "name": "EMTスクエアード",
+          "count": 15,
+          "total_cont": 0
+        },
+        {
+          "name": "日本",
+          "count": 15,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 12,
           "total_cont": 0
         }
       ],
-      "score": 7.3,
+      "score": 5.2,
       "type": 2,
-      "id": 373267,
-      "eps": 13,
+      "id": 630163,
+      "eps": 0,
       "volumes": 0,
-      "collection_total": 29954,
-      "rank": 1358
+      "collection_total": 574,
+      "rank": 0
     },
-    "subject_id": 373267,
+    "subject_id": 630163,
     "vol_status": 0,
-    "ep_status": 13,
+    "ep_status": 2,
     "subject_type": 2,
-    "type": 2,
+    "type": 3,
     "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/3c/82/373267_ffBO8.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "间谍过家家 第2部分",
+      "title": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3c/82/373267_ffBO8.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "间谍过家家 第2部分",
+      "title": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3c/82/373267_ffBO8.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "间谍过家家 第2部分",
+      "title": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family-2.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-630163.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
