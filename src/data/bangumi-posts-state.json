@@ -857,6 +857,17 @@
       "published": "2026-07-03",
       "status": "published",
       "generatedAt": "2026-07-03T10:31:10.969Z"
+    },
+    {
+      "subjectId": 638151,
+      "title": "《地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季》",
+      "filePath": "src/content/posts/2nd-season.md",
+      "alias": "2nd-season",
+      "sourceLink": "https://bgm.tv/subject/638151",
+      "image": "https://lain.bgm.tv/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+      "published": "2026-07-04",
+      "status": "published",
+      "generatedAt": "2026-07-04T10:04:26.613Z"
     }
   ]
 }

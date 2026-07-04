@@ -1,116 +1,116 @@
 {
-  "generatedAt": "2026-07-03T10:31:11.035Z",
+  "generatedAt": "2026-07-04T10:04:26.614Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-03T03:37:16+08:00",
+    "updated_at": "2026-07-04T00:50:42+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2026-07-01",
+      "date": "2026-07-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fd/f7/630163_y1Ql1.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fa/0b/638151_4cZdo.jpg"
       },
-      "name": "落第賢者の学院無双～二度目の転生、Sランクチート魔術師冒険録～",
-      "name_cn": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
-      "short_summary": "現代から転生し、人生のすべてを魔導の研究に費やした大賢者エフタル。しかし彼は己の才能の限界を知り、絶望と後悔の果てに命を落としてしまう。\r\n――それから400年。前世の知識と魔術を携え、二度目の転生を遂げたエフタルは、再び魔導の頂きを目指す",
+      "name": "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～ 2nd Season",
+      "name_cn": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
+      "short_summary": "转生到一款无名网络游戏世界、以最高难度「地狱模式」展开人生的前废游戏宅少年・亚莲。没有攻略本。没有讨论区。连练等都得拼上性命──即使面对如此绝望的环境，他身为玩家的本能却为之欢欣雀跃。\r\n亚莲运用转生时获得、独一无二又谜团重重的才能「召唤士",
       "tags": [
         {
           "name": "2026年7月",
-          "count": 52,
+          "count": 39,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 37,
-          "total_cont": 0
-        },
-        {
-          "name": "轻小说改",
-          "count": 37,
-          "total_cont": 0
-        },
-        {
-          "name": "异世界",
-          "count": 25,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 18,
-          "total_cont": 0
-        },
-        {
-          "name": "小说改",
-          "count": 17,
+          "count": 24,
           "total_cont": 0
         },
         {
           "name": "奇幻",
+          "count": 23,
+          "total_cont": 0
+        },
+        {
+          "name": "异世界",
+          "count": 23,
+          "total_cont": 0
+        },
+        {
+          "name": "战斗",
+          "count": 20,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
           "count": 17,
           "total_cont": 0
         },
         {
-          "name": "EMTスクエアード",
-          "count": 15,
+          "name": "2026",
+          "count": 17,
+          "total_cont": 0
+        },
+        {
+          "name": "横滨AnimationLABO",
+          "count": 16,
           "total_cont": 0
         },
         {
           "name": "日本",
-          "count": 15,
+          "count": 11,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 12,
+          "name": "小说改",
+          "count": 11,
           "total_cont": 0
         }
       ],
-      "score": 5.2,
+      "score": 6.1,
       "type": 2,
-      "id": 630163,
+      "id": 638151,
       "eps": 0,
       "volumes": 0,
-      "collection_total": 574,
+      "collection_total": 623,
       "rank": 0
     },
-    "subject_id": 630163,
+    "subject_id": 638151,
     "vol_status": 0,
-    "ep_status": 2,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 3,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/fa/0b/638151_4cZdo.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
+      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fa/0b/638151_4cZdo.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
+      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fd/f7/630163_y1Ql1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fa/0b/638151_4cZdo.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "落第贤者的学院无双～第二次转生的S级开外挂魔术师冒险录～",
+      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-630163.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2nd-season.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
