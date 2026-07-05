@@ -1,116 +1,121 @@
 {
-  "generatedAt": "2026-07-04T10:04:26.614Z",
+  "generatedAt": "2026-07-05T10:07:03.463Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-04T00:50:42+08:00",
+    "updated_at": "2026-07-04T02:03:14+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "TV",
+      "冒险",
+      "小说改",
+      "战斗"
+    ],
     "subject": {
-      "date": "2026-07-03",
+      "date": "2026-07-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fa/0b/638151_4cZdo.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fa/0b/638151_4cZdo.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/fa/0b/638151_4cZdo.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fa/0b/638151_4cZdo.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fa/0b/638151_4cZdo.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2c/93/590786_48D8M.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2c/93/590786_48D8M.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/2c/93/590786_48D8M.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2c/93/590786_48D8M.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2c/93/590786_48D8M.jpg"
       },
-      "name": "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～ 2nd Season",
-      "name_cn": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
-      "short_summary": "转生到一款无名网络游戏世界、以最高难度「地狱模式」展开人生的前废游戏宅少年・亚莲。没有攻略本。没有讨论区。连练等都得拼上性命──即使面对如此绝望的环境，他身为玩家的本能却为之欢欣雀跃。\r\n亚莲运用转生时获得、独一无二又谜团重重的才能「召唤士",
+      "name": "ここは俺に任せて先に行けと言ってから10年がたったら伝説になっていた。",
+      "name_cn": "『你们先走我断后』，于是10年后我成为了传说",
+      "short_summary": "S级魔导士勒库为了让队友逃走而独自殿后，与魔王展开决战。十年后他平安归来并被奉为救世英雄，但眼见世界已回归和平，他决定隐姓埋名，以F级冒险者的身份重新享受全新的人生。\r\n\r\n\r\n\r\n[简介原文]\r\n勇者パーティのSランク魔導士ラックは勇者エ",
       "tags": [
         {
           "name": "2026年7月",
-          "count": 39,
+          "count": 64,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 24,
-          "total_cont": 0
-        },
-        {
-          "name": "奇幻",
-          "count": 23,
-          "total_cont": 0
-        },
-        {
-          "name": "异世界",
-          "count": 23,
-          "total_cont": 0
-        },
-        {
-          "name": "战斗",
-          "count": 20,
+          "count": 45,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 17,
+          "count": 39,
+          "total_cont": 0
+        },
+        {
+          "name": "战斗",
+          "count": 37,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 17,
+          "count": 30,
           "total_cont": 0
         },
         {
-          "name": "横滨AnimationLABO",
-          "count": 16,
+          "name": "异世界",
+          "count": 30,
           "total_cont": 0
         },
         {
-          "name": "日本",
-          "count": 11,
+          "name": "奇幻",
+          "count": 28,
+          "total_cont": 0
+        },
+        {
+          "name": "冒险",
+          "count": 27,
+          "total_cont": 0
+        },
+        {
+          "name": "月虹",
+          "count": 26,
           "total_cont": 0
         },
         {
           "name": "小说改",
-          "count": 11,
+          "count": 24,
           "total_cont": 0
         }
       ],
-      "score": 6.1,
+      "score": 5.7,
       "type": 2,
-      "id": 638151,
+      "id": 590786,
       "eps": 0,
       "volumes": 0,
-      "collection_total": 623,
+      "collection_total": 804,
       "rank": 0
     },
-    "subject_id": 638151,
+    "subject_id": 590786,
     "vol_status": 0,
     "ep_status": 1,
     "subject_type": 2,
     "type": 3,
-    "rate": 0,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2c/93/590786_48D8M.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
+      "title": "『你们先走我断后』，于是10年后我成为了传说",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2c/93/590786_48D8M.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
+      "title": "『你们先走我断后』，于是10年后我成为了传说",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fa/0b/638151_4cZdo.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2c/93/590786_48D8M.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
+      "title": "『你们先走我断后』，于是10年后我成为了传说",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/2nd-season.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-590786.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

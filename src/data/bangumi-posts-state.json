@@ -868,6 +868,17 @@
       "published": "2026-07-04",
       "status": "published",
       "generatedAt": "2026-07-04T10:04:26.613Z"
+    },
+    {
+      "subjectId": 590786,
+      "title": "《『你们先走我断后』，于是10年后我成为了传说》",
+      "filePath": "src/content/posts/bangumi-590786.md",
+      "alias": "bangumi-590786",
+      "sourceLink": "https://bgm.tv/subject/590786",
+      "image": "https://lain.bgm.tv/pic/cover/l/2c/93/590786_48D8M.jpg",
+      "published": "2026-07-05",
+      "status": "published",
+      "generatedAt": "2026-07-05T10:07:03.462Z"
     }
   ]
 }
