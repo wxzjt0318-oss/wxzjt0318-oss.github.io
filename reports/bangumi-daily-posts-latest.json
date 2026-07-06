@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-07-05T10:07:03.463Z",
+  "generatedAt": "2026-07-06T11:59:54.235Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-04T02:03:14+08:00",
+    "updated_at": "2026-07-05T22:20:22+08:00",
     "comment": null,
-    "tags": [
-      "TV",
-      "冒险",
-      "小说改",
-      "战斗"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2026-07-06",
+      "date": "2026-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2c/93/590786_48D8M.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2c/93/590786_48D8M.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/2c/93/590786_48D8M.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2c/93/590786_48D8M.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2c/93/590786_48D8M.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/bd/74/602733_X0NNo.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/bd/74/602733_X0NNo.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/bd/74/602733_X0NNo.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/bd/74/602733_X0NNo.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/bd/74/602733_X0NNo.jpg"
       },
-      "name": "ここは俺に任せて先に行けと言ってから10年がたったら伝説になっていた。",
-      "name_cn": "『你们先走我断后』，于是10年后我成为了传说",
-      "short_summary": "S级魔导士勒库为了让队友逃走而独自殿后，与魔王展开决战。十年后他平安归来并被奉为救世英雄，但眼见世界已回归和平，他决定隐姓埋名，以F级冒险者的身份重新享受全新的人生。\r\n\r\n\r\n\r\n[简介原文]\r\n勇者パーティのSランク魔導士ラックは勇者エ",
+      "name": "才女のお世話 高嶺の花だらけな名門校で、学院一のお嬢様（生活能力皆無）を陰ながらお世話することになりました",
+      "name_cn": "才女的侍从 在满是高岭之花的贵族学校暗中照顾（毫无生活自理能力的）学院第一大小姐",
+      "short_summary": "「我，想要这个人。」\r\n人人向往的「完美千金」，此花雏子。身为日本第一财阀千金的她，突然指名偶然相遇的庶民男高中生──友成伊月，担任自己的专属「侍从」。\r\n雏子表面上看似品行端正，真面目却是连换衣服都无法独力完成、毫无生活能力的「懒散女孩」",
       "tags": [
         {
           "name": "2026年7月",
-          "count": 64,
+          "count": 118,
+          "total_cont": 0
+        },
+        {
+          "name": "恋爱",
+          "count": 81,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 45,
+          "count": 81,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 75,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 39,
-          "total_cont": 0
-        },
-        {
-          "name": "战斗",
-          "count": 37,
+          "count": 68,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 30,
-          "total_cont": 0
-        },
-        {
-          "name": "异世界",
-          "count": 30,
-          "total_cont": 0
-        },
-        {
-          "name": "奇幻",
-          "count": 28,
-          "total_cont": 0
-        },
-        {
-          "name": "冒险",
-          "count": 27,
-          "total_cont": 0
-        },
-        {
-          "name": "月虹",
-          "count": 26,
+          "count": 45,
           "total_cont": 0
         },
         {
           "name": "小说改",
-          "count": 24,
+          "count": 42,
+          "total_cont": 0
+        },
+        {
+          "name": "BrainsBase",
+          "count": 41,
+          "total_cont": 0
+        },
+        {
+          "name": "轻改",
+          "count": 38,
+          "total_cont": 0
+        },
+        {
+          "name": "日本",
+          "count": 37,
           "total_cont": 0
         }
       ],
-      "score": 5.7,
+      "score": 6.2,
       "type": 2,
-      "id": 590786,
-      "eps": 0,
+      "id": 602733,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 804,
-      "rank": 0
+      "collection_total": 1275,
+      "rank": 4887
     },
-    "subject_id": 590786,
+    "subject_id": 602733,
     "vol_status": 0,
     "ep_status": 1,
     "subject_type": 2,
     "type": 3,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2c/93/590786_48D8M.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/bd/74/602733_X0NNo.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "『你们先走我断后』，于是10年后我成为了传说",
+      "title": "才女的侍从 在满是高岭之花的贵族学校暗中照顾（毫无生活自理能力的）学院第一大小姐",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2c/93/590786_48D8M.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/bd/74/602733_X0NNo.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "『你们先走我断后』，于是10年后我成为了传说",
+      "title": "才女的侍从 在满是高岭之花的贵族学校暗中照顾（毫无生活自理能力的）学院第一大小姐",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2c/93/590786_48D8M.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/bd/74/602733_X0NNo.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "『你们先走我断后』，于是10年后我成为了传说",
+      "title": "才女的侍从 在满是高岭之花的贵族学校暗中照顾（毫无生活自理能力的）学院第一大小姐",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-590786.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-602733.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
