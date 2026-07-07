@@ -890,6 +890,17 @@
       "published": "2026-07-06",
       "status": "published",
       "generatedAt": "2026-07-06T11:59:54.234Z"
+    },
+    {
+      "subjectId": 456080,
+      "title": "《转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们》",
+      "filePath": "src/content/posts/bangumi-456080.md",
+      "alias": "bangumi-456080",
+      "sourceLink": "https://bgm.tv/subject/456080",
+      "image": "https://lain.bgm.tv/pic/cover/l/ce/e2/456080_C4q4C.jpg",
+      "published": "2026-07-07",
+      "status": "published",
+      "generatedAt": "2026-07-07T10:51:14.599Z"
     }
   ]
 }
