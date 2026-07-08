@@ -901,6 +901,17 @@
       "published": "2026-07-07",
       "status": "published",
       "generatedAt": "2026-07-07T10:51:14.599Z"
+    },
+    {
+      "subjectId": 456081,
+      "title": "《最强废渣皇子暗中活跃于帝位之争》",
+      "filePath": "src/content/posts/bangumi-456081.md",
+      "alias": "bangumi-456081",
+      "sourceLink": "https://bgm.tv/subject/456081",
+      "image": "https://lain.bgm.tv/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+      "published": "2026-07-08",
+      "status": "published",
+      "generatedAt": "2026-07-08T10:12:13.550Z"
     }
   ]
 }

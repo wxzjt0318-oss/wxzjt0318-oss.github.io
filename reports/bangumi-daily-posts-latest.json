@@ -1,85 +1,85 @@
 {
-  "generatedAt": "2026-07-07T10:51:14.602Z",
+  "generatedAt": "2026-07-08T10:12:13.550Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-07T02:16:49+08:00",
+    "updated_at": "2026-07-08T01:26:37+08:00",
     "comment": null,
     "tags": [],
     "subject": {
       "date": "2026-07-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ce/e2/456080_C4q4C.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ce/e2/456080_C4q4C.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ce/e2/456080_C4q4C.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ce/e2/456080_C4q4C.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ce/e2/456080_C4q4C.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a7/a6/456081_Bs2nE.jpg"
       },
-      "name": "転校先の清楚可憐な美少女が、昔男子と思って一緒に遊んだ幼馴染だった件",
-      "name_cn": "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
-      "short_summary": "幼かった夏の終わり、大切な男友達と約束を交わした。\r\n\r\n７年後、都会の高校に転入した隼人が再会した幼馴染は清楚可憐な美少女になっていた！\r\n\r\n高嶺の花と呼ばれる春希は、隼人と２人きりになると昔のノリで笑いかけてきて…\r\n\r\n田舎と都会、",
+      "name": "最強出涸らし皇子の暗躍帝位争い",
+      "name_cn": "最强废渣皇子暗中活跃于帝位之争",
+      "short_summary": "無能と蔑まれる底辺皇子。その正体は──\r\n\r\n強大な軍事力を誇るアードラシア帝国。\r\nその第七皇子である“アルノルト”は、\r\n優秀な双子の弟“レオナルト”にすべてを吸い取られた\r\n『出涸らし皇子』と呼ばれていた。\r\n\r\n皇太子だった第一皇子",
       "tags": [
         {
           "name": "2026年7月",
-          "count": 110,
+          "count": 37,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 86,
-          "total_cont": 0
-        },
-        {
-          "name": "恋爱",
-          "count": 85,
-          "total_cont": 0
-        },
-        {
-          "name": "projectNo.9",
-          "count": 83,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 78,
+          "count": 23,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 71,
+          "count": 22,
           "total_cont": 0
         },
         {
           "name": "2026",
-          "count": 53,
+          "count": 16,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 41,
+          "name": "异世界",
+          "count": 16,
+          "total_cont": 0
+        },
+        {
+          "name": "MAHOFILM",
+          "count": 15,
+          "total_cont": 0
+        },
+        {
+          "name": "后宫",
+          "count": 13,
           "total_cont": 0
         },
         {
           "name": "日本",
-          "count": 38,
+          "count": 12,
           "total_cont": 0
         },
         {
-          "name": "徐传峰",
-          "count": 29,
+          "name": "小说改",
+          "count": 11,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 9,
           "total_cont": 0
         }
       ],
-      "score": 4.9,
+      "score": 4.6,
       "type": 2,
-      "id": 456080,
-      "eps": 0,
+      "id": 456081,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 1414,
+      "collection_total": 432,
       "rank": 0
     },
-    "subject_id": 456080,
+    "subject_id": 456081,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 3,
     "rate": 0,
@@ -87,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ce/e2/456080_C4q4C.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
+      "title": "最强废渣皇子暗中活跃于帝位之争",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ce/e2/456080_C4q4C.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
+      "title": "最强废渣皇子暗中活跃于帝位之争",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ce/e2/456080_C4q4C.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
+      "title": "最强废渣皇子暗中活跃于帝位之争",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-456080.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-456081.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
