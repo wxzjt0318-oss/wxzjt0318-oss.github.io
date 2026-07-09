@@ -912,6 +912,17 @@
       "published": "2026-07-08",
       "status": "published",
       "generatedAt": "2026-07-08T10:12:13.550Z"
+    },
+    {
+      "subjectId": 194261,
+      "title": "《天使的3P!》",
+      "filePath": "src/content/posts/bangumi-194261.md",
+      "alias": "bangumi-194261",
+      "sourceLink": "https://bgm.tv/subject/194261",
+      "image": "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+      "published": "2026-07-09",
+      "status": "published",
+      "generatedAt": "2026-07-09T10:50:25.299Z"
     }
   ]
 }

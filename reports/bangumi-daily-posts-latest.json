@@ -1,85 +1,85 @@
 {
-  "generatedAt": "2026-07-08T10:12:13.550Z",
+  "generatedAt": "2026-07-09T10:50:25.300Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-08T01:26:37+08:00",
+    "updated_at": "2026-07-09T01:12:56+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2026-07-06",
+      "date": "2017-07-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a7/a6/456081_Bs2nE.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c3/3f/194261_Z90c0.jpg"
       },
-      "name": "最強出涸らし皇子の暗躍帝位争い",
-      "name_cn": "最强废渣皇子暗中活跃于帝位之争",
-      "short_summary": "無能と蔑まれる底辺皇子。その正体は──\r\n\r\n強大な軍事力を誇るアードラシア帝国。\r\nその第七皇子である“アルノルト”は、\r\n優秀な双子の弟“レオナルト”にすべてを吸い取られた\r\n『出涸らし皇子』と呼ばれていた。\r\n\r\n皇太子だった第一皇子",
+      "name": "天使の3P!",
+      "name_cn": "天使的3P!",
+      "short_summary": "由于过去的心理阴影而不去上学的贯井响，私下有着使用歌唱软件制作歌曲的兴趣。\r\n给这样的他寄来邮件的，是小学五年级的少女们——！？\r\n自幼就如同姐妹一般一起长大的三人，有着与响共通的烦恼。\r\n为了对自己曾度过的回忆之地、以及照顾过自己的人们表",
       "tags": [
         {
-          "name": "2026年7月",
-          "count": 37,
+          "name": "萝莉",
+          "count": 779,
           "total_cont": 0
         },
         {
-          "name": "TV",
-          "count": 23,
+          "name": "2017年7月",
+          "count": 497,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 22,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 16,
-          "total_cont": 0
-        },
-        {
-          "name": "异世界",
-          "count": 16,
-          "total_cont": 0
-        },
-        {
-          "name": "MAHOFILM",
-          "count": 15,
+          "count": 474,
           "total_cont": 0
         },
         {
           "name": "后宫",
-          "count": 13,
+          "count": 417,
           "total_cont": 0
         },
         {
-          "name": "日本",
-          "count": 12,
+          "name": "TV",
+          "count": 370,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 11,
+          "name": "音乐",
+          "count": 361,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 9,
+          "name": "projectNo.9",
+          "count": 317,
+          "total_cont": 0
+        },
+        {
+          "name": "日常",
+          "count": 293,
+          "total_cont": 0
+        },
+        {
+          "name": "2017",
+          "count": 217,
+          "total_cont": 0
+        },
+        {
+          "name": "轻改",
+          "count": 164,
           "total_cont": 0
         }
       ],
-      "score": 4.6,
+      "score": 6.1,
       "type": 2,
-      "id": 456081,
+      "id": 194261,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 432,
-      "rank": 0
+      "collection_total": 7127,
+      "rank": 7418
     },
-    "subject_id": 456081,
+    "subject_id": 194261,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 3,
     "subject_type": 2,
     "type": 3,
     "rate": 0,
@@ -87,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "最强废渣皇子暗中活跃于帝位之争",
+      "title": "天使的3P!",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c3/3f/194261_Z90c0.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "最强废渣皇子暗中活跃于帝位之争",
+      "title": "天使的3P!",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a7/a6/456081_Bs2nE.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c3/3f/194261_Z90c0.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "最强废渣皇子暗中活跃于帝位之争",
+      "title": "天使的3P!",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-456081.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-194261.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
