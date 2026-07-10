@@ -1,116 +1,123 @@
 {
-  "generatedAt": "2026-07-09T10:50:25.300Z",
+  "generatedAt": "2026-07-10T10:49:06.167Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-09T01:12:56+08:00",
+    "updated_at": "2025-11-18T14:55:26+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "萝莉",
+      "奇幻",
+      "恋爱",
+      "师生",
+      "白毛",
+      "后宫"
+    ],
     "subject": {
-      "date": "2017-07-10",
+      "date": "2025-07-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c3/3f/194261_Z90c0.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c3/3f/194261_Z90c0.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c3/3f/194261_Z90c0.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c3/3f/194261_Z90c0.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ac/67/459616_916Qm.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ac/67/459616_916Qm.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ac/67/459616_916Qm.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ac/67/459616_916Qm.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ac/67/459616_916Qm.jpg"
       },
-      "name": "天使の3P!",
-      "name_cn": "天使的3P!",
-      "short_summary": "由于过去的心理阴影而不去上学的贯井响，私下有着使用歌唱软件制作歌曲的兴趣。\r\n给这样的他寄来邮件的，是小学五年级的少女们——！？\r\n自幼就如同姐妹一般一起长大的三人，有着与响共通的烦恼。\r\n为了对自己曾度过的回忆之地、以及照顾过自己的人们表",
+      "name": "公女殿下の家庭教師",
+      "name_cn": "公爵千金的家庭教师",
+      "short_summary": "──王宫魔法师的考试落榜了。世道真是残酷。\r\n就算想回老家，身上也没有钱。\r\n正当亚连在找工作时，他接到了一份差事──\r\n担任公爵家的大小姐，也就是公爵千金的家庭教师。\r\n尽管整件事十分可疑，但应该不会像那个「孽缘」一样难教吧？\r\n才刚这么",
       "tags": [
         {
-          "name": "萝莉",
-          "count": 779,
+          "name": "2025年7月",
+          "count": 471,
           "total_cont": 0
         },
         {
-          "name": "2017年7月",
-          "count": 497,
+          "name": "萝莉",
+          "count": 438,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 474,
+          "count": 365,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 359,
           "total_cont": 0
         },
         {
           "name": "后宫",
-          "count": 417,
+          "count": 300,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 370,
+          "count": 287,
           "total_cont": 0
         },
         {
-          "name": "音乐",
-          "count": 361,
+          "name": "恋爱",
+          "count": 287,
           "total_cont": 0
         },
         {
-          "name": "projectNo.9",
-          "count": 317,
+          "name": "2025",
+          "count": 241,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 293,
+          "name": "StudioBlanc.",
+          "count": 234,
           "total_cont": 0
         },
         {
-          "name": "2017",
-          "count": 217,
-          "total_cont": 0
-        },
-        {
-          "name": "轻改",
-          "count": 164,
+          "name": "小说改",
+          "count": 207,
           "total_cont": 0
         }
       ],
-      "score": 6.1,
+      "score": 5.4,
       "type": 2,
-      "id": 194261,
+      "id": 459616,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 7127,
-      "rank": 7418
+      "collection_total": 5472,
+      "rank": 9290
     },
-    "subject_id": 194261,
+    "subject_id": 459616,
     "vol_status": 0,
-    "ep_status": 3,
+    "ep_status": 12,
     "subject_type": 2,
-    "type": 3,
-    "rate": 0,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ac/67/459616_916Qm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "天使的3P!",
+      "title": "公爵千金的家庭教师",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ac/67/459616_916Qm.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "天使的3P!",
+      "title": "公爵千金的家庭教师",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c3/3f/194261_Z90c0.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ac/67/459616_916Qm.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "天使的3P!",
+      "title": "公爵千金的家庭教师",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-194261.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-459616.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -923,6 +923,17 @@
       "published": "2026-07-09",
       "status": "published",
       "generatedAt": "2026-07-09T10:50:25.299Z"
+    },
+    {
+      "subjectId": 459616,
+      "title": "《公爵千金的家庭教师》",
+      "filePath": "src/content/posts/bangumi-459616.md",
+      "alias": "bangumi-459616",
+      "sourceLink": "https://bgm.tv/subject/459616",
+      "image": "https://lain.bgm.tv/pic/cover/l/ac/67/459616_916Qm.jpg",
+      "published": "2026-07-10",
+      "status": "published",
+      "generatedAt": "2026-07-10T10:49:06.166Z"
     }
   ]
 }
