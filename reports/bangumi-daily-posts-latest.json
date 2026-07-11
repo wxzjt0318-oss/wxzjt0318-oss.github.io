@@ -1,92 +1,90 @@
 {
-  "generatedAt": "2026-07-10T10:49:06.167Z",
+  "generatedAt": "2026-07-11T09:23:44.662Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-18T14:55:26+08:00",
+    "updated_at": "2025-11-21T10:07:28+08:00",
     "comment": null,
     "tags": [
-      "萝莉",
-      "奇幻",
+      "剧场版",
       "恋爱",
-      "师生",
-      "白毛",
-      "后宫"
+      "校园",
+      "治愈"
     ],
     "subject": {
-      "date": "2025-07-05",
+      "date": "2022-06-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ac/67/459616_916Qm.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ac/67/459616_916Qm.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ac/67/459616_916Qm.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ac/67/459616_916Qm.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ac/67/459616_916Qm.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fd/00/347888_fBpdB.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fd/00/347888_fBpdB.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fd/00/347888_fBpdB.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fd/00/347888_fBpdB.jpg"
       },
-      "name": "公女殿下の家庭教師",
-      "name_cn": "公爵千金的家庭教师",
-      "short_summary": "──王宫魔法师的考试落榜了。世道真是残酷。\r\n就算想回老家，身上也没有钱。\r\n正当亚连在找工作时，他接到了一份差事──\r\n担任公爵家的大小姐，也就是公爵千金的家庭教师。\r\n尽管整件事十分可疑，但应该不会像那个「孽缘」一样难教吧？\r\n才刚这么",
+      "name": "劇場版 からかい上手の高木さん",
+      "name_cn": "擅长捉弄的高木同学 剧场版",
+      "short_summary": "在一所初中里，有一个叫做西片的男生，时常遭到同桌女生高木同学的捉弄。每次他设法捉弄回去，都会被高木同学看透。季节变换，两个人都升上了三年级。周围的同学们开始思考将来，掺杂着不安与期待的同时，高木同学与西片之间的距离仍未改变。于是，初中最后的",
       "tags": [
         {
-          "name": "2025年7月",
-          "count": 471,
-          "total_cont": 0
-        },
-        {
-          "name": "萝莉",
-          "count": 438,
-          "total_cont": 0
-        },
-        {
-          "name": "轻小说改",
-          "count": 365,
-          "total_cont": 0
-        },
-        {
-          "name": "奇幻",
-          "count": 359,
-          "total_cont": 0
-        },
-        {
-          "name": "后宫",
-          "count": 300,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 287,
+          "name": "剧场版",
+          "count": 1492,
           "total_cont": 0
         },
         {
           "name": "恋爱",
-          "count": 287,
+          "count": 1325,
           "total_cont": 0
         },
         {
-          "name": "2025",
-          "count": 241,
+          "name": "日常",
+          "count": 840,
           "total_cont": 0
         },
         {
-          "name": "StudioBlanc.",
-          "count": 234,
+          "name": "校园",
+          "count": 731,
           "total_cont": 0
         },
         {
-          "name": "小说改",
-          "count": 207,
+          "name": "2022",
+          "count": 655,
+          "total_cont": 0
+        },
+        {
+          "name": "狗粮",
+          "count": 517,
+          "total_cont": 0
+        },
+        {
+          "name": "擅长捉弄的高木同学",
+          "count": 446,
+          "total_cont": 0
+        },
+        {
+          "name": "漫画改",
+          "count": 412,
+          "total_cont": 0
+        },
+        {
+          "name": "SHIN-EI",
+          "count": 364,
+          "total_cont": 0
+        },
+        {
+          "name": "漫改",
+          "count": 267,
           "total_cont": 0
         }
       ],
-      "score": 5.4,
+      "score": 7.7,
       "type": 2,
-      "id": 459616,
-      "eps": 12,
+      "id": 347888,
+      "eps": 1,
       "volumes": 0,
-      "collection_total": 5472,
-      "rank": 9290
+      "collection_total": 10834,
+      "rank": 607
     },
-    "subject_id": 459616,
+    "subject_id": 347888,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -94,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ac/67/459616_916Qm.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "公爵千金的家庭教师",
+      "title": "擅长捉弄的高木同学 剧场版",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ac/67/459616_916Qm.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fd/00/347888_fBpdB.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "公爵千金的家庭教师",
+      "title": "擅长捉弄的高木同学 剧场版",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ac/67/459616_916Qm.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fd/00/347888_fBpdB.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "公爵千金的家庭教师",
+      "title": "擅长捉弄的高木同学 剧场版",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-459616.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-347888.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

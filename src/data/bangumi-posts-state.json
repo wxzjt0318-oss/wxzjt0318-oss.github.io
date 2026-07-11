@@ -934,6 +934,17 @@
       "published": "2026-07-10",
       "status": "published",
       "generatedAt": "2026-07-10T10:49:06.166Z"
+    },
+    {
+      "subjectId": 347888,
+      "title": "《擅长捉弄的高木同学 剧场版》",
+      "filePath": "src/content/posts/bangumi-347888.md",
+      "alias": "bangumi-347888",
+      "sourceLink": "https://bgm.tv/subject/347888",
+      "image": "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg",
+      "published": "2026-07-11",
+      "status": "published",
+      "generatedAt": "2026-07-11T09:23:44.662Z"
     }
   ]
 }
