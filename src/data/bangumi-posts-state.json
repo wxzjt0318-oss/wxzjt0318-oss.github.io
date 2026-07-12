@@ -945,6 +945,17 @@
       "published": "2026-07-11",
       "status": "published",
       "generatedAt": "2026-07-11T09:23:44.662Z"
+    },
+    {
+      "subjectId": 338672,
+      "title": "《爱我「枫与铃」THE ANIMATION》",
+      "filePath": "src/content/posts/bangumi-338672.md",
+      "alias": "bangumi-338672",
+      "sourceLink": "https://bgm.tv/subject/338672",
+      "image": "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg",
+      "published": "2026-07-12",
+      "status": "published",
+      "generatedAt": "2026-07-12T09:47:15.066Z"
     }
   ]
 }

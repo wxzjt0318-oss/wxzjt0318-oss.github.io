@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-07-11T09:23:44.662Z",
+  "generatedAt": "2026-07-12T09:47:15.067Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:07:28+08:00",
+    "updated_at": "2026-02-14T06:48:09+08:00",
     "comment": null,
     "tags": [
-      "剧场版",
-      "恋爱",
-      "校园",
-      "治愈"
+      "后宫",
+      "姐妹丼",
+      "里番",
+      "R18"
     ],
     "subject": {
-      "date": "2022-06-10",
+      "date": "2022-03-25",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fd/00/347888_fBpdB.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fd/00/347888_fBpdB.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fd/00/347888_fBpdB.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fd/00/347888_fBpdB.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/02/69/338672_lRD6h.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/02/69/338672_lRD6h.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/02/69/338672_lRD6h.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/02/69/338672_lRD6h.jpg"
       },
-      "name": "劇場版 からかい上手の高木さん",
-      "name_cn": "擅长捉弄的高木同学 剧场版",
-      "short_summary": "在一所初中里，有一个叫做西片的男生，时常遭到同桌女生高木同学的捉弄。每次他设法捉弄回去，都会被高木同学看透。季节变换，两个人都升上了三年级。周围的同学们开始思考将来，掺杂着不安与期待的同时，高木同学与西片之间的距离仍未改变。于是，初中最后的",
+      "name": "らぶみー「楓と鈴」THE ANIMATION",
+      "name_cn": "爱我「枫与铃」THE ANIMATION",
+      "short_summary": "トロ顔に溺れる…。\r\n見たことのない最上級のトロイキをアナタに…♪\r\n\r\n狂うほど愛おしい個性豊かな美少女キャラと\r\n問答無用のイカせっぱで読者を魅了してきた鬼才・きょくちょの\r\n代表作シリーズ『楓と鈴』が遂にOVA化！\r\n",
       "tags": [
         {
-          "name": "剧场版",
-          "count": 1492,
+          "name": "里番",
+          "count": 1370,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 1325,
-          "total_cont": 0
-        },
-        {
-          "name": "日常",
-          "count": 840,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 731,
+          "name": "姐妹丼",
+          "count": 611,
           "total_cont": 0
         },
         {
           "name": "2022",
-          "count": 655,
-          "total_cont": 0
-        },
-        {
-          "name": "狗粮",
-          "count": 517,
-          "total_cont": 0
-        },
-        {
-          "name": "擅长捉弄的高木同学",
-          "count": 446,
+          "count": 479,
           "total_cont": 0
         },
         {
           "name": "漫画改",
-          "count": 412,
+          "count": 420,
           "total_cont": 0
         },
         {
-          "name": "SHIN-EI",
+          "name": "后宫",
+          "count": 375,
+          "total_cont": 0
+        },
+        {
+          "name": "R18",
           "count": 364,
           "total_cont": 0
         },
         {
-          "name": "漫改",
-          "count": 267,
+          "name": "校园",
+          "count": 326,
+          "total_cont": 0
+        },
+        {
+          "name": "OVA",
+          "count": 319,
+          "total_cont": 0
+        },
+        {
+          "name": "女仆",
+          "count": 262,
+          "total_cont": 0
+        },
+        {
+          "name": "3P",
+          "count": 194,
           "total_cont": 0
         }
       ],
-      "score": 7.7,
+      "score": 7,
       "type": 2,
-      "id": 347888,
-      "eps": 1,
+      "id": 338672,
+      "eps": 3,
       "volumes": 0,
-      "collection_total": 10834,
-      "rank": 607
+      "collection_total": 6489,
+      "rank": 2489
     },
-    "subject_id": 347888,
+    "subject_id": 338672,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 3,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "擅长捉弄的高木同学 剧场版",
+      "title": "爱我「枫与铃」THE ANIMATION",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fd/00/347888_fBpdB.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/02/69/338672_lRD6h.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "擅长捉弄的高木同学 剧场版",
+      "title": "爱我「枫与铃」THE ANIMATION",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fd/00/347888_fBpdB.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/02/69/338672_lRD6h.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "擅长捉弄的高木同学 剧场版",
+      "title": "爱我「枫与铃」THE ANIMATION",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-347888.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-338672.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
