@@ -956,6 +956,17 @@
       "published": "2026-07-12",
       "status": "published",
       "generatedAt": "2026-07-12T09:47:15.066Z"
+    },
+    {
+      "subjectId": 322899,
+      "title": "《总之就是非常可爱 ～SNS～》",
+      "filePath": "src/content/posts/bangumi-322899.md",
+      "alias": "bangumi-322899",
+      "sourceLink": "https://bgm.tv/subject/322899",
+      "image": "https://lain.bgm.tv/pic/cover/l/28/82/322899_3MgZ1.jpg",
+      "published": "2026-07-13",
+      "status": "published",
+      "generatedAt": "2026-07-13T10:56:00.571Z"
     }
   ]
 }

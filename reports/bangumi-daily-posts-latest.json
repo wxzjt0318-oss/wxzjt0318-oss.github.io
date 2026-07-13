@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-07-12T09:47:15.067Z",
+  "generatedAt": "2026-07-13T10:56:00.572Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-02-14T06:48:09+08:00",
+    "updated_at": "2025-11-18T15:07:09+08:00",
     "comment": null,
     "tags": [
-      "后宫",
-      "姐妹丼",
-      "里番",
-      "R18"
+      "恋爱",
+      "鬼頭明里",
+      "总之就是非常可爱",
+      "狗粮"
     ],
     "subject": {
-      "date": "2022-03-25",
+      "date": "2021-08-18",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/02/69/338672_lRD6h.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/02/69/338672_lRD6h.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/02/69/338672_lRD6h.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/02/69/338672_lRD6h.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/28/82/322899_3MgZ1.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/28/82/322899_3MgZ1.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/28/82/322899_3MgZ1.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/28/82/322899_3MgZ1.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/28/82/322899_3MgZ1.jpg"
       },
-      "name": "らぶみー「楓と鈴」THE ANIMATION",
-      "name_cn": "爱我「枫与铃」THE ANIMATION",
-      "short_summary": "トロ顔に溺れる…。\r\n見たことのない最上級のトロイキをアナタに…♪\r\n\r\n狂うほど愛おしい個性豊かな美少女キャラと\r\n問答無用のイカせっぱで読者を魅了してきた鬼才・きょくちょの\r\n代表作シリーズ『楓と鈴』が遂にOVA化！\r\n",
+      "name": "トニカクカワイイ ～SNS～",
+      "name_cn": "总之就是非常可爱 ～SNS～",
+      "short_summary": "",
       "tags": [
         {
-          "name": "里番",
-          "count": 1370,
+          "name": "OVA",
+          "count": 614,
           "total_cont": 0
         },
         {
-          "name": "姐妹丼",
-          "count": 611,
-          "total_cont": 0
-        },
-        {
-          "name": "2022",
-          "count": 479,
+          "name": "恋爱",
+          "count": 522,
           "total_cont": 0
         },
         {
           "name": "漫画改",
-          "count": 420,
+          "count": 324,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 375,
+          "name": "2021",
+          "count": 289,
           "total_cont": 0
         },
         {
-          "name": "R18",
-          "count": 364,
+          "name": "日常",
+          "count": 289,
           "total_cont": 0
         },
         {
-          "name": "校园",
-          "count": 326,
+          "name": "总之就是非常可爱",
+          "count": 181,
           "total_cont": 0
         },
         {
-          "name": "OVA",
-          "count": 319,
+          "name": "狗粮",
+          "count": 178,
           "total_cont": 0
         },
         {
-          "name": "女仆",
-          "count": 262,
+          "name": "SevenArcs",
+          "count": 147,
           "total_cont": 0
         },
         {
-          "name": "3P",
-          "count": 194,
+          "name": "漫改",
+          "count": 102,
+          "total_cont": 0
+        },
+        {
+          "name": "鬼頭明里",
+          "count": 77,
           "total_cont": 0
         }
       ],
-      "score": 7,
+      "score": 6.6,
       "type": 2,
-      "id": 338672,
-      "eps": 3,
+      "id": 322899,
+      "eps": 1,
       "volumes": 0,
-      "collection_total": 6489,
-      "rank": 2489
+      "collection_total": 4488,
+      "rank": 4849
     },
-    "subject_id": 338672,
+    "subject_id": 322899,
     "vol_status": 0,
-    "ep_status": 3,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/28/82/322899_3MgZ1.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "爱我「枫与铃」THE ANIMATION",
+      "title": "总之就是非常可爱 ～SNS～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/02/69/338672_lRD6h.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/28/82/322899_3MgZ1.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "爱我「枫与铃」THE ANIMATION",
+      "title": "总之就是非常可爱 ～SNS～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/02/69/338672_lRD6h.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/28/82/322899_3MgZ1.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "爱我「枫与铃」THE ANIMATION",
+      "title": "总之就是非常可爱 ～SNS～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-338672.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-322899.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
