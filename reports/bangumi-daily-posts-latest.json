@@ -1,90 +1,91 @@
 {
-  "generatedAt": "2026-07-13T10:56:00.572Z",
+  "generatedAt": "2026-07-14T09:53:23.005Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-18T15:07:09+08:00",
+    "updated_at": "2025-11-20T14:39:14+08:00",
     "comment": null,
     "tags": [
+      "后宫",
+      "奇幻",
+      "橘公司",
       "恋爱",
-      "鬼頭明里",
-      "总之就是非常可爱",
-      "狗粮"
+      "战斗"
     ],
     "subject": {
-      "date": "2021-08-18",
+      "date": "2022-04-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/28/82/322899_3MgZ1.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/28/82/322899_3MgZ1.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/28/82/322899_3MgZ1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/28/82/322899_3MgZ1.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/28/82/322899_3MgZ1.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6c/2a/302128_82c5B.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6c/2a/302128_82c5B.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6c/2a/302128_82c5B.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6c/2a/302128_82c5B.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6c/2a/302128_82c5B.jpg"
       },
-      "name": "トニカクカワイイ ～SNS～",
-      "name_cn": "总之就是非常可爱 ～SNS～",
-      "short_summary": "",
+      "name": "デート・ア・ライブⅣ",
+      "name_cn": "约会大作战 第四季",
+      "short_summary": "伴随着前所未有的灾难“空间震”，从邻界现身的少女们――精灵。\r\n她们拥有的强大能力足以匹敌灾祸，使人类不断地疲于应付。\r\n要对抗精灵，人类能选择的手段，是用武力消灭精灵，或是――\r\n“与精灵约会，使其娇羞！”\r\n亲吻因娇羞让好感度达到MAX",
       "tags": [
         {
-          "name": "OVA",
-          "count": 614,
+          "name": "后宫",
+          "count": 1498,
+          "total_cont": 0
+        },
+        {
+          "name": "约会大作战",
+          "count": 1064,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
+          "count": 916,
           "total_cont": 0
         },
         {
           "name": "恋爱",
-          "count": 522,
+          "count": 829,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 324,
+          "name": "2022年4月",
+          "count": 807,
           "total_cont": 0
         },
         {
-          "name": "2021",
-          "count": 289,
+          "name": "战斗",
+          "count": 707,
           "total_cont": 0
         },
         {
-          "name": "日常",
-          "count": 289,
+          "name": "TV",
+          "count": 631,
           "total_cont": 0
         },
         {
-          "name": "总之就是非常可爱",
-          "count": 181,
+          "name": "GeekToys",
+          "count": 494,
           "total_cont": 0
         },
         {
-          "name": "狗粮",
-          "count": 178,
+          "name": "轻改",
+          "count": 389,
           "total_cont": 0
         },
         {
-          "name": "SevenArcs",
-          "count": 147,
-          "total_cont": 0
-        },
-        {
-          "name": "漫改",
-          "count": 102,
-          "total_cont": 0
-        },
-        {
-          "name": "鬼頭明里",
-          "count": 77,
+          "name": "2022",
+          "count": 352,
           "total_cont": 0
         }
       ],
-      "score": 6.6,
+      "score": 6.5,
       "type": 2,
-      "id": 322899,
-      "eps": 1,
+      "id": 302128,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 4488,
-      "rank": 4849
+      "collection_total": 13665,
+      "rank": 5237
     },
-    "subject_id": 322899,
+    "subject_id": 302128,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +93,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/28/82/322899_3MgZ1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6c/2a/302128_82c5B.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "总之就是非常可爱 ～SNS～",
+      "title": "约会大作战 第四季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/28/82/322899_3MgZ1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6c/2a/302128_82c5B.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "总之就是非常可爱 ～SNS～",
+      "title": "约会大作战 第四季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/28/82/322899_3MgZ1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6c/2a/302128_82c5B.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "总之就是非常可爱 ～SNS～",
+      "title": "约会大作战 第四季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-322899.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-302128.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

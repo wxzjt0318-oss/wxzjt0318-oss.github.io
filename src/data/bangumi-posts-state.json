@@ -967,6 +967,17 @@
       "published": "2026-07-13",
       "status": "published",
       "generatedAt": "2026-07-13T10:56:00.571Z"
+    },
+    {
+      "subjectId": 302128,
+      "title": "《约会大作战 第四季》",
+      "filePath": "src/content/posts/bangumi-302128.md",
+      "alias": "bangumi-302128",
+      "sourceLink": "https://bgm.tv/subject/302128",
+      "image": "https://lain.bgm.tv/pic/cover/l/6c/2a/302128_82c5B.jpg",
+      "published": "2026-07-14",
+      "status": "published",
+      "generatedAt": "2026-07-14T09:53:23.004Z"
     }
   ]
 }
