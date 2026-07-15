@@ -1,122 +1,116 @@
 {
-  "generatedAt": "2026-07-14T09:53:23.005Z",
+  "generatedAt": "2026-07-15T09:57:52.054Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:39:14+08:00",
+    "updated_at": "2026-06-20T01:42:32+08:00",
     "comment": null,
-    "tags": [
-      "后宫",
-      "奇幻",
-      "橘公司",
-      "恋爱",
-      "战斗"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2022-04-08",
+      "date": "2024-10-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6c/2a/302128_82c5B.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6c/2a/302128_82c5B.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/6c/2a/302128_82c5B.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6c/2a/302128_82c5B.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6c/2a/302128_82c5B.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6b/ca/449567_uN5U8.jpg"
       },
-      "name": "デート・ア・ライブⅣ",
-      "name_cn": "约会大作战 第四季",
-      "short_summary": "伴随着前所未有的灾难“空间震”，从邻界现身的少女们――精灵。\r\n她们拥有的强大能力足以匹敌灾祸，使人类不断地疲于应付。\r\n要对抗精灵，人类能选择的手段，是用武力消灭精灵，或是――\r\n“与精灵约会，使其娇羞！”\r\n亲吻因娇羞让好感度达到MAX",
+      "name": "歴史に残る悪女になるぞ",
+      "name_cn": "成为名垂青史的反派大小姐吧",
+      "short_summary": "ヒロインにありがちな“いい子ちゃん発言”が\r\n大嫌いだった私が転生したのは、\r\n大好きな乙女ゲームの悪役令嬢アリシア。\r\n念願叶って転生したからには、歴史に残る世界一の悪女になってやる！\r\nそのためには強くて頭もよくないといけない！\r\n——",
       "tags": [
         {
-          "name": "后宫",
-          "count": 1498,
+          "name": "2024年10月",
+          "count": 198,
           "total_cont": 0
         },
         {
-          "name": "约会大作战",
-          "count": 1064,
+          "name": "恶役大小姐",
+          "count": 181,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 916,
-          "total_cont": 0
-        },
-        {
-          "name": "恋爱",
-          "count": 829,
-          "total_cont": 0
-        },
-        {
-          "name": "2022年4月",
-          "count": 807,
-          "total_cont": 0
-        },
-        {
-          "name": "战斗",
-          "count": 707,
+          "name": "异世界",
+          "count": 169,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 631,
+          "count": 132,
           "total_cont": 0
         },
         {
-          "name": "GeekToys",
-          "count": 494,
+          "name": "轻小说改",
+          "count": 128,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 389,
+          "name": "恶役",
+          "count": 98,
           "total_cont": 0
         },
         {
-          "name": "2022",
-          "count": 352,
+          "name": "恋爱",
+          "count": 97,
+          "total_cont": 0
+        },
+        {
+          "name": "2024",
+          "count": 88,
+          "total_cont": 0
+        },
+        {
+          "name": "MAHOFILM",
+          "count": 67,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 52,
           "total_cont": 0
         }
       ],
-      "score": 6.5,
+      "score": 4.9,
       "type": 2,
-      "id": 302128,
-      "eps": 12,
+      "id": 449567,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 13665,
-      "rank": 5237
+      "collection_total": 2294,
+      "rank": 9846
     },
-    "subject_id": 302128,
+    "subject_id": 449567,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 13,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/6c/2a/302128_82c5B.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6b/ca/449567_uN5U8.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 第四季",
+      "title": "成为名垂青史的反派大小姐吧",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6c/2a/302128_82c5B.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6b/ca/449567_uN5U8.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "约会大作战 第四季",
+      "title": "成为名垂青史的反派大小姐吧",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6c/2a/302128_82c5B.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6b/ca/449567_uN5U8.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "约会大作战 第四季",
+      "title": "成为名垂青史的反派大小姐吧",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-302128.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-449567.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
