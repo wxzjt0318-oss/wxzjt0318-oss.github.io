@@ -1,116 +1,121 @@
 {
-  "generatedAt": "2026-07-15T09:57:52.054Z",
+  "generatedAt": "2026-07-16T10:03:44.502Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-06-20T01:42:32+08:00",
+    "updated_at": "2026-01-03T10:47:17+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "轻喜剧",
+      "漫画改",
+      "日常",
+      "搞笑"
+    ],
     "subject": {
-      "date": "2024-10-01",
+      "date": "2011-10-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6b/ca/449567_uN5U8.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6b/ca/449567_uN5U8.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/6b/ca/449567_uN5U8.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6b/ca/449567_uN5U8.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6b/ca/449567_uN5U8.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/59/2b/20547_Fqawr.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/59/2b/20547_Fqawr.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/59/2b/20547_Fqawr.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/59/2b/20547_Fqawr.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/59/2b/20547_Fqawr.jpg"
       },
-      "name": "歴史に残る悪女になるぞ",
-      "name_cn": "成为名垂青史的反派大小姐吧",
-      "short_summary": "ヒロインにありがちな“いい子ちゃん発言”が\r\n大嫌いだった私が転生したのは、\r\n大好きな乙女ゲームの悪役令嬢アリシア。\r\n念願叶って転生したからには、歴史に残る世界一の悪女になってやる！\r\nそのためには強くて頭もよくないといけない！\r\n——",
+      "name": "WORKING'!!",
+      "name_cn": "迷糊餐厅 第二季",
+      "short_summary": "wagnaria，2011年10月，再开业！\r\n官网地址：http://www.wagnaria.com/",
       "tags": [
         {
-          "name": "2024年10月",
-          "count": 198,
+          "name": "搞笑",
+          "count": 926,
           "total_cont": 0
         },
         {
-          "name": "恶役大小姐",
-          "count": 181,
+          "name": "WORKING",
+          "count": 868,
           "total_cont": 0
         },
         {
-          "name": "异世界",
-          "count": 169,
+          "name": "轻喜剧",
+          "count": 733,
+          "total_cont": 0
+        },
+        {
+          "name": "2011年10月",
+          "count": 661,
+          "total_cont": 0
+        },
+        {
+          "name": "A-1Pictures",
+          "count": 653,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 132,
+          "count": 496,
           "total_cont": 0
         },
         {
-          "name": "轻小说改",
-          "count": 128,
+          "name": "福山润",
+          "count": 413,
           "total_cont": 0
         },
         {
-          "name": "恶役",
-          "count": 98,
+          "name": "日常",
+          "count": 369,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 97,
+          "name": "漫画改",
+          "count": 337,
           "total_cont": 0
         },
         {
-          "name": "2024",
-          "count": 88,
-          "total_cont": 0
-        },
-        {
-          "name": "MAHOFILM",
-          "count": 67,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 52,
+          "name": "2011",
+          "count": 319,
           "total_cont": 0
         }
       ],
-      "score": 4.9,
+      "score": 7.6,
       "type": 2,
-      "id": 449567,
+      "id": 20547,
       "eps": 13,
       "volumes": 0,
-      "collection_total": 2294,
-      "rank": 9846
+      "collection_total": 11238,
+      "rank": 740
     },
-    "subject_id": 449567,
+    "subject_id": 20547,
     "vol_status": 0,
-    "ep_status": 13,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 0,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/59/2b/20547_Fqawr.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "成为名垂青史的反派大小姐吧",
+      "title": "迷糊餐厅 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/59/2b/20547_Fqawr.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "成为名垂青史的反派大小姐吧",
+      "title": "迷糊餐厅 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6b/ca/449567_uN5U8.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/59/2b/20547_Fqawr.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "成为名垂青史的反派大小姐吧",
+      "title": "迷糊餐厅 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-449567.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/working.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

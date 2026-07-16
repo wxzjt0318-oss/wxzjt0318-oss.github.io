@@ -989,6 +989,17 @@
       "published": "2026-07-15",
       "status": "published",
       "generatedAt": "2026-07-15T09:57:52.053Z"
+    },
+    {
+      "subjectId": 20547,
+      "title": "《迷糊餐厅 第二季》",
+      "filePath": "src/content/posts/working.md",
+      "alias": "working",
+      "sourceLink": "https://bgm.tv/subject/20547",
+      "image": "https://lain.bgm.tv/pic/cover/l/59/2b/20547_Fqawr.jpg",
+      "published": "2026-07-16",
+      "status": "published",
+      "generatedAt": "2026-07-16T10:03:44.501Z"
     }
   ]
 }
