@@ -1000,6 +1000,17 @@
       "published": "2026-07-16",
       "status": "published",
       "generatedAt": "2026-07-16T10:03:44.501Z"
+    },
+    {
+      "subjectId": 481410,
+      "title": "《叹气的亡灵想隐退》",
+      "filePath": "src/content/posts/bangumi-481410.md",
+      "alias": "bangumi-481410",
+      "sourceLink": "https://bgm.tv/subject/481410",
+      "image": "https://lain.bgm.tv/pic/cover/l/76/9a/481410_f635f.jpg",
+      "published": "2026-07-17",
+      "status": "published",
+      "generatedAt": "2026-07-17T09:52:30.114Z"
     }
   ]
 }
