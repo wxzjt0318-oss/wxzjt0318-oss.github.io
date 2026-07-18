@@ -1011,6 +1011,17 @@
       "published": "2026-07-17",
       "status": "published",
       "generatedAt": "2026-07-17T09:52:30.114Z"
+    },
+    {
+      "subjectId": 317275,
+      "title": "《月光下的异世界之旅》",
+      "filePath": "src/content/posts/bangumi-317275.md",
+      "alias": "bangumi-317275",
+      "sourceLink": "https://bgm.tv/subject/317275",
+      "image": "https://lain.bgm.tv/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "published": "2026-07-18",
+      "status": "published",
+      "generatedAt": "2026-07-18T09:19:14.065Z"
     }
   ]
 }
