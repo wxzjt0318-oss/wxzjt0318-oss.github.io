@@ -1022,6 +1022,17 @@
       "published": "2026-07-18",
       "status": "published",
       "generatedAt": "2026-07-18T09:19:14.065Z"
+    },
+    {
+      "subjectId": 631018,
+      "title": "《说了不打算爱我的公爵继承人，不知为何对我宠爱有加》",
+      "filePath": "src/content/posts/bangumi-631018.md",
+      "alias": "bangumi-631018",
+      "sourceLink": "https://bgm.tv/subject/631018",
+      "image": "https://lain.bgm.tv/pic/cover/l/e9/a8/631018_i8egE.jpg",
+      "published": "2026-07-19",
+      "status": "published",
+      "generatedAt": "2026-07-19T09:48:09.592Z"
     }
   ]
 }

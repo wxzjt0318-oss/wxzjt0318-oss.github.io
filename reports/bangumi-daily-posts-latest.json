@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-07-18T09:19:14.066Z",
+  "generatedAt": "2026-07-19T09:48:09.593Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T16:00:55+08:00",
+    "updated_at": "2026-07-19T02:25:30+08:00",
     "comment": null,
-    "tags": [
-      "龙傲天",
-      "后宫",
-      "穿越",
-      "异世界"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2021-07-07",
+      "date": "2026-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/26/ea/317275_t23SU.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/26/ea/317275_t23SU.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/26/ea/317275_t23SU.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/26/ea/317275_t23SU.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/e9/a8/631018_i8egE.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/e9/a8/631018_i8egE.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/e9/a8/631018_i8egE.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e9/a8/631018_i8egE.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/e9/a8/631018_i8egE.jpg"
       },
-      "name": "月が導く異世界道中",
-      "name_cn": "月光下的异世界之旅",
-      "short_summary": "曾经是平凡高中生的深澄真，因为某种缘由被召唤到异世界成为了“勇者”。然而世界的女神却因为“长得太丑了”而立刻剥夺了他的“勇者”称号，发配到了世界尽头的荒野上。在荒野上彷徨的真遇到了龙与蜘蛛、半兽人和矮人族等等非人种族。与原本的世界环境过于不",
+      "name": "「きみを愛する気はない」と言った次期公爵様がなぜか溺愛してきます",
+      "name_cn": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
+      "short_summary": "没落贵族千金艾尔莎收到了超精英贵族尤里乌斯的求婚。虽然满怀疑惑，艾尔莎还是决定与他成婚。但在婚礼后，原本温柔稳重的尤里乌斯突然脸色一沉，冷漠地说出：「今后，我完全不打算爱你」！？\r\n\r\n\r\n\r\n[简介原文]\r\n「COMICポラリス」にて好評",
       "tags": [
         {
-          "name": "异世界",
-          "count": 945,
+          "name": "2026年7月",
+          "count": 33,
           "total_cont": 0
         },
         {
-          "name": "2021年7月",
-          "count": 549,
+          "name": "漫画改",
+          "count": 22,
           "total_cont": 0
         },
         {
-          "name": "后宫",
-          "count": 528,
-          "total_cont": 0
-        },
-        {
-          "name": "轻小说改",
-          "count": 490,
-          "total_cont": 0
-        },
-        {
-          "name": "穿越",
-          "count": 333,
+          "name": "恋爱",
+          "count": 22,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 320,
+          "count": 22,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 238,
+          "name": "ZERO-G",
+          "count": 14,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 215,
+          "name": "2026",
+          "count": 12,
           "total_cont": 0
         },
         {
-          "name": "战斗",
-          "count": 210,
+          "name": "女性向",
+          "count": 11,
           "total_cont": 0
         },
         {
-          "name": "C2C",
-          "count": 193,
+          "name": "日本",
+          "count": 9,
+          "total_cont": 0
+        },
+        {
+          "name": "异世界",
+          "count": 7,
+          "total_cont": 0
+        },
+        {
+          "name": "GRASS",
+          "count": 5,
           "total_cont": 0
         }
       ],
-      "score": 6,
+      "score": 5.4,
       "type": 2,
-      "id": 317275,
+      "id": 631018,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 7772,
-      "rank": 7822
+      "collection_total": 341,
+      "rank": 0
     },
-    "subject_id": 317275,
+    "subject_id": 631018,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 3,
     "subject_type": 2,
-    "type": 2,
-    "rate": 10,
+    "type": 3,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/e9/a8/631018_i8egE.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "月光下的异世界之旅",
+      "title": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e9/a8/631018_i8egE.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "月光下的异世界之旅",
+      "title": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e9/a8/631018_i8egE.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "月光下的异世界之旅",
+      "title": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-317275.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-631018.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
