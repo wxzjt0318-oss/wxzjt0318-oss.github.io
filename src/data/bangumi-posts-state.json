@@ -1033,6 +1033,17 @@
       "published": "2026-07-19",
       "status": "published",
       "generatedAt": "2026-07-19T09:48:09.592Z"
+    },
+    {
+      "subjectId": 479477,
+      "title": "《杖与剑的魔剑谭》",
+      "filePath": "src/content/posts/bangumi-479477.md",
+      "alias": "bangumi-479477",
+      "sourceLink": "https://bgm.tv/subject/479477",
+      "image": "https://lain.bgm.tv/pic/cover/l/6d/e5/479477_19844.jpg",
+      "published": "2026-07-20",
+      "status": "published",
+      "generatedAt": "2026-07-20T10:46:59.098Z"
     }
   ]
 }

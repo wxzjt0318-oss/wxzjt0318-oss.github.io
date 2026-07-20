@@ -1,116 +1,122 @@
 {
-  "generatedAt": "2026-07-19T09:48:09.593Z",
+  "generatedAt": "2026-07-20T10:46:59.099Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-19T02:25:30+08:00",
+    "updated_at": "2026-06-03T15:25:07+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "2024年7月",
+      "奇幻",
+      "异世界",
+      "漫画改",
+      "战斗"
+    ],
     "subject": {
-      "date": "2026-07-04",
+      "date": "2024-07-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/e9/a8/631018_i8egE.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/e9/a8/631018_i8egE.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/e9/a8/631018_i8egE.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e9/a8/631018_i8egE.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/e9/a8/631018_i8egE.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6d/e5/479477_19844.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6d/e5/479477_19844.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6d/e5/479477_19844.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6d/e5/479477_19844.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6d/e5/479477_19844.jpg"
       },
-      "name": "「きみを愛する気はない」と言った次期公爵様がなぜか溺愛してきます",
-      "name_cn": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
-      "short_summary": "没落贵族千金艾尔莎收到了超精英贵族尤里乌斯的求婚。虽然满怀疑惑，艾尔莎还是决定与他成婚。但在婚礼后，原本温柔稳重的尤里乌斯突然脸色一沉，冷漠地说出：「今后，我完全不打算爱你」！？\r\n\r\n\r\n\r\n[简介原文]\r\n「COMICポラリス」にて好評",
+      "name": "杖と剣のウィストリア",
+      "name_cn": "杖与剑的魔剑谭",
+      "short_summary": "里加甸魔法学院六年级生──威尔・赛尔福特，被称为「只擅长学科的书呆子」。\r\n\r\n威尔连初阶魔法都无法使用，被大家藐视为学院的吊车尾。 \r\n\r\n为了遵守与儿时玩伴──艾尔法莉亚的约定，威尔作为魔导士，以最强称号「至高五杖」为目标，但这条路却遥",
       "tags": [
         {
-          "name": "2026年7月",
-          "count": 33,
+          "name": "战斗",
+          "count": 1312,
           "total_cont": 0
         },
         {
-          "name": "漫画改",
-          "count": 22,
+          "name": "2024年7月",
+          "count": 1291,
           "total_cont": 0
         },
         {
-          "name": "恋爱",
-          "count": 22,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 22,
-          "total_cont": 0
-        },
-        {
-          "name": "ZERO-G",
-          "count": 14,
-          "total_cont": 0
-        },
-        {
-          "name": "2026",
-          "count": 12,
-          "total_cont": 0
-        },
-        {
-          "name": "女性向",
-          "count": 11,
-          "total_cont": 0
-        },
-        {
-          "name": "日本",
-          "count": 9,
+          "name": "奇幻",
+          "count": 1192,
           "total_cont": 0
         },
         {
           "name": "异世界",
-          "count": 7,
+          "count": 907,
           "total_cont": 0
         },
         {
-          "name": "GRASS",
-          "count": 5,
+          "name": "漫画改",
+          "count": 858,
+          "total_cont": 0
+        },
+        {
+          "name": "BNPictures",
+          "count": 755,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 744,
+          "total_cont": 0
+        },
+        {
+          "name": "轻小说改",
+          "count": 484,
+          "total_cont": 0
+        },
+        {
+          "name": "热血",
+          "count": 443,
+          "total_cont": 0
+        },
+        {
+          "name": "2024",
+          "count": 440,
           "total_cont": 0
         }
       ],
-      "score": 5.4,
+      "score": 6.2,
       "type": 2,
-      "id": 631018,
+      "id": 479477,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 341,
-      "rank": 0
+      "collection_total": 12845,
+      "rank": 7164
     },
-    "subject_id": 631018,
+    "subject_id": 479477,
     "vol_status": 0,
-    "ep_status": 3,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 3,
-    "rate": 0,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/e9/a8/631018_i8egE.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6d/e5/479477_19844.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
+      "title": "杖与剑的魔剑谭",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e9/a8/631018_i8egE.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6d/e5/479477_19844.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
+      "title": "杖与剑的魔剑谭",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e9/a8/631018_i8egE.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6d/e5/479477_19844.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "说了不打算爱我的公爵继承人，不知为何对我宠爱有加",
+      "title": "杖与剑的魔剑谭",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-631018.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-479477.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
