@@ -1,122 +1,122 @@
 {
-  "generatedAt": "2026-07-20T10:46:59.099Z",
+  "generatedAt": "2026-07-21T10:22:05.703Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-06-03T15:25:07+08:00",
+    "updated_at": "2025-11-21T10:12:00+08:00",
     "comment": null,
     "tags": [
-      "2024年7月",
       "奇幻",
+      "装逼",
+      "龙傲天",
       "异世界",
-      "漫画改",
-      "战斗"
+      "穿越"
     ],
     "subject": {
-      "date": "2024-07-07",
+      "date": "2018-07-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6d/e5/479477_19844.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6d/e5/479477_19844.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/6d/e5/479477_19844.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6d/e5/479477_19844.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6d/e5/479477_19844.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/47/d4/242170_iz9Ko.jpg"
       },
-      "name": "杖と剣のウィストリア",
-      "name_cn": "杖与剑的魔剑谭",
-      "short_summary": "里加甸魔法学院六年级生──威尔・赛尔福特，被称为「只擅长学科的书呆子」。\r\n\r\n威尔连初阶魔法都无法使用，被大家藐视为学院的吊车尾。 \r\n\r\n为了遵守与儿时玩伴──艾尔法莉亚的约定，威尔作为魔导士，以最强称号「至高五杖」为目标，但这条路却遥",
+      "name": "オーバーロードⅢ",
+      "name_cn": "OVERLORD 第三季",
+      "short_summary": "时间为2138年。曾卷起一大风潮的虚拟现实体感型网络游戏《YGGDRASIL》即将迎来停服。玩家飞鼠在曾经以同伴和荣华自傲的根据地纳萨力克地下大坟墓，独自一人安静等待着那一刻。但是，不料发生了“过了结束时间却还没有登出”的异常事态。NPC们",
       "tags": [
         {
-          "name": "战斗",
-          "count": 1312,
-          "total_cont": 0
-        },
-        {
-          "name": "2024年7月",
-          "count": 1291,
-          "total_cont": 0
-        },
-        {
-          "name": "奇幻",
-          "count": 1192,
-          "total_cont": 0
-        },
-        {
-          "name": "异世界",
-          "count": 907,
-          "total_cont": 0
-        },
-        {
-          "name": "漫画改",
-          "count": 858,
-          "total_cont": 0
-        },
-        {
-          "name": "BNPictures",
-          "count": 755,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 744,
+          "name": "MADHouse",
+          "count": 1426,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 484,
+          "count": 1330,
           "total_cont": 0
         },
         {
-          "name": "热血",
-          "count": 443,
+          "name": "2018年7月",
+          "count": 1226,
           "total_cont": 0
         },
         {
-          "name": "2024",
-          "count": 440,
+          "name": "骨傲天",
+          "count": 1166,
+          "total_cont": 0
+        },
+        {
+          "name": "异世界",
+          "count": 1110,
+          "total_cont": 0
+        },
+        {
+          "name": "穿越",
+          "count": 1104,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 935,
+          "total_cont": 0
+        },
+        {
+          "name": "奇幻",
+          "count": 919,
+          "total_cont": 0
+        },
+        {
+          "name": "OVERLORD",
+          "count": 643,
+          "total_cont": 0
+        },
+        {
+          "name": "装逼",
+          "count": 543,
           "total_cont": 0
         }
       ],
-      "score": 6.2,
+      "score": 6.4,
       "type": 2,
-      "id": 479477,
-      "eps": 12,
+      "id": 242170,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 12845,
-      "rank": 7164
+      "collection_total": 19693,
+      "rank": 5975
     },
-    "subject_id": 479477,
+    "subject_id": 242170,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 7,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/6d/e5/479477_19844.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/47/d4/242170_iz9Ko.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "杖与剑的魔剑谭",
+      "title": "OVERLORD 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6d/e5/479477_19844.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/47/d4/242170_iz9Ko.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "杖与剑的魔剑谭",
+      "title": "OVERLORD 第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6d/e5/479477_19844.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/47/d4/242170_iz9Ko.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "杖与剑的魔剑谭",
+      "title": "OVERLORD 第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-479477.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-242170.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

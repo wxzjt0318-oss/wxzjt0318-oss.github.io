@@ -1044,6 +1044,17 @@
       "published": "2026-07-20",
       "status": "published",
       "generatedAt": "2026-07-20T10:46:59.098Z"
+    },
+    {
+      "subjectId": 242170,
+      "title": "《OVERLORD 第三季》",
+      "filePath": "src/content/posts/bangumi-242170.md",
+      "alias": "bangumi-242170",
+      "sourceLink": "https://bgm.tv/subject/242170",
+      "image": "https://lain.bgm.tv/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+      "published": "2026-07-21",
+      "status": "published",
+      "generatedAt": "2026-07-21T10:22:05.702Z"
     }
   ]
 }
