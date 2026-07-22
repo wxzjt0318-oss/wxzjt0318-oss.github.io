@@ -1055,6 +1055,17 @@
       "published": "2026-07-21",
       "status": "published",
       "generatedAt": "2026-07-21T10:22:05.702Z"
+    },
+    {
+      "subjectId": 326859,
+      "title": "《朋友的妹妹只喜欢烦我》",
+      "filePath": "src/content/posts/bangumi-326859.md",
+      "alias": "bangumi-326859",
+      "sourceLink": "https://bgm.tv/subject/326859",
+      "image": "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg",
+      "published": "2026-07-22",
+      "status": "published",
+      "generatedAt": "2026-07-22T10:21:41.085Z"
     }
   ]
 }

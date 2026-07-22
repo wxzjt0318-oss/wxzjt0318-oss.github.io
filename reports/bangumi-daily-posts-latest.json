@@ -1,122 +1,120 @@
 {
-  "generatedAt": "2026-07-21T10:22:05.703Z",
+  "generatedAt": "2026-07-22T10:21:41.086Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:12:00+08:00",
+    "updated_at": "2025-12-21T09:52:19+08:00",
     "comment": null,
     "tags": [
-      "奇幻",
-      "装逼",
-      "龙傲天",
-      "异世界",
-      "穿越"
+      "恋爱",
+      "校园",
+      "党争"
     ],
     "subject": {
-      "date": "2018-07-10",
+      "date": "2025-10-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/47/d4/242170_iz9Ko.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/47/d4/242170_iz9Ko.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/47/d4/242170_iz9Ko.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/47/d4/242170_iz9Ko.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/47/d4/242170_iz9Ko.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/82/62/326859_1pOHy.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/82/62/326859_1pOHy.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/82/62/326859_1pOHy.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/82/62/326859_1pOHy.jpg"
       },
-      "name": "オーバーロードⅢ",
-      "name_cn": "OVERLORD 第三季",
-      "short_summary": "时间为2138年。曾卷起一大风潮的虚拟现实体感型网络游戏《YGGDRASIL》即将迎来停服。玩家飞鼠在曾经以同伴和荣华自傲的根据地纳萨力克地下大坟墓，独自一人安静等待着那一刻。但是，不料发生了“过了结束时间却还没有登出”的异常事态。NPC们",
+      "name": "友達の妹が俺にだけウザい",
+      "name_cn": "朋友的妹妹只喜欢烦我",
+      "short_summary": "不需要交往，不需要女友，高中生·大星明照将青春的一切都当作低效的东西舍弃了。\r\n不知为何，好友的妹妹·小日向彩羽一直泡在他家里。\r\n被占据的床！突然的点到即止美人计！与呼啸的烦人暴风雨！\r\n在学校作为清秀的优等生大受欢迎的彩羽，只喜欢缠着明",
       "tags": [
         {
-          "name": "MADHouse",
-          "count": 1426,
+          "name": "恋爱",
+          "count": 618,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 529,
+          "total_cont": 0
+        },
+        {
+          "name": "2025年10月",
+          "count": 465,
           "total_cont": 0
         },
         {
           "name": "轻小说改",
-          "count": 1330,
-          "total_cont": 0
-        },
-        {
-          "name": "2018年7月",
-          "count": 1226,
-          "total_cont": 0
-        },
-        {
-          "name": "骨傲天",
-          "count": 1166,
-          "total_cont": 0
-        },
-        {
-          "name": "异世界",
-          "count": 1110,
-          "total_cont": 0
-        },
-        {
-          "name": "穿越",
-          "count": 1104,
+          "count": 378,
           "total_cont": 0
         },
         {
           "name": "TV",
-          "count": 935,
+          "count": 312,
           "total_cont": 0
         },
         {
-          "name": "奇幻",
-          "count": 919,
+          "name": "后宫",
+          "count": 242,
           "total_cont": 0
         },
         {
-          "name": "OVERLORD",
-          "count": 643,
+          "name": "BLADE",
+          "count": 236,
           "total_cont": 0
         },
         {
-          "name": "装逼",
-          "count": 543,
+          "name": "党争",
+          "count": 205,
+          "total_cont": 0
+        },
+        {
+          "name": "2025",
+          "count": 186,
+          "total_cont": 0
+        },
+        {
+          "name": "轻改",
+          "count": 161,
           "total_cont": 0
         }
       ],
-      "score": 6.4,
+      "score": 5.7,
       "type": 2,
-      "id": 242170,
-      "eps": 13,
+      "id": 326859,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 19693,
-      "rank": 5975
+      "collection_total": 6755,
+      "rank": 8926
     },
-    "subject_id": 242170,
+    "subject_id": 326859,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 7,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "OVERLORD 第三季",
+      "title": "朋友的妹妹只喜欢烦我",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/82/62/326859_1pOHy.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "OVERLORD 第三季",
+      "title": "朋友的妹妹只喜欢烦我",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/47/d4/242170_iz9Ko.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/82/62/326859_1pOHy.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "OVERLORD 第三季",
+      "title": "朋友的妹妹只喜欢烦我",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-242170.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-326859.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
