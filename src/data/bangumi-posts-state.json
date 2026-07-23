@@ -1066,6 +1066,17 @@
       "published": "2026-07-22",
       "status": "published",
       "generatedAt": "2026-07-22T10:21:41.085Z"
+    },
+    {
+      "subjectId": 74628,
+      "title": "《伪恋》",
+      "filePath": "src/content/posts/bangumi-74628.md",
+      "alias": "bangumi-74628",
+      "sourceLink": "https://bgm.tv/subject/74628",
+      "image": "https://lain.bgm.tv/pic/cover/l/98/71/74628_8HHlL.jpg",
+      "published": "2026-07-23",
+      "status": "published",
+      "generatedAt": "2026-07-23T10:15:32.470Z"
     }
   ]
 }

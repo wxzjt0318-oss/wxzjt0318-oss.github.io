@@ -1,89 +1,89 @@
 {
-  "generatedAt": "2026-07-22T10:21:41.086Z",
+  "generatedAt": "2026-07-23T10:15:32.478Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-21T09:52:19+08:00",
+    "updated_at": "2025-11-22T15:11:53+08:00",
     "comment": null,
     "tags": [
       "恋爱",
-      "校园",
-      "党争"
+      "后宫",
+      "校园"
     ],
     "subject": {
-      "date": "2025-10-04",
+      "date": "2014-01-11",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/82/62/326859_1pOHy.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/82/62/326859_1pOHy.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/82/62/326859_1pOHy.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/82/62/326859_1pOHy.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/98/71/74628_8HHlL.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/98/71/74628_8HHlL.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/98/71/74628_8HHlL.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/98/71/74628_8HHlL.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/98/71/74628_8HHlL.jpg"
       },
-      "name": "友達の妹が俺にだけウザい",
-      "name_cn": "朋友的妹妹只喜欢烦我",
-      "short_summary": "不需要交往，不需要女友，高中生·大星明照将青春的一切都当作低效的东西舍弃了。\r\n不知为何，好友的妹妹·小日向彩羽一直泡在他家里。\r\n被占据的床！突然的点到即止美人计！与呼啸的烦人暴风雨！\r\n在学校作为清秀的优等生大受欢迎的彩羽，只喜欢缠着明",
+      "name": "ニセコイ",
+      "name_cn": "伪恋",
+      "short_summary": "　　虽然看上去平凡无奇，但其实是流氓第二代的高中生·一条乐，遇上了转学到班上的美国黑帮大小姐·桐崎千棘。个性合不來的两人，总是天天吵架。但此时，双方的父亲，却要他们为了使双方家族能和平相处，假装成一对恋人？虽然乐其实喜欢同班同学·小野寺，但",
       "tags": [
         {
+          "name": "新房昭之",
+          "count": 2388,
+          "total_cont": 0
+        },
+        {
           "name": "恋爱",
-          "count": 618,
-          "total_cont": 0
-        },
-        {
-          "name": "校园",
-          "count": 529,
-          "total_cont": 0
-        },
-        {
-          "name": "2025年10月",
-          "count": 465,
-          "total_cont": 0
-        },
-        {
-          "name": "轻小说改",
-          "count": 378,
-          "total_cont": 0
-        },
-        {
-          "name": "TV",
-          "count": 312,
+          "count": 2016,
           "total_cont": 0
         },
         {
           "name": "后宫",
-          "count": 242,
+          "count": 1893,
           "total_cont": 0
         },
         {
-          "name": "BLADE",
-          "count": 236,
+          "name": "SHAFT",
+          "count": 1691,
           "total_cont": 0
         },
         {
-          "name": "党争",
-          "count": 205,
+          "name": "2014年1月",
+          "count": 1466,
           "total_cont": 0
         },
         {
-          "name": "2025",
-          "count": 186,
+          "name": "漫画改",
+          "count": 1455,
           "total_cont": 0
         },
         {
-          "name": "轻改",
-          "count": 161,
+          "name": "伪恋",
+          "count": 1293,
+          "total_cont": 0
+        },
+        {
+          "name": "TV",
+          "count": 971,
+          "total_cont": 0
+        },
+        {
+          "name": "花泽香菜",
+          "count": 851,
+          "total_cont": 0
+        },
+        {
+          "name": "校园",
+          "count": 738,
           "total_cont": 0
         }
       ],
-      "score": 5.7,
+      "score": 7.1,
       "type": 2,
-      "id": 326859,
-      "eps": 12,
+      "id": 74628,
+      "eps": 20,
       "volumes": 0,
-      "collection_total": 6755,
-      "rank": 8926
+      "collection_total": 26285,
+      "rank": 2313
     },
-    "subject_id": 326859,
+    "subject_id": 74628,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/98/71/74628_8HHlL.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "朋友的妹妹只喜欢烦我",
+      "title": "伪恋",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/82/62/326859_1pOHy.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/98/71/74628_8HHlL.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "朋友的妹妹只喜欢烦我",
+      "title": "伪恋",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/82/62/326859_1pOHy.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/98/71/74628_8HHlL.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "朋友的妹妹只喜欢烦我",
+      "title": "伪恋",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-326859.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-74628.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
