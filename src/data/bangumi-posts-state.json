@@ -1077,6 +1077,17 @@
       "published": "2026-07-23",
       "status": "published",
       "generatedAt": "2026-07-23T10:15:32.470Z"
+    },
+    {
+      "subjectId": 587109,
+      "title": "《花织即使是转生也想打架》",
+      "filePath": "src/content/posts/bangumi-587109.md",
+      "alias": "bangumi-587109",
+      "sourceLink": "https://bgm.tv/subject/587109",
+      "image": "https://lain.bgm.tv/pic/cover/l/59/84/587109_q1iCs.jpg",
+      "published": "2026-07-24",
+      "status": "published",
+      "generatedAt": "2026-07-24T10:12:19.667Z"
     }
   ]
 }
