@@ -1,85 +1,85 @@
 {
-  "generatedAt": "2026-07-24T10:12:19.668Z",
+  "generatedAt": "2026-07-25T09:41:47.910Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-24T01:13:11+08:00",
+    "updated_at": "2026-07-24T12:12:43+08:00",
     "comment": null,
     "tags": [],
     "subject": {
-      "date": "2026-07-11",
+      "date": "2026-07-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/59/84/587109_q1iCs.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/59/84/587109_q1iCs.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/59/84/587109_q1iCs.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/59/84/587109_q1iCs.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/59/84/587109_q1iCs.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/16/a8/412144_39HJH.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/16/a8/412144_39HJH.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/16/a8/412144_39HJH.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/16/a8/412144_39HJH.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/16/a8/412144_39HJH.jpg"
       },
-      "name": "花織さんは転生しても喧嘩がしたい",
-      "name_cn": "花织即使是转生也想打架",
-      "short_summary": "鸣神流星，职业尼特族。整天足不出户、沉迷游戏，但其实在另一个世界里，他曾是个魔王！而曾经打倒流星的勇者、如今是名女高中生的花织米蒂娅，竟找上门来！与米蒂娅重逢后，流星从尼特族重返社会，当上了御剑女子高等学校的高中教师。然而，那里正是米蒂娅就",
+      "name": "乙女ゲー世界はモブに厳しい世界です2",
+      "name_cn": "恋爱游戏世界对路人角色很不友好 第二季",
+      "short_summary": "转生至某个剑与魔法「女性向游戏」世界的前社会人・里昂，在这个极度女尊男卑的世界里，他唯一仅存的武器，就是前世被妹妹半强迫玩过的这款游戏的「知识」，他凭借运用这份知识的行动，试图在这个不讲理的世界中求生。里昂与本应作为主角立于帅哥军团中心的奥",
       "tags": [
         {
           "name": "2026年7月",
-          "count": 243,
-          "total_count": 16245
+          "count": 86,
+          "total_count": 16390
         },
         {
-          "name": "漫画改",
-          "count": 196,
-          "total_count": 849770
+          "name": "后宫",
+          "count": 77,
+          "total_count": 299073
         },
         {
-          "name": "恋爱",
-          "count": 195,
-          "total_count": 554905
+          "name": "轻小说改",
+          "count": 77,
+          "total_count": 490891
         },
         {
-          "name": "校园",
-          "count": 175,
-          "total_count": 445884
+          "name": "异世界",
+          "count": 76,
+          "total_count": 257989
         },
         {
           "name": "TV",
-          "count": 149,
-          "total_count": 1389275
+          "count": 62,
+          "total_count": 1389379
         },
         {
-          "name": "LIDENFILMS",
-          "count": 138,
-          "total_count": 13980
+          "name": "恋爱",
+          "count": 48,
+          "total_count": 555159
         },
         {
-          "name": "喜剧",
-          "count": 137,
-          "total_count": 33773
+          "name": "奇幻",
+          "count": 46,
+          "total_count": 461835
         },
         {
-          "name": "穿越",
-          "count": 117,
-          "total_count": 62047
-        },
-        {
-          "name": "2026",
-          "count": 94,
-          "total_count": 38590
+          "name": "机战",
+          "count": 43,
+          "total_count": 49269
         },
         {
           "name": "日本",
-          "count": 74,
-          "total_count": 288414
+          "count": 34,
+          "total_count": 288603
+        },
+        {
+          "name": "Engi",
+          "count": 30,
+          "total_count": 5296
         }
       ],
-      "score": 6.7,
+      "score": 5.1,
       "type": 2,
-      "id": 587109,
-      "eps": 0,
+      "id": 412144,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 2752,
-      "rank": 3628
+      "collection_total": 1711,
+      "rank": 9022
     },
-    "subject_id": 587109,
+    "subject_id": 412144,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 2,
     "subject_type": 2,
     "type": 3,
     "rate": 0,
@@ -87,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/59/84/587109_q1iCs.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/16/a8/412144_39HJH.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "花织即使是转生也想打架",
+      "title": "恋爱游戏世界对路人角色很不友好 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/59/84/587109_q1iCs.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/16/a8/412144_39HJH.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "花织即使是转生也想打架",
+      "title": "恋爱游戏世界对路人角色很不友好 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/59/84/587109_q1iCs.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/16/a8/412144_39HJH.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "花织即使是转生也想打架",
+      "title": "恋爱游戏世界对路人角色很不友好 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-587109.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-412144.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

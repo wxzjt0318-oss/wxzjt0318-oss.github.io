@@ -1088,6 +1088,17 @@
       "published": "2026-07-24",
       "status": "published",
       "generatedAt": "2026-07-24T10:12:19.667Z"
+    },
+    {
+      "subjectId": 412144,
+      "title": "《恋爱游戏世界对路人角色很不友好 第二季》",
+      "filePath": "src/content/posts/bangumi-412144.md",
+      "alias": "bangumi-412144",
+      "sourceLink": "https://bgm.tv/subject/412144",
+      "image": "https://lain.bgm.tv/pic/cover/l/16/a8/412144_39HJH.jpg",
+      "published": "2026-07-25",
+      "status": "published",
+      "generatedAt": "2026-07-25T09:41:47.906Z"
     }
   ]
 }
