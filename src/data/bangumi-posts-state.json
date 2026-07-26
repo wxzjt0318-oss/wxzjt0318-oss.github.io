@@ -1099,6 +1099,17 @@
       "published": "2026-07-25",
       "status": "published",
       "generatedAt": "2026-07-25T09:41:47.906Z"
+    },
+    {
+      "subjectId": 371546,
+      "title": "《欢迎来到实力至上主义的教室 第二季》",
+      "filePath": "src/content/posts/bangumi-371546.md",
+      "alias": "bangumi-371546",
+      "sourceLink": "https://bgm.tv/subject/371546",
+      "image": "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+      "published": "2026-07-26",
+      "status": "published",
+      "generatedAt": "2026-07-26T09:55:01.321Z"
     }
   ]
 }

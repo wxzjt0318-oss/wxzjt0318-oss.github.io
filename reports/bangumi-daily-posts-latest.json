@@ -1,116 +1,120 @@
 {
-  "generatedAt": "2026-07-25T09:41:47.910Z",
+  "generatedAt": "2026-07-26T09:55:01.322Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-07-24T12:12:43+08:00",
+    "updated_at": "2025-11-21T10:09:15+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "智斗",
+      "校园",
+      "轻小说改"
+    ],
     "subject": {
-      "date": "2026-07-08",
+      "date": "2022-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/16/a8/412144_39HJH.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/16/a8/412144_39HJH.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/16/a8/412144_39HJH.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/16/a8/412144_39HJH.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/16/a8/412144_39HJH.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c8/8a/371546_Df9ri.jpg"
       },
-      "name": "乙女ゲー世界はモブに厳しい世界です2",
-      "name_cn": "恋爱游戏世界对路人角色很不友好 第二季",
-      "short_summary": "转生至某个剑与魔法「女性向游戏」世界的前社会人・里昂，在这个极度女尊男卑的世界里，他唯一仅存的武器，就是前世被妹妹半强迫玩过的这款游戏的「知识」，他凭借运用这份知识的行动，试图在这个不讲理的世界中求生。里昂与本应作为主角立于帅哥军团中心的奥",
+      "name": "ようこそ実力至上主義の教室へ 2nd Season",
+      "name_cn": "欢迎来到实力至上主义的教室 第二季",
+      "short_summary": "东京都高度育成高等中学。标榜升学率、就职率达百分之百，每个月会提供相当于十万圆的点数，是一间乐园学校。但其实是一间只有成绩优秀的人，才拥有优良待遇的实力至上主义学校。\r\n绫小路清隆被分配到问题学生云集的D班，决定帮助同班同学堀北铃音升上A班",
       "tags": [
         {
-          "name": "2026年7月",
-          "count": 86,
-          "total_count": 16390
-        },
-        {
-          "name": "后宫",
-          "count": 77,
-          "total_count": 299073
+          "name": "校园",
+          "count": 1729,
+          "total_count": 446295
         },
         {
           "name": "轻小说改",
-          "count": 77,
-          "total_count": 490891
+          "count": 1525,
+          "total_count": 491066
         },
         {
-          "name": "异世界",
-          "count": 76,
-          "total_count": 257989
+          "name": "2022年7月",
+          "count": 1316,
+          "total_count": 28286
+        },
+        {
+          "name": "智斗",
+          "count": 1192,
+          "total_count": 22590
         },
         {
           "name": "TV",
-          "count": 62,
-          "total_count": 1389379
+          "count": 800,
+          "total_count": 1389577
         },
         {
-          "name": "恋爱",
-          "count": 48,
-          "total_count": 555159
+          "name": "装逼",
+          "count": 762,
+          "total_count": 9175
         },
         {
-          "name": "奇幻",
-          "count": 46,
-          "total_count": 461835
+          "name": "欢迎来到实力至上主义教室",
+          "count": 706,
+          "total_count": 2451
         },
         {
-          "name": "机战",
-          "count": 43,
-          "total_count": 49269
+          "name": "Lerche",
+          "count": 608,
+          "total_count": 15388
         },
         {
-          "name": "日本",
-          "count": 34,
-          "total_count": 288603
+          "name": "2022",
+          "count": 487,
+          "total_count": 79998
         },
         {
-          "name": "Engi",
-          "count": 30,
-          "total_count": 5296
+          "name": "轻改",
+          "count": 468,
+          "total_count": 151318
         }
       ],
-      "score": 5.1,
+      "score": 5.8,
       "type": 2,
-      "id": 412144,
-      "eps": 12,
+      "id": 371546,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 1711,
-      "rank": 9022
+      "collection_total": 17134,
+      "rank": 8606
     },
-    "subject_id": 412144,
+    "subject_id": 371546,
     "vol_status": 0,
-    "ep_status": 2,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 3,
-    "rate": 0,
+    "type": 2,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/16/a8/412144_39HJH.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "恋爱游戏世界对路人角色很不友好 第二季",
+      "title": "欢迎来到实力至上主义的教室 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/16/a8/412144_39HJH.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c8/8a/371546_Df9ri.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "恋爱游戏世界对路人角色很不友好 第二季",
+      "title": "欢迎来到实力至上主义的教室 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/16/a8/412144_39HJH.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c8/8a/371546_Df9ri.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "恋爱游戏世界对路人角色很不友好 第二季",
+      "title": "欢迎来到实力至上主义的教室 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-412144.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-371546.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
