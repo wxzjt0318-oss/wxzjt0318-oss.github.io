@@ -1110,6 +1110,17 @@
       "published": "2026-07-26",
       "status": "published",
       "generatedAt": "2026-07-26T09:55:01.321Z"
+    },
+    {
+      "subjectId": 290426,
+      "title": "《在魔王城说晚安》",
+      "filePath": "src/content/posts/bangumi-290426.md",
+      "alias": "bangumi-290426",
+      "sourceLink": "https://bgm.tv/subject/290426",
+      "image": "https://lain.bgm.tv/pic/cover/l/b1/c3/290426_165P5.jpg",
+      "published": "2026-07-27",
+      "status": "published",
+      "generatedAt": "2026-07-27T11:15:12.816Z"
     }
   ]
 }

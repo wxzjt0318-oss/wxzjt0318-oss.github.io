@@ -1,89 +1,85 @@
 {
-  "generatedAt": "2026-07-26T09:55:01.322Z",
+  "generatedAt": "2026-07-27T11:15:12.820Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:09:15+08:00",
+    "updated_at": "2026-02-03T02:19:12+08:00",
     "comment": null,
-    "tags": [
-      "智斗",
-      "校园",
-      "轻小说改"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2022-07-04",
+      "date": "2020-10-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c8/8a/371546_Df9ri.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c8/8a/371546_Df9ri.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c8/8a/371546_Df9ri.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c8/8a/371546_Df9ri.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b1/c3/290426_165P5.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b1/c3/290426_165P5.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/b1/c3/290426_165P5.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b1/c3/290426_165P5.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b1/c3/290426_165P5.jpg"
       },
-      "name": "ようこそ実力至上主義の教室へ 2nd Season",
-      "name_cn": "欢迎来到实力至上主义的教室 第二季",
-      "short_summary": "东京都高度育成高等中学。标榜升学率、就职率达百分之百，每个月会提供相当于十万圆的点数，是一间乐园学校。但其实是一间只有成绩优秀的人，才拥有优良待遇的实力至上主义学校。\r\n绫小路清隆被分配到问题学生云集的D班，决定帮助同班同学堀北铃音升上A班",
+      "name": "魔王城でおやすみ",
+      "name_cn": "在魔王城说晚安",
+      "short_summary": "过去，在人与魔相互来往、共存的时代。\r\n魔王抓走了人类的公主，囚禁在自己的城堡中——。\r\n被囚禁的栖夜莉丝公主，在牢笼之中低语。\r\n「…除了睡觉…无事可做」 \r\n她偷偷逃出牢狱，为追求更优质的安眠而在魔王城中……探索！？\r\n自由任性的人质公",
       "tags": [
         {
-          "name": "校园",
-          "count": 1729,
-          "total_count": 446295
+          "name": "搞笑",
+          "count": 1694,
+          "total_count": 631498
         },
         {
-          "name": "轻小说改",
-          "count": 1525,
-          "total_count": 491066
+          "name": "动画工房",
+          "count": 1361,
+          "total_count": 62951
         },
         {
-          "name": "2022年7月",
-          "count": 1316,
-          "total_count": 28286
+          "name": "日常",
+          "count": 1302,
+          "total_count": 394632
         },
         {
-          "name": "智斗",
-          "count": 1192,
-          "total_count": 22590
+          "name": "2020年10月",
+          "count": 997,
+          "total_count": 25236
+        },
+        {
+          "name": "治愈",
+          "count": 909,
+          "total_count": 299098
+        },
+        {
+          "name": "漫画改",
+          "count": 865,
+          "total_count": 850888
         },
         {
           "name": "TV",
-          "count": 800,
-          "total_count": 1389577
+          "count": 669,
+          "total_count": 1389772
         },
         {
-          "name": "装逼",
-          "count": 762,
-          "total_count": 9175
+          "name": "奇幻",
+          "count": 519,
+          "total_count": 462466
         },
         {
-          "name": "欢迎来到实力至上主义教室",
-          "count": 706,
-          "total_count": 2451
+          "name": "2020",
+          "count": 458,
+          "total_count": 63510
         },
         {
-          "name": "Lerche",
-          "count": 608,
-          "total_count": 15388
-        },
-        {
-          "name": "2022",
-          "count": 487,
-          "total_count": 79998
-        },
-        {
-          "name": "轻改",
-          "count": 468,
-          "total_count": 151318
+          "name": "漫改",
+          "count": 426,
+          "total_count": 358360
         }
       ],
-      "score": 5.8,
+      "score": 7,
       "type": 2,
-      "id": 371546,
-      "eps": 13,
+      "id": 290426,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 17134,
-      "rank": 8606
+      "collection_total": 15024,
+      "rank": 2530
     },
-    "subject_id": 371546,
+    "subject_id": 290426,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b1/c3/290426_165P5.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "欢迎来到实力至上主义的教室 第二季",
+      "title": "在魔王城说晚安",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b1/c3/290426_165P5.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "欢迎来到实力至上主义的教室 第二季",
+      "title": "在魔王城说晚安",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c8/8a/371546_Df9ri.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b1/c3/290426_165P5.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "欢迎来到实力至上主义的教室 第二季",
+      "title": "在魔王城说晚安",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-371546.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-290426.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
