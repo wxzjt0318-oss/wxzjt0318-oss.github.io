@@ -1121,6 +1121,17 @@
       "published": "2026-07-27",
       "status": "published",
       "generatedAt": "2026-07-27T11:15:12.816Z"
+    },
+    {
+      "subjectId": 75521,
+      "title": "《中二病也要谈恋爱！剧场版 小鸟游六花・改》",
+      "filePath": "src/content/posts/bangumi-75521.md",
+      "alias": "bangumi-75521",
+      "sourceLink": "https://bgm.tv/subject/75521",
+      "image": "https://lain.bgm.tv/pic/cover/l/fc/76/75521_e7hEp.jpg",
+      "published": "2026-07-28",
+      "status": "published",
+      "generatedAt": "2026-07-28T10:30:14.148Z"
     }
   ]
 }
