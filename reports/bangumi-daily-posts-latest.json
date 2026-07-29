@@ -1,118 +1,121 @@
 {
-  "generatedAt": "2026-07-28T10:30:14.153Z",
+  "generatedAt": "2026-07-29T10:34:37.116Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T09:56:06+08:00",
+    "updated_at": "2025-11-21T10:14:24+08:00",
     "comment": null,
     "tags": [
-      "剧场版"
+      "异世界",
+      "后宫",
+      "恋爱",
+      "穿越"
     ],
     "subject": {
-      "date": "2013-09-14",
+      "date": "2024-10-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fc/76/75521_e7hEp.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fc/76/75521_e7hEp.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/fc/76/75521_e7hEp.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fc/76/75521_e7hEp.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fc/76/75521_e7hEp.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/d2/66/476129_q83DE.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d2/66/476129_q83DE.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/d2/66/476129_q83DE.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d2/66/476129_q83DE.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/d2/66/476129_q83DE.jpg"
       },
-      "name": "小鳥遊六花・改 ～劇場版 中二病でも恋がしたい！～",
-      "name_cn": "中二病也要谈恋爱！剧场版 小鸟游六花・改",
-      "short_summary": "我在结社里休息时，凸守和茴香两人催促我说出邪王真眼与漆黑烈火使邂逅的历史。\r\n也好。在代替我奔赴最终决战地的漆黑烈火使回来以前，就让我来讲述一下羁绊之物语吧。\r\n然而，这只是全新的战斗的序幕……",
+      "name": "ひとりぼっちの異世界攻略",
+      "name_cn": "独自一人的异世界攻略",
+      "short_summary": "在高中度过”边缘人”生活的遥，上课时突然跟同班同学一起被召唤到异世界。\r\n只要从外挂技能清单中选择喜欢的技能，神明就会赐予你──本来应该是这样的，但外挂技能是先抢先赢，所以强势技能都已经被同学们拿完了！？\r\n由于神明恼羞成怒，遥被硬塞了全部",
       "tags": [
         {
-          "name": "剧场版",
-          "count": 1302,
-          "total_count": 718170
+          "name": "异世界",
+          "count": 498,
+          "total_count": 258691
         },
         {
-          "name": "京阿尼",
-          "count": 1012,
-          "total_count": 212575
+          "name": "2024年10月",
+          "count": 305,
+          "total_count": 26307
         },
         {
-          "name": "中二病也要谈恋爱",
-          "count": 593,
-          "total_count": 9073
-        },
-        {
-          "name": "恋爱",
-          "count": 522,
-          "total_count": 556295
-        },
-        {
-          "name": "总集篇",
-          "count": 503,
-          "total_count": 18372
-        },
-        {
-          "name": "2013",
-          "count": 396,
-          "total_count": 68447
+          "name": "TV",
+          "count": 227,
+          "total_count": 1390454
         },
         {
           "name": "轻小说改",
-          "count": 358,
-          "total_count": 491628
+          "count": 219,
+          "total_count": 491769
         },
         {
-          "name": "校园",
-          "count": 300,
-          "total_count": 446900
+          "name": "奇幻",
+          "count": 162,
+          "total_count": 463623
         },
         {
-          "name": "2013年9月",
-          "count": 259,
-          "total_count": 866
+          "name": "厕纸",
+          "count": 162,
+          "total_count": 11817
         },
         {
-          "name": "中二病",
-          "count": 189,
-          "total_count": 15840
+          "name": "小说改",
+          "count": 138,
+          "total_count": 156355
+        },
+        {
+          "name": "穿越",
+          "count": 126,
+          "total_count": 62213
+        },
+        {
+          "name": "2024",
+          "count": 123,
+          "total_count": 71171
+        },
+        {
+          "name": "Passione",
+          "count": 106,
+          "total_count": 10910
         }
       ],
-      "score": 6.8,
+      "score": 4.6,
       "type": 2,
-      "id": 75521,
-      "eps": 1,
+      "id": 476129,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 9998,
-      "rank": 3682
+      "collection_total": 3938,
+      "rank": 10028
     },
-    "subject_id": 75521,
+    "subject_id": 476129,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 8,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/fc/76/75521_e7hEp.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/d2/66/476129_q83DE.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "中二病也要谈恋爱！剧场版 小鸟游六花・改",
+      "title": "独自一人的异世界攻略",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fc/76/75521_e7hEp.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d2/66/476129_q83DE.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "中二病也要谈恋爱！剧场版 小鸟游六花・改",
+      "title": "独自一人的异世界攻略",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fc/76/75521_e7hEp.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d2/66/476129_q83DE.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "中二病也要谈恋爱！剧场版 小鸟游六花・改",
+      "title": "独自一人的异世界攻略",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-75521.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-476129.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -1132,6 +1132,17 @@
       "published": "2026-07-28",
       "status": "published",
       "generatedAt": "2026-07-28T10:30:14.148Z"
+    },
+    {
+      "subjectId": 476129,
+      "title": "《独自一人的异世界攻略》",
+      "filePath": "src/content/posts/bangumi-476129.md",
+      "alias": "bangumi-476129",
+      "sourceLink": "https://bgm.tv/subject/476129",
+      "image": "https://lain.bgm.tv/pic/cover/l/d2/66/476129_q83DE.jpg",
+      "published": "2026-07-29",
+      "status": "published",
+      "generatedAt": "2026-07-29T10:34:37.115Z"
     }
   ]
 }
