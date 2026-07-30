@@ -1143,6 +1143,17 @@
       "published": "2026-07-29",
       "status": "published",
       "generatedAt": "2026-07-29T10:34:37.115Z"
+    },
+    {
+      "subjectId": 373266,
+      "title": "《欢迎来到实力至上主义的教室 第三季》",
+      "filePath": "src/content/posts/3rd-season.md",
+      "alias": "3rd-season",
+      "sourceLink": "https://bgm.tv/subject/373266",
+      "image": "https://lain.bgm.tv/pic/cover/l/50/4d/373266_BiqQm.jpg",
+      "published": "2026-07-30",
+      "status": "published",
+      "generatedAt": "2026-07-30T10:20:43.868Z"
     }
   ]
 }

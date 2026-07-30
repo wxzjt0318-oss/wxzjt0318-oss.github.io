@@ -1,88 +1,87 @@
 {
-  "generatedAt": "2026-07-29T10:34:37.116Z",
+  "generatedAt": "2026-07-30T10:20:43.871Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:14:24+08:00",
+    "updated_at": "2025-11-21T10:09:05+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "后宫",
-      "恋爱",
-      "穿越"
+      "校园",
+      "智斗",
+      "轻小说改"
     ],
     "subject": {
-      "date": "2024-10-03",
+      "date": "2024-01-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/d2/66/476129_q83DE.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d2/66/476129_q83DE.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/d2/66/476129_q83DE.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d2/66/476129_q83DE.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/d2/66/476129_q83DE.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/50/4d/373266_BiqQm.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/50/4d/373266_BiqQm.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/50/4d/373266_BiqQm.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/50/4d/373266_BiqQm.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/50/4d/373266_BiqQm.jpg"
       },
-      "name": "ひとりぼっちの異世界攻略",
-      "name_cn": "独自一人的异世界攻略",
-      "short_summary": "在高中度过”边缘人”生活的遥，上课时突然跟同班同学一起被召唤到异世界。\r\n只要从外挂技能清单中选择喜欢的技能，神明就会赐予你──本来应该是这样的，但外挂技能是先抢先赢，所以强势技能都已经被同学们拿完了！？\r\n由于神明恼羞成怒，遥被硬塞了全部",
+      "name": "ようこそ実力至上主義の教室へ 3rd Season",
+      "name_cn": "欢迎来到实力至上主义的教室 第三季",
+      "short_summary": "东京都高度育成高等中学，标榜升学率、就职率达百分之百，而且每个月会提供相当于十万圆金钱的点数，是一间梦幻学校。但其实是一间只有少部分成绩优秀的人，才拥有优良待遇的实力至上主义学校。\r\n第三学期开始后，绫小路等人所在的D班升上C班，同时全校学",
       "tags": [
         {
-          "name": "异世界",
-          "count": 498,
-          "total_count": 258691
-        },
-        {
-          "name": "2024年10月",
-          "count": 305,
-          "total_count": 26307
-        },
-        {
-          "name": "TV",
-          "count": 227,
-          "total_count": 1390454
+          "name": "校园",
+          "count": 1386,
+          "total_count": 447547
         },
         {
           "name": "轻小说改",
-          "count": 219,
-          "total_count": 491769
+          "count": 996,
+          "total_count": 491984
         },
         {
-          "name": "奇幻",
-          "count": 162,
-          "total_count": 463623
+          "name": "2024年1月",
+          "count": 991,
+          "total_count": 25100
         },
         {
-          "name": "厕纸",
-          "count": 162,
-          "total_count": 11817
+          "name": "智斗",
+          "count": 924,
+          "total_count": 22642
         },
         {
-          "name": "小说改",
-          "count": 138,
-          "total_count": 156355
+          "name": "装逼",
+          "count": 640,
+          "total_count": 9181
         },
         {
-          "name": "穿越",
-          "count": 126,
-          "total_count": 62213
+          "name": "TV",
+          "count": 630,
+          "total_count": 1390920
+        },
+        {
+          "name": "Lerche",
+          "count": 481,
+          "total_count": 15432
+        },
+        {
+          "name": "欢迎来到实力至上主义教室",
+          "count": 435,
+          "total_count": 2461
         },
         {
           "name": "2024",
-          "count": 123,
-          "total_count": 71171
+          "count": 384,
+          "total_count": 71204
         },
         {
-          "name": "Passione",
-          "count": 106,
-          "total_count": 10910
+          "name": "轻改",
+          "count": 352,
+          "total_count": 151590
         }
       ],
-      "score": 4.6,
+      "score": 5.9,
       "type": 2,
-      "id": 476129,
-      "eps": 12,
+      "id": 373266,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 3938,
-      "rank": 10028
+      "collection_total": 12905,
+      "rank": 7994
     },
-    "subject_id": 476129,
+    "subject_id": 373266,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -92,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/d2/66/476129_q83DE.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/50/4d/373266_BiqQm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "独自一人的异世界攻略",
+      "title": "欢迎来到实力至上主义的教室 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d2/66/476129_q83DE.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/50/4d/373266_BiqQm.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "独自一人的异世界攻略",
+      "title": "欢迎来到实力至上主义的教室 第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d2/66/476129_q83DE.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/50/4d/373266_BiqQm.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "独自一人的异世界攻略",
+      "title": "欢迎来到实力至上主义的教室 第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-476129.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/3rd-season.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
