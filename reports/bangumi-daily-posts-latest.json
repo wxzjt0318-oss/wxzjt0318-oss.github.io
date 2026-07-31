@@ -1,87 +1,88 @@
 {
-  "generatedAt": "2026-07-30T10:20:43.871Z",
+  "generatedAt": "2026-07-31T10:34:13.214Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:09:05+08:00",
+    "updated_at": "2025-11-21T10:08:17+08:00",
     "comment": null,
     "tags": [
-      "校园",
-      "智斗",
-      "轻小说改"
+      "恋爱",
+      "爱神巧克力",
+      "后宫",
+      "国产"
     ],
     "subject": {
-      "date": "2024-01-03",
+      "date": "2015-12-02",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/50/4d/373266_BiqQm.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/50/4d/373266_BiqQm.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/50/4d/373266_BiqQm.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/50/4d/373266_BiqQm.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/50/4d/373266_BiqQm.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/66/ca/158043_XUFoP.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/66/ca/158043_XUFoP.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/66/ca/158043_XUFoP.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/66/ca/158043_XUFoP.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/66/ca/158043_XUFoP.jpg"
       },
-      "name": "ようこそ実力至上主義の教室へ 3rd Season",
-      "name_cn": "欢迎来到实力至上主义的教室 第三季",
-      "short_summary": "东京都高度育成高等中学，标榜升学率、就职率达百分之百，而且每个月会提供相当于十万圆金钱的点数，是一间梦幻学校。但其实是一间只有少部分成绩优秀的人，才拥有优良待遇的实力至上主义学校。\r\n第三学期开始后，绫小路等人所在的D班升上C班，同时全校学",
+      "name": "爱神巧克力ing",
+      "name_cn": "爱神巧克力",
+      "short_summary": "　　平凡的大一男生江浩一，忽然有一天被各种不认识的女生示爱，引起了不小的骚动，正在学校的众人围观准备押解江浩一问罪的时候，时间停止了，一名穿着奇装异服的少女从天而降，她自称爱神，并且为浩一解释了这一系列错乱究竟为什么……\r\n　　文化节前一天",
       "tags": [
         {
-          "name": "校园",
-          "count": 1386,
-          "total_count": 447547
+          "name": "国产",
+          "count": 421,
+          "total_count": 159801
         },
         {
-          "name": "轻小说改",
-          "count": 996,
-          "total_count": 491984
+          "name": "后宫",
+          "count": 372,
+          "total_count": 300032
         },
         {
-          "name": "2024年1月",
-          "count": 991,
-          "total_count": 25100
+          "name": "漫画改",
+          "count": 193,
+          "total_count": 852336
         },
         {
-          "name": "智斗",
-          "count": 924,
-          "total_count": 22642
+          "name": "恋爱",
+          "count": 163,
+          "total_count": 556972
         },
         {
-          "name": "装逼",
-          "count": 640,
-          "total_count": 9181
+          "name": "爱神巧克力",
+          "count": 120,
+          "total_count": 184
         },
         {
-          "name": "TV",
-          "count": 630,
-          "total_count": 1390920
+          "name": "WEB",
+          "count": 100,
+          "total_count": 70964
         },
         {
-          "name": "Lerche",
-          "count": 481,
-          "total_count": 15432
+          "name": "2015",
+          "count": 100,
+          "total_count": 68779
         },
         {
-          "name": "欢迎来到实力至上主义教室",
-          "count": 435,
-          "total_count": 2461
+          "name": "视美动画",
+          "count": 93,
+          "total_count": 362
         },
         {
-          "name": "2024",
-          "count": 384,
-          "total_count": 71204
+          "name": "2015年12月",
+          "count": 86,
+          "total_count": 727
         },
         {
-          "name": "轻改",
-          "count": 352,
-          "total_count": 151590
+          "name": "肉番",
+          "count": 81,
+          "total_count": 32622
         }
       ],
-      "score": 5.9,
+      "score": 5.8,
       "type": 2,
-      "id": 373266,
-      "eps": 13,
+      "id": 158043,
+      "eps": 15,
       "volumes": 0,
-      "collection_total": 12905,
-      "rank": 7994
+      "collection_total": 2898,
+      "rank": 8353
     },
-    "subject_id": 373266,
+    "subject_id": 158043,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -91,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/50/4d/373266_BiqQm.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/66/ca/158043_XUFoP.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "欢迎来到实力至上主义的教室 第三季",
+      "title": "爱神巧克力",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/50/4d/373266_BiqQm.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/66/ca/158043_XUFoP.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "欢迎来到实力至上主义的教室 第三季",
+      "title": "爱神巧克力",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/50/4d/373266_BiqQm.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/66/ca/158043_XUFoP.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "欢迎来到实力至上主义的教室 第三季",
+      "title": "爱神巧克力",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/3rd-season.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-158043.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

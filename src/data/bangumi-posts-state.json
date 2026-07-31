@@ -1154,6 +1154,17 @@
       "published": "2026-07-30",
       "status": "published",
       "generatedAt": "2026-07-30T10:20:43.868Z"
+    },
+    {
+      "subjectId": 158043,
+      "title": "《爱神巧克力》",
+      "filePath": "src/content/posts/bangumi-158043.md",
+      "alias": "bangumi-158043",
+      "sourceLink": "https://bgm.tv/subject/158043",
+      "image": "https://lain.bgm.tv/pic/cover/l/66/ca/158043_XUFoP.jpg",
+      "published": "2026-07-31",
+      "status": "published",
+      "generatedAt": "2026-07-31T10:34:13.205Z"
     }
   ]
 }
