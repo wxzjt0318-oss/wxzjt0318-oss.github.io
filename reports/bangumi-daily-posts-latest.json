@@ -1,90 +1,85 @@
 {
-  "generatedAt": "2026-07-31T10:34:13.214Z",
+  "generatedAt": "2026-08-01T09:54:00.301Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:08:17+08:00",
+    "updated_at": "2025-12-28T07:54:26+08:00",
     "comment": null,
-    "tags": [
-      "恋爱",
-      "爱神巧克力",
-      "后宫",
-      "国产"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2015-12-02",
+      "date": "2025-10-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/66/ca/158043_XUFoP.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/66/ca/158043_XUFoP.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/66/ca/158043_XUFoP.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/66/ca/158043_XUFoP.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/66/ca/158043_XUFoP.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/3d/79/498378_3ycrL.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/3d/79/498378_3ycrL.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/3d/79/498378_3ycrL.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3d/79/498378_3ycrL.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/3d/79/498378_3ycrL.jpg"
       },
-      "name": "爱神巧克力ing",
-      "name_cn": "爱神巧克力",
-      "short_summary": "　　平凡的大一男生江浩一，忽然有一天被各种不认识的女生示爱，引起了不小的骚动，正在学校的众人围观准备押解江浩一问罪的时候，时间停止了，一名穿着奇装异服的少女从天而降，她自称爱神，并且为浩一解释了这一系列错乱究竟为什么……\r\n　　文化节前一天",
+      "name": "SPY×FAMILY Season 3",
+      "name_cn": "间谍过家家 第三季",
+      "short_summary": "人はみな　誰にも見せぬ自分を　持っている――\r\n\r\n世界各国が水面下で熾烈な情報戦を繰り広げていた時代。\r\n東国オスタニアと西国ウェスタリスは、十数年間にわたる冷戦状態にあった。\r\n\r\n西国の情報局対東課〈WISEワイズ〉所属である凄腕スパ",
       "tags": [
         {
-          "name": "国产",
-          "count": 421,
-          "total_count": 159801
+          "name": "日常",
+          "count": 1289,
+          "total_count": 396050
         },
         {
-          "name": "后宫",
-          "count": 372,
-          "total_count": 300032
+          "name": "2025年10月",
+          "count": 1173,
+          "total_count": 20524
         },
         {
           "name": "漫画改",
-          "count": 193,
-          "total_count": 852336
+          "count": 1147,
+          "total_count": 853728
         },
         {
-          "name": "恋爱",
-          "count": 163,
-          "total_count": 556972
+          "name": "搞笑",
+          "count": 1128,
+          "total_count": 633174
         },
         {
-          "name": "爱神巧克力",
-          "count": 120,
-          "total_count": 184
+          "name": "CloverWorks",
+          "count": 1015,
+          "total_count": 56163
         },
         {
-          "name": "WEB",
-          "count": 100,
-          "total_count": 70964
+          "name": "喜剧",
+          "count": 983,
+          "total_count": 34214
         },
         {
-          "name": "2015",
-          "count": 100,
-          "total_count": 68779
+          "name": "TV",
+          "count": 838,
+          "total_count": 1391835
         },
         {
-          "name": "视美动画",
-          "count": 93,
-          "total_count": 362
+          "name": "WITSTUDIO",
+          "count": 804,
+          "total_count": 46017
         },
         {
-          "name": "2015年12月",
-          "count": 86,
-          "total_count": 727
+          "name": "2025",
+          "count": 558,
+          "total_count": 72313
         },
         {
-          "name": "肉番",
-          "count": 81,
-          "total_count": 32622
+          "name": "间谍过家家",
+          "count": 446,
+          "total_count": 2457
         }
       ],
-      "score": 5.8,
+      "score": 7.3,
       "type": 2,
-      "id": 158043,
-      "eps": 15,
+      "id": 498378,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 2898,
-      "rank": 8353
+      "collection_total": 18311,
+      "rank": 1428
     },
-    "subject_id": 158043,
+    "subject_id": 498378,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 13,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/66/ca/158043_XUFoP.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/3d/79/498378_3ycrL.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "爱神巧克力",
+      "title": "间谍过家家 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/66/ca/158043_XUFoP.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3d/79/498378_3ycrL.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "爱神巧克力",
+      "title": "间谍过家家 第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/66/ca/158043_XUFoP.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3d/79/498378_3ycrL.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "爱神巧克力",
+      "title": "间谍过家家 第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-158043.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family-season-3.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
