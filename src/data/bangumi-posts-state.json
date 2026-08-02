@@ -1176,6 +1176,17 @@
       "published": "2026-08-01",
       "status": "published",
       "generatedAt": "2026-08-01T09:54:00.300Z"
+    },
+    {
+      "subjectId": 110648,
+      "title": "《迷糊餐厅 第三季》",
+      "filePath": "src/content/posts/bangumi-110648.md",
+      "alias": "bangumi-110648",
+      "sourceLink": "https://bgm.tv/subject/110648",
+      "image": "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg",
+      "published": "2026-08-02",
+      "status": "published",
+      "generatedAt": "2026-08-02T09:52:18.079Z"
     }
   ]
 }

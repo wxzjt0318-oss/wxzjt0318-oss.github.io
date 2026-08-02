@@ -1,85 +1,90 @@
 {
-  "generatedAt": "2026-08-01T09:54:00.301Z",
+  "generatedAt": "2026-08-02T09:52:18.080Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-28T07:54:26+08:00",
+    "updated_at": "2026-01-03T10:47:31+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "恋爱",
+      "漫画改",
+      "日常",
+      "搞笑"
+    ],
     "subject": {
-      "date": "2025-10-04",
+      "date": "2015-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/3d/79/498378_3ycrL.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/3d/79/498378_3ycrL.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/3d/79/498378_3ycrL.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3d/79/498378_3ycrL.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/3d/79/498378_3ycrL.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/59/dc/110648_52R1q.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/59/dc/110648_52R1q.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/59/dc/110648_52R1q.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/59/dc/110648_52R1q.jpg"
       },
-      "name": "SPY×FAMILY Season 3",
-      "name_cn": "间谍过家家 第三季",
-      "short_summary": "人はみな　誰にも見せぬ自分を　持っている――\r\n\r\n世界各国が水面下で熾烈な情報戦を繰り広げていた時代。\r\n東国オスタニアと西国ウェスタリスは、十数年間にわたる冷戦状態にあった。\r\n\r\n西国の情報局対東課〈WISEワイズ〉所属である凄腕スパ",
+      "name": "WORKING!!!",
+      "name_cn": "迷糊餐厅 第三季",
+      "short_summary": "",
       "tags": [
         {
-          "name": "日常",
-          "count": 1289,
-          "total_count": 396050
+          "name": "搞笑",
+          "count": 966,
+          "total_count": 633374
         },
         {
-          "name": "2025年10月",
-          "count": 1173,
-          "total_count": 20524
+          "name": "日常",
+          "count": 816,
+          "total_count": 396204
+        },
+        {
+          "name": "A-1Pictures",
+          "count": 694,
+          "total_count": 145228
+        },
+        {
+          "name": "2015年7月",
+          "count": 643,
+          "total_count": 25627
         },
         {
           "name": "漫画改",
-          "count": 1147,
-          "total_count": 853728
-        },
-        {
-          "name": "搞笑",
-          "count": 1128,
-          "total_count": 633174
-        },
-        {
-          "name": "CloverWorks",
-          "count": 1015,
-          "total_count": 56163
-        },
-        {
-          "name": "喜剧",
-          "count": 983,
-          "total_count": 34214
+          "count": 492,
+          "total_count": 854024
         },
         {
           "name": "TV",
-          "count": 838,
-          "total_count": 1391835
+          "count": 471,
+          "total_count": 1392223
         },
         {
-          "name": "WITSTUDIO",
-          "count": 804,
-          "total_count": 46017
+          "name": "恋爱",
+          "count": 365,
+          "total_count": 558017
         },
         {
-          "name": "2025",
-          "count": 558,
-          "total_count": 72313
+          "name": "2015",
+          "count": 300,
+          "total_count": 68829
         },
         {
-          "name": "间谍过家家",
-          "count": 446,
-          "total_count": 2457
+          "name": "working!!",
+          "count": 229,
+          "total_count": 248
+        },
+        {
+          "name": "漫改",
+          "count": 201,
+          "total_count": 359160
         }
       ],
-      "score": 7.3,
+      "score": 7.5,
       "type": 2,
-      "id": 498378,
+      "id": 110648,
       "eps": 13,
       "volumes": 0,
-      "collection_total": 18311,
-      "rank": 1428
+      "collection_total": 8746,
+      "rank": 872
     },
-    "subject_id": 498378,
+    "subject_id": 110648,
     "vol_status": 0,
-    "ep_status": 13,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -87,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/3d/79/498378_3ycrL.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "间谍过家家 第三季",
+      "title": "迷糊餐厅 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3d/79/498378_3ycrL.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/59/dc/110648_52R1q.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "间谍过家家 第三季",
+      "title": "迷糊餐厅 第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3d/79/498378_3ycrL.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/59/dc/110648_52R1q.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "间谍过家家 第三季",
+      "title": "迷糊餐厅 第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family-season-3.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-110648.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
