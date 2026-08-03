@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-08-02T09:52:18.080Z",
+  "generatedAt": "2026-08-03T11:17:45.317Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-01-03T10:47:31+08:00",
+    "updated_at": "2025-11-20T16:01:25+08:00",
     "comment": null,
     "tags": [
       "恋爱",
-      "漫画改",
-      "日常",
-      "搞笑"
+      "校园",
+      "轻小说改",
+      "治愈"
     ],
     "subject": {
-      "date": "2015-07-04",
+      "date": "2023-01-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/59/dc/110648_52R1q.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/59/dc/110648_52R1q.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/59/dc/110648_52R1q.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/59/dc/110648_52R1q.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/37/d1/364822_y0BAy.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/37/d1/364822_y0BAy.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/37/d1/364822_y0BAy.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/37/d1/364822_y0BAy.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/37/d1/364822_y0BAy.jpg"
       },
-      "name": "WORKING!!!",
-      "name_cn": "迷糊餐厅 第三季",
-      "short_summary": "",
+      "name": "お隣の天使様にいつの間にか駄目人間にされていた件",
+      "name_cn": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
+      "short_summary": "升入高中一年级的藤宫周开始独居生活。\r\n他住的公寓隔壁住着学校里最出色的美少女椎名真昼。\r\n两人虽然没有什么特别的关系，但因为周把伞借给了在雨中湿透的她，所以两人开始了奇妙的交流。\r\n看着独自过着堕落生活的周，真昼忙着做饭、打扫房间、在各方",
       "tags": [
         {
-          "name": "搞笑",
-          "count": 966,
-          "total_count": 633374
+          "name": "恋爱",
+          "count": 1525,
+          "total_count": 558198
+        },
+        {
+          "name": "轻小说改",
+          "count": 1173,
+          "total_count": 492560
+        },
+        {
+          "name": "projectNo.9",
+          "count": 1086,
+          "total_count": 12995
+        },
+        {
+          "name": "校园",
+          "count": 919,
+          "total_count": 448425
+        },
+        {
+          "name": "2023年1月",
+          "count": 887,
+          "total_count": 26898
+        },
+        {
+          "name": "惨遭动画化",
+          "count": 648,
+          "total_count": 1749
         },
         {
           "name": "日常",
-          "count": 816,
-          "total_count": 396204
-        },
-        {
-          "name": "A-1Pictures",
-          "count": 694,
-          "total_count": 145228
-        },
-        {
-          "name": "2015年7月",
-          "count": 643,
-          "total_count": 25627
-        },
-        {
-          "name": "漫画改",
-          "count": 492,
-          "total_count": 854024
+          "count": 638,
+          "total_count": 396382
         },
         {
           "name": "TV",
-          "count": 471,
-          "total_count": 1392223
+          "count": 581,
+          "total_count": 1392829
         },
         {
-          "name": "恋爱",
-          "count": 365,
-          "total_count": 558017
+          "name": "2023",
+          "count": 348,
+          "total_count": 81182
         },
         {
-          "name": "2015",
-          "count": 300,
-          "total_count": 68829
-        },
-        {
-          "name": "working!!",
-          "count": 229,
-          "total_count": 248
-        },
-        {
-          "name": "漫改",
-          "count": 201,
-          "total_count": 359160
+          "name": "轻改",
+          "count": 325,
+          "total_count": 151833
         }
       ],
-      "score": 7.5,
+      "score": 4.5,
       "type": 2,
-      "id": 110648,
-      "eps": 13,
+      "id": 364822,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 8746,
-      "rank": 872
+      "collection_total": 12437,
+      "rank": 10094
     },
-    "subject_id": 110648,
+    "subject_id": 364822,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/37/d1/364822_y0BAy.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "迷糊餐厅 第三季",
+      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/59/dc/110648_52R1q.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/37/d1/364822_y0BAy.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "迷糊餐厅 第三季",
+      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/59/dc/110648_52R1q.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/37/d1/364822_y0BAy.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "迷糊餐厅 第三季",
+      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-110648.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-364822.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
