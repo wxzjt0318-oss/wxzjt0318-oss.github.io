@@ -1198,6 +1198,17 @@
       "published": "2026-08-03",
       "status": "published",
       "generatedAt": "2026-08-03T11:17:45.316Z"
+    },
+    {
+      "subjectId": 315375,
+      "title": "《剧场版 刀剑神域 进击篇 无星之夜的咏叹调》",
+      "filePath": "src/content/posts/bangumi-315375.md",
+      "alias": "bangumi-315375",
+      "sourceLink": "https://bgm.tv/subject/315375",
+      "image": "https://lain.bgm.tv/pic/cover/l/63/24/315375_1ivNC.jpg",
+      "published": "2026-08-04",
+      "status": "published",
+      "generatedAt": "2026-08-04T10:32:36.821Z"
     }
   ]
 }

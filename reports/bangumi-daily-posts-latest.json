@@ -1,121 +1,116 @@
 {
-  "generatedAt": "2026-08-03T11:17:45.317Z",
+  "generatedAt": "2026-08-04T10:32:36.822Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T16:01:25+08:00",
+    "updated_at": "2025-11-21T09:58:52+08:00",
     "comment": null,
-    "tags": [
-      "恋爱",
-      "校园",
-      "轻小说改",
-      "治愈"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2023-01-07",
+      "date": "2021-10-30",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/37/d1/364822_y0BAy.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/37/d1/364822_y0BAy.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/37/d1/364822_y0BAy.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/37/d1/364822_y0BAy.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/37/d1/364822_y0BAy.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/63/24/315375_1ivNC.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/63/24/315375_1ivNC.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/63/24/315375_1ivNC.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/63/24/315375_1ivNC.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/63/24/315375_1ivNC.jpg"
       },
-      "name": "お隣の天使様にいつの間にか駄目人間にされていた件",
-      "name_cn": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
-      "short_summary": "升入高中一年级的藤宫周开始独居生活。\r\n他住的公寓隔壁住着学校里最出色的美少女椎名真昼。\r\n两人虽然没有什么特别的关系，但因为周把伞借给了在雨中湿透的她，所以两人开始了奇妙的交流。\r\n看着独自过着堕落生活的周，真昼忙着做饭、打扫房间、在各方",
+      "name": "劇場版 ソードアート・オンライン プログレッシブ 星なき夜のアリア",
+      "name_cn": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
+      "short_summary": "这是“闪光”与“黑衣剑士”在被如此称呼之前的故事——\r\n某一天，偶然戴上\"NERvGear\"的结城明日奈，原本是与网络游戏无缘的初中三年级少女。\r\n游戏管理员告知。“这虽然是游戏，但可不是闹着玩的。”在游戏中的死亡，与现实中的死亡直接相关。",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 1525,
-          "total_count": 558198
+          "name": "剧场版",
+          "count": 1948,
+          "total_count": 719885
+        },
+        {
+          "name": "A-1Pictures",
+          "count": 1246,
+          "total_count": 145254
+        },
+        {
+          "name": "刀剑神域",
+          "count": 1179,
+          "total_count": 19052
         },
         {
           "name": "轻小说改",
-          "count": 1173,
-          "total_count": 492560
+          "count": 834,
+          "total_count": 492753
         },
         {
-          "name": "projectNo.9",
-          "count": 1086,
-          "total_count": 12995
+          "name": "战斗",
+          "count": 757,
+          "total_count": 466466
         },
         {
-          "name": "校园",
-          "count": 919,
-          "total_count": 448425
-        },
-        {
-          "name": "2023年1月",
-          "count": 887,
-          "total_count": 26898
-        },
-        {
-          "name": "惨遭动画化",
-          "count": 648,
-          "total_count": 1749
-        },
-        {
-          "name": "日常",
-          "count": 638,
-          "total_count": 396382
-        },
-        {
-          "name": "TV",
-          "count": 581,
-          "total_count": 1392829
-        },
-        {
-          "name": "2023",
-          "count": 348,
-          "total_count": 81182
+          "name": "2021",
+          "count": 752,
+          "total_count": 78717
         },
         {
           "name": "轻改",
-          "count": 325,
-          "total_count": 151833
+          "count": 419,
+          "total_count": 151880
+        },
+        {
+          "name": "奇幻",
+          "count": 388,
+          "total_count": 465374
+        },
+        {
+          "name": "外传",
+          "count": 277,
+          "total_count": 3806
+        },
+        {
+          "name": "松岡禎丞",
+          "count": 252,
+          "total_count": 4145
         }
       ],
-      "score": 4.5,
+      "score": 7,
       "type": 2,
-      "id": 364822,
-      "eps": 12,
+      "id": 315375,
+      "eps": 1,
       "volumes": 0,
-      "collection_total": 12437,
-      "rank": 10094
+      "collection_total": 11808,
+      "rank": 2552
     },
-    "subject_id": 364822,
+    "subject_id": 315375,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 1,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/37/d1/364822_y0BAy.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/63/24/315375_1ivNC.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
+      "title": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/37/d1/364822_y0BAy.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/63/24/315375_1ivNC.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
+      "title": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/37/d1/364822_y0BAy.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/63/24/315375_1ivNC.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
+      "title": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-364822.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-315375.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
