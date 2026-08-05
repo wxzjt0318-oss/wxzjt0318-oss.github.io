@@ -1,116 +1,120 @@
 {
-  "generatedAt": "2026-08-04T10:32:36.822Z",
+  "generatedAt": "2026-08-05T10:29:57.654Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T09:58:52+08:00",
+    "updated_at": "2025-11-20T14:37:21+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "日本",
+      "异世界",
+      "穿越"
+    ],
     "subject": {
-      "date": "2021-10-30",
+      "date": "2021-01-06",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/63/24/315375_1ivNC.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/63/24/315375_1ivNC.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/63/24/315375_1ivNC.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/63/24/315375_1ivNC.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/63/24/315375_1ivNC.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/aa/64/316247_Yd3F5.jpg"
       },
-      "name": "劇場版 ソードアート・オンライン プログレッシブ 星なき夜のアリア",
-      "name_cn": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
-      "short_summary": "这是“闪光”与“黑衣剑士”在被如此称呼之前的故事——\r\n某一天，偶然戴上\"NERvGear\"的结城明日奈，原本是与网络游戏无缘的初中三年级少女。\r\n游戏管理员告知。“这虽然是游戏，但可不是闹着玩的。”在游戏中的死亡，与现实中的死亡直接相关。",
+      "name": "Re:ゼロから始める異世界生活 2nd season 後半クール",
+      "name_cn": "Re：从零开始的异世界生活 第二季 后半部分",
+      "short_summary": "俺が必ず、お前を救ってみせる。\r\n\r\n魔女教大罪司教「怠惰」担当ペテルギウス・ロマネコンティを打倒し、エミリアとの再開を果たしたナツキ・スバル。\r\n辛い決別を乗り越え、ようやく和解した二人だったが、それは新たな波乱の幕開けだった。\r\n\r\n想",
       "tags": [
         {
-          "name": "剧场版",
-          "count": 1948,
-          "total_count": 719885
-        },
-        {
-          "name": "A-1Pictures",
-          "count": 1246,
-          "total_count": 145254
-        },
-        {
-          "name": "刀剑神域",
-          "count": 1179,
-          "total_count": 19052
+          "name": "异世界",
+          "count": 3412,
+          "total_count": 259632
         },
         {
           "name": "轻小说改",
-          "count": 834,
-          "total_count": 492753
+          "count": 2491,
+          "total_count": 492890
         },
         {
-          "name": "战斗",
-          "count": 757,
-          "total_count": 466466
+          "name": "2021年1月",
+          "count": 1733,
+          "total_count": 31454
         },
         {
-          "name": "2021",
-          "count": 752,
-          "total_count": 78717
-        },
-        {
-          "name": "轻改",
-          "count": 419,
-          "total_count": 151880
+          "name": "轮回",
+          "count": 1651,
+          "total_count": 16663
         },
         {
           "name": "奇幻",
-          "count": 388,
-          "total_count": 465374
+          "count": 1643,
+          "total_count": 465686
         },
         {
-          "name": "外传",
-          "count": 277,
-          "total_count": 3806
+          "name": "TV",
+          "count": 1349,
+          "total_count": 1393791
         },
         {
-          "name": "松岡禎丞",
-          "count": 252,
-          "total_count": 4145
+          "name": "WHITEFOX",
+          "count": 1298,
+          "total_count": 33095
+        },
+        {
+          "name": "穿越",
+          "count": 908,
+          "total_count": 62402
+        },
+        {
+          "name": "WHITE-FOX",
+          "count": 798,
+          "total_count": 865
+        },
+        {
+          "name": "2021",
+          "count": 764,
+          "total_count": 78735
         }
       ],
-      "score": 7,
+      "score": 7.6,
       "type": 2,
-      "id": 315375,
-      "eps": 1,
+      "id": 316247,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 11808,
-      "rank": 2552
+      "collection_total": 28808,
+      "rank": 747
     },
-    "subject_id": 315375,
+    "subject_id": 316247,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 0,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/63/24/315375_1ivNC.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/aa/64/316247_Yd3F5.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
+      "title": "Re：从零开始的异世界生活 第二季 后半部分",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/63/24/315375_1ivNC.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/aa/64/316247_Yd3F5.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
+      "title": "Re：从零开始的异世界生活 第二季 后半部分",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/63/24/315375_1ivNC.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/aa/64/316247_Yd3F5.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "剧场版 刀剑神域 进击篇 无星之夜的咏叹调",
+      "title": "Re：从零开始的异世界生活 第二季 后半部分",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-315375.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-2nd-season.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

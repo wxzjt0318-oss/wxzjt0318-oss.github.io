@@ -1209,6 +1209,17 @@
       "published": "2026-08-04",
       "status": "published",
       "generatedAt": "2026-08-04T10:32:36.821Z"
+    },
+    {
+      "subjectId": 316247,
+      "title": "《Re：从零开始的异世界生活 第二季 后半部分》",
+      "filePath": "src/content/posts/re-2nd-season.md",
+      "alias": "re-2nd-season",
+      "sourceLink": "https://bgm.tv/subject/316247",
+      "image": "https://lain.bgm.tv/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+      "published": "2026-08-05",
+      "status": "published",
+      "generatedAt": "2026-08-05T10:29:57.653Z"
     }
   ]
 }
