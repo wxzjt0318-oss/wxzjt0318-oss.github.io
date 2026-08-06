@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-08-05T10:29:57.654Z",
+  "generatedAt": "2026-08-06T10:33:56.041Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:37:21+08:00",
+    "updated_at": "2025-12-08T12:22:01+08:00",
     "comment": null,
     "tags": [
-      "日本",
-      "异世界",
-      "穿越"
+      "厕纸",
+      "轻改",
+      "龙傲天",
+      "奇幻"
     ],
     "subject": {
-      "date": "2021-01-06",
+      "date": "2023-10-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/aa/64/316247_Yd3F5.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/aa/64/316247_Yd3F5.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/aa/64/316247_Yd3F5.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/aa/64/316247_Yd3F5.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/aa/64/316247_Yd3F5.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/d0/9c/406180_zvAgW.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d0/9c/406180_zvAgW.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/d0/9c/406180_zvAgW.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d0/9c/406180_zvAgW.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/d0/9c/406180_zvAgW.jpg"
       },
-      "name": "Re:ゼロから始める異世界生活 2nd season 後半クール",
-      "name_cn": "Re：从零开始的异世界生活 第二季 后半部分",
-      "short_summary": "俺が必ず、お前を救ってみせる。\r\n\r\n魔女教大罪司教「怠惰」担当ペテルギウス・ロマネコンティを打倒し、エミリアとの再開を果たしたナツキ・スバル。\r\n辛い決別を乗り越え、ようやく和解した二人だったが、それは新たな波乱の幕開けだった。\r\n\r\n想",
+      "name": "暴食のベルセルク",
+      "name_cn": "暴食狂战士",
+      "short_summary": "在技能优劣的优劣决定一切的世界，被轻蔑为无用之才的少年「斐特」被迫过着最底层的生活。斐特持有的技能「暴食」是个只会饿肚子，完全派不上用场的能力。\r\n被处在这个世界最顶端的圣骑士「族布雷立库」家盯上的他，每天都过着动不动就被暴力相向，并被推去",
       "tags": [
         {
           "name": "异世界",
-          "count": 3412,
-          "total_count": 259632
+          "count": 319,
+          "total_count": 259652
+        },
+        {
+          "name": "2023年10月",
+          "count": 290,
+          "total_count": 37438
+        },
+        {
+          "name": "战斗",
+          "count": 263,
+          "total_count": 466820
         },
         {
           "name": "轻小说改",
-          "count": 2491,
-          "total_count": 492890
-        },
-        {
-          "name": "2021年1月",
-          "count": 1733,
-          "total_count": 31454
-        },
-        {
-          "name": "轮回",
-          "count": 1651,
-          "total_count": 16663
+          "count": 254,
+          "total_count": 492917
         },
         {
           "name": "奇幻",
-          "count": 1643,
-          "total_count": 465686
+          "count": 195,
+          "total_count": 465761
+        },
+        {
+          "name": "龙傲天",
+          "count": 187,
+          "total_count": 39301
         },
         {
           "name": "TV",
-          "count": 1349,
-          "total_count": 1393791
+          "count": 138,
+          "total_count": 1393942
         },
         {
-          "name": "WHITEFOX",
-          "count": 1298,
-          "total_count": 33095
+          "name": "厕纸",
+          "count": 110,
+          "total_count": 12013
         },
         {
-          "name": "穿越",
-          "count": 908,
-          "total_count": 62402
+          "name": "A・C・G・T",
+          "count": 108,
+          "total_count": 1006
         },
         {
-          "name": "WHITE-FOX",
-          "count": 798,
-          "total_count": 865
-        },
-        {
-          "name": "2021",
-          "count": 764,
-          "total_count": 78735
+          "name": "2023",
+          "count": 105,
+          "total_count": 81214
         }
       ],
-      "score": 7.6,
+      "score": 5.1,
       "type": 2,
-      "id": 316247,
+      "id": 406180,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 28808,
-      "rank": 747
+      "collection_total": 3403,
+      "rank": 9727
     },
-    "subject_id": 316247,
+    "subject_id": 406180,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/d0/9c/406180_zvAgW.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第二季 后半部分",
+      "title": "暴食狂战士",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d0/9c/406180_zvAgW.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "Re：从零开始的异世界生活 第二季 后半部分",
+      "title": "暴食狂战士",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/aa/64/316247_Yd3F5.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d0/9c/406180_zvAgW.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "Re：从零开始的异世界生活 第二季 后半部分",
+      "title": "暴食狂战士",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-2nd-season.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-406180.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

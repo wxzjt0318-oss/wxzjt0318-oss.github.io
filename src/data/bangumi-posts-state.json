@@ -1220,6 +1220,17 @@
       "published": "2026-08-05",
       "status": "published",
       "generatedAt": "2026-08-05T10:29:57.653Z"
+    },
+    {
+      "subjectId": 406180,
+      "title": "《暴食狂战士》",
+      "filePath": "src/content/posts/bangumi-406180.md",
+      "alias": "bangumi-406180",
+      "sourceLink": "https://bgm.tv/subject/406180",
+      "image": "https://lain.bgm.tv/pic/cover/l/d0/9c/406180_zvAgW.jpg",
+      "published": "2026-08-06",
+      "status": "published",
+      "generatedAt": "2026-08-06T10:33:56.040Z"
     }
   ]
 }
