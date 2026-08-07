@@ -1231,6 +1231,17 @@
       "published": "2026-08-06",
       "status": "published",
       "generatedAt": "2026-08-06T10:33:56.040Z"
+    },
+    {
+      "subjectId": 537904,
+      "title": "《明明只是暗杀者，我的面板数值却比勇者还要强》",
+      "filePath": "src/content/posts/bangumi-537904.md",
+      "alias": "bangumi-537904",
+      "sourceLink": "https://bgm.tv/subject/537904",
+      "image": "https://lain.bgm.tv/pic/cover/l/4a/44/537904_2b515.jpg",
+      "published": "2026-08-07",
+      "status": "published",
+      "generatedAt": "2026-08-07T08:53:15.114Z"
     }
   ]
 }
