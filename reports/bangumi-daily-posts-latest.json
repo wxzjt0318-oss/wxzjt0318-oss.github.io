@@ -1,86 +1,87 @@
 {
-  "generatedAt": "2026-08-07T08:53:15.115Z",
+  "generatedAt": "2026-08-08T08:34:38.091Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-26T02:55:43+08:00",
+    "updated_at": "2025-11-18T15:08:04+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "厕纸"
+      "恋爱",
+      "总之就是非常可爱",
+      "狗粮"
     ],
     "subject": {
-      "date": "2025-10-06",
+      "date": "2020-10-02",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/4a/44/537904_2b515.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/4a/44/537904_2b515.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/4a/44/537904_2b515.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/4a/44/537904_2b515.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/4a/44/537904_2b515.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/66/50/301541_p2z4K.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/66/50/301541_p2z4K.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/66/50/301541_p2z4K.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/66/50/301541_p2z4K.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/66/50/301541_p2z4K.jpg"
       },
-      "name": "暗殺者である俺のステータスが勇者よりも明らかに強いのだが",
-      "name_cn": "明明只是暗杀者，我的面板数值却比勇者还要强",
-      "short_summary": "クラスメイトと共に異世界に召喚された高校生・織田 晶。\r\n召喚によってクラスメイト全員にチート能力が付与される中、\r\n彼は生来の影の薄さからか平凡な“暗殺者”の能力を得る。\r\n\r\nだが、ただの“暗殺者”のはずなのにステータス値が、\r\n最強の",
+      "name": "トニカクカワイイ",
+      "name_cn": "总之就是非常可爱",
+      "short_summary": "由崎星空对神秘美少女——司一见钟情。\r\n面对星空决死的告白，她的回答是“如果你愿意和我结婚，那我就跟你交往”？！\r\n充满了星空与司的爱，可爱&高贵的新婚生活开始了！！",
       "tags": [
         {
-          "name": "异世界",
-          "count": 566,
-          "total_count": 259899
+          "name": "恋爱",
+          "count": 3384,
+          "total_count": 559819
         },
         {
-          "name": "2025年10月",
-          "count": 516,
-          "total_count": 20583
+          "name": "狗粮",
+          "count": 2100,
+          "total_count": 18668
         },
         {
-          "name": "战斗",
-          "count": 365,
-          "total_count": 467279
+          "name": "漫画改",
+          "count": 1626,
+          "total_count": 856105
         },
         {
-          "name": "奇幻",
-          "count": 364,
-          "total_count": 466295
+          "name": "2020年10月",
+          "count": 1532,
+          "total_count": 25276
+        },
+        {
+          "name": "日常",
+          "count": 1482,
+          "total_count": 397437
         },
         {
           "name": "TV",
-          "count": 359,
-          "total_count": 1394621
+          "count": 1140,
+          "total_count": 1394995
         },
         {
-          "name": "SUNRISE",
-          "count": 342,
-          "total_count": 91863
+          "name": "漫改",
+          "count": 792,
+          "total_count": 359840
         },
         {
-          "name": "轻小说改",
-          "count": 313,
-          "total_count": 493151
+          "name": "2020",
+          "count": 719,
+          "total_count": 63743
         },
         {
-          "name": "2025",
-          "count": 228,
-          "total_count": 72448
+          "name": "SEVEN・ARCS",
+          "count": 590,
+          "total_count": 1338
         },
         {
-          "name": "小说改",
-          "count": 198,
-          "total_count": 157403
-        },
-        {
-          "name": "厕纸",
-          "count": 168,
-          "total_count": 12020
+          "name": "畑健二郎",
+          "count": 426,
+          "total_count": 608
         }
       ],
-      "score": 4.5,
+      "score": 6.3,
       "type": 2,
-      "id": 537904,
+      "id": 301541,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 6273,
-      "rank": 10082
+      "collection_total": 24537,
+      "rank": 6394
     },
-    "subject_id": 537904,
+    "subject_id": 301541,
     "vol_status": 0,
     "ep_status": 12,
     "subject_type": 2,
@@ -90,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/4a/44/537904_2b515.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/66/50/301541_p2z4K.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "明明只是暗杀者，我的面板数值却比勇者还要强",
+      "title": "总之就是非常可爱",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/4a/44/537904_2b515.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/66/50/301541_p2z4K.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "明明只是暗杀者，我的面板数值却比勇者还要强",
+      "title": "总之就是非常可爱",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/4a/44/537904_2b515.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/66/50/301541_p2z4K.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "明明只是暗杀者，我的面板数值却比勇者还要强",
+      "title": "总之就是非常可爱",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-537904.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-301541.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

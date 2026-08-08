@@ -1242,6 +1242,17 @@
       "published": "2026-08-07",
       "status": "published",
       "generatedAt": "2026-08-07T08:53:15.114Z"
+    },
+    {
+      "subjectId": 301541,
+      "title": "《总之就是非常可爱》",
+      "filePath": "src/content/posts/bangumi-301541.md",
+      "alias": "bangumi-301541",
+      "sourceLink": "https://bgm.tv/subject/301541",
+      "image": "https://lain.bgm.tv/pic/cover/l/66/50/301541_p2z4K.jpg",
+      "published": "2026-08-08",
+      "status": "published",
+      "generatedAt": "2026-08-08T08:34:38.087Z"
     }
   ]
 }
