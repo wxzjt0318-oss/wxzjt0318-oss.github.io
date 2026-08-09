@@ -1,87 +1,88 @@
 {
-  "generatedAt": "2026-08-08T08:34:38.091Z",
+  "generatedAt": "2026-08-09T08:36:24.758Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-18T15:08:04+08:00",
+    "updated_at": "2026-03-19T20:58:02+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "总之就是非常可爱",
-      "狗粮"
+      "萝莉",
+      "2026年1月",
+      "养女儿",
+      "漫改"
     ],
     "subject": {
-      "date": "2020-10-02",
+      "date": "2026-01-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/66/50/301541_p2z4K.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/66/50/301541_p2z4K.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/66/50/301541_p2z4K.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/66/50/301541_p2z4K.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/66/50/301541_p2z4K.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b4/0f/565416_a994t.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b4/0f/565416_a994t.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/b4/0f/565416_a994t.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b4/0f/565416_a994t.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b4/0f/565416_a994t.jpg"
       },
-      "name": "トニカクカワイイ",
-      "name_cn": "总之就是非常可爱",
-      "short_summary": "由崎星空对神秘美少女——司一见钟情。\r\n面对星空决死的告白，她的回答是“如果你愿意和我结婚，那我就跟你交往”？！\r\n充满了星空与司的爱，可爱&高贵的新婚生活开始了！！",
+      "name": "魔王の娘は優しすぎる!!",
+      "name_cn": "魔王的女儿太温柔了！！",
+      "short_summary": "这个世界上，有着将一切邪恶汇聚于身、率领魔族并靠着暴力与权势侵略世界的魔王阿里曼。然而这样的魔王，却不知为何突然完全停止了一切侵略行动。让魔界最强魔王甘愿收手不侵略的理由究竟是──竟然全都是因为魔王的女儿豆豆，实在是太温柔了！！\r\n明明身为",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 3384,
-          "total_count": 559819
-        },
-        {
-          "name": "狗粮",
-          "count": 2100,
-          "total_count": 18668
-        },
-        {
-          "name": "漫画改",
-          "count": 1626,
-          "total_count": 856105
-        },
-        {
-          "name": "2020年10月",
-          "count": 1532,
-          "total_count": 25276
+          "name": "2026年1月",
+          "count": 169,
+          "total_count": 27545
         },
         {
           "name": "日常",
-          "count": 1482,
-          "total_count": 397437
+          "count": 150,
+          "total_count": 397595
+        },
+        {
+          "name": "养女儿",
+          "count": 144,
+          "total_count": 3979
+        },
+        {
+          "name": "漫画改",
+          "count": 127,
+          "total_count": 856369
+        },
+        {
+          "name": "奇幻",
+          "count": 122,
+          "total_count": 466873
         },
         {
           "name": "TV",
-          "count": 1140,
-          "total_count": 1394995
+          "count": 102,
+          "total_count": 1395302
         },
         {
-          "name": "漫改",
-          "count": 792,
-          "total_count": 359840
+          "name": "搞笑",
+          "count": 92,
+          "total_count": 635202
         },
         {
-          "name": "2020",
-          "count": 719,
-          "total_count": 63743
+          "name": "2026",
+          "count": 79,
+          "total_count": 40571
         },
         {
-          "name": "SEVEN・ARCS",
-          "count": 590,
-          "total_count": 1338
+          "name": "日本",
+          "count": 61,
+          "total_count": 292921
         },
         {
-          "name": "畑健二郎",
-          "count": 426,
-          "total_count": 608
+          "name": "EMT2",
+          "count": 54,
+          "total_count": 1695
         }
       ],
-      "score": 6.3,
+      "score": 5.7,
       "type": 2,
-      "id": 301541,
+      "id": 565416,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 24537,
-      "rank": 6394
+      "collection_total": 2192,
+      "rank": 8652
     },
-    "subject_id": 301541,
+    "subject_id": 565416,
     "vol_status": 0,
     "ep_status": 12,
     "subject_type": 2,
@@ -91,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/66/50/301541_p2z4K.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b4/0f/565416_a994t.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "总之就是非常可爱",
+      "title": "魔王的女儿太温柔了！！",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/66/50/301541_p2z4K.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b4/0f/565416_a994t.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "总之就是非常可爱",
+      "title": "魔王的女儿太温柔了！！",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/66/50/301541_p2z4K.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b4/0f/565416_a994t.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "总之就是非常可爱",
+      "title": "魔王的女儿太温柔了！！",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-301541.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-565416.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -1253,6 +1253,17 @@
       "published": "2026-08-08",
       "status": "published",
       "generatedAt": "2026-08-08T08:34:38.087Z"
+    },
+    {
+      "subjectId": 565416,
+      "title": "《魔王的女儿太温柔了！！》",
+      "filePath": "src/content/posts/bangumi-565416.md",
+      "alias": "bangumi-565416",
+      "sourceLink": "https://bgm.tv/subject/565416",
+      "image": "https://lain.bgm.tv/pic/cover/l/b4/0f/565416_a994t.jpg",
+      "published": "2026-08-09",
+      "status": "published",
+      "generatedAt": "2026-08-09T08:36:24.757Z"
     }
   ]
 }
