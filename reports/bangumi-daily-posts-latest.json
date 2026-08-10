@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-08-09T08:36:24.758Z",
+  "generatedAt": "2026-08-10T09:14:08.312Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-03-19T20:58:02+08:00",
+    "updated_at": "2025-11-21T10:16:16+08:00",
     "comment": null,
     "tags": [
-      "萝莉",
-      "2026年1月",
-      "养女儿",
-      "漫改"
+      "恋爱",
+      "动画工房",
+      "校园",
+      "狗粮"
     ],
     "subject": {
-      "date": "2026-01-07",
+      "date": "2022-04-09",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/b4/0f/565416_a994t.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b4/0f/565416_a994t.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/b4/0f/565416_a994t.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b4/0f/565416_a994t.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/b4/0f/565416_a994t.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6a/7b/324295_Klk2K.jpg"
       },
-      "name": "魔王の娘は優しすぎる!!",
-      "name_cn": "魔王的女儿太温柔了！！",
-      "short_summary": "这个世界上，有着将一切邪恶汇聚于身、率领魔族并靠着暴力与权势侵略世界的魔王阿里曼。然而这样的魔王，却不知为何突然完全停止了一切侵略行动。让魔界最强魔王甘愿收手不侵略的理由究竟是──竟然全都是因为魔王的女儿豆豆，实在是太温柔了！！\r\n明明身为",
+      "name": "可愛いだけじゃない式守さん",
+      "name_cn": "式守同学不只可爱而已",
+      "short_summary": "超级“帅气女友“登场！\r\n\r\n和泉是一名拥有不幸体质的高中男生，他有一个和他同班的女朋友，叫做式守。\r\n式守的笑容十分甜美、温柔，跟和泉在一起的时候脸上总是洋溢着幸福。\r\n\r\n她平时可爱动人，心中满是爱情，\r\n但只要看到和泉遇到危险，她就会",
       "tags": [
         {
-          "name": "2026年1月",
-          "count": 169,
-          "total_count": 27545
+          "name": "恋爱",
+          "count": 1270,
+          "total_count": 560351
         },
         {
-          "name": "日常",
-          "count": 150,
-          "total_count": 397595
+          "name": "动画工房",
+          "count": 894,
+          "total_count": 63220
         },
         {
-          "name": "养女儿",
-          "count": 144,
-          "total_count": 3979
+          "name": "校园",
+          "count": 785,
+          "total_count": 450304
+        },
+        {
+          "name": "2022年4月",
+          "count": 751,
+          "total_count": 29862
         },
         {
           "name": "漫画改",
-          "count": 127,
-          "total_count": 856369
+          "count": 656,
+          "total_count": 857003
         },
         {
-          "name": "奇幻",
-          "count": 122,
-          "total_count": 466873
+          "name": "日常",
+          "count": 630,
+          "total_count": 397819
         },
         {
           "name": "TV",
-          "count": 102,
-          "total_count": 1395302
+          "count": 465,
+          "total_count": 1396272
         },
         {
-          "name": "搞笑",
-          "count": 92,
-          "total_count": 635202
+          "name": "狗粮",
+          "count": 347,
+          "total_count": 18675
         },
         {
-          "name": "2026",
-          "count": 79,
-          "total_count": 40571
+          "name": "2022",
+          "count": 337,
+          "total_count": 80309
         },
         {
-          "name": "日本",
-          "count": 61,
-          "total_count": 292921
-        },
-        {
-          "name": "EMT2",
-          "count": 54,
-          "total_count": 1695
+          "name": "漫改",
+          "count": 285,
+          "total_count": 360059
         }
       ],
       "score": 5.7,
       "type": 2,
-      "id": 565416,
+      "id": 324295,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 2192,
-      "rank": 8652
+      "collection_total": 10422,
+      "rank": 8957
     },
-    "subject_id": 565416,
+    "subject_id": 324295,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b4/0f/565416_a994t.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/6a/7b/324295_Klk2K.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "魔王的女儿太温柔了！！",
+      "title": "式守同学不只可爱而已",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b4/0f/565416_a994t.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6a/7b/324295_Klk2K.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "魔王的女儿太温柔了！！",
+      "title": "式守同学不只可爱而已",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b4/0f/565416_a994t.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6a/7b/324295_Klk2K.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "魔王的女儿太温柔了！！",
+      "title": "式守同学不只可爱而已",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-565416.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-324295.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
