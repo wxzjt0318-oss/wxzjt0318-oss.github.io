@@ -1,88 +1,88 @@
 {
-  "generatedAt": "2026-08-10T09:14:08.312Z",
+  "generatedAt": "2026-08-11T08:48:59.471Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:16:16+08:00",
+    "updated_at": "2026-03-27T12:44:40+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "动画工房",
-      "校园",
-      "狗粮"
+      "后宫",
+      "异世界",
+      "轻小说改",
+      "龙傲天"
     ],
     "subject": {
-      "date": "2022-04-09",
+      "date": "2021-04-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/6a/7b/324295_Klk2K.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/6a/7b/324295_Klk2K.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/6a/7b/324295_Klk2K.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/6a/7b/324295_Klk2K.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/6a/7b/324295_Klk2K.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2e/9b/303864_md2TS.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2e/9b/303864_md2TS.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/2e/9b/303864_md2TS.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2e/9b/303864_md2TS.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2e/9b/303864_md2TS.jpg"
       },
-      "name": "可愛いだけじゃない式守さん",
-      "name_cn": "式守同学不只可爱而已",
-      "short_summary": "超级“帅气女友“登场！\r\n\r\n和泉是一名拥有不幸体质的高中男生，他有一个和他同班的女朋友，叫做式守。\r\n式守的笑容十分甜美、温柔，跟和泉在一起的时候脸上总是洋溢着幸福。\r\n\r\n她平时可爱动人，心中满是爱情，\r\n但只要看到和泉遇到危险，她就会",
+      "name": "異世界魔王と召喚少女の奴隷魔術Ω",
+      "name_cn": "异世界魔王与召唤少女的奴隶魔术Ω",
+      "short_summary": "ゲーム内の姿で異世界へと召喚されてしまったディアヴロ（本名・坂本拓真）は、\r\n「私こそが召喚主」\r\nとお互いに主張するシェラ、レムの2人と\r\nゲームにそっくりな異世界での日々を過ごしていた。\r\n\r\nエルフの王国の精鋭部隊と戦ったり、魔族と戦",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 1270,
-          "total_count": 560351
+          "name": "后宫",
+          "count": 734,
+          "total_count": 301590
         },
         {
-          "name": "动画工房",
-          "count": 894,
-          "total_count": 63220
+          "name": "异世界",
+          "count": 655,
+          "total_count": 260411
         },
         {
-          "name": "校园",
-          "count": 785,
-          "total_count": 450304
+          "name": "2021年4月",
+          "count": 486,
+          "total_count": 25587
         },
         {
-          "name": "2022年4月",
-          "count": 751,
-          "total_count": 29862
+          "name": "卖肉",
+          "count": 483,
+          "total_count": 68924
         },
         {
-          "name": "漫画改",
-          "count": 656,
-          "total_count": 857003
-        },
-        {
-          "name": "日常",
-          "count": 630,
-          "total_count": 397819
+          "name": "轻小说改",
+          "count": 407,
+          "total_count": 493830
         },
         {
           "name": "TV",
-          "count": 465,
-          "total_count": 1396272
+          "count": 289,
+          "total_count": 1396626
         },
         {
-          "name": "狗粮",
-          "count": 347,
-          "total_count": 18675
+          "name": "手塚PRODUCTION",
+          "count": 213,
+          "total_count": 5032
         },
         {
-          "name": "2022",
-          "count": 337,
-          "total_count": 80309
+          "name": "奇幻",
+          "count": 210,
+          "total_count": 467542
         },
         {
-          "name": "漫改",
-          "count": 285,
-          "total_count": 360059
+          "name": "2021",
+          "count": 174,
+          "total_count": 78814
+        },
+        {
+          "name": "轻改",
+          "count": 127,
+          "total_count": 152122
         }
       ],
-      "score": 5.7,
+      "score": 5.8,
       "type": 2,
-      "id": 324295,
-      "eps": 12,
+      "id": 303864,
+      "eps": 10,
       "volumes": 0,
-      "collection_total": 10422,
-      "rank": 8957
+      "collection_total": 6465,
+      "rank": 8591
     },
-    "subject_id": 324295,
+    "subject_id": 303864,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2e/9b/303864_md2TS.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "式守同学不只可爱而已",
+      "title": "异世界魔王与召唤少女的奴隶魔术Ω",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2e/9b/303864_md2TS.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "式守同学不只可爱而已",
+      "title": "异世界魔王与召唤少女的奴隶魔术Ω",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/6a/7b/324295_Klk2K.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2e/9b/303864_md2TS.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "式守同学不只可爱而已",
+      "title": "异世界魔王与召唤少女的奴隶魔术Ω",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-324295.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-303864.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

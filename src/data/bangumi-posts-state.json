@@ -1275,6 +1275,17 @@
       "published": "2026-08-10",
       "status": "published",
       "generatedAt": "2026-08-10T09:14:08.309Z"
+    },
+    {
+      "subjectId": 303864,
+      "title": "《异世界魔王与召唤少女的奴隶魔术Ω》",
+      "filePath": "src/content/posts/bangumi-303864.md",
+      "alias": "bangumi-303864",
+      "sourceLink": "https://bgm.tv/subject/303864",
+      "image": "https://lain.bgm.tv/pic/cover/l/2e/9b/303864_md2TS.jpg",
+      "published": "2026-08-11",
+      "status": "published",
+      "generatedAt": "2026-08-11T08:48:59.466Z"
     }
   ]
 }
