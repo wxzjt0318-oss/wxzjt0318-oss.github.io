@@ -1,88 +1,89 @@
 {
-  "generatedAt": "2026-08-11T08:48:59.471Z",
+  "generatedAt": "2026-08-12T09:07:18.332Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-03-27T12:44:40+08:00",
+    "updated_at": "2026-01-03T10:47:08+08:00",
     "comment": null,
     "tags": [
-      "后宫",
-      "异世界",
-      "轻小说改",
-      "龙傲天"
+      "搞笑",
+      "日常",
+      "2010年4月",
+      "恋爱",
+      "餐厅"
     ],
     "subject": {
-      "date": "2021-04-08",
+      "date": "2010-04-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2e/9b/303864_md2TS.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2e/9b/303864_md2TS.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/2e/9b/303864_md2TS.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2e/9b/303864_md2TS.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2e/9b/303864_md2TS.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/87/db/4255_jm37v.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/87/db/4255_jm37v.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/87/db/4255_jm37v.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/87/db/4255_jm37v.jpg"
       },
-      "name": "異世界魔王と召喚少女の奴隷魔術Ω",
-      "name_cn": "异世界魔王与召唤少女的奴隶魔术Ω",
-      "short_summary": "ゲーム内の姿で異世界へと召喚されてしまったディアヴロ（本名・坂本拓真）は、\r\n「私こそが召喚主」\r\nとお互いに主張するシェラ、レムの2人と\r\nゲームにそっくりな異世界での日々を過ごしていた。\r\n\r\nエルフの王国の精鋭部隊と戦ったり、魔族と戦",
+      "name": "WORKING!!",
+      "name_cn": "迷糊餐厅",
+      "short_summary": "在史克威尔艾尼克斯的漫画杂志YOUNG GANGAN2005年1号开始连载的四格漫画。以北海道某处被常客评论为“危险的感觉令人上瘾”的餐厅“瓦古娜利亚”为舞台，充满各种奇人异事的四格漫画。登场角色彼此间吐槽相当轻快。\r\n\r\n平时以六页为一个",
       "tags": [
         {
-          "name": "后宫",
-          "count": 734,
-          "total_count": 301590
+          "name": "搞笑",
+          "count": 1776,
+          "total_count": 636499
         },
         {
-          "name": "异世界",
-          "count": 655,
-          "total_count": 260411
+          "name": "WORKING",
+          "count": 958,
+          "total_count": 2041
         },
         {
-          "name": "2021年4月",
-          "count": 486,
-          "total_count": 25587
+          "name": "A-1Pictures",
+          "count": 883,
+          "total_count": 145496
         },
         {
-          "name": "卖肉",
-          "count": 483,
-          "total_count": 68924
-        },
-        {
-          "name": "轻小说改",
-          "count": 407,
-          "total_count": 493830
+          "name": "2010年4月",
+          "count": 848,
+          "total_count": 10670
         },
         {
           "name": "TV",
-          "count": 289,
-          "total_count": 1396626
+          "count": 706,
+          "total_count": 1397865
         },
         {
-          "name": "手塚PRODUCTION",
-          "count": 213,
-          "total_count": 5032
+          "name": "福山润",
+          "count": 590,
+          "total_count": 15054
         },
         {
-          "name": "奇幻",
-          "count": 210,
-          "total_count": 467542
+          "name": "欢乐",
+          "count": 563,
+          "total_count": 6476
         },
         {
-          "name": "2021",
-          "count": 174,
-          "total_count": 78814
+          "name": "日常",
+          "count": 556,
+          "total_count": 398523
         },
         {
-          "name": "轻改",
-          "count": 127,
-          "total_count": 152122
+          "name": "漫画改",
+          "count": 487,
+          "total_count": 858407
+        },
+        {
+          "name": "神谷浩史",
+          "count": 460,
+          "total_count": 29859
         }
       ],
-      "score": 5.8,
+      "score": 7.5,
       "type": 2,
-      "id": 303864,
-      "eps": 10,
+      "id": 4255,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 6465,
-      "rank": 8591
+      "collection_total": 15834,
+      "rank": 913
     },
-    "subject_id": 303864,
+    "subject_id": 4255,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -92,30 +93,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2e/9b/303864_md2TS.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "异世界魔王与召唤少女的奴隶魔术Ω",
+      "title": "迷糊餐厅",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2e/9b/303864_md2TS.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/87/db/4255_jm37v.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "异世界魔王与召唤少女的奴隶魔术Ω",
+      "title": "迷糊餐厅",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2e/9b/303864_md2TS.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/87/db/4255_jm37v.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "异世界魔王与召唤少女的奴隶魔术Ω",
+      "title": "迷糊餐厅",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-303864.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-4255.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

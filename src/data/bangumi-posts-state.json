@@ -1286,6 +1286,17 @@
       "published": "2026-08-11",
       "status": "published",
       "generatedAt": "2026-08-11T08:48:59.466Z"
+    },
+    {
+      "subjectId": 4255,
+      "title": "《迷糊餐厅》",
+      "filePath": "src/content/posts/bangumi-4255.md",
+      "alias": "bangumi-4255",
+      "sourceLink": "https://bgm.tv/subject/4255",
+      "image": "https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg",
+      "published": "2026-08-12",
+      "status": "published",
+      "generatedAt": "2026-08-12T09:07:18.331Z"
     }
   ]
 }
