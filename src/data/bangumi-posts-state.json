@@ -1297,6 +1297,17 @@
       "published": "2026-08-12",
       "status": "published",
       "generatedAt": "2026-08-12T09:07:18.331Z"
+    },
+    {
+      "subjectId": 91651,
+      "title": "《中二病也要谈恋爱！恋 Lite》",
+      "filePath": "src/content/posts/bangumi-91651.md",
+      "alias": "bangumi-91651",
+      "sourceLink": "https://bgm.tv/subject/91651",
+      "image": "https://lain.bgm.tv/pic/cover/l/41/83/91651_vpgN9.jpg",
+      "published": "2026-08-13",
+      "status": "published",
+      "generatedAt": "2026-08-13T09:06:56.918Z"
     }
   ]
 }
