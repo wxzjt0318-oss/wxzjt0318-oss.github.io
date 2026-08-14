@@ -1308,6 +1308,17 @@
       "published": "2026-08-13",
       "status": "published",
       "generatedAt": "2026-08-13T09:06:56.918Z"
+    },
+    {
+      "subjectId": 633836,
+      "title": "《Re：从零开始的异世界生活 第四季 夺还篇》",
+      "filePath": "src/content/posts/re-4th-season.md",
+      "alias": "re-4th-season",
+      "sourceLink": "https://bgm.tv/subject/633836",
+      "image": "https://lain.bgm.tv/pic/cover/l/43/ca/633836_ql0f3.jpg",
+      "published": "2026-08-14",
+      "status": "published",
+      "generatedAt": "2026-08-14T09:03:16.535Z"
     }
   ]
 }
