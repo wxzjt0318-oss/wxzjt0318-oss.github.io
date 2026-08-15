@@ -1319,6 +1319,17 @@
       "published": "2026-08-14",
       "status": "published",
       "generatedAt": "2026-08-14T09:03:16.535Z"
+    },
+    {
+      "subjectId": 296076,
+      "title": "《租借女友》",
+      "filePath": "src/content/posts/bangumi-296076.md",
+      "alias": "bangumi-296076",
+      "sourceLink": "https://bgm.tv/subject/296076",
+      "image": "https://lain.bgm.tv/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+      "published": "2026-08-15",
+      "status": "published",
+      "generatedAt": "2026-08-15T08:21:47.008Z"
     }
   ]
 }

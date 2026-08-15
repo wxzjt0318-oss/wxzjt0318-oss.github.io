@@ -1,116 +1,121 @@
 {
-  "generatedAt": "2026-08-14T09:03:16.536Z",
+  "generatedAt": "2026-08-15T08:21:47.009Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-08-14T00:51:48+08:00",
+    "updated_at": "2025-11-21T10:05:50+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "后宫",
+      "党争",
+      "恋爱",
+      "校园"
+    ],
     "subject": {
-      "date": "2026-08-12",
+      "date": "2020-07-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/43/ca/633836_ql0f3.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/43/ca/633836_ql0f3.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/43/ca/633836_ql0f3.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/43/ca/633836_ql0f3.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/43/ca/633836_ql0f3.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/7a/37/296076_6cP6Q.jpg"
       },
-      "name": "Re:ゼロから始める異世界生活 4th season 奪還編",
-      "name_cn": "Re：从零开始的异世界生活 第四季 夺还篇",
-      "short_summary": "在水门都市朴利斯提拉的死战中，昴等人虽然勉强取得胜利，但付出的代价，却过于沉重。因「暴食」权能而陷入沉睡的雷姆，被夺走记忆的库珥修，以及，被夺去名字的由里乌斯。\r\n为了寻找拯救他们的线索，昴得知了一位据说能看透一切、拥有无尽知识的存在——「",
+      "name": "彼女、お借りします",
+      "name_cn": "租借女友",
+      "short_summary": "20岁的废柴大学生——木之下和也。和初恋女友仅接吻了一次，可只过了一个月就被甩了。\r\n“啊……不行了……感觉什么都不行了……”\r\n自暴自弃的和也，使用了“某种方法”，和女孩子去约会了。到了碰头的地点——\r\n“你是和也，对吧？”\r\n一边将飘逸",
       "tags": [
         {
-          "name": "2026年7月",
-          "count": 306,
-          "total_count": 19931
+          "name": "恋爱",
+          "count": 1763,
+          "total_count": 562126
         },
         {
-          "name": "异世界",
-          "count": 277,
-          "total_count": 261059
+          "name": "2020年7月",
+          "count": 1065,
+          "total_count": 12703
         },
         {
-          "name": "WHITEFOX",
-          "count": 255,
-          "total_count": 33251
+          "name": "漫改",
+          "count": 931,
+          "total_count": 360509
+        },
+        {
+          "name": "校园",
+          "count": 831,
+          "total_count": 451800
+        },
+        {
+          "name": "后宫",
+          "count": 759,
+          "total_count": 302284
+        },
+        {
+          "name": "漫画改",
+          "count": 743,
+          "total_count": 859756
         },
         {
           "name": "TV",
-          "count": 217,
-          "total_count": 1399301
+          "count": 738,
+          "total_count": 1399682
         },
         {
-          "name": "轻小说改",
-          "count": 214,
-          "total_count": 494544
+          "name": "2020",
+          "count": 488,
+          "total_count": 63854
         },
         {
-          "name": "奇幻",
-          "count": 195,
-          "total_count": 469146
+          "name": "TMS",
+          "count": 431,
+          "total_count": 18403
         },
         {
-          "name": "战斗",
-          "count": 193,
-          "total_count": 469730
-        },
-        {
-          "name": "小说改",
-          "count": 138,
-          "total_count": 158489
-        },
-        {
-          "name": "2026",
-          "count": 134,
-          "total_count": 41226
-        },
-        {
-          "name": "轮回",
-          "count": 116,
-          "total_count": 16795
+          "name": "雨宫天",
+          "count": 382,
+          "total_count": 2959
         }
       ],
-      "score": 7.8,
+      "score": 5.6,
       "type": 2,
-      "id": 633836,
-      "eps": 8,
+      "id": 296076,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 5922,
-      "rank": 550
+      "collection_total": 14756,
+      "rank": 9065
     },
-    "subject_id": 633836,
+    "subject_id": 296076,
     "vol_status": 0,
-    "ep_status": 1,
+    "ep_status": 0,
     "subject_type": 2,
-    "type": 3,
-    "rate": 0,
+    "type": 2,
+    "rate": 7,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/43/ca/633836_ql0f3.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/7a/37/296076_6cP6Q.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第四季 夺还篇",
+      "title": "租借女友",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/43/ca/633836_ql0f3.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7a/37/296076_6cP6Q.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "Re：从零开始的异世界生活 第四季 夺还篇",
+      "title": "租借女友",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/43/ca/633836_ql0f3.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7a/37/296076_6cP6Q.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "Re：从零开始的异世界生活 第四季 夺还篇",
+      "title": "租借女友",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-4th-season.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-296076.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
