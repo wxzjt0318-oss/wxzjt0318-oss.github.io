@@ -1,121 +1,121 @@
 {
-  "generatedAt": "2026-08-15T08:21:47.009Z",
+  "generatedAt": "2026-08-16T08:22:31.152Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:05:50+08:00",
+    "updated_at": "2025-12-14T05:10:39+08:00",
     "comment": null,
     "tags": [
+      "无职转生",
+      "异世界",
       "后宫",
-      "党争",
-      "恋爱",
-      "校园"
+      "轻小说改"
     ],
     "subject": {
-      "date": "2020-07-10",
+      "date": "2023-07-02",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/7a/37/296076_6cP6Q.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/7a/37/296076_6cP6Q.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/7a/37/296076_6cP6Q.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7a/37/296076_6cP6Q.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/7a/37/296076_6cP6Q.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cf/55/373247_aBFR1.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cf/55/373247_aBFR1.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cf/55/373247_aBFR1.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cf/55/373247_aBFR1.jpg"
       },
-      "name": "彼女、お借りします",
-      "name_cn": "租借女友",
-      "short_summary": "20岁的废柴大学生——木之下和也。和初恋女友仅接吻了一次，可只过了一个月就被甩了。\r\n“啊……不行了……感觉什么都不行了……”\r\n自暴自弃的和也，使用了“某种方法”，和女孩子去约会了。到了碰头的地点——\r\n“你是和也，对吧？”\r\n一边将飘逸",
+      "name": "無職転生Ⅱ ～異世界行ったら本気だす～",
+      "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～",
+      "short_summary": "34岁，没工作又足不出户的男人，某天被家人赶出家门时车祸身亡…没想到下个瞬间就转生到剑与魔法的异世界，名为鲁迪乌斯。带着前世记忆的经验与后悔，他发誓这次一定要拿出真本事活下去。遇见各式各样的人，并勤于锻炼魔术而渐渐成长的鲁迪乌斯，因为遭逢在",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 1763,
-          "total_count": 562126
+          "name": "异世界",
+          "count": 4419,
+          "total_count": 261319
         },
         {
-          "name": "2020年7月",
-          "count": 1065,
-          "total_count": 12703
+          "name": "轻小说改",
+          "count": 3019,
+          "total_count": 494810
         },
         {
-          "name": "漫改",
-          "count": 931,
-          "total_count": 360509
+          "name": "无职转生",
+          "count": 2276,
+          "total_count": 4954
         },
         {
-          "name": "校园",
-          "count": 831,
-          "total_count": 451800
+          "name": "StudioBind",
+          "count": 2050,
+          "total_count": 15509
         },
         {
-          "name": "后宫",
-          "count": 759,
-          "total_count": 302284
-        },
-        {
-          "name": "漫画改",
-          "count": 743,
-          "total_count": 859756
+          "name": "2023年7月",
+          "count": 1959,
+          "total_count": 28029
         },
         {
           "name": "TV",
-          "count": 738,
-          "total_count": 1399682
+          "count": 1696,
+          "total_count": 1400249
         },
         {
-          "name": "2020",
-          "count": 488,
-          "total_count": 63854
+          "name": "战斗",
+          "count": 1655,
+          "total_count": 470184
         },
         {
-          "name": "TMS",
-          "count": 431,
-          "total_count": 18403
+          "name": "冒险",
+          "count": 1610,
+          "total_count": 53720
         },
         {
-          "name": "雨宫天",
-          "count": 382,
-          "total_count": 2959
+          "name": "后宫",
+          "count": 1366,
+          "total_count": 302419
+        },
+        {
+          "name": "2023",
+          "count": 1013,
+          "total_count": 81460
         }
       ],
-      "score": 5.6,
+      "score": 7.2,
       "type": 2,
-      "id": 296076,
-      "eps": 12,
+      "id": 373247,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 14756,
-      "rank": 9065
+      "collection_total": 34912,
+      "rank": 1607
     },
-    "subject_id": 296076,
+    "subject_id": 373247,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 7,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "租借女友",
+      "title": "无职转生 第二季 ～到了异世界就拿出真本事～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cf/55/373247_aBFR1.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "租借女友",
+      "title": "无职转生 第二季 ～到了异世界就拿出真本事～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7a/37/296076_6cP6Q.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cf/55/373247_aBFR1.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "租借女友",
+      "title": "无职转生 第二季 ～到了异世界就拿出真本事～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-296076.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-373247.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
