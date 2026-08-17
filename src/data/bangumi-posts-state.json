@@ -1341,6 +1341,17 @@
       "published": "2026-08-16",
       "status": "published",
       "generatedAt": "2026-08-16T08:22:31.152Z"
+    },
+    {
+      "subjectId": 441233,
+      "title": "《总之就是非常可爱 女子高中篇》",
+      "filePath": "src/content/posts/bangumi-441233.md",
+      "alias": "bangumi-441233",
+      "sourceLink": "https://bgm.tv/subject/441233",
+      "image": "https://lain.bgm.tv/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+      "published": "2026-08-17",
+      "status": "published",
+      "generatedAt": "2026-08-17T08:37:10.439Z"
     }
   ]
 }

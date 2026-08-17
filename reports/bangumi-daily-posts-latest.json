@@ -1,90 +1,89 @@
 {
-  "generatedAt": "2026-08-16T08:22:31.152Z",
+  "generatedAt": "2026-08-17T08:37:10.442Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-14T05:10:39+08:00",
+    "updated_at": "2025-11-18T15:07:44+08:00",
     "comment": null,
     "tags": [
-      "无职转生",
-      "异世界",
-      "后宫",
-      "轻小说改"
+      "恋爱",
+      "总之就是非常可爱",
+      "狗粮"
     ],
     "subject": {
-      "date": "2023-07-02",
+      "date": "2023-07-12",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/cf/55/373247_aBFR1.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cf/55/373247_aBFR1.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cf/55/373247_aBFR1.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/cf/55/373247_aBFR1.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/5a/24/441233_nJ7Do.jpg"
       },
-      "name": "無職転生Ⅱ ～異世界行ったら本気だす～",
-      "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～",
-      "short_summary": "34岁，没工作又足不出户的男人，某天被家人赶出家门时车祸身亡…没想到下个瞬间就转生到剑与魔法的异世界，名为鲁迪乌斯。带着前世记忆的经验与后悔，他发誓这次一定要拿出真本事活下去。遇见各式各样的人，并勤于锻炼魔术而渐渐成长的鲁迪乌斯，因为遭逢在",
+      "name": "トニカクカワイイ 女子高編",
+      "name_cn": "总之就是非常可爱 女子高中篇",
+      "short_summary": "中学時代の恩師である柳先生の頼みで高校のプログラムの授業を任されることになったナサ。その着任先は、なんと女子高だった。青春無限大な女子高生たちに囲まれるナサに、冷静を装いつつも内心落ち着かない司。\r\n移り気な彼氏、密かに憧れるあの人への想い",
       "tags": [
         {
-          "name": "异世界",
-          "count": 4419,
-          "total_count": 261319
+          "name": "恋爱",
+          "count": 562,
+          "total_count": 562616
         },
         {
-          "name": "轻小说改",
-          "count": 3019,
-          "total_count": 494810
+          "name": "漫画改",
+          "count": 354,
+          "total_count": 860350
         },
         {
-          "name": "无职转生",
-          "count": 2276,
-          "total_count": 4954
-        },
-        {
-          "name": "StudioBind",
-          "count": 2050,
-          "total_count": 15509
+          "name": "日常",
+          "count": 346,
+          "total_count": 399544
         },
         {
           "name": "2023年7月",
-          "count": 1959,
-          "total_count": 28029
+          "count": 334,
+          "total_count": 28032
         },
         {
-          "name": "TV",
-          "count": 1696,
-          "total_count": 1400249
+          "name": "OVA",
+          "count": 267,
+          "total_count": 364370
         },
         {
-          "name": "战斗",
-          "count": 1655,
-          "total_count": 470184
+          "name": "校园",
+          "count": 222,
+          "total_count": 452127
         },
         {
-          "name": "冒险",
-          "count": 1610,
-          "total_count": 53720
-        },
-        {
-          "name": "后宫",
-          "count": 1366,
-          "total_count": 302419
+          "name": "SevenArcs",
+          "count": 187,
+          "total_count": 4736
         },
         {
           "name": "2023",
-          "count": 1013,
-          "total_count": 81460
+          "count": 170,
+          "total_count": 81484
+        },
+        {
+          "name": "漫改",
+          "count": 140,
+          "total_count": 360715
+        },
+        {
+          "name": "总之就是非常可爱",
+          "count": 127,
+          "total_count": 1270
         }
       ],
-      "score": 7.2,
+      "score": 6.5,
       "type": 2,
-      "id": 373247,
-      "eps": 13,
+      "id": 441233,
+      "eps": 4,
       "volumes": 0,
-      "collection_total": 34912,
-      "rank": 1607
+      "collection_total": 4857,
+      "rank": 5503
     },
-    "subject_id": 373247,
+    "subject_id": 441233,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 4,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/cf/55/373247_aBFR1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/5a/24/441233_nJ7Do.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职转生 第二季 ～到了异世界就拿出真本事～",
+      "title": "总之就是非常可爱 女子高中篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cf/55/373247_aBFR1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5a/24/441233_nJ7Do.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "无职转生 第二季 ～到了异世界就拿出真本事～",
+      "title": "总之就是非常可爱 女子高中篇",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cf/55/373247_aBFR1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5a/24/441233_nJ7Do.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "无职转生 第二季 ～到了异世界就拿出真本事～",
+      "title": "总之就是非常可爱 女子高中篇",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-373247.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-441233.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
