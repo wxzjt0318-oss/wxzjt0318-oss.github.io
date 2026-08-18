@@ -1352,6 +1352,17 @@
       "published": "2026-08-17",
       "status": "published",
       "generatedAt": "2026-08-17T08:37:10.439Z"
+    },
+    {
+      "subjectId": 376433,
+      "title": "《政宗君的复仇R》",
+      "filePath": "src/content/posts/bangumi-376433.md",
+      "alias": "bangumi-376433",
+      "sourceLink": "https://bgm.tv/subject/376433",
+      "image": "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg",
+      "published": "2026-08-18",
+      "status": "published",
+      "generatedAt": "2026-08-18T08:29:52.618Z"
     }
   ]
 }

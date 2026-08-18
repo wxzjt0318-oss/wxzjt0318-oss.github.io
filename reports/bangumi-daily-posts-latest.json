@@ -1,89 +1,85 @@
 {
-  "generatedAt": "2026-08-17T08:37:10.442Z",
+  "generatedAt": "2026-08-18T08:29:52.618Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-18T15:07:44+08:00",
+    "updated_at": "2025-11-22T15:06:52+08:00",
     "comment": null,
-    "tags": [
-      "恋爱",
-      "总之就是非常可爱",
-      "狗粮"
-    ],
+    "tags": [],
     "subject": {
-      "date": "2023-07-12",
+      "date": "2023-07-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/5a/24/441233_nJ7Do.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/5a/24/441233_nJ7Do.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/5a/24/441233_nJ7Do.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5a/24/441233_nJ7Do.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/5a/24/441233_nJ7Do.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/37/da/376433_EhTZ4.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/37/da/376433_EhTZ4.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/37/da/376433_EhTZ4.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/37/da/376433_EhTZ4.jpg"
       },
-      "name": "トニカクカワイイ 女子高編",
-      "name_cn": "总之就是非常可爱 女子高中篇",
-      "short_summary": "中学時代の恩師である柳先生の頼みで高校のプログラムの授業を任されることになったナサ。その着任先は、なんと女子高だった。青春無限大な女子高生たちに囲まれるナサに、冷静を装いつつも内心落ち着かない司。\r\n移り気な彼氏、密かに憧れるあの人への想い",
+      "name": "政宗くんのリベンジR",
+      "name_cn": "政宗君的复仇R",
+      "short_summary": "8年前、デブで冴えなかった真壁政宗はかつて自身をこっぴどく振った残虐姫こと安達垣愛姫に復讐するため、激ヤセし名字を変え、イケメンに変身して帰って来た。すべては惚れさせてから振るという、最高の復讐のために。\r\n愛姫に熱烈なアプローチを重ね、少",
       "tags": [
         {
           "name": "恋爱",
-          "count": 562,
-          "total_count": 562616
-        },
-        {
-          "name": "漫画改",
-          "count": 354,
-          "total_count": 860350
-        },
-        {
-          "name": "日常",
-          "count": 346,
-          "total_count": 399544
+          "count": 634,
+          "total_count": 562935
         },
         {
           "name": "2023年7月",
-          "count": 334,
-          "total_count": 28032
-        },
-        {
-          "name": "OVA",
-          "count": 267,
-          "total_count": 364370
+          "count": 448,
+          "total_count": 28034
         },
         {
           "name": "校园",
-          "count": 222,
-          "total_count": 452127
+          "count": 417,
+          "total_count": 452400
         },
         {
-          "name": "SevenArcs",
-          "count": 187,
-          "total_count": 4736
+          "name": "漫画改",
+          "count": 393,
+          "total_count": 860628
+        },
+        {
+          "name": "SILVERLINK.",
+          "count": 279,
+          "total_count": 36082
+        },
+        {
+          "name": "TV",
+          "count": 264,
+          "total_count": 1400914
+        },
+        {
+          "name": "政宗君的复仇",
+          "count": 209,
+          "total_count": 860
         },
         {
           "name": "2023",
-          "count": 170,
-          "total_count": 81484
+          "count": 173,
+          "total_count": 81497
         },
         {
           "name": "漫改",
-          "count": 140,
-          "total_count": 360715
+          "count": 141,
+          "total_count": 360800
         },
         {
-          "name": "总之就是非常可爱",
-          "count": 127,
-          "total_count": 1270
+          "name": "续集",
+          "count": 140,
+          "total_count": 5154
         }
       ],
-      "score": 6.5,
+      "score": 5.3,
       "type": 2,
-      "id": 441233,
-      "eps": 4,
+      "id": 376433,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 4857,
-      "rank": 5503
+      "collection_total": 5697,
+      "rank": 9526
     },
-    "subject_id": 441233,
+    "subject_id": 376433,
     "vol_status": 0,
-    "ep_status": 4,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +87,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "总之就是非常可爱 女子高中篇",
+      "title": "政宗君的复仇R",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/37/da/376433_EhTZ4.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "总之就是非常可爱 女子高中篇",
+      "title": "政宗君的复仇R",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5a/24/441233_nJ7Do.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/37/da/376433_EhTZ4.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "总之就是非常可爱 女子高中篇",
+      "title": "政宗君的复仇R",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-441233.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-376433.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
