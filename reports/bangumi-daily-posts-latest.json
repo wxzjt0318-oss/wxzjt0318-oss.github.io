@@ -1,116 +1,121 @@
 {
-  "generatedAt": "2026-08-18T08:29:52.618Z",
+  "generatedAt": "2026-08-19T08:30:52.732Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-22T15:06:52+08:00",
+    "updated_at": "2026-03-28T01:16:00+08:00",
     "comment": null,
-    "tags": [],
+    "tags": [
+      "异世界",
+      "龙傲天",
+      "2023年10月",
+      "搞笑"
+    ],
     "subject": {
-      "date": "2023-07-03",
+      "date": "2023-10-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/37/da/376433_EhTZ4.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/37/da/376433_EhTZ4.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/37/da/376433_EhTZ4.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/37/da/376433_EhTZ4.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/86/5a/419846_UWUv4.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/86/5a/419846_UWUv4.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/86/5a/419846_UWUv4.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/86/5a/419846_UWUv4.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/86/5a/419846_UWUv4.jpg"
       },
-      "name": "政宗くんのリベンジR",
-      "name_cn": "政宗君的复仇R",
-      "short_summary": "8年前、デブで冴えなかった真壁政宗はかつて自身をこっぴどく振った残虐姫こと安達垣愛姫に復讐するため、激ヤセし名字を変え、イケメンに変身して帰って来た。すべては惚れさせてから振るという、最高の復讐のために。\r\n愛姫に熱烈なアプローチを重ね、少",
+      "name": "陰の実力者になりたくて！ 2nd season",
+      "name_cn": "想要成为影之实力者！ 第二季",
+      "short_summary": "接下来的舞台是由“血之女王”、“妖狐”、“暴君”三势力统治的无法都市。\r\n那里是无赖横行、弱肉强食的世界。为了讨伐吸血鬼们的支配者“血之女王”被姐姐克莱儿带走的希德，因为有机会做出“影之实力者”的行为而兴奋不已……。\r\n围绕“血之女王”的阴",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 634,
-          "total_count": 562935
+          "name": "异世界",
+          "count": 2765,
+          "total_count": 261764
         },
         {
-          "name": "2023年7月",
-          "count": 448,
-          "total_count": 28034
+          "name": "龙傲天",
+          "count": 2346,
+          "total_count": 39583
         },
         {
-          "name": "校园",
-          "count": 417,
-          "total_count": 452400
+          "name": "2023年10月",
+          "count": 1722,
+          "total_count": 37574
         },
         {
-          "name": "漫画改",
-          "count": 393,
-          "total_count": 860628
+          "name": "搞笑",
+          "count": 1626,
+          "total_count": 638142
         },
         {
-          "name": "SILVERLINK.",
-          "count": 279,
-          "total_count": 36082
+          "name": "轻小说改",
+          "count": 1555,
+          "total_count": 495199
+        },
+        {
+          "name": "战斗",
+          "count": 1321,
+          "total_count": 471017
         },
         {
           "name": "TV",
-          "count": 264,
-          "total_count": 1400914
+          "count": 1004,
+          "total_count": 1401594
         },
         {
-          "name": "政宗君的复仇",
-          "count": 209,
-          "total_count": 860
+          "name": "奇幻",
+          "count": 915,
+          "total_count": 470637
         },
         {
-          "name": "2023",
-          "count": 173,
-          "total_count": 81497
+          "name": "装逼",
+          "count": 908,
+          "total_count": 9229
         },
         {
-          "name": "漫改",
-          "count": 141,
-          "total_count": 360800
-        },
-        {
-          "name": "续集",
-          "count": 140,
-          "total_count": 5154
+          "name": "Nexus",
+          "count": 677,
+          "total_count": 3271
         }
       ],
-      "score": 5.3,
+      "score": 7.3,
       "type": 2,
-      "id": 376433,
+      "id": 419846,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 5697,
-      "rank": 9526
+      "collection_total": 23310,
+      "rank": 1454
     },
-    "subject_id": 376433,
+    "subject_id": 419846,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/86/5a/419846_UWUv4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "政宗君的复仇R",
+      "title": "想要成为影之实力者！ 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/37/da/376433_EhTZ4.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/86/5a/419846_UWUv4.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "政宗君的复仇R",
+      "title": "想要成为影之实力者！ 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/37/da/376433_EhTZ4.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/86/5a/419846_UWUv4.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "政宗君的复仇R",
+      "title": "想要成为影之实力者！ 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-376433.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-419846.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

@@ -1363,6 +1363,17 @@
       "published": "2026-08-18",
       "status": "published",
       "generatedAt": "2026-08-18T08:29:52.618Z"
+    },
+    {
+      "subjectId": 419846,
+      "title": "《想要成为影之实力者！ 第二季》",
+      "filePath": "src/content/posts/bangumi-419846.md",
+      "alias": "bangumi-419846",
+      "sourceLink": "https://bgm.tv/subject/419846",
+      "image": "https://lain.bgm.tv/pic/cover/l/86/5a/419846_UWUv4.jpg",
+      "published": "2026-08-19",
+      "status": "published",
+      "generatedAt": "2026-08-19T08:30:52.729Z"
     }
   ]
 }
