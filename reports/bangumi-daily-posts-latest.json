@@ -1,121 +1,119 @@
 {
-  "generatedAt": "2026-08-19T08:30:52.732Z",
+  "generatedAt": "2026-08-20T08:31:52.707Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2026-03-28T01:16:00+08:00",
+    "updated_at": "2025-11-21T09:52:59+08:00",
     "comment": null,
     "tags": [
       "异世界",
-      "龙傲天",
-      "2023年10月",
-      "搞笑"
+      "关于我转生变成史莱姆这档事"
     ],
     "subject": {
-      "date": "2023-10-04",
+      "date": "2023-11-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/86/5a/419846_UWUv4.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/86/5a/419846_UWUv4.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/86/5a/419846_UWUv4.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/86/5a/419846_UWUv4.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/86/5a/419846_UWUv4.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/fc/78/421174_nlx3z.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fc/78/421174_nlx3z.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/fc/78/421174_nlx3z.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fc/78/421174_nlx3z.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/fc/78/421174_nlx3z.jpg"
       },
-      "name": "陰の実力者になりたくて！ 2nd season",
-      "name_cn": "想要成为影之实力者！ 第二季",
-      "short_summary": "接下来的舞台是由“血之女王”、“妖狐”、“暴君”三势力统治的无法都市。\r\n那里是无赖横行、弱肉强食的世界。为了讨伐吸血鬼们的支配者“血之女王”被姐姐克莱儿带走的希德，因为有机会做出“影之实力者”的行为而兴奋不已……。\r\n围绕“血之女王”的阴",
+      "name": "転生したらスライムだった件 コリウスの夢",
+      "name_cn": "关于我转生变成史莱姆这档事 柯里乌斯之梦",
+      "short_summary": "時間線回到第一季特別篇與第二季之間，在成功拯救英格拉西亞的孩子們之後，利姆路繼續過著短暫的教師生活。某一天，自由公會的公會長優樹向利姆路提出了一項委託。委託的內容是調查，被夾在英格拉西亞王國及神聖法皇國魯貝利歐斯之間的「柯里烏斯王國」中，所",
       "tags": [
         {
+          "name": "OVA",
+          "count": 369,
+          "total_count": 364774
+        },
+        {
           "name": "异世界",
-          "count": 2765,
-          "total_count": 261764
-        },
-        {
-          "name": "龙傲天",
-          "count": 2346,
-          "total_count": 39583
-        },
-        {
-          "name": "2023年10月",
-          "count": 1722,
-          "total_count": 37574
-        },
-        {
-          "name": "搞笑",
-          "count": 1626,
-          "total_count": 638142
+          "count": 369,
+          "total_count": 261857
         },
         {
           "name": "轻小说改",
-          "count": 1555,
-          "total_count": 495199
+          "count": 222,
+          "total_count": 495285
         },
         {
           "name": "战斗",
-          "count": 1321,
-          "total_count": 471017
-        },
-        {
-          "name": "TV",
-          "count": 1004,
-          "total_count": 1401594
+          "count": 219,
+          "total_count": 471191
         },
         {
           "name": "奇幻",
-          "count": 915,
-          "total_count": 470637
+          "count": 218,
+          "total_count": 470829
         },
         {
-          "name": "装逼",
-          "count": 908,
-          "total_count": 9229
+          "name": "2023年10月",
+          "count": 199,
+          "total_count": 37579
         },
         {
-          "name": "Nexus",
-          "count": 677,
-          "total_count": 3271
+          "name": "关于我转生变成史莱姆这档事",
+          "count": 150,
+          "total_count": 2995
+        },
+        {
+          "name": "2023",
+          "count": 140,
+          "total_count": 81508
+        },
+        {
+          "name": "8bit",
+          "count": 120,
+          "total_count": 10663
+        },
+        {
+          "name": "轻改",
+          "count": 86,
+          "total_count": 152484
         }
       ],
-      "score": 7.3,
+      "score": 5.9,
       "type": 2,
-      "id": 419846,
-      "eps": 12,
+      "id": 421174,
+      "eps": 3,
       "volumes": 0,
-      "collection_total": 23310,
-      "rank": 1454
+      "collection_total": 3676,
+      "rank": 8091
     },
-    "subject_id": 419846,
+    "subject_id": 421174,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 0,
+    "rate": 7,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/86/5a/419846_UWUv4.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/fc/78/421174_nlx3z.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "想要成为影之实力者！ 第二季",
+      "title": "关于我转生变成史莱姆这档事 柯里乌斯之梦",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/86/5a/419846_UWUv4.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/fc/78/421174_nlx3z.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "想要成为影之实力者！ 第二季",
+      "title": "关于我转生变成史莱姆这档事 柯里乌斯之梦",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/86/5a/419846_UWUv4.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/fc/78/421174_nlx3z.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "想要成为影之实力者！ 第二季",
+      "title": "关于我转生变成史莱姆这档事 柯里乌斯之梦",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-419846.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-421174.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
