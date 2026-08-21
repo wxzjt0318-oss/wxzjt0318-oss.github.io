@@ -1385,6 +1385,17 @@
       "published": "2026-08-20",
       "status": "published",
       "generatedAt": "2026-08-20T08:31:52.697Z"
+    },
+    {
+      "subjectId": 329114,
+      "title": "《想要成为影之实力者！》",
+      "filePath": "src/content/posts/bangumi-329114.md",
+      "alias": "bangumi-329114",
+      "sourceLink": "https://bgm.tv/subject/329114",
+      "image": "https://lain.bgm.tv/pic/cover/l/39/96/329114_mB55b.jpg",
+      "published": "2026-08-21",
+      "status": "published",
+      "generatedAt": "2026-08-21T08:33:54.130Z"
     }
   ]
 }
