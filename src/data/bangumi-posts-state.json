@@ -1396,6 +1396,17 @@
       "published": "2026-08-21",
       "status": "published",
       "generatedAt": "2026-08-21T08:33:54.130Z"
+    },
+    {
+      "subjectId": 464376,
+      "title": "《败犬女主太多了！》",
+      "filePath": "src/content/posts/bangumi-464376.md",
+      "alias": "bangumi-464376",
+      "sourceLink": "https://bgm.tv/subject/464376",
+      "image": "https://lain.bgm.tv/pic/cover/l/e4/dc/464376_NsZRw.jpg",
+      "published": "2026-08-22",
+      "status": "published",
+      "generatedAt": "2026-08-22T08:22:54.463Z"
     }
   ]
 }
