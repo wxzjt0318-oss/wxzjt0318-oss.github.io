@@ -1,90 +1,88 @@
 {
-  "generatedAt": "2026-08-22T08:22:54.464Z",
+  "generatedAt": "2026-08-23T08:23:19.567Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:41:26+08:00",
+    "updated_at": "2025-11-20T15:24:00+08:00",
     "comment": null,
     "tags": [
-      "校园",
+      "早見沙織",
       "恋爱",
-      "小说改",
-      "青春",
-      "日常",
-      "败犬"
+      "校园",
+      "漫改"
     ],
     "subject": {
-      "date": "2024-07-13",
+      "date": "2024-07-04",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/e4/dc/464376_NsZRw.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/e4/dc/464376_NsZRw.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/e4/dc/464376_NsZRw.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e4/dc/464376_NsZRw.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/e4/dc/464376_NsZRw.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/0c/fd/428823_vuwNR.jpg"
       },
-      "name": "負けヒロインが多すぎる！",
-      "name_cn": "败犬女主太多了！",
-      "short_summary": "没能赢得心上人恋情的女孩——“败犬女主”。\r\n爱吃的青梅竹马系女主·八奈见杏菜。\r\n活力充沛的运动系女主·烧盐柠檬。\r\n怕生的小动物系女主·小鞠知花。\r\n被有点缺憾的败犬女主——败女们环绕，新感觉、乱糟糟的败走系青春故事就此揭幕。\r\n因失败",
+      "name": "疑似ハーレム",
+      "name_cn": "疑似后宫",
+      "short_summary": "只有一个女主角！但却是后宫？\r\n憧憬着漫画一般的后宫状态的戏剧社学长北滨瑛二，以及在暗恋的学长面前就会忍不住扮演起“角色”的七仓凛。\r\n小傲娇、小恶魔、小甜心、小冷酷、小文静。\r\n扮演的角色越多，越无法抑制对学长的心意。\r\n面对稍显笨拙又相",
       "tags": [
         {
           "name": "恋爱",
-          "count": 7757,
-          "total_count": 564195
-        },
-        {
-          "name": "校园",
-          "count": 7166,
-          "total_count": 453360
-        },
-        {
-          "name": "A-1Pictures",
-          "count": 5895,
-          "total_count": 145847
-        },
-        {
-          "name": "青春",
-          "count": 5062,
-          "total_count": 107337
-        },
-        {
-          "name": "轻小说改",
-          "count": 4545,
-          "total_count": 495665
+          "count": 1287,
+          "total_count": 564042
         },
         {
           "name": "2024年7月",
-          "count": 4162,
-          "total_count": 37044
+          "count": 956,
+          "total_count": 37045
         },
         {
-          "name": "败犬",
-          "count": 3784,
-          "total_count": 3916
+          "name": "校园",
+          "count": 850,
+          "total_count": 453452
         },
         {
-          "name": "搞笑",
-          "count": 3040,
-          "total_count": 638819
+          "name": "漫画改",
+          "count": 773,
+          "total_count": 862008
+        },
+        {
+          "name": "早見沙織",
+          "count": 681,
+          "total_count": 5538
+        },
+        {
+          "name": "纯爱",
+          "count": 579,
+          "total_count": 39014
+        },
+        {
+          "name": "日常",
+          "count": 468,
+          "total_count": 400394
         },
         {
           "name": "TV",
-          "count": 2548,
-          "total_count": 1403679
+          "count": 466,
+          "total_count": 1403887
         },
         {
-          "name": "轻改",
-          "count": 1740,
-          "total_count": 152562
+          "name": "NOMAD",
+          "count": 320,
+          "total_count": 3909
+        },
+        {
+          "name": "漫改",
+          "count": 303,
+          "total_count": 361201
         }
       ],
-      "score": 8,
+      "score": 6.3,
       "type": 2,
-      "id": 464376,
+      "id": 428823,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 57988,
-      "rank": 263
+      "collection_total": 9607,
+      "rank": 6292
     },
-    "subject_id": 464376,
+    "subject_id": 428823,
     "vol_status": 0,
     "ep_status": 12,
     "subject_type": 2,
@@ -94,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/e4/dc/464376_NsZRw.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "败犬女主太多了！",
+      "title": "疑似后宫",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e4/dc/464376_NsZRw.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/0c/fd/428823_vuwNR.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "败犬女主太多了！",
+      "title": "疑似后宫",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e4/dc/464376_NsZRw.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/0c/fd/428823_vuwNR.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "败犬女主太多了！",
+      "title": "疑似后宫",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-464376.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-428823.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

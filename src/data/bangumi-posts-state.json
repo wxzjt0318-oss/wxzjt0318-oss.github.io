@@ -1407,6 +1407,17 @@
       "published": "2026-08-22",
       "status": "published",
       "generatedAt": "2026-08-22T08:22:54.463Z"
+    },
+    {
+      "subjectId": 428823,
+      "title": "《疑似后宫》",
+      "filePath": "src/content/posts/bangumi-428823.md",
+      "alias": "bangumi-428823",
+      "sourceLink": "https://bgm.tv/subject/428823",
+      "image": "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+      "published": "2026-08-23",
+      "status": "published",
+      "generatedAt": "2026-08-23T08:23:19.563Z"
     }
   ]
 }
