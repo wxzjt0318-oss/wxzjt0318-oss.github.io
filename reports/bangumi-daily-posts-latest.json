@@ -1,90 +1,89 @@
 {
-  "generatedAt": "2026-08-23T08:23:19.567Z",
+  "generatedAt": "2026-08-24T08:41:47.111Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T15:24:00+08:00",
+    "updated_at": "2025-11-21T10:16:29+08:00",
     "comment": null,
     "tags": [
-      "早見沙織",
       "恋爱",
       "校园",
-      "漫改"
+      "狗粮"
     ],
     "subject": {
-      "date": "2024-07-04",
+      "date": "2023-01-10",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/0c/fd/428823_vuwNR.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/0c/fd/428823_vuwNR.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/0c/fd/428823_vuwNR.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/0c/fd/428823_vuwNR.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/12/39/381793_oNshs.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/12/39/381793_oNshs.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/12/39/381793_oNshs.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/12/39/381793_oNshs.jpg"
       },
-      "name": "疑似ハーレム",
-      "name_cn": "疑似后宫",
-      "short_summary": "只有一个女主角！但却是后宫？\r\n憧憬着漫画一般的后宫状态的戏剧社学长北滨瑛二，以及在暗恋的学长面前就会忍不住扮演起“角色”的七仓凛。\r\n小傲娇、小恶魔、小甜心、小冷酷、小文静。\r\n扮演的角色越多，越无法抑制对学长的心意。\r\n面对稍显笨拙又相",
+      "name": "久保さんは僕を許さない",
+      "name_cn": "久保同学不放过我",
+      "short_summary": "高中一年级的白石纯太， 是一个零存在感的“路人”男生。同班的“女主角级”美少女·久保同学居然是唯一能找到他的人，并且总是戏弄他。无法成为特别存在的“路人”男生，和出现在他面前的“女主角”女生。在教室的一角，青春的色彩开始逐渐丰富——\r\n无论",
       "tags": [
         {
           "name": "恋爱",
-          "count": 1287,
-          "total_count": 564042
-        },
-        {
-          "name": "2024年7月",
-          "count": 956,
-          "total_count": 37045
+          "count": 1301,
+          "total_count": 564352
         },
         {
           "name": "校园",
-          "count": 850,
-          "total_count": 453452
+          "count": 946,
+          "total_count": 453700
+        },
+        {
+          "name": "2023年1月",
+          "count": 760,
+          "total_count": 26979
         },
         {
           "name": "漫画改",
-          "count": 773,
-          "total_count": 862008
-        },
-        {
-          "name": "早見沙織",
-          "count": 681,
-          "total_count": 5538
-        },
-        {
-          "name": "纯爱",
-          "count": 579,
-          "total_count": 39014
-        },
-        {
-          "name": "日常",
-          "count": 468,
-          "total_count": 400394
+          "count": 657,
+          "total_count": 862449
         },
         {
           "name": "TV",
-          "count": 466,
-          "total_count": 1403887
+          "count": 460,
+          "total_count": 1404416
         },
         {
-          "name": "NOMAD",
-          "count": 320,
-          "total_count": 3909
+          "name": "日常",
+          "count": 435,
+          "total_count": 400468
+        },
+        {
+          "name": "花澤香菜",
+          "count": 391,
+          "total_count": 6945
+        },
+        {
+          "name": "PINEJAM",
+          "count": 382,
+          "total_count": 4731
+        },
+        {
+          "name": "2023",
+          "count": 303,
+          "total_count": 81564
         },
         {
           "name": "漫改",
-          "count": 303,
-          "total_count": 361201
+          "count": 279,
+          "total_count": 361304
         }
       ],
       "score": 6.3,
       "type": 2,
-      "id": 428823,
+      "id": 381793,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 9607,
-      "rank": 6292
+      "collection_total": 9947,
+      "rank": 6361
     },
-    "subject_id": 428823,
+    "subject_id": 381793,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "疑似后宫",
+      "title": "久保同学不放过我",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/12/39/381793_oNshs.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "疑似后宫",
+      "title": "久保同学不放过我",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/0c/fd/428823_vuwNR.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/12/39/381793_oNshs.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "疑似后宫",
+      "title": "久保同学不放过我",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-428823.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-381793.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

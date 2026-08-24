@@ -1418,6 +1418,17 @@
       "published": "2026-08-23",
       "status": "published",
       "generatedAt": "2026-08-23T08:23:19.563Z"
+    },
+    {
+      "subjectId": 381793,
+      "title": "《久保同学不放过我》",
+      "filePath": "src/content/posts/bangumi-381793.md",
+      "alias": "bangumi-381793",
+      "sourceLink": "https://bgm.tv/subject/381793",
+      "image": "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg",
+      "published": "2026-08-24",
+      "status": "published",
+      "generatedAt": "2026-08-24T08:41:47.110Z"
     }
   ]
 }
