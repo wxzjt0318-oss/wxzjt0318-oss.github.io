@@ -1429,6 +1429,17 @@
       "published": "2026-08-24",
       "status": "published",
       "generatedAt": "2026-08-24T08:41:47.110Z"
+    },
+    {
+      "subjectId": 295017,
+      "title": "《回复术士的重来人生》",
+      "filePath": "src/content/posts/bangumi-295017.md",
+      "alias": "bangumi-295017",
+      "sourceLink": "https://bgm.tv/subject/295017",
+      "image": "https://lain.bgm.tv/pic/cover/l/c7/3f/295017_90As6.jpg",
+      "published": "2026-08-25",
+      "status": "published",
+      "generatedAt": "2026-08-25T08:35:58.193Z"
     }
   ]
 }

@@ -1,87 +1,87 @@
 {
-  "generatedAt": "2026-08-24T08:41:47.111Z",
+  "generatedAt": "2026-08-25T08:35:58.194Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:16:29+08:00",
+    "updated_at": "2025-12-14T05:11:33+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "校园",
-      "狗粮"
+      "异世界",
+      "爽片",
+      "后宫"
     ],
     "subject": {
-      "date": "2023-01-10",
+      "date": "2021-01-13",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/12/39/381793_oNshs.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/12/39/381793_oNshs.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/12/39/381793_oNshs.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/12/39/381793_oNshs.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c7/3f/295017_90As6.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c7/3f/295017_90As6.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/c7/3f/295017_90As6.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c7/3f/295017_90As6.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c7/3f/295017_90As6.jpg"
       },
-      "name": "久保さんは僕を許さない",
-      "name_cn": "久保同学不放过我",
-      "short_summary": "高中一年级的白石纯太， 是一个零存在感的“路人”男生。同班的“女主角级”美少女·久保同学居然是唯一能找到他的人，并且总是戏弄他。无法成为特别存在的“路人”男生，和出现在他面前的“女主角”女生。在教室的一角，青春的色彩开始逐渐丰富——\r\n无论",
+      "name": "回復術士のやり直し",
+      "name_cn": "回复术士的重来人生",
+      "short_summary": "觉醒了“愈”之勇者的素质，开始与勇者们一同踏上拯救世界冒险之旅的少年·克亚路。\r\n然而，身为没有战斗能力的回复术士，等待着他的是能力遭到勇者们榨取，饱受虐待的每一天。\r\n自由和尊严被剥夺，连自我都快要失去的克亚路，某天恢复了理智，并抵达了“",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 1301,
-          "total_count": 564352
+          "name": "肉番",
+          "count": 3358,
+          "total_count": 32917
         },
         {
-          "name": "校园",
-          "count": 946,
-          "total_count": 453700
+          "name": "异世界",
+          "count": 2492,
+          "total_count": 262568
         },
         {
-          "name": "2023年1月",
-          "count": 760,
-          "total_count": 26979
+          "name": "爽片",
+          "count": 2370,
+          "total_count": 3920
         },
         {
-          "name": "漫画改",
-          "count": 657,
-          "total_count": 862449
+          "name": "后宫",
+          "count": 2276,
+          "total_count": 303508
+        },
+        {
+          "name": "2021年1月",
+          "count": 1725,
+          "total_count": 31568
+        },
+        {
+          "name": "轻小说改",
+          "count": 1585,
+          "total_count": 496002
         },
         {
           "name": "TV",
-          "count": 460,
-          "total_count": 1404416
+          "count": 1226,
+          "total_count": 1404773
         },
         {
-          "name": "日常",
-          "count": 435,
-          "total_count": 400468
+          "name": "2021",
+          "count": 807,
+          "total_count": 79097
         },
         {
-          "name": "花澤香菜",
-          "count": 391,
-          "total_count": 6945
+          "name": "TNK",
+          "count": 761,
+          "total_count": 3951
         },
         {
-          "name": "PINEJAM",
-          "count": 382,
-          "total_count": 4731
-        },
-        {
-          "name": "2023",
-          "count": 303,
-          "total_count": 81564
-        },
-        {
-          "name": "漫改",
-          "count": 279,
-          "total_count": 361304
+          "name": "轻改",
+          "count": 638,
+          "total_count": 152582
         }
       ],
       "score": 6.3,
       "type": 2,
-      "id": 381793,
+      "id": 295017,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 9947,
-      "rank": 6361
+      "collection_total": 29792,
+      "rank": 6664
     },
-    "subject_id": 381793,
+    "subject_id": 295017,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -91,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c7/3f/295017_90As6.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "久保同学不放过我",
+      "title": "回复术士的重来人生",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/12/39/381793_oNshs.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c7/3f/295017_90As6.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "久保同学不放过我",
+      "title": "回复术士的重来人生",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/12/39/381793_oNshs.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c7/3f/295017_90As6.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "久保同学不放过我",
+      "title": "回复术士的重来人生",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-381793.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-295017.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
