@@ -1440,6 +1440,17 @@
       "published": "2026-08-25",
       "status": "published",
       "generatedAt": "2026-08-25T08:35:58.193Z"
+    },
+    {
+      "subjectId": 228254,
+      "title": "《约会大作战 第三季》",
+      "filePath": "src/content/posts/bangumi-228254.md",
+      "alias": "bangumi-228254",
+      "sourceLink": "https://bgm.tv/subject/228254",
+      "image": "https://lain.bgm.tv/pic/cover/l/73/8c/228254_X7Y56.jpg",
+      "published": "2026-08-26",
+      "status": "published",
+      "generatedAt": "2026-08-26T08:37:16.165Z"
     }
   ]
 }

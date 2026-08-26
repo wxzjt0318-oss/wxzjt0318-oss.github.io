@@ -1,89 +1,91 @@
 {
-  "generatedAt": "2026-08-25T08:35:58.194Z",
+  "generatedAt": "2026-08-26T08:37:16.166Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-14T05:11:33+08:00",
+    "updated_at": "2025-11-20T14:40:27+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "爽片",
-      "后宫"
+      "后宫",
+      "战斗",
+      "小说改",
+      "校园",
+      "恋爱"
     ],
     "subject": {
-      "date": "2021-01-13",
+      "date": "2019-01-11",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/c7/3f/295017_90As6.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c7/3f/295017_90As6.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/c7/3f/295017_90As6.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c7/3f/295017_90As6.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c7/3f/295017_90As6.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/73/8c/228254_X7Y56.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/73/8c/228254_X7Y56.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/73/8c/228254_X7Y56.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/73/8c/228254_X7Y56.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/73/8c/228254_X7Y56.jpg"
       },
-      "name": "回復術士のやり直し",
-      "name_cn": "回复术士的重来人生",
-      "short_summary": "觉醒了“愈”之勇者的素质，开始与勇者们一同踏上拯救世界冒险之旅的少年·克亚路。\r\n然而，身为没有战斗能力的回复术士，等待着他的是能力遭到勇者们榨取，饱受虐待的每一天。\r\n自由和尊严被剥夺，连自我都快要失去的克亚路，某天恢复了理智，并抵达了“",
+      "name": "デート・ア・ライブⅢ",
+      "name_cn": "约会大作战 第三季",
+      "short_summary": "人类被一种名为「空间震」的新灾害所威胁。这种震摇空间，将一切破坏殆尽的灾害，是由被称作精灵的存在从临界 出现于人类世界时所产生的现象。想要阻止空间震发生，使人类远离灾害的话，只有两种作法……一种是动用武力消灭精灵，另一种是……\r\n\r\n「与精",
       "tags": [
         {
-          "name": "肉番",
-          "count": 3358,
-          "total_count": 32917
-        },
-        {
-          "name": "异世界",
-          "count": 2492,
-          "total_count": 262568
-        },
-        {
-          "name": "爽片",
-          "count": 2370,
-          "total_count": 3920
-        },
-        {
           "name": "后宫",
-          "count": 2276,
-          "total_count": 303508
+          "count": 1787,
+          "total_count": 303617
         },
         {
-          "name": "2021年1月",
-          "count": 1725,
-          "total_count": 31568
+          "name": "J.C.STAFF",
+          "count": 1371,
+          "total_count": 136964
         },
         {
           "name": "轻小说改",
-          "count": 1585,
-          "total_count": 496002
+          "count": 1104,
+          "total_count": 496161
+        },
+        {
+          "name": "约会大作战",
+          "count": 903,
+          "total_count": 9465
+        },
+        {
+          "name": "2019年1月",
+          "count": 883,
+          "total_count": 22619
+        },
+        {
+          "name": "战斗",
+          "count": 791,
+          "total_count": 472418
         },
         {
           "name": "TV",
-          "count": 1226,
-          "total_count": 1404773
+          "count": 738,
+          "total_count": 1405139
         },
         {
-          "name": "2021",
-          "count": 807,
-          "total_count": 79097
-        },
-        {
-          "name": "TNK",
-          "count": 761,
-          "total_count": 3951
+          "name": "恋爱",
+          "count": 603,
+          "total_count": 564798
         },
         {
           "name": "轻改",
-          "count": 638,
-          "total_count": 152582
+          "count": 500,
+          "total_count": 152614
+        },
+        {
+          "name": "2019",
+          "count": 460,
+          "total_count": 76648
         }
       ],
-      "score": 6.3,
+      "score": 5.2,
       "type": 2,
-      "id": 295017,
+      "id": 228254,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 29792,
-      "rank": 6664
+      "collection_total": 16154,
+      "rank": 9786
     },
-    "subject_id": 295017,
+    "subject_id": 228254,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +93,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c7/3f/295017_90As6.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/73/8c/228254_X7Y56.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "回复术士的重来人生",
+      "title": "约会大作战 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c7/3f/295017_90As6.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/73/8c/228254_X7Y56.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "回复术士的重来人生",
+      "title": "约会大作战 第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c7/3f/295017_90As6.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/73/8c/228254_X7Y56.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "回复术士的重来人生",
+      "title": "约会大作战 第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-295017.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-228254.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
