@@ -1451,6 +1451,17 @@
       "published": "2026-08-26",
       "status": "published",
       "generatedAt": "2026-08-26T08:37:16.165Z"
+    },
+    {
+      "subjectId": 335389,
+      "title": "《OVERLORD 第四季》",
+      "filePath": "src/content/posts/bangumi-335389.md",
+      "alias": "bangumi-335389",
+      "sourceLink": "https://bgm.tv/subject/335389",
+      "image": "https://lain.bgm.tv/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+      "published": "2026-08-28",
+      "status": "published",
+      "generatedAt": "2026-08-27T18:45:55.141Z"
     }
   ]
 }

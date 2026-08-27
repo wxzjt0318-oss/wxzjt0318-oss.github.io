@@ -1,122 +1,120 @@
 {
-  "generatedAt": "2026-08-26T08:37:16.166Z",
+  "generatedAt": "2026-08-27T18:45:55.142Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:40:27+08:00",
+    "updated_at": "2025-11-21T10:12:13+08:00",
     "comment": null,
     "tags": [
-      "后宫",
-      "战斗",
-      "小说改",
-      "校园",
-      "恋爱"
+      "骨傲天",
+      "异世界",
+      "奇幻"
     ],
     "subject": {
-      "date": "2019-01-11",
+      "date": "2022-07-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/73/8c/228254_X7Y56.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/73/8c/228254_X7Y56.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/73/8c/228254_X7Y56.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/73/8c/228254_X7Y56.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/73/8c/228254_X7Y56.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/69/c7/335389_Z8WRS.jpg"
       },
-      "name": "デート・ア・ライブⅢ",
-      "name_cn": "约会大作战 第三季",
-      "short_summary": "人类被一种名为「空间震」的新灾害所威胁。这种震摇空间，将一切破坏殆尽的灾害，是由被称作精灵的存在从临界 出现于人类世界时所产生的现象。想要阻止空间震发生，使人类远离灾害的话，只有两种作法……一种是动用武力消灭精灵，另一种是……\r\n\r\n「与精",
+      "name": "オーバーロードIV",
+      "name_cn": "OVERLORD 第四季",
+      "short_summary": "アインズは悩んでいた。\r\nアインズ・ウール・ゴウン魔導国の王として、この国をどのように導くのか。\r\n\r\nアルベド、デミウルゴスら優秀なNPCたちと不眠不休で働けるアンデッドによって、\r\n魔導国は今や安全で飢えもない場所となっている。\r\nしか",
       "tags": [
         {
-          "name": "后宫",
-          "count": 1787,
-          "total_count": 303617
+          "name": "异世界",
+          "count": 1782,
+          "total_count": 262856
         },
         {
-          "name": "J.C.STAFF",
-          "count": 1371,
-          "total_count": 136964
+          "name": "2022年7月",
+          "count": 1140,
+          "total_count": 28485
+        },
+        {
+          "name": "骨傲天",
+          "count": 1017,
+          "total_count": 5805
         },
         {
           "name": "轻小说改",
-          "count": 1104,
-          "total_count": 496161
+          "count": 975,
+          "total_count": 496715
         },
         {
-          "name": "约会大作战",
-          "count": 903,
-          "total_count": 9465
+          "name": "MADHouse",
+          "count": 953,
+          "total_count": 110778
         },
         {
-          "name": "2019年1月",
-          "count": 883,
-          "total_count": 22619
-        },
-        {
-          "name": "战斗",
-          "count": 791,
-          "total_count": 472418
+          "name": "穿越",
+          "count": 777,
+          "total_count": 63110
         },
         {
           "name": "TV",
-          "count": 738,
-          "total_count": 1405139
+          "count": 650,
+          "total_count": 1406162
         },
         {
-          "name": "恋爱",
-          "count": 603,
-          "total_count": 564798
+          "name": "OVERLORD",
+          "count": 601,
+          "total_count": 3646
         },
         {
-          "name": "轻改",
-          "count": 500,
-          "total_count": 152614
+          "name": "奇幻",
+          "count": 536,
+          "total_count": 472535
         },
         {
-          "name": "2019",
-          "count": 460,
-          "total_count": 76648
+          "name": "龙傲天",
+          "count": 508,
+          "total_count": 39681
         }
       ],
-      "score": 5.2,
+      "score": 6.6,
       "type": 2,
-      "id": 228254,
-      "eps": 12,
+      "id": 335389,
+      "eps": 13,
       "volumes": 0,
-      "collection_total": 16154,
-      "rank": 9786
+      "collection_total": 16944,
+      "rank": 5055
     },
-    "subject_id": 228254,
+    "subject_id": 335389,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 6,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/73/8c/228254_X7Y56.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/69/c7/335389_Z8WRS.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 第三季",
+      "title": "OVERLORD 第四季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/73/8c/228254_X7Y56.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/69/c7/335389_Z8WRS.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "约会大作战 第三季",
+      "title": "OVERLORD 第四季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/73/8c/228254_X7Y56.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/69/c7/335389_Z8WRS.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "约会大作战 第三季",
+      "title": "OVERLORD 第四季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-228254.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-335389.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
