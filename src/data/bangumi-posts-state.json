@@ -1462,6 +1462,17 @@
       "published": "2026-08-28",
       "status": "published",
       "generatedAt": "2026-08-27T18:45:55.141Z"
+    },
+    {
+      "subjectId": 909,
+      "title": "《龙与虎》",
+      "filePath": "src/content/posts/bangumi-909.md",
+      "alias": "bangumi-909",
+      "sourceLink": "https://bgm.tv/subject/909",
+      "image": "https://lain.bgm.tv/pic/cover/l/a4/30/909_e5zhk.jpg",
+      "published": "2026-08-29",
+      "status": "published",
+      "generatedAt": "2026-08-28T19:51:04.884Z"
     }
   ]
 }

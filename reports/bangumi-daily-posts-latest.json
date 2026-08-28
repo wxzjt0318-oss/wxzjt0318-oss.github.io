@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-08-27T18:45:55.142Z",
+  "generatedAt": "2026-08-28T19:51:04.888Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:12:13+08:00",
+    "updated_at": "2025-12-14T05:12:45+08:00",
     "comment": null,
     "tags": [
-      "骨傲天",
-      "异世界",
-      "奇幻"
+      "校园",
+      "龙与虎",
+      "钉宫理惠",
+      "萌"
     ],
     "subject": {
-      "date": "2022-07-05",
+      "date": "2008-10-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/69/c7/335389_Z8WRS.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/69/c7/335389_Z8WRS.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/69/c7/335389_Z8WRS.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/69/c7/335389_Z8WRS.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/69/c7/335389_Z8WRS.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a4/30/909_e5zhk.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a4/30/909_e5zhk.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/a4/30/909_e5zhk.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a4/30/909_e5zhk.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a4/30/909_e5zhk.jpg"
       },
-      "name": "オーバーロードIV",
-      "name_cn": "OVERLORD 第四季",
-      "short_summary": "アインズは悩んでいた。\r\nアインズ・ウール・ゴウン魔導国の王として、この国をどのように導くのか。\r\n\r\nアルベド、デミウルゴスら優秀なNPCたちと不眠不休で働けるアンデッドによって、\r\n魔導国は今や安全で飢えもない場所となっている。\r\nしか",
+      "name": "とらドラ！",
+      "name_cn": "龙与虎",
+      "short_summary": "　　因眼神凶恶而被班里同学看作不良少年的高须龙儿，进入了高中二年级，并幸运地和暗恋的少女栉枝实乃梨同班，对崭新的校园生活满怀希望。\r\n　　开学典礼后龙儿与校内最恐怖的有“掌上老虎”之称的逢坂大河狭路相逢，周围人一同陷入了惊恐状态。然而他意外",
       "tags": [
         {
-          "name": "异世界",
-          "count": 1782,
-          "total_count": 262856
+          "name": "钉宫理惠",
+          "count": 5718,
+          "total_count": 30871
         },
         {
-          "name": "2022年7月",
-          "count": 1140,
-          "total_count": 28485
+          "name": "校园",
+          "count": 5169,
+          "total_count": 454659
         },
         {
-          "name": "骨傲天",
-          "count": 1017,
-          "total_count": 5805
+          "name": "龙与虎",
+          "count": 5031,
+          "total_count": 5850
+        },
+        {
+          "name": "恋爱",
+          "count": 4351,
+          "total_count": 565515
+        },
+        {
+          "name": "J.C.STAFF",
+          "count": 4306,
+          "total_count": 137102
+        },
+        {
+          "name": "青春",
+          "count": 3903,
+          "total_count": 107451
         },
         {
           "name": "轻小说改",
-          "count": 975,
-          "total_count": 496715
+          "count": 2428,
+          "total_count": 496873
         },
         {
-          "name": "MADHouse",
-          "count": 953,
-          "total_count": 110778
+          "name": "2008年10月",
+          "count": 1950,
+          "total_count": 8472
         },
         {
-          "name": "穿越",
-          "count": 777,
-          "total_count": 63110
+          "name": "萌虎",
+          "count": 1870,
+          "total_count": 1875
         },
         {
           "name": "TV",
-          "count": 650,
-          "total_count": 1406162
-        },
-        {
-          "name": "OVERLORD",
-          "count": 601,
-          "total_count": 3646
-        },
-        {
-          "name": "奇幻",
-          "count": 536,
-          "total_count": 472535
-        },
-        {
-          "name": "龙傲天",
-          "count": 508,
-          "total_count": 39681
+          "count": 1778,
+          "total_count": 1406562
         }
       ],
-      "score": 6.6,
+      "score": 8,
       "type": 2,
-      "id": 335389,
-      "eps": 13,
+      "id": 909,
+      "eps": 25,
       "volumes": 0,
-      "collection_total": 16944,
-      "rank": 5055
+      "collection_total": 55430,
+      "rank": 250
     },
-    "subject_id": 335389,
+    "subject_id": 909,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 6,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/a4/30/909_e5zhk.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "OVERLORD 第四季",
+      "title": "龙与虎",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a4/30/909_e5zhk.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "OVERLORD 第四季",
+      "title": "龙与虎",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/69/c7/335389_Z8WRS.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a4/30/909_e5zhk.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "OVERLORD 第四季",
+      "title": "龙与虎",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-335389.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-909.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
