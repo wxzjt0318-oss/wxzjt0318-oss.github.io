@@ -1,121 +1,122 @@
 {
-  "generatedAt": "2026-08-28T19:51:04.888Z",
+  "generatedAt": "2026-08-29T13:33:28.402Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-14T05:12:45+08:00",
+    "updated_at": "2025-11-20T15:41:27+08:00",
     "comment": null,
     "tags": [
-      "校园",
-      "龙与虎",
-      "钉宫理惠",
-      "萌"
+      "姐弟",
+      "异世界",
+      "转生",
+      "魔法",
+      "奇幻"
     ],
     "subject": {
-      "date": "2008-10-01",
+      "date": "2025-01-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a4/30/909_e5zhk.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a4/30/909_e5zhk.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/a4/30/909_e5zhk.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a4/30/909_e5zhk.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a4/30/909_e5zhk.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/00/da/503268_SdLDD.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/00/da/503268_SdLDD.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/00/da/503268_SdLDD.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/00/da/503268_SdLDD.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/00/da/503268_SdLDD.jpg"
       },
-      "name": "とらドラ！",
-      "name_cn": "龙与虎",
-      "short_summary": "　　因眼神凶恶而被班里同学看作不良少年的高须龙儿，进入了高中二年级，并幸运地和暗恋的少女栉枝实乃梨同班，对崭新的校园生活满怀希望。\r\n　　开学典礼后龙儿与校内最恐怖的有“掌上老虎”之称的逢坂大河狭路相逢，周围人一同陷入了惊恐状态。然而他意外",
+      "name": "マジック・メイカー ～異世界魔法の作り方～",
+      "name_cn": "魔法制造者 ～异世界魔法的制作方法～",
+      "short_summary": "リスティア国の片田舎の領地を治める下級貴族、オーンスタイン家。そこには、二人の姉弟がいた。\r\n姉のマリーは、父から剣術の稽古を受けるのが大好きな活発な女の子。\r\n弟のシオンは、部屋に籠もって本を読むのが大好きな内気な男の子。\r\n性格は正反対",
       "tags": [
         {
-          "name": "钉宫理惠",
-          "count": 5718,
-          "total_count": 30871
+          "name": "异世界",
+          "count": 445,
+          "total_count": 262980
         },
         {
-          "name": "校园",
-          "count": 5169,
-          "total_count": 454659
-        },
-        {
-          "name": "龙与虎",
-          "count": 5031,
-          "total_count": 5850
-        },
-        {
-          "name": "恋爱",
-          "count": 4351,
-          "total_count": 565515
-        },
-        {
-          "name": "J.C.STAFF",
-          "count": 4306,
-          "total_count": 137102
-        },
-        {
-          "name": "青春",
-          "count": 3903,
-          "total_count": 107451
+          "name": "2025年1月",
+          "count": 327,
+          "total_count": 27031
         },
         {
           "name": "轻小说改",
-          "count": 2428,
-          "total_count": 496873
-        },
-        {
-          "name": "2008年10月",
-          "count": 1950,
-          "total_count": 8472
-        },
-        {
-          "name": "萌虎",
-          "count": 1870,
-          "total_count": 1875
+          "count": 255,
+          "total_count": 496964
         },
         {
           "name": "TV",
-          "count": 1778,
-          "total_count": 1406562
+          "count": 232,
+          "total_count": 1406792
+        },
+        {
+          "name": "魔法",
+          "count": 228,
+          "total_count": 20068
+        },
+        {
+          "name": "奇幻",
+          "count": 220,
+          "total_count": 472850
+        },
+        {
+          "name": "转生",
+          "count": 174,
+          "total_count": 5452
+        },
+        {
+          "name": "小说改",
+          "count": 161,
+          "total_count": 160103
+        },
+        {
+          "name": "2025",
+          "count": 159,
+          "total_count": 72992
+        },
+        {
+          "name": "studiodeen",
+          "count": 155,
+          "total_count": 26670
         }
       ],
-      "score": 8,
+      "score": 5.6,
       "type": 2,
-      "id": 909,
-      "eps": 25,
+      "id": 503268,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 55430,
-      "rank": 250
+      "collection_total": 3615,
+      "rank": 9047
     },
-    "subject_id": 909,
+    "subject_id": 503268,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/a4/30/909_e5zhk.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/00/da/503268_SdLDD.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "龙与虎",
+      "title": "魔法制造者 ～异世界魔法的制作方法～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a4/30/909_e5zhk.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/00/da/503268_SdLDD.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "龙与虎",
+      "title": "魔法制造者 ～异世界魔法的制作方法～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a4/30/909_e5zhk.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/00/da/503268_SdLDD.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "龙与虎",
+      "title": "魔法制造者 ～异世界魔法的制作方法～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-909.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-503268.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

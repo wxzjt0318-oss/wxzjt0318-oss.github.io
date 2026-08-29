@@ -1473,6 +1473,17 @@
       "published": "2026-08-29",
       "status": "published",
       "generatedAt": "2026-08-28T19:51:04.884Z"
+    },
+    {
+      "subjectId": 503268,
+      "title": "《魔法制造者 ～异世界魔法的制作方法～》",
+      "filePath": "src/content/posts/bangumi-503268.md",
+      "alias": "bangumi-503268",
+      "sourceLink": "https://bgm.tv/subject/503268",
+      "image": "https://lain.bgm.tv/pic/cover/l/00/da/503268_SdLDD.jpg",
+      "published": "2026-08-29",
+      "status": "published",
+      "generatedAt": "2026-08-29T13:33:28.401Z"
     }
   ]
 }
