@@ -1484,6 +1484,17 @@
       "published": "2026-08-29",
       "status": "published",
       "generatedAt": "2026-08-29T13:33:28.401Z"
+    },
+    {
+      "subjectId": 292970,
+      "title": "《魔女之旅》",
+      "filePath": "src/content/posts/bangumi-292970.md",
+      "alias": "bangumi-292970",
+      "sourceLink": "https://bgm.tv/subject/292970",
+      "image": "https://lain.bgm.tv/pic/cover/l/99/17/292970_mxMxx.jpg",
+      "published": "2026-08-30",
+      "status": "published",
+      "generatedAt": "2026-08-30T13:29:09.242Z"
     }
   ]
 }

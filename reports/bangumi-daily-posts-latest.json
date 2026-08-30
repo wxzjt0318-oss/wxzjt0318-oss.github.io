@@ -1,122 +1,121 @@
 {
-  "generatedAt": "2026-08-29T13:33:28.402Z",
+  "generatedAt": "2026-08-30T13:29:09.246Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T15:41:27+08:00",
+    "updated_at": "2025-11-21T10:10:18+08:00",
     "comment": null,
     "tags": [
-      "姐弟",
-      "异世界",
-      "转生",
       "魔法",
-      "奇幻"
+      "治愈",
+      "旅行",
+      "轻小说改"
     ],
     "subject": {
-      "date": "2025-01-08",
+      "date": "2020-10-02",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/00/da/503268_SdLDD.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/00/da/503268_SdLDD.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/00/da/503268_SdLDD.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/00/da/503268_SdLDD.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/00/da/503268_SdLDD.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/99/17/292970_mxMxx.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/99/17/292970_mxMxx.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/99/17/292970_mxMxx.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/99/17/292970_mxMxx.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/99/17/292970_mxMxx.jpg"
       },
-      "name": "マジック・メイカー ～異世界魔法の作り方～",
-      "name_cn": "魔法制造者 ～异世界魔法的制作方法～",
-      "short_summary": "リスティア国の片田舎の領地を治める下級貴族、オーンスタイン家。そこには、二人の姉弟がいた。\r\n姉のマリーは、父から剣術の稽古を受けるのが大好きな活発な女の子。\r\n弟のシオンは、部屋に籠もって本を読むのが大好きな内気な男の子。\r\n性格は正反対",
+      "name": "魔女の旅々",
+      "name_cn": "魔女之旅",
+      "short_summary": "在某个地方有一位旅人。她的名字叫伊蕾娜。\r\n她是年纪轻轻就成为了最上位的“魔女”的才女。\r\n憧憬着小时候读过的旅行的故事，\r\n顺其自然地持续着随心所欲的长途旅行。\r\n在广大的世界里自由地穿行 ，遇见莫名其妙、可笑的人，\r\n或是见证到某人的美",
       "tags": [
         {
-          "name": "异世界",
-          "count": 445,
-          "total_count": 262980
-        },
-        {
-          "name": "2025年1月",
-          "count": 327,
-          "total_count": 27031
-        },
-        {
           "name": "轻小说改",
-          "count": 255,
-          "total_count": 496964
+          "count": 3381,
+          "total_count": 497118
         },
         {
-          "name": "TV",
-          "count": 232,
-          "total_count": 1406792
+          "name": "百合",
+          "count": 3356,
+          "total_count": 403745
         },
         {
-          "name": "魔法",
-          "count": 228,
-          "total_count": 20068
+          "name": "公路片",
+          "count": 3228,
+          "total_count": 22546
         },
         {
           "name": "奇幻",
-          "count": 220,
-          "total_count": 472850
+          "count": 2755,
+          "total_count": 473128
         },
         {
-          "name": "转生",
-          "count": 174,
-          "total_count": 5452
+          "name": "魔法",
+          "count": 2611,
+          "total_count": 20072
         },
         {
-          "name": "小说改",
-          "count": 161,
-          "total_count": 160103
+          "name": "2020年10月",
+          "count": 2260,
+          "total_count": 25398
         },
         {
-          "name": "2025",
-          "count": 159,
-          "total_count": 72992
+          "name": "旅行",
+          "count": 1927,
+          "total_count": 8552
         },
         {
-          "name": "studiodeen",
-          "count": 155,
-          "total_count": 26670
+          "name": "TV",
+          "count": 1684,
+          "total_count": 1407601
+        },
+        {
+          "name": "C2C",
+          "count": 1041,
+          "total_count": 4294
+        },
+        {
+          "name": "2020",
+          "count": 1023,
+          "total_count": 64060
         }
       ],
-      "score": 5.6,
+      "score": 7.2,
       "type": 2,
-      "id": 503268,
+      "id": 292970,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 3615,
-      "rank": 9047
+      "collection_total": 38697,
+      "rank": 1802
     },
-    "subject_id": 503268,
+    "subject_id": 292970,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 8,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/00/da/503268_SdLDD.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/99/17/292970_mxMxx.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "魔法制造者 ～异世界魔法的制作方法～",
+      "title": "魔女之旅",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/00/da/503268_SdLDD.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/99/17/292970_mxMxx.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "魔法制造者 ～异世界魔法的制作方法～",
+      "title": "魔女之旅",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/00/da/503268_SdLDD.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/99/17/292970_mxMxx.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "魔法制造者 ～异世界魔法的制作方法～",
+      "title": "魔女之旅",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-503268.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-292970.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
