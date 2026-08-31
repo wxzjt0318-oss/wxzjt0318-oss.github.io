@@ -1,121 +1,120 @@
 {
-  "generatedAt": "2026-08-30T13:29:09.246Z",
+  "generatedAt": "2026-08-31T15:46:51.368Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:10:18+08:00",
+    "updated_at": "2025-12-02T23:26:32+08:00",
     "comment": null,
     "tags": [
-      "魔法",
-      "治愈",
-      "旅行",
-      "轻小说改"
+      "异世界",
+      "后宫",
+      "无职转生"
     ],
     "subject": {
-      "date": "2020-10-02",
+      "date": "2024-04-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/99/17/292970_mxMxx.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/99/17/292970_mxMxx.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/99/17/292970_mxMxx.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/99/17/292970_mxMxx.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/99/17/292970_mxMxx.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ad/25/444557_e4hPO.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ad/25/444557_e4hPO.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ad/25/444557_e4hPO.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ad/25/444557_e4hPO.jpg"
       },
-      "name": "魔女の旅々",
-      "name_cn": "魔女之旅",
-      "short_summary": "在某个地方有一位旅人。她的名字叫伊蕾娜。\r\n她是年纪轻轻就成为了最上位的“魔女”的才女。\r\n憧憬着小时候读过的旅行的故事，\r\n顺其自然地持续着随心所欲的长途旅行。\r\n在广大的世界里自由地穿行 ，遇见莫名其妙、可笑的人，\r\n或是见证到某人的美",
+      "name": "無職転生Ⅱ ～異世界行ったら本気だす～ 第2クール",
+      "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+      "short_summary": "",
       "tags": [
         {
+          "name": "异世界",
+          "count": 3789,
+          "total_count": 263254
+        },
+        {
           "name": "轻小说改",
-          "count": 3381,
-          "total_count": 497118
+          "count": 2473,
+          "total_count": 497293
         },
         {
-          "name": "百合",
-          "count": 3356,
-          "total_count": 403745
+          "name": "2024年4月",
+          "count": 2054,
+          "total_count": 36021
         },
         {
-          "name": "公路片",
-          "count": 3228,
-          "total_count": 22546
+          "name": "StudioBind",
+          "count": 1773,
+          "total_count": 15680
+        },
+        {
+          "name": "后宫",
+          "count": 1768,
+          "total_count": 304238
         },
         {
           "name": "奇幻",
-          "count": 2755,
-          "total_count": 473128
+          "count": 1647,
+          "total_count": 473427
         },
         {
-          "name": "魔法",
-          "count": 2611,
-          "total_count": 20072
-        },
-        {
-          "name": "2020年10月",
-          "count": 2260,
-          "total_count": 25398
-        },
-        {
-          "name": "旅行",
-          "count": 1927,
-          "total_count": 8552
+          "name": "无职转生",
+          "count": 1521,
+          "total_count": 5048
         },
         {
           "name": "TV",
-          "count": 1684,
-          "total_count": 1407601
+          "count": 1490,
+          "total_count": 1408258
         },
         {
-          "name": "C2C",
-          "count": 1041,
-          "total_count": 4294
+          "name": "战斗",
+          "count": 1128,
+          "total_count": 473543
         },
         {
-          "name": "2020",
-          "count": 1023,
-          "total_count": 64060
+          "name": "2024",
+          "count": 867,
+          "total_count": 71709
         }
       ],
-      "score": 7.2,
+      "score": 7.6,
       "type": 2,
-      "id": 292970,
+      "id": 444557,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 38697,
-      "rank": 1802
+      "collection_total": 31170,
+      "rank": 780
     },
-    "subject_id": 292970,
+    "subject_id": 444557,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 8,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/99/17/292970_mxMxx.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "魔女之旅",
+      "title": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/99/17/292970_mxMxx.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ad/25/444557_e4hPO.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "魔女之旅",
+      "title": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/99/17/292970_mxMxx.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ad/25/444557_e4hPO.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "魔女之旅",
+      "title": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-292970.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-444557.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

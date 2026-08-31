@@ -1495,6 +1495,17 @@
       "published": "2026-08-30",
       "status": "published",
       "generatedAt": "2026-08-30T13:29:09.242Z"
+    },
+    {
+      "subjectId": 444557,
+      "title": "《无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分》",
+      "filePath": "src/content/posts/bangumi-444557.md",
+      "alias": "bangumi-444557",
+      "sourceLink": "https://bgm.tv/subject/444557",
+      "image": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
+      "published": "2026-08-31",
+      "status": "published",
+      "generatedAt": "2026-08-31T15:46:51.367Z"
     }
   ]
 }
