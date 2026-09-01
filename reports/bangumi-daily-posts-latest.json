@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-08-31T15:46:51.368Z",
+  "generatedAt": "2026-09-01T12:59:47.914Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-02T23:26:32+08:00",
+    "updated_at": "2025-12-02T23:25:44+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "后宫",
-      "无职转生"
+      "日常",
+      "家庭喜剧",
+      "间谍过家家",
+      "搞笑"
     ],
     "subject": {
-      "date": "2024-04-07",
+      "date": "2023-10-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ad/25/444557_e4hPO.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ad/25/444557_e4hPO.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ad/25/444557_e4hPO.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ad/25/444557_e4hPO.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/69/5b/411427_1Bw95.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/69/5b/411427_1Bw95.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/69/5b/411427_1Bw95.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/69/5b/411427_1Bw95.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/69/5b/411427_1Bw95.jpg"
       },
-      "name": "無職転生Ⅱ ～異世界行ったら本気だす～ 第2クール",
-      "name_cn": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
-      "short_summary": "",
+      "name": "SPY×FAMILY Season 2",
+      "name_cn": "间谍过家家 第二季",
+      "short_summary": "每一个人，都有不能展现给任何人看的一面──\r\n这是个世界各国都在台面下进行激烈情报战的时代。东国Ostania与西国Westalis，两国之间已持续冷战了十多年。\r\n隶属于西国情报局对东课〈WISE〉的干练间谍──〈黄昏〉，被指派一项极机密",
       "tags": [
         {
-          "name": "异世界",
-          "count": 3789,
-          "total_count": 263254
+          "name": "搞笑",
+          "count": 2547,
+          "total_count": 640830
         },
         {
-          "name": "轻小说改",
-          "count": 2473,
-          "total_count": 497293
+          "name": "日常",
+          "count": 2129,
+          "total_count": 401979
         },
         {
-          "name": "2024年4月",
-          "count": 2054,
-          "total_count": 36021
+          "name": "2023年10月",
+          "count": 1898,
+          "total_count": 37627
         },
         {
-          "name": "StudioBind",
-          "count": 1773,
-          "total_count": 15680
+          "name": "CloverWorks",
+          "count": 1821,
+          "total_count": 56568
         },
         {
-          "name": "后宫",
-          "count": 1768,
-          "total_count": 304238
+          "name": "漫画改",
+          "count": 1725,
+          "total_count": 865375
         },
         {
-          "name": "奇幻",
-          "count": 1647,
-          "total_count": 473427
+          "name": "WITSTUDIO",
+          "count": 1313,
+          "total_count": 46292
         },
         {
-          "name": "无职转生",
-          "count": 1521,
-          "total_count": 5048
+          "name": "家庭喜剧",
+          "count": 1254,
+          "total_count": 6668
         },
         {
           "name": "TV",
-          "count": 1490,
-          "total_count": 1408258
+          "count": 1173,
+          "total_count": 1408434
         },
         {
-          "name": "战斗",
-          "count": 1128,
-          "total_count": 473543
+          "name": "2023",
+          "count": 822,
+          "total_count": 81726
         },
         {
-          "name": "2024",
-          "count": 867,
-          "total_count": 71709
+          "name": "漫改",
+          "count": 660,
+          "total_count": 362141
         }
       ],
-      "score": 7.6,
+      "score": 7.2,
       "type": 2,
-      "id": 444557,
+      "id": 411427,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 31170,
-      "rank": 780
+      "collection_total": 25534,
+      "rank": 1637
     },
-    "subject_id": 444557,
+    "subject_id": 411427,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 8,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/69/5b/411427_1Bw95.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+      "title": "间谍过家家 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ad/25/444557_e4hPO.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/69/5b/411427_1Bw95.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+      "title": "间谍过家家 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ad/25/444557_e4hPO.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/69/5b/411427_1Bw95.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分",
+      "title": "间谍过家家 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-444557.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family-season-2.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

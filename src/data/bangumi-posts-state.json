@@ -1506,6 +1506,17 @@
       "published": "2026-08-31",
       "status": "published",
       "generatedAt": "2026-08-31T15:46:51.367Z"
+    },
+    {
+      "subjectId": 411427,
+      "title": "《间谍过家家 第二季》",
+      "filePath": "src/content/posts/spy-family-season-2.md",
+      "alias": "spy-family-season-2",
+      "sourceLink": "https://bgm.tv/subject/411427",
+      "image": "https://lain.bgm.tv/pic/cover/l/69/5b/411427_1Bw95.jpg",
+      "published": "2026-09-01",
+      "status": "published",
+      "generatedAt": "2026-09-01T12:59:47.913Z"
     }
   ]
 }
