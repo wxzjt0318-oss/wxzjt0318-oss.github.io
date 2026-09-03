@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-09-01T12:59:47.914Z",
+  "generatedAt": "2026-09-03T12:31:00.826Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-02T23:25:44+08:00",
+    "updated_at": "2025-11-21T10:03:24+08:00",
     "comment": null,
     "tags": [
-      "日常",
-      "家庭喜剧",
-      "间谍过家家",
-      "搞笑"
+      "恋爱",
+      "校园",
+      "小说改",
+      "后宫"
     ],
     "subject": {
-      "date": "2023-10-07",
+      "date": "2025-01-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/69/5b/411427_1Bw95.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/69/5b/411427_1Bw95.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/69/5b/411427_1Bw95.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/69/5b/411427_1Bw95.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/69/5b/411427_1Bw95.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a3/f5/501023_yl6U2.jpg"
       },
-      "name": "SPY×FAMILY Season 2",
-      "name_cn": "间谍过家家 第二季",
-      "short_summary": "每一个人，都有不能展现给任何人看的一面──\r\n这是个世界各国都在台面下进行激烈情报战的时代。东国Ostania与西国Westalis，两国之间已持续冷战了十多年。\r\n隶属于西国情报局对东课〈WISE〉的干练间谍──〈黄昏〉，被指派一项极机密",
+      "name": "クラスの大嫌いな女子と結婚することになった。",
+      "name_cn": "我和班上最讨厌的女生结婚了。",
+      "short_summary": "高校生の北条才人はクラスメイトと結婚した。\r\nそれも学校一苦手な、天敵のような女子・桜森朱音とである――。\r\n\r\n「私と結婚してること、クラスのみんなに言ったら殺すから」\r\n「俺だって結婚を知られたくはない。なんのメリットもない」\r\n\r\n普",
       "tags": [
         {
-          "name": "搞笑",
-          "count": 2547,
-          "total_count": 640830
+          "name": "恋爱",
+          "count": 1068,
+          "total_count": 566974
         },
         {
-          "name": "日常",
-          "count": 2129,
-          "total_count": 401979
+          "name": "校园",
+          "count": 865,
+          "total_count": 455748
         },
         {
-          "name": "2023年10月",
-          "count": 1898,
-          "total_count": 37627
+          "name": "2025年1月",
+          "count": 693,
+          "total_count": 27055
         },
         {
-          "name": "CloverWorks",
-          "count": 1821,
-          "total_count": 56568
-        },
-        {
-          "name": "漫画改",
-          "count": 1725,
-          "total_count": 865375
-        },
-        {
-          "name": "WITSTUDIO",
-          "count": 1313,
-          "total_count": 46292
-        },
-        {
-          "name": "家庭喜剧",
-          "count": 1254,
-          "total_count": 6668
+          "name": "轻小说改",
+          "count": 546,
+          "total_count": 497581
         },
         {
           "name": "TV",
-          "count": 1173,
-          "total_count": 1408434
+          "count": 540,
+          "total_count": 1409108
         },
         {
-          "name": "2023",
-          "count": 822,
-          "total_count": 81726
+          "name": "Studio五组",
+          "count": 428,
+          "total_count": 12097
         },
         {
-          "name": "漫改",
-          "count": 660,
-          "total_count": 362141
+          "name": "搞笑",
+          "count": 398,
+          "total_count": 641327
+        },
+        {
+          "name": "2025",
+          "count": 337,
+          "total_count": 73148
+        },
+        {
+          "name": "日常",
+          "count": 322,
+          "total_count": 402386
+        },
+        {
+          "name": "小说改",
+          "count": 314,
+          "total_count": 160595
         }
       ],
-      "score": 7.2,
+      "score": 5.3,
       "type": 2,
-      "id": 411427,
+      "id": 501023,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 25534,
-      "rank": 1637
+      "collection_total": 8548,
+      "rank": 9649
     },
-    "subject_id": 411427,
+    "subject_id": 501023,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/69/5b/411427_1Bw95.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/a3/f5/501023_yl6U2.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "间谍过家家 第二季",
+      "title": "我和班上最讨厌的女生结婚了。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/69/5b/411427_1Bw95.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a3/f5/501023_yl6U2.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "间谍过家家 第二季",
+      "title": "我和班上最讨厌的女生结婚了。",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/69/5b/411427_1Bw95.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a3/f5/501023_yl6U2.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "间谍过家家 第二季",
+      "title": "我和班上最讨厌的女生结婚了。",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/spy-family-season-2.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-501023.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

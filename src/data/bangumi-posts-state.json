@@ -1517,6 +1517,17 @@
       "published": "2026-09-01",
       "status": "published",
       "generatedAt": "2026-09-01T12:59:47.913Z"
+    },
+    {
+      "subjectId": 501023,
+      "title": "《我和班上最讨厌的女生结婚了。》",
+      "filePath": "src/content/posts/bangumi-501023.md",
+      "alias": "bangumi-501023",
+      "sourceLink": "https://bgm.tv/subject/501023",
+      "image": "https://lain.bgm.tv/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+      "published": "2026-09-03",
+      "status": "published",
+      "generatedAt": "2026-09-03T12:31:00.823Z"
     }
   ]
 }
