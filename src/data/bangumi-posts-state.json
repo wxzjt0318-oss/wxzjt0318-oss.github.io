@@ -1528,6 +1528,17 @@
       "published": "2026-09-03",
       "status": "published",
       "generatedAt": "2026-09-03T12:31:00.823Z"
+    },
+    {
+      "subjectId": 510728,
+      "title": "《Re：从零开始的异世界生活 第三季 反击篇》",
+      "filePath": "src/content/posts/re-3rd-season.md",
+      "alias": "re-3rd-season",
+      "sourceLink": "https://bgm.tv/subject/510728",
+      "image": "https://lain.bgm.tv/pic/cover/l/2e/d7/510728_P22GO.jpg",
+      "published": "2026-09-05",
+      "status": "published",
+      "generatedAt": "2026-09-05T11:33:24.064Z"
     }
   ]
 }

@@ -1,90 +1,90 @@
 {
-  "generatedAt": "2026-09-03T12:31:00.826Z",
+  "generatedAt": "2026-09-05T11:33:24.065Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:03:24+08:00",
+    "updated_at": "2025-11-20T14:37:43+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
-      "校园",
-      "小说改",
-      "后宫"
+      "从零开始的异世界生活",
+      "轻小说改",
+      "日本",
+      "异世界"
     ],
     "subject": {
-      "date": "2025-01-03",
+      "date": "2025-02-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a3/f5/501023_yl6U2.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a3/f5/501023_yl6U2.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/a3/f5/501023_yl6U2.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a3/f5/501023_yl6U2.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a3/f5/501023_yl6U2.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2e/d7/510728_P22GO.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2e/d7/510728_P22GO.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/2e/d7/510728_P22GO.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2e/d7/510728_P22GO.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2e/d7/510728_P22GO.jpg"
       },
-      "name": "クラスの大嫌いな女子と結婚することになった。",
-      "name_cn": "我和班上最讨厌的女生结婚了。",
-      "short_summary": "高校生の北条才人はクラスメイトと結婚した。\r\nそれも学校一苦手な、天敵のような女子・桜森朱音とである――。\r\n\r\n「私と結婚してること、クラスのみんなに言ったら殺すから」\r\n「俺だって結婚を知られたくはない。なんのメリットもない」\r\n\r\n普",
+      "name": "Re:ゼロから始める異世界生活 3rd season 反擊編",
+      "name_cn": "Re：从零开始的异世界生活 第三季 反击篇",
+      "short_summary": "襲い来るエルザたちの猛攻を退け、大兎との戦いでベアトリスとの契約を果たした「聖域」の解放から1年が過ぎた。\r\n王選に臨むエミリア陣営は一致団結、充実した日々を送っていたナツキ・スバルだったが、平穏は使者によって届けられた一枚の書状によって終",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 1068,
-          "total_count": 566974
+          "name": "异世界",
+          "count": 1745,
+          "total_count": 263654
         },
         {
-          "name": "校园",
-          "count": 865,
-          "total_count": 455748
+          "name": "奇幻",
+          "count": 1287,
+          "total_count": 474425
+        },
+        {
+          "name": "战斗",
+          "count": 1220,
+          "total_count": 474419
+        },
+        {
+          "name": "WHITEFOX",
+          "count": 1112,
+          "total_count": 33502
         },
         {
           "name": "2025年1月",
-          "count": 693,
-          "total_count": 27055
+          "count": 1056,
+          "total_count": 27061
         },
         {
           "name": "轻小说改",
-          "count": 546,
-          "total_count": 497581
+          "count": 970,
+          "total_count": 497800
         },
         {
           "name": "TV",
-          "count": 540,
-          "total_count": 1409108
+          "count": 942,
+          "total_count": 1409812
         },
         {
-          "name": "Studio五组",
-          "count": 428,
-          "total_count": 12097
-        },
-        {
-          "name": "搞笑",
-          "count": 398,
-          "total_count": 641327
-        },
-        {
-          "name": "2025",
-          "count": 337,
-          "total_count": 73148
-        },
-        {
-          "name": "日常",
-          "count": 322,
-          "total_count": 402386
+          "name": "冒险",
+          "count": 571,
+          "total_count": 54405
         },
         {
           "name": "小说改",
-          "count": 314,
-          "total_count": 160595
+          "count": 534,
+          "total_count": 160723
+        },
+        {
+          "name": "2025",
+          "count": 508,
+          "total_count": 73180
         }
       ],
-      "score": 5.3,
+      "score": 7,
       "type": 2,
-      "id": 501023,
-      "eps": 12,
+      "id": 510728,
+      "eps": 8,
       "volumes": 0,
-      "collection_total": 8548,
-      "rank": 9649
+      "collection_total": 18868,
+      "rank": 2781
     },
-    "subject_id": 501023,
+    "subject_id": 510728,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 8,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -92,30 +92,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2e/d7/510728_P22GO.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "我和班上最讨厌的女生结婚了。",
+      "title": "Re：从零开始的异世界生活 第三季 反击篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2e/d7/510728_P22GO.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "我和班上最讨厌的女生结婚了。",
+      "title": "Re：从零开始的异世界生活 第三季 反击篇",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a3/f5/501023_yl6U2.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2e/d7/510728_P22GO.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "我和班上最讨厌的女生结婚了。",
+      "title": "Re：从零开始的异世界生活 第三季 反击篇",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-501023.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-3rd-season.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
