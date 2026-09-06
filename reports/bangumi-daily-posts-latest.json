@@ -1,121 +1,120 @@
 {
-  "generatedAt": "2026-09-05T11:33:24.065Z",
+  "generatedAt": "2026-09-06T11:53:55.678Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T14:37:43+08:00",
+    "updated_at": "2025-12-02T23:22:06+08:00",
     "comment": null,
     "tags": [
-      "从零开始的异世界生活",
-      "轻小说改",
-      "日本",
-      "异世界"
+      "校园",
+      "恋爱",
+      "cosplay"
     ],
     "subject": {
-      "date": "2025-02-05",
+      "date": "2022-01-08",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2e/d7/510728_P22GO.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2e/d7/510728_P22GO.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/2e/d7/510728_P22GO.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2e/d7/510728_P22GO.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2e/d7/510728_P22GO.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/9c/4d/333158_PA0F4.jpg"
       },
-      "name": "Re:ゼロから始める異世界生活 3rd season 反擊編",
-      "name_cn": "Re：从零开始的异世界生活 第三季 反击篇",
-      "short_summary": "襲い来るエルザたちの猛攻を退け、大兎との戦いでベアトリスとの契約を果たした「聖域」の解放から1年が過ぎた。\r\n王選に臨むエミリア陣営は一致団結、充実した日々を送っていたナツキ・スバルだったが、平穏は使者によって届けられた一枚の書状によって終",
+      "name": "その着せ替え人形は恋をする",
+      "name_cn": "更衣人偶坠入爱河",
+      "short_summary": "制作着女儿节娃娃，以成为娃娃工匠为目标的男高中生五条新菜。\r\n他专心一志地制作女儿娃娃，却也因此疏离的同世代的流行，迟迟无法融入班级。\r\n对这样的新菜来说，总是身处班上团体的中心，大受欢迎的喜多川海梦就像是不同世界的人一样。\r\n但就在某天，",
       "tags": [
         {
-          "name": "异世界",
-          "count": 1745,
-          "total_count": 263654
+          "name": "恋爱",
+          "count": 5197,
+          "total_count": 567533
         },
         {
-          "name": "奇幻",
-          "count": 1287,
-          "total_count": 474425
+          "name": "CloverWorks",
+          "count": 3340,
+          "total_count": 56616
         },
         {
-          "name": "战斗",
-          "count": 1220,
-          "total_count": 474419
+          "name": "校园",
+          "count": 2811,
+          "total_count": 456210
         },
         {
-          "name": "WHITEFOX",
-          "count": 1112,
-          "total_count": 33502
+          "name": "漫画改",
+          "count": 2467,
+          "total_count": 866712
         },
         {
-          "name": "2025年1月",
-          "count": 1056,
-          "total_count": 27061
+          "name": "2022年1月",
+          "count": 2403,
+          "total_count": 17685
         },
         {
-          "name": "轻小说改",
-          "count": 970,
-          "total_count": 497800
+          "name": "日常",
+          "count": 1924,
+          "total_count": 402754
         },
         {
           "name": "TV",
-          "count": 942,
-          "total_count": 1409812
+          "count": 1758,
+          "total_count": 1410111
         },
         {
-          "name": "冒险",
-          "count": 571,
-          "total_count": 54405
+          "name": "漫改",
+          "count": 1195,
+          "total_count": 362581
         },
         {
-          "name": "小说改",
-          "count": 534,
-          "total_count": 160723
+          "name": "2022",
+          "count": 1149,
+          "total_count": 80721
         },
         {
-          "name": "2025",
-          "count": 508,
-          "total_count": 73180
+          "name": "cosplay",
+          "count": 1123,
+          "total_count": 3076
         }
       ],
-      "score": 7,
+      "score": 7.2,
       "type": 2,
-      "id": 510728,
-      "eps": 8,
+      "id": 333158,
+      "eps": 12,
       "volumes": 0,
-      "collection_total": 18868,
-      "rank": 2781
+      "collection_total": 40039,
+      "rank": 1715
     },
-    "subject_id": 510728,
+    "subject_id": 333158,
     "vol_status": 0,
-    "ep_status": 8,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 7,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2e/d7/510728_P22GO.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/9c/4d/333158_PA0F4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第三季 反击篇",
+      "title": "更衣人偶坠入爱河",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2e/d7/510728_P22GO.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/9c/4d/333158_PA0F4.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "Re：从零开始的异世界生活 第三季 反击篇",
+      "title": "更衣人偶坠入爱河",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2e/d7/510728_P22GO.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/9c/4d/333158_PA0F4.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "Re：从零开始的异世界生活 第三季 反击篇",
+      "title": "更衣人偶坠入爱河",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/re-3rd-season.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-333158.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

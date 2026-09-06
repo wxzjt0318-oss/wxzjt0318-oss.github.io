@@ -1539,6 +1539,17 @@
       "published": "2026-09-05",
       "status": "published",
       "generatedAt": "2026-09-05T11:33:24.064Z"
+    },
+    {
+      "subjectId": 333158,
+      "title": "《更衣人偶坠入爱河》",
+      "filePath": "src/content/posts/bangumi-333158.md",
+      "alias": "bangumi-333158",
+      "sourceLink": "https://bgm.tv/subject/333158",
+      "image": "https://lain.bgm.tv/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+      "published": "2026-09-06",
+      "status": "published",
+      "generatedAt": "2026-09-06T11:53:55.677Z"
     }
   ]
 }
