@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-09-06T11:53:55.678Z",
+  "generatedAt": "2026-09-07T13:54:08.505Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-12-02T23:22:06+08:00",
+    "updated_at": "2025-11-21T10:07:43+08:00",
     "comment": null,
     "tags": [
-      "校园",
       "恋爱",
-      "cosplay"
+      "校园",
+      "日常",
+      "狗粮"
     ],
     "subject": {
-      "date": "2022-01-08",
+      "date": "2022-01-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/9c/4d/333158_PA0F4.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/9c/4d/333158_PA0F4.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/9c/4d/333158_PA0F4.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/9c/4d/333158_PA0F4.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/9c/4d/333158_PA0F4.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2d/ad/347887_j0DFj.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2d/ad/347887_j0DFj.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/2d/ad/347887_j0DFj.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2d/ad/347887_j0DFj.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2d/ad/347887_j0DFj.jpg"
       },
-      "name": "その着せ替え人形は恋をする",
-      "name_cn": "更衣人偶坠入爱河",
-      "short_summary": "制作着女儿节娃娃，以成为娃娃工匠为目标的男高中生五条新菜。\r\n他专心一志地制作女儿娃娃，却也因此疏离的同世代的流行，迟迟无法融入班级。\r\n对这样的新菜来说，总是身处班上团体的中心，大受欢迎的喜多川海梦就像是不同世界的人一样。\r\n但就在某天，",
+      "name": "からかい上手の高木さん③",
+      "name_cn": "擅长捉弄的高木同学 第三季",
+      "short_summary": "“捉弄”缩短了二人的距离，\r\n2022年想要守候的初恋就在这里。\r\n\r\n在一所初中里，有一个叫做西片的男生，他时不时就会遭到同桌女生高木的捉弄。\r\n西片每次思考对策，想要捉弄回高木，都会被高木看透。\r\n\r\n于是西片每天都绞尽脑汁，想要扳回一",
       "tags": [
         {
           "name": "恋爱",
-          "count": 5197,
-          "total_count": 567533
-        },
-        {
-          "name": "CloverWorks",
-          "count": 3340,
-          "total_count": 56616
+          "count": 2808,
+          "total_count": 567856
         },
         {
           "name": "校园",
-          "count": 2811,
-          "total_count": 456210
-        },
-        {
-          "name": "漫画改",
-          "count": 2467,
-          "total_count": 866712
-        },
-        {
-          "name": "2022年1月",
-          "count": 2403,
-          "total_count": 17685
+          "count": 2155,
+          "total_count": 456422
         },
         {
           "name": "日常",
-          "count": 1924,
-          "total_count": 402754
+          "count": 1743,
+          "total_count": 402936
+        },
+        {
+          "name": "2022年1月",
+          "count": 1173,
+          "total_count": 17688
+        },
+        {
+          "name": "狗粮",
+          "count": 1150,
+          "total_count": 18808
+        },
+        {
+          "name": "漫画改",
+          "count": 948,
+          "total_count": 866977
         },
         {
           "name": "TV",
-          "count": 1758,
-          "total_count": 1410111
+          "count": 784,
+          "total_count": 1410543
         },
         {
-          "name": "漫改",
-          "count": 1195,
-          "total_count": 362581
+          "name": "SHIN-EI",
+          "count": 594,
+          "total_count": 12432
         },
         {
           "name": "2022",
-          "count": 1149,
-          "total_count": 80721
+          "count": 533,
+          "total_count": 80724
         },
         {
-          "name": "cosplay",
-          "count": 1123,
-          "total_count": 3076
+          "name": "漫改",
+          "count": 528,
+          "total_count": 362819
         }
       ],
-      "score": 7.2,
+      "score": 8,
       "type": 2,
-      "id": 333158,
+      "id": 347887,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 40039,
-      "rank": 1715
+      "collection_total": 19872,
+      "rank": 213
     },
-    "subject_id": 333158,
+    "subject_id": 347887,
     "vol_status": 0,
-    "ep_status": 12,
+    "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 7,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2d/ad/347887_j0DFj.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "更衣人偶坠入爱河",
+      "title": "擅长捉弄的高木同学 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2d/ad/347887_j0DFj.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "更衣人偶坠入爱河",
+      "title": "擅长捉弄的高木同学 第三季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/9c/4d/333158_PA0F4.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2d/ad/347887_j0DFj.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "更衣人偶坠入爱河",
+      "title": "擅长捉弄的高木同学 第三季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-333158.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-347887.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
