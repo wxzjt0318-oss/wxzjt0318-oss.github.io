@@ -1572,6 +1572,17 @@
       "published": "2026-09-08",
       "status": "published",
       "generatedAt": "2026-09-08T12:33:52.144Z"
+    },
+    {
+      "subjectId": 293049,
+      "title": "《辉夜大小姐想让我告白?～天才们的恋爱头脑战～》",
+      "filePath": "src/content/posts/bangumi-293049.md",
+      "alias": "bangumi-293049",
+      "sourceLink": "https://bgm.tv/subject/293049",
+      "image": "https://lain.bgm.tv/pic/cover/l/36/16/293049_0e0re.jpg",
+      "published": "2026-09-09",
+      "status": "published",
+      "generatedAt": "2026-09-09T12:39:54.549Z"
     }
   ]
 }

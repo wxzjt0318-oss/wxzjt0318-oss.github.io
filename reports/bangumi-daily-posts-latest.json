@@ -1,88 +1,87 @@
 {
-  "generatedAt": "2026-09-08T12:33:52.145Z",
+  "generatedAt": "2026-09-09T12:39:54.550Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:07:36+08:00",
+    "updated_at": "2025-11-21T10:17:02+08:00",
     "comment": null,
     "tags": [
-      "恋爱",
       "校园",
-      "日常",
-      "狗粮"
+      "搞笑",
+      "恋爱"
     ],
     "subject": {
-      "date": "2018-01-08",
+      "date": "2020-04-11",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/09/16/219200_wFT9i.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/09/16/219200_wFT9i.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/09/16/219200_wFT9i.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/09/16/219200_wFT9i.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/09/16/219200_wFT9i.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/36/16/293049_0e0re.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/36/16/293049_0e0re.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/36/16/293049_0e0re.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/36/16/293049_0e0re.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/36/16/293049_0e0re.jpg"
       },
-      "name": "からかい上手の高木さん",
-      "name_cn": "擅长捉弄的高木同学",
-      "short_summary": "“今天一定要捉弄高木同学，让她害羞！”\r\n某所中学，在各种方面都被邻座的女生高木同学捉弄的男生西片。\r\n他为了对此反击而每天奋斗，但……？\r\n这样的高木同学与西片带来的全力“捉弄”青春大战开始了！ ",
+      "name": "かぐや様は告らせたい?～天才たちの恋愛頭脳戦～",
+      "name_cn": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
+      "short_summary": "人才云集的精英校·秀知院学园，在该校的学生会相遇的副会长·四宫辉夜与学生会长·白银御行。\r\n无论任何人都认为十分般配的这两位天才，本以为很快就会喜结良缘，但碍于过高的自尊心而仍然未能告白！\r\n“如何让对方告白”在这样的恋爱头脑战中穷尽智略的",
       "tags": [
         {
           "name": "恋爱",
-          "count": 3735,
-          "total_count": 567912
+          "count": 6980,
+          "total_count": 568097
+        },
+        {
+          "name": "搞笑",
+          "count": 6215,
+          "total_count": 642293
         },
         {
           "name": "校园",
-          "count": 2728,
-          "total_count": 456393
+          "count": 4500,
+          "total_count": 456600
         },
         {
-          "name": "狗粮",
-          "count": 2274,
-          "total_count": 18810
-        },
-        {
-          "name": "日常",
-          "count": 2128,
-          "total_count": 403006
-        },
-        {
-          "name": "2018年1月",
-          "count": 1638,
-          "total_count": 31557
+          "name": "A-1Pictures",
+          "count": 4109,
+          "total_count": 146273
         },
         {
           "name": "漫画改",
-          "count": 1559,
-          "total_count": 867227
+          "count": 2805,
+          "total_count": 867551
+        },
+        {
+          "name": "2020年4月",
+          "count": 2603,
+          "total_count": 17310
         },
         {
           "name": "TV",
-          "count": 1246,
-          "total_count": 1410926
+          "count": 2161,
+          "total_count": 1411421
         },
         {
-          "name": "擅长调情的西片太太",
-          "count": 936,
-          "total_count": 1544
+          "name": "日常",
+          "count": 2133,
+          "total_count": 403179
         },
         {
-          "name": "SHIN-EI",
-          "count": 748,
-          "total_count": 12437
+          "name": "漫改",
+          "count": 1534,
+          "total_count": 362792
         },
         {
-          "name": "2018",
-          "count": 684,
-          "total_count": 78308
+          "name": "2020",
+          "count": 1398,
+          "total_count": 64195
         }
       ],
-      "score": 7.5,
+      "score": 7.9,
       "type": 2,
-      "id": 219200,
+      "id": 293049,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 28859,
-      "rank": 867
+      "collection_total": 48579,
+      "rank": 313
     },
-    "subject_id": 219200,
+    "subject_id": 293049,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
@@ -92,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/09/16/219200_wFT9i.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/36/16/293049_0e0re.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "擅长捉弄的高木同学",
+      "title": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/09/16/219200_wFT9i.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/36/16/293049_0e0re.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "擅长捉弄的高木同学",
+      "title": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/09/16/219200_wFT9i.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/36/16/293049_0e0re.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "擅长捉弄的高木同学",
+      "title": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-219200.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-293049.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
