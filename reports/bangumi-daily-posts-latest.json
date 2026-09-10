@@ -1,89 +1,89 @@
 {
-  "generatedAt": "2026-09-09T12:39:54.550Z",
+  "generatedAt": "2026-09-10T12:39:06.287Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:17:02+08:00",
+    "updated_at": "2025-11-20T15:24:36+08:00",
     "comment": null,
     "tags": [
-      "校园",
-      "搞笑",
-      "恋爱"
+      "后宫",
+      "游戏改",
+      "校园"
     ],
     "subject": {
-      "date": "2020-04-11",
+      "date": "2012-07-05",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/36/16/293049_0e0re.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/36/16/293049_0e0re.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/36/16/293049_0e0re.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/36/16/293049_0e0re.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/36/16/293049_0e0re.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/5a/18/27236_7T6Is.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/5a/18/27236_7T6Is.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/5a/18/27236_7T6Is.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5a/18/27236_7T6Is.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/5a/18/27236_7T6Is.jpg"
       },
-      "name": "かぐや様は告らせたい?～天才たちの恋愛頭脳戦～",
-      "name_cn": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
-      "short_summary": "人才云集的精英校·秀知院学园，在该校的学生会相遇的副会长·四宫辉夜与学生会长·白银御行。\r\n无论任何人都认为十分般配的这两位天才，本以为很快就会喜结良缘，但碍于过高的自尊心而仍然未能告白！\r\n“如何让对方告白”在这样的恋爱头脑战中穷尽智略的",
+      "name": "恋と選挙とチョコレート",
+      "name_cn": "恋爱与选举与巧克力",
+      "short_summary": "　　「恋爱与选举与巧克力」是由sprite于09年发行的成人向恋爱AVG，之后便推出了两个版本的漫画作品。\r\n　　本作故事主要讲述了主人公大岛裕树与青梅竹马住吉千里以及从以前起就是好友的同班同学木场美冬就读于以拥有超过五千名学生而自豪的工业",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 6980,
-          "total_count": 568097
+          "name": "GAL改",
+          "count": 848,
+          "total_count": 78905
         },
         {
-          "name": "搞笑",
-          "count": 6215,
-          "total_count": 642293
+          "name": "后宫",
+          "count": 615,
+          "total_count": 304824
+        },
+        {
+          "name": "2012年7月",
+          "count": 572,
+          "total_count": 14602
         },
         {
           "name": "校园",
-          "count": 4500,
-          "total_count": 456600
-        },
-        {
-          "name": "A-1Pictures",
-          "count": 4109,
-          "total_count": 146273
-        },
-        {
-          "name": "漫画改",
-          "count": 2805,
-          "total_count": 867551
-        },
-        {
-          "name": "2020年4月",
-          "count": 2603,
-          "total_count": 17310
+          "count": 540,
+          "total_count": 456453
         },
         {
           "name": "TV",
-          "count": 2161,
-          "total_count": 1411421
+          "count": 357,
+          "total_count": 1410751
         },
         {
-          "name": "日常",
-          "count": 2133,
-          "total_count": 403179
+          "name": "恋と選挙とチョコレート",
+          "count": 331,
+          "total_count": 331
         },
         {
-          "name": "漫改",
-          "count": 1534,
-          "total_count": 362792
+          "name": "游戏改",
+          "count": 264,
+          "total_count": 163402
         },
         {
-          "name": "2020",
-          "count": 1398,
-          "total_count": 64195
+          "name": "AIC",
+          "count": 228,
+          "total_count": 18372
+        },
+        {
+          "name": "2012",
+          "count": 205,
+          "total_count": 55849
+        },
+        {
+          "name": "食研后宫社",
+          "count": 195,
+          "total_count": 195
         }
       ],
-      "score": 7.9,
+      "score": 6.4,
       "type": 2,
-      "id": 293049,
+      "id": 27236,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 48579,
-      "rank": 313
+      "collection_total": 8478,
+      "rank": 6077
     },
-    "subject_id": 293049,
+    "subject_id": 27236,
     "vol_status": 0,
-    "ep_status": 0,
+    "ep_status": 12,
     "subject_type": 2,
     "type": 2,
     "rate": 10,
@@ -91,30 +91,30 @@
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/36/16/293049_0e0re.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/5a/18/27236_7T6Is.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
+      "title": "恋爱与选举与巧克力",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/36/16/293049_0e0re.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5a/18/27236_7T6Is.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
+      "title": "恋爱与选举与巧克力",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/36/16/293049_0e0re.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5a/18/27236_7T6Is.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "辉夜大小姐想让我告白?～天才们的恋爱头脑战～",
+      "title": "恋爱与选举与巧克力",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-293049.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-27236.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

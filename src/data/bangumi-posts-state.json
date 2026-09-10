@@ -1583,6 +1583,17 @@
       "published": "2026-09-09",
       "status": "published",
       "generatedAt": "2026-09-09T12:39:54.549Z"
+    },
+    {
+      "subjectId": 27236,
+      "title": "《恋爱与选举与巧克力》",
+      "filePath": "src/content/posts/bangumi-27236.md",
+      "alias": "bangumi-27236",
+      "sourceLink": "https://bgm.tv/subject/27236",
+      "image": "https://lain.bgm.tv/pic/cover/l/5a/18/27236_7T6Is.jpg",
+      "published": "2026-09-10",
+      "status": "published",
+      "generatedAt": "2026-09-10T12:39:06.283Z"
     }
   ]
 }
