@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-09-10T12:39:06.287Z",
+  "generatedAt": "2026-09-11T12:31:27.701Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-20T15:24:36+08:00",
+    "updated_at": "2025-11-20T15:50:52+08:00",
     "comment": null,
     "tags": [
       "后宫",
-      "游戏改",
-      "校园"
+      "TV",
+      "奈亚子",
+      "奇幻"
     ],
     "subject": {
-      "date": "2012-07-05",
+      "date": "2013-04-07",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/5a/18/27236_7T6Is.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/5a/18/27236_7T6Is.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/5a/18/27236_7T6Is.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5a/18/27236_7T6Is.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/5a/18/27236_7T6Is.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/5a/69/58015_P8711.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/5a/69/58015_P8711.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/5a/69/58015_P8711.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5a/69/58015_P8711.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/5a/69/58015_P8711.jpg"
       },
-      "name": "恋と選挙とチョコレート",
-      "name_cn": "恋爱与选举与巧克力",
-      "short_summary": "　　「恋爱与选举与巧克力」是由sprite于09年发行的成人向恋爱AVG，之后便推出了两个版本的漫画作品。\r\n　　本作故事主要讲述了主人公大岛裕树与青梅竹马住吉千里以及从以前起就是好友的同班同学木场美冬就读于以拥有超过五千名学生而自豪的工业",
+      "name": "這いよれ! ニャル子さんW",
+      "name_cn": "潜行吧！奈亚子W",
+      "short_summary": "高中生少年八坂真寻的面前突然出现了一位银发碧眼的美少女，她自称是克苏鲁神话中登场的邪神·奈亚拉托提普，并且是宇宙人。从那以后，以奈亚子和真寻为中心的邪神（宇宙人）和地球人所引起的尽是麻烦的每一天开始了。",
       "tags": [
         {
-          "name": "GAL改",
-          "count": 848,
-          "total_count": 78905
+          "name": "搞笑",
+          "count": 1018,
+          "total_count": 642609
+        },
+        {
+          "name": "奈亚子",
+          "count": 953,
+          "total_count": 1619
+        },
+        {
+          "name": "2013年4月",
+          "count": 891,
+          "total_count": 23507
+        },
+        {
+          "name": "轻小说改",
+          "count": 865,
+          "total_count": 498386
         },
         {
           "name": "后宫",
-          "count": 615,
-          "total_count": 304824
-        },
-        {
-          "name": "2012年7月",
-          "count": 572,
-          "total_count": 14602
-        },
-        {
-          "name": "校园",
-          "count": 540,
-          "total_count": 456453
+          "count": 790,
+          "total_count": 305063
         },
         {
           "name": "TV",
-          "count": 357,
-          "total_count": 1410751
+          "count": 593,
+          "total_count": 1412300
         },
         {
-          "name": "恋と選挙とチョコレート",
-          "count": 331,
-          "total_count": 331
+          "name": "SAN值",
+          "count": 484,
+          "total_count": 1385
         },
         {
-          "name": "游戏改",
-          "count": 264,
-          "total_count": 163402
+          "name": "XEBEC",
+          "count": 458,
+          "total_count": 14489
         },
         {
-          "name": "AIC",
-          "count": 228,
-          "total_count": 18372
+          "name": "克苏鲁神话",
+          "count": 425,
+          "total_count": 1194
         },
         {
-          "name": "2012",
-          "count": 205,
-          "total_count": 55849
-        },
-        {
-          "name": "食研后宫社",
-          "count": 195,
-          "total_count": 195
+          "name": "潜行吧!奈亚子w",
+          "count": 326,
+          "total_count": 327
         }
       ],
-      "score": 6.4,
+      "score": 7,
       "type": 2,
-      "id": 27236,
+      "id": 58015,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 8478,
-      "rank": 6077
+      "collection_total": 13059,
+      "rank": 2523
     },
-    "subject_id": 27236,
+    "subject_id": 58015,
     "vol_status": 0,
     "ep_status": 12,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 0,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/5a/18/27236_7T6Is.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/5a/69/58015_P8711.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "恋爱与选举与巧克力",
+      "title": "潜行吧！奈亚子W",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5a/18/27236_7T6Is.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5a/69/58015_P8711.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "恋爱与选举与巧克力",
+      "title": "潜行吧！奈亚子W",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5a/18/27236_7T6Is.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5a/69/58015_P8711.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "恋爱与选举与巧克力",
+      "title": "潜行吧！奈亚子W",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-27236.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-58015.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

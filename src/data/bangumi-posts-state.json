@@ -1594,6 +1594,17 @@
       "published": "2026-09-10",
       "status": "published",
       "generatedAt": "2026-09-10T12:39:06.283Z"
+    },
+    {
+      "subjectId": 58015,
+      "title": "《潜行吧！奈亚子W》",
+      "filePath": "src/content/posts/bangumi-58015.md",
+      "alias": "bangumi-58015",
+      "sourceLink": "https://bgm.tv/subject/58015",
+      "image": "https://lain.bgm.tv/pic/cover/l/5a/69/58015_P8711.jpg",
+      "published": "2026-09-11",
+      "status": "published",
+      "generatedAt": "2026-09-11T12:31:27.700Z"
     }
   ]
 }
