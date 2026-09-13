@@ -1605,6 +1605,17 @@
       "published": "2026-09-11",
       "status": "published",
       "generatedAt": "2026-09-11T12:31:27.700Z"
+    },
+    {
+      "subjectId": 409441,
+      "title": "《秒杀外挂太强了，异世界的家伙们根本就不是对手。》",
+      "filePath": "src/content/posts/bangumi-409441.md",
+      "alias": "bangumi-409441",
+      "sourceLink": "https://bgm.tv/subject/409441",
+      "image": "https://lain.bgm.tv/pic/cover/l/ef/c7/409441_wrBwz.jpg",
+      "published": "2026-09-13",
+      "status": "published",
+      "generatedAt": "2026-09-13T13:04:15.022Z"
     }
   ]
 }
