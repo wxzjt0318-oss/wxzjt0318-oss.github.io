@@ -1,120 +1,121 @@
 {
-  "generatedAt": "2026-09-13T13:04:15.023Z",
+  "generatedAt": "2026-09-14T14:40:24.286Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-25T00:43:37+08:00",
+    "updated_at": "2025-11-21T10:06:03+08:00",
     "comment": null,
     "tags": [
-      "异世界",
-      "龙傲天",
-      "开挂无敌"
+      "后宫",
+      "党争",
+      "恋爱",
+      "校园"
     ],
     "subject": {
-      "date": "2024-01-04",
+      "date": "2022-07-01",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/ef/c7/409441_wrBwz.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/ef/c7/409441_wrBwz.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/ef/c7/409441_wrBwz.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ef/c7/409441_wrBwz.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/ef/c7/409441_wrBwz.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a6/f0/315745_n981m.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a6/f0/315745_n981m.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/a6/f0/315745_n981m.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a6/f0/315745_n981m.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a6/f0/315745_n981m.jpg"
       },
-      "name": "即死チートが最強すぎて、異世界のやつらがまるで相手にならないんですが。",
-      "name_cn": "秒杀外挂太强了，异世界的家伙们根本就不是对手。",
-      "short_summary": "让全部的敌人瞬间死亡！最强主角横空出世！\r\n在教育旅行途中，高远夜雾和同学们突然被召唤到异世界。召唤他们的是自称为贤者的女性——紫苑。她赋予大家名为「恩赐(GIFT)」的特殊能力，单方面地要求大家通过成为贤者的试炼。\r\n全体同学因突如其来的",
+      "name": "彼女、お借りします 第2期",
+      "name_cn": "租借女友 第二季",
+      "short_summary": "废柴大学生—木之下和也与清纯可爱的「出租女友」—水原千鹤相遇，对家人及朋友都谎称千鹤是他的「女友」。\r\n和也过着无法开口说出真相的日子，在他身边，有着总是做出奇妙攻势，小恶魔型的前女友—七海麻美；有时候显得态度强硬，超积极的(暂时)女友—更",
       "tags": [
         {
-          "name": "异世界",
-          "count": 1208,
-          "total_count": 264563
+          "name": "恋爱",
+          "count": 845,
+          "total_count": 568887
         },
         {
-          "name": "龙傲天",
-          "count": 1048,
-          "total_count": 39863
+          "name": "2022年7月",
+          "count": 547,
+          "total_count": 28555
         },
         {
-          "name": "2024年1月",
-          "count": 773,
-          "total_count": 25255
+          "name": "后宫",
+          "count": 539,
+          "total_count": 305490
         },
         {
-          "name": "轻小说改",
-          "count": 604,
-          "total_count": 498857
+          "name": "漫画改",
+          "count": 483,
+          "total_count": 869217
         },
         {
           "name": "TV",
-          "count": 450,
-          "total_count": 1413194
+          "count": 368,
+          "total_count": 1413782
         },
         {
-          "name": "搞笑",
-          "count": 448,
-          "total_count": 642988
+          "name": "党争",
+          "count": 307,
+          "total_count": 15394
         },
         {
-          "name": "奇幻",
-          "count": 336,
-          "total_count": 475988
+          "name": "2022",
+          "count": 272,
+          "total_count": 80842
         },
         {
-          "name": "OkurutoNoboru",
-          "count": 317,
-          "total_count": 1758
+          "name": "漫改",
+          "count": 270,
+          "total_count": 363140
         },
         {
-          "name": "2024",
-          "count": 276,
-          "total_count": 71895
+          "name": "校园",
+          "count": 240,
+          "total_count": 457498
         },
         {
-          "name": "轻改",
-          "count": 235,
-          "total_count": 153173
+          "name": "TMS_Entertainment",
+          "count": 176,
+          "total_count": 2498
         }
       ],
-      "score": 5.5,
+      "score": 5.7,
       "type": 2,
-      "id": 409441,
+      "id": 315745,
       "eps": 12,
       "volumes": 0,
-      "collection_total": 8911,
-      "rank": 9303
+      "collection_total": 7336,
+      "rank": 8938
     },
-    "subject_id": 409441,
+    "subject_id": 315745,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 10,
+    "rate": 6,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ef/c7/409441_wrBwz.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/a6/f0/315745_n981m.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "秒杀外挂太强了，异世界的家伙们根本就不是对手。",
+      "title": "租借女友 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ef/c7/409441_wrBwz.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a6/f0/315745_n981m.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "秒杀外挂太强了，异世界的家伙们根本就不是对手。",
+      "title": "租借女友 第二季",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ef/c7/409441_wrBwz.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a6/f0/315745_n981m.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "秒杀外挂太强了，异世界的家伙们根本就不是对手。",
+      "title": "租借女友 第二季",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-409441.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-315745.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

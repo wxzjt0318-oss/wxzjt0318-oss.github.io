@@ -1616,6 +1616,17 @@
       "published": "2026-09-13",
       "status": "published",
       "generatedAt": "2026-09-13T13:04:15.022Z"
+    },
+    {
+      "subjectId": 315745,
+      "title": "《租借女友 第二季》",
+      "filePath": "src/content/posts/bangumi-315745.md",
+      "alias": "bangumi-315745",
+      "sourceLink": "https://bgm.tv/subject/315745",
+      "image": "https://lain.bgm.tv/pic/cover/l/a6/f0/315745_n981m.jpg",
+      "published": "2026-09-14",
+      "status": "published",
+      "generatedAt": "2026-09-14T14:40:24.282Z"
     }
   ]
 }
