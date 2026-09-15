@@ -1,121 +1,120 @@
 {
-  "generatedAt": "2026-09-14T14:40:24.286Z",
+  "generatedAt": "2026-09-15T13:04:50.299Z",
   "reviewMode": false,
   "selectedAnime": {
-    "updated_at": "2025-11-21T10:06:03+08:00",
+    "updated_at": "2025-11-22T15:12:13+08:00",
     "comment": null,
     "tags": [
+      "伪恋",
       "后宫",
-      "党争",
-      "恋爱",
-      "校园"
+      "恋爱"
     ],
     "subject": {
-      "date": "2022-07-01",
+      "date": "2014-10-03",
       "images": {
-        "small": "https://lain.bgm.tv/r/200/pic/cover/l/a6/f0/315745_n981m.jpg",
-        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a6/f0/315745_n981m.jpg",
-        "large": "https://lain.bgm.tv/pic/cover/l/a6/f0/315745_n981m.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a6/f0/315745_n981m.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/a6/f0/315745_n981m.jpg"
+        "small": "https://lain.bgm.tv/r/200/pic/cover/l/2d/bb/104196_mIzDE.jpg",
+        "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2d/bb/104196_mIzDE.jpg",
+        "large": "https://lain.bgm.tv/pic/cover/l/2d/bb/104196_mIzDE.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2d/bb/104196_mIzDE.jpg",
+        "common": "https://lain.bgm.tv/r/400/pic/cover/l/2d/bb/104196_mIzDE.jpg"
       },
-      "name": "彼女、お借りします 第2期",
-      "name_cn": "租借女友 第二季",
-      "short_summary": "废柴大学生—木之下和也与清纯可爱的「出租女友」—水原千鹤相遇，对家人及朋友都谎称千鹤是他的「女友」。\r\n和也过着无法开口说出真相的日子，在他身边，有着总是做出奇妙攻势，小恶魔型的前女友—七海麻美；有时候显得态度强硬，超积极的(暂时)女友—更",
+      "name": "ニセコイ OAD",
+      "name_cn": "伪恋 OAD",
+      "short_summary": "漫画单行本第14卷推出同捆OVA的限定版（完全预约生产），时长约25分钟，改编自原作漫画第58话《丢失》和第64话《巫女小姐》。\r\n\r\n漫画单行本第16卷预定于2015年2月4日发售，并将推出同捆OVA的限定版（预约生产），时长约25分钟，",
       "tags": [
         {
-          "name": "恋爱",
-          "count": 845,
-          "total_count": 568887
+          "name": "OVA",
+          "count": 842,
+          "total_count": 367078
         },
         {
-          "name": "2022年7月",
-          "count": 547,
-          "total_count": 28555
+          "name": "新房昭之",
+          "count": 618,
+          "total_count": 102099
+        },
+        {
+          "name": "SHAFT",
+          "count": 551,
+          "total_count": 67595
+        },
+        {
+          "name": "恋爱",
+          "count": 472,
+          "total_count": 568786
         },
         {
           "name": "后宫",
-          "count": 539,
-          "total_count": 305490
+          "count": 465,
+          "total_count": 305423
+        },
+        {
+          "name": "伪恋",
+          "count": 437,
+          "total_count": 2602
         },
         {
           "name": "漫画改",
-          "count": 483,
-          "total_count": 869217
+          "count": 384,
+          "total_count": 868988
         },
         {
-          "name": "TV",
-          "count": 368,
-          "total_count": 1413782
+          "name": "2014",
+          "count": 283,
+          "total_count": 71519
         },
         {
-          "name": "党争",
-          "count": 307,
-          "total_count": 15394
-        },
-        {
-          "name": "2022",
-          "count": 272,
-          "total_count": 80842
-        },
-        {
-          "name": "漫改",
-          "count": 270,
-          "total_count": 363140
+          "name": "OAD",
+          "count": 281,
+          "total_count": 35376
         },
         {
           "name": "校园",
-          "count": 240,
-          "total_count": 457498
-        },
-        {
-          "name": "TMS_Entertainment",
-          "count": 176,
-          "total_count": 2498
+          "count": 253,
+          "total_count": 457397
         }
       ],
-      "score": 5.7,
+      "score": 6.9,
       "type": 2,
-      "id": 315745,
-      "eps": 12,
+      "id": 104196,
+      "eps": 4,
       "volumes": 0,
-      "collection_total": 7336,
-      "rank": 8938
+      "collection_total": 7095,
+      "rank": 3178
     },
-    "subject_id": 315745,
+    "subject_id": 104196,
     "vol_status": 0,
     "ep_status": 0,
     "subject_type": 2,
     "type": 2,
-    "rate": 6,
+    "rate": 10,
     "private": false
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/a6/f0/315745_n981m.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2d/bb/104196_mIzDE.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "租借女友 第二季",
+      "title": "伪恋 OAD",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/a6/f0/315745_n981m.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2d/bb/104196_mIzDE.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "租借女友 第二季",
+      "title": "伪恋 OAD",
       "score": 80
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/a6/f0/315745_n981m.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2d/bb/104196_mIzDE.jpg",
       "source": "bangumi-medium",
       "width": 600,
       "height": 800,
-      "title": "租借女友 第二季",
+      "title": "伪恋 OAD",
       "score": 60
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-315745.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-104196.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

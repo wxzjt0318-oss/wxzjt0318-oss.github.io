@@ -1627,6 +1627,17 @@
       "published": "2026-09-14",
       "status": "published",
       "generatedAt": "2026-09-14T14:40:24.282Z"
+    },
+    {
+      "subjectId": 104196,
+      "title": "《伪恋 OAD》",
+      "filePath": "src/content/posts/bangumi-104196.md",
+      "alias": "bangumi-104196",
+      "sourceLink": "https://bgm.tv/subject/104196",
+      "image": "https://lain.bgm.tv/pic/cover/l/2d/bb/104196_mIzDE.jpg",
+      "published": "2026-09-15",
+      "status": "published",
+      "generatedAt": "2026-09-15T13:04:50.298Z"
     }
   ]
 }
