@@ -1,16 +1,26 @@
-export {};
+import type Swup from "swup";
+import "@swup/scroll-plugin";
 
 declare global {
-	interface HTMLElementTagNameMap {
-		"table-of-contents": HTMLElement & {
-			init?: () => void;
-		};
+	interface OddmiscStatsResult {
+		pageviews: number;
+		visitors: number;
+		visits: number;
+		_fromCache?: boolean;
+	}
+
+	interface OddmiscBrowserClient {
+		getSiteStats: () => Promise<OddmiscStatsResult>;
+		getPageStats: (path: string) => Promise<OddmiscStatsResult>;
+		clearCache: () => void;
 	}
 
 	interface Window {
-		// Define swup type directly since @swup/astro doesn't export AstroIntegration
-		swup: any;
-		closeAnnouncement: () => void;
+		swup?: Swup;
+		oddmisc?: OddmiscBrowserClient;
+		__shironeUmamiStatsPromises?: Record<string, Promise<OddmiscStatsResult>>;
+		__shironeNavigationBound?: boolean;
+		__shironeSidebarBound?: boolean;
 		pagefind: {
 			search: (query: string) => Promise<{
 				results: Array<{
@@ -18,28 +28,7 @@ declare global {
 				}>;
 			}>;
 		};
-
-		mobileTOCInit?: () => void;
-		initSemifullScrollDetection?: () => void;
-		iconifyLoaded?: boolean;
-		__iconifyLoader?: {
-			load: () => Promise<void>;
-			addToPreloadQueue: (icons: string[]) => void;
-			onLoad: (callback: () => void) => void;
-			isLoaded: boolean;
-		};
-		siteConfig: any;
-		hljs?: {
-			highlightElement: (element: HTMLElement) => void;
-		};
-		renderMermaidDiagrams?: () => void;
-		tocInternalNavigation?: boolean;
 	}
-
-	var Fancybox: {
-		bind: (selector: string, options?: any) => void;
-		unbind: (selector: string) => void;
-	} | undefined;
 }
 
 interface SearchResult {
@@ -67,5 +56,3 @@ interface SearchResult {
 	raw_url?: string;
 	sub_results?: SearchResult[];
 }
-
-export { SearchResult };

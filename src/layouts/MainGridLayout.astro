@@ -1,293 +1,133 @@
 ---
-import FloatingControls from "@components/control/FloatingControls.astro";
-import { SidebarTOC } from "@components/features/toc";
-import Banner from "@components/layout/Banner.astro";
-import RightSideBar from "@components/layout/RightSideBar.astro";
-import FullscreenWallpaper from "@components/misc/FullscreenWallpaper.astro";
-import IconifyLoader from "@components/misc/IconifyLoader.astro";
-import Footer from "@components/organisms/footer/Footer.astro";
-import Navbar from "@components/organisms/navigation/Navbar.astro";
-import SideBar from "@components/widgets/sidebar/SideBar.astro";
-import type { MarkdownHeading } from "astro";
-import { Icon } from "astro-icon/components";
-
-import { fullscreenWallpaperConfig, siteConfig } from "../config";
-import { BANNER_HEIGHT } from "../constants/constants";
+import BannerStage from "@components/organisms/BannerStage.astro";
+import CategoryBar from "@components/organisms/CategoryBar.astro";
+import ContextMenu from "@components/organisms/ContextMenu.svelte";
+import FloatingControls from "@components/organisms/FloatingControls.astro";
+import Footer from "@components/organisms/Footer.astro";
+import RouteProgress from "@components/organisms/RouteProgress.svelte";
+import SideBar from "@components/organisms/SideBar.astro";
+import SiteNavigationDrawer from "@components/organisms/SiteNavigationDrawer.svelte";
+import TopAppBar from "@components/organisms/TopAppBar.astro";
 import {
-	calculateGridLayout,
-	getMainPanelTop,
-	getTransparencyClass,
-	shouldEnableTransparency,
-} from "../utils/grid-layout-utils";
-import { widgetManager } from "../utils/widget-manager";
+	generateGridClasses,
+	generateMainContentClasses,
+	generatePrimarySidebarClasses,
+	generateSecondarySidebarClasses,
+	getResponsiveSidebarConfig,
+	isDualColumn,
+} from "@utils/responsive-utils";
+import type { MarkdownHeading } from "astro";
+import { contextMenuConfig } from "@/config";
+import type { SidebarPage } from "@/types/sidebarConfig";
 import Layout from "./Layout.astro";
-import GridScripts from "./partials/GridScripts.astro";
 
 interface Props {
 	title?: string;
 	banner?: string;
+	ogImage?: string;
 	description?: string;
+	/** Banner 可选日期，使用 YYYY-MM-DD 等可直接写入 time[datetime] 的值。 */
+	bannerDate?: string;
 	lang?: string;
 	setOGTypeArticle?: boolean;
-	postSlug?: string;
 	headings?: MarkdownHeading[];
+	/** 文章页所属分类名，透传给 CategoryBar 做弱高亮 */
+	postCategory?: string;
+	/** 当前页面标识符（SidebarPage），透传给 SideBar 做 pages 过滤，并输出到
+	 *  #swup-container 的 data-current-page——Swup 替换容器时同步该属性，
+	 *  侧栏据此在站内导航后重新过滤 */
+	page?: SidebarPage;
+	hasComments?: boolean;
 }
 
 const {
 	title,
 	banner,
+	ogImage,
 	description,
+	bannerDate,
 	lang,
 	setOGTypeArticle,
-	postSlug,
 	headings = [],
+	postCategory,
+	page,
+	hasComments,
 } = Astro.props;
-const hasBannerCredit = siteConfig.banner.credit.enable;
-const hasBannerLink = !!siteConfig.banner.credit.url;
 
-// 检查是否为首页
-const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
-// 手机端非首页不显示banner的CSS类
-const mobileNonHomeBannerClass = !isHomePage ? "mobile-hide-banner" : "";
-
-// 计算主内容区域位置
-const finalMainPanelTop = getMainPanelTop(
-	siteConfig.wallpaperMode.defaultMode,
-	BANNER_HEIGHT,
-);
-
-// 计算网格布局
-const {
-	gridCols,
-	sidebarClass,
-	rightSidebarClass,
-	mainContentClass,
-	sidebarPresence,
-	mobileShowSidebar,
-	tabletShowSidebar,
-	desktopShowSidebar,
-} = calculateGridLayout({
-	siteConfig,
-	widgetManager,
-});
-
-const { hasRightSidebarComponents, hasMobileDrawerComponents } =
-	sidebarPresence;
-
-// 半透明效果
-const shouldEnable = shouldEnableTransparency(
-	siteConfig.wallpaperMode.defaultMode,
-);
-const transparentClass = getTransparencyClass(shouldEnable);
-
-// 布局模式
-const defaultPostListLayout = siteConfig.postListLayout?.defaultMode || "list";
+// 响应式侧栏配置（数据驱动布局）
+const sidebarResponsive = getResponsiveSidebarConfig();
+const gridClasses = generateGridClasses(sidebarResponsive);
+const sidebarClasses = generatePrimarySidebarClasses(sidebarResponsive);
+const secondarySidebarClasses =
+	generateSecondarySidebarClasses(sidebarResponsive);
+const mainContentClasses = generateMainContentClasses(sidebarResponsive);
 ---
 
-<Layout
-	title={title}
-	banner={banner}
-	description={description}
-	lang={lang}
-	setOGTypeArticle={setOGTypeArticle}
-	postSlug={postSlug}
->
-	<GridScripts
-		navbarTransparentMode={siteConfig.banner?.navbar?.transparentMode ||
-			"semi"}
-		defaultWallpaperMode={siteConfig.wallpaperMode.defaultMode}
-		defaultPostListLayout={siteConfig.postListLayout?.defaultMode || "list"}
-		BANNER_HEIGHT={BANNER_HEIGHT}
-		pageScaling={siteConfig.pageScaling}
+<Layout title={title} banner={banner} ogImage={ogImage} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} page={page}>
+
+<!-- Navbar -->
+<slot slot="head" name="head"></slot>
+<header id="top-row" class="z-50 pointer-events-none relative transition-all duration-700 max-w-[var(--page-width)] px-0 md:px-4 mx-auto" class:list={[""]}>
+    <div id="navbar-wrapper" class="pointer-events-auto sticky top-0 transition-all">
+        <TopAppBar></TopAppBar>
+    </div>
+</header>
+
+<!-- Banner -->
+<BannerStage page={page} title={title} description={description} date={bannerDate} />
+
+<!-- Main content -->
+<div id="main-layout" class="absolute w-full z-30 pointer-events-none">
+    <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
+    <div class="relative max-w-[var(--page-width)] mx-auto pointer-events-auto">
+		<div id="main-grid" class:list={["transition duration-[var(--m3e-duration-long)] w-full left-0 right-0 grid grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4", gridClasses]}>
+			<SideBar class={sidebarClasses} currentPage={page} headings={headings}></SideBar>
+			{isDualColumn(sidebarResponsive) && (
+				<SideBar id="sidebar-secondary" column="secondary" class={secondarySidebarClasses} currentPage={page} headings={headings}></SideBar>
+			)}
+
+            <!-- 主内容列：分类导航栏静态渲染（位于 Swup 容器外），
+                 页面切换时保持固定不重渲染；仅内容区随导航替换 -->
+            <div id="main-content-column" class={mainContentClasses.replace("transition-swup-fade", "").trim()}>
+                <CategoryBar currentPostCategory={postCategory}></CategoryBar>
+                <main
+                    id="swup-container"
+                    data-current-post-category={postCategory || ""}
+                    data-current-page={page}
+                    data-has-comments={hasComments ? "true" : "false"}
+                    data-banner-title={title || ""}
+                    data-banner-description={description || ""}
+                    data-banner-date={bannerDate || ""}
+                    class="transition-swup-fade"
+                >
+                    <div id="content-wrapper" class="onload-animation">
+                        <!-- the overflow-hidden here prevent long text break the layout-->
+                        <!-- make id different from windows.swup global property -->
+                        <slot></slot>
+                        <div class="footer col-span-2 onload-animation hidden lg:block">
+                            <Footer></Footer>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <div class="footer col-span-2 onload-animation block lg:hidden">
+                <Footer></Footer>
+            </div>
+        </div>
+
+        <FloatingControls page={page} headings={headings} hasComments={hasComments} />
+        <RouteProgress client:load />
+    </div>
+</div>
+
+<SiteNavigationDrawer client:load />
+{contextMenuConfig.enable && (
+	<ContextMenu
+		actions={contextMenuConfig.actions}
+		pages={contextMenuConfig.pages}
+		client:load
 	/>
+)}
 
-	<!-- 全屏壁纸 - 始终渲染，通过 JS 控制显示隐藏 -->
-	<FullscreenWallpaper config={fullscreenWallpaperConfig} />
-
-	<!-- 全局图标加载器 -->
-	<IconifyLoader />
-
-	<!-- Navbar -->
-	<slot slot="head" name="head" />
-	<div
-		id="top-row"
-		class="z-50 pointer-events-none relative transition-all duration-700 max-w-(--page-width) px-0 md:px-4 mx-auto"
-		class:list={[""]}
-	>
-		<div
-			id="navbar-wrapper"
-			class="pointer-events-auto sticky top-0 transition-all"
-		>
-			<Navbar />
-		</div>
-	</div>
-
-	<!-- Banner 组件 -->
-	<Banner
-		mobileNonHomeBannerClass={mobileNonHomeBannerClass}
-		showTextOverlay={isHomePage &&
-			(siteConfig.banner.homeText?.enable ?? false)}
-	/>
-
-	<!-- Main content -->
-	<div
-		class={`absolute w-full z-30 pointer-events-none ${mobileNonHomeBannerClass ? "mobile-main-no-banner" : ""} ${siteConfig.wallpaperMode.defaultMode === "none" ? "no-banner-layout" : ""} ${transparentClass}`}
-		style={`top: ${finalMainPanelTop}`}
-	>
-		<!-- The pointer-events-none here prevent blocking the click event of the TOC -->
-		<div class="relative max-w-(--page-width) mx-auto pointer-events-auto">
-			<div
-				id="main-grid"
-				class={`transition duration-700 w-full left-0 right-0 grid ${gridCols} grid-rows-none md:grid-rows-[auto] mx-auto gap-4 px-2 md:px-4 ${!mobileShowSidebar || !hasMobileDrawerComponents ? "mobile-no-sidebar" : ""} ${hasRightSidebarComponents ? "mobile-both-sidebar" : ""}`}
-				data-layout-mode={defaultPostListLayout}
-			>
-				<!-- Banner image credit -->
-				{
-					hasBannerCredit && (
-						<a
-							href={siteConfig.banner.credit.url}
-							id="banner-credit"
-							target="_blank"
-							rel="noopener"
-							aria-label="Visit image source"
-							class:list={[
-								"group onload-animation transition-all absolute flex justify-center items-center rounded-full " +
-									"px-3 right-4 -top-13 bg-black/60 hover:bg-black/70 h-9",
-								{
-									"hover:pr-9 active:bg-black/80":
-										hasBannerLink,
-								},
-							]}
-						>
-							<Icon
-								class="text-white/75 text-[1.25rem] mr-1"
-								name="material-symbols:copyright-outline-rounded"
-							/>
-							<div class="text-white/75 text-xs">
-								{siteConfig.banner.credit.text}
-							</div>
-							<Icon
-								class:list={[
-									"transition absolute text-[oklch(0.75_0.14_var(--hue))] right-4 text-[0.75rem] opacity-0",
-									{
-										"group-hover:opacity-100":
-											hasBannerLink,
-									},
-								]}
-								name="fa7-solid:arrow-up-right-from-square"
-							/>
-						</a>
-					)
-				}
-
-				{/* 侧边栏和主内容区域容器 */}
-				<div class="contents">
-					{
-						(mobileShowSidebar ||
-							tabletShowSidebar ||
-							desktopShowSidebar) && (
-							<SideBar
-								class={`${sidebarClass} ${transparentClass}`}
-								headings={headings}
-							/>
-						)
-					}
-
-					{
-						hasRightSidebarComponents && (
-							<div
-								class={`right-sidebar-container ${rightSidebarClass} ${transparentClass}`}
-							>
-								<RightSideBar headings={headings} />
-							</div>
-						)
-					}
-				</div>
-
-				<main
-					id="swup-container"
-					class={`${mainContentClass} transition-main`}
-				>
-					<div
-						id="content-wrapper"
-						class="onload-animation transition-leaving"
-					>
-						<!-- the overflow-hidden here prevent long text break the layout-->
-						<!-- make id different from windows.swup global property -->
-						<slot />
-						<div
-							class="footer col-span-full onload-animation hidden lg:block"
-						>
-							<Footer />
-						</div>
-					</div>
-				</main>
-
-				<div
-					class="footer col-span-full onload-animation block lg:hidden"
-				>
-					<Footer />
-				</div>
-			</div>
-
-			<FloatingControls headings={headings} />
-		</div>
-	</div>
-
-	<style>
-		.right-sidebar-container {
-			align-self: start;
-			display: contents;
-		}
-
-		.right-sidebar-container #right-sidebar {
-			height: fit-content;
-		}
-	</style>
-
-	<!-- 侧边栏TOC模式 -->
-	{
-		siteConfig.toc.enable && siteConfig.toc.desktopSidebar && (
-			<div class="absolute w-full z-0 hidden 2xl:block">
-				<div class="relative max-w-(--page-width) mx-auto">
-					<div
-						id="toc-wrapper"
-						class:list={[
-							"hidden lg:block transition absolute top-0 w-(--toc-width) items-center",
-							"-right-(--toc-width)",
-							{
-								"toc-hide":
-									siteConfig.wallpaperMode.defaultMode ===
-									"banner",
-							},
-						]}
-					>
-						<div
-							id="toc-inner-wrapper"
-							class="fixed top-14 w-(--toc-width) max-h-[calc(100vh-10rem)] overflow-x-hidden overflow-y-auto"
-						>
-							<div
-								id="toc-container"
-								class="w-full transition-swup-fade"
-							>
-								<SidebarTOC headings={headings} />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		)
-	}
-
-	<!-- 保留此元素以确保Swup正常工作 -->
-	{
-		(!siteConfig.toc.enable || !siteConfig.toc.desktopSidebar) && (
-			<div id="toc-container" class="hidden" />
-		)
-	}
 </Layout>
-
-<!--
-  Banner 和网格布局样式已提取到 src/styles/banner.css
-  该文件通过 src/styles/main.css 导入
--->

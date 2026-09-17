@@ -1,368 +1,229 @@
-# 🌸 Mizuki
-<img align='right' src='logo.png' width='200px' alt="Mizuki logo">
+<div align="center">
 
-[Astro](https://astro.build) で構築された高度な機能と美しいデザインを備えた、モダンで機能が豊富な静的ブログテンプレート。
+<img src="./public/logo/icon.webp" width="88" height="88" alt="Shirone ロゴ" />
 
-[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
-[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-5.15.3-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](https://www.typescriptlang.org/)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
+# Shirone
 
-[**🖥️ ライブデモ**](https://mizuki.mysqil.com/) | [**📝 ドキュメント**](https://docs.mizuki.mysqil.com/)
+**Material 3 Expressive を基盤とした、表現豊かなアニメ風ブログテーマ。**
 
-🌏 **README の言語:**
-[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+長文の執筆や個人コレクション、サイトを自分らしくする細部のための、落ち着いた読書空間です。
 
-包括的なドキュメントですぐに始めましょう。テーマのカスタマイズや機能の設定、本番環境へのデプロイなどブログを完成させるために必要なすべての情報がドキュメントに網羅されています。
+[デモ](https://shirone.mysqil.com/) · [ドキュメント](https://docs.shirone.mysqil.com/) · [問題を報告](https://github.com/LyraVoid/Shirone/issues)
 
-[📚 完全なドキュメントを読む](https://docs.mizuki.mysqil.com/) →
+[English](./README.md) · [简体中文](./README.zh-CN.md) · [繁體中文](./README.zh-TW.md) · [日本語](./README.ja.md)
 
-![Mizuki Preview](./README.webp)
+![Node.js >= 22.12](https://img.shields.io/badge/Node.js-%3E%3D22.12-5FA04E?logo=nodedotjs&logoColor=white)
+![pnpm 9](https://img.shields.io/badge/pnpm-9-F69220?logo=pnpm&logoColor=white)
+![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-3DA639.svg)](./LICENSE)
+
+</div>
+
+> [!IMPORTANT]
+> **まず[オンラインドキュメント](https://docs.shirone.mysqil.com/)を参照してください。** テーマ設定、コンテンツ運用、デプロイの主要な入口です。
+
+## ここから始める
+
+[オンラインドキュメント](https://docs.shirone.mysqil.com/)が、テーマ設定、コンテンツ管理、デプロイの入口です。このリポジトリにはテーマ本体が含まれています。個人コンテンツを分離して管理する場合は [Shirone-Content](https://github.com/LyraVoid/Shirone-Content) を利用してください。
+
+## 実測パフォーマンス
+
+現在のリファレンス計測では、Performance、Accessibility、Best Practices、SEO がすべて 100、Agentic browsing も 3/3 でした。詳細なパフォーマンス指標も今回の計測では 100 です。実際の結果はホスティング環境、コンテンツ、ネットワーク条件によって変わります。
+
+![Shirone パフォーマンスベンチマーク](./Benchmark.webp)
+
+![Shirone のホームページ](./public/assets/projects/shirone.webp)
 
 <table>
   <tr>
-    <td><img alt="" src="docs/image/1.webp"></td>
-    <td><img alt="" src="docs/image/2.webp"></td>
-    <td><img alt="" src="docs/image/3.webp"></td>
+    <td align="center"><strong>色彩の魔法</strong><br><sub>光や気分、選択に応じて変化する HCT ダイナミックカラー。</sub></td>
+    <td align="center"><strong>軽やかな旅</strong><br><sub>Swup がページを滑らかにつなぎ、周囲の世界をそっと保ちます。</sub></td>
+  </tr>
   <tr>
-  <tr>
-    <td><img alt="" src="docs/image/4.webp"></td>
-    <td><img alt="" src="docs/image/5.webp"></td>
-    <td><img alt="" src="docs/image/6.webp"></td>
-  <tr>
+    <td align="center"><strong>物語の魔導書</strong><br><sub>Markdown、MDX、数式、図表、コード、画像を一つの執筆フローへ。</sub></td>
+    <td align="center"><strong>静かな守り</strong><br><sub>SSR とアクセシビリティを優先し、無効な機能は負担を残しません。</sub></td>
+  </tr>
 </table>
 
-## 🚀 NEW: 自動解像度スケーリング
+## ✦ すべての物語に、小さな魔法を
 
-> **🎯 スマート解像度アルゴリズム** - デバイスの解像度に応じてレイアウトをインテリジェントに適応、あらゆるデバイスでの閲覧体験を提供します。
+Shirone は Astro 7、Svelte 5、Tailwind CSS 4、Stylus で構築された静的な個人ブログテーマです。ここでいう魔法は、華やかな演出を重ねることではありません。光や気分に寄り添って変わる色、空気を途切れさせないページ遷移、そして自分だけの小さな居場所を少しずつ息づかせる細部に宿ります。
 
-🌏 **README の言語:**
-[**English**](./README.md) /
-[**中文**](./README.zh.md) /
-[**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+その柔らかな表情を支えるのは、デザイントークンで駆動する Material 3 Expressive コンポーネントシステムです。コンテンツは SSR を優先して出力し、Swup による滑らかなサイト内遷移ではページの外側にあるアプリケーションシェルが維持されます。
 
-### 🔧 コンポーネント構成システムを再構築
-- **統合された構成アーキテクチャ:** 全く新しいモジュール型コンポーネント構成システムにより、動的なコンポーネント管理と順序設定に対応
-- **構成駆動型のコンポーネントの読み込み:** サイドバーコンポーネントを再構築し、完全に構成ベースのコンポーネントの読み込みメカニズムを実装しています
-- **統合コントロールの切り替え:** 音楽プレーヤーとお知らせのコンポーネントを独立した有効化切り替えを削除、sidebarLayoutConfig を通じた統合コントロールを実現しています
-- **適応型レスポンシブレイアウト:** コンポーネントはレスポンシブレイアウトに対応しており、デバイスの種類に応じた表示を自動調整します
+長文記事だけでなく、モーメント、アルバム、アニメの視聴記録、リンク、プロジェクト、スキル、タイムラインなどの個人コンテンツも掲載できます。
 
-### 📐 レイアウトシステムを最適化
-- **動的なサイドバーの位置調整:** 自動なレイアウト適応による、左右サイドバーの切り替えに対応
-- **インテリジェントな記事ディレクトリの位置付け:** サイドバーが右側にある場合に自動で左側に移動で、より良い読書体験を提供します
-- **グリッドレイアウトの改善:** CSS グリッドレイアウトを最適化でコンテナ幅の異常問題を解決済み
+## ✦ 魔導書に込めたもの
 
-### 🎛️ 構成ファイル形式の標準化
-- **標準化された構成形式:** 統一されたコンポーネント設定ファイル形式仕様を作成
-- **型安全性:** 構成の型安全性を確保するための TypeScript 型な定義
-- **拡張性:** カスタムコンポーネントタイプと構成オプションに対応
+- HCT による動的カラーパレットと、Material 3 / Material 3 Expressive 仕様
+- ライト・ダークテーマ、バナー・単色背景、任意のテクスチャ、閲覧者ごとの表示設定
+- シングルまたはデュアルサイドバーを選べるレスポンシブレイアウト
+- Swup によるページ遷移、永続シェル、ルート進捗表示、モーション低減への対応
+- Markdown / MDX、数式、Mermaid、注釈ブロック、拡張コードブロック、画像ギャラリー
+- Pagefind による全文検索、RSS、Sitemap
+- 目次、関連記事、共有、記事暗号化、任意のコメント機能
+- アーカイブ、カテゴリー、タグ、リンク、モーメント、アニメ、アルバム、プロジェクト、スキル、タイムラインの各ページ
+- 10 種類の UI 言語を内蔵
+- SSR 優先、キーボード操作への配慮、アクセシビリティテスト
+- 任意機能はゼロ負担を原則とし、無効時には外部リクエスト、DOM、レイアウトシフト、メインバンドルへのコード追加が発生しません
 
-### 🧹 コードの最適化
-- **テストファイルのクリーンアップ:** 未使用なテスト構成と依存関係を削除でプロジェクトのサイズを削減
-- **コード構造の最適化:** コンポーネントアーキテクチャの改善でコードの保守性を向上
-- **パフォーマンスを向上:** コンポーネントの読み込みロジックを最適化し、ページレンダリングパフォーマンスを向上
+## クイックスタート
 
----
+### 必要な環境
 
-## ✨ 機能
+- [Node.js](https://nodejs.org/) 22.12 以上
+- [pnpm](https://pnpm.io/) 9.x（リポジトリでは `pnpm@9.14.4` を固定）
 
-### 🎨 デザインとインターフェース
-- [x] [Astro](https://astro.build)と[Tailwind CSS](https://tailwindcss.com)で構築
-- [x] [Swup](https://swup.js.org/)を使用したスムーズなアニメーションとページ遷移
-- [x] システム設定検出機能付きのライト/ダークテーマ切り替え
-- [x] カスタマイズ可能なテーマカラーと動的バナーカルーセル
-- [x] カルーセル、透明度、ぼかし効果を備えた全画面背景画像
-- [x] すべてのデバイスに対応した完全レスポンシブデザイン
-- [x] JetBrains Monoフォントによる美しいタイポグラフィ
-
-### 🔍 コンテンツと検索
-- [x] [Pagefind](https://pagefind.app/)ベースの高度な検索機能
-- [x] 構文強調表示付きの[拡張Markdown機能](#-markdown拡張機能)
-- [x] 自動スクロール機能付きのインタラクティブな目次
-- [x] RSSフィード生成
-- [x] 読書時間の推定
-- [x] 記事のカテゴリ化とタグシステム
-
-
-
-### 📱 特別ページ
-- [x] **アニメトラッキングページ** - アニメの視聴進捗と評価を追跡
-- [x] **友達ページ** - 友達のウェブサイトを美しいカードで紹介
-- [x] **日記ページ** - ソーシャルメディアのような生活の瞬間を共有
-- [x] **アーカイブページ** - 記事の整理されたタイムラインビュー
-- [x] **アバウトページ** - カスタマイズ可能な自己紹介
-
-### 🛠 技術的特徴
-- [x] [Expressive Code](https://expressive-code.com/)ベースの**拡張コードブロック**
-- [x] KaTeXレンダリングによる**数式サポート**
-- [x] PhotoSwipeギャラリー統合による**画像最適化**
-- [x] サイトマップとメタタグを含む**SEO最適化**
-- [x] 遅延読み込みとキャッシュによる**パフォーマンス最適化**
-- [x] Twikoo統合による**コメントシステム**
-
-## 🚀 クイックスタート
-
-### 📦 インストール
-
-1. **リポジトリをクローン：**
-   ```bash
-   git clone https://github.com/matsuzaka-yuki/mizuki.git
-   cd mizuki
-   ```
-
-2. **依存関係をインストール：**
-   ```bash
-   # pnpmがインストールされていない場合はインストール
-   npm install -g pnpm
-   
-   # プロジェクトの依存関係をインストール
-   pnpm install
-   ```
-
-3. **ブログを設定：**
-   - `src/config.ts`を編集してブログ設定をカスタマイズ
-   - サイト情報、テーマカラー、バナー画像、ソーシャルリンクを更新
-   - 機能ページの機能を設定
-
-4. **開発サーバーを起動：**
-   ```bash
-   pnpm dev
-   ```
-   ブログは`http://localhost:4321`で利用可能になります
-
-### 📝 コンテンツ管理
-
-- **新しい投稿を作成：** `pnpm new-post <ファイル名>`
-- **投稿を編集：** `src/content/posts/`内のファイルを修正
-- **特別ページをカスタマイズ：** `src/content/spec/`内のファイルを編集
-- **画像を追加：** 画像を`src/assets/`または`public/`に配置
-
-### 🚀 デプロイ
-
-ブログを任意の静的ホスティングプラットフォームにデプロイ：
-
-- **Vercel：** GitHubリポジトリをVercelに接続
-- **Netlify：** GitHubから直接デプロイ
-- **GitHub Pages：** 付属のGitHub Actionsワークフローを使用
-- **Cloudflare Pages：** リポジトリを接続
-
-デプロイ前に、`src/config.ts`の`siteURL`を更新してください。
-
-- **環境変数設定（オプション）：** `.env.example`を参照して設定してください
-**推奨されません**`.env`ファイルをGitにコミットすること。`.env`はローカルデバッグまたはビルドのみで使用する必要があります。クラウドプラットフォームにデプロイする場合、プラットフォームの`環境変数`設定経由で設定することをお勧めします。
-
-## 📝 投稿フロントマター形式
-
-```yaml
----
-title: 私の最初のブログ投稿
-published: 2023-09-09
-description: これは私の新しいブログの最初の投稿です。
-image: ./cover.jpg
-tags: [タグ1, タグ2]
-category: フロントエンド
-draft: false
-pinned: false
-comment: true
-lang: ja      # 記事の言語がconfig.tsのサイト言語と異なる場合のみ設定
----
-```
-
-### フロントマターフィールドの説明
-
-- **title**: 記事のタイトル（必須）
-- **published**: 公開日（必須）
-- **description**: SEOとプレビュー用の記事の説明
-- **image**: カバー画像のパス（記事ファイルからの相対パス）
-- **tags**: カテゴリ化のためのタグの配列
-- **category**: 記事のカテゴリ
-- **draft**: 本番環境で記事を非表示にするには`true`に設定
-- **pinned**: 記事を上部に固定するには`true`に設定
-- **comment**: 記事のコメントエリアを有効にするには`true`に設定（グローバルコメント機能を有効にする必要があります）
-- **lang**: 記事の言語（サイトのデフォルト言語と異なる場合のみ設定）
-
-### ピン留め記事機能
-
-`pinned`フィールドを使用すると、重要な記事をブログリストの上部に固定できます。ピン留めされた記事は、公開日に関係なく、常に通常の記事の前に表示されます。
-
-**使用方法：**
-```yaml
-pinned: true  # この記事を上部に固定
-pinned: false # 通常の記事（デフォルト）
-```
-
-**ソートルール：**
-1. ピン留め記事が最初に表示され、公開日でソート（最新が先）
-2. 通常の記事がその後に表示され、公開日でソート（最新が先）
-
-### 記事レベルのコメント制御
-
-`comment`フィールドを使用すると、各記事のコメントエリアの有効化と無効化を個別に制御できます。
-
-**使用方法：**
-```yaml
-comment: true  # コメントを有効にする（デフォルト）
-comment: false # コメントを無効にする
-```
-
-**注意：**
-この機能を使用するには、まず`src/config.ts`でコメントシステムを有効にする必要があります。
-
-## 🧩 Markdown拡張機能
-
-Mizukiは標準のGitHub Flavored Markdownを超える拡張機能をサポートしています：
-
-### 📝 拡張ライティング
-- **コールアウト：** `> [!NOTE]`、`> [!TIP]`、`> [!WARNING]`などを使用して美しい注釈ボックスを作成
-- **数式：** `$インライン$`と`$$ブロック$$`構文を使用してLaTeX数式を記述
-- **コード強調表示：** 行番号とコピーボタン付きの高度な構文強調表示
-- **GitHubカード：** `::github{repo="ユーザー/リポジトリ"}`を使用してリポジトリカードを埋め込み
-
-### 🎨 ビジュアル要素
-- **画像ギャラリー：** 画像表示のための自動PhotoSwipe統合
-- **折りたたみセクション：** 展開可能なコンテンツブロックを作成
-- **カスタムコンポーネント：** 特別なディレクティブでコンテンツを強化
-
-### 📊 コンテンツ整理
-- **目次：** 見出しから自動生成され、スムーズスクロールをサポート
-- **読書時間：** 自動計算して表示
-- **記事メタデータ：** カテゴリとタグを含む豊富なフロントマターサポート
-
-## ⚡ コマンド
-
-すべてのコマンドはプロジェクトルートから実行します：
-
-| コマンド                    | アクション                                |
-|:---------------------------|:----------------------------------------|
-| `pnpm install`             | 依存関係をインストール                     |
-| `pnpm dev`                 | `localhost:4321`でローカル開発サーバーを起動 |
-| `pnpm build`               | 本番サイトを`./dist/`にビルド              |
-| `pnpm preview`             | デプロイ前にビルドをローカルでプレビュー     |
-| `pnpm check`               | Astroエラーチェックを実行                  |
-| `pnpm format`              | Prettierでコードをフォーマット                |
-| `pnpm lint`                | コードの問題をチェックして修正              |
-| `pnpm new-post <ファイル名>` | 新しいブログ投稿を作成                     |
-| `pnpm astro ...`           | Astro CLIコマンドを実行                   |
-
-## 🎯 設定ガイド
-
-### 🔧 基本設定
-
-`src/config.ts`を編集してブログをカスタマイズ：
-
-```typescript
-export const siteConfig: SiteConfig = {
-  title: "あなたのブログ名",
-  subtitle: "あなたのブログの説明",
-  lang: "ja", // または "zh-CN"、"en" など
-  themeColor: {
-    hue: 210, // 0-360、テーマの色相
-    fixed: false, // テーマカラーピッカーを非表示
-  },
-  banner: {
-    enable: true,
-    src: ["assets/banner/1.webp"], // バナー画像
-    carousel: {
-      enable: true,
-      interval: 0.8, // 秒
-    },
-  },
-};
-```
-
-### 📱 機能ページの設定
-
-- **アニメページ：** `src/pages/anime.astro`でアニメリストを編集
-- **友達ページ：** `src/content/spec/friends.md`で友達データを編集
-- **日記ページ：** `src/pages/diary.astro`で瞬間を編集
-- **アバウトページ：** `src/content/spec/about.md`でコンテンツを編集
-
-### 📦 コードとコンテンツの分離（オプション）
-
-Mizukiは、コードとコンテンツを2つの独立したリポジトリに分けて管理することをサポートしており、チーム协作や大規模プロジェクトに適しています。
-
-**簡単選択**:
-
-| 使用シナリオ | 設定方法 | 対象者 |
-|---------|---------|---------|
-| 🆕 **ローカルモード**（デフォルト） | 設定不要、そのまま使用 | 初心者、個人ブログ |
-| 🔧 **分離モード** | `ENABLE_CONTENT_SYNC=true`を設定 | チーム协作、プライベートコンテンツ |
-
-**ワンクリック有効化/無効化**:
+### ローカルで起動する
 
 ```bash
-# 方法 1: ローカルモード（初心者向け）
-# .envファイルを作成せず、そのまま実行
+git clone https://github.com/LyraVoid/Shirone.git
+cd Shirone
+corepack enable
+pnpm install
 pnpm dev
-
-# 方法 2: コンテンツ分離モード
-# 1. 設定ファイルをコピー
-cp .env.example .env
-
-# 2. .envを編集してコンテンツ分離を有効化
-ENABLE_CONTENT_SYNC=true
-CONTENT_REPO_URL=https://github.com/your-username/Mizuki-Content.git
-
-# 3. コンテンツを同期
-pnpm run sync-content
 ```
 
-**機能**:
-- ✅ パブリックおよびプライベートリポジトリをサポート 🔐
-- ✅ ワンクリックで有効化/無効化、コード修正不要
-- ✅ 自動同期、開発前に最新コンテンツを自動プル
+ブラウザーで `http://localhost:4321` を開きます。
 
-📖 **詳細設定**: [コンテンツ分離完全ガイド](docs/CONTENT_SEPARATION.md)
-🔄 **移行チュートリアル**: [シングルリポジトリから分離モードへ移行](docs/MIGRATION_GUIDE.md)
-📚 **その他のドキュメント**: [ドキュメントインデックス](docs/README.md)
+Windows PowerShell の実行ポリシーでスクリプトがブロックされる場合は、`pnpm.cmd` と `npx.cmd` を使用してください。
 
-## ✏️ 貢献
+### npm パッケージを使う
 
-貢献は歓迎します！お気軽に問題やプルリクエストを提出してください。
+テーマのリポジトリをクローンしたくない場合は、`shirones` npm パッケージとしてインストールし、空のフォルダーからブログを初期化できます。Astro スターターも手動の依存関係インストールも不要です。
 
-1. リポジトリをフォーク
-2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. 変更をコミット (`git commit -m 'Add some amazing feature'`)
-4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
-5. プルリクエストを開く
+```bash
+mkdir my-blog
+cd my-blog
+npx shirones init   # package.json を書き、astro・テーマ・peer 依存をインストール
+pnpm dev
+```
 
-## 📄 ライセンス
+`init` は `astro.config.mjs`、`shirones/` 配下の型付き設定、サンプルコンテンツと静的アセットを生成します。`src/components/` と `src/layouts/` でテーマのコンポーネントを上書きすることもできます。いつでも `npx shirones init` を再実行して差分を確認できます（報告のみで何も変更しません）。`npx shirones init --update` で不足ファイルを復元し、`--force` でテンプレートから再初期化します。詳しくは [npm パッケージモード](./docs/npm-package-mode.md) と [shirones リポジトリ](https://github.com/yCENzh/shirones) を参照してください。
 
-このプロジェクトはApacheライセンス2.0の下でライセンスされています - 詳細は[LICENSE](./LICENSE)ファイルをご覧ください。
+### サイトをカスタマイズする
 
-### 元のプロジェクトライセンス
+1. `src/config/siteConfig.ts` で公開 URL、タイトル、言語、テーマ、バナー、表示設定を変更します。
+2. `src/config/profileConfig.ts` と `src/config/navBarConfig.ts` でプロフィールとナビゲーションを更新します。
+3. `src/config/` にある機能別の設定ファイルを確認します。初期値と選択肢は各ファイルのコメントに記載されています。
+4. `src/content/`、`src/data/`、`public/` にあるサンプル記事、個人データ、メディアを置き換えます。
+5. `pnpm new-post <filename>` で記事を作成し、`src/content/posts/` で編集します。
 
-このプロジェクトは[Fuwari](https://github.com/saicaca/fuwari)に基づいて開発され、元のプロジェクトはMITライセンスを使用しています。MITライセンスの要件に従い、元の著作権表示と許可通知はLICENSE.MITファイルに含まれています。
+設定全体の仕様は [`src/config/README.md`](./src/config/README.md) を参照してください。
 
-## 🙏 謝辞
+## 公式連携リポジトリ
 
-- オリジナルの[Fuwari](https://github.com/saicaca/fuwari)テンプレートをベースにしています
-- [Yukina](https://github.com/WhitePaper233/yukina) - 美しくエレガントなブログテンプレートにインスパイアされました
-- 一部のデザインは [Firefly](https://github.com/CuteLeaf/Firefly) と [Twilight](https://github.com/spr-aachen/Twilight) テンプレートからインスピレーションを得ています
-- [Pio](https://github.com/Dreamer-Paul/Pio)を使用してかわいいLive2D看板娘プラグインを実装
-- [Astro](https://astro.build)と[Tailwind CSS](https://tailwindcss.com)で構築
-- アイコンは[Iconify](https://iconify.design/)から
+Shirone ではテーマのソースコード、個人サイトのコンテンツ、npm 公開の責務を分離しています。公式リポジトリはそれぞれ異なるワークフローに対応します。
 
-### 🌸 特別な感謝
+| リポジトリ | 用途 | 内容 |
+| --- | --- | --- |
+| [Shirone-Content](https://github.com/LyraVoid/Shirone-Content) | 外部コンテンツを使う二つのリポジトリ構成のブログ | 記事、モーメント、データ、メディア、`config/*.yaml` オーバーレイのためのコンテンツテンプレートです。Fork または clone して自分のリポジトリ（通常は非公開）に置き、このテーマリポジトリから参照します。[コンテンツ分離ガイド](./docs/content-separation/README.md)を参照してください。 |
+| [shirones](https://github.com/yCENzh/shirones) | `shirones` npm パッケージの保守と公開 | 手動のビルド・公開パイプラインです。ビルド時にこのリポジトリを取得し、テーマのソースコードは意図的に保存しません。通常のブログ利用者は `shirones` をインストールすればよく、このリポジトリを直接使う必要はありません。[npm パッケージモード](./docs/npm-package-mode.md)を参照してください。 |
 
-- **[Fuwari](https://github.com/saicaca/fuwari)** by saicaca - このプロジェクトのベースとなるオリジナルテンプレート。このような美しく機能的なテンプレートを作成していただきありがとうございます。
-- **[Yukina](https://github.com/WhitePaper233/yukina)** - このプロジェクトの形成に役立ったデザインのインスピレーションと創造性を提供してくれたことに感謝します。Yukinaは優れたデザイン原則とユーザーエクスペリエンスを示す、エレガントなブログテンプレートです。
-- **[Firefly](https://github.com/CuteLeaf/Firefly)** - 優れたレイアウトデザインのアイデアを提供していただきありがとうございます。デュアルサイドバーレイアウト、記事の2カラムグリッドレイアウト、およびいくつかのウィジェットのデザインと実装により、Mizukiのインターフェースがより豊かになりました。
-- **[Twilight](https://github.com/spr-aachen/Twilight)** - インスピレーションと技術的なサポートを提供していただきありがとうございます。Twilight の動的壁紙モード切り替えシステム、レスポンシブデザイン、およびトランジション効果は、Mizuki のユーザーエクスペリエンスを大幅に向上させました。
+## 主な設定ファイル
 
-## 🍀 コントリビューター
+| ファイル | 用途 |
+| --- | --- |
+| `src/config/siteConfig.ts` | サイト URL、識別情報、言語、動的配色、バナー、テクスチャ、目次、表示設定 |
+| `src/config/profileConfig.ts` | 作者プロフィールとソーシャルリンク |
+| `src/config/navBarConfig.ts` | メインナビゲーション |
+| `src/config/sidebarConfig.ts` | サイドバー構成、ウィジェット、ページフィルター |
+| `src/config/postListConfig.ts` | ページ分割とリスト/グリッド表示 |
+| `src/config/articleConfig.ts` | 更新通知、関連記事、記事共有 |
+| `src/config/commentConfig.ts` | 任意のコメントプロバイダー |
+| `src/config/musicConfig.ts` | ローカル、カスタム、Meting、混合方式の任意音楽ソース |
+| `src/config/animeConfig.ts` | アニメページとローカル/Bangumi/Bilibili スナップショット |
 
-このプロジェクトに貢献してくださったすべてのコントリビューターに感謝します。質問や提案がある場合は、[Issue](https://github.com/matsuzaka-yuki/Mizuki/issues)または[Pull Request](https://github.com/matsuzaka-yuki/Mizuki/pulls)を提出してください。
+## 記事を書く
 
-<a href="https://github.com/matsuzaka-yuki/Mizuki/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=matsuzaka-yuki/Mizuki" />
-</a>
+記事は `src/content/posts/` に配置し、Markdown と MDX を利用できます。最小限の Frontmatter は次のとおりです。
 
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=matsuzaka-yuki/Mizuki&type=Date)](https://star-history.com/#matsuzaka-yuki/Mizuki&Date)
+```yaml
 ---
+title: 最初の記事
+published: 2026-08-26
+description: 記事一覧やメタデータに表示する短い概要です。
+image: ./cover.webp
+tags: [Astro, ノート]
+category: 執筆
+draft: false
+---
+```
 
-⭐ このプロジェクトが役立つと思ったら、スターを付けることを検討してください！
+よく使う任意フィールドには `updated`、`pinned`、`comment`、`lang`、`encrypted`、`password`、`passwordHint`、`hideHomeContent` があります。画像にはリモート URL、`public/` を基準とした絶対パス、記事ファイルからの相対パスを指定できます。
+
+## コマンド
+
+| コマンド | 内容 |
+| --- | --- |
+| `pnpm dev` | 開発サーバーを起動 |
+| `pnpm new-post <filename>` | 新しい記事を作成 |
+| `pnpm format` | Biome でコードをフォーマット（コミット前に必須） |
+| `pnpm check` | Astro の診断を実行 |
+| `pnpm type-check` | TypeScript の検査を実行 |
+| `pnpm check:manifest` | コンポーネントマニフェストを検証 |
+| `pnpm test` | Playwright テストを実行 |
+| `pnpm build` | サイトと Pagefind インデックスを `dist/` に生成 |
+| `pnpm preview` | 本番ビルドをプレビュー |
+| `pnpm lighthouse` | デスクトップ向け本番監査を実行 |
+
+## デプロイ
+
+Shirone は静的な `dist/` ディレクトリを生成するため、Vercel、Netlify、GitHub Pages、その他の静的ホスティングサービスへデプロイできます。
+
+デプロイ前に `src/config/siteConfig.ts` の `site` と `base` を更新し、次のコマンドを実行します。
+
+```bash
+pnpm install --frozen-lockfile
+pnpm check
+pnpm type-check
+pnpm check:manifest
+pnpm build
+```
+
+ホスティング側ではビルドコマンドを `pnpm build`、出力ディレクトリを `dist` に設定します。詳しくは [`INDEX.md`](./INDEX.md) を参照してください。
+
+## ドキュメント
+
+- [`src/config/README.md`](./src/config/README.md) - 設定リファレンス
+- [`docs/m3e-standard.md`](./docs/m3e-standard.md) - デザイントークンとコンポーネント標準
+- [`docs/atomic-structure.md`](./docs/atomic-structure.md) - コンポーネント階層と依存ルール
+- [`docs/markdown-extensions.md`](./docs/markdown-extensions.md) - Markdown プラグイン、スタイル、キャッシュ、テスト規約
+- [`docs/sidebar-system.md`](./docs/sidebar-system.md) - サイドバー構成と Swup 同期
+- [`docs/on-demand-loading.md`](./docs/on-demand-loading.md) - 任意機能のゼロ負担実装
+- [`docs/font-system.md`](./docs/font-system.md) - フォント設定と本番用サブセット化
+
+## コントリビューション
+
+Issue と Pull Request を歓迎します。大きな機能追加やビジュアル変更に着手する前に、Issue または Discussion を作成してください。コードを提出する際は [`CONTRIBUTING.md`](./CONTRIBUTING.md) とリポジトリのルールを読み、コミット前に必ず `pnpm format` でフォーマットを実行し、Pull Request の目的を一つに絞り、Conventional Commits を使用してください。
+
+## 謝辞
+
+Shirone は [saicaca](https://github.com/saicaca) による [Fuwari](https://github.com/saicaca/fuwari) のリファクタリングから始まりました。現在の M3E デザインシステム、コンポーネント構成、各ページ機能、オーケストレーションは Shirone として開発されています。基盤を築いた Fuwari プロジェクトとコントリビューターの皆様に感謝します。
+
+## ともに歩む人たち
+
+一つひとつの貢献が、Shirone の魔導書に新しい一行を書き加えてくれます。この小さな世界を育ててくださる皆様に感謝します。
+
+<div align="center">
+  <a href="https://github.com/LyraVoid/Shirone/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=LyraVoid/Shirone" alt="Shirone のコントリビューター" />
+  </a>
+</div>
+
+## 星明かりの軌跡
+
+<div align="center">
+  <a href="https://star-history.com/#LyraVoid/Shirone&amp;Date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=LyraVoid/Shirone&amp;type=Date&amp;theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=LyraVoid/Shirone&amp;type=Date" />
+      <img alt="Shirone の Star History チャート" src="https://api.star-history.com/svg?repos=LyraVoid/Shirone&amp;type=Date" />
+    </picture>
+  </a>
+  <p><sub>一つの Star が、Shirone をもう少し遠くまで照らす小さな星屑になります。</sub></p>
+</div>
+
+## ライセンス
+
+Shirone は [MIT License](./LICENSE) のもとで公開されています。このリポジトリには、同ライセンスで必要とされる元の著作権表示が保持されています。

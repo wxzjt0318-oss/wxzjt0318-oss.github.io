@@ -1,6 +1,15 @@
 # build output
 dist/
 
+# integration cache (esbuild config bundles, plugin-mode font subsets)
+.shirones/
+
+# content repository working copy, provenance, and safe cleanup backups
+.content-src/
+.content-backup/
+content.lock.json
+Shirone-Content/
+
 # generated types
 .astro/
 
@@ -12,27 +21,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-logs/
-*.log
 
 # environment variables
 .env
 .env.production
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# content repository (independent mode)
-/content/
-*.backup
-
-# Large zip files
-*.zip
 
 # macOS-specific files
 .DS_Store
-Thumbs.db
 
 .vercel
 
@@ -42,29 +37,38 @@ yarn.lock
 
 # ide
 .idea
+
+# generated font subsets
+src/assets/fonts/.subset/
+
+# generated local icon collection
+src/generated/local-icon-collections.ts
 *.iml
-.vscode/
 
-# local agent state
-.devin/
+# anime snapshot data & downloaded covers
+src/data/anime-snapshots/*.json
+public/assets/anime/covers/*
+!public/assets/anime/covers/.gitkeep
 
-cache/
-fuwari/
-src/data/myself.ts
-src/pages/myself.astro
+# generated responsive moment thumbnails
+public/assets/moments/thumbnails/*
+!public/assets/moments/thumbnails/.gitkeep
 
-# Bangumi generated data
-src/data/bangumi-data.json
-.cache/
+# local tooling artifacts
+.zcode/
+.codex-*.log
+research/
 
-# Bilibili generated data
-src/data/bilibili-data.json
+# playwright
+.playwright-cli/
+test-results/
+playwright-report/
+tests/site/visual.spec.ts-snapshots/
 
-# generated search assets
-public/pagefind/
+# Lighthouse local reports
+artifacts/lighthouse/*
+!artifacts/lighthouse/.gitkeep
+.lighthouseci/
 
-# local backup files
-personal_config_backup.json
-npm-global-packages-backup.json
-robocopy.log
-
+# generated AI skills plugin packages
+artifacts/shirone-ai-*

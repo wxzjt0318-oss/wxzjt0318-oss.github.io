@@ -1,97 +1,128 @@
+import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
+import {
+	comparePublicationEntries,
+	validatePublicationMetadata,
+} from "@utils/content-date";
+import { siteMarkdownProcessor } from "@utils/markdown-processor";
 import { initPostIdMap } from "@utils/permalink-utils";
-import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
-import { type CollectionEntry, getCollection } from "astro:content";
+import {
+	findUnknownSeriesSlugs,
+	normaliseSeriesSlug,
+	resolveSeriesPostCategory,
+	type SeriesEntity,
+} from "@utils/series-utils";
+import { getCategoryUrl, getPostUrl, url } from "@utils/url-utils";
+
+/**
+ * 加载系列实体目录（Astro 内容层会缓存集合加载，多次调用成本可忽略）。
+ * 放在 content-utils 而不是 series-utils，是为了让 series-utils 保持纯函数、
+ * 可在 node --test 下直接导入。
+ */
+export async function getSeriesCatalog(): Promise<Map<string, SeriesEntity>> {
+	const entries = await getCollection("series");
+	const catalog = new Map<string, SeriesEntity>();
+	for (const entry of entries) {
+		catalog.set(entry.id, entry);
+	}
+	return catalog;
+}
+
+/** 已警告过的未知系列 slug：同一笔误在整次构建只提示一次 */
+const warnedUnknownSeries = new Set<string>();
 
 // // Retrieve posts and sort them by publication date
-async function getRawSortedPosts() {
+async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
-	const sorted = allBlogPosts.sort((a, b) => {
-		// 首先按置顶状态排序，置顶文章在前
-		if (a.data.pinned && !b.data.pinned) {
-			return -1;
-		}
-		if (!a.data.pinned && b.data.pinned) {
-			return 1;
-		}
+	for (const post of allBlogPosts) validatePublicationMetadata(post);
+	const sorted = allBlogPosts.sort(comparePublicationEntries);
 
-		// 如果置顶状态相同，优先按 Priority 排序（数值越小越靠前）
-		if (a.data.pinned && b.data.pinned) {
-			const priorityA = a.data.priority;
-			const priorityB = b.data.priority;
-			if (priorityA !== undefined && priorityB !== undefined) {
-				if (priorityA !== priorityB) {
-					return priorityA - priorityB;
-				}
-			} else if (priorityA !== undefined) {
-				return -1;
-			} else if (priorityB !== undefined) {
-				return 1;
-			}
-		}
+	// 系列默认分类（回退链）统一在这里落地：显示与聚合共用同一份「有效 category」。
+	// 这里对集合条目 data 的写入是有意为之且幂等的（写入的即解析结果本身，
+	// 二次解析不变），因此 permalink 的 %category%、PostMeta 与聚合计数保持一致。
+	const seriesCatalog = await getSeriesCatalog();
+	for (const post of sorted) {
+		const seriesSlug = normaliseSeriesSlug(post.data.series);
+		const seriesData = seriesSlug
+			? seriesCatalog.get(seriesSlug)?.data
+			: undefined;
+		post.data.category = resolveSeriesPostCategory(
+			post.data.category,
+			seriesData,
+		);
+	}
 
-		// 否则按发布日期排序
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
-	});
+	// 引用未知系列的笔误：宽容忽略，但给出一次性构建期警告（dev/build 日志可见）
+	for (const ref of findUnknownSeriesSlugs(
+		sorted.map((post) => ({ slug: post.id, series: post.data.series })),
+		seriesCatalog,
+	)) {
+		if (!warnedUnknownSeries.has(ref.slug)) {
+			warnedUnknownSeries.add(ref.slug);
+			console.warn(
+				`[series] post "${ref.postSlug}" references unknown series "${ref.slug}" — series card and default-category fallback are skipped`,
+			);
+		}
+	}
+
+	initPostIdMap(sorted);
 	return sorted;
 }
 
-export async function getSortedPosts() {
+export async function getSortedPosts(): Promise<CollectionEntry<"posts">[]> {
 	const sorted = await getRawSortedPosts();
 
 	for (let i = 1; i < sorted.length; i++) {
 		sorted[i].data.nextSlug = sorted[i - 1].id;
 		sorted[i].data.nextTitle = sorted[i - 1].data.title;
+		sorted[i].data.nextUrl = getPostUrl(sorted[i - 1]);
 	}
 	for (let i = 0; i < sorted.length - 1; i++) {
 		sorted[i].data.prevSlug = sorted[i + 1].id;
 		sorted[i].data.prevTitle = sorted[i + 1].data.title;
+		sorted[i].data.prevUrl = getPostUrl(sorted[i + 1]);
 	}
 
 	return sorted;
 }
-export interface PostForList {
-	id: string;
+
+export type PostForList = {
+	slug: string;
 	data: CollectionEntry<"posts">["data"];
-	url?: string; // 预计算的文章 URL
-}
+	url?: string;
+};
+
 export async function getSortedPostsList(): Promise<PostForList[]> {
 	const sortedFullPosts = await getRawSortedPosts();
 
-	// 初始化文章 ID 映射（用于 permalink 功能）
-	initPostIdMap(sortedFullPosts);
-
-	// delete post.body，并预计算 URL
-	const sortedPostsList = sortedFullPosts.map((post) => ({
-		id: post.id,
+	// delete post.body, attach pre-calculated URL
+	const sortedPostsList: PostForList[] = sortedFullPosts.map((post) => ({
+		slug: post.id,
 		data: post.data,
 		url: getPostUrl(post),
 	}));
 
 	return sortedPostsList;
 }
-export interface Tag {
+
+export type Tag = {
 	name: string;
 	count: number;
-}
+};
 
 export async function getTagList(): Promise<Tag[]> {
 	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
-	const countMap: Record<string, number> = {};
+	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
 		post.data.tags.forEach((tag: string) => {
-			if (!countMap[tag]) {
-				countMap[tag] = 0;
-			}
+			if (!countMap[tag]) countMap[tag] = 0;
 			countMap[tag]++;
 		});
 	});
@@ -104,31 +135,40 @@ export async function getTagList(): Promise<Tag[]> {
 	return keys.map((key) => ({ name: key, count: countMap[key] }));
 }
 
-export interface Category {
+export type Category = {
 	name: string;
 	count: number;
 	url: string;
-}
+};
 
 export async function getCategoryList(): Promise<Category[]> {
 	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
-	const count: Record<string, number> = {};
-	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
-		if (!post.data.category) {
-			const ucKey = i18n(I18nKey.uncategorized);
-			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
-			return;
-		}
+	const seriesCatalog = await getSeriesCatalog();
+	const count: { [key: string]: number } = {};
+	allBlogPosts.forEach(
+		(post: { data: { category: string | null; series?: string } }) => {
+			// 与 getRawSortedPosts 同一回退链（显式 category → 系列默认分类 → 未分类）
+			const seriesSlug = normaliseSeriesSlug(post.data.series);
+			const seriesData = seriesSlug
+				? seriesCatalog.get(seriesSlug)?.data
+				: undefined;
+			const effectiveCategory = resolveSeriesPostCategory(
+				post.data.category,
+				seriesData,
+			);
+			if (!effectiveCategory) {
+				const ucKey = i18n(I18nKey.uncategorized);
+				count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
+				return;
+			}
 
-		const categoryName =
-			typeof post.data.category === "string"
-				? post.data.category.trim()
-				: String(post.data.category).trim();
+			const categoryName = effectiveCategory.trim();
 
-		count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
-	});
+			count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
+		},
+	);
 
 	const lst = Object.keys(count).sort((a, b) => {
 		return a.toLowerCase().localeCompare(b.toLowerCase());
@@ -145,153 +185,90 @@ export async function getCategoryList(): Promise<Category[]> {
 	return ret;
 }
 
-/**
- * 对标题进行分词，支持中英文混合
- *
- * - 优先使用 Intl.Segmenter（在支持的运行时中效果更好）
- * - 在不支持 Segmenter 的环境（如部分 Node 运行时）下
- *   回退到基于正则的简单分词，以避免构建报错
- * - 过滤标点和空白，英文统一小写
- */
-function tokenizeTitle(title: string): Set<string> {
-	const tokens = new Set<string>();
+// // Moments (动态)：构建期渲染为序列化条目，供页面以 props 传给 Svelte 岛
+export type MomentImage = {
+	src: string;
+	alt: string;
+	/** Responsive list thumbnail; the original src remains the viewer/lightbox source. */
+	thumbnailSrc?: string;
+	thumbnailSrcset?: string;
+};
 
-	// 运行时可能不支持 Intl.Segmenter（例如部分 Node 环境）
-	// 为了避免 SSR/构建时报错，这里做兼容处理
-	const hasSegmenter =
-		typeof Intl !== "undefined" &&
-		"Segmenter" in Intl &&
-		typeof (Intl as any).Segmenter === "function";
+export type MomentItem = {
+	id: string;
+	/** ISO 字符串（Date 无法跨岛序列化） */
+	published: string;
+	/** 正文 HTML（站点统一 markdown 插件链渲染） */
+	html: string;
+	pinned: boolean;
+	location: string;
+	/** 心情 Iconify 图标名 */
+	mood: string;
+	tags: string[];
+	images: MomentImage[];
+};
 
-	if (!hasSegmenter) {
-		// 简单回退方案：按照空白和标点拆分
-		const basicTokens = title
-			.toLowerCase()
-			.split(/[\s\p{P}]+/gu)
-			.filter(Boolean);
-		for (const t of basicTokens) {
-			tokens.add(t);
-		}
-		return tokens;
+/** 渲染器按需创建并缓存（插件加载较重，全构建期只跑一次） */
+let momentsRendererPromise: ReturnType<
+	typeof siteMarkdownProcessor.createRenderer
+> | null = null;
+
+const MOMENT_THUMBNAIL_WIDTHS = [192, 384, 640] as const;
+
+function withMomentThumbnails(image: MomentImage): MomentImage {
+	const resolvedSrc = image.src.startsWith("/") ? url(image.src) : image.src;
+	const match = image.src.match(/^\/images\/moments\/(.+)\.([^./]+)$/i);
+	if (!match) {
+		return {
+			...image,
+			src: resolvedSrc,
+			thumbnailSrc: image.thumbnailSrc
+				? image.thumbnailSrc.startsWith("/")
+					? url(image.thumbnailSrc)
+					: image.thumbnailSrc
+				: resolvedSrc,
+		};
 	}
-
-	// 使用 Intl.Segmenter 进行更精细的中英文混合分词
-	const segmenter = new (Intl as any).Segmenter("zh", {
-		granularity: "word",
-	});
-	for (const { segment, isWordLike } of segmenter.segment(title)) {
-		if (!isWordLike) {continue;}
-		tokens.add((segment as string).toLowerCase());
-	}
-	return tokens;
+	const [, relativePath] = match;
+	const candidates = MOMENT_THUMBNAIL_WIDTHS.map((width) => ({
+		width,
+		src: url(`/assets/moments/thumbnails/${relativePath}-${width}.webp`),
+	}));
+	return {
+		...image,
+		src: resolvedSrc,
+		thumbnailSrc: candidates.find(({ width }) => width === 384)?.src,
+		thumbnailSrcset: candidates
+			.map(({ src, width }) => `${src} ${width}w`)
+			.join(", "),
+	};
 }
 
-/**
- * 计算两个集合的 Jaccard 相似度
- */
-function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
-	if (a.size === 0 && b.size === 0) {return 0;}
-	let intersection = 0;
-	for (const item of a) {
-		if (b.has(item)) {intersection++;}
-	}
-	const union = a.size + b.size - intersection;
-	return union === 0 ? 0 : intersection / union;
-}
-
-/**
- * 获取相关文章推荐
- * 评分公式: totalScore = tagMatchScore + titleSimilarityScore + timeFreshnessScore + categoryBonus
- * - tagMatchScore (0-100): 标签 Jaccard 相似度 × 100
- * - titleSimilarityScore (0-100): 标题分词 Jaccard 相似度 × 100
- * - timeFreshnessScore (0-30): 6 个月半衰期指数衰减
- * - categoryBonus (0 or 10): 同分类加 10 分
- */
-export async function getRelatedPosts(
-	currentPost: CollectionEntry<"posts">,
-	maxCount = 5,
-): Promise<PostForList[]> {
-	const allPosts = await getCollection<"posts">("posts", ({ data }) => {
+export async function getSortedMoments(): Promise<MomentItem[]> {
+	const entries = await getCollection("moments", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
-	// 排除自身和加密文章
-	const candidates = allPosts.filter(
-		(p) => p.id !== currentPost.id && !p.data.password,
+	const sorted = entries.sort(comparePublicationEntries);
+
+	momentsRendererPromise ??= siteMarkdownProcessor.createRenderer({});
+	const renderer = await momentsRendererPromise;
+
+	return Promise.all(
+		sorted.map(async (entry) => {
+			const { code } = await renderer.render(entry.body ?? "", {
+				frontmatter: entry.data as unknown as Record<string, unknown>,
+			});
+			return {
+				id: entry.id,
+				published: new Date(entry.data.published).toISOString(),
+				html: code,
+				pinned: entry.data.pinned,
+				location: entry.data.location,
+				mood: entry.data.mood,
+				tags: entry.data.tags,
+				images: entry.data.images.map(withMomentThumbnails),
+			} satisfies MomentItem;
+		}),
 	);
-
-	const currentTags = new Set(currentPost.data.tags || []);
-	const currentTokens = tokenizeTitle(currentPost.data.title);
-	const currentCategory = currentPost.data.category || "";
-	const now = Date.now();
-
-	const scored = candidates.map((post) => {
-		const postTags = new Set(post.data.tags || []);
-
-		// tagMatchScore (0-100)
-		const tagMatchScore = jaccardSimilarity(currentTags, postTags) * 100;
-
-		// titleSimilarityScore (0-100)
-		const postTokens = tokenizeTitle(post.data.title);
-		const titleSimilarityScore =
-			jaccardSimilarity(currentTokens, postTokens) * 100;
-
-		// timeFreshnessScore (0-30): 6 个月半衰期
-		const daysSincePublished =
-			(now - new Date(post.data.published).getTime()) /
-			(1000 * 60 * 60 * 24);
-		const timeFreshnessScore =
-			30 * Math.exp((-Math.LN2 * daysSincePublished) / 180);
-
-		// categoryBonus (0 or 10)
-		const postCategory = post.data.category || "";
-		const categoryBonus =
-			currentCategory && postCategory && currentCategory === postCategory
-				? 10
-				: 0;
-
-		const totalScore =
-			tagMatchScore +
-			titleSimilarityScore +
-			timeFreshnessScore +
-			categoryBonus;
-
-		return {
-			post,
-			totalScore,
-			tagMatchScore,
-			timeFreshnessScore,
-			categoryBonus,
-		};
-	});
-
-	// 按总分降序排列
-	scored.sort((a, b) => b.totalScore - a.totalScore);
-
-	// 优先取有标签匹配的
-	const withTagMatch = scored.filter((s) => s.tagMatchScore > 0);
-	const withoutTagMatch = scored.filter((s) => s.tagMatchScore === 0);
-
-	const result: PostForList[] = [];
-
-	for (const s of withTagMatch) {
-		if (result.length >= maxCount) {break;}
-		result.push({ id: s.post.id, data: s.post.data });
-	}
-
-	// 不足时从剩余候选中按 timeFreshnessScore + categoryBonus 降序补充
-	if (result.length < maxCount) {
-		withoutTagMatch.sort(
-			(a, b) =>
-				b.timeFreshnessScore +
-				b.categoryBonus -
-				(a.timeFreshnessScore + a.categoryBonus),
-		);
-		for (const s of withoutTagMatch) {
-			if (result.length >= maxCount) {break;}
-			result.push({ id: s.post.id, data: s.post.data });
-		}
-	}
-
-	return result;
 }

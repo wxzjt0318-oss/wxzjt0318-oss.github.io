@@ -1,729 +1,196 @@
 @import "tailwindcss";
 
-/* 导入相册样式 */
-@import "./albums.css";
-/* 导入追番页面样式 */
-@import "./anime.css";
-/* 导入动画样式 */
-@import "./transition.css";
-@import "./animation-enhancements.css";
-/* 导入渐变按钮样式 */
-@import "./gradient-buttons.css";
-/* 导入 Banner 和网格布局样式 */
-@import "./banner.css";
-/* 加密内容样式已移除，现在直接使用非加密文章的样式 */
-
+/* Tailwind v4 discovers utility classes by scanning the project, and it always
+   skips `node_modules`. That is exactly where the theme lives once it is
+   installed as an npm package, so without this the utilities used by the
+   theme's own components (`w-full`, `inline-flex`, `mx-auto`, …) are never
+   generated and the site renders unstyled. Sources are resolved relative to
+   this file, so `../` is the theme's `src/`, in both source and package mode.
+   Only code files are scanned — fonts and images stay out of the crawl. */
+@source "../**/*.{astro,svelte,ts,tsx,js,jsx,mjs,cjs,md,mdx,html}";
 @plugin "@tailwindcss/typography";
-
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Migrate from v3 config */
 @theme {
-  --font-sans: "Roboto", "sans-serif", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1280px;
-  --breakpoint-xl: 1920px;
+    --font-sans: var(--m3e-font-sans);
+    /* Tailwind's baseline must stay literal; Astro Fonts may override
+       --font-mono with the registered hashed family in custom mode. */
+    --font-mono: var(--m3e-font-mono-fallback);
 }
 
-/* 导入 ZenMaruGothic-Medium 字体 - 优先使用 woff2 格式 */
-@font-face {
-  font-family: "ZenMaruGothic-Medium";
-  src: url("/assets/font/ZenMaruGothic-Medium.woff2") format("woff2"),
-       url("/assets/font/ZenMaruGothic-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-  font-named-instance: "Medium";
-}
+@import "./transition.css" layer(components);
+@import "./scrollbar.css" layer(components);
+@import "./markdown.css" layer(components);
+/* Typography emits prose heading metrics in the utilities layer. Keep this
+   narrowly scoped bridge there so Markdown owns the final heading rhythm. */
+@import "./markdown-typography.css" layer(utilities);
+/* Expressive Code ships unlayered reset styles, so its scoped overrides must
+   also remain unlayered to participate in the same cascade. */
+@import "./toc.css" layer(components);
+@import "./image-bloom.css" layer(components);
 
-/* 导入 萝莉体 第二版 字体 - 优先使用 woff2 格式 */
-@font-face {
-  font-family: "萝莉体 第二版";
-  src: url("/assets/font/loli.woff2") format("woff2"),
-       url("/assets/font/loli.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
+@layer base {
+    /* 常驻预留经典滚动条槽位。文档级布局宽度（`#main-layout` 是 `w-full` 的
+       绝对定位容器，宽度 = 初始包含块宽度）会随滚动条出现/消失相差一个滚动条
+       宽度（Windows Chrome 15px）。Banner 模式因文档恒高于视口而滚动条常驻，
+       所以看不出问题；纯色背景模式下短页（categories/tags/文章页）本来没有
+       滚动条，Swup 切页时的 `#page-height-extend` 又会在切页两端临时开关
+       滚动条，于是每次导航都横移半个滚动条宽度。
+       `scrollbar-gutter` 语义正确：有内容可滚动时滚动条照常出现（Banner 模式
+       与所有长页与今天逐像素一致），没有内容时不显示，而槽位始终预留，因此
+       布局宽度与滚动条状态彻底解耦。
+       不用 `overflow-y: scroll`（滚动条常显）：短页会多出一条无意义的滚动条，
+       实测其轨道色与页面底色差 (2,11,3)。预留槽位方案下顶栏右上角 15×64px 的
+       空槽位显示页面底色，与该处原本的滚动条轨道也只差这一量级（暗色模式下
+       实测 Δ≤0.5，无可见差异）。
+       不支持 `scrollbar-gutter` 的旧版 Safari（< 18.2）忽略该声明，退回原行为；
+       macOS 默认使用覆盖式滚动条，本来就不影响布局宽度。 */
+    html {
+        scrollbar-gutter: stable;
+    }
 
-/* 确保平滑滚动 */
-html {
-  scroll-behavior: smooth;
-}
-
-/* 页面顶部渐变高光效果 */
-.top-gradient-highlight {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 180px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0.15) 60%, rgba(255, 255, 255, 0.05) 80%, transparent 100%);
-  pointer-events: none;
-  z-index: 20;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 暗色主题下的渐变高光效果 */
-:root.dark .top-gradient-highlight {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 30%, rgba(0, 0, 0, 0.15) 60%, rgba(0, 0, 0, 0.05) 80%, transparent 100%);
-}
-
-@utility expand-animation {
-  @apply relative before:ease-out before:duration-75 before:transition-all active:bg-none hover:before:bg-(--btn-plain-bg-hover) active:before:bg-(--btn-plain-bg-active) z-0
-      before:absolute before:rounded-[inherit] before:inset-0 before:scale-[0.85] hover:before:scale-100 before:-z-10;
+    /* 全局正文色走主题变量：裸内容（未显式设色的文字/按钮）明暗自适应，
+       否则默认黑色在暗色模式下不可见 */
+    body {
+        color: var(--on-surface);
+    }
 }
 
 @layer components {
-  /* View Transitions API 主题切换动画 */
-  /* 为整个文档根元素设置视图过渡 */
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    /* 使用混合模式使颜色过渡更平滑 */
-    mix-blend-mode: normal;
-  }
-
-  /* 视图过渡组 - 使用交叉淡化效果 */
-  ::view-transition-group(root) {
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* 淡出旧视图 - 使用更平滑的曲线 */
-  ::view-transition-old(root) {
-    animation-name: theme-fade-out;
-    /* 确保背景色同步切换 */
-    z-index: 2;
-  }
-
-  /* 淡入新视图 - 使用更平滑的曲线 */
-  ::view-transition-new(root) {
-    animation-name: theme-fade-in;
-    /* 确保新视图在上层 */
-    z-index: 1;
-  }
-
-  /* 定义淡出动画 - 使用更平滑的缓动函数 */
-  @keyframes theme-fade-out {
-    0% {
-      opacity: 1;
+    h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
+        @apply transition;
     }
-    100% {
-      opacity: 0;
+    .link {
+        @apply relative before:ease-out before:transition active:bg-none hover:before:bg-[var(--btn-plain-bg-hover)] active:before:bg-[var(--btn-plain-bg-active)] z-0
+        before:absolute before:rounded-[inherit] before:inset-0 before:scale-[0.85] hover:before:scale-100 before:-z-10
     }
-  }
-
-  /* 定义淡入动画 - 从下层淡入 */
-  @keyframes theme-fade-in {
-    0% {
-      opacity: 0;
+    .link {
+        @apply transition rounded-md p-1 -m-1;
     }
-    100% {
-      opacity: 1;
+    .float-panel {
+        @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-none
     }
-  }
-
-  /* 确保边框和分隔线元素在主题切换时有更明确的过渡时长 */
-  .transition,
-  [class*="border"],
-  [class*="transition"] {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
-  }
-
-  /* 主题过渡保护类 - 仅在非 View Transitions 模式下使用 */
-  /* 当使用 View Transitions API 时，浏览器会自动处理过渡，不需要禁用 transition */
-  .is-theme-transitioning:not(.use-view-transition) *,
-  .is-theme-transitioning:not(.use-view-transition) *::before,
-  .is-theme-transitioning:not(.use-view-transition) *::after {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  /* 在主题切换时禁用代码块的复杂效果以提升性能 */
-  /* 使用 View Transitions 时也需要禁用代码块动画，因为它们太多了 */
-  .is-theme-transitioning .expressive-code,
-  .is-theme-transitioning .expressive-code * {
-    transition: none !important;
-    animation: none !important;
-    will-change: auto !important;
-  }
-
-  /* 主题切换时临时隐藏代码块以提升性能 */
-  /* 这个行为可以通过配置文件中的 expressiveCodeConfig.hideDuringThemeTransition 控制 */
-  .is-theme-transitioning .expressive-code {
-    content-visibility: hidden !important;
-    /* 避免闪烁 */
-    opacity: 0.99;
-  }
-
-  /* 当禁用隐藏代码块功能时（通过JavaScript动态控制） */
-  .is-theme-transitioning .expressive-code:not(.hide-during-transition) {
-    /* 保持代码块可见，但禁用过渡效果 */
-    content-visibility: visible !important;
-    opacity: 1 !important;
-  }
-  /* 禁用复杂选择器元素的过渡 - 仅在非 View Transitions 模式下 */
-  .is-theme-transitioning:not(.use-view-transition) .float-panel,
-  .is-theme-transitioning:not(.use-view-transition) .float-panel *,
-  .is-theme-transitioning:not(.use-view-transition) .music-player,
-  .is-theme-transitioning:not(.use-view-transition) .music-player *,
-  .is-theme-transitioning:not(.use-view-transition) .widget,
-  .is-theme-transitioning:not(.use-view-transition) .widget *,
-  .is-theme-transitioning:not(.use-view-transition) .dropdown-content,
-  .is-theme-transitioning:not(.use-view-transition) .dropdown-content * {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  /* 强制使用 contain 隔离渲染上下文 - 仅在非 View Transitions 模式下 */
-  .is-theme-transitioning:not(.use-view-transition) .post-card,
-  .is-theme-transitioning:not(.use-view-transition) .widget,
-  .is-theme-transitioning:not(.use-view-transition) .float-panel {
-    contain: layout style paint !important;
-  }
-
-  /* 波浪效果精确同步处理 - 仅在非 View Transitions 模式下 */
-  .is-theme-transitioning:not(.use-view-transition) svg use {
-    /* 禁用过渡但保持动画 */
-    transition: none;
-    /* 强制立即继承页面背景色 */
-    fill: currentColor;
-  }
-
-  /* 导航栏主题切换保护 - 仅在非 View Transitions 模式下禁用过渡 */
-  .is-theme-transitioning:not(.use-view-transition) #navbar > div,
-  .is-theme-transitioning:not(.use-view-transition) #navbar[data-transparent-mode] > div,
-  .is-theme-transitioning:not(.use-view-transition) #navbar[data-transparent-mode].scrolled > div,
-  .is-theme-transitioning:not(.use-view-transition) body.wallpaper-transparent #navbar > div,
-  .is-theme-transitioning:not(.use-view-transition) body.wallpaper-transparent #navbar[data-transparent-mode] > div,
-  .is-theme-transitioning:not(.use-view-transition) body.wallpaper-transparent #navbar[data-transparent-mode].scrolled > div,
-  .is-theme-transitioning:not(.use-view-transition) #banner-wrapper ~ * #navbar > div,
-  .is-theme-transitioning:not(.use-view-transition) #banner-wrapper ~ * #navbar[data-transparent-mode] > div,
-  .is-theme-transitioning:not(.use-view-transition) body:has(#banner-wrapper) #navbar > div,
-  .is-theme-transitioning:not(.use-view-transition) body:has(#banner-wrapper) #navbar[data-transparent-mode] > div {
-    transition: none !important;
-    backdrop-filter: none !important;
-  }
-
-  /* 导航栏相关浮动面板的过渡禁用 */
-  .is-theme-transitioning .dropdown-content,
-  .is-theme-transitioning .float-panel,
-  .is-theme-transitioning #display-setting,
-  .is-theme-transitioning #nav-menu-panel,
-  .is-theme-transitioning #translate-panel,
-  .is-theme-transitioning #mobile-toc-panel,
-  .is-theme-transitioning #search-panel {
-    transition: none !important;
-    backdrop-filter: none !important;
-  }
-
-  /* 波浪容器的颜色传递 */
-  .is-theme-transitioning #header-waves {
-    /* 设置当前颜色为页面背景色，供SVG继承 */
-    color: var(--page-bg);
-    /* 确保与页面在同一合成层 */
-    isolation: isolate;
-    /* 优化渲染性能 */
-    contain: layout style paint;
-    /* GPU层合成 */
-    transform: translateZ(0);
-    /* 确保没有背景色 */
-    background: transparent;
-  }
-
-  .is-theme-transitioning #header-waves use {
-    /* 保持动画连续性 */
-    will-change: transform;
-    /* GPU优化 */
-    transform: translateZ(0);
-  }
-
-  .card-base {
-    @apply rounded-(--radius-large) overflow-hidden bg-(--card-bg) transition-colors duration-150;
-  }
-  .card-base-transparent {
-    @apply rounded-(--radius-large) overflow-hidden bg-(--card-bg-transparent) backdrop-blur-sm transition-colors duration-150;
-  }
-
-  /* 全屏壁纸模式下的半透明效果 - 使用!important确保优先级 */
-  .wallpaper-transparent .card-base {
-    background: var(--card-bg-transparent) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-  }
-
-  body.wallpaper-transparent .card-base {
-    background: var(--card-bg-transparent) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-  }
-
-  /* 确保嵌套的卡片元素在全屏壁纸模式下也应用半透明效果 */
-  .wallpaper-transparent .card-base .card-base,
-  body.wallpaper-transparent .card-base .card-base {
-    background: var(--card-bg-transparent) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-  }
-
-  .wallpaper-transparent .float-panel {
-    @apply bg-(--card-bg-transparent) backdrop-blur-sm;
-  }
-
-  .wallpaper-transparent #navbar > div {
-    @apply bg-(--card-bg-transparent) backdrop-blur-sm;
-  }
-
-  .wallpaper-transparent .btn-card {
-    @apply bg-(--card-bg-transparent) backdrop-blur-sm;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  a,
-  span,
-  li,
-  ul,
-  ol,
-  blockquote,
-  code,
-  pre,
-  table,
-  th,
-  td,
-  strong {
-    @apply transition-colors duration-150;
-  }
-  .card-shadow {
-    @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.005)];
-  }
-  /* 主题切换时禁用按钮背景色过渡，确保立即更新 */
-  .is-theme-transitioning .expand-animation::before {
-    transition: transform 75ms ease-out !important;
-  }
-  .is-theme-transitioning .btn-plain {
-    transition: color 75ms ease-out !important;
-  }
-  .link {
-    @apply transition-colors duration-150 rounded-md p-1 -m-1 expand-animation;
-  }
-  .link-lg {
-    @apply transition-colors duration-150 rounded-md p-1.5 -m-1.5 expand-animation;
-  }
-  .float-panel {
-    @apply top-[5.25rem] rounded-(--radius-large) overflow-hidden bg-(--float-panel-bg) transition-colors duration-150 shadow-xl dark:shadow-none;
-  }
-  .float-panel-closed {
-    @apply -translate-y-1 opacity-0 pointer-events-none;
-  }
-  .search-panel mark {
-    @apply bg-transparent text-(--primary);
-  }
-
-  .btn-card {
-    @apply transition-colors duration-150 flex items-center justify-center bg-(--card-bg) hover:bg-(--btn-card-bg-hover)
-        active:bg-(--btn-card-bg-active);
-  }
-  .btn-card.disabled {
-    @apply pointer-events-none text-black/10 dark:text-white/10;
-  }
-  .btn-plain {
-    @apply transition-colors duration-150 relative flex items-center justify-center bg-none
-        text-black/75 hover:text-(--primary) dark:text-white/75 dark:hover:text-(--primary);
-    &:not(.scale-animation) {
-      @apply hover:bg-(--btn-plain-bg-hover) active:bg-(--btn-plain-bg-active);
+    .float-panel-closed {
+        @apply -translate-y-1 opacity-0 pointer-events-none
     }
-    &.scale-animation {
-      @apply expand-animation;
+    .float-control {
+        @apply text-[var(--on-surface)] bg-[var(--float-control-bg)]
+        hover:bg-[var(--float-control-bg-hover)] active:bg-[var(--float-control-bg-active)];
     }
-  }
-  .btn-regular {
-    @apply transition-colors duration-150 flex items-center justify-center bg-(--btn-regular-bg) hover:bg-(--btn-regular-bg-hover) active:bg-(--btn-regular-bg-active)
-        text-(--btn-content) dark:text-white/75;
-  }
 
-  .link-underline {
-    @apply transition-colors duration-150 underline decoration-2 decoration-dashed decoration-(--link-underline)
-        hover:decoration-(--link-hover) active:decoration-(--link-active) underline-offset-[0.25rem];
-  }
-
-  .toc-hide,
-  .toc-not-ready {
-    @apply opacity-0 pointer-events-none;
-  }
-
-  /* #toc-inner-wrapper {
-        mask-image: linear-gradient(to bottom, transparent 0%, black 2rem, black calc(100% - 2rem), transparent 100%);
-    } */
-
-  .hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .text-90 {
-    @apply text-black/90 dark:text-white/90;
-  }
-  .text-75 {
-    @apply text-black/75 dark:text-white/75;
-  }
-  .text-50 {
-    @apply text-black/50 dark:text-white/50;
-  }
-  .text-30 {
-    @apply text-black/30 dark:text-white/30;
-  }
-  .text-25 {
-    @apply text-black/25 dark:text-white/25;
-  }
-
-  /* 悬浮TOC样式 */
-  .floating-toc-item {
-    @apply flex items-center gap-2 py-2 px-2 rounded-lg text-sm leading-relaxed;
-    @apply text-black/70 dark:text-white/70;
-    @apply hover:bg-(--btn-plain-bg-hover) hover:text-(--primary);
-    @apply transition-all duration-150;
-    text-decoration: none;
-  }
-
-  .floating-toc-item[data-level="0"] {
-    @apply font-semibold;
-  }
-
-  .floating-toc-badge {
-    @apply inline-flex items-center justify-center shrink-0;
-    @apply min-w-5 h-5 px-1 rounded-md;
-    @apply bg-(--toc-badge-bg) text-(--btn-content);
-    @apply text-xs font-semibold;
-  }
-
-  .floating-toc-dot {
-    @apply inline-block shrink-0 ml-1.5;
-    @apply w-2 h-2 rounded-sm bg-(--toc-badge-bg);
-  }
-
-  .floating-toc-dot-small {
-    @apply inline-block shrink-0 ml-1.5;
-    @apply w-1.5 h-1.5 rounded-sm;
-    @apply bg-black/10 dark:bg-white/15;
-  }
-
-  .floating-toc-text {
-    @apply overflow-hidden text-ellipsis whitespace-nowrap flex-1 min-w-0;
-  }
-
-  /* 下拉菜单样式 */
-  .dropdown-container {
-    @apply relative;
-  }
-
-  .dropdown-menu {
-    @apply absolute top-full left-0 pt-2 opacity-0 invisible pointer-events-none transition-all duration-200 ease-out transform translate-y-[-8px] z-50;
-  }
-
-  .dropdown-container:hover .dropdown-menu,
-  .dropdown-container:focus-within .dropdown-menu {
-    @apply opacity-100 visible pointer-events-auto translate-y-0;
-  }
-
-  .dropdown-container:hover .dropdown-arrow,
-  .dropdown-container:focus-within .dropdown-arrow {
-    @apply rotate-180;
-  }
-
-  .dropdown-content {
-    @apply bg-(--float-panel-bg) rounded-(--radius-large) shadow-xl dark:shadow-none border border-black/5 dark:border-white/10 py-2 min-w-[12rem];
-  }
-
-  .dropdown-item {
-    @apply flex items-center justify-between px-4 py-2.5 text-black/75 dark:text-white/75 hover:text-(--primary) hover:bg-(--btn-plain-bg-hover) transition-colors duration-150 font-medium;
-  }
-
-  .dropdown-item:first-child {
-    @apply rounded-t-[calc(var(--radius-large)-0.5rem)];
-  }
-
-  .dropdown-item:last-child {
-    @apply rounded-b-[calc(var(--radius-large)-0.5rem)];
-  }
-
-  /* 移动端菜单样式 */
-  .mobile-submenu {
-    @apply max-h-0 overflow-hidden transition-all duration-300 ease-in-out;
-  }
-
-  .mobile-dropdown[data-expanded="true"] .mobile-submenu {
-    @apply max-h-96;
-  }
-
-  .mobile-dropdown[data-expanded="true"] .mobile-dropdown-arrow {
-    @apply rotate-180;
-  }
-
-  /* 响应式隐藏 */
-  @media (max-width: 768px) {
-    .dropdown-container {
-      @apply hidden;
+    .toc-hide,
+    .toc-not-ready {
+        @apply opacity-0 pointer-events-none
     }
-  }
 
-  /* 无障碍支持 */
-  .dropdown-container:focus-within .dropdown-menu {
-    @apply opacity-100 visible pointer-events-auto translate-y-0;
-  }
+    .hide-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
 
-  .dropdown-item:focus {
-    @apply outline-none;
-  }
+    .text-90 {
+        color: color-mix(in oklab, var(--on-surface) 92%, transparent);
+    }
+    .text-75 {
+        color: color-mix(in oklab, var(--on-surface) 78%, transparent);
+    }
+    .text-50 {
+        color: color-mix(in oklab, var(--on-surface-variant) 92%, transparent);
+    }
+    .text-30 {
+        color: color-mix(in oklab, var(--on-surface-variant) 72%, transparent);
+    }
+    .text-25 {
+        color: color-mix(in oklab, var(--on-surface-variant) 58%, transparent);
+    }
 
-  .mobile-dropdown button:focus {
-    @apply outline-none;
-  }
-
-  .meta-icon {
-    @apply w-8 h-8 transition-colors duration-150 rounded-md flex items-center justify-center bg-(--btn-regular-bg)
-        text-(--btn-content) mr-2;
-  }
-  .with-divider {
-    @apply before:content-['/'] before:ml-1.5 before:mr-1.5 before:text-(--meta-divider) before:text-sm
-        before:font-medium before:first-of-type:hidden before:transition-colors before:duration-150;
-  }
-
-  .btn-regular-dark {
-    @apply flex items-center justify-center
-        bg-[oklch(0.45_0.01_var(--hue))] hover:bg-[oklch(0.50_0.01_var(--hue))] active:bg-[oklch(0.55_0.01_var(--hue))]
-        dark:bg-[oklch(0.30_0.02_var(--hue))] dark:hover:bg-[oklch(0.35_0.03_var(--hue))] dark:active:bg-[oklch(0.40_0.03_var(--hue))];
-  }
-  .btn-regular-dark.success {
-    @apply bg-[oklch(0.75_0.14_var(--hue))] dark:bg-[oklch(0.75_0.14_var(--hue))];
-  }
+    /* ============================================================
+       M3 状态层（state layer）原子工具类
+       叠加色用 --m3e-state-color（默认 on-surface），透明度遵循
+       M3 规范：hover 8% / focus 10% / pressed 12%。配合
+       isolation: isolate 使 ::before 盖在容器底色之上、内容之下。
+       ============================================================ */
+    .m3-state-layer {
+        @apply relative isolate transition;
+        -webkit-tap-highlight-color: transparent;
+        transition-property: background-color, color, border-color, box-shadow, opacity, transform;
+        transition-duration: var(--m3e-duration-short);
+        transition-timing-function: var(--m3e-easing-standard);
+    }
+    .m3-state-layer::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: color-mix(in oklab, var(--m3e-state-color, var(--on-surface)) var(--m3e-state-hover-alpha, 8%), transparent);
+        opacity: 0;
+        transition: opacity var(--m3e-duration-short) var(--m3e-easing-standard);
+        pointer-events: none;
+    }
+    .m3-state-layer:hover::before {
+        opacity: 1;
+    }
+    .m3-state-layer:focus-within::before {
+        opacity: 1;
+        background: color-mix(in oklab, var(--m3e-state-color, var(--on-surface)) var(--m3e-state-focus-alpha, 10%), transparent);
+    }
+    .m3-state-layer:focus-visible::before {
+        opacity: 1;
+        background: color-mix(in oklab, var(--m3e-state-color, var(--on-surface)) var(--m3e-state-focus-alpha, 10%), transparent);
+    }
+    .m3-state-layer:active::before {
+        opacity: 1;
+        background: color-mix(in oklab, var(--m3e-state-color, var(--on-surface)) var(--m3e-state-pressed-alpha, 12%), transparent);
+    }
+    .m3-state-layer:focus-visible {
+        outline: 2px solid var(--m3e-focus-outline, var(--primary));
+        outline-offset: 2px;
+    }
+    .m3-state-layer[disabled] {
+        pointer-events: none;
+        opacity: 0.38;
+    }
 }
 
-.custom-md img,
-#post-cover img {
-  @apply cursor-zoom-in;
+.custom-md img, #post-cover img {
+    @apply cursor-zoom-in
 }
 
 ::selection {
-  background-color: var(--selection-bg);
-  color: inherit;
-}
-
-/* 白天模式下选中文本的颜色 */
-:root:not(.dark) ::selection {
-  color: #000000;
-}
-
-/* 夜间模式下选中文本的颜色 */
-:root.dark ::selection {
-  color: #ffffff;
-}
-
-.dash-line {
-  position: relative;
-}
-
-.dash-line::before {
-  content: "";
-  position: absolute;
-  width: 10%;
-  height: 100%;
-  left: calc(50% - 1px);
-  border-left: 2px dashed var(--line-color);
-  pointer-events: none;
-  transition: all 0.3s;
-  transform: translateY(-50%);
+    background-color: var(--selection-bg)
 }
 
 .collapsed {
-  height: var(--collapsedHeight);
+    height: var(--collapsedHeight);
 }
 
-/*剧透效果*/
-.custom-md spoiler {
-  --_spoiler-mask: var(--primary);
-  @apply hover:bg-transparent px-1 py-0.5 overflow-hidden rounded-md transition-all duration-150;
-  background-color: var(--_spoiler-mask);
-  box-decoration-break: clone;
-  &:not(:hover) {
-    color: var(--_spoiler-mask);
-    * {
-      color: var(--_spoiler-mask);
+/* 减少动态效果：手动开关（html.motion-reduced）或系统偏好（prefers-reduced-motion）
+   统一将 transition/animation 时长压至 0.01ms，保留状态结果、去掉过程动效；
+   stagger 的 delay 一并归零，避免元素在延迟期间保持起始态不可见 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
     }
-  }
 }
 
-/* 浅色模式：使用更浅的主题色且完全不透明 */
-
-/* 文章列表布局切换样式 */
-.post-list-container.grid-mode {
-  display: grid !important;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1rem;
-}
-
-@media (max-width: 768px) {
-  .post-list-container.grid-mode {
-    gap: 0.75rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .post-list-container.grid-mode {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* 网格模式下的文章卡片样式调整 */
-.post-list-container.grid-mode .post-card-item {
-  width: 100%;
-  margin-bottom: 0;
-}
-
-.post-list-container.grid-mode .post-card-item a[href] {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.post-list-container.grid-mode .post-card-item .description {
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.25rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.post-list-container.grid-mode .post-card-item .stats {
-  font-size: 0.75rem;
-}
-
-.post-list-container.grid-mode .post-card-item .post-meta {
-  margin-bottom: 0.5rem;
-}
-
-/* CSS-only移动端优化 - 避免JavaScript闪烁 */
-@media (max-width: 768px) {
-  /* 移动端强制列表模式，避免初始化闪烁 */
-  #post-list-container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-    padding: 0 !important;
-    background: transparent !important;
-  }
-
-  /* 移动端网格模式也显示为列表 */
-  #post-list-container.grid-mode {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-    grid-template-columns: 1fr !important;
-  }
-
-  /* 移动端文章卡片间距优化 */
-  #post-list-container .post-card-item {
-    margin-bottom: 0 !important;
-  }
-}
-
-/* 桌面端样式 */
-@media (min-width: 769px) {
-  /* 列表模式下的样式 */
-  .post-list-container.list-mode {
-    display: flex !important;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  /* 网格模式下的样式 */
-  .post-list-container.grid-mode {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-}
-
-/* 确保过渡动画平滑 */
-.post-list-container {
-  transition: all 0.3s ease-in-out;
-}
-
-/* 文章列表布局切换样式 */
-.post-list-container.grid-mode {
-  display: grid !important;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .post-list-container.grid-mode {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* 网格模式下的文章卡片样式调整 */
-.post-list-container.grid-mode .post-card-item {
-  width: 100%;
-  margin-bottom: 0;
-}
-
-.post-list-container.grid-mode .post-card-item a[href] {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.post-list-container.grid-mode .post-card-item .description {
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.25rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.post-list-container.grid-mode .post-card-item .stats {
-  font-size: 0.75rem;
-}
-
-.post-list-container.grid-mode .post-card-item .post-meta {
-  margin-bottom: 0.5rem;
-}
-
-/* 列表模式下的样式 */
-.post-list-container.list-mode {
-  display: flex !important;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* 确保过渡动画平滑 */
-.post-list-container {
-  transition: all 0.3s ease-in-out;
-}
-:root:not(.dark) .custom-md spoiler {
-  --_spoiler-mask: color-mix(in oklch, var(--primary) 55%, white 45%);
+html.motion-reduced *,
+html.motion-reduced *::before,
+html.motion-reduced *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
 }

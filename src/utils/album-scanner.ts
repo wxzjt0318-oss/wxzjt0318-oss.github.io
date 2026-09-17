@@ -1,200 +1,229 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
+import fs from "node:fs";
+import path from "node:path";
+import type {
+	AlbumGroup,
+	AlbumIndexItem,
+	AlbumLayout,
+	AlbumPhoto,
+} from "@/types/album";
 
-import type { AlbumGroup, Photo } from "../types/album";
+const ALBUM_ROOT = path.resolve(process.cwd(), "public/images/albums");
+const IMAGE_EXTENSIONS = new Set([
+	".jpg",
+	".jpeg",
+	".png",
+	".gif",
+	".webp",
+	".svg",
+	".avif",
+	".bmp",
+	".tiff",
+	".tif",
+]);
 
-export async function scanAlbums(): Promise<AlbumGroup[]> {
-	const albumsDir = path.join(process.cwd(), "public/images/albums");
-	const albums: AlbumGroup[] = [];
+const DEFAULT_DATE = new Intl.DateTimeFormat("en-CA").format(new Date());
 
-	// 检查目录是否存在
-	if (!fs.existsSync(albumsDir)) {
-		console.warn("相册目录不存在:", albumsDir);
-		return [];
-	}
+type RawPhoto = Record<string, unknown>;
+type RawAlbum = Record<string, unknown>;
 
-	// 获取所有子文件夹
-	const albumFolders = fs
-		.readdirSync(albumsDir, { withFileTypes: true })
-		.filter((dirent) => dirent.isDirectory())
-		.map((dirent) => dirent.name);
-
-	// 处理每个相册文件夹
-	for (const folder of albumFolders) {
-		const albumPath = path.join(albumsDir, folder);
-		const album = await processAlbumFolder(albumPath, folder);
-		if (album) {
-			albums.push(album);
-		}
-	}
-
-	return albums;
+function stringValue(value: unknown, fallback = ""): string {
+	return typeof value === "string" ? value.trim() : fallback;
 }
 
-async function processAlbumFolder(
-	folderPath: string,
-	folderName: string,
-): Promise<AlbumGroup | null> {
-	// 检查必要文件
-	const infoPath = path.join(folderPath, "info.json");
+function stringArray(value: unknown): string[] {
+	return Array.isArray(value)
+		? value
+				.filter((item): item is string => typeof item === "string")
+				.map((item) => item.trim())
+				.filter(Boolean)
+		: [];
+}
 
-	if (!fs.existsSync(infoPath)) {
-		console.warn(`相册 ${folderName} 缺少 info.json 文件`);
-		return null;
-	}
+function numberValue(value: unknown): number | undefined {
+	return typeof value === "number" && Number.isFinite(value) && value > 0
+		? value
+		: undefined;
+}
 
-	// 读取相册信息
-	const infoContent = fs.readFileSync(infoPath, "utf-8");
-	let info: Record<string, any>;
+function dateValue(value: unknown, fallback = DEFAULT_DATE): string {
+	const date = stringValue(value, fallback);
+	return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : fallback;
+}
+
+function layoutValue(value: unknown): AlbumLayout {
+	return value === "grid" ? "grid" : "masonry";
+}
+
+function columnsValue(value: unknown): 2 | 3 | 4 {
+	const columns = typeof value === "number" ? Math.round(value) : 3;
+	return columns <= 2 ? 2 : columns >= 4 ? 4 : 3;
+}
+
+function toPublicPath(relativePath: string): string {
+	return `/images/albums/${relativePath.replaceAll(path.sep, "/")}`;
+}
+
+function parseFileName(fileName: string): { title: string; tags: string[] } {
+	const baseName = path.basename(fileName, path.extname(fileName));
+	const [title, ...tags] = baseName.split("_");
+	return { title: title || baseName, tags: tags.filter(Boolean) };
+}
+
+function readJson(filePath: string): RawAlbum | null {
 	try {
-		info = JSON.parse(infoContent);
-	} catch (e) {
-		console.error(`相册 ${folderName} 的 info.json 格式错误:`, e);
+		const parsed: unknown = JSON.parse(fs.readFileSync(filePath, "utf8"));
+		return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+			? (parsed as RawAlbum)
+			: null;
+	} catch (error) {
+		console.warn(`[albums] Failed to read ${filePath}`, error);
 		return null;
 	}
+}
 
-	// 检查是否为外链模式
-	const isExternalMode = info.mode === "external";
-	let photos: Photo[] = [];
-	let cover: string;
-
-	if (isExternalMode) {
-		// 外链模式：从 info.json 中获取封面和照片
-		if (!info.cover) {
-			console.warn(`相册 ${folderName} 外链模式缺少 cover 字段`);
-			return null;
-		}
-
-		cover = info.cover;
-		photos = processExternalPhotos(info.photos || [], folderName);
-	} else {
-		// 本地模式：优先使用 webp 封面，回退到 jpg
-		const coverWebpPath = path.join(folderPath, "cover.webp");
-		const coverJpgPath = path.join(folderPath, "cover.jpg");
-		if (!fs.existsSync(coverWebpPath) && !fs.existsSync(coverJpgPath)) {
-			console.warn(`相册 ${folderName} 缺少 cover.webp 或 cover.jpg 文件`);
-			return null;
-		}
-
-		const hasWebpCover = fs.existsSync(coverWebpPath);
-		cover = hasWebpCover
-			? `/images/albums/${folderName}/cover.webp`
-			: `/images/albums/${folderName}/cover.jpg`;
-		photos = scanPhotos(folderPath, folderName);
+function fileDate(filePath: string): string {
+	try {
+		return dateValue(fs.statSync(filePath).mtime.toISOString().slice(0, 10));
+	} catch {
+		return DEFAULT_DATE;
 	}
+}
 
-	// 检查是否隐藏相册
-	if (info.hidden === true) {
-		console.log(`相册 ${folderName} 已设置为隐藏，跳过显示`);
+function resolveLocalPhotoFiles(albumDir: string): string[] {
+	const files = fs
+		.readdirSync(albumDir, { withFileTypes: true })
+		.filter(
+			(entry) =>
+				entry.isFile() &&
+				IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase()),
+		)
+		.map((entry) => entry.name)
+		.filter((name) => !/^cover\.(?:webp|jpg)$/i.test(name));
+	const names = new Set(files);
+	return files
+		.filter((name) => {
+			const ext = path.extname(name).toLowerCase();
+			if (!names.has(`${path.basename(name, path.extname(name))}.webp`))
+				return true;
+			return ext === ".webp";
+		})
+		.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+}
+
+function localPhotos(albumId: string, albumDir: string): AlbumPhoto[] {
+	return resolveLocalPhotoFiles(albumDir).map((fileName, index) => {
+		const parsed = parseFileName(fileName);
+		const relative = `${albumId}/${fileName}`;
+		return {
+			id: `${albumId}-photo-${index + 1}`,
+			src: toPublicPath(relative),
+			alt: parsed.title,
+			title: parsed.title,
+			tags: parsed.tags,
+			date: fileDate(path.join(albumDir, fileName)),
+		};
+	});
+}
+
+function externalPhotos(albumId: string, rawPhotos: unknown): AlbumPhoto[] {
+	if (!Array.isArray(rawPhotos)) return [];
+	return rawPhotos.flatMap((value, index) => {
+		if (!value || typeof value !== "object") return [];
+		const raw = value as RawPhoto;
+		const src = stringValue(raw.src);
+		if (!src) {
+			console.warn(
+				`[albums] Skipping ${albumId} photo ${index + 1}: missing src`,
+			);
+			return [];
+		}
+		const title = stringValue(raw.title);
+		return [
+			{
+				id: stringValue(raw.id, `${albumId}-external-photo-${index + 1}`),
+				src,
+				thumbnail: stringValue(raw.thumbnail) || undefined,
+				alt: stringValue(raw.alt, title || `Photo ${index + 1}`),
+				title: title || undefined,
+				description: stringValue(raw.description) || undefined,
+				tags: stringArray(raw.tags),
+				date: dateValue(raw.date),
+				location: stringValue(raw.location) || undefined,
+				width: numberValue(raw.width),
+				height: numberValue(raw.height),
+				camera: stringValue(raw.camera) || undefined,
+				lens: stringValue(raw.lens) || undefined,
+				settings: stringValue(raw.settings) || undefined,
+			},
+		];
+	});
+}
+
+function scanAlbumDirectory(entry: fs.Dirent): AlbumGroup | null {
+	if (!entry.isDirectory()) return null;
+	const id = entry.name;
+	const albumDir = path.join(ALBUM_ROOT, id);
+	const raw = readJson(path.join(albumDir, "info.json"));
+	if (!raw) {
+		console.warn(`[albums] Skipping ${id}: info.json is missing or invalid`);
 		return null;
 	}
-
-	// 构建相册对象
+	const external = raw.mode === "external";
+	const cover = external
+		? stringValue(raw.cover)
+		: fs.existsSync(path.join(albumDir, "cover.webp"))
+			? toPublicPath(`${id}/cover.webp`)
+			: fs.existsSync(path.join(albumDir, "cover.jpg"))
+				? toPublicPath(`${id}/cover.jpg`)
+				: "";
+	if (!cover) {
+		console.warn(`[albums] Skipping ${id}: cover is missing`);
+		return null;
+	}
+	const photos = external
+		? externalPhotos(id, raw.photos)
+		: localPhotos(id, albumDir);
 	return {
-		id: folderName,
-		title: info.title || folderName,
-		description: info.description || "",
+		id,
+		title: stringValue(raw.title, id),
+		description: stringValue(raw.description),
 		cover,
-		date: info.date || new Date().toISOString().split("T")[0],
-		location: info.location || "",
-		tags: info.tags || [],
-		layout: info.layout || "grid",
-		columns: info.columns || 3,
+		date: dateValue(raw.date),
+		location: stringValue(raw.location),
+		tags: stringArray(raw.tags),
+		layout: layoutValue(raw.layout),
+		columns: columnsValue(raw.columns),
+		hidden: raw.hidden === true,
+		password: stringValue(raw.password) || undefined,
+		passwordHint: stringValue(raw.passwordHint) || undefined,
 		photos,
 	};
 }
 
-function scanPhotos(folderPath: string, albumId: string): Photo[] {
-	const photos: Photo[] = [];
-	const files = fs.readdirSync(folderPath);
-
-	// 过滤出图片文件
-	const imageFiles = files.filter((file) => {
-		const ext = path.extname(file).toLowerCase();
-		return (
-			[
-				".jpg",
-				".jpeg",
-				".png",
-				".gif",
-				".webp",
-				".svg",
-				".avif",
-				".bmp",
-				".tiff",
-				".tif",
-			].includes(ext) && file !== "cover.jpg"
+export function scanAllAlbums(): AlbumGroup[] {
+	if (!fs.existsSync(ALBUM_ROOT)) return [];
+	return fs
+		.readdirSync(ALBUM_ROOT, { withFileTypes: true })
+		.map(scanAlbumDirectory)
+		.filter((album): album is AlbumGroup => album !== null)
+		.sort(
+			(a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title),
 		);
-	});
-
-	// 处理每张照片
-	imageFiles.forEach((file, index) => {
-		const filePath = path.join(folderPath, file);
-		const stats = fs.statSync(filePath);
-
-		// 解析文件名中的标签
-		const { baseName, tags } = parseFileName(file);
-
-		photos.push({
-			id: `${albumId}-photo-${index}`,
-			src: `/images/albums/${albumId}/${file}`,
-			alt: baseName,
-			title: baseName,
-			tags: tags,
-			date: stats.mtime.toISOString().split("T")[0],
-		});
-	});
-
-	return photos;
 }
 
-function processExternalPhotos(
-	externalPhotos: any[],
-	albumId: string,
-): Photo[] {
-	const photos: Photo[] = [];
-
-	externalPhotos.forEach((photo, index) => {
-		if (!photo.src) {
-			console.warn(
-				`相册 ${albumId} 的第 ${index + 1} 张照片缺少 src 字段`,
-			);
-			return;
-		}
-
-		photos.push({
-			id: photo.id || `${albumId}-external-photo-${index}`,
-			src: photo.src,
-			thumbnail: photo.thumbnail,
-			alt: photo.alt || photo.title || `Photo ${index + 1}`,
-			title: photo.title,
-			description: photo.description,
-			tags: photo.tags || [],
-			date: photo.date || new Date().toISOString().split("T")[0],
-			location: photo.location,
-			width: photo.width,
-			height: photo.height,
-			// camera: photo.camera,
-			// lens: photo.lens,
-			// settings: photo.settings,
-		});
-	});
-
-	return photos;
+export function scanVisibleAlbums(): AlbumGroup[] {
+	return scanAllAlbums().filter((album) => !album.hidden);
 }
 
-function parseFileName(fileName: string): { baseName: string; tags: string[] } {
-	// 匹配文件名中的标签，格式为：文件名_标签1_标签2.扩展名
-	const parts = path.basename(fileName, path.extname(fileName)).split("_");
+export function toAlbumIndexItem(album: AlbumGroup): AlbumIndexItem {
+	const { photos, password, ...metadata } = album;
+	return {
+		...metadata,
+		photoCount: photos.length,
+		protected: Boolean(password),
+	};
+}
 
-	if (parts.length > 1) {
-		// 第一部分作为基本名称，其余部分作为标签
-		const baseName = parts.slice(0, -2).join("_");
-		const tags = parts.slice(-2);
-		return { baseName, tags };
-	}
-
-	// 如果没有标签，返回不带扩展名的文件名
-	const baseName = path.basename(fileName, path.extname(fileName));
-	return { baseName, tags: [] };
+export function findAlbum(id: string): AlbumGroup | undefined {
+	return scanAllAlbums().find((album) => album.id === id);
 }

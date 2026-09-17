@@ -1,79 +1,117 @@
-name: CI
+name: Shirone CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  check:
-    name: Astro Check
+  quality:
+    name: Code quality
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CI: true
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
+          version: 9.14.4
           run_install: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
         with:
-          node-version: lts/*
+          node-version: 22
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Prepare content data
-        run: pnpm run build:data
-        env:
-          ENABLE_CONTENT_SYNC: false
+      - name: Run Biome
+        continue-on-error: true
+        run: pnpm exec biome ci ./src --reporter=github
 
-      - name: Run Astro Check
-        run: pnpm astro check
-        env:
-          ENABLE_CONTENT_SYNC: false
+  checks:
+    name: Diagnostics and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+        with:
+          version: 9.14.4
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check Astro diagnostics
+        run: pnpm exec astro check
+
+      - name: Validate atom manifest
+        run: pnpm check:manifest
+
+      - name: Run unit tests
+        run: node --test "tests/**/*.test.mjs"
 
   build:
-    name: Astro Build
+    name: Build (Node.js ${{ matrix.node }})
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    env:
+      CI: true
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
+          version: 9.14.4
           run_install: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
         with:
-          node-version: lts/*
+          node-version: ${{ matrix.node }}
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Prepare content data
-        run: pnpm run build:data
-        env:
-          ENABLE_CONTENT_SYNC: false
-
-      - name: Run Build
+      - name: Build production site
         run: pnpm build
-        env:
-          ENABLE_CONTENT_SYNC: false
-          UMAMI_SHARE_URL: ${{ secrets.UMAMI_SHARE_URL }}

@@ -1,149 +1,49 @@
-// Project data configuration file
-// Used to manage data for the project display page
+/**
+ * 项目页数据源（纯内容）。
+ * 页面展示与筛选规则由 src/config/projectsConfig.ts 控制。
+ */
+import type { ProjectItem } from "@/types/projectsConfig";
 
-export interface Project {
-	id: string;
-	title: string;
-	description: string;
-	image: string;
-	category: "web" | "mobile" | "desktop" | "other";
-	techStack: string[];
-	status: "completed" | "in-progress" | "planned";
-	liveDemo?: string;
-	sourceCode?: string;
-	startDate: string;
-	endDate?: string;
-	featured?: boolean;
-	tags?: string[];
-	visitUrl?: string; // 添加前往项目链接字段
-}
-
-export type ProjectStats = {
-	total: number;
-	byStatus: {
-		completed: number;
-		inProgress: number;
-		planned: number;
-	};
-};
-
-export const projectsData: Project[] = [
+export const projectsData: ProjectItem[] = [
 	{
-		id: "mizuki-blog",
-		title: "Mizuki Blog Theme",
-		description:
-			"Modern blog theme developed based on the Astro framework, supporting multilingual, dark mode, and responsive design features.",
-		image: "",
-		category: "web",
-		techStack: ["Astro", "TypeScript", "Tailwind CSS", "Svelte"],
-		status: "completed",
-		liveDemo: "https://blog.example.com",
-		sourceCode: "https://github.com/example/mizuki", // 更改为GitHub链接
-		visitUrl: "https://blog.example.com", // 添加前往项目链接
-		startDate: "2024-01-01",
-		endDate: "2024-06-01",
+		key: "shirone",
+		title: "Shirone",
+		summary:
+			"An Astro blog theme shaped around an M3E component system, expressive content, and resilient client navigation.",
+		category: "theme",
+		phase: "building",
+		technologies: ["Astro", "Svelte", "TypeScript", "Tailwind CSS"],
+		icon: "material-symbols:deployed-code-outline-rounded",
+		cover: "/assets/projects/shirone.webp",
+		coverAlt: "Shirone theme homepage preview",
 		featured: true,
-		tags: ["Blog", "Theme", "Open Source"],
+		repository: "https://github.com/LyraVoid/Shirone",
+		year: "2026",
 	},
 	{
-		id: "portfolio-website",
-		title: "Personal Portfolio",
-		description:
-			"Personal portfolio website showcasing project experience and technical skills.",
-		image: "",
-		category: "web",
-		techStack: ["React", "Next.js", "TypeScript", "Framer Motion"],
-		status: "completed",
-		liveDemo: "https://portfolio.example.com",
-		sourceCode: "https://github.com/example/portfolio",
-		visitUrl: "https://portfolio.example.com", // 添加前往项目链接
-		startDate: "2023-09-01",
-		endDate: "2023-12-01",
-		featured: true,
-		tags: ["Portfolio", "React", "Animation"],
+		key: "folkpatch",
+		title: "FolkPatch",
+		summary: "A kernel-level root solution for Android, built on APatch.",
+		category: "android",
+		phase: "building",
+		technologies: ["Kotlin", "APatch", "Android"],
+		icon: "material-symbols:terminal-rounded",
+		repository: "https://github.com/LyraVoid/FolkPatch",
 	},
 	{
-		id: "task-manager-app",
-		title: "Task Manager App",
-		description:
-			"Cross-platform task management application supporting team collaboration and project management.",
-		image: "",
-		category: "mobile",
-		techStack: ["React Native", "TypeScript", "Redux", "Firebase"],
-		status: "in-progress",
-		startDate: "2024-03-01",
-		tags: ["Mobile", "Productivity", "Team Collaboration"],
-	},
-	{
-		id: "data-visualization-tool",
-		title: "Data Visualization Tool",
-		description:
-			"Data visualization tool supporting multiple chart types and interactive analysis.",
-		image: "",
-		category: "web",
-		techStack: ["Vue.js", "D3.js", "TypeScript", "Node.js"],
-		status: "completed",
-		liveDemo: "https://dataviz.example.com",
-		visitUrl: "https://dataviz.example.com", // 添加前往项目链接
-		startDate: "2023-06-01",
-		endDate: "2023-11-01",
-		tags: ["Data Visualization", "Analytics", "Charts"],
-	},
-	{
-		id: "e-commerce-platform",
-		title: "E-commerce Platform",
-		description:
-			"Full-stack e-commerce platform including user management, product management, and order processing features.",
-		image: "",
-		category: "web",
-		techStack: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
-		status: "planned",
-		startDate: "2024-07-01",
-		tags: ["E-commerce", "Full Stack", "Payment Integration"],
+		key: "kernelpatch",
+		title: "KernelPatch",
+		summary:
+			"A kernel patch framework that powers APatch-style root on Android by loading code into the running kernel.",
+		category: "android",
+		phase: "shipped",
+		technologies: ["C", "Linux Kernel", "Android"],
+		icon: "material-symbols:extension-outline-rounded",
+		repository: "https://github.com/lyravoid/KernelPatch",
 	},
 ];
 
-// Get project statistics
-export const getProjectStats = (): ProjectStats => {
-	const total = projectsData.length;
-	const completed = projectsData.filter(
-		(p) => p.status === "completed",
-	).length;
-	const inProgress = projectsData.filter(
-		(p) => p.status === "in-progress",
-	).length;
-	const planned = projectsData.filter((p) => p.status === "planned").length;
-
-	return {
-		total,
-		byStatus: {
-			completed,
-			inProgress,
-			planned,
-		},
-	};
-};
-
-// Get projects by category
-export const getProjectsByCategory = (category?: string): Project[] => {
-	if (!category || category === "all") {
-		return projectsData;
-	}
-	return projectsData.filter((p) => p.category === category);
-};
-
-// Get featured projects
-export const getFeaturedProjects = (): Project[] => {
-	return projectsData.filter((p) => p.featured);
-};
-
-// Get all tech stacks
-export const getAllTechStack = (): string[] => {
-	const techSet = new Set<string>();
-	projectsData.forEach((project) => {
-		project.techStack.forEach((tech) => {
-			techSet.add(tech);
-		});
-	});
-	return Array.from(techSet).sort();
-};
+/** 获取所有项目数据列表 */
+export function getProjectsList(): ProjectItem[] {
+	return projectsData;
+}

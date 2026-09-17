@@ -1,19 +1,19 @@
-import I18nKey from "@i18n/i18nKey";
-import { i18n } from "@i18n/translation";
-import type { CollectionEntry } from "astro:content";
-
-import { permalinkConfig } from "../config";
-import { generatePermalinkSlug } from "./permalink-utils";
+import { permalinkConfig } from "../config/permalinkConfig.ts";
+import type I18nKey from "../i18n/i18nKey.ts";
+import { i18n } from "../i18n/translation.ts";
+import {
+	generatePermalinkSlug,
+	type PostLikeForPermalink,
+} from "./permalink-utils.ts";
 
 /**
  * 移除文件扩展名（.md, .mdx, .markdown）
- * 用于将 Astro v5 Content Layer API 的 id 转换为 URL 友好的 slug
  */
 export function removeFileExtension(id: string): string {
 	return id.replace(/\.(md|mdx|markdown)$/i, "");
 }
 
-export function pathsEqual(path1: string, path2: string) {
+export function pathsEqual(path1: string, path2: string): boolean {
 	const normalizedPath1 = path1.replace(/^\/|\/$/g, "").toLowerCase();
 	const normalizedPath2 = path2.replace(/^\/|\/$/g, "").toLowerCase();
 	return normalizedPath1 === normalizedPath2;
@@ -25,48 +25,67 @@ function joinUrl(...parts: string[]): string {
 }
 
 export function getPostUrlBySlug(slug: string): string {
-	// 移除文件扩展名（如 .md, .mdx 等）
-	const slugWithoutExt = removeFileExtension(slug);
+	let slugWithoutExt = removeFileExtension(slug)
+		.replace(/^\/+/, "")
+		.replace(/\/+$/, "");
+	if (slugWithoutExt.startsWith("posts/")) {
+		slugWithoutExt = slugWithoutExt.replace(/^posts\//, "");
+	}
 	return url(`/posts/${slugWithoutExt}/`);
 }
 
 export function getPostUrlByAlias(alias: string): string {
-	// 移除开头的斜杠并确保固定链接在 /posts/ 路径下
-	const cleanAlias = alias.replace(/^\/+/, "");
+	let cleanAlias = alias.replace(/^\/+/, "").replace(/\/+$/, "");
+	if (cleanAlias.startsWith("posts/")) {
+		cleanAlias = cleanAlias.replace(/^posts\//, "");
+	}
 	return url(`/posts/${cleanAlias}/`);
 }
 
-export function getPostUrl(post: CollectionEntry<"posts">): string;
-export function getPostUrl(post: {
-	id: string;
-	data: { alias?: string; permalink?: string };
-}): string;
-export function getPostUrl(post: any): string {
-	// 如果文章有自定义 permalink，优先使用（在根目录下）
-	if (post.data.permalink) {
-		const slug = post.data.permalink
-			.replace(/^\/+/, "")
-			.replace(/\/+$/, "");
+export function getPostUrl(
+	post:
+		| PostLikeForPermalink
+		| {
+				id?: string;
+				slug?: string;
+				url?: string;
+				data?: {
+					alias?: string;
+					permalink?: string;
+					published?: Date;
+					publishedAt?: Date;
+					category?: string | null;
+					draft?: boolean;
+				};
+		  },
+): string {
+	if ("url" in post && typeof post.url === "string" && post.url.length > 0) {
+		return post.url;
+	}
+
+	if (post.data?.permalink && post.data.permalink.trim().length > 0) {
+		const slug = post.data.permalink.replace(/^\/+/, "").replace(/\/+$/, "");
 		return url(`/${slug}/`);
 	}
 
-	// 如果全局 permalink 功能启用，使用生成的 slug（在根目录下）
 	if (permalinkConfig.enable) {
-		const slug = generatePermalinkSlug(post);
+		const slug = generatePermalinkSlug(post as PostLikeForPermalink);
 		return url(`/${slug}/`);
 	}
 
-	// 如果文章有 alias，使用 alias（在 /posts/ 下）
-	if (post.data.alias) {
+	if (post.data?.alias && post.data.alias.trim().length > 0) {
 		return getPostUrlByAlias(post.data.alias);
 	}
 
-	// 否则使用默认的 slug 路径
-	return getPostUrlBySlug(post.id);
+	const postId =
+		(post as { id?: string; slug?: string }).id ??
+		(post as { id?: string; slug?: string }).slug ??
+		"";
+	return getPostUrlBySlug(postId);
 }
 
 export function getTagUrl(tag: string): string {
-	if (!tag) {return url("/archive/");}
+	if (!tag) return url("/archive/");
 	return url(`/archive/?tag=${encodeURIComponent(tag.trim())}`);
 }
 
@@ -75,26 +94,76 @@ export function getCategoryUrl(category: string | null): string {
 		!category ||
 		category.trim() === "" ||
 		category.trim().toLowerCase() ===
-			i18n(I18nKey.uncategorized).toLowerCase()
+			i18n("uncategorized" as I18nKey).toLowerCase()
 	)
-		{return url("/archive/?uncategorized=true");}
+		return url("/archive/?uncategorized=true");
 	return url(`/archive/?category=${encodeURIComponent(category.trim())}`);
 }
 
+export function getSeriesUrl(series: string): string {
+	if (!series?.trim()) return url("/series/");
+	return url(`/series/${encodeURIComponent(series.trim())}/`);
+}
+
 export function getDir(path: string): string {
-	// 移除文件扩展名
-	const pathWithoutExt = removeFileExtension(path);
-	const lastSlashIndex = pathWithoutExt.lastIndexOf("/");
+	const lastSlashIndex = path.lastIndexOf("/");
 	if (lastSlashIndex < 0) {
 		return "/";
 	}
-	return pathWithoutExt.substring(0, lastSlashIndex + 1);
+	return path.substring(0, lastSlashIndex + 1);
 }
 
-export function getFileDirFromPath(filePath: string): string {
-	return filePath.replace(/^src\//, "").replace(/\/[^/]+$/, "");
+export function url(path: string, baseUrlOverride?: string): string {
+	if (!path) {
+		return baseUrlOverride ?? import.meta.env?.BASE_URL ?? "/";
+	}
+	if (
+		path.startsWith("http://") ||
+		path.startsWith("https://") ||
+		path.startsWith("data:") ||
+		path.startsWith("#") ||
+		path.startsWith("mailto:") ||
+		path.startsWith("tel:") ||
+		path.startsWith("javascript:")
+	) {
+		return path;
+	}
+	const baseUrl = baseUrlOverride ?? import.meta.env?.BASE_URL ?? "/";
+	const normalizedBase = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+	const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+	if (
+		normalizedBase !== "/" &&
+		(normalizedPath === baseUrl || normalizedPath.startsWith(normalizedBase))
+	) {
+		return normalizedPath;
+	}
+	return joinUrl("", baseUrl, path);
 }
 
-export function url(path: string) {
-	return joinUrl("", import.meta.env.BASE_URL, path);
+/**
+ * 将相对路径或绝对路径解析为完整的绝对 URL（附带域名与 base 路径）。
+ * 针对已包含协议的外部 URL 或 Data URL 原样返回；
+ * 若未提供 baseOrigin 则回退为带 base 的相对路径。
+ */
+export function toAbsoluteUrl(
+	path: string,
+	baseOrigin?: string | URL,
+	baseUrlOverride?: string,
+): string {
+	if (!path) return "";
+	if (
+		path.startsWith("http://") ||
+		path.startsWith("https://") ||
+		path.startsWith("data:")
+	) {
+		return path;
+	}
+	const pathWithBase = url(path, baseUrlOverride);
+	if (!baseOrigin) return pathWithBase;
+	try {
+		return new URL(pathWithBase, baseOrigin).href;
+	} catch {
+		return pathWithBase;
+	}
 }

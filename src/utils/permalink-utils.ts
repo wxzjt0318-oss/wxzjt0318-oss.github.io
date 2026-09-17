@@ -1,138 +1,243 @@
-import type { CollectionEntry } from "astro:content";
+﻿/**
+ * 移除文件扩展名（.md, .mdx, .markdown）
+ */
+export function removeFileExtension(id: string): string {
+	return id.replace(/\.(md|mdx|markdown)$/i, "");
+}
 
-import { permalinkConfig } from "../config";
-import { removeFileExtension } from "./url-utils";
+import { permalinkConfig } from "../config/permalinkConfig.ts";
+import { siteConfig } from "../config/siteConfig.ts";
 
-// 文章 ID 映射缓存（用于存储按时间排序后的文章序号）
+export interface PermalinkDateParts {
+	year: string;
+	month: string;
+	day: string;
+	hour: string;
+	minute: string;
+	second: string;
+}
+
+// 缓存按发布时间升序排列的文章 ID -> 序号映射
 let postIdMap: Map<string, number> | null = null;
 
+export interface PostLikeForIdMap {
+	id: string;
+	data: {
+		published: Date;
+		publishedAt?: Date;
+		draft?: boolean;
+	};
+}
+
 /**
- * 初始化文章 ID 映射
- * 按发布时间升序排列（最早的文章 id = 1），草稿文章不参与计算
- * @param posts 所有非草稿文章
+ * 比较两篇文章的发布时间（升序排序，最早发布的在前）
+ */
+export function comparePublishedDatesAscending(
+	a: PostLikeForIdMap,
+	b: PostLikeForIdMap,
+): number {
+	const instantA = a.data.publishedAt ?? a.data.published;
+	const instantB = b.data.publishedAt ?? b.data.published;
+	const timeDiff = instantA.getTime() - instantB.getTime();
+	if (timeDiff !== 0) return timeDiff;
+	return a.id.localeCompare(b.id);
+}
+
+/**
+ * 初始化文章 ID 序号映射
+ * 按发布时间升序排列（最早的文章 post_id = 1），草稿文章不参与编号
  */
 export function initPostIdMap(
-	posts: CollectionEntry<"posts">[],
+	posts: Array<PostLikeForIdMap>,
 ): Map<string, number> {
 	if (postIdMap) {
 		return postIdMap;
 	}
 
-	// 按发布时间升序排序（最早的在前）
-	const sortedPosts = [...posts].sort(
-		(a, b) => a.data.published.getTime() - b.data.published.getTime(),
-	);
+	const nonDraftPosts = posts.filter((post) => post.data.draft !== true);
+	const sorted = [...nonDraftPosts].sort(comparePublishedDatesAscending);
 
 	postIdMap = new Map();
-	sortedPosts.forEach((post, index) => {
-		// id 从 1 开始
-		postIdMap!.set(post.id, index + 1);
+	sorted.forEach((post, index) => {
+		postIdMap?.set(post.id, index + 1);
 	});
 
 	return postIdMap;
 }
 
 /**
- * 获取文章的序号 ID
- * @param postId 文章的 content collection id
- * @returns 文章序号，如果未初始化则返回 0
+ * 获取文章的数字序号 ID
  */
 export function getPostNumericId(postId: string): number {
 	if (!postIdMap) {
-		// 在客户端或未初始化时返回 0，使用默认 slug
-		console.warn("Post ID map not initialized. Returning 0 for post_id.");
 		return 0;
 	}
 	return postIdMap.get(postId) ?? 0;
 }
 
 /**
- * 清除文章 ID 映射缓存（用于测试或重新初始化）
+ * 清除文章 ID 映射缓存（供测试或热重载）
  */
 export function clearPostIdMap(): void {
 	postIdMap = null;
 }
 
 /**
- * 生成 permalink slug
- * 根据配置的格式模板和文章数据生成 URL slug
- * @param post 文章数据
- * @returns 生成的 slug（不包含 /posts/ 前缀）
+ * 解析文章日期的年月日时分秒（遵循站点配置的 IANA 时区）
  */
-export function generatePermalinkSlug(post: CollectionEntry<"posts">): string {
-	// 如果文章有自定义 permalink，优先使用（不在 /posts/ 下）
-	if (post.data.permalink) {
-		// 移除开头和结尾的斜杠
+export function getPostDateParts(
+	published: Date,
+	publishedAt?: Date,
+	timeZone: string = siteConfig.timeZone,
+): PermalinkDateParts {
+	const instant = publishedAt ?? published;
+
+	// 若未指定 publishedAt 且时间为 UTC 0 点，视为纯日期，使用 UTC 日期组件避免时区翻转
+	const isDateOnly =
+		!publishedAt &&
+		published.getUTCHours() === 0 &&
+		published.getUTCMinutes() === 0 &&
+		published.getUTCSeconds() === 0;
+
+	if (isDateOnly) {
+		return {
+			year: String(published.getUTCFullYear()),
+			month: String(published.getUTCMonth() + 1).padStart(2, "0"),
+			day: String(published.getUTCDate()).padStart(2, "0"),
+			hour: "00",
+			minute: "00",
+			second: "00",
+		};
+	}
+
+	try {
+		const parts = new Intl.DateTimeFormat("en-CA", {
+			timeZone,
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+			hour: "2-digit",
+			minute: "2-digit",
+			second: "2-digit",
+			hourCycle: "h23",
+		}).formatToParts(instant);
+
+		const values: Record<string, string> = {};
+		for (const part of parts) {
+			if (part.type !== "literal") {
+				values[part.type] = part.value;
+			}
+		}
+
+		return {
+			year: values.year || String(instant.getFullYear()),
+			month: values.month || String(instant.getMonth() + 1).padStart(2, "0"),
+			day: values.day || String(instant.getDate()).padStart(2, "0"),
+			hour: values.hour || "00",
+			minute: values.minute || "00",
+			second: values.second || "00",
+		};
+	} catch {
+		return {
+			year: String(instant.getFullYear()),
+			month: String(instant.getMonth() + 1).padStart(2, "0"),
+			day: String(instant.getDate()).padStart(2, "0"),
+			hour: String(instant.getHours()).padStart(2, "0"),
+			minute: String(instant.getMinutes()).padStart(2, "0"),
+			second: String(instant.getSeconds()).padStart(2, "0"),
+		};
+	}
+}
+
+/**
+ * 判断文章是否有自定义根路径 permalink
+ */
+export function hasCustomPermalink(post: {
+	data?: { permalink?: string };
+}): boolean {
+	return Boolean(post.data?.permalink && post.data.permalink.trim().length > 0);
+}
+
+export type PostLikeForPermalink = {
+	id?: string;
+	slug?: string;
+	filePath?: string;
+	data: {
+		title?: string;
+		published?: Date;
+		publishedAt?: Date;
+		category?: string | null;
+		permalink?: string;
+		alias?: string;
+		draft?: boolean;
+	};
+};
+
+/**
+ * 生成 permalink 相对 slug（不含 leading/trailing slashes）
+ */
+export function generatePermalinkSlug(post: PostLikeForPermalink): string {
+	// 1. 若文章有自定义 permalink，最高优先级直接采用
+	if (post.data?.permalink && post.data.permalink.trim().length > 0) {
 		return post.data.permalink.replace(/^\/+/, "").replace(/\/+$/, "");
 	}
 
-	// 如果全局 permalink 功能未启用，使用默认 slug
+	const postId =
+		(post as { id?: string; slug?: string }).id ??
+		(post as { id?: string; slug?: string }).slug ??
+		"";
+	const defaultSlug = removeFileExtension(postId);
+
+	// 2. 若全局 permalink 未启用
 	if (!permalinkConfig.enable) {
-		// 如果有 alias，使用 alias
-		if (post.data.alias) {
-			return post.data.alias.replace(/^\/+/, "").replace(/\/+$/, "");
+		if (post.data?.alias && post.data.alias.trim().length > 0) {
+			let alias = post.data.alias.replace(/^\/+/, "").replace(/\/+$/, "");
+			if (alias.startsWith("posts/")) {
+				alias = alias.replace(/^posts\//, "");
+			}
+			return alias;
 		}
-		// 否则使用文件名
-		return removeFileExtension(post.id);
+		return defaultSlug;
 	}
 
-	// 使用全局 permalink 格式模板
-	let format = permalinkConfig.format;
-
-	// 验证格式不包含斜杠
-	if (format.includes("/")) {
-		console.warn(
-			"Permalink format contains '/' which is not supported. Removing slashes.",
-		);
-		format = format.replace(/\//g, "-");
+	// 3. 使用全局 permalink 模板
+	const format = permalinkConfig.format || "%postname%";
+	let rawPostname = defaultSlug;
+	if (post.filePath) {
+		const parts = post.filePath.split(/[/\\]/);
+		const filename = parts[parts.length - 1];
+		if (filename) {
+			rawPostname = removeFileExtension(filename);
+		}
 	}
 
-	const published = post.data.published;
-	const postname = removeFileExtension(post.id);
-	const category = post.data.category || "uncategorized";
+	const published = post.data.published ?? new Date();
+	const dateParts = getPostDateParts(published, post.data.publishedAt);
+	const category = post.data.category
+		? String(post.data.category).trim()
+		: "uncategorized";
+	const numericId = getPostNumericId(postId);
 
-	// 替换占位符
 	const slug = format
-		.replace(/%year%/g, published.getFullYear().toString())
-		.replace(
-			/%monthnum%/g,
-			(published.getMonth() + 1).toString().padStart(2, "0"),
-		)
-		.replace(/%day%/g, published.getDate().toString().padStart(2, "0"))
-		.replace(/%hour%/g, published.getHours().toString().padStart(2, "0"))
-		.replace(
-			/%minute%/g,
-			published.getMinutes().toString().padStart(2, "0"),
-		)
-		.replace(
-			/%second%/g,
-			published.getSeconds().toString().padStart(2, "0"),
-		)
-		.replace(/%post_id%/g, getPostNumericId(post.id).toString())
-		.replace(/%postname%/g, postname)
+		.replace(/%year%/g, dateParts.year)
+		.replace(/%monthnum%/g, dateParts.month)
+		.replace(/%day%/g, dateParts.day)
+		.replace(/%hour%/g, dateParts.hour)
+		.replace(/%minute%/g, dateParts.minute)
+		.replace(/%second%/g, dateParts.second)
+		.replace(/%post_id%/g, String(numericId))
+		.replace(/%postname%/g, defaultSlug)
+		.replace(/%raw_postname%/g, rawPostname)
 		.replace(/%category%/g, category);
 
-	return slug;
+	return slug.replace(/^\/+/, "").replace(/\/+$/, "");
 }
 
 /**
- * 判断文章是否使用自定义 permalink（根目录下，不在 /posts/ 下）
- * @param post 文章数据
+ * 获取文章的完整 permalink 路径（如 /my-post/ 或 /2024/12/post/）
  */
-export function hasCustomPermalink(
-	post: CollectionEntry<"posts"> | { data: { permalink?: string } },
-): boolean {
-	return !!post.data.permalink;
-}
-
-/**
- * 获取文章的完整 URL 路径
- * @param post 文章数据
- * @returns URL 路径（如 /my-post/ 或 /custom-path/）
- */
-export function getPermalinkPath(post: CollectionEntry<"posts">): string {
+export function getPermalinkPath(post: PostLikeForPermalink): string {
 	const slug = generatePermalinkSlug(post);
-
-	// 所有 permalink 生成的链接都在根目录下
-	return `/${slug}/`;
+	const cleanSlug = slug.replace(/^\/+/, "").replace(/\/+$/, "");
+	return `/${cleanSlug}/`;
 }

@@ -1,121 +1,115 @@
-/* Fancybox 自定义样式 */
+/* Fancybox v6 自定义样式 —— 匹配 Shirone 设计语言
+   v6 把 v5 的 .fancybox__toolbar / __button / __caption / __nav / __infobar
+   改为 .f-carousel__toolbar / .f-button / .f-caption / .f-button.is-arrow / .f-counter，
+   并通过 --f-* 变量暴露外观；这里优先覆盖变量，只在变量覆盖不到的地方写规则。 */
+
 .fancybox__container {
-  --fancybox-bg: rgba(0, 0, 0, 0.9);
-  --fancybox-thumbs-width: 64px;
-  --fancybox-thumbs-ratio: 1;
-  --fancybox-thumbs-border-radius: 4px;
+	--fancybox-bg: rgba(0, 0, 0, 0.88);
+
+	/* 按钮：圆角矩形 + 毛玻璃 */
+	--f-button-width: 48px;
+	--f-button-height: 48px;
+	--f-button-border-radius: 0.75rem;
+	--f-button-color: #fff;
+	--f-button-hover-color: #fff;
+	--f-button-active-color: #fff;
+	--f-button-bg: rgba(0, 0, 0, 0.4);
+	--f-button-hover-bg: rgba(0, 0, 0, 0.55);
+	--f-button-active-bg: rgba(0, 0, 0, 0.65);
+	--f-button-backdrop-filter: blur(4px);
+	--f-button-transition: background-color 0.2s ease, transform 0.2s ease;
+
+	/* 说明文字 */
+	--f-caption-color: #fff;
 }
 
-.fancybox__toolbar {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
-  padding: 8px;
-  backdrop-filter: blur(4px);
+/* 工具栏 */
+.fancybox__container .f-carousel__toolbar {
+	padding: 0.5rem;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
 }
 
-.fancybox__caption {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  color: white;
-  font-size: 1rem;
-  padding: 1rem;
-  text-align: center;
-  backdrop-filter: blur(4px);
-  border-radius: 8px;
-  margin: 0 1rem 1rem 1rem;
+.fancybox__container .f-button:active {
+	transform: scale(0.92);
 }
 
-.fancybox__nav {
-  --carousel-button-svg-width: 24px;
-  --carousel-button-svg-height: 24px;
+/* 计数器 */
+.fancybox__container .f-counter {
+	color: #fff;
+	font-size: 0.9rem;
+	padding: 0 8px;
+	opacity: 0.85;
 }
 
-.fancybox__thumbs {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 2px;
-  border-radius: 8px;
-  backdrop-filter: blur(4px);
+/* 标题/说明 */
+.fancybox__container .f-caption {
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+	font-size: 0.9rem;
+	padding: 1rem;
+	margin: 0 1rem 1rem;
+	text-align: center;
+	border-radius: 0.75rem;
+	backdrop-filter: blur(6px);
 }
 
-.fancybox__thumb {
-  border-radius: 4px;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
+/* 缩略图条 */
+.fancybox__container .fancybox__thumbs {
+	background: rgba(0, 0, 0, 0.6);
+	padding: 4px;
+	border-radius: 0.75rem;
+	backdrop-filter: blur(6px);
 }
 
-.fancybox__thumb.is-loading {
-  background: rgba(255, 255, 255, 0.1);
+.fancybox__container .f-thumbs__slide button {
+	border-radius: 0.5rem;
+	overflow: hidden;
+	outline: 2px solid transparent;
+	outline-offset: -2px;
+	transition: outline-color 0.2s ease, transform 0.2s ease;
 }
 
-.fancybox__thumb:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: scale(1.05);
+.fancybox__container .f-thumbs__slide:hover button {
+	outline-color: rgba(255, 255, 255, 0.5);
+	transform: scale(1.05);
 }
 
-.fancybox__thumb.is-active {
-  border-color: #fff;
+.fancybox__container .f-thumbs__slide.is-selected button {
+	outline-color: #fff;
 }
 
-/* 按钮样式 */
-.fancybox__button {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* 响应式：小屏幕 */
+@media (width < 768px) {
+	.fancybox__container {
+		--f-button-width: 40px;
+		--f-button-height: 40px;
+		--f-button-border-radius: 0.5rem;
+	}
+
+	.fancybox__container .f-carousel__toolbar {
+		padding: 0.25rem;
+	}
+
+	.fancybox__container .f-caption {
+		font-size: 0.85rem;
+		padding: 0.5rem;
+		margin: 0 0.5rem 0.5rem;
+	}
 }
 
-.fancybox__button:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
-  border-color: rgba(255, 255, 255, 0.3);
+@media (width < 480px) {
+	.fancybox__container {
+		--f-button-width: 36px;
+		--f-button-height: 36px;
+	}
+
+	.fancybox__container .f-caption {
+		font-size: 0.8rem;
+	}
 }
 
-.fancybox__button svg {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
-}
-
-.fancybox__infobar {
-  color: white;
-  font-size: 0.9rem;
-  padding: 0 8px;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .fancybox__toolbar {
-    padding: 4px;
-  }
-
-  .fancybox__button {
-    width: 36px;
-    height: 36px;
-  }
-
-  .fancybox__caption {
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    margin: 0 0.5rem 0.5rem 0.5rem;
-  }
-
-  .fancybox__thumbs {
-    --fancybox-thumbs-width: 48px;
-  }
-}
-
-@media (max-width: 480px) {
-  .fancybox__button {
-    width: 32px;
-    height: 32px;
-  }
-
-  .fancybox__caption {
-    font-size: 0.8rem;
-    padding: 0.4rem;
-  }
-
-  .fancybox__thumbs {
-    --fancybox-thumbs-width: 40px;
-  }
+@media (prefers-reduced-motion: reduce) {
+	.fancybox__container .f-button:active,
+	.fancybox__container .f-thumbs__slide:hover button {
+		transform: none;
+	}
 }

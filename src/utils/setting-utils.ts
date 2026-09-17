@@ -1,26 +1,124 @@
 import {
+	AUTO_MODE,
 	DARK_MODE,
 	DEFAULT_THEME,
 	LIGHT_MODE,
-	// WALLPAPER_BANNER,
-} from "@constants/constants";
+	TEXTURE_CHANGE_EVENT,
+	TEXTURE_OPACITY_KEY,
+	TEXTURE_PRESET_KEY,
+	TEXTURE_PRESETS,
+	THEME_CHANGE_EVENT,
+	WALLPAPER_MODE_CHANGE_EVENT,
+	WALLPAPER_MODE_KEY,
+} from "@constants/constants.ts";
+import { applyCurrentScheme } from "@utils/theme-utils";
+import { expressiveCodeConfig, siteConfig } from "@/config";
+import type { LIGHT_DARK_MODE, WallpaperMode } from "@/types/config";
+import type { TexturePreset } from "@/types/textureConfig";
 
-import { siteConfig } from "@/config";
-import type { LIGHT_DARK_MODE, WALLPAPER_MODE } from "@/types/config";
+export function isTexturePreset(value: unknown): value is TexturePreset {
+	return (
+		typeof value === "string" &&
+		(TEXTURE_PRESETS as readonly string[]).includes(value)
+	);
+}
+
+export function getDefaultTexturePreset(): TexturePreset {
+	const textureCfg =
+		typeof siteConfig.texture === "object" ? siteConfig.texture : undefined;
+	const fallback = textureCfg?.defaultPreset ?? "starlight";
+	const value =
+		document.getElementById("config-carrier")?.dataset.texturePreset;
+	return isTexturePreset(value) ? value : fallback;
+}
+
+export function getStoredTexturePreset(): TexturePreset {
+	const value = localStorage.getItem(TEXTURE_PRESET_KEY);
+	return isTexturePreset(value) ? value : getDefaultTexturePreset();
+}
+
+export function setTexturePreset(preset: TexturePreset): void {
+	localStorage.setItem(TEXTURE_PRESET_KEY, preset);
+	document.documentElement.dataset.texturePreset = preset;
+	window.dispatchEvent(
+		new CustomEvent(TEXTURE_CHANGE_EVENT, {
+			detail: { preset, opacity: getStoredTextureOpacity() },
+		}),
+	);
+}
+
+export function getDefaultTextureOpacity(): number {
+	const textureCfg =
+		typeof siteConfig.texture === "object" ? siteConfig.texture : undefined;
+	const fallback = textureCfg?.defaultOpacity ?? 0.12;
+	const carrier = document.getElementById("config-carrier");
+	const val = carrier?.dataset.textureOpacity;
+	if (val) {
+		const parsed = Number.parseFloat(val);
+		if (!Number.isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+			return parsed;
+		}
+	}
+	return fallback;
+}
+
+export function getStoredTextureOpacity(): number {
+	const value = localStorage.getItem(TEXTURE_OPACITY_KEY);
+	if (value) {
+		const parsed = Number.parseFloat(value);
+		if (!Number.isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+			return parsed;
+		}
+	}
+	return getDefaultTextureOpacity();
+}
+
+export function setTextureOpacity(opacity: number): void {
+	const clamped = Math.min(Math.max(opacity, 0), 1);
+	localStorage.setItem(TEXTURE_OPACITY_KEY, String(clamped));
+	document.documentElement.style.setProperty(
+		"--texture-opacity",
+		String(clamped),
+	);
+	window.dispatchEvent(
+		new CustomEvent(TEXTURE_CHANGE_EVENT, {
+			detail: { preset: getStoredTexturePreset(), opacity: clamped },
+		}),
+	);
+}
+
+export function isWallpaperMode(value: unknown): value is WallpaperMode {
+	return value === "banner" || value === "none";
+}
+
+export function getDefaultWallpaperMode(): WallpaperMode {
+	const value =
+		document.getElementById("config-carrier")?.dataset.wallpaperMode;
+	return isWallpaperMode(value) ? value : "none";
+}
+
+export function getStoredWallpaperMode(): WallpaperMode {
+	const value = localStorage.getItem(WALLPAPER_MODE_KEY);
+	return isWallpaperMode(value) ? value : getDefaultWallpaperMode();
+}
+
+export function setWallpaperMode(mode: WallpaperMode): void {
+	localStorage.setItem(WALLPAPER_MODE_KEY, mode);
+	document.documentElement.dataset.wallpaperMode = mode;
+	window.dispatchEvent(
+		new CustomEvent(WALLPAPER_MODE_CHANGE_EVENT, { detail: { mode } }),
+	);
+}
 
 export function getDefaultHue(): number {
 	const fallback = "250";
 	const configCarrier = document.getElementById("config-carrier");
-	// 在Swup页面切换时，config-carrier可能不存在，使用默认值
-	if (!configCarrier) {
-		return Number.parseInt(fallback);
-	}
-	return Number.parseInt(configCarrier.dataset.hue || fallback);
+	return Number.parseInt(configCarrier?.dataset.hue || fallback, 10);
 }
 
 export function getHue(): number {
 	const stored = localStorage.getItem("hue");
-	return stored ? Number.parseInt(stored) : getDefaultHue();
+	return stored ? Number.parseInt(stored, 10) : getDefaultHue();
 }
 
 export function setHue(hue: number): void {
@@ -30,117 +128,43 @@ export function setHue(hue: number): void {
 		return;
 	}
 	r.style.setProperty("--hue", String(hue));
+	applyCurrentScheme();
 }
 
 export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
-	// 获取当前主题状态的完整信息
-	const currentIsDark = document.documentElement.classList.contains("dark");
-	const currentTheme = document.documentElement.getAttribute("data-theme");
-
-	// 计算目标主题状态
-	let targetIsDark = false; // 初始化默认值
 	switch (theme) {
 		case LIGHT_MODE:
-			targetIsDark = false;
+			document.documentElement.classList.remove("dark");
 			break;
 		case DARK_MODE:
-			targetIsDark = true;
+			document.documentElement.classList.add("dark");
 			break;
-		default:
-			// 处理默认情况，使用当前主题状态
-			targetIsDark = currentIsDark;
-			break;
-	}
-
-	// 检测是否真的需要主题切换：
-	// 1. dark类状态是否改变
-	// 2. expressiveCode主题是否需要更新
-	const needsThemeChange = currentIsDark !== targetIsDark;
-	const expectedTheme = targetIsDark ? "github-dark" : "github-light";
-	const needsCodeThemeUpdate = currentTheme !== expectedTheme;
-
-	// 如果既不需要主题切换也不需要代码主题更新，直接返回
-	if (!needsThemeChange && !needsCodeThemeUpdate) {
-		return;
-	}
-
-	// 定义实际执行主题切换的函数
-	const performThemeChange = () => {
-		// 应用主题变化
-		if (needsThemeChange) {
-			if (targetIsDark) {
+		case AUTO_MODE:
+			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
 				document.documentElement.classList.add("dark");
 			} else {
 				document.documentElement.classList.remove("dark");
 			}
-		}
-
-		// Set the theme for Expressive Code based on current mode
-		// 只在必要时更新 data-theme 属性以减少重绘
-		if (needsCodeThemeUpdate) {
-			const expressiveTheme = targetIsDark
-				? "github-dark"
-				: "github-light";
-			document.documentElement.setAttribute(
-				"data-theme",
-				expressiveTheme,
-			);
-		}
-	};
-
-	// 检查浏览器是否支持 View Transitions API
-	if (
-		needsThemeChange &&
-		document.startViewTransition &&
-		!window.matchMedia("(prefers-reduced-motion: reduce)").matches
-	) {
-		// 添加标记类，表示正在使用 View Transitions
-		document.documentElement.classList.add(
-			"is-theme-transitioning",
-			"use-view-transition",
-		);
-
-		// 使用 View Transitions API 实现平滑过渡
-		const transition = document.startViewTransition(() => {
-			performThemeChange();
-		});
-
-		// 在过渡完成后移除标记类（使用 finished promise 确保完全同步）
-		transition.finished
-			.then(() => {
-				// 使用 microtask 确保在下一个事件循环前完成清理
-				queueMicrotask(() => {
-					document.documentElement.classList.remove(
-						"is-theme-transitioning",
-						"use-view-transition",
-					);
-				});
-			})
-			.catch(() => {
-				// 如果过渡被中断，也要清理状态
-				document.documentElement.classList.remove(
-					"is-theme-transitioning",
-					"use-view-transition",
-				);
-			});
-	} else {
-		// 不支持 View Transitions API 或用户偏好减少动画，使用传统方式
-		// 只在需要主题切换时添加过渡保护
-		if (needsThemeChange) {
-			document.documentElement.classList.add("is-theme-transitioning");
-		}
-
-		performThemeChange();
-
-		// 使用 requestAnimationFrame 确保在下一帧移除过渡保护类
-		if (needsThemeChange) {
-			requestAnimationFrame(() => {
-				document.documentElement.classList.remove(
-					"is-theme-transitioning",
-				);
-			});
-		}
+			break;
 	}
+
+	// Set the theme for Expressive Code based on current mode
+	// (light/dark code block themes)
+	const isDark = document.documentElement.classList.contains("dark");
+	document.documentElement.setAttribute(
+		"data-theme",
+		isDark
+			? (expressiveCodeConfig.darkTheme ?? expressiveCodeConfig.theme)
+			: (expressiveCodeConfig.lightTheme ?? expressiveCodeConfig.theme),
+	);
+
+	// 广播明暗状态变化，供按需加载的第三方组件（如 giscus iframe）同步主题
+	window.dispatchEvent(
+		new CustomEvent(THEME_CHANGE_EVENT, { detail: { isDark } }),
+	);
+
+	// Dark mode affects the resolved M3/M3E scheme
+	applyCurrentScheme();
 }
 
 export function setTheme(theme: LIGHT_DARK_MODE): void {
@@ -152,17 +176,18 @@ export function getStoredTheme(): LIGHT_DARK_MODE {
 	return (localStorage.getItem("theme") as LIGHT_DARK_MODE) || DEFAULT_THEME;
 }
 
-export function getStoredWallpaperMode(): WALLPAPER_MODE {
-	return (
-		(localStorage.getItem("wallpaperMode") as WALLPAPER_MODE) ||
-		siteConfig.wallpaperMode.defaultMode
-	);
+const MOTION_KEY = "mc-motion";
+
+/** 是否开启「减少动态效果」（手动覆盖 prefers-reduced-motion） */
+export function getMotionPreference(): boolean {
+	return localStorage.getItem(MOTION_KEY) === "reduced";
 }
 
-export function setWallpaperMode(mode: WALLPAPER_MODE): void {
-	localStorage.setItem("wallpaperMode", mode);
-	// 触发自定义事件通知其他组件壁纸模式已改变
-	window.dispatchEvent(
-		new CustomEvent("wallpaper-mode-change", { detail: { mode } }),
-	);
+export function applyMotionPreference(reduced: boolean): void {
+	document.documentElement.classList.toggle("motion-reduced", reduced);
+}
+
+export function setMotionPreference(reduced: boolean): void {
+	localStorage.setItem(MOTION_KEY, reduced ? "reduced" : "full");
+	applyMotionPreference(reduced);
 }

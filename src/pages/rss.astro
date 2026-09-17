@@ -1,4 +1,10 @@
 ---
-import FeedInfo from "@components/widgets/feed/FeedInfo.astro";
+import FeedGuide from "@components/organisms/FeedGuide.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 ---
-<FeedInfo type="rss" />
+
+<MainGridLayout title={i18n(I18nKey.rss)} description={i18n(I18nKey.rssSubtitle)} page="rss">
+	<FeedGuide type="rss" />
+</MainGridLayout>

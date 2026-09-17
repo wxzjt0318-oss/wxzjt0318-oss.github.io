@@ -1,39 +1,50 @@
-import { siteConfig } from "../config";
+import {
+	formatCalendarDate,
+	formatInstantDateTimeInSiteTimeZone,
+} from "./content-date";
 
 export function formatDateToYYYYMMDD(date: Date): string {
-	return date.toISOString().substring(0, 10);
+	return formatCalendarDate(date);
 }
 
-// 国际化日期格式化函数
-export function formatDateI18n(dateString: string): string {
-	const date = new Date(dateString);
-	const lang = siteConfig.lang || "en";
+const DAY_MS = 86_400_000;
 
-	// 根据语言设置不同的日期格式
-	const options: Intl.DateTimeFormatOptions = {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
+function toUtcDayStart(date: Date): number {
+	return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+}
+
+/** 两个日期之间相隔的 UTC 日历天数；未来日期返回负数。 */
+export function differenceInUtcCalendarDays(
+	date: Date,
+	reference: Date = new Date(),
+): number {
+	return (toUtcDayStart(reference) - toUtcDayStart(date)) / DAY_MS;
+}
+
+/** 将用户配置的显示阈值收敛为非负整数。 */
+export function normalizeMinimumAgeDays(value: number): number {
+	return Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+}
+
+export interface LastUpdatedNoticeState {
+	days: number;
+	visible: boolean;
+}
+
+/** 解析最后更新提示的天数与阈值显隐状态。 */
+export function resolveLastUpdatedNoticeState(
+	date: Date,
+	minimumAgeDays: number,
+	reference: Date = new Date(),
+): LastUpdatedNoticeState {
+	const days = differenceInUtcCalendarDays(date, reference);
+	return {
+		days: Math.max(0, days),
+		visible: days >= normalizeMinimumAgeDays(minimumAgeDays),
 	};
+}
 
-	// 语言代码映射
-	const localeMap: Record<string, string> = {
-		zh_CN: "zh-CN",
-		zh_TW: "zh-TW",
-		en: "en-US",
-		ja: "ja-JP",
-		ko: "ko-KR",
-		es: "es-ES",
-		th: "th-TH",
-		vi: "vi-VN",
-		tr: "tr-TR",
-		id: "id-ID",
-		fr: "fr-FR",
-		de: "de-DE",
-		ru: "ru-RU",
-		ar: "ar-SA",
-	};
-
-	const locale = localeMap[lang] || "en-US";
-	return date.toLocaleDateString(locale, options);
+/** 动态流时间戳：YYYY-MM-DD HH:mm（站点时区，用于社交式短内容） */
+export function formatDateToYYYYMMDDHHmm(date: Date): string {
+	return formatInstantDateTimeInSiteTimeZone(date);
 }

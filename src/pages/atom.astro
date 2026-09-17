@@ -1,4 +1,10 @@
 ---
-import FeedInfo from "@components/widgets/feed/FeedInfo.astro";
+import FeedGuide from "@components/organisms/FeedGuide.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 ---
-<FeedInfo type="atom" />
+
+<MainGridLayout title={i18n(I18nKey.atom)} description={i18n(I18nKey.atomSubtitle)} page="atom">
+	<FeedGuide type="atom" />
+</MainGridLayout>

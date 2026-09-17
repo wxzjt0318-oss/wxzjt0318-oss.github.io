@@ -1,12 +1,11 @@
 {
+	"extends": "astro/tsconfigs/strict",
+	"include": ["src/**/*"],
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"jsx": "preserve",
-		"baseUrl": ".",
+		"ignoreDeprecations": "6.0",
 		"strictNullChecks": true,
 		"allowJs": false,
+		"baseUrl": ".",
 		"declaration": true,
 		"plugins": [
 			{
@@ -14,16 +13,19 @@
 			}
 		],
 		"paths": {
+			"@/*": ["src/*"],
 			"@components/*": ["src/components/*"],
-			"@assets/*": ["src/assets/*"],
-			"@constants/*": ["src/constants/*"],
 			"@utils/*": ["src/utils/*"],
-			"@i18n/*": ["src/i18n/*"],
 			"@layouts/*": ["src/layouts/*"],
-			"@/*": ["src/*"]
-		},
-		"skipLibCheck": true
-	},
-	"include": ["src/**/*"],
-	"exclude": [".astro/**", "dist/**", "node_modules/**"]
+			"@i18n/*": ["src/i18n/*"],
+			"@constants/*": ["src/constants/*"],
+			"@assets/*": ["src/assets/*"],
+			"@shirone/iconify-offline": [
+				"node_modules/@iconify/svelte/dist/OfflineIcon.svelte"
+			],
+			"@shirone/iconify-offline-functions": [
+				"node_modules/@iconify/svelte/dist/offline-functions.js"
+			]
+		}
+	}
 }

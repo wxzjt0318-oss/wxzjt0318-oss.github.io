@@ -1,30 +1,44 @@
 @reference "tailwindcss";
 
+@import "./markdown/disclosures.css";
+
 .custom-md {
   h1 {
     @apply text-3xl;
   }
 
-  :is(h1, h2, h3, h4, h5, h6) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     .anchor {
-      @apply transition -m-0.5 ms-[0.2ch] p-0.5 select-none opacity-0 no-underline;
+      @apply transition -m-0.5 ml-[0.2ch] p-0.5 select-none opacity-0 no-underline;
 
       .anchor-icon {
         @apply mx-[0.45ch];
       }
     }
 
-    &:hover .anchor {
-      @apply opacity-100;
+    &:hover {
+      .anchor {
+        @apply opacity-100;
+      }
     }
   }
 
-  /* --- 链接 --- */
   a:not(.no-styling) {
-    @apply relative bg-none font-medium text-(--primary)
-        underline decoration-(--link-underline) decoration-1 decoration-dashed underline-offset-4;
+    @apply relative bg-none transition rounded-md font-medium text-[var(--primary)]
+        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
+    padding: var(--m3e-space-1);
+    margin: calc(var(--m3e-space-1) * -1);
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+    display: inline;
+    /* anywhere 而非 break-word：换行机会参与 min-content 计算，
+       长链接才不会在窄网格/弹性容器（如动态卡片）里撑破轨道 */
+    overflow-wrap: anywhere;
 
     &:hover,
     &:active {
@@ -35,21 +49,31 @@
     }
   }
 
-  /* --- 代码块 --- */
   code {
-    @apply bg-(--inline-code-bg) text-(--inline-code-color) px-1 py-0.5 rounded-md overflow-hidden;
+    @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
 
-    font-family: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-    &:before,
+    font-family:
+      var(--m3e-font-mono-family),
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      Liberation Mono,
+      Courier New,
+      monospace;
+    /* !important boundary: Tailwind Typography owns generated code markers; Shirone's Markdown renderer suppresses them. */
+    &:before {
+      content: none !important;
+    }
     &:after {
-      content: none;
+      content: none !important;
     }
 
     counter-reset: line;
     span.line {
       &:before {
-        @apply text-white/25 mr-4 w-4 inline-block select-none;
+        @apply text-white/25 mr-4 w-4 inline-block;
         content: counter(line);
         counter-increment: line;
         direction: rtl;
@@ -61,140 +85,131 @@
     }
   }
 
-  /* --- 列表 --- */
   ul,
   ol {
     li::marker {
-      @apply text-(--primary);
+      @apply text-[var(--primary)];
     }
   }
 
-  /* --- 引用块 --- */
   blockquote {
     @apply not-italic border-transparent relative;
     font-weight: inherit;
 
     &:before {
-      @apply content-[''] absolute left-0 block transition bg-(--btn-regular-bg) h-full w-1 rounded-full;
+      @apply content-[''] absolute -left-1 block transition bg-[var(--primary)] h-full w-1 rounded-full;
     }
 
+    /* Remove the double quotes from default styles */
     p:before,
     p:after {
       @apply content-none;
     }
   }
 
-  /* --- 表格样式 --- */
-  .table-wrapper {
-    @apply w-full overflow-x-auto m-0 rounded-(--radius-large);
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+  }
+
+  /* --- M3 表格：容器圆角 + 表头表面分层 + outline-variant 分隔线 --- */
+  .markdown-table-scroll {
+    width: 100%;
+    max-width: 100%;
+    margin: var(--m3e-space-4) 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    border-radius: var(--shape-corner-m);
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-bg) transparent;
     -webkit-overflow-scrolling: touch;
 
-    /* --- 滚动条样式 --- */
-    &::-webkit-scrollbar {
-      height: 6px;
-      width: 6px;
+    &:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
+
+    &::-webkit-scrollbar {
+      height: var(--m3e-space-2);
+    }
+
     &::-webkit-scrollbar-track {
       background: transparent;
-      margin: 0 calc(var(--radius-large) + 2px);
+      margin-inline: var(--m3e-space-2);
     }
+
     &::-webkit-scrollbar-thumb {
       background: var(--scrollbar-bg);
-      border-radius: 4px;
+      border-radius: var(--shape-corner-full);
     }
+
     &::-webkit-scrollbar-thumb:hover {
       background: var(--scrollbar-bg-hover);
     }
+
     &::-webkit-scrollbar-thumb:active {
       background: var(--scrollbar-bg-active);
     }
   }
 
   table {
-    @apply w-full border-separate m-0 bg-(--card-bg);
-    border-spacing: 0;
-
-    border: 1px solid var(--line-divider);
-    border-radius: var(--radius-large);
-
+    width: 100%;
+    margin: 0;
     overflow: hidden;
-  }
+    border: 1px solid var(--outline-variant);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--shape-corner-m);
 
-  th,
-  td {
-    @apply px-4 py-3 whitespace-nowrap;
-    border-bottom: 1px solid var(--line-divider);
-    border-right: 1px solid var(--line-divider);
-    transition: none;
-  }
-
-  th {
-    background-color: var(--btn-regular-bg);
-    color: var(--btn-content);
-    font-weight: 600;
-    text-align: left;
-  }
-
-  tr:last-child td {
-    border-bottom: none;
-  }
-  th:last-child,
-  td:last-child {
-    border-right: none;
-  }
-
-  tr:nth-child(even) {
-    background-color: var(--codeblock-bg);
-  }
-  tr:hover td {
-    background-color: var(--btn-plain-bg-hover);
-    transition: none;
-  }
-
-  /* --- 数学公式样式 --- */
-  .katex-display {
-    @apply w-full overflow-x-auto overflow-y-hidden box-border my-4;
-    padding-bottom: 6px;
-    padding-top: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-      height: 6px;
-      width: 6px;
+    /* !important boundary: Tailwind Typography owns prose cell spacing; the responsive table owns its cell geometry. */
+    th {
+      @apply text-left bg-[var(--surface-container-high)] text-[var(--on-surface)] font-semibold;
+      padding: var(--m3e-space-3) var(--m3e-space-4) !important;
     }
-    &::-webkit-scrollbar-track {
-      background: transparent;
+
+    td {
+      @apply text-[var(--on-surface-variant)];
+      padding: var(--m3e-space-2) var(--m3e-space-4) !important;
     }
-    &::-webkit-scrollbar-thumb {
-      background: var(--scrollbar-bg);
-      border-radius: 4px;
+
+    th,
+    td {
+      @apply border-b border-[var(--outline-variant)];
+      white-space: nowrap;
     }
-    &::-webkit-scrollbar-thumb:hover {
-      background: var(--scrollbar-bg-hover);
+
+    tr:last-child td {
+      @apply border-b-0;
     }
-    &::-webkit-scrollbar-thumb:active {
-      background: var(--scrollbar-bg-active);
+
+    /* !important boundary: Tailwind Typography owns prose code presentation; table cells own this compact code variant. */
+    :is(th, td) code {
+      padding: 0 var(--m3e-space-1) !important;
+      border-radius: var(--shape-corner-xs) !important;
+      background: color-mix(in oklab, var(--on-surface) 8%, transparent) !important;
+      color: var(--on-surface) !important;
+      font: var(--m3e-type-code) !important;
+      letter-spacing: 0;
+      white-space: nowrap;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
     }
   }
 
-  .katex-display > .katex {
-    display: block;
-    width: fit-content;
-    min-width: calc(100% - 2px);
+  /* !important boundary: Tailwind Typography owns prose table margins; the scroll wrapper owns table spacing. */
+  .markdown-table-scroll > table {
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    margin: 0 !important;
   }
 
-  .katex-display > .katex:has(.tag) > .katex-html {
-    display: block;
-    padding-right: 3rem;
-    box-sizing: border-box;
+  /* --- 标题间距 --- */
+  :is(h1, h2, h3) {
+    margin-top: var(--m3e-space-4);
+    margin-bottom: var(--m3e-space-2);
   }
-}
-
-/* 外部覆盖样式 */
-.custom-md .expressive-code :is(ul, ol) li::marker {
-  @apply text-inherit;
-}
-
-:root:not(.dark) .custom-md spoiler {
-  --_spoiler-mask: color-mix(in oklch, var(--primary) 55%, white 45%);
 }

@@ -1,461 +1,247 @@
-# 🌸 Mizuki 
-<img align='right' src='logo.png' width='200px' alt="Mizuki logo">
+<div align="center">
 
-A modern, feature-rich static blog template built with [Astro](https://astro.build), featuring advanced functionality and beautiful design.
+<img src="./public/logo/icon.webp" width="88" height="88" alt="Shirone logo" />
 
-[![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen)](https://nodejs.org/)
-[![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue)](https://pnpm.io/)
-[![Astro](https://img.shields.io/badge/Astro-5.15.3-orange)](https://astro.build/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](https://www.typescriptlang.org/)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?logo=apache)](https://opensource.org/licenses/Apache-2.0)
+# Shirone
 
-[**🖥️ Live Demo**](https://mizuki.mysqil.com/) | [**📝 Documentation**](https://docs.mizuki.mysqil.com/)
+**An expressive, anime-inspired blog theme built on Material 3 Expressive.**
 
-🌏 **README Languages:**
-[**English**](./README.md) / [**中文**](./README.zh.md) / [**日本語**](./README.ja.md) / [**中文繁体**](./README.tw.md) /
+A calm reading space for long-form writing, personal collections, and the small details that make a site feel like yours.
 
-Get started quickly with our comprehensive documentation. Whether you're customizing your theme, configuring features, or deploying to production, the documentation covers everything you need to launch your blog successfully.
+[Live demo](https://shirone.mysqil.com/) · [Documentation](https://docs.shirone.mysqil.com/) · [Report an issue](https://github.com/LyraVoid/Shirone/issues)
 
-[📚 Read Full Documentation](https://docs.mizuki.mysqil.com/) →
+[English](./README.md) · [简体中文](./README.zh-CN.md) · [繁體中文](./README.zh-TW.md) · [日本語](./README.ja.md)
 
-![Mizuki Preview](./README.webp)
+![Node.js >= 22.12](https://img.shields.io/badge/Node.js-%3E%3D22.12-5FA04E?logo=nodedotjs&logoColor=white)
+![pnpm 9](https://img.shields.io/badge/pnpm-9-F69220?logo=pnpm&logoColor=white)
+![Astro 7](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-3DA639.svg)](./LICENSE)
+
+</div>
+
+> [!IMPORTANT]
+> **Start with the [online documentation](https://docs.shirone.mysqil.com/).** It is the primary guide for setup, configuration, content workflows, and deployment.
+
+## Start Here
+
+The [online documentation](https://docs.shirone.mysqil.com/) is the main entry point for setup, configuration, content workflows, and deployment. This repository contains the theme source; use [Shirone-Content](https://github.com/LyraVoid/Shirone-Content) when you want to keep personal content in a separate repository.
+
+## Verified In Practice
+
+The current reference run scores 100 for Performance, Accessibility, Best Practices, and SEO, with all three agentic browsing checks passing. The detailed performance metrics also reach 100 in this run; results can vary with hosting, content, and network conditions.
+
+![Shirone benchmark](./Benchmark.webp)
+
+![Shirone homepage](./public/assets/projects/shirone.webp)
 
 <table>
   <tr>
-    <td><img alt="" src="docs/image/1.webp"></td>
-    <td><img alt="" src="docs/image/2.webp"></td>
-    <td><img alt="" src="docs/image/3.webp"></td>
+    <td align="center"><strong>Chromatic Spell</strong><br><sub>Dynamic HCT palettes that respond to light, mood, and choice.</sub></td>
+    <td align="center"><strong>Seamless Passage</strong><br><sub>Swup navigation keeps the surrounding world gently in motion.</sub></td>
+  </tr>
   <tr>
-  <tr>
-    <td><img alt="" src="docs/image/4.webp"></td>
-    <td><img alt="" src="docs/image/5.webp"></td>
-    <td><img alt="" src="docs/image/6.webp"></td>
-  <tr>
+    <td align="center"><strong>Story Grimoire</strong><br><sub>Markdown, MDX, math, diagrams, code, and images in one writing flow.</sub></td>
+    <td align="center"><strong>Quiet by Design</strong><br><sub>SSR-first, accessible, and truly weightless when features are disabled.</sub></td>
+  </tr>
 </table>
 
-## 🚀 NEW: Automatic Resolution Adaptation
+## ✦ A Small Spell for Every Story
 
-> **🎯 Automatic Resolution Algorithm** - Intelligently adapts content layout based on device screen resolution, providing the best viewing experience for all devices
+Shirone is a static personal blog theme built with Astro 7, Svelte 5, Tailwind CSS 4, and Stylus. Its magic is not a layer of spectacle: it lives in colors that shift with light and mood, pages that turn without breaking the atmosphere, and small details that make a personal corner of the web feel alive.
 
-🌏 README Language
-[**English**](./README.md) /
-[**中文**](./README.zh.md) /
-[**日本語**](./README.ja.md) /
-[**中文繁体**](./README.tw.md) /
+Behind that softness is a token-driven Material 3 Expressive component system. Content is rendered server-side, while Swup provides smooth in-site navigation and keeps the surrounding application shell alive between pages.
 
+The theme is designed for long-form writing as well as personal collections such as moments, albums, anime lists, friends, projects, skills, devices, games, and timelines.
 
-### 🔧 Component Configuration System Restructuring
-- **Unified Configuration Architecture:** Brand new modular component configuration system, supporting dynamic component management and order configuration
-- **Configuration-Driven Component Loading:** Restructured SideBar component, implementing fully configuration-based component loading mechanism
-- **Unified Control Switches:** Removed independent enable switches for music player and announcement components, unified control through sidebarLayoutConfig
-- **Responsive Layout Adaptation:** Components support responsive layouts, automatically adjusting display based on device type
+## ✦ Inside the Grimoire
 
-### 📐 Layout System Optimization
-- **Dynamic Sidebar Position Adjustment:** Support for left/right sidebar switching, with automatic layout adaptation
-- **Intelligent Article Directory Positioning:** When sidebar is on the right, article navigation automatically moves to the left, providing a better reading experience
-- **Grid Layout Improvements:** Optimized CSS Grid layout, resolving container width anomaly issues
+- Dynamic HCT color palettes with Material 3 and Material 3 Expressive specifications
+- Light and dark themes, banner and solid backgrounds, optional textures, and visitor display preferences
+- Responsive layouts with configurable single or dual sidebars
+- Smooth Swup navigation with a persistent shell, route progress, and reduced-motion support
+- Markdown and MDX content with math, Mermaid, admonitions, enhanced code blocks, and image galleries
+- Full-text search powered by Pagefind, plus RSS and sitemap output
+- Article table of contents, related posts, sharing, encryption, and optional comments
+- Dedicated pages for archives, categories, tags, friends, moments, anime, albums, projects, skills, devices, games, and timelines
+- Ten built-in interface locales
+- SSR-first output, keyboard-friendly interactions, and accessibility testing
+- Optional integrations follow a zero-burden rule: when disabled, they add no external requests, DOM, layout shift, or main-bundle code
 
-### 🎛️ Configuration File Format Standardization
-- **Standardized Configuration Format:** Created unified component configuration file format specifications
-- **Type Safety:** Comprehensive TypeScript type definitions ensuring configuration type safety
-- **Extensibility:** Support for custom component types and configuration options
+## ✦ AI Skills
 
-### 🧹 Code Optimization
-- **Test File Cleanup:** Removed unused test configurations and dependencies, reducing project size
-- **Code Structure Optimization:** Improved component architecture, enhancing code maintainability
-- **Performance Improvement:** Optimized component loading logic, improving page rendering performance
+Shirone ships with [agent skills](./.agents/skills/README.md) in `.agents/skills/`. AI coding assistants that support the Agent Skills standard (Claude Code, Codex, ZCode, and others) discover them automatically after you clone the repository — developer-oriented skills guide theme development, while user-oriented skills help you write posts, use the custom Markdown syntaxes, and configure your site. To package the same skills as one installable Codex plugin, run `pnpm.cmd skills:package -- --zip`.
 
----
+## Quick Start
 
-## ✨ Features
+### Requirements
 
-### 🎨 Design & Interface
-- [x] Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
-- [x] Smooth animations and page transitions using [Swup](https://swup.js.org/)
-- [x] Light/dark theme switching with system preference detection
-- [x] Customizable theme colors and dynamic banner carousel
-- [x] Fullscreen background images with carousel, opacity, and blur effects
-- [x] Fully responsive design for all devices
-- [x] Beautiful typography with JetBrains Mono font
+- [Node.js](https://nodejs.org/) 22.12 or newer
+- [pnpm](https://pnpm.io/) 9.x (the repository pins `pnpm@9.14.4`)
 
-### 🔍 Content & Search
-- [x] Advanced search functionality based on [Pagefind](https://pagefind.app/)
-- [x] [Enhanced Markdown features](#-markdown-extensions) with syntax highlighting
-- [x] Interactive table of contents with auto-scrolling
-- [x] RSS feed generation
-- [x] Reading time estimation
-- [x] Article categorization and tagging system
-
-
-
-### 📱 Special Pages
-- [x] **Anime Tracking Page** - Track anime watching progress and ratings
-- [x] **Friends Page** - Beautiful cards showcasing friend websites
-- [x] **Diary Page** - Share life moments, similar to social media
-- [x] **Archive Page** - Organized timeline view of articles
-- [x] **About Page** - Customizable personal introduction
-
-### 🛠 Technical Features
-- [x] **Enhanced code blocks** based on [Expressive Code](https://expressive-code.com/)
-- [x] **Math formula support** with KaTeX rendering
-- [x] **Image optimization** with PhotoSwipe gallery integration
-- [x] **SEO optimization** including sitemaps and meta tags
-- [x] **Performance optimization** with lazy loading and caching
-- [x] **Comment system** with Twikoo integration
-
-## 🚀 Quick Start
-
-### 📦 Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/matsuzaka-yuki/mizuki.git
-   cd mizuki
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   # Install pnpm if not already installed
-   npm install -g pnpm
-   
-   # Install project dependencies
-   pnpm install
-   ```
-
-3. **Configure your blog:**
-   - Edit `src/config.ts` to customize blog settings
-   - Update site information, theme colors, banner images, and social links
-   - Configure feature page functionality
-
-4. **Start the development server:**
-   ```bash
-   pnpm dev
-   ```
-   Your blog will be available at `http://localhost:4321`
-
-### 📝 Content Management
-
-- **Create new posts:** `pnpm new-post <filename>`
-- **Edit posts:** Modify files in `src/content/posts/`
-- **Customize special pages:** Edit files in `src/content/spec/`
-- **Add images:** Place images in `src/assets/` or `public/`
-
-### 🚀 Deployment
-
-Deploy your blog to any static hosting platform:
-
-- **Vercel:** Connect your GitHub repository to Vercel
-- **Netlify:** Deploy directly from GitHub
-- **GitHub Pages:** Use the included GitHub Actions workflow
-- **Cloudflare Pages:** Connect your repository
-
-- **Environment Variable Configuration (Optional):** Refer to `.env.example` for configuration
-
-Before deployment, update the `siteURL` in `src/config.ts`.
-**Not recommended** to commit the `.env` file to Git. The `.env` file should only be used for local debugging or building. For cloud platform deployment, it's recommended to configure via the platform's `environment variables` settings.
-
-## 📝 Post Frontmatter Format
-
-```yaml
----
-title: My First Blog Post
-published: 2023-09-09
-description: This is the first post of my new blog.
-image: ./cover.jpg
-tags: [tag1, tag2]
-category: Frontend
-draft: false
-pinned: false
-comment: true
-lang: en      # Only set when article language differs from site language in config.ts
----
-```
-
-### Frontmatter Field Descriptions
-
-- **title**: Article title (required)
-- **published**: Publication date (required)
-- **description**: Article description for SEO and previews
-- **image**: Cover image path (relative to article file)
-- **tags**: Array of tags for categorization
-- **category**: Article category
-- **draft**: Set to `true` to hide article in production
-- **pinned**: Set to `true` to pin article to top
-- **comment**: Set to `true` to enable article comment area (requires global comment function enabled)
-- **lang**: Article language (only set when different from site default)
-
-### Pinned Articles Feature
-
-The `pinned` field allows you to pin important articles to the top of your blog list. Pinned articles will always appear before regular articles regardless of their publication date.
-
-**Usage:**
-```yaml
-pinned: true  # Pin this article to the top
-pinned: false # Regular article (default)
-```
-
-**Sorting Rules:**
-1. Pinned articles appear first, sorted by publication date (newest first)
-2. Regular articles follow, sorted by publication date (newest first)
-
-### Article-Level Comment Control
-
-The `comment` field allows you to individually control the enabling and disabling of the comment area for each article.
-
-**Usage:**
-```yaml
-comment: true  # Enable comments (default)
-comment: false # Disable comments
-```
-
-**Note:**
-This feature requires the comment system to be enabled in `src/config.ts` first.
-
-## 🧩 Markdown Extensions
-
-Mizuki supports enhanced features beyond standard GitHub Flavored Markdown:
-
-### 📝 Enhanced Writing
-- **Callouts:** Create beautiful annotation boxes using `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, etc.
-- **Math Formulas:** Write LaTeX math formulas using `$inline$` and `$$block$$` syntax
-- **Code Highlighting:** Advanced syntax highlighting with line numbers and copy buttons
-- **GitHub Cards:** Embed repository cards using `::github{repo="user/repo"}`
-
-### 🎨 Visual Elements
-- **Image Gallery:** Automatic PhotoSwipe integration for image viewing
-- **Collapsible Sections:** Create expandable content blocks
-- **Custom Components:** Enhance content with special directives
-
-### 📊 Content Organization
-- **Table of Contents:** Automatically generated from headings with smooth scrolling
-- **Reading Time:** Automatically calculated and displayed
-- **Article Metadata:** Rich frontmatter support with categories and tags
-
-## ⚡ Commands
-
-All commands are run from the project root:
-
-| Command                    | Action                                   |
-|:---------------------------|:-----------------------------------------|
-| `pnpm install`             | Install dependencies                     |
-| `pnpm dev`                 | Start local dev server at `localhost:4321` |
-| `pnpm build`               | Build production site to `./dist/`       |
-| `pnpm preview`             | Preview build locally before deployment  |
-| `pnpm check`               | Run Astro error checking                 |
-| `pnpm format`              | Format code with Prettier                   |
-| `pnpm lint`                | Check and fix code issues                |
-| `pnpm new-post <filename>` | Create a new blog post                   |
-| `pnpm astro ...`           | Run Astro CLI commands                   |
-
-## 🎯 Configuration Guide
-
-### 🔧 Basic Configuration
-
-Edit `src/config.ts` to customize your blog:
-
-```typescript
-export const siteConfig: SiteConfig = {
-  title: "Your Blog Name",
-  subtitle: "Your Blog Description",
-  lang: "en", // or "zh-CN", "ja", etc.
-  themeColor: {
-    hue: 210, // 0-360, theme hue
-    fixed: false, // Hide theme color picker
-  },
-  banner: {
-    enable: true,
-    src: ["assets/banner/1.webp"], // Banner images
-    carousel: {
-      enable: true,
-      interval: 0.8, // seconds
-    },
-  },
-};
-```
-
-### 📱 Feature Page Configuration
-
-- **Anime Page:** Edit anime list in `src/pages/anime.astro`
-- **Friends Page:** Edit friend data in `src/content/spec/friends.md`
-- **Diary Page:** Edit moments in `src/pages/diary.astro`
-- **About Page:** Edit content in `src/content/spec/about.md`
-
-### 📦 Code-Content Separation (Optional)
-
-Mizuki supports separating code and content into two independent repositories, suitable for team collaboration and large projects.
-
-**Quick Selection**:
-
-| Use Case | Configuration | For Whom |
-|---------|---------|---------|
-| 🆕 **Local Mode** (default) | No configuration, use directly | Beginners, personal blogs |
-| 🔧 **Separation Mode** | Set `ENABLE_CONTENT_SYNC=true` | Team collaboration, private content |
-
-**One-Click Enable/Disable**:
+### Run locally
 
 ```bash
-# Method 1: Local Mode (recommended for beginners)
-# No need to create .env file, run directly
-pnpm dev
-
-# Method 2: Content Separation Mode
-# 1. Copy configuration file
-cp .env.example .env
-
-# 2. Edit .env to enable content separation
-ENABLE_CONTENT_SYNC=true
-CONTENT_REPO_URL=https://github.com/your-username/Mizuki-Content.git
-
-# 3. Sync content
-pnpm run sync-content
-```
-
-**Features**:
-- ✅ Supports public and private repositories 🔐
-- ✅ One-click enable/disable without code modification
-- ✅ Auto-sync, pulls latest content automatically before development
-
-📖 **Detailed Configuration**: [Content Separation Guide](docs/CONTENT_SEPARATION.md)
-🔄 **Migration Tutorial**: [Migrate from Single Repo to Separation Mode](docs/MIGRATION_GUIDE.md)
-📚 **More Documentation**: [Documentation Index](docs/README.md)
-
-## ✏️ Contributing
-
-Contributions are welcome! Feel free to submit issues and pull requests.
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## � Version History
-
-### v9.0.0 (2026-03-25)
-
-**版本概述：** 灵梦Mizuki v9.0.0 是一个重要的里程碑版本，包含全面的性能优化、项目品牌重塑以及多项功能增强。
-
-**主要更新：**
-- 🏷️ 项目品牌重塑为"灵梦Mizuki"，打造个人品牌标识
-- ⚡ 全面性能优化：代码压缩、图片WebP化、缓存策略升级
-- 🔐 加密文章支持密码提示功能，提升用户体验
-- 📁 支持嵌套目录结构的永久链接，保留文件名大小写
-- ♿ 无障碍改进：ARIA标签、键盘导航支持
-
-<details>
-<summary>📖 查看完整更新日志</summary>
-
-#### ✨ 新功能
-
-| 功能 | 描述 |
-|------|------|
-| 🏷️ 项目品牌重塑 | 项目名称更新为"灵梦Mizuki"，打造个人品牌标识 |
-| 🔐 密码提示功能 | 加密文章支持添加密码提示，提升用户体验 |
-| 📁 嵌套Permalink支持 | 支持嵌套目录结构的永久链接，保留文件名大小写 |
-| 📊 第三方分析集成 | 可选配置 Clarity 分析工具 |
-| 🖼️ 响应式图片优化 | 添加 srcset 支持，实现自适应图片加载 |
-
-#### ⚡ 性能优化
-
-**构建优化：**
-- 代码压缩增强：assetsInlineLimit 提升至 8KB，优化 CSS 压缩配置
-- 代码分割优化：新增 vendor-dayjs、vendor-sharp 独立 chunk
-- Iconify 升级：升级至 v3 版本，减少图标加载延迟
-
-**图片优化：**
-- WebP 转换：首页、设备、日记、相册、音乐封面图片全面 WebP 化
-- Banner 图片压缩：减少首屏加载时间
-- 图片懒加载：Pagefind 搜索面板按需加载
-
-**缓存策略：**
-- 静态资源缓存：图片、字体、JS/CSS 资源缓存提升至 1 年 immutable
-- AVIF 支持：新增 AVIF 格式缓存配置
-- CDN 预连接：添加 Iconify API 预连接提示
-
-**安全增强：**
-- CSP 头配置：添加 Content-Security-Policy 安全策略
-- 资源加载优化：分析脚本仅在用户交互后加载
-
-#### 🐛 问题修复
-
-| 类别 | 修复内容 |
-|------|----------|
-| 布局问题 | 移除 logo 显式宽高修复布局问题 |
-| 404 错误 | 移除导致 404 的字体预加载链接 |
-| 类型错误 | 解决所有 TypeScript 类型检查错误 |
-| YAML 语法 | 修复 bangumi-update.yml 多行字符串语法错误 |
-| 统计显示 | 修复页面访问统计在桌面端不显示的问题 |
-
-#### ♿ 无障碍改进
-
-- 为分页链接添加 aria-labels
-- 为音乐播放器按钮添加无障碍标签
-- 修正 ARIA 角色以通过 Lighthouse 检查
-- 移除导航图标冗余 alt 文本
-
-#### 🔄 兼容性说明
-
-| 项目 | 要求 |
-|------|------|
-| Node.js | ≥ 20 |
-| pnpm | ≥ 9 |
-| Astro | 6.0.7 |
-| TypeScript | 5.9.3 |
-| 浏览器 | 现代浏览器 |
-
-#### 📥 升级指南
-
-```bash
-# 拉取最新代码
-git fetch --prune --tags
-git checkout 灵梦Mizuki-v9.0
-
-# 更新依赖
+git clone https://github.com/LyraVoid/Shirone.git
+cd Shirone
+corepack enable
 pnpm install
+pnpm dev
+```
 
-# 重新构建
+Open `http://localhost:4321` in your browser.
+
+On Windows PowerShell installations where script execution is restricted, use `pnpm.cmd` and `npx.cmd` instead.
+
+### Use the npm package
+
+Prefer not to clone the theme? Install it as the `shirones` npm package and
+scaffold a blog from an empty folder — no Astro starter and no manual installs:
+
+```bash
+mkdir my-blog
+cd my-blog
+npx shirones init   # writes package.json, installs astro + the theme + peers
+pnpm dev
+```
+
+`init` creates `astro.config.mjs`, the typed configuration under `shirones/`,
+example content and static assets; `src/components/` and `src/layouts/` still
+work for overriding theme components. Re-run `npx shirones init` anytime to
+check for drift — it reports without changing anything. Run `npx shirones
+init --update` to restore missing files, or `--force` to re-scaffold from the
+template. See [npm package mode](./docs/npm-package-mode.md) and the
+[shirones repository](https://github.com/yCENzh/shirones) for details.
+
+### Customize your site
+
+1. Set the canonical URL, title, language, theme, banner, and display options in `src/config/siteConfig.ts`.
+2. Update the profile and navigation in `src/config/profileConfig.ts` and `src/config/navBarConfig.ts`.
+3. Review the feature-specific files in `src/config/`; their inline comments document defaults and supported values.
+4. Replace the sample posts, personal data, and media under `src/content/`, `src/data/`, and `public/`.
+5. Create a post with `pnpm new-post <filename>`, then edit it under `src/content/posts/`.
+
+See [`src/config/README.md`](./src/config/README.md) for the complete configuration contract.
+
+## Official Companion Repositories
+
+Shirone keeps theme source, personal site content, and npm publishing responsibilities separate. These official repositories serve different workflows:
+
+| Repository | Use it for | What it contains |
+| --- | --- | --- |
+| [Shirone-Content](https://github.com/LyraVoid/Shirone-Content) | Running a blog in the external-content, dual-repository mode | A content template for posts, moments, data, media, and `config/*.yaml` overlays. Fork or clone it into your own repository, normally private, then point this theme repository at it. See the [content-separation guide](./docs/content-separation/README.md). |
+| [shirones](https://github.com/yCENzh/shirones) | Maintaining and publishing the `shirones` npm package | The manual build-and-publish pipeline. It pulls this repository at build time and deliberately contains no theme source; regular blog users install `shirones` rather than working in this repository. See [npm package mode](./docs/npm-package-mode.md). |
+
+## Main Configuration
+
+| File | Purpose |
+| --- | --- |
+| `src/config/siteConfig.ts` | Site URL, identity, locale, dynamic color, banner, texture, TOC, and display settings |
+| `src/config/profileConfig.ts` | Author profile and social links |
+| `src/config/navBarConfig.ts` | Main navigation |
+| `src/config/sidebarConfig.ts` | Sidebar layout, widgets, and page filters |
+| `src/config/postListConfig.ts` | Pagination and list/grid presentation |
+| `src/config/articleConfig.ts` | Update notice, related posts, and article sharing |
+| `src/config/commentConfig.ts` | Optional comments via Twikoo or Giscus |
+| `src/config/musicConfig.ts` | Optional local, custom, Meting, or mixed music source |
+| `src/config/animeConfig.ts` | Anime page and local/Bangumi/Bilibili snapshot source |
+
+## Writing a Post
+
+Posts live in `src/content/posts/` and may be Markdown or MDX. A minimal frontmatter block looks like this:
+
+```yaml
+---
+title: My First Post
+published: 2026-08-26
+description: A short summary shown in post lists and metadata.
+image: ./cover.webp
+tags: [Astro, Notes]
+category: Writing
+draft: false
+---
+```
+
+Frequently used optional fields include `updated`, `pinned`, `comment`, `lang`, `encrypted`, `password`, `passwordHint`, and `hideHomeContent`. Images may be remote URLs, absolute paths from `public/`, or paths relative to the post file.
+
+## Commands
+
+| Command | Action |
+| --- | --- |
+| `pnpm dev` | Start the development server |
+| `pnpm new-post <filename>` | Create a new post |
+| `pnpm format` | Format source files with Biome (mandatory before commit) |
+| `pnpm check` | Run Astro diagnostics |
+| `pnpm type-check` | Run TypeScript checks |
+| `pnpm check:manifest` | Validate the component manifest |
+| `pnpm test` | Run the Playwright test suite |
+| `pnpm build` | Build the site and Pagefind index into `dist/` |
+| `pnpm preview` | Preview the production build |
+| `pnpm lighthouse` | Run the desktop production audit |
+
+## Deployment
+
+Shirone produces a static `dist/` directory and can be deployed to Vercel, Netlify, GitHub Pages, or any static hosting service.
+
+Before deploying, update `site` and `base` in `src/config/siteConfig.ts` (or in your content repository's `config/site.yaml`):
+- If deployed to a domain root (e.g., `https://example.com/` or a custom domain), keep `base` as `"/"`.
+- If deployed to a subpath directory (such as GitHub Pages repository URL `https://username.github.io/Shirone/`), set `base` to the subpath (e.g. `"/Shirone"` or `"/Shirone/"`), and set `site` to `https://username.github.io`. The build pipeline and internal assets will adapt automatically.
+
+Then run:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm check
+pnpm type-check
+pnpm check:manifest
 pnpm build
 ```
 
-</details>
+Use `pnpm build` as the build command and `dist` as the output directory. More details are available in [`INDEX.md`](./INDEX.md).
 
----
+## Documentation
 
-## �📄 License
+- [`src/config/README.md`](./src/config/README.md) - configuration reference
+- [`docs/m3e-standard.md`](./docs/m3e-standard.md) - design tokens and component standard
+- [`docs/atomic-structure.md`](./docs/atomic-structure.md) - component layers and dependency rules
+- [`docs/markdown-extensions.md`](./docs/markdown-extensions.md) - Markdown plugin, styling, cache, and testing contracts
+- [`docs/markdown-on-demand-loading.md`](./docs/markdown-on-demand-loading.md) - content-driven Markdown asset loading and Swup lifecycle
+- [`docs/sidebar-system.md`](./docs/sidebar-system.md) - sidebar orchestration and Swup synchronization
+- [`docs/on-demand-loading.md`](./docs/on-demand-loading.md) - zero-burden optional features
+- [`docs/font-system.md`](./docs/font-system.md) - font configuration and production subsetting
+- [`docs/npm-package-mode.md`](./docs/npm-package-mode.md) - how the theme also runs as an npm package, and the override system
+- [`docs/packaging-contract.md`](./docs/packaging-contract.md) - rules new theme code must follow to keep working when installed from npm
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+## Contributing
 
-### Original Project License
+Issues and pull requests are welcome. For substantial features or visual changes, please open an issue or discussion first. Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and the repository rules before submitting code. Always format your changes with `pnpm format` before committing, keep each pull request focused, and use Conventional Commits.
 
-This project is based on [Fuwari](https://github.com/saicaca/fuwari), which is licensed under the MIT License. The original copyright notice and permission notice are included in the LICENSE.MIT file in accordance with the MIT License requirements.
+## Acknowledgements
 
-## 🙏 Acknowledgements
+Shirone began as a refactor of [Fuwari](https://github.com/saicaca/fuwari) by [saicaca](https://github.com/saicaca). Its current M3E design system, component architecture, page modules, and orchestration are developed as Shirone. Thanks to the Fuwari project and its contributors for the original foundation.
 
-- Based on the original [Fuwari](https://github.com/saicaca/fuwari) template
-- Inspired by [Yukina](https://github.com/WhitePaper233/yukina) - a beautiful and elegant blog template
-- Some designs are inspired by [Firefly](https://github.com/CuteLeaf/Firefly) & [Twilight](https://github.com/spr-aachen/Twilight) templates
-- Uses [Pio](https://github.com/Dreamer-Paul/Pio) to implement the adorable Live2D mascot plugin
-- Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
-- Icons from [Iconify](https://iconify.design/)
+## Contributors
 
-### 🌸 Special Thanks
+Every contribution adds a new line to Shirone's spellbook. Thank you to everyone who helps this little world grow.
 
-- **[Fuwari](https://github.com/saicaca/fuwari)** by saicaca - The original template that this project is based on. Thank you for creating such a beautiful and functional template.
-- **[Yukina](https://github.com/WhitePaper233/yukina)** - Thanks for providing design inspiration and creativity that helped shape this project. Yukina is an elegant blog template that demonstrates excellent design principles and user experience.
-- **[Firefly](https://github.com/CuteLeaf/Firefly)** - Thanks for providing excellent layout design ideas. The dual sidebar layout, article dual-column grid layout, and some widget designs and implementations have enriched Mizuki's interface.
-- **[Twilight](https://github.com/spr-aachen/Twilight)** - Thanks for providing inspiration and technical support. Twilight's dynamic wallpaper modes switching system, responsive design and transition effects have greatly enhanced the user experience of Mizuki.
+<div align="center">
+  <a href="https://github.com/LyraVoid/Shirone/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=LyraVoid/Shirone" alt="Shirone contributors" />
+  </a>
+</div>
 
-## 🍀 Contributors
+## Star Trail
 
-Thanks to all contributors for their contributions to this project. If you have any questions or suggestions, please submit an [Issue](https://github.com/matsuzaka-yuki/Mizuki/issues) or [Pull Request](https://github.com/matsuzaka-yuki/Mizuki/pulls).
+<div align="center">
+  <a href="https://star-history.com/#LyraVoid/Shirone&amp;Date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=LyraVoid/Shirone&amp;type=Date&amp;theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=LyraVoid/Shirone&amp;type=Date" />
+      <img alt="Shirone Star History chart" src="https://api.star-history.com/svg?repos=LyraVoid/Shirone&amp;type=Date" />
+    </picture>
+  </a>
+  <p><sub>Each star is a spark that helps Shirone shine a little farther.</sub></p>
+</div>
 
-<a href="https://github.com/matsuzaka-yuki/Mizuki/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=matsuzaka-yuki/Mizuki" />
-</a>
+## License
 
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=matsuzaka-yuki/Mizuki&type=Date)](https://star-history.com/#matsuzaka-yuki/Mizuki&Date)
----
-
-⭐ If you find this project helpful, please consider giving it a star!
+Shirone is released under the [MIT License](./LICENSE). The repository retains the original copyright notice required by that license.
