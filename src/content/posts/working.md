@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-16
 published: 2026-07-16
 pinned: false
-alias: "working"
+alias: "working-20547"
 image: "https://lain.bgm.tv/pic/cover/l/59/2b/20547_Fqawr.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-12
 published: 2026-07-12
 pinned: false
-alias: "the-animation"
+alias: "the-animation-338672"
 image: "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg"
 ---
 

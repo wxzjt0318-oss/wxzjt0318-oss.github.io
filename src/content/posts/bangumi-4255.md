@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-12
 published: 2026-08-12
 pinned: false
-alias: "working"
+alias: "working-4255"
 image: "https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg"
 ---
 

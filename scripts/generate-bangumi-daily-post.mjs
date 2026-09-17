@@ -255,12 +255,51 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 async function main() {
 	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
 	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
-	const cacheFile = path.join(ROOT_DIR, ".cache", "bangumi", "anime.json");
 	const now = new Date();
 
-	const rawCollections = await readJsonIfExists(cacheFile, null);
-	const normalizedCollections = Array.isArray(rawCollections)
-		? rawCollections.map((item) => ({
+	// 数据源优先级：
+	// 1. 上游 anime:sync 快照 src/data/anime-snapshots/bangumi.json（CI 每日刷新，与追番页同源）
+	// 2. 兼容 legacy 缓存 .cache/bangumi/anime.json
+	const snapshotFile = path.join(ROOT_DIR, "src", "data", "anime-snapshots", "bangumi.json");
+	const legacyCacheFile = path.join(ROOT_DIR, ".cache", "bangumi", "anime.json");
+	const snapshot = await readJsonIfExists(snapshotFile, null);
+	const legacyCache = snapshot ? null : await readJsonIfExists(legacyCacheFile, null);
+
+	const STATUS_TO_TYPE = { watching: 3, completed: 2, planned: 1, onHold: 4, dropped: 5 };
+
+	let normalizedCollections = [];
+	if (Array.isArray(snapshot?.items) && snapshot.items.length > 0) {
+		normalizedCollections = snapshot.items
+			.map((item) => {
+				const subjectId = Number(
+					String(item.identity?.subjectId || "").match(/\d+/)?.[0] ||
+						String(item.link || "").match(/\/subject\/(\d+)/)?.[1] ||
+						0,
+				);
+				return {
+					subject_id: subjectId,
+					type: STATUS_TO_TYPE[item.status] || 0,
+					ep_status: Number(item.progress?.watched || 0),
+					updated_at: item.period?.end || item.period?.start || `${item.year || "1970"}-01-01`,
+					subject: {
+						id: subjectId,
+						name: item.title || "",
+						name_cn: item.title || "",
+						date: item.period?.start || "",
+						eps: Number(item.progress?.total || 0),
+						short_summary: item.description || "",
+						tags: (Array.isArray(item.genres) ? item.genres : []).map((name) => ({ name })),
+						images: {
+							large: item.cover || "",
+							common: item.cover || "",
+							medium: item.cover || "",
+						},
+					},
+				};
+			})
+			.filter((candidate) => candidate.subject_id > 0);
+	} else if (Array.isArray(legacyCache)) {
+		normalizedCollections = legacyCache.map((item) => ({
 			subject_id: Number(String(item.link || "").match(/\/subject\/(\d+)/)?.[1] || 0),
 			type: item.status === "watching" ? 3 : item.status === "completed" ? 2 : item.status === "planned" ? 1 : item.status === "on_hold" ? 4 : item.status === "dropped" ? 5 : 0,
 			ep_status: Number(item.progress || 0),
@@ -279,12 +318,13 @@ async function main() {
 					medium: item.cover || "",
 				},
 			},
-		}))
-		: Array.isArray(rawCollections?.data)
-			? rawCollections.data
-			: [];
+		}));
+	} else if (Array.isArray(legacyCache?.data)) {
+		normalizedCollections = legacyCache.data;
+	}
+	normalizedCollections = normalizedCollections.filter((candidate) => candidate.subject_id > 0);
 	if (normalizedCollections.length === 0) {
-		console.log(`ℹ No Bangumi anime cache data found at ${cacheFile}, skipping daily article generation.`);
+		console.log(`ℹ No Bangumi snapshot found at ${snapshotFile} (or legacy cache ${legacyCacheFile}), skipping daily article generation.`);
 		return;
 	}
 
@@ -327,6 +367,19 @@ async function main() {
 		characters,
 	});
 
+	// Alias 唯一性保障：slugify 归一化会让不同动画撞名（如多部"第二季"都归一化为
+	// "2nd-season"，"Working!!" 系列都归一化为 "working"），alias 重复会导致多篇文章
+	// 共享同一 URL 互相覆盖。与已有文章 alias 或目标文件名冲突时，回退到稳定的
+	// `bangumi-{subjectId}`。
+	const fallbackAlias = `bangumi-${candidate.subject_id}`;
+	const existingAliases = new Set(existingPosts.map((post) => post.alias).filter(Boolean));
+	let safeAlias = sanitizeFileName(payload.alias, fallbackAlias);
+	if (safeAlias !== fallbackAlias && (existingAliases.has(safeAlias) || existsSync(path.join(POSTS_DIR, `${safeAlias}.md`)))) {
+		console.warn(`⚠ Alias "${safeAlias}" is already taken, falling back to "${fallbackAlias}".`);
+		safeAlias = fallbackAlias;
+	}
+	payload.alias = safeAlias;
+
 	console.log("📝 Building Bangumi article markdown...");
 	const articleContent = buildAnimeArticleMarkdown(payload);
 
@@ -360,15 +413,8 @@ async function main() {
 		console.log("✅ No content duplication detected.");
 	}
 
-	let safeAlias = sanitizeFileName(payload.alias, `bangumi-${candidate.subject_id}`);
 	let outputFileName = `${safeAlias}.md`;
 	let outputPath = path.join(POSTS_DIR, outputFileName);
-
-	if (existsSync(outputPath)) {
-		safeAlias = `bangumi-${candidate.subject_id}`;
-		outputFileName = `${safeAlias}.md`;
-		outputPath = path.join(POSTS_DIR, outputFileName);
-	}
 
 	const relativeOutputPath = path.relative(ROOT_DIR, outputPath).split(path.sep).join("/");
 

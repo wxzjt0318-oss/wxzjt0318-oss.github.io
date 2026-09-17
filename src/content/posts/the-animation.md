@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-13
 published: 2026-06-13
 pinned: false
-alias: "the-animation"
+alias: "the-animation-567265"
 image: "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg"
 ---
 

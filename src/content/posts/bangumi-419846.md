@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-19
 published: 2026-08-19
 pinned: false
-alias: "2nd-season"
+alias: "2nd-season-419846"
 image: "https://lain.bgm.tv/pic/cover/l/86/5a/419846_UWUv4.jpg"
 ---
 
