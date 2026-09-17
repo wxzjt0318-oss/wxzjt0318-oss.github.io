@@ -46,6 +46,9 @@ export const vi: Translation = {
 	[Key.animeConfigMissingBangumi]: "Chưa cấu hình ID người dùng Bangumi",
 	[Key.animeConfigMissingBilibili]: "Chưa cấu hình UID Bilibili",
 	[Key.animeSyncEmpty]: "Không tìm thấy anime nào trong nguồn dữ liệu này",
+	[Key.animeStatsTotal]: "Tổng số anime",
+	[Key.animeStatsAvgRating]: "Điểm trung bình",
+	[Key.animeStatsLastUpdated]: "Cập nhật lần cuối",
 
 	[Key.compass]: "La bàn",
 	[Key.compassBanner]:
@@ -247,6 +250,8 @@ export const vi: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"Tự động phát đã bị chặn. Nhấn nút phát để bắt đầu.",
 	[Key.musicErrorInvalidTrack]: "Bài hát này không hợp lệ.",
+	[Key.musicOpenPlayer]: "Mở trình phát nhạc",
+	[Key.musicClosePlayer]: "Thu gọn trình phát nhạc",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Phong cách màu",

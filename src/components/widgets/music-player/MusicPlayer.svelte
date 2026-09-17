@@ -7,6 +7,8 @@
 
 	import { resolveMusicOptions } from "@/config/musicConfig";
 	import type { MusicSnapshot } from "@/types/musicConfig";
+	import I18nKey from "@i18n/i18nKey";
+	import { i18n } from "@i18n/translation";
 
 	import CoverImage from "./atoms/CoverImage.svelte";
 	import FabMusicPanel from "./FabMusicPanel.svelte";
@@ -52,6 +54,26 @@
 	// 保留 legacy 占位 action：VolumeSlider 通过 use: 引用滑杆节点
 	const volumeBarRef: Action<HTMLElement, undefined> = () => {};
 
+	// FAB 音乐球几何：实测持久外壳 #floating-controls 的位置并与底部对齐。
+	// fab-system.md §1.4 规定音乐不进 FAB 控制流，故作为独立悬浮元素挂靠其上方；
+	// 容器在 Swup 持久壳层内跨导航存活，观察者一次绑定即可。
+	let fabRight = $state(24);
+	let fabBottom = $state(160);
+
+	function measureFabAnchor() {
+		const group = document.getElementById("floating-controls");
+		if (!group) {
+			return;
+		}
+		const rect = group.getBoundingClientRect();
+		// 容器被整组折叠（display:none）时 rect 归零，保留上次测量结果
+		if (rect.width === 0 && rect.height === 0) {
+			return;
+		}
+		fabRight = Math.max(0, window.innerWidth - rect.right);
+		fabBottom = window.innerHeight - rect.top;
+	}
+
 	const playing = $derived(snapshot?.status === "playing");
 	const loading = $derived(snapshot?.status === "loading");
 	const currentSong: Song = $derived(snapshot?.currentTrack ?? PLACEHOLDER_SONG);
@@ -76,15 +98,15 @@
 		}
 		switch (snapshot.error) {
 			case "empty-playlist":
-				return "播放列表为空";
+				return i18n(I18nKey.musicErrorEmptyPlaylist);
 			case "source-unavailable":
-				return "音乐源暂不可用，请稍后再试";
+				return i18n(I18nKey.musicErrorSourceUnavailable);
 			case "autoplay-blocked":
-				return "浏览器阻止了自动播放，请手动点击播放";
+				return i18n(I18nKey.musicErrorAutoplayBlocked);
 			case "invalid-track":
-				return "该曲目不可用，已尝试切换下一首";
+				return i18n(I18nKey.musicErrorInvalidTrack);
 			default:
-				return "播放出错";
+				return "";
 		}
 	});
 
@@ -250,6 +272,14 @@
 		toggleExpandedUI(ui);
 	}
 
+	// FAB 入口模式：悬浮球点击展开/收起迷你面板；首次展开时按需拉取歌单
+	function onFabToggle() {
+		toggleExpandedUI(ui);
+		if (ui.isExpanded) {
+			void controller?.runtime.initialize();
+		}
+	}
+
 	function toggleHidden() {
 		toggleHiddenUI(ui);
 	}
@@ -271,6 +301,31 @@
 		unsubscribe = created.subscribe((nextState) => {
 			snapshot = nextState;
 		});
+	});
+
+	// 悬浮球对位：跟随 FAB 组尺寸/折叠态/视口变化重新实测
+	onMount(() => {
+		if (!shouldRenderFloatingUi) {
+			return;
+		}
+		measureFabAnchor();
+		const group = document.getElementById("floating-controls");
+		if (!group) {
+			return;
+		}
+		const resizeObserver = new ResizeObserver(measureFabAnchor);
+		resizeObserver.observe(group);
+		const classObserver = new MutationObserver(measureFabAnchor);
+		classObserver.observe(group, {
+			attributes: true,
+			attributeFilter: ["class"],
+		});
+		window.addEventListener("resize", measureFabAnchor);
+		return () => {
+			resizeObserver.disconnect();
+			classObserver.disconnect();
+			window.removeEventListener("resize", measureFabAnchor);
+		};
 	});
 
 	onDestroy(() => {
@@ -304,43 +359,68 @@
 	{/if}
 
 	{#if useFabEntry}
-		{#if ui.isExpanded}
-			<div class="music-player-fab-anchor fixed z-[55]">
-				<div
-					class="music-player-fab-shell"
-					transition:fly={{
-						y: 16,
-						duration: 280,
-						opacity: 0.12,
-						easing: cubicOut,
-					}}
+		<div
+			class="music-fab-anchor"
+			style={`--music-fab-right: ${fabRight}px; --music-fab-bottom: ${fabBottom}px;`}
+		>
+			<div class="music-fab-shell">
+				{#if ui.isExpanded}
+					<div
+						class="music-fab-panel"
+						transition:fly={{
+							y: 16,
+							duration: 280,
+							opacity: 0.12,
+							easing: cubicOut,
+						}}
+					>
+						<FabMusicPanel
+							song={currentSong}
+							{playlist}
+							{currentIndex}
+							{currentTime}
+							{duration}
+							isPlaying={playing}
+							isLoading={loading}
+							{volume}
+							isMuted={muted}
+							{isVolumeDragging}
+							{volumeBarRef}
+							{mode}
+							onTogglePlay={togglePlay}
+							onPrev={prev}
+							onNext={next}
+							onCycleMode={cycleMode}
+							onSeek={seek}
+							onToggleMute={toggleMute}
+							onPlaySong={playIndex}
+							onVolumePointerDown={startVolumeDrag}
+							onVolumeKeyDown={handleSliderKeyDown}
+						/>
+					</div>
+				{/if}
+				<button
+					type="button"
+					class="music-fab-ball"
+					class:active={ui.isExpanded}
+					class:playing
+					class:loading
+					aria-expanded={ui.isExpanded}
+					aria-label={ui.isExpanded
+						? i18n(I18nKey.musicClosePlayer)
+						: i18n(I18nKey.musicOpenPlayer)}
+					onclick={onFabToggle}
 				>
-					<FabMusicPanel
-						song={currentSong}
-						{playlist}
-						{currentIndex}
-						{currentTime}
-						{duration}
-						{isPlaying}
-						{isLoading}
-						{volume}
-						{muted}
-						{isVolumeDragging}
-						{volumeBarRef}
-						{mode}
-						onTogglePlay={togglePlay}
-						onPrev={prev}
-						onNext={next}
-						onCycleMode={cycleMode}
-						onSeek={seek}
-						onToggleMute={toggleMute}
-						onPlaySong={playIndex}
-						onVolumePointerDown={startVolumeDrag}
-						onVolumeKeyDown={handleSliderKeyDown}
+					<Icon
+						icon="material-symbols:music-note-rounded"
+						aria-hidden="true"
 					/>
-				</div>
+					{#if playing}
+						<span class="music-fab-dot" aria-hidden="true"></span>
+					{/if}
+				</button>
 			</div>
-		{/if}
+		</div>
 	{:else}
 		<div
 			class="music-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
@@ -415,32 +495,106 @@
 	{/if}
 
 	<style>
-		.music-player-fab-anchor {
-			right: var(--fab-group-right, 1.5rem);
-			bottom: calc(
-				var(--fab-group-bottom, 10rem) +
-					(
-						var(--fab-button-size, 3rem) *
-							var(--fab-visible-count, 1)
-					) +
-					(
-						var(--fab-group-gap, 0.5rem) *
-							(var(--fab-visible-count, 1) - 1)
-					)
-			);
-			width: 0;
-			height: 0;
-			pointer-events: none;
-		}
+		/* —— FAB 音乐球：独立悬浮元素，与 #floating-controls 实测几何对齐 —— */
+	.music-fab-anchor {
+		position: fixed;
+		right: var(--music-fab-right, 1.5rem);
+		bottom: var(--music-fab-bottom, 10rem);
+		z-index: 45;
+		width: 0;
+		height: 0;
+		pointer-events: none;
+	}
 
-		.music-player-fab-shell {
-			position: absolute;
-			right: 0;
-			bottom: 0.75rem;
-			transform-origin: bottom right;
-			pointer-events: auto;
-			will-change: transform, opacity;
+	.music-fab-shell {
+		position: absolute;
+		right: 0;
+		bottom: 0.75rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.75rem;
+		transform-origin: bottom right;
+		pointer-events: auto;
+		will-change: transform, opacity;
+	}
+
+	.music-fab-ball {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 3rem;
+		height: 3rem;
+		padding: 0;
+		border: 1px solid var(--outline-variant);
+		border-radius: var(--shape-corner-l);
+		background: var(--card-bg);
+		color: var(--primary);
+		cursor: pointer;
+		box-shadow: var(--m3e-elevation-1);
+		transition:
+			background-color var(--m3e-duration-short) var(--m3e-easing-standard),
+			color var(--m3e-duration-short) var(--m3e-easing-standard),
+			box-shadow var(--m3e-duration-short) var(--m3e-easing-standard);
+	}
+
+	.music-fab-ball:hover {
+		box-shadow: var(--m3e-elevation-3);
+	}
+
+	.music-fab-ball.active {
+		background: var(--primary-container);
+		border-color: transparent;
+		color: var(--on-primary-container);
+	}
+
+	.music-fab-ball.loading {
+		animation: music-fab-breathe 1.4s ease-in-out infinite;
+	}
+
+	.music-fab-ball > :global(svg) {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.music-fab-dot {
+		position: absolute;
+		top: 0.3125rem;
+		right: 0.3125rem;
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: var(--shape-corner-full);
+		background: var(--tertiary);
+		animation: music-fab-pulse 1.6s ease-in-out infinite;
+	}
+
+	@keyframes music-fab-breathe {
+		0%,
+		100% {
+			opacity: 1;
 		}
+		50% {
+			opacity: 0.45;
+		}
+	}
+
+	@keyframes music-fab-pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.35;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.music-fab-ball.loading,
+		.music-fab-dot {
+			animation: none;
+		}
+	}
 
 		.orb-player-container {
 			position: absolute;
@@ -578,24 +732,14 @@
 		}
 
 		@media (max-width: 768px) {
-			.music-player-fab-anchor {
-				right: var(--fab-group-right, 0.75rem) !important;
-				bottom: calc(
-					var(--fab-group-bottom, 5rem) +
-						(
-							var(--fab-button-size, 2.75rem) *
-								var(--fab-visible-count, 1)
-						) +
-						(
-							var(--fab-group-gap, 0.5rem) *
-								(var(--fab-visible-count, 1) - 1)
-						)
-				) !important;
+			.music-fab-ball {
+				width: 2.75rem;
+				height: 2.75rem;
 			}
 
-			.music-player-fab-shell {
-				right: 0 !important;
-				bottom: 0.75rem !important;
+			.music-fab-ball > :global(svg) {
+				width: 1.375rem;
+				height: 1.375rem;
 			}
 
 			.music-player {
@@ -637,26 +781,6 @@
 		}
 
 		@media (max-width: 480px) {
-			.music-player-fab-anchor {
-				right: var(--fab-group-right, 0.5rem) !important;
-				bottom: calc(
-					var(--fab-group-bottom, 4.5rem) +
-						(
-							var(--fab-button-size, 2.5rem) *
-								var(--fab-visible-count, 1)
-						) +
-						(
-							var(--fab-group-gap, 0.5rem) *
-								(var(--fab-visible-count, 1) - 1)
-						)
-				) !important;
-			}
-
-			.music-player-fab-shell {
-				right: 0 !important;
-				bottom: 0.75rem !important;
-			}
-
 			.music-player {
 				width: 260px !important;
 				min-width: 260px !important;

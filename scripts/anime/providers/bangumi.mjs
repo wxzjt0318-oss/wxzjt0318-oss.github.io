@@ -214,6 +214,10 @@ export async function fetchBangumiData(bangumiConfig) {
 
 				const rawDate = subject.date || detail?.date || "";
 				const year = rawDate ? String(rawDate).slice(0, 4) : "";
+				// 放送开始日期（YYYY-MM-DD）直达展示层，供卡片显示具体放送日
+				const period = rawDate
+					? { start: String(rawDate).slice(0, 10) }
+					: undefined;
 
 				const description =
 					detail?.summary ||
@@ -246,6 +250,7 @@ export async function fetchBangumiData(bangumiConfig) {
 					link,
 					description: description || undefined,
 					year,
+					...(period ? { period } : {}),
 					studio,
 					genres: rawTags,
 					identity: {

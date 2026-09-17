@@ -43,6 +43,9 @@ export const zh_CN: Translation = {
 	[Key.animeConfigMissingBangumi]: "未配置 Bangumi 用户 ID",
 	[Key.animeConfigMissingBilibili]: "未配置哔哩哔哩 UID",
 	[Key.animeSyncEmpty]: "当前数据源中暂无番剧条目",
+	[Key.animeStatsTotal]: "番剧总数",
+	[Key.animeStatsAvgRating]: "平均评分",
+	[Key.animeStatsLastUpdated]: "数据更新时间",
 
 	[Key.compass]: "站点罗盘",
 	[Key.compassBanner]: "常去的站点 —— 开发工具、文档与各种兔子洞。",
@@ -236,6 +239,8 @@ export const zh_CN: Translation = {
 	[Key.musicErrorSourceUnavailable]: "该音源不可用",
 	[Key.musicErrorAutoplayBlocked]: "自动播放受限，请点击播放按钮开始",
 	[Key.musicErrorInvalidTrack]: "歌曲信息无效",
+	[Key.musicOpenPlayer]: "打开音乐播放器",
+	[Key.musicClosePlayer]: "收起音乐播放器",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "配色风格",

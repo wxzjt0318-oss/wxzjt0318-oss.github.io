@@ -214,6 +214,45 @@ export async function getAnimeList(
 	return animeData;
 }
 
+/**
+ * 读取快照元信息（抓取时间与提供方），用于页面展示“数据更新时间”。
+ * 仅 snapshot 源可用；文件缺失或解析失败时返回 null，不影响渲染。
+ */
+export function getAnimeSnapshotMeta(
+	customOptions?: ResolvedAnimeOptions,
+): { fetchedAt: string; provider: string } | null {
+	const options = customOptions ?? resolveAnimeOptions(animeConfig);
+	if (!options.enable || options.source.kind !== "snapshot") {
+		return null;
+	}
+	const filename = options.source.file;
+	if (!filename) {
+		return null;
+	}
+	const dir = isAbsolute(options.snapshot.directory)
+		? options.snapshot.directory
+		: resolve(process.cwd(), options.snapshot.directory);
+	const filePath = join(dir, filename);
+	if (!existsSync(filePath)) {
+		return null;
+	}
+	try {
+		const parsed = JSON.parse(readFileSync(filePath, "utf-8")) as {
+			fetchedAt?: unknown;
+			provider?: unknown;
+		};
+		if (typeof parsed?.fetchedAt !== "string" || !parsed.fetchedAt) {
+			return null;
+		}
+		return {
+			fetchedAt: parsed.fetchedAt,
+			provider: typeof parsed.provider === "string" ? parsed.provider : "",
+		};
+	} catch {
+		return null;
+	}
+}
+
 function handleFallback(
 	options: ResolvedAnimeOptions,
 	reason: string,

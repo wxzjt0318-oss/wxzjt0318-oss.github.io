@@ -46,6 +46,9 @@ export const id: Translation = {
 	[Key.animeConfigMissingBangumi]: "ID pengguna Bangumi belum dikonfigurasi",
 	[Key.animeConfigMissingBilibili]: "UID Bilibili belum dikonfigurasi",
 	[Key.animeSyncEmpty]: "Tidak ada anime yang ditemukan di sumber data ini",
+	[Key.animeStatsTotal]: "Total anime",
+	[Key.animeStatsAvgRating]: "Peringkat rata-rata",
+	[Key.animeStatsLastUpdated]: "Terakhir diperbarui",
 
 	[Key.compass]: "Kompas",
 	[Key.compassBanner]:
@@ -249,6 +252,8 @@ export const id: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"Pemutaran otomatis diblokir. Tekan putar untuk memulai.",
 	[Key.musicErrorInvalidTrack]: "Lagu ini tidak valid.",
+	[Key.musicOpenPlayer]: "Buka pemutar musik",
+	[Key.musicClosePlayer]: "Tutup pemutar musik",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Gaya Warna",

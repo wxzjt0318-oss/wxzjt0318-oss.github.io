@@ -46,6 +46,9 @@ export const ja: Translation = {
 	[Key.animeConfigMissingBangumi]: "Bangumi ユーザーIDが未設定です",
 	[Key.animeConfigMissingBilibili]: "Bilibili UIDが未設定です",
 	[Key.animeSyncEmpty]: "このデータソースにはアニメがありません",
+	[Key.animeStatsTotal]: "アニメ総数",
+	[Key.animeStatsAvgRating]: "平均評価",
+	[Key.animeStatsLastUpdated]: "最終更新",
 
 	[Key.compass]: "サイト羅針盤",
 	[Key.compassBanner]:
@@ -244,6 +247,8 @@ export const ja: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"自動再生がブロックされました。再生ボタンを押してください。",
 	[Key.musicErrorInvalidTrack]: "曲の情報が無効です。",
+	[Key.musicOpenPlayer]: "音楽プレーヤーを開く",
+	[Key.musicClosePlayer]: "音楽プレーヤーを閉じる",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "配色スタイル",

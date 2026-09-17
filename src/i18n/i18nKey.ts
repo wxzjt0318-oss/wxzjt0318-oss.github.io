@@ -44,6 +44,9 @@ enum I18nKey {
 	animeConfigMissingBangumi = "animeConfigMissingBangumi",
 	animeConfigMissingBilibili = "animeConfigMissingBilibili",
 	animeSyncEmpty = "animeSyncEmpty",
+	animeStatsTotal = "animeStatsTotal",
+	animeStatsAvgRating = "animeStatsAvgRating",
+	animeStatsLastUpdated = "animeStatsLastUpdated",
 
 	compass = "compass",
 	compassBanner = "compassBanner",
@@ -235,6 +238,8 @@ enum I18nKey {
 	musicErrorSourceUnavailable = "musicErrorSourceUnavailable",
 	musicErrorAutoplayBlocked = "musicErrorAutoplayBlocked",
 	musicErrorInvalidTrack = "musicErrorInvalidTrack",
+	musicOpenPlayer = "musicOpenPlayer",
+	musicClosePlayer = "musicClosePlayer",
 
 	themeColor = "themeColor",
 	colorStyle = "colorStyle",

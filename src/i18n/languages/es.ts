@@ -45,6 +45,9 @@ export const es: Translation = {
 	[Key.animeConfigMissingBangumi]: "ID de usuario de Bangumi no configurado",
 	[Key.animeConfigMissingBilibili]: "UID de Bilibili no configurado",
 	[Key.animeSyncEmpty]: "No se encontraron animes en esta fuente de datos",
+	[Key.animeStatsTotal]: "Total de animes",
+	[Key.animeStatsAvgRating]: "Calificación media",
+	[Key.animeStatsLastUpdated]: "Última actualización",
 
 	[Key.compass]: "Brújula",
 	[Key.compassBanner]:
@@ -247,6 +250,8 @@ export const es: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"La reproducción automática está bloqueada. Pulsa reproducir para comenzar.",
 	[Key.musicErrorInvalidTrack]: "Esta pista no es válida.",
+	[Key.musicOpenPlayer]: "Abrir reproductor de música",
+	[Key.musicClosePlayer]: "Contraer reproductor de música",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Estilo de color",

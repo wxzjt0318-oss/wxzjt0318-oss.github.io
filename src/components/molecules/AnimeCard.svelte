@@ -31,8 +31,11 @@ const progressRatio = $derived(
 		? Math.min(anime.progress.watched / anime.progress.total, 1)
 		: 0,
 );
+// 放送开始日期优先于年份（快照 period.start 为 YYYY-MM-DD；本地手写数据为 YYYY-MM）
 const metaLine = $derived(
-	[anime.year, anime.studio].filter(Boolean).join(" · "),
+	[anime.period?.start || anime.year, anime.studio]
+		.filter(Boolean)
+		.join(" · "),
 );
 </script>
 

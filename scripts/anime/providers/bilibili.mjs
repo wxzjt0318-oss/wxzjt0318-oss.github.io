@@ -308,6 +308,10 @@ export async function fetchBilibiliData(bilibiliConfig) {
 			const match = String(rawDate).match(/(\d{4})/);
 			if (match) year = match[1];
 		}
+		// 放送开始日期（YYYY-MM-DD）直达展示层，供卡片显示具体放送日
+		const period = rawDate
+			? { start: String(rawDate).slice(0, 10) }
+			: undefined;
 
 		// 描述
 		let description = item.evaluate || item.summary || "";
@@ -350,6 +354,7 @@ export async function fetchBilibiliData(bilibiliConfig) {
 			link: link || undefined,
 			description: description || undefined,
 			year,
+			...(period ? { period } : {}),
 			studio,
 			genres,
 			identity: {

@@ -43,6 +43,9 @@ export const zh_TW: Translation = {
 	[Key.animeConfigMissingBangumi]: "未設定 Bangumi 使用者 ID",
 	[Key.animeConfigMissingBilibili]: "未設定嗶哩嗶哩 UID",
 	[Key.animeSyncEmpty]: "目前資料來源中暫無動畫條目",
+	[Key.animeStatsTotal]: "番劇總數",
+	[Key.animeStatsAvgRating]: "平均評分",
+	[Key.animeStatsLastUpdated]: "資料更新時間",
 
 	[Key.compass]: "站點羅盤",
 	[Key.compassBanner]: "常去的站點 —— 開發工具、文件與各種兔子洞。",
@@ -236,6 +239,8 @@ export const zh_TW: Translation = {
 	[Key.musicErrorSourceUnavailable]: "此音源無法使用",
 	[Key.musicErrorAutoplayBlocked]: "自動播放受到限制，請點擊播放按鈕開始",
 	[Key.musicErrorInvalidTrack]: "歌曲資訊無效",
+	[Key.musicOpenPlayer]: "開啟音樂播放器",
+	[Key.musicClosePlayer]: "收合音樂播放器",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "配色風格",

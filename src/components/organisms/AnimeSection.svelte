@@ -24,12 +24,21 @@ import type { AnimeItem } from "../../data/anime";
 
 export type AnimeLayoutMode = "grid" | "list";
 
+/** 统计条数据（页面层构建期计算；null 不渲染） */
+export type AnimeStats = {
+	total: number;
+	avgRating: string;
+	lastUpdated?: string;
+};
+
 let {
 	animes = [] as AnimeItem[],
+	stats = null as AnimeStats | null,
 	title = i18n(I18nKey.anime),
 	subtitle = i18n(I18nKey.animeBanner),
 }: {
 	animes?: AnimeItem[];
+	stats?: AnimeStats | null;
 	title?: string;
 	subtitle?: string;
 } = $props();
@@ -55,11 +64,20 @@ const LIST_MODE_CLASS: Record<AnimeLayoutMode, string> = {
 	list: "anime-list--list",
 };
 
-/** 状态筛选 chips：只列数据中出现的状态（单选，再点取消 = 全部） */
+/** 各状态条目数（chips 计数展示） */
+const statusCounts = $derived.by(() => {
+	const counts = new Map<string, number>();
+	for (const anime of animes) {
+		counts.set(anime.status, (counts.get(anime.status) ?? 0) + 1);
+	}
+	return counts;
+});
+
+/** 状态筛选 chips：只列数据中出现的状态（单选，再点取消 = 全部），标签附条目数 */
 const statusItems = $derived(
 	Array.from(new Set(animes.map((anime) => anime.status))).map((status) => ({
 		value: status,
-		label: i18n(ANIME_STATUS_META[status].key),
+		label: `${i18n(ANIME_STATUS_META[status].key)} (${statusCounts.get(status) ?? 0})`,
 		leadingIcon: ANIME_STATUS_META[status].icon,
 	})),
 );
@@ -168,6 +186,25 @@ onMount(() => {
 		{title}
 		{subtitle}
 	/>
+
+	{#if stats}
+		<div class="anime-section__stats">
+			<div class="anime-section__stat" style="--stat-accent: var(--primary)">
+				<span class="anime-section__stat-label">{i18n(I18nKey.animeStatsTotal)}</span>
+				<span class="anime-section__stat-value">{stats.total}</span>
+			</div>
+			<div class="anime-section__stat" style="--stat-accent: var(--tertiary)">
+				<span class="anime-section__stat-label">{i18n(I18nKey.animeStatsAvgRating)}</span>
+				<span class="anime-section__stat-value">{stats.avgRating}</span>
+			</div>
+			{#if stats.lastUpdated}
+				<div class="anime-section__stat" style="--stat-accent: var(--secondary)">
+					<span class="anime-section__stat-label">{i18n(I18nKey.animeStatsLastUpdated)}</span>
+					<span class="anime-section__stat-value">{stats.lastUpdated}</span>
+				</div>
+			{/if}
+		</div>
+	{/if}
 
 	{#if animes.length > 0}
 		<div class="anime-section__tools">
@@ -293,6 +330,41 @@ onMount(() => {
 		.anime-list--grid, .anime-list--list
 			padding-top: 1rem
 			gap: 0.625rem
+
+	/* 统计条：总数 / 平均评分 / 数据更新时间（三卡渐变，同 games 页统计条布局） */
+	&__stats
+		display: grid
+		grid-template-columns: 1fr
+		gap: 0.75rem
+		margin-bottom: 1.25rem
+
+		@media (min-width: 48rem)
+			grid-template-columns: repeat(3, 1fr)
+
+	&__stat
+		display: flex
+		flex-direction: column
+		align-items: center
+		gap: 0.25rem
+		padding: 0.875rem 1rem
+		border-radius: var(--shape-corner-l)
+		border: 1px solid var(--outline-variant)
+		background: linear-gradient(135deg,
+			unquote("color-mix(in oklab, var(--stat-accent) 14%, var(--card-bg))"),
+			unquote("color-mix(in oklab, var(--stat-accent) 5%, var(--card-bg))"))
+
+	&__stat-label
+		color: var(--on-surface-variant)
+		font: var(--m3e-type-label-medium)
+		text-align: center
+
+	&__stat-value
+		color: var(--on-surface)
+		font: var(--m3e-type-headline-small)
+		font-weight: 700
+		font-variant-numeric: tabular-nums
+		text-align: center
+		overflow-wrap: anywhere
 
 	&__tools
 		display: flex

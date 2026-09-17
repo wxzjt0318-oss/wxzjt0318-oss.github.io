@@ -45,6 +45,9 @@ export const tr: Translation = {
 	[Key.animeConfigMissingBangumi]: "Bangumi kullanıcı kimliği yapılandırılmadı",
 	[Key.animeConfigMissingBilibili]: "Bilibili UID yapılandırılmadı",
 	[Key.animeSyncEmpty]: "Bu veri kaynağında anime öğesi bulunamadı",
+	[Key.animeStatsTotal]: "Toplam anime",
+	[Key.animeStatsAvgRating]: "Ortalama puan",
+	[Key.animeStatsLastUpdated]: "Son güncelleme",
 
 	[Key.compass]: "Pusula",
 	[Key.compassBanner]:
@@ -247,6 +250,8 @@ export const tr: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"Otomatik oynatma engellendi. Başlatmak için oynat düğmesine basın.",
 	[Key.musicErrorInvalidTrack]: "Bu parça geçersiz.",
+	[Key.musicOpenPlayer]: "Müzik çaları aç",
+	[Key.musicClosePlayer]: "Müzik çalarını kapat",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Renk Stili",

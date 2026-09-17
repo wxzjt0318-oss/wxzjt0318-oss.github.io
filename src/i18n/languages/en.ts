@@ -46,6 +46,9 @@ export const en: Translation = {
 	[Key.animeConfigMissingBangumi]: "Bangumi user ID not configured",
 	[Key.animeConfigMissingBilibili]: "Bilibili UID not configured",
 	[Key.animeSyncEmpty]: "No anime items found in this source",
+	[Key.animeStatsTotal]: "Total",
+	[Key.animeStatsAvgRating]: "Average Rating",
+	[Key.animeStatsLastUpdated]: "Last Updated",
 
 	[Key.compass]: "Compass",
 	[Key.compassBanner]:
@@ -245,6 +248,8 @@ export const en: Translation = {
 	[Key.musicErrorSourceUnavailable]: "This track is unavailable.",
 	[Key.musicErrorAutoplayBlocked]: "Autoplay was blocked. Press play to start.",
 	[Key.musicErrorInvalidTrack]: "This track is invalid.",
+	[Key.musicOpenPlayer]: "Open music player",
+	[Key.musicClosePlayer]: "Collapse music player",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "Color Style",

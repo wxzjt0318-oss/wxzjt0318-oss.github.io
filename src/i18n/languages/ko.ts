@@ -45,6 +45,9 @@ export const ko: Translation = {
 	[Key.animeConfigMissingBangumi]: "Bangumi 사용자 ID가 설정되지 않았습니다",
 	[Key.animeConfigMissingBilibili]: "Bilibili UID가 설정되지 않았습니다",
 	[Key.animeSyncEmpty]: "이 데이터 소스에 애니메이션 항목이 없습니다",
+	[Key.animeStatsTotal]: "애니 총 개수",
+	[Key.animeStatsAvgRating]: "평균 평점",
+	[Key.animeStatsLastUpdated]: "마지막 업데이트",
 
 	[Key.compass]: "나침반",
 	[Key.compassBanner]:
@@ -244,6 +247,8 @@ export const ko: Translation = {
 	[Key.musicErrorAutoplayBlocked]:
 		"자동 재생이 차단되었습니다. 재생 버튼을 눌러 시작하세요.",
 	[Key.musicErrorInvalidTrack]: "곡 정보가 올바르지 않습니다.",
+	[Key.musicOpenPlayer]: "음악 플레이어 열기",
+	[Key.musicClosePlayer]: "음악 플레이어 접기",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "색상 스타일",

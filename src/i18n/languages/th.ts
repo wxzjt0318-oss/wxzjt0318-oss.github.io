@@ -43,6 +43,9 @@ export const th: Translation = {
 	[Key.animeConfigMissingBangumi]: "ยังไม่ได้กำหนดค่า ID ผู้ใช้ Bangumi",
 	[Key.animeConfigMissingBilibili]: "ยังไม่ได้กำหนดค่า UID ของ Bilibili",
 	[Key.animeSyncEmpty]: "ไม่พบบันทึกอนิเมะในแหล่งข้อมูลนี้",
+	[Key.animeStatsTotal]: "อนิเมะทั้งหมด",
+	[Key.animeStatsAvgRating]: "คะแนนเฉลี่ย",
+	[Key.animeStatsLastUpdated]: "อัปเดตล่าสุด",
 
 	[Key.compass]: "เข็มทิศ",
 	[Key.compassBanner]: "เว็บไซต์ที่ฉันกลับมาใช้บ่อย — เครื่องมือพัฒนา เอกสาร และหลุมกระต่าย",
@@ -235,6 +238,8 @@ export const th: Translation = {
 	[Key.musicErrorSourceUnavailable]: "ไม่สามารถเล่นเพลงนี้ได้",
 	[Key.musicErrorAutoplayBlocked]: "ระบบบล็อกการเล่นอัตโนมัติ กดปุ่มเล่นเพื่อเริ่ม",
 	[Key.musicErrorInvalidTrack]: "ข้อมูลเพลงนี้ไม่ถูกต้อง",
+	[Key.musicOpenPlayer]: "เปิดเครื่องเล่นเพลง",
+	[Key.musicClosePlayer]: "ย่อเครื่องเล่นเพลง",
 
 	[Key.themeColor]: "Theme Color",
 	[Key.colorStyle]: "สไตล์สี",
