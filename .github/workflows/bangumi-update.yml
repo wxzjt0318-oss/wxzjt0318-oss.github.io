@@ -1,0 +1,82 @@
+name: Update Bangumi Data
+
+on:
+  # UTC 08:00 = 北京时间 16:00。推送变更后会自动触发 deploy.yml（on.push.main）。
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      clear_cache:
+        description: "Clear anime snapshots before update"
+        required: false
+        default: "false"
+        type: boolean
+  repository_dispatch:
+    types: [update-bangumi]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "bangumi-update"
+  cancel-in-progress: true
+
+env:
+  TZ: "Asia/Shanghai"
+
+jobs:
+  update-bangumi-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Clear anime snapshots
+        if: (github.event_name == 'workflow_dispatch' && inputs.clear_cache == true) || (github.event_name == 'repository_dispatch' && github.event.client_payload.clear_cache == 'true')
+        run: |
+          rm -rf src/data/anime-snapshots
+          mkdir -p src/data/anime-snapshots
+
+      # 刷新番剧快照（provider 与 userId 读自 src/config/animeConfig.ts）。
+      - name: Sync anime snapshots
+        run: pnpm anime:sync --provider bangumi
+
+      # 生成每日追番文章（平移自用户 fork，直接调用 Bangumi API）。
+      - name: Generate daily anime post
+        run: pnpm generate-bangumi-post
+        env:
+          BANGUMI_POSTS_PER_RUN: 1
+          BANGUMI_POST_REVIEW_MODE: ${{ vars.BANGUMI_POST_REVIEW_MODE || 'false' }}
+
+      - name: Commit changes
+        id: commit
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add src/data/anime-snapshots src/content/posts reports/bangumi-daily-posts-latest.json 2>/dev/null || true
+
+          if git diff --staged --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No changes to commit (data may already be up to date)"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            git commit -m "chore: update bangumi snapshots and daily anime post"
+            git push origin HEAD:main
+            echo "Changes committed and pushed (deploy.yml will pick this up)"
+          fi

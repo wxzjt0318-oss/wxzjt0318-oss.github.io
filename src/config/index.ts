@@ -58,9 +58,11 @@ export {
 } from "./musicConfig";
 export { LinkPresets, navBarConfig } from "./navBarConfig";
 export { permalinkConfig } from "./permalinkConfig";
+export { pioConfig } from "./pioConfig";
 export { POST_CARD_MIN_WIDTH, postListConfig } from "./postListConfig";
 export { profileConfig } from "./profileConfig";
 export { projectsConfig } from "./projectsConfig";
+export { sakuraConfig } from "./sakuraConfig";
 export { seriesConfig } from "./seriesConfig";
 export { sidebarConfig } from "./sidebarConfig";
 export {

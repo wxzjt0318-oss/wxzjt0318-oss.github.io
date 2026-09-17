@@ -177,11 +177,7 @@ const defaultNavBarConfig: NavBarConfig = {
 			children: [
 				LinkPresets.Anime,
 				LinkPresets.Games,
-				{
-					name: "Diary",
-					url: "/diary/",
-					icon: "material-symbols:book-outline-rounded",
-				},
+				LinkPresets.Moments,
 				LinkPresets.Albums,
 				LinkPresets.Friends,
 			],

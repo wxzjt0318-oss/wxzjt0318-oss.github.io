@@ -3,10 +3,14 @@ import { Font } from "astro:assets";
 import Snackbar from "@components/atoms/overlay/Snackbar.svelte";
 import ConfigCarrier from "@components/system/ConfigCarrier.astro";
 import UmamiRuntime from "@components/system/UmamiRuntime.astro";
+import Pio from "@components/features/pio/Pio.svelte";
+import MusicPlayer from "@components/widgets/music-player/MusicPlayer.svelte";
 import { resolveAsset } from "@utils/asset-utils";
 import { pathsEqual, toAbsoluteUrl, url } from "@utils/url-utils";
 import {
 	expressiveCodeConfig,
+	pioConfig,
+	musicConfig,
 	profileConfig,
 	resolvedFontOptions,
 	resolveTextureOptions,
@@ -153,6 +157,7 @@ const hasMonoFont =
 		{umamiOptions?.websiteId && umamiOptions.scriptUrl && (
 			<script is:inline async src={umamiOptions.scriptUrl} data-website-id={umamiOptions.websiteId} data-auto-track="true"></script>
 		)}
+		{pioConfig.enable && <link rel="stylesheet" href={url("/pio/static/pio.css")} />}
 				{favicons.map(favicon => (
 			<link rel="icon"
 				href={favicon.src.startsWith('/') ? url(favicon.src) : favicon.src}
@@ -240,6 +245,8 @@ const hasMonoFont =
 		)}
 		<Snackbar client:only="svelte"></Snackbar>
 		<slot />
+		{pioConfig.enable && <Pio client:visible />}
+		{musicConfig.enable && <MusicPlayer client:idle />}
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
 	</body>
 </html>
@@ -392,4 +399,12 @@ const setup = () => {
 };
 if (window.swup) setup();
 else document.addEventListener("swup:enable", setup);
+</script>
+
+<script>
+// 樱花飘落特效（自用户 fork 平移）：配置关闭时不初始化，零额外负担。
+import { sakuraConfig } from "@/config/sakuraConfig";
+import { setupSakuraOnDOMReady } from "../scripts/effects/sakura-effect";
+
+setupSakuraOnDOMReady(sakuraConfig);
 </script>

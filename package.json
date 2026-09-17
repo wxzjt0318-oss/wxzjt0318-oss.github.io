@@ -42,6 +42,7 @@
     "icons:generate": "node scripts/icons/generate-local-icons.mjs",
     "images:generate": "node scripts/images/generate-moment-thumbnails.mjs",
     "anime:sync": "node scripts/anime/sync.mjs",
+    "generate-bangumi-post": "node scripts/generate-bangumi-daily-post.mjs",
     "fonts:check": "node scripts/fonts/check-fonts.mjs",
     "fonts:subset": "node scripts/fonts/subset-fonts.mjs",
     "build": "node scripts/content/sync.mjs && node scripts/icons/generate-local-icons.mjs && node scripts/images/generate-moment-thumbnails.mjs && astro build && npx pagefind --site dist && node scripts/fonts/check-fonts.mjs",
