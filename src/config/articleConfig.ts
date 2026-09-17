@@ -22,7 +22,7 @@ export const articleConfig: ArticleConfig = withUserConfig("article", {
 		random: {
 			// 按当前文章标识稳定抽样；同一构建中的结果不会随刷新变化。
 			enable: true,
-			count: 2,
+			count: 3,
 		},
 	},
 	share: {

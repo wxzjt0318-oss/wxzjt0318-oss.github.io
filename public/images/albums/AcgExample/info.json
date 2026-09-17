@@ -1,10 +1,10 @@
 {
-  "title": "Some lovely pictures",
-  "description": "A local album scanned from this directory.",
-  "date": "2025-08-01",
-  "location": "Local archive",
-  "tags": ["local", "webp", "example"],
-  "layout": "masonry",
-  "columns": 3,
-  "hidden": false
+	"title": "Some lovely pictures",
+	"hidden": false,
+	"description": "The world is vast, and you have to go explore it.",
+	"date": "2025-08-01",
+	"location": "Bilibili",
+	"tags": ["Kawai", "Cute", "Moe"],
+	"layout": "masonry",
+	"columns": 3
 }

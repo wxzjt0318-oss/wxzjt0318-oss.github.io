@@ -50,24 +50,15 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  */
 export const musicConfig: MusicConfig = withUserConfig("music", {
 	enable: true,
-	provider: "mixed",
-	// tracks: [
-	// 	{
-	// 		id: "custom-1",
-	// 		title: "示例曲目",
-	// 		artist: "艺术家",
-	// 		cover: "/assets/music/cover/example.webp",
-	// 		source: "/assets/music/url/example.mp3",
-	// 		duration: 240,
-	// 	},
-	// ],
+	provider: "meting",
 	meting: {
+		api: "https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r",
 		server: "netease",
 		type: "playlist",
-		id: "14164869977",
+		id: "13985124277",
 		// 进入视口时预取歌单元数据（仅元信息，不预取音频流）：
 		// "metadata"（取）| "none"（默认，不取；交互后才请求，卡片显示「尚未请求」占位）
-		preload: "none",
+		preload: "metadata",
 	},
 	defaultVolume: 0.7,
 	defaultMode: "sequence",

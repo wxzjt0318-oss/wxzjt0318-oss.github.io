@@ -40,6 +40,11 @@ const postsCollection = defineCollection({
 		alias: z.string().optional(),
 		permalink: z.string().optional(),
 
+		/* Provenance metadata (carried over from legacy fork) */
+		author: z.string().optional().default(""),
+		sourceLink: z.string().optional().default(""),
+		licenseName: z.string().optional().default(""),
+
 		/* For internal use */
 		prevUrl: z.string().optional(),
 		nextUrl: z.string().optional(),

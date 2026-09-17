@@ -141,27 +141,55 @@ const defaultNavBarConfig: NavBarConfig = {
 	links: [
 		LinkPresets.Home,
 		LinkPresets.Archive,
-		LinkPresets.Friends,
-		LinkPresets.Moments,
-		LinkPresets.Anime,
-		LinkPresets.Compass,
-		LinkPresets.Albums,
 		{
-			name: i18n(I18nKey.more),
-			icon: "material-symbols:apps-rounded",
+			name: "Links",
+			icon: "material-symbols:link",
 			children: [
-				LinkPresets.Timeline,
-				LinkPresets.Projects,
-				LinkPresets.Devices,
-				LinkPresets.Games,
-				LinkPresets.Skills,
-				// 分类/标签入口不进导航菜单（避免菜单项过多），预设已登记指向独立页面，
-				// 需要时取消注释即可
-				// LinkPresets.Categories,
-				// LinkPresets.Tags,
-				LinkPresets.About,
-				LinkPresets.GitHub,
+				{
+					name: "GitHub",
+					url: "https://github.com/wxzjt0318-oss/wxzjt0318-oss.github.io",
+					external: true,
+					icon: "fa6-brands:github",
+				},
+				{
+					name: "Bilibili",
+					url: "https://b23.tv/Ny6RChH",
+					external: true,
+					icon: "fa6-brands:bilibili",
+				},
+				{
+					name: "QQ",
+					url: "https://qm.qq.com/q/toDlBSdPxu",
+					external: true,
+					icon: "fa6-brands:qq",
+				},
+				{
+					name: "网易云",
+					url: "https://music.163.com/#/user/home?id=118926845",
+					external: true,
+					icon: "simple-icons:neteasecloudmusic",
+				},
 			],
+		},
+		{
+			name: "My",
+			icon: "material-symbols:person",
+			children: [
+				LinkPresets.Anime,
+				LinkPresets.Games,
+				{
+					name: "Diary",
+					url: "/diary/",
+					icon: "material-symbols:book-outline-rounded",
+				},
+				LinkPresets.Albums,
+				LinkPresets.Friends,
+			],
+		},
+		{
+			name: "留言版",
+			url: "/visitorbook/",
+			icon: "material-symbols:chat",
 		},
 	],
 };

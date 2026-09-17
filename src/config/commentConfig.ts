@@ -30,19 +30,19 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  */
 export const commentConfig: CommentConfig = withUserConfig("comment", {
 	/** 全局评论总开关：false 时完全不加载评论脚本与 DOM */
-	enable: false,
+	enable: true,
 	/** 评论提供商类型："none" | "twikoo" | "giscus" */
-	provider: "none",
+	provider: "twikoo",
 	/** 是否开启视口懒加载：滚动进入视口才动态加载评论组件（推荐 true） */
 	lazy: true,
 	/** Twikoo 专有配置 */
 	twikoo: {
 		/** Twikoo 环境 ID（如 "https://your-twikoo.vercel.app" 或腾讯云环境 ID） */
-		envId: "",
+		envId: "https://twikoo-api-gmgc.vercel.app/",
 		/** Twikoo 前端 JS 脚本 CDN 地址 */
 		scriptUrl: "https://cdn.jsdelivr.net/npm/twikoo@1.7.20/dist/twikoo.min.js",
 		/** 评论语言："auto"（跟随站点）| "zh-CN" | "zh-TW" | "en" | "ja" 等 */
-		lang: "auto",
+		lang: "zh-CN",
 		/** 评论输入框占位提示文本 */
 		placeholder: "Share your thoughts...",
 	},

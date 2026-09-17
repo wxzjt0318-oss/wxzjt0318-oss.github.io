@@ -1,0 +1,48 @@
+<svg width="420" height="140" viewBox="0 0 420 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="badge" x1="15" y1="18" x2="118" y2="126" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF9ECF"/>
+      <stop offset="0.5" stop-color="#A784FF"/>
+      <stop offset="1" stop-color="#5BD1FF"/>
+    </linearGradient>
+    <linearGradient id="textMain" x1="146" y1="42" x2="384" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF6AB8"/>
+      <stop offset="0.48" stop-color="#8E73FF"/>
+      <stop offset="1" stop-color="#45BFFF"/>
+    </linearGradient>
+    <linearGradient id="textShine" x1="150" y1="28" x2="350" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF5FF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="softShadow" x="0" y="0" width="420" height="140" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#5A4AB5" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <!-- mascot badge -->
+    <rect x="12" y="12" width="116" height="116" rx="34" fill="url(#badge)"/>
+    <rect x="12.75" y="12.75" width="114.5" height="114.5" rx="33.25" stroke="#2B1F66" stroke-opacity="0.35" stroke-width="1.5"/>
+
+    <path d="M35 50L45 30L57 50" fill="#FFE6F6"/>
+    <path d="M83 50L95 30L105 50" fill="#FFE6F6"/>
+    <rect x="29" y="50" width="82" height="56" rx="24" fill="#FFF7FC" fill-opacity="0.88"/>
+
+    <ellipse cx="56" cy="74" rx="5.2" ry="7" fill="#2E255D"/>
+    <ellipse cx="84" cy="74" rx="5.2" ry="7" fill="#2E255D"/>
+    <ellipse cx="57.2" cy="71" rx="1.5" ry="2" fill="#FFF"/>
+    <ellipse cx="85.2" cy="71" rx="1.5" ry="2" fill="#FFF"/>
+    <path d="M63 90C66 94 74 94 77 90" stroke="#F168A9" stroke-width="3.2" stroke-linecap="round"/>
+
+    <circle cx="43" cy="86" r="4.2" fill="#FF9BCB" fill-opacity="0.8"/>
+    <circle cx="98" cy="86" r="4.2" fill="#FF9BCB" fill-opacity="0.8"/>
+
+    <!-- wordmark -->
+    <text x="146" y="88" font-size="56" font-style="italic" font-weight="900" font-family="'Yu Gothic UI', 'Comic Sans MS', 'Segoe UI', sans-serif" fill="url(#textMain)" stroke="#2B1F66" stroke-width="6" paint-order="stroke fill">Lingmeng</text>
+    <text x="146" y="88" font-size="56" font-style="italic" font-weight="900" font-family="'Yu Gothic UI', 'Comic Sans MS', 'Segoe UI', sans-serif" fill="url(#textShine)">Lingmeng</text>
+
+    <path d="M357 34L360 42L368 45L360 48L357 56L354 48L346 45L354 42L357 34Z" fill="#FFF6A8"/>
+    <circle cx="334" cy="108" r="4" fill="#FFD4EF"/>
+    <circle cx="376" cy="110" r="3" fill="#FFE17A"/>
+  </g>
+</svg>

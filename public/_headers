@@ -1,0 +1,127 @@
+/*
+  全局缓存策略配置
+  优化网站加载速度和性能
+*/
+
+/*
+  HTML 文件 - 短缓存，确保内容更新及时
+*/
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  静态资源 - 长期缓存（1年），使用内容哈希确保更新
+*/
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  JavaScript 文件 - 长期缓存（1年）
+  使用内容哈希或版本号确保更新
+*/
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/pagefind/*
+  Cache-Control: public, max-age=86400
+
+/*
+  图片资源 - 长期缓存（1年），使用内容哈希
+*/
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.gif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/music/cover/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  CSS - 长期缓存（哈希文件名）
+*/
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  RSS 和 Atom 订阅 - 短缓存
+*/
+/atom.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET
+  Access-Control-Max-Age: 86400
+  Content-Type: application/xml; charset=utf-8
+
+/rss.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET
+  Access-Control-Max-Age: 86400
+  Content-Type: application/xml; charset=utf-8
+
+/*
+  Sitemap - 短缓存
+*/
+/sitemap-index.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/sitemap-*.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*
+  安全头配置
+*/
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdn.umami.is; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https: blob:; connect-src 'self' https://cdn.umami.is https://umami.lm520.cc; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+*/

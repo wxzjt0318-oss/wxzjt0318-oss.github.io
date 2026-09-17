@@ -1,6 +1,7 @@
 import { unified } from "@astrojs/markdown-remark";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
+import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive"; /* Handle directives */
@@ -174,6 +175,14 @@ export const siteRehypePlugins = [
 		},
 	],
 	rehypeResponsiveTables,
+	// 外链统一新标签打开（自 legacy 迁移，殿后处理所有已渲染链接）
+	[
+		rehypeExternalLinks,
+		{
+			target: "_blank",
+			rel: ["nofollow", "noopener", "noreferrer"],
+		},
+	],
 ];
 
 /**

@@ -6,40 +6,61 @@ import type { ProjectItem } from "@/types/projectsConfig";
 
 export const projectsData: ProjectItem[] = [
 	{
-		key: "shirone",
-		title: "Shirone",
+		key: "mizuki-blog",
+		title: "Mizuki Blog Theme",
 		summary:
-			"An Astro blog theme shaped around an M3E component system, expressive content, and resilient client navigation.",
-		category: "theme",
-		phase: "building",
-		technologies: ["Astro", "Svelte", "TypeScript", "Tailwind CSS"],
-		icon: "material-symbols:deployed-code-outline-rounded",
-		cover: "/assets/projects/shirone.webp",
-		coverAlt: "Shirone theme homepage preview",
-		featured: true,
-		repository: "https://github.com/LyraVoid/Shirone",
-		year: "2026",
-	},
-	{
-		key: "folkpatch",
-		title: "FolkPatch",
-		summary: "A kernel-level root solution for Android, built on APatch.",
-		category: "android",
-		phase: "building",
-		technologies: ["Kotlin", "APatch", "Android"],
-		icon: "material-symbols:terminal-rounded",
-		repository: "https://github.com/LyraVoid/FolkPatch",
-	},
-	{
-		key: "kernelpatch",
-		title: "KernelPatch",
-		summary:
-			"A kernel patch framework that powers APatch-style root on Android by loading code into the running kernel.",
-		category: "android",
+			"Modern blog theme developed based on the Astro framework, supporting multilingual, dark mode, and responsive design features.",
+		category: "web",
 		phase: "shipped",
-		technologies: ["C", "Linux Kernel", "Android"],
-		icon: "material-symbols:extension-outline-rounded",
-		repository: "https://github.com/lyravoid/KernelPatch",
+		technologies: ["Astro", "TypeScript", "Tailwind CSS", "Svelte"],
+		featured: true,
+		website: "https://blog.example.com",
+		repository: "https://github.com/example/mizuki",
+		year: "2024",
+	},
+	{
+		key: "portfolio-website",
+		title: "Personal Portfolio",
+		summary:
+			"Personal portfolio website showcasing project experience and technical skills.",
+		category: "web",
+		phase: "shipped",
+		technologies: ["React", "Next.js", "TypeScript", "Framer Motion"],
+		featured: true,
+		website: "https://portfolio.example.com",
+		repository: "https://github.com/example/portfolio",
+		year: "2023",
+	},
+	{
+		key: "task-manager-app",
+		title: "Task Manager App",
+		summary:
+			"Cross-platform task management application supporting team collaboration and project management.",
+		category: "mobile",
+		phase: "building",
+		technologies: ["React Native", "TypeScript", "Redux", "Firebase"],
+		year: "2024",
+	},
+	{
+		key: "data-visualization-tool",
+		title: "Data Visualization Tool",
+		summary:
+			"Data visualization tool supporting multiple chart types and interactive analysis.",
+		category: "web",
+		phase: "shipped",
+		technologies: ["Vue.js", "D3.js", "TypeScript", "Node.js"],
+		website: "https://dataviz.example.com",
+		year: "2023",
+	},
+	{
+		key: "e-commerce-platform",
+		title: "E-commerce Platform",
+		summary:
+			"Full-stack e-commerce platform including user management, product management, and order processing features.",
+		category: "web",
+		phase: "exploring",
+		technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
+		year: "2024",
 	},
 ];
 

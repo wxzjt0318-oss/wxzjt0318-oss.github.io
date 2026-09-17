@@ -6,26 +6,29 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  * 类型见 src/types/config.ts。
  */
 export const profileConfig: ProfileConfig = withUserConfig("profile", {
-	avatar: "assets/images/demo-avatar.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "Shirone",
-	bio: "The rain remembers what the sky forgot to say.",
+	avatar: "assets/images/celia.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	name: "lingmeng",
+	bio: "I like the world, because i want live",
 	links: [
 		{
-			name: "X",
-			icon: "fa6-brands:x-twitter", // Visit https://icones.js.org/ for icon codes
-			// You will need to install the corresponding icon set if it's not already included
-			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "https://x.com",
-		},
-		{
-			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://store.steampowered.com",
+			name: "Bilibili",
+			icon: "fa6-brands:bilibili", // Visit https://icones.js.org/ for icon codes
+			url: "https://b23.tv/Ny6RChH",
 		},
 		{
 			name: "GitHub",
 			icon: "fa6-brands:github",
-			url: "https://github.com/LyraVoid/Shirone",
+			url: "https://github.com/wxzjt0318-oss/wxzjt0318-oss.github.io",
+		},
+		{
+			name: "Steam",
+			icon: "fa6-brands:steam",
+			url: "https://steamcommunity.com/profiles/76561198428249076/",
+		},
+		{
+			name: "Discord",
+			icon: "fa6-brands:discord",
+			url: "https://discord.gg/cZSyH7RKvu",
 		},
 	],
 });

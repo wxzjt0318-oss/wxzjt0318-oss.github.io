@@ -50,53 +50,44 @@ export const fontConfig: FontConfig = withUserConfig("font", {
 	 */
 	fontFamilies: [
 		// ---------------------------------------------------------------------
-		// 1. 正文字体（现代几何圆润西文字体 Outfit，与 M3E 大圆角及悠哉圆体绝配）
+		// 1. 正文字体（Zen Maru Gothic Medium，日文圆体，覆盖西文与日文假名）
 		// ---------------------------------------------------------------------
 		{
-			id: "outfit-body",
-			family: "Outfit",
+			id: "zen-maru-gothic-body",
+			family: "ZenMaruGothic-Medium",
 			role: "body",
-			source: "fontsource",
+			source: "local",
 			variants: [
 				{
-					file: "@fontsource/outfit/400.css",
-					weight: 400,
-					style: "normal",
-				},
-				{
-					file: "@fontsource/outfit/500.css",
+					file: "src/assets/fonts/ZenMaruGothic-Medium.ttf",
 					weight: 500,
-					style: "normal",
-				},
-				{
-					file: "@fontsource/outfit/700.css",
-					weight: 700,
 					style: "normal",
 				},
 			],
 			fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
 			display: "swap",
-			preload: false,
+			preload: true,
 		},
 
 		// ---------------------------------------------------------------------
-		// 2. 中文 / 日文 CJK 字体（悠哉圆体 Yozai Medium，全量简繁中日韩 100% 覆盖）
+		// 2. 中文 / 日文 CJK 字体（萝莉体 第二版，全量简繁中日韩覆盖）
 		// ---------------------------------------------------------------------
 		{
-			id: "yozai-cjk",
-			family: "Yozai Medium",
+			id: "loli-cjk",
+			// 萝莉体 第二版：上游校验器要求 ASCII 族名，这里用 CSS 别名注册
+			family: "LoliFontV2",
 			role: "cjk",
 			source: "local",
 			variants: [
 				{
-					file: "src/assets/fonts/Yozai-Medium.ttf",
-					weight: 500,
+					file: "src/assets/fonts/loli.ttf",
+					weight: 400,
 					style: "normal",
 				},
 			],
 			fallback: ["system-ui", "sans-serif"],
 			display: "swap",
-			preload: false,
+			preload: true,
 		},
 
 		// ---------------------------------------------------------------------

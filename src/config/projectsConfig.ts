@@ -12,7 +12,7 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  * 注：项目的具体内容数据（标题、描述、技术栈、链接、封面等）请在 `src/data/projects.ts` 中维护。
  */
 export const projectsConfig: ProjectsConfig = withUserConfig("projects", {
-	enable: true,
+	enable: false,
 	title: "$t:projects",
 	description: "$t:projectsBanner",
 	categories: [
