@@ -27,9 +27,9 @@ export const friendsData: FriendItem[] = [
 	{
 		id: 2,
 		title: "灵梦小盘",
-		imgurl: "https://pan.043034.xyz/favicon.ico",
+		imgurl: "https://pan92.043034.xyz/favicon.ico",
 		desc: "个人 OpenList 集成站",
-		siteurl: "https://pan.043034.xyz/",
+		siteurl: "https://pan92.043034.xyz/",
 		tags: ["网盘", "OpenList"],
 	},
 	{
@@ -103,6 +103,14 @@ export const friendsData: FriendItem[] = [
 		desc: "The web's most comprehensive resource for web developers",
 		siteurl: "https://developer.mozilla.org",
 		tags: ["Docs", "Reference"],
+	},
+	{
+		id: 12,
+		title: "阿晨游戏站",
+		imgurl: "https://www.hoarfall.com/favicon.ico",
+		desc: "阿晨游戏公益小站",
+		siteurl: "https://www.hoarfall.com/",
+		tags: ["资源站", "公益"],
 	},
 ];
 
