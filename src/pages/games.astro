@@ -1,21 +1,43 @@
 ---
+import TextField from "@components/atoms/input/TextField.svelte";
 import ImageWrapper from "@components/molecules/ImageWrapper.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { resolveI18nText } from "@utils/i18n-utils";
+import { Icon } from "astro-icon/components";
 import { animeConfig } from "@/config/animeConfig";
 import { gamesConfig } from "@/config/gamesConfig";
 import { sidebarConfig } from "@/config/sidebarConfig";
 
 const T = {
-  unknown: "Unknown",
+  unknown: i18n(I18nKey.gamesUnknown),
   searchPlaceholder: i18n(I18nKey.gamesSearchPlaceholder),
-  statsTotal: "Total",
-  statsAvgRating: "Average Rating",
-  statsLastUpdated: "Last Updated",
-  paginationFirst: "First",
-  paginationLast: "Last",
+  statsTotal: i18n(I18nKey.gamesStatsTotal),
+  statsAvgRating: i18n(I18nKey.gamesStatsAvgRating),
+  statsLastUpdated: i18n(I18nKey.gamesStatsLastUpdated),
+  paginationFirst: i18n(I18nKey.paginationFirst),
+  paginationLast: i18n(I18nKey.paginationLast),
+  releaseDate: i18n(I18nKey.gamesReleaseDate),
+  developer: i18n(I18nKey.gamesDeveloper),
+  platform: i18n(I18nKey.gamesPlatform),
+};
+
+// 注入内联脚本的运行时文案（is:inline 脚本无法调用 i18n()），
+// 占位符 {page} / {label} / {count} / {term} 由脚本端 replace。
+const gameStrings = {
+  statusLabels: {
+    all: i18n(I18nKey.gamesFilterAll),
+    playing: i18n(I18nKey.gamesStatusPlaying),
+    planned: i18n(I18nKey.gamesStatusPlanned),
+    completed: i18n(I18nKey.gamesStatusCompleted),
+    onhold: i18n(I18nKey.gamesStatusOnHold),
+    dropped: i18n(I18nKey.gamesStatusDropped),
+    unknown: i18n(I18nKey.gamesUnknown),
+  },
+  announceItems: i18n(I18nKey.gamesAnnounceItems),
+  announceSearch: i18n(I18nKey.gamesAnnounceSearch),
+  goToPage: i18n(I18nKey.paginationPage),
 };
 
 const ENABLE_REMOTE_GAME_HTML_FALLBACK =
@@ -869,19 +891,19 @@ function getStatusInfo(status: GameStatus) {
       };
     case "planned":
       return {
-        text: "Planned",
+        text: i18n(I18nKey.gamesStatusPlanned),
         class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
         icon: "⏰",
       };
     case "onhold":
       return {
-        text: "On Hold",
+        text: i18n(I18nKey.gamesStatusOnHold),
         class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
         icon: "⏸",
       };
     case "dropped":
       return {
-        text: "Dropped",
+        text: i18n(I18nKey.gamesStatusDropped),
         class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
         icon: "✗",
       };
@@ -927,18 +949,52 @@ function getStatusInfo(status: GameStatus) {
       <div id="list-announce" aria-live="polite" class="visually-hidden"></div>
 
       <div class="search-container mb-6">
-        <div class="relative">
-          <input
-            type="text"
-            id="search-input"
-            placeholder={T.searchPlaceholder}
-            class="w-full px-4 py-3 pl-12 rounded-[var(--radius-large)] border border-[var(--line-divider)] bg-[var(--card-bg)] text-[var(--text-body)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
-            aria-label={T.searchPlaceholder}
-          />
-          <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]" aria-hidden="true" style="pointer-events: none">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+        <div class="flex items-center gap-3">
+          <div class="games-search relative flex-1 min-w-0">
+            <TextField
+              type="search"
+              id="search-input"
+              placeholder={T.searchPlaceholder}
+              label={T.searchPlaceholder}
+              hideLabel
+              variant="outlined"
+              class="!rounded-(--shape-corner-l)"
+            />
+            <span class="games-search__icon" aria-hidden="true">
+              <Icon name="material-symbols:search-rounded" class="text-xl" />
+            </span>
+            <button
+              id="search-clear"
+              type="button"
+              class="games-search__clear"
+              style="display: none"
+              aria-label={i18n(I18nKey.clear)}
+            >
+              <Icon name="material-symbols:close-rounded" class="text-xl" aria-hidden="true" />
+            </button>
+          </div>
+
+          <div class="layout-switch" role="group" aria-label={i18n(I18nKey.layoutMode)}>
+            <button
+              id="layout-grid"
+              type="button"
+              class="layout-switch__btn"
+              aria-label={i18n(I18nKey.layoutGrid)}
+              title={i18n(I18nKey.layoutGrid)}
+              aria-pressed="true"
+            >
+              <Icon name="material-symbols:grid-view-rounded" class="text-xl" aria-hidden="true" />
+            </button>
+            <button
+              id="layout-list"
+              type="button"
+              class="layout-switch__btn"
+              aria-label={i18n(I18nKey.layoutList)}
+              title={i18n(I18nKey.layoutList)}
+              aria-pressed="false"
+            >
+              <Icon name="material-symbols:view-list-rounded" class="text-xl" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
@@ -946,7 +1002,7 @@ function getStatusInfo(status: GameStatus) {
       <div class="mb-6">
         <div class="filter-container flex flex-wrap gap-2">
           <button class="filter-tag active" data-status="all" aria-pressed="true">
-            All
+            {i18n(I18nKey.gamesFilterAll)}
             <span id="count-all" class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({gameList.length})</span>
           </button>
           <button class="filter-tag" data-status="playing" aria-pressed="false">
@@ -954,7 +1010,7 @@ function getStatusInfo(status: GameStatus) {
             <span id="count-playing" class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "playing").length})</span>
           </button>
           <button class="filter-tag" data-status="planned" aria-pressed="false">
-            Planned
+            {i18n(I18nKey.gamesStatusPlanned)}
             <span id="count-planned" class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "planned").length})</span>
           </button>
           <button class="filter-tag" data-status="completed" aria-pressed="false">
@@ -962,11 +1018,11 @@ function getStatusInfo(status: GameStatus) {
             <span id="count-completed" class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "completed").length})</span>
           </button>
           <button class="filter-tag" data-status="onhold" aria-pressed="false">
-            On Hold
+            {i18n(I18nKey.gamesStatusOnHold)}
             <span id="count-onhold" class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "onhold").length})</span>
           </button>
           <button class="filter-tag" data-status="dropped" aria-pressed="false">
-            Dropped
+            {i18n(I18nKey.gamesStatusDropped)}
             <span id="count-dropped" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "dropped").length})</span>
           </button>
         </div>
@@ -979,13 +1035,13 @@ function getStatusInfo(status: GameStatus) {
             {i18n(I18nKey.gamesNoResults)}
           </h3>
           <p class="text-black/60 dark:text-white/60">
-            Please check Bangumi configuration or network connection
+            {i18n(I18nKey.gamesEmptyHint)}
           </p>
         </div>
       )) || (
         <Fragment>
           {gameList.length > 0 ? (
-            <div id="game-list-container" class={`game-grid-container gap-4 md:gap-6 list-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
+            <div id="game-list-container" class={`game-grid-container gap-4 md:gap-6 grid-mode ${isBothSidebarMode ? "both-sidebar" : "single-sidebar"}`}>
               {sortedGameList.map((game) => {
                 const statusInfo = getStatusInfo(game.status);
                 const showDeveloper = !game.developerMissing;
@@ -1003,7 +1059,7 @@ function getStatusInfo(status: GameStatus) {
                     data-game-platform-missing={String(!!game.platformMissing)}
                   >
                     <div class="relative aspect-[2/3] overflow-hidden">
-                      <a href={game.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full" aria-label={`Open ${game.title} on Bangumi`}>
+                      <a href={game.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full" aria-label={i18n(I18nKey.gamesOpenOnBangumi).replace("{title}", String(game.title || ""))}>
                         <ImageWrapper
                           src={game.cover}
                           alt={game.title}
@@ -1012,12 +1068,12 @@ function getStatusInfo(status: GameStatus) {
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" style="pointer-events: none"></div>
                       </a>
 
-                      <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`} aria-label={`Status: ${statusInfo.text}`}>
+                      <div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`} aria-label={i18n(I18nKey.gamesStatusLabel).replace("{status}", statusInfo.text)}>
                         <span class="mr-1" aria-hidden="true">{statusInfo.icon}</span>
                         <span>{statusInfo.text}</span>
                       </div>
 
-                      <div class="absolute top-2 right-2" aria-label={`Rating ${game.rating || 0}`}>
+                      <div class="absolute top-2 right-2" aria-label={i18n(I18nKey.gamesRatingBadge).replace("{rating}", String(game.rating || 0))}>
                         <div class="bg-black/70 text-white rounded-[6px] border border-white/20 shadow-sm inline-flex items-center gap-1 px-2 py-1">
                           <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-0.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z" />
@@ -1032,18 +1088,18 @@ function getStatusInfo(status: GameStatus) {
                       <p class="text-gray-700 dark:text-gray-300 text-xs mb-2 line-clamp-2">{game.description || ""}</p>
                       <div class="space-y-1 text-xs">
                         <div class="flex justify-between">
-                          <span class="text-gray-500 dark:text-gray-500">Release Date</span>
+                          <span class="text-gray-500 dark:text-gray-500">{T.releaseDate}</span>
                           <span class="text-gray-700 dark:text-gray-300">{game.displayDate || T.unknown}</span>
                         </div>
                         {showDeveloper && (
                           <div class="flex justify-between">
-                            <span class="text-gray-500 dark:text-gray-500">Developer</span>
+                            <span class="text-gray-500 dark:text-gray-500">{T.developer}</span>
                             <span class="text-gray-700 dark:text-gray-300 truncate ml-2">{game.developer || T.unknown}</span>
                           </div>
                         )}
                         {showPlatform && (
                           <div class="flex justify-between">
-                            <span class="text-gray-500 dark:text-gray-500">Platform</span>
+                            <span class="text-gray-500 dark:text-gray-500">{T.platform}</span>
                             <span class="text-gray-700 dark:text-gray-300 truncate ml-2" data-game-platform-text>{game.platform || T.unknown}</span>
                           </div>
                         )}
@@ -1065,7 +1121,7 @@ function getStatusInfo(status: GameStatus) {
                 {i18n(I18nKey.gamesNoResults)}
               </h3>
               <p class="text-black/60 dark:text-white/60">
-                Please check Bangumi configuration or network connection
+                {i18n(I18nKey.gamesEmptyHint)}
               </p>
             </div>
           )}
@@ -1075,7 +1131,7 @@ function getStatusInfo(status: GameStatus) {
               {i18n(I18nKey.gamesNoResults)}
             </h3>
             <p class="text-black/60 dark:text-white/60">
-              Please check Bangumi configuration or network connection
+              {i18n(I18nKey.gamesEmptyHint)}
             </p>
           </div>
           <div id="pagination-container" class="pagination-container flex justify-center items-center gap-2 mt-8">
@@ -1173,12 +1229,77 @@ function getStatusInfo(status: GameStatus) {
     }
     .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
     .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
-    #search-input { padding-left: 2.5rem; transition: box-shadow 0.3s ease; }
-    #search-input:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-    #search-input::placeholder { color: var(--placeholder-color); opacity: 1; }
-    #search-input::-webkit-input-placeholder { color: var(--placeholder-color); opacity: 1; }
-    #search-input::-moz-placeholder { color: var(--placeholder-color); opacity: 1; }
-    #search-input:-ms-input-placeholder { color: var(--placeholder-color); opacity: 1; }
+    /* 搜索框由 M3 TextField 原子渲染；隐藏 WebKit 原生清除按钮，避免与自定义清除重复 */
+    :global(#search-input::-webkit-search-cancel-button),
+    :global(#search-input::-webkit-search-decoration) {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* 搜索区：TextField 原子 + 兄弟定位图标/清除按钮（与番剧页 AnimeSection 同款结构） */
+    .games-search :global(.m3-text-field) { width: 100%; }
+    .games-search :global(#search-input) { padding-left: 2.75rem; }
+    .games-search__icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--on-surface-variant);
+      font-size: 1.25rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .games-search__clear {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      padding: 0.25rem;
+      border: none;
+      background: none;
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      border-radius: var(--shape-corner-full);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .games-search__clear:hover {
+      background: color-mix(in oklab, var(--on-surface-variant) 8%, transparent);
+    }
+
+    /* 布局切换：与番剧页同款，位于搜索框右侧 */
+    .layout-switch {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      border-radius: var(--shape-corner-l);
+      background: var(--btn-regular-bg);
+      flex: none;
+    }
+    .layout-switch__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: none;
+      border-radius: var(--shape-corner-m);
+      background: transparent;
+      color: var(--btn-content);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .layout-switch__btn:hover { background: var(--btn-hover-bg); }
+    .layout-switch__btn.active { background: var(--primary); color: var(--on-primary); }
     .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
 
     .line-clamp-2 {
@@ -1203,8 +1324,6 @@ function getStatusInfo(status: GameStatus) {
 
       .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
       .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
-
-      #search-input { padding: 0.875rem 1rem 0.875rem 2.75rem; font-size: 1rem; }
     }
 
     @media (min-width: 1024px) {
@@ -1214,12 +1333,10 @@ function getStatusInfo(status: GameStatus) {
 
       .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
       .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
-
-      #search-input { padding: 0.875rem 1rem 0.875rem 2.75rem; font-size: 1rem; }
     }
   </style>
 
-  <script is:inline data-swup-reload-script>
+  <script is:inline data-swup-reload-script define:vars={{ gameStrings }}>
     (function() {
       window.__gamePage = window.__gamePage || {};
 
@@ -1239,6 +1356,7 @@ function getStatusInfo(status: GameStatus) {
           pageWindowStart: 1,
           windowSize: 5,
           itemsPerPage: 10,
+          layoutMode: 'grid',
           listeners: [],
           searchDebounce: 0,
           reduceMotion: (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || false,
@@ -1255,6 +1373,10 @@ function getStatusInfo(status: GameStatus) {
         const lastBtn = root.querySelector('#last-page');
         const paginationContainer = root.querySelector('#pagination-container');
         const announce = root.querySelector('#list-announce');
+        const searchClear = root.querySelector('#search-clear');
+        const layoutGridBtn = root.querySelector('#layout-grid');
+        const layoutListBtn = root.querySelector('#layout-list');
+        const LAYOUT_KEY = 'shirone:games-layout-mode';
 
         const countEls = {
           all: root.querySelector('#count-all'),
@@ -1649,7 +1771,7 @@ function getStatusInfo(status: GameStatus) {
             const btn = document.createElement('button');
             btn.textContent = String(i);
             btn.classList.add('page-number');
-            btn.setAttribute('aria-label', `Go to page ${i}`);
+            btn.setAttribute('aria-label', gameStrings.goToPage.replace('{page}', String(i)));
             if (i === state.currentPage) {btn.classList.add('active');}
             btn.addEventListener('click', () => {
               state.currentPage = i;
@@ -1718,10 +1840,95 @@ function getStatusInfo(status: GameStatus) {
           const activeStatusEl = root.querySelector('.filter-tag.active');
           const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
           const showing = computeFiltered().length;
-          const label = activeStatus === 'all' ? 'All' : activeStatus;
+          const label = gameStrings.statusLabels[activeStatus] || activeStatus;
           if (announce) {
-            announce.textContent = `Showing ${showing} item(s) for "${label}"${term ? ` with search "${term}"` : ''}.`;
+            announce.textContent =
+              gameStrings.announceItems.replace('{label}', label).replace('{count}', String(showing)) +
+              (term ? gameStrings.announceSearch.replace('{term}', term) : '');
           }
+        }
+
+        function updateSearchClearVisibility() {
+          if (!searchClear || !(searchInput instanceof HTMLInputElement)) {return;}
+          searchClear.style.display = (searchInput.value || '').trim() ? 'flex' : 'none';
+        }
+
+        function readStoredLayoutMode() {
+          try {
+            const v = localStorage.getItem(LAYOUT_KEY);
+            if (v === 'grid' || v === 'list') {return v;}
+          } catch (_) {}
+          return 'grid';
+        }
+
+        function updateLayoutButtons() {
+          if (layoutGridBtn) {
+            layoutGridBtn.classList.toggle('active', state.layoutMode === 'grid');
+            layoutGridBtn.setAttribute('aria-pressed', String(state.layoutMode === 'grid'));
+          }
+          if (layoutListBtn) {
+            layoutListBtn.classList.toggle('active', state.layoutMode === 'list');
+            layoutListBtn.setAttribute('aria-pressed', String(state.layoutMode === 'list'));
+          }
+        }
+
+        // 布局切换：与番剧页一致（搜索框右侧按钮组 + localStorage 记忆 + 逐卡 FLIP）。
+        // 切换瞬间关闭容器自身的 grid 过渡，保证 getCols 立即读到新列数且不与 FLIP 叠加。
+        function switchLayoutMode(mode) {
+          if (state.layoutMode === mode) {return;}
+          const visible = allItems.filter(el =>
+            !el.classList.contains('is-filtered-out') &&
+            !el.classList.contains('is-searched-out') &&
+            !el.classList.contains('is-paginated-out')
+          );
+          const before = new Map();
+          if (!state.reduceMotion) {
+            visible.forEach((el) => {
+              const r = el.getBoundingClientRect();
+              before.set(el, { left: r.left, top: r.top });
+            });
+          }
+
+          state.layoutMode = mode;
+          try { localStorage.setItem(LAYOUT_KEY, mode); } catch (_) {}
+          updateLayoutButtons();
+
+          container.style.transition = 'none';
+          container.classList.toggle('grid-mode', mode === 'grid');
+          container.classList.toggle('list-mode', mode === 'list');
+
+          const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
+          const totalPages = Math.max(1, Math.ceil(filtered.length / getItemsPerPageByLayout()));
+          if (state.currentPage > totalPages) {state.currentPage = totalPages;}
+          applyPagination(filtered, false);
+          updatePaginationUI(filtered.length);
+
+          requestAnimationFrame(() => {
+            container.style.transition = '';
+            if (state.reduceMotion) {return;}
+            visible.forEach((el) => {
+              const a = before.get(el);
+              if (!a) {return;}
+              const r = el.getBoundingClientRect();
+              const dx = a.left - r.left;
+              const dy = a.top - r.top;
+              if (!dx && !dy) {return;}
+              el.style.transition = 'none';
+              el.style.transform = `translate(${dx}px, ${dy}px)`;
+            });
+            requestAnimationFrame(() => {
+              visible.forEach((el) => {
+                el.style.transition = 'transform 0.4s cubic-bezier(0.2, 0, 0, 1)';
+                el.style.transform = '';
+              });
+              setTimeout(() => {
+                visible.forEach((el) => {
+                  el.style.transition = '';
+                  el.style.transform = '';
+                });
+              }, 450);
+            });
+          });
         }
 
         function refreshAll(triggerFLIP = false) {
@@ -1780,6 +1987,7 @@ function getStatusInfo(status: GameStatus) {
 
         if (searchInput) {
           const inputHandler = function() {
+            updateSearchClearVisibility();
             clearTimeout(state.searchDebounce);
             state.searchDebounce = window.setTimeout(() => refreshAll(true), 200);
           };
@@ -1790,6 +1998,7 @@ function getStatusInfo(status: GameStatus) {
               } else if (searchInput) {
                 searchInput.textContent = '';
               }
+              updateSearchClearVisibility();
               refreshAll(true);
             } else if (e.key === 'Enter') {
               state.currentPage = 1;
@@ -1802,6 +2011,38 @@ function getStatusInfo(status: GameStatus) {
           state.listeners.push({ el: searchInput, type: 'input', handler: inputHandler });
           state.listeners.push({ el: searchInput, type: 'keydown', handler: keyHandler });
         }
+
+        if (searchClear) {
+          const clearHandler = function() {
+            if (searchInput instanceof HTMLInputElement) {searchInput.value = '';}
+            updateSearchClearVisibility();
+            if (searchInput instanceof HTMLInputElement) {searchInput.focus();}
+            refreshAll(true);
+          };
+          searchClear.addEventListener('click', clearHandler);
+          state.listeners.push({ el: searchClear, type: 'click', handler: clearHandler });
+        }
+
+        // 布局初始化：SSR 默认 grid，读取本地偏好后再套用（在首次分页计算前）
+        state.layoutMode = readStoredLayoutMode();
+        updateLayoutButtons();
+        container.style.transition = 'none';
+        container.classList.toggle('grid-mode', state.layoutMode === 'grid');
+        container.classList.toggle('list-mode', state.layoutMode === 'list');
+        container.style.transition = '';
+        if (layoutGridBtn) {
+          const gridHandler = function() { switchLayoutMode('grid'); };
+          layoutGridBtn.addEventListener('click', gridHandler);
+          state.listeners.push({ el: layoutGridBtn, type: 'click', handler: gridHandler });
+        }
+        if (layoutListBtn) {
+          const listHandler = function() { switchLayoutMode('list'); };
+          layoutListBtn.addEventListener('click', listHandler);
+          state.listeners.push({ el: layoutListBtn, type: 'click', handler: listHandler });
+        }
+        updateSearchClearVisibility();
+
+        refreshAll(false);
 
         if (firstBtn && prevBtn && nextBtn && lastBtn) {
           const firstH = () => withFiltered((filtered) => {
