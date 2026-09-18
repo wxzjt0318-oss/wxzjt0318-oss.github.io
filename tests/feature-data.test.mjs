@@ -25,15 +25,20 @@ describe("Feature Data & Resolver Tests", () => {
 	});
 
 	it("resolveProjectsData applies disabledKeys correctly", () => {
+		const items = [
+			{ key: "project-a", name: "A" },
+			{ key: "project-b", name: "B" },
+			{ key: "project-c", name: "C" },
+		];
 		const config = {
 			enable: true,
 			categories: [],
-			disabledKeys: ["folkpatch"],
+			disabledKeys: ["project-b"],
 		};
-		const resolved = resolveProjectsData(config);
-		assert.ok(resolved.some((p) => p.key === "shirone"));
-		assert.ok(resolved.some((p) => p.key === "kernelpatch"));
-		assert.ok(!resolved.some((p) => p.key === "folkpatch"));
+		const resolved = resolveProjectsData(config, items);
+		assert.ok(resolved.some((p) => p.key === "project-a"));
+		assert.ok(resolved.some((p) => p.key === "project-c"));
+		assert.ok(!resolved.some((p) => p.key === "project-b"));
 	});
 
 	it("resolveSkillsData applies disabledNames correctly", () => {
@@ -48,15 +53,22 @@ describe("Feature Data & Resolver Tests", () => {
 	});
 
 	it("resolveTimelineData applies disabledTitles and order correctly", () => {
+		const items = [
+			{ title: "Senior Frontend Engineer", date: "2024.01" },
+			{
+				title: "Computer Science & Engineering Degree",
+				date: "2020.09 – 2024.06",
+			},
+		];
 		const config = {
 			enable: true,
 			categories: [],
 			order: "asc",
 			disabledTitles: ["Senior Frontend Engineer"],
 		};
-		const resolved = resolveTimelineData(config);
+		const resolved = resolveTimelineData(config, items);
 		assert.ok(!resolved.some((t) => t.title === "Senior Frontend Engineer"));
-		// timelineData 中最旧的条目是 2020.09 – 2024.06 (Computer Science & Engineering Degree)
+		// asc 排序下最旧的条目应排在首位
 		assert.equal(resolved[0].title, "Computer Science & Engineering Degree");
 	});
 
@@ -81,13 +93,17 @@ describe("Feature Data & Resolver Tests", () => {
 	});
 
 	it("resolveDevicesData applies disabledIds correctly", () => {
+		const items = [
+			{ id: "device-a", name: "A" },
+			{ id: "device-b", name: "B" },
+		];
 		const config = {
 			enable: true,
 			categories: [],
-			disabledIds: ["iphone-16-pro"],
+			disabledIds: ["device-b"],
 		};
-		const resolved = resolveDevicesData(config);
-		assert.ok(resolved.some((d) => d.id === "macbook-pro-16"));
-		assert.ok(!resolved.some((d) => d.id === "iphone-16-pro"));
+		const resolved = resolveDevicesData(config, items);
+		assert.ok(resolved.some((d) => d.id === "device-a"));
+		assert.ok(!resolved.some((d) => d.id === "device-b"));
 	});
 });

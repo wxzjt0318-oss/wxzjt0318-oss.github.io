@@ -180,7 +180,7 @@ export const siteRehypePlugins = [
 		rehypeExternalLinks,
 		{
 			target: "_blank",
-			rel: ["nofollow", "noopener", "noreferrer"],
+			rel: ["noopener", "noreferrer"],
 		},
 	],
 ];

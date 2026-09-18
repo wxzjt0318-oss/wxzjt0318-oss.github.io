@@ -47,7 +47,7 @@ SSR-first, **SSR**, \`SSR\`, and [SSR documentation](https://example.com).`);
 
 	assert.equal(html.match(/<abbr /g)?.length, 2);
 	assert.match(html, /<code>SSR<\/code>/);
-	assert.match(html, /<a href="https:\/\/example.com">SSR documentation<\/a>/);
+	assert.match(html, /<a href="https:\/\/example\.com"[^>]*>SSR documentation<\/a>/);
 });
 
 test("keeps invalid, duplicate, and fenced definitions literal", async () => {
