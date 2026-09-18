@@ -230,6 +230,19 @@
 		handleVolumeKeyDown(event, toggleMute);
 	}
 
+	/** FAB 面板音量：原生 range 的 input 事件（鼠标/触摸/键盘统一） */
+	function handleVolumeInput(event: Event) {
+		const value = Number((event.currentTarget as HTMLInputElement).value);
+		if (!Number.isFinite(value)) {
+			return;
+		}
+		controller?.runtime.setVolume(value);
+		// 拖动音量即视为恢复播放声音，避免静音态下调节音量无任何反馈
+		if (value > 0 && muted) {
+			controller?.runtime.setMuted(false);
+		}
+	}
+
 	function handleWindowKeyDown(event: KeyboardEvent) {
 		// 全局键盘快捷键（legacy 行为）：方向键调音量、M 切换静音；
 		// 输入控件聚焦时不劫持按键
@@ -398,7 +411,7 @@
 							onSeek={seek}
 							onToggleMute={toggleMute}
 							onPlaySong={playIndex}
-							onVolumePointerDown={startVolumeDrag}
+							onVolumeInput={handleVolumeInput}
 							onVolumeKeyDown={handleSliderKeyDown}
 						/>
 					</div>

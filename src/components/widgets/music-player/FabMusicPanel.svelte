@@ -35,7 +35,7 @@
 		onSeek: (time: number) => void;
 		onToggleMute: () => void;
 		onPlaySong: (index: number) => void;
-		onVolumePointerDown: (event: PointerEvent) => void;
+		onVolumeInput: (event: Event) => void;
 		onVolumeKeyDown: (event: KeyboardEvent) => void;
 	}
 
@@ -59,7 +59,7 @@
 		onSeek,
 		onToggleMute,
 		onPlaySong,
-		onVolumePointerDown,
+		onVolumeInput,
 		onVolumeKeyDown,
 	}: Props = $props();
 
@@ -115,7 +115,7 @@
 						volume={isMuted ? 0 : volume}
 						{isVolumeDragging}
 						{volumeBarRef}
-						onpointerdown={onVolumePointerDown}
+						oninput={onVolumeInput}
 						onkeydown={onVolumeKeyDown}
 						ariaLabel="音量"
 					/>
@@ -244,6 +244,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
+		flex: 1 1 auto;
 		min-width: 0;
 		justify-content: flex-end;
 		margin-left: auto;
