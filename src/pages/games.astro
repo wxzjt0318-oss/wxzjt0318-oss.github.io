@@ -1316,7 +1316,14 @@ function getStatusInfo(status: GameStatus) {
 
     @media (max-width: 640px) {
       .game-grid-container.grid-mode { grid-template-columns: repeat(2, 1fr); }
-      .game-grid-container.list-mode { grid-template-columns: repeat(2, 1fr); }
+      /* 列表模式在窄屏改为单列横向卡片（封面左、信息右），与网格模式明显区分 */
+      .game-grid-container.list-mode { grid-template-columns: 1fr; }
+
+      #game-list-container.list-mode > [data-game-status] { display: flex; flex-direction: row; }
+      #game-list-container.list-mode > [data-game-status] > [class*="aspect-"] {
+        width: 7.5rem; flex: 0 0 7.5rem; aspect-ratio: auto;
+      }
+      #game-list-container.list-mode > [data-game-status] > .p-3 { flex: 1 1 auto; min-width: 0; }
 
       .group .p-3 { padding: 0.875rem; }
       .group h3 { font-size: 1rem; line-height: 1.5; }
@@ -1546,7 +1553,8 @@ function getStatusInfo(status: GameStatus) {
 
         function getItemsPerPageByLayout() {
           const cols = getCols();
-          const rows = window.matchMedia && window.matchMedia('(min-width: 768px)').matches ? 2 : 2;
+          // 单列布局（窄屏列表模式）按 5 行计算，避免每页只剩 2 条
+          const rows = cols === 1 ? 5 : 2;
           const ipp = Math.max(1, cols * rows);
           return ipp;
         }
