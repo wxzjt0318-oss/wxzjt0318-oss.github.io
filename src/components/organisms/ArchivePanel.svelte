@@ -102,15 +102,23 @@ const groupOptions = [
 	{ value: "tag", label: i18n(I18nKey.archiveGroupTag) },
 ];
 
-/** 筛选后的文章（分组维度与之正交，均在下方消费） */
-const filtered = $derived(
-	sortedPosts.filter((p) => {
-		if (uncategorized && p.data.category) return false;
-		if (category && p.data.category !== category) return false;
-		if (tag && !p.data.tags.includes(tag)) return false;
-		return true;
-	}),
-);
+/** 筛选后的文章（分组维度与之正交，均在下方消费）。
+ * URL 冲突（如 alias 撞另一篇的 slug）时同一链接只保留最新一篇：
+ * ArchiveList 以 href 为 each key，重复 key 会让整个面板水合崩溃（each_key_duplicate 白屏）。 */
+const filtered = $derived.by(() => {
+	const seen = new Set<string>();
+	const list: Post[] = [];
+	for (const p of sortedPosts) {
+		if (uncategorized && p.data.category) continue;
+		if (category && p.data.category !== category) continue;
+		if (tag && !p.data.tags.includes(tag)) continue;
+		const href = p.url ?? getPostUrlBySlug(p.slug);
+		if (seen.has(href)) continue;
+		seen.add(href);
+		list.push(p);
+	}
+	return list;
+});
 
 function formatDate(date: Date) {
 	return formatCalendarDate(date).slice(5);

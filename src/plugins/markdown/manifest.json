@@ -146,7 +146,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/markdown-abbreviations.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": [
@@ -273,7 +272,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/admonitions.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": [
@@ -389,7 +387,6 @@
 				]
 			},
 			"docs": [
-				"src/content/posts/audio-reader.md",
 				".agents/skills/shirone-markdown-syntax/SKILL.md"
 			],
 			"tests": [
@@ -530,7 +527,7 @@
 				"modules": ["src/utils/code-tree.ts"],
 				"network": []
 			},
-			"docs": ["src/content/posts/markdown-enhancements.md"],
+			"docs": [],
 			"tests": [
 				"tests/plugins/markdown/containers/code-tree.test.mjs",
 				"tests/site/code-tree.spec.ts"
@@ -594,7 +591,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/collapse-panels.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": [
@@ -643,7 +639,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": ["src/content/posts/content-annotations.md"],
+			"docs": [],
 			"tests": [
 				"tests/plugins/markdown/inline/content-annotations.test.mjs",
 				"tests/site/content-annotations.spec.ts"
@@ -735,7 +731,7 @@
 				"modules": ["src/utils/code-copy.ts", "src/utils/code-collapse.ts"],
 				"network": []
 			},
-			"docs": ["src/content/posts/expressive-code.md"],
+			"docs": [],
 			"tests": ["tests/site/post-encryption.spec.ts"],
 			"notes": ["元数据具体解析规则由 Expressive Code 及已注册插件定义。"]
 		},
@@ -757,7 +753,7 @@
 			"registeredIn": "src/utils/markdown-processor.mjs",
 			"styles": ["src/styles/markdown/fields.css"],
 			"runtime": {"mode": "none", "modules": [], "network": []},
-			"docs": ["src/content/posts/markdown-fields.md", "docs/markdown-extensions.md"],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": ["tests/plugins/markdown/containers/fields.test.mjs"],
 			"notes": ["无效或不完整的字段标签保留为可读 Markdown；组件为纯 SSR 输出，不增加客户端运行时。"]
 		},
@@ -811,7 +807,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/markdown-enhancements.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": [
@@ -912,7 +907,7 @@
 				"modules": ["src/utils/fancybox-handler.ts"],
 				"network": ["author-declared image URLs only"]
 			},
-			"docs": ["src/content/posts/image-grid-demo/index.md"],
+			"docs": [],
 			"tests": [
 				"tests/plugins/image-grid.test.mjs",
 				"tests/site/image-grid.spec.ts"
@@ -956,7 +951,6 @@
 				"network": ["author-declared image URLs only"]
 			},
 			"docs": [
-				"src/content/posts/spoilers.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": ["tests/plugins/rehype-markdown-images.test.mjs"],
@@ -1009,7 +1003,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/markdown-includes.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": ["tests/plugins/markdown/inline/includes.test.mjs"],
@@ -1058,7 +1051,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/marker-highlights.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": [
@@ -1099,8 +1091,7 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/guide/index.md",
-				"src/content/posts/markdown.md"
+				"src/content/posts/guide/index.md"
 			],
 			"tests": [
 				"tests/plugins/markdown/katex-version.test.mjs",
@@ -1187,7 +1178,6 @@
 				"network": []
 			},
 			"docs": [
-				"src/content/posts/option-groups.md",
 				"docs/markdown-extensions.md"
 			],
 			"tests": [
@@ -1271,7 +1261,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": ["src/content/posts/steps.md"],
+			"docs": [],
 			"tests": [
 				"tests/plugins/markdown/containers/steps.test.mjs",
 				"tests/site/steps.spec.ts"
