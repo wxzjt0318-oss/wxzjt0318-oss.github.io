@@ -28,20 +28,19 @@ export const sidebarConfig: SidebarConfig = withUserConfig("sidebar", {
 	side: "left",
 	components: [
 		{ type: "profile", enable: true, slot: "top" },
+		{ type: "music", enable: true, slot: "top" },
 		{ type: "announcement", enable: true, slot: "top" },
-		{ type: "music", enable: true, slot: "sticky", column: "secondary" },
 		{
 			type: "categories",
 			enable: true,
 			slot: "sticky",
-			column: "secondary",
 			collapseAfter: 5,
 		},
 		{
 			type: "tags",
 			enable: true,
 			slot: "sticky",
-			collapseAfter: 20,
+			collapseAfter: 6,
 		},
 		{
 			type: "stats",

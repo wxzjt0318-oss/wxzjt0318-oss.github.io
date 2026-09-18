@@ -64,20 +64,24 @@ const softCategory = !isHome && !isArchive && postCategory ? postCategory : "";
 				{i18n(I18nKey.archive)}
 			</Chip>
 
-			<!-- 分类区：横向滚动 -->
-			<div class="category-bar-list flex gap-2 overflow-x-auto hide-scrollbar flex-1 min-w-0">
-				{categories.map((cat) => (
-					<Chip
-						variant="tonal"
-						href={cat.url}
-						selected={false}
-						soft={cat.name === softCategory}
-						class="shrink-0"
-					>
-						{cat.name}
-						<span class="category-bar__count" aria-hidden="true">{cat.count}</span>
-					</Chip>
-				))}
+			<!-- 分类区：无限循环滚动（悬停/聚焦暂停，reduced-motion 静止，不溢出则静态） -->
+			<div class="category-marquee flex-1 min-w-0" data-category-marquee>
+				<div class="category-marquee__track flex" data-category-marquee-track>
+					<div class="category-marquee__group flex gap-2 pr-2">
+						{categories.map((cat) => (
+							<Chip
+								variant="tonal"
+								href={cat.url}
+								selected={false}
+								soft={cat.name === softCategory}
+								class="shrink-0"
+							>
+								{cat.name}
+								<span class="category-bar__count" aria-hidden="true">{cat.count}</span>
+							</Chip>
+						))}
+					</div>
+				</div>
 			</div>
 		</div>
 	</Card>
@@ -99,7 +103,74 @@ const softCategory = !isHome && !isArchive && postCategory ? postCategory : "";
 		background: var(--on-primary)
 		color: var(--primary)
 		opacity: 1
+
+	// 无限循环滚动：轨道内放两份等宽分组，translateX(-50%) 无缝回绕；
+	// 组间 padding 与组内 gap 相同，回绕点间距视觉连续。
+	.category-marquee
+		overflow: hidden
+
+	.category-marquee__track
+		width: max-content
+		will-change: transform
+
+	.category-marquee__group
+		flex-shrink: 0
+
+	.category-marquee--animate .category-marquee__track
+		animation: category-marquee-scroll var(--category-marquee-duration, 40s) linear infinite
+
+	.category-marquee--animate:hover .category-marquee__track,
+	.category-marquee--animate:focus-within .category-marquee__track
+		animation-play-state: paused
+
+	@keyframes category-marquee-scroll
+		from
+			transform: translateX(0)
+		to
+			transform: translateX(-50%)
+
+	@media (prefers-reduced-motion: reduce)
+		.category-marquee--animate .category-marquee__track
+			animation: none
 </style>
+
+<script>
+	// 无限循环滚动：克隆一份分类分组拼到轨道尾部，测量单组宽度换算匀速时长。
+	// 条件生效：溢出才滚动，不溢出移除克隆保持静态；reduced-motion 不启用。
+	// 克隆组 aria-hidden + tabindex=-1，不进入辅助技术树。
+	const MARQUEE_SPEED_PX_PER_S = 30;
+
+	function setupCategoryMarquee() {
+		const root = document.querySelector<HTMLElement>("[data-category-marquee]");
+		const track = root?.querySelector<HTMLElement>("[data-category-marquee-track]");
+		if (!root || !track) return;
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+		const group = track.firstElementChild as HTMLElement | null;
+		if (!group) return;
+
+		const clone = group.cloneNode(true) as HTMLElement;
+		clone.setAttribute("aria-hidden", "true");
+		clone
+			.querySelectorAll("a, button")
+			.forEach((el) => el.setAttribute("tabindex", "-1"));
+		track.appendChild(clone);
+
+		const groupWidth = group.getBoundingClientRect().width;
+		if (groupWidth <= root.getBoundingClientRect().width) {
+			clone.remove();
+			return;
+		}
+
+		root.classList.add("category-marquee--animate");
+		root.style.setProperty(
+			"--category-marquee-duration",
+			`${groupWidth / MARQUEE_SPEED_PX_PER_S}s`,
+		);
+	}
+
+	setupCategoryMarquee();
+</script>
 
 <script>
 	// 高亮同步：分类栏静态渲染在 Swup 容器外，导航后不重渲染，
