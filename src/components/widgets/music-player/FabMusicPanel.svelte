@@ -315,6 +315,16 @@
 			padding: 0.9rem 0.85rem 0.9rem 0.9rem;
 			border-radius: 1rem;
 		}
+
+		/* 窄屏收紧纵向节奏：曲目信息 → 进度 → 控件三段更紧凑 */
+		.fab-music-header {
+			gap: 0.7rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.controls-row {
+			margin-top: 0.5rem;
+		}
 	}
 
 	@media (max-width: 520px) {

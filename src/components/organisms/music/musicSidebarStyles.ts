@@ -397,11 +397,14 @@ export const musicSidebarStylus = `
 
 @media (pointer: coarse)
 	.music-player
+		/* 触屏上收窄模块间距，避免卡片排版松散、主次不清 */
+		gap: 0.5rem
+
 		&__volume-slider-wrap
-			height: 2rem
+			height: 1.75rem
 
 		&__progress-control
-			height: 2.5rem
+			height: 2rem
 
 			input
 				inset: 0

@@ -187,8 +187,9 @@
 	}
 
 	@media (pointer: coarse) {
+		/* 触屏上收窄进度条占位高度，避免卡片上下留白过大 */
 		.mp-progress__control {
-			height: 2.5rem;
+			height: 2rem;
 		}
 
 		.mp-progress__control input {
