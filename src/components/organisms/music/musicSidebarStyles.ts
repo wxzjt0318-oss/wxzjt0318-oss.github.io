@@ -87,6 +87,7 @@ export const musicSidebarStylus = `
 		display: inline-flex
 		align-items: center
 		gap: 0.25rem
+		flex: 0 0 auto
 		font: var(--m3e-type-label-small)
 		font-variant-numeric: tabular-nums
 		color: var(--on-surface-variant)
@@ -97,19 +98,24 @@ export const musicSidebarStylus = `
 	&__volume-inline
 		display: flex
 		align-items: center
-		gap: 0.25rem
+		gap: 0.375rem
+		flex: 1 1 auto
+		min-width: 0
+		justify-content: flex-end
 
 		.m3-icon-button
 			position: relative
+			flex: 0 0 auto
 			width: 1.25rem
 			height: 1.25rem
 			padding: 0
 			color: var(--on-surface-variant)
 
+			/* 仅向左/上/下扩热区，避免遮挡右侧音量滑杆 */
 			&::after
 				content: ""
 				position: absolute
-				inset: -0.5rem
+				inset: -0.5rem 0 -0.5rem -0.5rem
 				z-index: 1
 
 			&:hover
@@ -120,77 +126,82 @@ export const musicSidebarStylus = `
 
 	&__volume-slider-wrap
 		position: relative
-		width: 3.25rem
+		flex: 1 1 auto
+		min-width: 3rem
+		max-width: 7rem
 		height: 1.25rem
 		display: flex
 		align-items: center
+		touch-action: none
+
+		&:focus-within
+			.music-player__volume-track
+				box-shadow: 0 0 0 2px var(--primary)
+
+	&__volume-track
+		position: absolute
+		left: 0
+		right: 0
+		top: 50%
+		transform: translateY(-50%)
+		height: 0.3125rem
+		border-radius: var(--shape-corner-full)
+		background: var(--outline-variant)
+		overflow: hidden
+		pointer-events: none
+
+	&__volume-fill
+		display: block
+		height: 100%
+		border-radius: var(--shape-corner-full)
+		background: var(--primary)
+		transition: width var(--m3e-duration-short) var(--m3e-easing-standard)
 
 	&__volume-slider
 		appearance: none
 		-webkit-appearance: none
+		position: absolute
+		inset: 0
+		z-index: 2
 		width: 100%
-		height: 0.25rem
+		height: 100%
 		margin: 0
 		padding: 0
 		border: none
-		border-radius: var(--shape-corner-full)
-		background: linear-gradient(to right, var(--primary) 0%, var(--primary) var(--vol-pct, 70%), var(--surface-container-highest) var(--vol-pct, 70%), var(--surface-container-highest) 100%)
+		background: transparent
+		opacity: 0
 		cursor: pointer
-		outline: none
 
 		&::-webkit-slider-runnable-track
 			appearance: none
 			-webkit-appearance: none
-			height: 0.25rem
-			border-radius: var(--shape-corner-full)
+			height: 100%
 			background: transparent
 			border: none
 
 		&::-webkit-slider-thumb
 			appearance: none
 			-webkit-appearance: none
-			width: 0.5rem
-			height: 0.5rem
-			margin-top: -0.125rem
+			width: 1.25rem
+			height: 1.25rem
+			background: transparent
 			border: none
-			border-radius: var(--shape-corner-full)
-			background: var(--primary)
-			box-shadow: 0 0 0 1px var(--surface-container-lowest)
-			transition: transform var(--m3e-duration-short) var(--m3e-easing-standard)
-
-			&:hover
-				transform: scale(1.3)
+			box-shadow: none
 
 		&::-moz-range-track
-			height: 0.25rem
-			border-radius: var(--shape-corner-full)
+			height: 100%
 			background: transparent
 			border: none
 
-		&::-moz-range-progress
-			height: 0.25rem
-			border-radius: var(--shape-corner-full)
-			background: var(--primary)
-
 		&::-moz-range-thumb
-			width: 0.5rem
-			height: 0.5rem
+			width: 1.25rem
+			height: 1.25rem
+			background: transparent
 			border: none
-			border-radius: var(--shape-corner-full)
-			background: var(--primary)
-			box-shadow: 0 0 0 1px var(--surface-container-lowest)
-			transition: transform var(--m3e-duration-short) var(--m3e-easing-standard)
-
-			&:hover
-				transform: scale(1.3)
-
-		&:focus-visible
-			outline: 2px solid var(--primary)
-			outline-offset: 2px
+			box-shadow: none
 
 		&:disabled
 			cursor: default
-			opacity: 0.38
 
 	&__playlist-item time
 		font: var(--m3e-type-label-small)

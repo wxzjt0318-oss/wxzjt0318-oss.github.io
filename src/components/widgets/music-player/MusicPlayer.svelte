@@ -176,6 +176,10 @@
 				Math.min(1, (clientX - rect.left) / rect.width),
 			);
 			controller?.runtime.setVolume(percent);
+			// 拖动音量即视为恢复播放声音，避免静音态下调节音量无任何反馈
+			if (percent > 0 && muted) {
+				controller?.runtime.setMuted(false);
+			}
 		};
 
 		updateVolume(event.clientX);

@@ -218,7 +218,10 @@ function onProgressPointerUp(event: PointerEvent): void {
 }
 
 function setVolume(event: Event): void {
-	runtime?.setVolume(Number((event.currentTarget as HTMLInputElement).value));
+	const value = Number((event.currentTarget as HTMLInputElement).value);
+	runtime?.setVolume(value);
+	// 拖动音量即视为恢复播放声音，避免静音态下调节音量无任何反馈
+	if (value > 0 && snapshot.muted) runtime?.setMuted(false);
 }
 </script>
 
@@ -262,6 +265,12 @@ function setVolume(event: Event): void {
 							/>
 						</Tooltip>
 						<div class="music-player__volume-slider-wrap">
+							<span class="music-player__volume-track" aria-hidden="true">
+								<span
+									class="music-player__volume-fill"
+									style={`width: ${Math.round(snapshot.volume * 100)}%`}
+								></span>
+							</span>
 							<input
 								type="range"
 								min="0"
@@ -271,7 +280,6 @@ function setVolume(event: Event): void {
 								aria-label={volumeLabel}
 								oninput={setVolume}
 								class="music-player__volume-slider"
-								style={`--vol-pct: ${Math.round(snapshot.volume * 100)}%`}
 							/>
 						</div>
 					</div>
