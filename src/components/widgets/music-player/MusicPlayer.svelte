@@ -440,7 +440,7 @@
 		</div>
 	{:else}
 		<div
-			class="music-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
+			class="music-orb-player fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out"
 			class:expanded={ui.isExpanded}
 			class:hidden-mode={ui.isHidden}
 		>
@@ -654,12 +654,12 @@
 			}
 		}
 
-		.music-player.hidden-mode {
+		.music-orb-player.hidden-mode {
 			width: 3rem;
 			height: 3rem;
 		}
 
-		.music-player {
+		.music-orb-player {
 			width: 20rem;
 			max-width: 20rem;
 			min-width: 20rem;
@@ -759,7 +759,7 @@
 				height: 1.375rem;
 			}
 
-			.music-player {
+			.music-orb-player {
 				width: 280px !important;
 				min-width: 280px !important;
 				max-width: 280px !important;
@@ -773,7 +773,7 @@
 				width: 280px !important;
 				max-width: 280px !important;
 			}
-			.music-player.expanded {
+			.music-orb-player.expanded {
 				width: 280px !important;
 				min-width: 280px !important;
 				max-width: 280px !important;
@@ -798,7 +798,7 @@
 		}
 
 		@media (max-width: 480px) {
-			.music-player {
+			.music-orb-player {
 				width: 260px !important;
 				min-width: 260px !important;
 				max-width: 260px !important;
@@ -855,7 +855,7 @@
 		}
 
 		@media (hover: none) and (pointer: coarse) {
-			:global(.music-player button),
+			:global(.music-orb-player button),
 			:global(.playlist-item) {
 				min-height: 44px;
 			}
