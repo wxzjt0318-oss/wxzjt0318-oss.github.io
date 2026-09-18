@@ -46,6 +46,7 @@ export const th: Translation = {
 	[Key.animeStatsTotal]: "อนิเมะทั้งหมด",
 	[Key.animeStatsAvgRating]: "คะแนนเฉลี่ย",
 	[Key.animeStatsLastUpdated]: "อัปเดตล่าสุด",
+	[Key.animeFilterAll]: "ทั้งหมด",
 
 	[Key.compass]: "เข็มทิศ",
 	[Key.compassBanner]: "เว็บไซต์ที่ฉันกลับมาใช้บ่อย — เครื่องมือพัฒนา เอกสาร และหลุมกระต่าย",

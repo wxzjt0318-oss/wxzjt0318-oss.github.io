@@ -73,14 +73,18 @@ const statusCounts = $derived.by(() => {
 	return counts;
 });
 
-/** 状态筛选 chips：只列数据中出现的状态（单选，再点取消 = 全部），标签附条目数 */
-const statusItems = $derived(
-	Array.from(new Set(animes.map((anime) => anime.status))).map((status) => ({
+/** 状态筛选 chips：首个「全部」带总数，其后只列数据中出现的状态（单选，再点取消 = 全部），标签附条目数 */
+const statusItems = $derived([
+	{
+		value: "",
+		label: `${i18n(I18nKey.animeFilterAll)} (${animes.length})`,
+	},
+	...Array.from(new Set(animes.map((anime) => anime.status))).map((status) => ({
 		value: status,
 		label: `${i18n(ANIME_STATUS_META[status].key)} (${statusCounts.get(status) ?? 0})`,
 		leadingIcon: ANIME_STATUS_META[status].icon,
 	})),
-);
+]);
 
 const filtered = $derived.by(() => {
 	const normalizedQuery = query.trim().toLowerCase();
@@ -188,19 +192,37 @@ onMount(() => {
 	/>
 
 	{#if stats}
-		<div class="anime-section__stats">
-			<div class="anime-section__stat" style="--stat-accent: var(--primary)">
-				<span class="anime-section__stat-label">{i18n(I18nKey.animeStatsTotal)}</span>
-				<span class="anime-section__stat-value">{stats.total}</span>
+		<div class="anime-section__stats grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+			<div
+				class="relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-indigo-500/20 dark:border-indigo-400/20 bg-gradient-to-br from-indigo-500/20 via-indigo-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300"
+			>
+				<div class="text-xs text-indigo-700/80 dark:text-indigo-200/70 mb-1">
+					{i18n(I18nKey.animeStatsTotal)}
+				</div>
+				<div class="text-2xl font-bold text-indigo-700 dark:text-indigo-200">
+					{stats.total}
+				</div>
 			</div>
-			<div class="anime-section__stat" style="--stat-accent: var(--tertiary)">
-				<span class="anime-section__stat-label">{i18n(I18nKey.animeStatsAvgRating)}</span>
-				<span class="anime-section__stat-value">{stats.avgRating}</span>
+			<div
+				class="relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-amber-500/20 dark:border-amber-400/20 bg-gradient-to-br from-amber-500/20 via-rose-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300"
+			>
+				<div class="text-xs text-amber-700/80 dark:text-amber-200/70 mb-1">
+					{i18n(I18nKey.animeStatsAvgRating)}
+				</div>
+				<div class="text-2xl font-bold text-amber-700 dark:text-amber-200">
+					{stats.avgRating}
+				</div>
 			</div>
 			{#if stats.lastUpdated}
-				<div class="anime-section__stat" style="--stat-accent: var(--secondary)">
-					<span class="anime-section__stat-label">{i18n(I18nKey.animeStatsLastUpdated)}</span>
-					<span class="anime-section__stat-value">{stats.lastUpdated}</span>
+				<div
+					class="relative overflow-hidden rounded-[var(--radius-large)] p-4 border border-emerald-500/20 dark:border-emerald-400/20 bg-gradient-to-br from-emerald-500/20 via-teal-400/10 to-transparent shadow-sm hover:shadow-lg transition-shadow duration-300"
+				>
+					<div class="text-xs text-emerald-700/80 dark:text-emerald-200/70 mb-1">
+						{i18n(I18nKey.animeStatsLastUpdated)}
+					</div>
+					<div class="text-sm font-medium text-emerald-700 dark:text-emerald-200">
+						{stats.lastUpdated}
+					</div>
 				</div>
 			{/if}
 		</div>
@@ -260,7 +282,7 @@ onMount(() => {
 			</div>
 
 			<div class="anime-section__filter-row">
-				{#if statusItems.length > 1}
+				{#if statusItems.length > 0}
 					<div class="anime-section__chips">
 						<Chips
 							items={statusItems}
@@ -331,40 +353,9 @@ onMount(() => {
 			padding-top: 1rem
 			gap: 0.625rem
 
-	/* 统计条：总数 / 平均评分 / 数据更新时间（三卡渐变，同 games 页统计条布局） */
+	/* 统计条：总数 / 平均评分 / 数据更新时间（气泡样式与 games 页统计条一致，见页面层 Tailwind 类） */
 	&__stats
 		display: grid
-		grid-template-columns: 1fr
-		gap: 0.75rem
-		margin-bottom: 1.25rem
-
-		@media (min-width: 48rem)
-			grid-template-columns: repeat(3, 1fr)
-
-	&__stat
-		display: flex
-		flex-direction: column
-		align-items: center
-		gap: 0.25rem
-		padding: 0.875rem 1rem
-		border-radius: var(--shape-corner-l)
-		border: 1px solid var(--outline-variant)
-		background: linear-gradient(135deg,
-			unquote("color-mix(in oklab, var(--stat-accent) 14%, var(--card-bg))"),
-			unquote("color-mix(in oklab, var(--stat-accent) 5%, var(--card-bg))"))
-
-	&__stat-label
-		color: var(--on-surface-variant)
-		font: var(--m3e-type-label-medium)
-		text-align: center
-
-	&__stat-value
-		color: var(--on-surface)
-		font: var(--m3e-type-headline-small)
-		font-weight: 700
-		font-variant-numeric: tabular-nums
-		text-align: center
-		overflow-wrap: anywhere
 
 	&__tools
 		display: flex

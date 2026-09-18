@@ -47,6 +47,7 @@ enum I18nKey {
 	animeStatsTotal = "animeStatsTotal",
 	animeStatsAvgRating = "animeStatsAvgRating",
 	animeStatsLastUpdated = "animeStatsLastUpdated",
+	animeFilterAll = "animeFilterAll",
 
 	compass = "compass",
 	compassBanner = "compassBanner",

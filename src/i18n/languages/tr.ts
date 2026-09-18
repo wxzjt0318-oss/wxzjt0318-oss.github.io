@@ -48,6 +48,7 @@ export const tr: Translation = {
 	[Key.animeStatsTotal]: "Toplam anime",
 	[Key.animeStatsAvgRating]: "Ortalama puan",
 	[Key.animeStatsLastUpdated]: "Son güncelleme",
+	[Key.animeFilterAll]: "Tümü",
 
 	[Key.compass]: "Pusula",
 	[Key.compassBanner]:

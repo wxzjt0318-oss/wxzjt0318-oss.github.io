@@ -49,6 +49,7 @@ export const ja: Translation = {
 	[Key.animeStatsTotal]: "アニメ総数",
 	[Key.animeStatsAvgRating]: "平均評価",
 	[Key.animeStatsLastUpdated]: "最終更新",
+	[Key.animeFilterAll]: "すべて",
 
 	[Key.compass]: "サイト羅針盤",
 	[Key.compassBanner]:

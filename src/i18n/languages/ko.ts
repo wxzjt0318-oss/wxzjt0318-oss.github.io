@@ -48,6 +48,7 @@ export const ko: Translation = {
 	[Key.animeStatsTotal]: "애니 총 개수",
 	[Key.animeStatsAvgRating]: "평균 평점",
 	[Key.animeStatsLastUpdated]: "마지막 업데이트",
+	[Key.animeFilterAll]: "전체",
 
 	[Key.compass]: "나침반",
 	[Key.compassBanner]:

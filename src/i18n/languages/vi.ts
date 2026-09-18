@@ -49,6 +49,7 @@ export const vi: Translation = {
 	[Key.animeStatsTotal]: "Tổng số anime",
 	[Key.animeStatsAvgRating]: "Điểm trung bình",
 	[Key.animeStatsLastUpdated]: "Cập nhật lần cuối",
+	[Key.animeFilterAll]: "Tất cả",
 
 	[Key.compass]: "La bàn",
 	[Key.compassBanner]:

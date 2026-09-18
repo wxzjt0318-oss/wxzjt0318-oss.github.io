@@ -46,6 +46,7 @@ export const zh_CN: Translation = {
 	[Key.animeStatsTotal]: "番剧总数",
 	[Key.animeStatsAvgRating]: "平均评分",
 	[Key.animeStatsLastUpdated]: "数据更新时间",
+	[Key.animeFilterAll]: "全部",
 
 	[Key.compass]: "站点罗盘",
 	[Key.compassBanner]: "常去的站点 —— 开发工具、文档与各种兔子洞。",

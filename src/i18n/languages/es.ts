@@ -48,6 +48,7 @@ export const es: Translation = {
 	[Key.animeStatsTotal]: "Total de animes",
 	[Key.animeStatsAvgRating]: "Calificación media",
 	[Key.animeStatsLastUpdated]: "Última actualización",
+	[Key.animeFilterAll]: "Todos",
 
 	[Key.compass]: "Brújula",
 	[Key.compassBanner]:

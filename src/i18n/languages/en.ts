@@ -49,6 +49,7 @@ export const en: Translation = {
 	[Key.animeStatsTotal]: "Total",
 	[Key.animeStatsAvgRating]: "Average Rating",
 	[Key.animeStatsLastUpdated]: "Last Updated",
+	[Key.animeFilterAll]: "All",
 
 	[Key.compass]: "Compass",
 	[Key.compassBanner]:
