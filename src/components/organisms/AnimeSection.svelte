@@ -8,7 +8,6 @@
  * 不与博客文章列表偏好耦合；工具栏提供快速切换按钮，切类后逐卡 FLIP 平移。
  */
 import Button from "@components/atoms/action/Button.svelte";
-import Chips from "@components/atoms/action/Chips.svelte";
 import Card from "@components/atoms/display/Card.svelte";
 import LoadingIndicator from "@components/atoms/feedback/LoadingIndicator.svelte";
 import TextField from "@components/atoms/input/TextField.svelte";
@@ -73,18 +72,24 @@ const statusCounts = $derived.by(() => {
 	return counts;
 });
 
-/** 状态筛选 chips：首个「全部」带总数，其后只列数据中出现的状态（单选，再点取消 = 全部），标签附条目数 */
-const statusItems = $derived([
-	{
-		value: "",
-		label: `${i18n(I18nKey.animeFilterAll)} (${animes.length})`,
-	},
-	...Array.from(new Set(animes.map((anime) => anime.status))).map((status) => ({
+/** 状态计数徽章配色：与游戏页 filter-tag 的计数徽章同一套色板 */
+const ANIME_STATUS_BADGE: Record<string, string> = {
+	watching: "bg-green-500",
+	planned: "bg-amber-500",
+	completed: "bg-blue-500",
+	onHold: "bg-purple-500",
+	dropped: "bg-red-500",
+};
+
+/** 状态筛选按钮：只列数据中出现的状态，标签附条目数（按钮样式对齐游戏页 filter-tag） */
+const statusFilters = $derived(
+	Array.from(new Set(animes.map((anime) => anime.status))).map((status) => ({
 		value: status,
-		label: `${i18n(ANIME_STATUS_META[status].key)} (${statusCounts.get(status) ?? 0})`,
-		leadingIcon: ANIME_STATUS_META[status].icon,
+		label: i18n(ANIME_STATUS_META[status].key),
+		count: statusCounts.get(status) ?? 0,
+		badge: ANIME_STATUS_BADGE[status] ?? "bg-[var(--primary)]",
 	})),
-]);
+);
 
 const filtered = $derived.by(() => {
 	const normalizedQuery = query.trim().toLowerCase();
@@ -116,6 +121,13 @@ function onStatusChange() {
 		setTimeout(() => (phase = "out"), 300),
 		setTimeout(() => (phase = "idle"), 300 + 150),
 	];
+}
+
+/** 单选筛选：重复点击当前项保持选中（与游戏页一致），仅切换时播放过渡 */
+function selectStatus(value: string) {
+	if (selectedStatus === value) return;
+	selectedStatus = value;
+	onStatusChange();
 }
 
 function readStoredLayoutMode(): AnimeLayoutMode {
@@ -282,16 +294,34 @@ onMount(() => {
 			</div>
 
 			<div class="anime-section__filter-row">
-				{#if statusItems.length > 0}
-					<div class="anime-section__chips">
-						<Chips
-							items={statusItems}
-							variant="filter"
-							bind:value={selectedStatus}
-							onchange={onStatusChange}
-						/>
-					</div>
-				{/if}
+				<div class="anime-section__chips">
+					<button
+						type="button"
+						class="anime-filter-tag"
+						class:anime-filter-tag--active={selectedStatus === ""}
+						aria-pressed={selectedStatus === ""}
+						onclick={() => selectStatus("")}
+					>
+						{i18n(I18nKey.animeFilterAll)}
+						<span class="anime-filter-tag__count bg-[var(--primary)] text-white">
+							({animes.length})
+						</span>
+					</button>
+					{#each statusFilters as item (item.value)}
+						<button
+							type="button"
+							class="anime-filter-tag"
+							class:anime-filter-tag--active={selectedStatus === item.value}
+							aria-pressed={selectedStatus === item.value}
+							onclick={() => selectStatus(item.value)}
+						>
+							{item.label}
+							<span class="anime-filter-tag__count {item.badge} text-white">
+								({item.count})
+							</span>
+						</button>
+					{/each}
+				</div>
 
 				{#if filtered.length > 0}
 					<p class="anime-section__count" aria-live="polite">{countLabel(filtered.length)}</p>
@@ -413,6 +443,9 @@ onMount(() => {
 	&__chips
 		flex: 1
 		min-width: 0
+		display: flex
+		flex-wrap: wrap
+		gap: 0.5rem
 		overflow-x: auto
 		scrollbar-width: none
 		&::-webkit-scrollbar
@@ -492,6 +525,42 @@ onMount(() => {
 			width: 2.75rem
 			height: 2.75rem
 			color: var(--outline)
+
+/* 状态筛选按钮：对齐游戏页 .filter-tag（实心选中态 + 彩色计数徽章）。
+   必须写成样式块顶层的单类/复合类选择器：Svelte 会把后代组合选择器误判为 unused 并剔除。 */
+.anime-filter-tag
+	display: flex
+	align-items: center
+	padding: 0.5rem 1rem
+	border: 1px solid var(--line-divider)
+	border-radius: var(--radius-large)
+	background: var(--btn-regular-bg)
+	color: var(--btn-content)
+	font: var(--m3e-type-label-large)
+	white-space: nowrap
+	cursor: pointer
+	transition:
+		background var(--m3e-duration-short) var(--m3e-easing-standard),
+		border-color var(--m3e-duration-short) var(--m3e-easing-standard),
+		transform var(--m3e-duration-short) var(--m3e-easing-standard)
+
+	&:hover
+		background: var(--btn-hover-bg)
+		border-color: var(--primary)
+		transform: translateY(-1px)
+
+/* 置于 :hover 之后：同特异度下后者生效，选中态不被 hover 背景覆盖 */
+.anime-filter-tag.anime-filter-tag--active
+	background: var(--primary)
+	border-color: var(--primary)
+	color: var(--on-primary)
+
+.anime-filter-tag__count
+	margin-left: 0.25rem
+	padding: 0 0.5rem
+	border-radius: var(--shape-corner-full)
+	font-size: 0.75rem
+	line-height: 1.25rem
 
 /* 海报网格（grid）：手机 2 列、平板 3 列、电脑端精准 4 列，紧凑美观 */
 .anime-list--grid
