@@ -48,6 +48,10 @@ src/generated/local-icon-collections.ts
 # moegirl scraper working cache（可随时重建，不入库）
 .cache/moegirl/
 
+# 游戏页 Bangumi 构建缓存与日志（CI 通过 actions/cache 持久化，不入库）
+.cache/bangumi/
+logs/
+
 # anime downloaded covers（快照 JSON 需要提交：CI 构建依赖它兜底，
 # api.bgm.tv 故障时 keepLastValid 也无法从没有快照的裸仓库变出数据）
 public/assets/anime/covers/*

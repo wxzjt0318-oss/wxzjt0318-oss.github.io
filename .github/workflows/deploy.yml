@@ -50,6 +50,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-shirone-thumbnails-
 
+      # 游戏页构建期直连 api.bgm.tv，磁盘缓存落在 .cache/bangumi。
+      # 跨构建持久化：API 故障/限流时回退到上一次成功的缓存，避免构建出空游戏页。
+      - name: Restore Bangumi games cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/bangumi
+          key: ${{ runner.os }}-shirone-bangumi-games-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-shirone-bangumi-games-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
 

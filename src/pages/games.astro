@@ -1,4 +1,5 @@
 ---
+import Button from "@components/atoms/action/Button.svelte";
 import TextField from "@components/atoms/input/TextField.svelte";
 import ImageWrapper from "@components/molecules/ImageWrapper.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -16,8 +17,6 @@ const T = {
   statsTotal: i18n(I18nKey.gamesStatsTotal),
   statsAvgRating: i18n(I18nKey.gamesStatsAvgRating),
   statsLastUpdated: i18n(I18nKey.gamesStatsLastUpdated),
-  paginationFirst: i18n(I18nKey.paginationFirst),
-  paginationLast: i18n(I18nKey.paginationLast),
   releaseDate: i18n(I18nKey.gamesReleaseDate),
   developer: i18n(I18nKey.gamesDeveloper),
   platform: i18n(I18nKey.gamesPlatform),
@@ -37,7 +36,6 @@ const gameStrings = {
   },
   announceItems: i18n(I18nKey.gamesAnnounceItems),
   announceSearch: i18n(I18nKey.gamesAnnounceSearch),
-  goToPage: i18n(I18nKey.paginationPage),
 };
 
 const ENABLE_REMOTE_GAME_HTML_FALLBACK =
@@ -71,6 +69,12 @@ const userAgent = "";
 
 const BANGUMI_USER_ID = animeConfig.providers?.bangumi?.userId || "";
 const BANGUMI_API_BASE = "https://api.bgm.tv";
+// Bangumi API v0 要求可识别的 User-Agent，缺省（Node/undici 默认 UA）会被 403 拒绝；
+// 与 scripts/anime/providers/bangumi.mjs 保持同一约定。
+const BANGUMI_REQUEST_HEADERS = {
+  "User-Agent": "Shirone/1.0 (https://github.com/shirone; GamesSync)",
+  Accept: "application/json",
+};
 const isValidUserId = !!BANGUMI_USER_ID;
 
 const MAX_ITEMS = Infinity;
@@ -206,7 +210,7 @@ async function fetchWithRetry(
   init?: RequestInit,
   retries = 3,
   baseDelayMs = 300,
-  timeoutMs = 800,
+  timeoutMs = 10000,
 ): Promise<Response> {
   let lastErr: unknown = null;
   for (let attempt = 0; attempt <= retries; attempt++) {
@@ -651,7 +655,8 @@ function toTime(input?: string) {
 }
 
 async function fetchSubjectDetailRaw(subjectId: number) {
-  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`, undefined, 2, 200, 500);
+  // CI（GitHub Actions 海外节点）到 api.bgm.tv 的往返远高于本地，超时从 500ms 提到 10s
+  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`, { headers: BANGUMI_REQUEST_HEADERS }, 3, 500, 10000);
   const ct = res.headers.get("content-type") || "";
   if (!ct.includes("application/json")) {throw new Error(`Bangumi subject ${subjectId} non-JSON`);}
   return await res.json();
@@ -696,7 +701,7 @@ function extractDeveloperFromHtml(html: string): string[] {
 async function fetchDeveloperFromHtml(subjectId: number): Promise<string[]> {
   // 禁用缓存，直接从 API 获取最新数据
   try {
-    const res = await fetchWithRetry(`https://bgm.tv/subject/${subjectId}`, undefined, 1, 200, 500);
+    const res = await fetchWithRetry(`https://bgm.tv/subject/${subjectId}`, { headers: { "User-Agent": BANGUMI_REQUEST_HEADERS["User-Agent"] } }, 2, 500, 10000);
     const html = await res.text();
     return extractDeveloperFromHtml(html);
   } catch {
@@ -727,7 +732,7 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
     const pageLimit = 50;
     while (true) {
       const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
-      const response = await fetchWithRetry(url, undefined, 2, 300, 1200);
+      const response = await fetchWithRetry(url, { headers: BANGUMI_REQUEST_HEADERS }, 3, 500, 15000);
       const data = await response.json();
       const batch = data.data || [];
       if (batch.length > 0) {allData = [...allData, ...batch];}
@@ -1089,8 +1094,8 @@ function getStatusInfo(status: GameStatus) {
       </div>
 
       {(!isValidUserId && (
-        <div class="text-center py-12">
-          <div class="text-5xl mb-4" aria-hidden="true">😢</div>
+        <div class="games-empty">
+          <Icon name="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
           <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
             {i18n(I18nKey.gamesNoResults)}
           </h3>
@@ -1175,8 +1180,8 @@ function getStatusInfo(status: GameStatus) {
               })}
             </div>
           ) : (
-            <div id="game-empty" class="text-center py-12">
-              <div class="text-5xl mb-4" aria-hidden="true">🎮</div>
+            <div id="game-empty" class="games-empty">
+              <Icon name="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
               <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
                 {i18n(I18nKey.gamesNoResults)}
               </h3>
@@ -1185,8 +1190,8 @@ function getStatusInfo(status: GameStatus) {
               </p>
             </div>
           )}
-          <div id="game-empty-filter" class="text-center py-12 hidden">
-            <div class="text-5xl mb-4" aria-hidden="true">🔍</div>
+          <div id="game-empty-filter" class="games-empty hidden">
+            <Icon name="material-symbols:search-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.gamesNoResults)}
             </h3>
@@ -1194,20 +1199,11 @@ function getStatusInfo(status: GameStatus) {
               {i18n(I18nKey.gamesEmptyHint)}
             </p>
           </div>
-          <div id="pagination-container" class="pagination-container flex justify-center items-center gap-2 mt-8">
-            <button id="first-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={T.paginationFirst}>
-              « {T.paginationFirst}
-            </button>
-            <button id="prev-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.paginationPrev)}>
-              &lt; {i18n(I18nKey.paginationPrev)}
-            </button>
-            <div id="page-numbers" class="flex gap-1" aria-live="polite"></div>
-            <button id="next-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={i18n(I18nKey.paginationNext)}>
-              {i18n(I18nKey.paginationNext)} &gt;
-            </button>
-            <button id="last-page" class="pagination-btn px-3 py-2 rounded-md bg-[var(--btn-regular-bg)] text-[var(--btn-content)] border border-[var(--line-divider)] disabled:opacity-50 disabled:cursor-not-allowed" aria-label={T.paginationLast}>
-              {T.paginationLast} »
-            </button>
+          <div id="loadmore-container" class="loadmore-container" style="display: none">
+            <Button variant="outlined" class="loadmore-btn" ariaLabel={i18n(I18nKey.loadMore)}>
+              <Icon name="material-symbols:expand-more-rounded" class="text-lg" aria-hidden="true" />
+              {i18n(I18nKey.loadMore)}
+            </Button>
           </div>
         </Fragment>
       )}
@@ -1218,6 +1214,24 @@ function getStatusInfo(status: GameStatus) {
     .game-page { --game-font: 'Noto Sans SC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
     .game-page, .game-page * { font-family: var(--game-font); }
     .card-base { container-type: inline-size; }
+
+    /* 空态：与番剧页 anime-section__empty 同一语言（居中图标 + 说明文字） */
+    .games-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.875rem;
+      min-height: 12rem;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    .games-empty.hidden { display: none; }
+    .games-empty__icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      color: var(--outline);
+    }
 
     .visually-hidden {
       position: absolute !important;
@@ -1238,8 +1252,8 @@ function getStatusInfo(status: GameStatus) {
       font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; white-space: nowrap; display: flex; align-items: center; position: relative; pointer-events: auto;
     }
     .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
-    .filter-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .filter-tag.active:hover { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; transform: translateY(-1px); }
+    .filter-tag.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .filter-tag.active:hover { background: var(--primary) !important; color: var(--on-primary) !important; border-color: var(--primary) !important; transform: translateY(-1px); }
 
     [data-game-status] { transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; contain: content; will-change: transform; }
     #game-list-container.grid-mode [data-game-status]:hover {
@@ -1255,7 +1269,7 @@ function getStatusInfo(status: GameStatus) {
 
     [data-game-status].is-filtered-out,
     [data-game-status].is-searched-out,
-    [data-game-status].is-paginated-out { display: none !important; }
+    [data-game-status].is-loadmore-out { display: none !important; }
 
     [data-game-status].game-animating {
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1263,32 +1277,13 @@ function getStatusInfo(status: GameStatus) {
     [data-game-status].game-fade-in { opacity: 0; transform: scale(0.8); }
     [data-game-status].game-fade-in-active { opacity: 1; transform: scale(1); }
     [data-game-status].game-fade-out { opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; }
-    [data-game-status].game-paginate-animating {
-      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    [data-game-status].game-paginate-fade-in { opacity: 0; transform: scale(0.92); }
-    [data-game-status].game-paginate-fade-in-active { opacity: 1; transform: scale(1); }
-    [data-game-status].game-paginate-fade-out { opacity: 0; transform: scale(0.98); transition: opacity 0.28s ease, transform 0.28s ease; }
 
     .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
     .stat-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; }
-    .pagination-container { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
-    .pagination-btn {
-      padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
-      background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
-      display: flex; align-items: center; gap: 0.25rem;
-    }
-    .pagination-btn:hover:not(:disabled) { background: var(--btn-hover-bg); border-color: var(--primary); }
-    .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .page-number {
-      padding: 0.5rem 0.75rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
-      background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
-    }
-    .page-number:hover { background: var(--btn-hover-bg); border-color: var(--primary); }
-    .page-number.active { background: var(--primary); color: white; border-color: var(--primary); }
+    /* 加载更多：与番剧页 anime-section__more 同一布局语言（居中 + M3 outlined 按钮） */
+    .loadmore-container { margin-top: 1.5rem; display: flex; justify-content: center; align-items: center; }
+    .loadmore-container :global(.m3-button__content) { display: inline-flex; align-items: center; gap: 0.25rem; }
     /* 搜索框由 M3 TextField 原子渲染；隐藏 WebKit 原生清除按钮，避免与自定义清除重复 */
     :global(#search-input::-webkit-search-cancel-button),
     :global(#search-input::-webkit-search-decoration) {
@@ -1335,31 +1330,38 @@ function getStatusInfo(status: GameStatus) {
       background: color-mix(in oklab, var(--on-surface-variant) 8%, transparent);
     }
 
-    /* 布局切换：与番剧页同款，位于搜索框右侧 */
+    /* 布局切换：与番剧页 anime-section__layout-switch 同一 M3 样式（搜索框右侧按钮组） */
     .layout-switch {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.25rem;
-      border-radius: var(--shape-corner-l);
-      background: var(--btn-regular-bg);
+      display: inline-flex;
       flex: none;
+      align-items: center;
+      padding: 0.125rem;
+      border-radius: var(--shape-corner-m);
+      background: var(--surface-container-high);
+      border: 1px solid var(--outline-variant);
     }
     .layout-switch__btn {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2.25rem;
-      height: 2.25rem;
+      width: 2.125rem;
+      height: 2.125rem;
       border: none;
-      border-radius: var(--shape-corner-m);
+      border-radius: var(--shape-corner-s);
       background: transparent;
-      color: var(--btn-content);
+      color: var(--on-surface-variant);
       cursor: pointer;
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background-color var(--m3e-duration-short) var(--m3e-easing-standard), color var(--m3e-duration-short) var(--m3e-easing-standard);
     }
-    .layout-switch__btn:hover { background: var(--btn-hover-bg); }
-    .layout-switch__btn.active { background: var(--primary); color: var(--on-primary); }
+    .layout-switch__btn:hover {
+      color: var(--on-surface);
+      background: color-mix(in oklab, var(--on-surface) 8%, transparent);
+    }
+    .layout-switch__btn.active,
+    .layout-switch__btn.active:hover {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
     .search-highlight { background-color: #fef3c7; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-weight: 600; }
 
     .line-clamp-2 {
@@ -1390,7 +1392,6 @@ function getStatusInfo(status: GameStatus) {
       .group p { font-size: 0.9375rem; line-height: 1.6; }
 
       .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
-      .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
     }
 
     @media (min-width: 1024px) {
@@ -1399,7 +1400,6 @@ function getStatusInfo(status: GameStatus) {
       .group p { font-size: 0.9375rem; line-height: 1.6; }
 
       .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
-      .pagination-btn, .page-number { padding: 0.625rem 0.875rem; font-size: 1rem; }
     }
   </style>
 
@@ -1419,10 +1419,7 @@ function getStatusInfo(status: GameStatus) {
         if (!container) {return;}
 
         const state = {
-          currentPage: 1,
-          pageWindowStart: 1,
-          windowSize: 5,
-          itemsPerPage: 10,
+          shownCount: 0,
           layoutMode: 'grid',
           listeners: [],
           searchDebounce: 0,
@@ -1433,12 +1430,9 @@ function getStatusInfo(status: GameStatus) {
         const allItems = Array.from(root.querySelectorAll('[data-game-status]'));
         const filterTags = Array.from(root.querySelectorAll('.filter-tag'));
         const searchInput = root.querySelector('#search-input');
-        const pageNumbersContainer = root.querySelector('#page-numbers');
-        const firstBtn = root.querySelector('#first-page');
-        const prevBtn = root.querySelector('#prev-page');
-        const nextBtn = root.querySelector('#next-page');
-        const lastBtn = root.querySelector('#last-page');
-        const paginationContainer = root.querySelector('#pagination-container');
+        const loadMoreContainer = root.querySelector('#loadmore-container');
+        const loadMoreBtn = loadMoreContainer ? loadMoreContainer.querySelector('button') : null;
+        const emptyFilter = root.querySelector('#game-empty-filter');
         const announce = root.querySelector('#list-announce');
         const searchClear = root.querySelector('#search-clear');
         const layoutGridBtn = root.querySelector('#layout-grid');
@@ -1594,7 +1588,7 @@ function getStatusInfo(status: GameStatus) {
           const candidates = allItems.filter(el =>
             !el.classList.contains('is-filtered-out') &&
             !el.classList.contains('is-searched-out') &&
-            !el.classList.contains('is-paginated-out')
+            !el.classList.contains('is-loadmore-out')
           );
           const pool = candidates.length ? candidates : allItems;
           let cols = 0;
@@ -1611,12 +1605,12 @@ function getStatusInfo(status: GameStatus) {
           return container.classList.contains('grid-mode') ? 5 : 4;
         }
 
-        function getItemsPerPageByLayout() {
+        function getLoadStepByLayout() {
           const cols = getCols();
-          // 单列布局（窄屏列表模式）按 5 行计算，避免每页只剩 2 条
+          // 单列布局（窄屏列表模式）按 5 行计算，避免每批只剩 2 条
           const rows = cols === 1 ? 5 : 2;
-          const ipp = Math.max(1, cols * rows);
-          return ipp;
+          const step = Math.max(1, cols * rows);
+          return step;
         }
 
         function matchesSearch(item, term) {
@@ -1731,163 +1725,46 @@ function getStatusInfo(status: GameStatus) {
           }, 120);
         }
 
-        function flipAnimatePagination(keep, show, hide) {
-          if (state.reduceMotion) {
-            hide.forEach((el) => el.classList.add('is-paginated-out'));
-            show.forEach((el) => el.classList.remove('is-paginated-out'));
-            return;
-          }
+        // 可见性：显示筛选结果的前 shownCount 条，其余以 is-loadmore-out 收起（替代原分页切片）。
+        function applyVisibility(filtered, animateShow = false) {
+          const list = filtered || computeFiltered();
+          if (!state.shownCount) {state.shownCount = getLoadStepByLayout();}
 
-          const first = new Map();
-          keep.forEach((el) => {
-            const rect = el.getBoundingClientRect();
-            first.set(el, { left: rect.left, top: rect.top });
+          const showSet = new Set(list.slice(0, state.shownCount));
+          const revealed = [];
+          allItems.forEach((el) => {
+            if (showSet.has(el)) {
+              if (animateShow && el.classList.contains('is-loadmore-out')) {revealed.push(el);}
+              el.classList.remove('is-loadmore-out');
+            } else {
+              el.classList.add('is-loadmore-out');
+            }
           });
 
-          hide.forEach((el) => el.classList.add('game-paginate-fade-out'));
-
-          setTimeout(() => {
-            hide.forEach((el) => {
-              el.classList.add('is-paginated-out');
-              el.classList.remove('game-paginate-fade-out');
-            });
-
-            show.forEach((el) => {
-              el.classList.remove('is-paginated-out');
-              el.classList.add('game-paginate-fade-in');
-              if (el instanceof HTMLElement) {
-                el.style.opacity = '0';
-                el.style.transform = 'scale(0.92)';
-                el.style.transition = 'none';
-              }
-            });
-
-            requestAnimationFrame(() => {
-              const last = new Map();
-              keep.forEach((el) => {
-                const rect = el.getBoundingClientRect();
-                last.set(el, { left: rect.left, top: rect.top });
-              });
-
-              keep.forEach((el) => {
-                const a = first.get(el);
-                const b = last.get(el);
-                if (a && b && el instanceof HTMLElement) {
-                  const dx = a.left - b.left;
-                  const dy = a.top - b.top;
-                  el.style.transition = 'none';
-                  el.style.transform = `translate(${dx}px, ${dy}px)`;
-                }
-              });
-
-              requestAnimationFrame(() => {
-                const all = [...keep, ...show];
-                all.forEach((el, i) => {
-                  setTimeout(() => {
-                    el.classList.add('game-paginate-animating');
-                    if (keep.includes(el) && el instanceof HTMLElement) {
-                      el.style.transition = '';
-                      el.style.transform = '';
-                    }
-                    if (show.includes(el) && el instanceof HTMLElement) {
-                      el.classList.remove('game-paginate-fade-in');
-                      el.classList.add('game-paginate-fade-in-active');
-                      el.style.transition = '';
-                      el.style.opacity = '1';
-                      el.style.transform = 'scale(1)';
-                    }
-                  }, i * 20);
+          // 追加揭示的卡片 stagger 淡入（与筛选入场同一动画语言）
+          if (!state.reduceMotion) {
+            revealed.forEach((el, i) => {
+              setTimeout(() => {
+                el.classList.add('game-fade-in');
+                requestAnimationFrame(() => {
+                  el.classList.remove('game-fade-in');
+                  el.classList.add('game-fade-in-active');
+                  setTimeout(() => el.classList.remove('game-fade-in-active'), 500);
                 });
-
-                setTimeout(() => {
-                  all.forEach((el) => {
-                    el.classList.remove('game-paginate-animating', 'game-paginate-fade-in-active');
-                    if (el instanceof HTMLElement) {
-                      el.style.transition = '';
-                      el.style.transform = '';
-                      el.style.opacity = '';
-                    }
-                  });
-                }, 500 + all.length * 20);
-              });
+              }, i * 20);
             });
-          }, 120);
+          }
         }
 
-        function updatePaginationUI(totalItems) {
-          if (!pageNumbersContainer) {return;}
-          state.itemsPerPage = getItemsPerPageByLayout();
-          const totalPages = Math.ceil(totalItems / state.itemsPerPage);
-
-          if (paginationContainer) {
-            paginationContainer.style.display = totalPages > 1 ? 'flex' : 'none';
-          }
-
-          pageNumbersContainer.innerHTML = '';
-          if (totalPages === 0) {
-            state.currentPage = 1;
-            state.pageWindowStart = 1;
-          } else {
-            if (state.currentPage > totalPages) {state.currentPage = totalPages;}
-            const maxStart = Math.max(1, totalPages - state.windowSize + 1);
-            if (state.pageWindowStart > maxStart) {state.pageWindowStart = maxStart;}
-            if (state.pageWindowStart < 1) {state.pageWindowStart = 1;}
-          }
-
-          const end = Math.min(totalPages, state.pageWindowStart + state.windowSize - 1);
-          for (let i = state.pageWindowStart; i <= end; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = String(i);
-            btn.classList.add('page-number');
-            btn.setAttribute('aria-label', gameStrings.goToPage.replace('{page}', String(i)));
-            if (i === state.currentPage) {btn.classList.add('active');}
-            btn.addEventListener('click', () => {
-              state.currentPage = i;
-              const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
-              applyPagination(filtered, true);
-              updatePaginationUI(filtered.length);
-            });
-            pageNumbersContainer.appendChild(btn);
-          }
-
-          const onFirst = state.currentPage === 1 || totalPages === 0;
-          const onLast = state.currentPage === totalPages || totalPages === 0;
-          if (firstBtn) {firstBtn.disabled = onFirst;}
-          if (prevBtn) {prevBtn.disabled = onFirst;}
-          if (nextBtn) {nextBtn.disabled = onLast;}
-          if (lastBtn) {lastBtn.disabled = onLast;}
+        function updateLoadMoreUI(totalItems) {
+          if (!loadMoreContainer) {return;}
+          loadMoreContainer.style.display = totalItems > state.shownCount ? 'flex' : 'none';
         }
 
-        function applyPagination(filtered, withFlip = false) {
-          const list = filtered || computeFiltered();
-          state.itemsPerPage = getItemsPerPageByLayout();
-
-          const startIndex = (state.currentPage - 1) * state.itemsPerPage;
-          const endIndex = startIndex + state.itemsPerPage;
-
-          const target = list.slice(startIndex, endIndex);
-          const showSet = new Set(target);
-
-          if (!withFlip || state.reduceMotion) {
-            allItems.forEach((el) => {
-              if (showSet.has(el)) {el.classList.remove('is-paginated-out');}
-              else {el.classList.add('is-paginated-out');}
-            });
-            return;
-          }
-
-          const beforeVisible = allItems.filter(el =>
-            !el.classList.contains('is-filtered-out') &&
-            !el.classList.contains('is-searched-out') &&
-            !el.classList.contains('is-paginated-out')
-          );
-          const afterVisible = target;
-
-          const keep = afterVisible.filter(el => beforeVisible.includes(el));
-          const show = afterVisible.filter(el => !beforeVisible.includes(el));
-          const hide = beforeVisible.filter(el => !afterVisible.includes(el));
-
-          flipAnimatePagination(keep, show, hide);
+        function updateEmptyFilterUI(totalItems) {
+          if (!emptyFilter) {return;}
+          emptyFilter.classList.toggle('hidden', totalItems > 0);
+          if (container) {container.style.display = totalItems > 0 ? '' : 'none';}
         }
 
         function updateCountsForSearch() {
@@ -1947,7 +1824,7 @@ function getStatusInfo(status: GameStatus) {
           const visible = allItems.filter(el =>
             !el.classList.contains('is-filtered-out') &&
             !el.classList.contains('is-searched-out') &&
-            !el.classList.contains('is-paginated-out')
+            !el.classList.contains('is-loadmore-out')
           );
           const before = new Map();
           if (!state.reduceMotion) {
@@ -1966,10 +1843,10 @@ function getStatusInfo(status: GameStatus) {
           container.classList.toggle('list-mode', mode === 'list');
 
           const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
-          const totalPages = Math.max(1, Math.ceil(filtered.length / getItemsPerPageByLayout()));
-          if (state.currentPage > totalPages) {state.currentPage = totalPages;}
-          applyPagination(filtered, false);
-          updatePaginationUI(filtered.length);
+          // 切布局后每批数量变化：已揭示数量不少于新的一批，避免列表突然变短
+          state.shownCount = Math.max(state.shownCount, getLoadStepByLayout());
+          applyVisibility(filtered, false);
+          updateLoadMoreUI(filtered.length);
 
           requestAnimationFrame(() => {
             container.style.transition = '';
@@ -2022,10 +1899,10 @@ function getStatusInfo(status: GameStatus) {
               }
             });
 
-            state.currentPage = 1;
-            state.pageWindowStart = 1;
-            applyPagination(filtered, false);
-            updatePaginationUI(filtered.length);
+            state.shownCount = getLoadStepByLayout();
+            applyVisibility(filtered, false);
+            updateLoadMoreUI(filtered.length);
+            updateEmptyFilterUI(filtered.length);
             updateCountsForSearch();
 
             if (triggerFLIP) {
@@ -2069,8 +1946,6 @@ function getStatusInfo(status: GameStatus) {
               updateSearchClearVisibility();
               refreshAll(true);
             } else if (e.key === 'Enter') {
-              state.currentPage = 1;
-              state.pageWindowStart = 1;
               refreshAll(true);
             }
           };
@@ -2091,7 +1966,7 @@ function getStatusInfo(status: GameStatus) {
           state.listeners.push({ el: searchClear, type: 'click', handler: clearHandler });
         }
 
-        // 布局初始化：SSR 默认 grid，读取本地偏好后再套用（在首次分页计算前）
+        // 布局初始化：SSR 默认 grid，读取本地偏好后再套用（在首次可见性计算前）
         state.layoutMode = readStoredLayoutMode();
         updateLayoutButtons();
         container.style.transition = 'none';
@@ -2112,52 +1987,23 @@ function getStatusInfo(status: GameStatus) {
 
         refreshAll(false);
 
-        if (firstBtn && prevBtn && nextBtn && lastBtn) {
-          const firstH = () => withFiltered((filtered) => {
-            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
-            if (state.currentPage !== 1 && totalPages > 0) {
-              state.currentPage = 1; state.pageWindowStart = 1;
-              applyPagination(filtered, true); updatePaginationUI(filtered.length);
-            }
-          });
-          const prevH = () => withFiltered((filtered) => {
-            if (state.currentPage > 1) {
-              state.currentPage--; state.pageWindowStart = Math.max(1, state.pageWindowStart - 1);
-              applyPagination(filtered, true); updatePaginationUI(filtered.length);
-            }
-          });
-          const nextH = () => withFiltered((filtered) => {
-            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
-            if (state.currentPage < totalPages) {
-              state.currentPage++; const maxStart = Math.max(1, totalPages - state.windowSize + 1);
-              state.pageWindowStart = Math.min(maxStart, state.pageWindowStart + 1);
-              applyPagination(filtered, true); updatePaginationUI(filtered.length);
-            }
-          });
-          const lastH = () => withFiltered((filtered) => {
-            const totalPages = Math.ceil(filtered.length / getItemsPerPageByLayout());
-            if (totalPages > 0 && state.currentPage !== totalPages) {
-              state.currentPage = totalPages; state.pageWindowStart = Math.max(1, totalPages - state.windowSize + 1);
-              applyPagination(filtered, true); updatePaginationUI(filtered.length);
-            }
-          });
-          firstBtn.addEventListener('click', firstH);
-          prevBtn.addEventListener('click', prevH);
-          nextBtn.addEventListener('click', nextH);
-          lastBtn.addEventListener('click', lastH);
-          state.listeners.push({ el: firstBtn, type: 'click', handler: firstH });
-          state.listeners.push({ el: prevBtn, type: 'click', handler: prevH });
-          state.listeners.push({ el: nextBtn, type: 'click', handler: nextH });
-          state.listeners.push({ el: lastBtn, type: 'click', handler: lastH });
+        // 加载更多：与番剧页一致，按当前布局批量揭示下一批卡片
+        if (loadMoreBtn) {
+          const moreHandler = () => {
+            state.shownCount += getLoadStepByLayout();
+            const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
+            applyVisibility(filtered, true);
+            updateLoadMoreUI(filtered.length);
+          };
+          loadMoreBtn.addEventListener('click', moreHandler);
+          state.listeners.push({ el: loadMoreBtn, type: 'click', handler: moreHandler });
         }
-
-        refreshAll(false);
 
         window.__gamePage = {
           updateAfterLayout() {
             const filtered = state.lastFiltered && state.lastFiltered.length ? state.lastFiltered : computeFiltered();
-            applyPagination(filtered, false);
-            updatePaginationUI(filtered.length);
+            applyVisibility(filtered, false);
+            updateLoadMoreUI(filtered.length);
           },
           cleanup() {
             state.listeners.forEach(({ el, type, handler }) => {
