@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-18T12:38:21.561Z",
+  "generatedAt": "2026-09-19T11:18:25.992Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 623854,
+    "subject_id": 564289,
     "type": 3,
-    "ep_status": 6,
-    "updated_at": "2026-04-07",
+    "ep_status": 1,
+    "updated_at": "2026-04-14",
     "subject": {
-      "id": 623854,
-      "name": "女神“异世界转生想成为什么”我“勇者的肋骨”",
-      "name_cn": "女神“异世界转生想成为什么”我“勇者的肋骨”",
-      "date": "2026-04-07",
+      "id": 564289,
+      "name": "想结束这场“我爱你”的游戏",
+      "name_cn": "想结束这场“我爱你”的游戏",
+      "date": "2026-04-14",
       "eps": 12,
-      "short_summary": "转生处是…「开后宫又有快乐结局的开挂勇者…的肋骨」！？ 颠覆动画常识的异世界转生动画诞生了！ 除了动画之外，还会用定格动画、人偶剧、真人拍摄等打破常规的手法呈现，为大家献上冷淡的异世界转生负责人「女神大人」与重复进行奇葩转生的主角「我」的痛快异世界转生记！ [简介原文] 転生先は…「ハーレムかつハッピーエンドなチート勇者、の肋骨」！？アニメーションの常識を覆す、異世界転生アニメが誕生！ 舞台は転生先を自由に選べる世界。――しかし近頃は転生希望者の数が増えすぎて「チート持ちハーレム勇者」は待ち時間が５万年！「魔王」への転生すら千年単位の待ち時間が当たり前。それなら、と主人公が選んだ転生先は「ハーレムかつハッピーエンドなチート勇者、の肋骨」だった！ さらに、「ヤドカリ」や「野菜」に「リア充を爆発させる時に使う爆発物」まで、次々と転生を繰り返し！？ アニメ映像に加えて、ストップモーション、人形劇、実写など型破りな映像手法でお届けする、塩対応な異世界転生担当の「女神さま」と、トンデモ転生を繰り返す主人公「俺」の痛快異世界転生記！",
+      "short_summary": "升上同一所高中的浅葱优希也与樱美玖，是一对「彼此暗恋」的青梅竹马。 明明已经察觉到自己的心意，却始终无法坦率面对彼此，距离越近，越喜欢对方，也越是说不出口。无法坦率的两人，连系着他们的是从孩提时期就持续到现在的「我爱你游戏」。 两人轮流说出「我爱你」，先害羞的人就输了，这般幼稚的游戏，直到现在，这场意气之争仍然持续着。 为了摆脱彼此暗恋的关系，倾注所有心意的「恋爱游戏」即将开始！！ [简介原文] 同じ高校に進学した浅葱優希也と桜みくは、“両片想い”の幼なじみ。 自分の想いに気づいているのに…。今にも「好き」があふれそうなのに…。…でも、素直になれない!! 近すぎて、遠すぎる、優希也とみく。ふたりをつなぐのは、小6のときにはじまった「愛してるゲーム」。 交互に「愛してる」といって照れたほうが負け。今でもずっと続ける、意地の張り合い。 愛してるゲームに勝てたら、告白したい──。愛してるゲームに勝って、「好き」を認めさせたい──。 両片想いを卒業するための、ありったけの想いを込めた“恋のゲーム”がはじまる!!",
       "tags": [
         {
-          "name": "搞笑"
+          "name": "恋爱"
         },
         {
-          "name": "异世界"
+          "name": "校园"
         },
         {
           "name": "2026年4月"
         },
         {
+          "name": "漫画改"
+        },
+        {
           "name": "TV"
         },
         {
-          "name": "轻小说改"
-        },
-        {
-          "name": "抽象"
+          "name": "FelixFilm"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/c4/47/623854_02HSu.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/c4/47/623854_02HSu.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c4/47/623854_02HSu.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c4/47/623854_02HSu.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/5d/5a/564289_b6sb7.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
+      "title": "想结束这场“我爱你”的游戏",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c4/47/623854_02HSu.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
+      "title": "想结束这场“我爱你”的游戏",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c4/47/623854_02HSu.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5d/5a/564289_b6sb7.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "女神“异世界转生想成为什么”我“勇者的肋骨”",
+      "title": "想结束这场“我爱你”的游戏",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-623854.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-564289.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
