@@ -1,8 +1,8 @@
 ---
 title: "《中二病也要谈恋爱！恋 Lite》"
 description: "中二病也要谈恋爱！恋 Lite"
-tags: ["京阿尼", "泡面番", "2014年1月", "中二病也要谈恋爱！", "恋爱", "YouTube"]
-category: "京阿尼作品介绍"
+tags: ["中二病也要谈恋爱！恋 Lite", "泡面番", "恋爱", "京阿尼", "Bangumi"]
+category: "《中二病也要谈恋爱！恋 Lite》泡面番"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/91651"
@@ -13,6 +13,7 @@ pinned: false
 alias: "bangumi-91651"
 image: "https://lain.bgm.tv/pic/cover/l/41/83/91651_vpgN9.jpg"
 ---
+
 
 > 心动的瞬间总是来得猝不及防，这正是《中二病也要谈恋爱！恋 Lite》想要传达的美好。
 

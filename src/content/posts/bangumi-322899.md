@@ -1,8 +1,8 @@
 ---
 title: "《总之就是非常可爱 ～SNS～》"
 description: "总之就是非常可爱 ～SNS～"
-tags: ["OVA", "恋爱", "漫画改", "2021", "日常", "Bangumi"]
-category: "OVA作品介绍"
+tags: ["总之就是非常可爱 ～SNS～", "恋爱", "漫画改", "日常", "OVA", "Bangumi"]
+category: "《总之就是非常可爱 ～SNS～》恋爱"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/322899"

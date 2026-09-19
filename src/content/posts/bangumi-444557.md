@@ -1,8 +1,8 @@
 ---
 title: "《无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分》"
 description: "无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分"
-tags: ["异世界", "轻小说改", "2024年4月", "StudioBind", "后宫", "星期日"]
-category: "异世界作品介绍"
+tags: ["无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分", "异世界", "轻小说改", "后宫", "StudioBind", "Bangumi"]
+category: "《无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分》异世界"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/444557"

@@ -1,0 +1,35 @@
+{
+  "ranAt": "2026-09-19T12:03:45.680Z",
+  "dryRun": false,
+  "summary": {
+    "total": 1,
+    "changed": 1,
+    "moegirlHit": 0,
+    "moegirlMiss": [
+      "bangumi-564289.md"
+    ],
+    "storyReplaced": 0,
+    "overviewReplaced": 0
+  },
+  "results": [
+    {
+      "file": "bangumi-564289.md",
+      "status": "rewritten",
+      "moegirl": null,
+      "category": "《想结束这场“我爱你”的游戏》恋爱",
+      "tags": [
+        "想结束这场“我爱你”的游戏",
+        "恋爱",
+        "校园",
+        "漫画改",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": false,
+      "storyReplaced": false,
+      "changes": [
+        "moegirl-miss"
+      ]
+    }
+  ]
+}

@@ -367,6 +367,31 @@ async function main() {
 		characters,
 	});
 
+	// 可选增强：用萌娘百科条目内容补全介绍（默认开启，设 BANGUMI_POST_MOEGIRL=0 关闭）。
+	// 失败时静默回退到 Bangumi 简介，不影响核心发文流程。
+	if (getEnvBoolean("BANGUMI_POST_MOEGIRL", true)) {
+		try {
+			const { fetchMoegirlArticleForWork, findStorySection } = await import("./moegirl/scraper.mjs");
+			const moegirlTitle = (candidate?.subject?.name_cn || candidate?.subject?.name || "").trim();
+			const moegirlArticle = moegirlTitle ? await fetchMoegirlArticleForWork(moegirlTitle) : null;
+			if (moegirlArticle) {
+				const introFirstPara = (moegirlArticle.intro || "").split("\n\n")[0] || "";
+				if (introFirstPara.length >= 30) {
+					payload.description = truncateText(introFirstPara, 120);
+					console.log(`📚 萌娘百科介绍已接入（条目：${moegirlArticle.title}）`);
+				}
+				const story = findStorySection(moegirlArticle);
+				if (story && story.length >= 40) {
+					payload.summary = story.trim();
+				} else if (moegirlArticle.intro && moegirlArticle.intro.length >= 40) {
+					payload.summary = moegirlArticle.intro.trim();
+				}
+			}
+		} catch (error) {
+			console.warn(`⚠ 萌娘百科增强失败，回退 Bangumi 简介：${error.message}`);
+		}
+	}
+
 	// Alias 唯一性保障：slugify 归一化会让不同动画撞名（如多部"第二季"都归一化为
 	// "2nd-season"，"Working!!" 系列都归一化为 "working"），alias 重复会导致多篇文章
 	// 共享同一 URL 互相覆盖。与已有文章 alias 或目标文件名冲突时，回退到稳定的

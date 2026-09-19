@@ -1,8 +1,8 @@
 ---
 title: "《爱我「枫与铃」THE ANIMATION》"
 description: "トロ顔に溺れる…。 見たことのない最上級のトロイキをアナタに…♪ 狂うほど愛おしい個性豊かな美少女キャラと 問答無用のイカせっぱで読者を魅了してきた鬼才・きょくちょの 代表作シリーズ『楓と鈴』が遂にOVA化！"
-tags: ["里番", "姐妹丼", "2022", "漫画改", "后宫", "Bangumi"]
-category: "里番作品介绍"
+tags: ["爱我「枫与铃」THE ANIMATION", "里番", "漫画改", "后宫", "姐妹丼", "Bangumi"]
+category: "《爱我「枫与铃」THE ANIMATION》里番"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/338672"

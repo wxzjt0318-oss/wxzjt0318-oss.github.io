@@ -1,8 +1,8 @@
 ---
 title: "《剧场版总集篇 OVERLORD 不死者之王》"
 description: "剧场版总集篇 OVERLORD 不死者之王"
-tags: ["剧场版", "总集篇", "MADHouse", "2017", "OVERLORD", "Bangumi"]
-category: "剧场版作品介绍"
+tags: ["剧场版总集篇 OVERLORD 不死者之王", "剧场版", "总集篇", "Bangumi"]
+category: "《剧场版总集篇 OVERLORD 不死者之王》总集篇"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/194036"

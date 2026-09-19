@@ -1,8 +1,8 @@
 ---
 title: "《迷糊餐厅》"
-description: "在史克威尔艾尼克斯的漫画杂志YOUNG GANGAN2005年1号开始连载的四格漫画。以北海道某处被常客评论为“危险的感觉令人上瘾”的餐厅“瓦古娜利亚”为舞台，充满各种奇人异事的四格漫画。登场角色彼此间吐槽相当轻快。 平时以六页为一个单位…"
-tags: ["搞笑", "WORKING", "A-1Pictures", "2010年4月", "TV", "星期日"]
-category: "搞笑作品介绍"
+description: "《迷糊餐厅》（原名：WORKING!!）是高津雁野创作的四格漫画作品，并有电视动画等衍生作品。"
+tags: ["迷糊餐厅", "搞笑", "TV", "WORKING", "Bangumi"]
+category: "《迷糊餐厅》搞笑"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/4255"
@@ -22,9 +22,9 @@ image: "https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg"
 
 ## 一、作品概述
 
-作为一部由A-1 Pictures制作的搞笑作品，《迷糊餐厅》，于2010-04-04开播，凭借其独特的叙事风格吸引了众多观众。在史克威尔艾尼克斯的漫画杂志YOUNG GANGAN2005年1号开始连载的四格漫画。以北海道某处被常客评论为“危险的感觉令人上瘾”的餐厅“瓦古娜利亚”为舞台，充满各种奇人异事的四格漫画。登场角色彼此间吐槽相当轻快
+《迷糊餐厅》（原名：WORKING!!）是高津雁野创作的四格漫画作品，并有电视动画等衍生作品。
 
-这部作品的魅力在于它不仅仅是表面的娱乐，更有着值得细细品味的深层内涵。
+> 以上内容整理自[萌娘百科「迷糊餐厅」条目](https://zh.moegirl.org.cn/%E8%BF%B7%E7%B3%8A%E9%A4%90%E5%8E%85)（CC BY-NC-SA 3.0）。
 
 ![迷糊餐厅封面](https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg)
 
@@ -35,7 +35,7 @@ image: "https://lain.bgm.tv/pic/cover/l/87/db/4255_jm37v.jpg"
 - **动画制作**：A-1 Pictures
 - **首播时间**：2010-04-04
 - **话数信息**：13 话
-- **题材标签**：搞笑 / WORKING / A-1Pictures / 2010年4月 / TV / 星期日
+- **题材标签**：迷糊餐厅 / 搞笑 / TV / WORKING / Bangumi
 - **追番状态**：看过
 - **条目链接**：[Bangumi 页面](https://bgm.tv/subject/4255)
 

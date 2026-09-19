@@ -1,8 +1,8 @@
 ---
 title: "《迷糊餐厅 第三季》"
-description: "迷糊餐厅 第三季"
-tags: ["搞笑", "日常", "A-1Pictures", "2015年7月", "漫画改", "星期六"]
-category: "搞笑作品介绍"
+description: "《迷糊餐厅》（原名：WORKING!!）是高津雁野创作的四格漫画作品，并有电视动画等衍生作品。"
+tags: ["迷糊餐厅 第三季", "搞笑", "日常", "漫画改", "A-1Pictures", "Bangumi"]
+category: "《迷糊餐厅 第三季》搞笑"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/110648"
@@ -22,9 +22,9 @@ image: "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg"
 
 ## 一、作品概述
 
-《迷糊餐厅 第三季》是一部很典型、但又不完全落入套路的搞笑作品，于2015-07-04开播。它并不是靠高强度冲突推进，而是依靠设定、氛围与人物互动慢慢建立吸引力。
+《迷糊餐厅》（原名：WORKING!!）是高津雁野创作的四格漫画作品，并有电视动画等衍生作品。
 
-如果你平时会在一堆新作里挑那种"看起来不吵、但越看越顺"的类型，那么它大概率会是能留在片单里的那一部。
+> 以上内容整理自[萌娘百科「迷糊餐厅」条目](https://zh.moegirl.org.cn/%E8%BF%B7%E7%B3%8A%E9%A4%90%E5%8E%85)（CC BY-NC-SA 3.0）。
 
 ![迷糊餐厅 第三季封面](https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg)
 
@@ -34,7 +34,7 @@ image: "https://lain.bgm.tv/pic/cover/l/59/dc/110648_52R1q.jpg"
 - **原作标题**：WORKING!!!
 - **首播时间**：2015-07-04
 - **话数信息**：13 话
-- **题材标签**：搞笑 / 日常 / A-1Pictures / 2015年7月 / 漫画改 / 星期六
+- **题材标签**：迷糊餐厅 第三季 / 搞笑 / 日常 / 漫画改 / A-1Pictures / Bangumi
 - **追番状态**：看过
 - **条目链接**：[Bangumi 页面](https://bgm.tv/subject/110648)
 

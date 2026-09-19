@@ -1,8 +1,8 @@
 ---
 title: "《政宗君的复仇R》"
 description: "8年前、デブで冴えなかった真壁政宗はかつて自身をこっぴどく振った残虐姫こと安達垣愛姫に復讐するため、激ヤセし名字を変え、イケメンに変身して帰って来た。すべては惚れさせてから振るという、最高の復讐のために。 愛姫に熱烈なアプローチを重ね、少…"
-tags: ["恋爱", "2023年7月", "校园", "漫画改", "SILVERLINK.", "星期一"]
-category: "恋爱作品介绍"
+tags: ["政宗君的复仇R", "恋爱", "校园", "漫画改", "SILVERLINK.", "Bangumi"]
+category: "《政宗君的复仇R》恋爱"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/376433"

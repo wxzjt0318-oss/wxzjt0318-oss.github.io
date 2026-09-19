@@ -1,8 +1,8 @@
 ---
 title: "《零之使魔 三美姬的轮舞 OVA》"
 description: "魔法学院决定去海边度假？连女王都要来？好色的才人等人怎能放过这么好的机会。可是到了海边，才人才知道露易丝这个世界的泳装是这么的保守。这时，校长以“水精灵”的谎言开始了他们的计划，让她们先穿上了标准游泳衣（虽然不是比基尼，但是能很好的暴露身…"
-tags: ["OVA", "J.C.STAFF", "钉宫理惠", "后宫", "零之使魔", "Bangumi"]
-category: "OVA作品介绍"
+tags: ["零之使魔 三美姬的轮舞 OVA", "后宫", "OVA", "J.C.STAFF", "Bangumi"]
+category: "《零之使魔 三美姬的轮舞 OVA》后宫"
 licenseName: "CC BY 4.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/68681"
