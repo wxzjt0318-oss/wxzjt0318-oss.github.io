@@ -6,9 +6,9 @@
 
 import type mdx from "@astrojs/mdx";
 import type swup from "@swup/astro";
+import type { AstroUserConfig } from "astro";
 import type expressiveCode from "astro-expressive-code";
 import type icon from "astro-icon";
-import type { AstroUserConfig } from "astro";
 
 /**
  * 所有模式共享的集成选项。
