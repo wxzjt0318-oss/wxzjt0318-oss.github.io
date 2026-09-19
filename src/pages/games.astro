@@ -74,10 +74,12 @@ const BANGUMI_API_BASE = "https://api.bgm.tv";
 const isValidUserId = !!BANGUMI_USER_ID;
 
 const MAX_ITEMS = Infinity;
-const CACHE_TTL_HOURS = 0; // 禁用缓存，确保每次都从 API 获取最新数据
+// 缓存 24 小时：每日定时部署会自然刷新；api.bgm.tv 故障（如 502）时
+// 回退到已提交的过期缓存，避免构建出空页面。
+const CACHE_TTL_HOURS = 24;
 
 const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
-const DISK_CACHE = false; // 强制禁用磁盘缓存
+const DISK_CACHE = true;
 
 let fs: typeof import("fs/promises") | null = null;
 let path: typeof import("path") | null = null;
@@ -98,11 +100,61 @@ if (isNode && DISK_CACHE && fs && logRoot) {
   await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
 }
 
-async function diskCacheGet<T>(_key: string, _ttlHours: number): Promise<T | null> {
-  return null; // 禁用缓存，始终返回 null
+type DiskCacheEnvelope<T> = { savedAt?: string; payload?: T };
+
+function diskCacheFile(key: string): string {
+	return path && cacheRoot
+		? path.resolve(cacheRoot, `${encodeURIComponent(key)}.json`)
+		: "";
 }
-async function diskCacheSet<T>(_key: string, _data: T): Promise<void> {
-  // 禁用缓存，不执行任何操作
+
+async function diskCacheGet<T>(
+	key: string,
+	ttlHours: number,
+): Promise<T | null> {
+	if (!isNode || !fs || !cacheRoot) {
+		return null;
+	}
+	try {
+		const raw = await fs.readFile(diskCacheFile(key), {
+			encoding: "utf8" as any,
+		});
+		const envelope = JSON.parse(
+			typeof raw === "string" ? raw : String(raw),
+		) as DiskCacheEnvelope<T>;
+		if (!envelope || envelope.payload == null) {
+			return null;
+		}
+		// ttlHours 传 Infinity 表示接受任意陈旧的缓存（故障兜底）
+		if (Number.isFinite(ttlHours)) {
+			const saved = Date.parse(envelope.savedAt || "");
+			if (
+				!Number.isFinite(saved) ||
+				Date.now() - saved > ttlHours * 3_600_000
+			) {
+				return null;
+			}
+		}
+		return envelope.payload as T;
+	} catch {
+		return null;
+	}
+}
+
+async function diskCacheSet<T>(key: string, data: T): Promise<void> {
+	if (!isNode || !fs || !cacheRoot) {
+		return;
+	}
+	try {
+		await fs.mkdir(cacheRoot, { recursive: true });
+		const envelope: DiskCacheEnvelope<T> = {
+			savedAt: new Date().toISOString(),
+			payload: data,
+		};
+		await fs.writeFile(diskCacheFile(key), JSON.stringify(envelope), {
+			encoding: "utf8",
+		});
+	} catch {}
 }
 
 async function appendLog(fileName: string, line: string): Promise<void> {
@@ -606,13 +658,19 @@ async function fetchSubjectDetailRaw(subjectId: number) {
 }
 
 async function fetchSubjectDetailCached(subjectId: number) {
-  // 禁用缓存，直接从 API 获取最新数据
-  try {
-    const detail = await fetchSubjectDetailRaw(subjectId);
-    return detail;
-  } catch {
-    return null;
-  }
+	const cacheKey = `subject-${subjectId}`;
+	const cached = await diskCacheGet<any>(cacheKey, CACHE_TTL_HOURS);
+	if (cached) {
+		return cached;
+	}
+	try {
+		const detail = await fetchSubjectDetailRaw(subjectId);
+		await diskCacheSet(cacheKey, detail);
+		return detail;
+	} catch {
+		// API 故障时回退到任意陈旧的缓存
+		return await diskCacheGet<any>(cacheKey, Infinity);
+	}
 }
 
 function stripTags(input: string): string {
@@ -686,7 +744,9 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
     await diskCacheSet(cacheKey, payload);
     return payload;
   } catch {
-    return null;
+    // API 故障（如 api.bgm.tv 502）时回退到任意陈旧的缓存，避免空页面
+    const stale = await diskCacheGet<{ data: any[] }>(cacheKey, Infinity);
+    return stale && stale.data?.length ? stale : null;
   }
 }
 
