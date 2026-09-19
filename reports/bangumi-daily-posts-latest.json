@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-19T11:18:25.992Z",
+  "generatedAt": "2026-09-19T12:13:36.760Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 564289,
-    "type": 3,
-    "ep_status": 1,
-    "updated_at": "2026-04-14",
+    "subject_id": 378862,
+    "type": 2,
+    "ep_status": 0,
+    "updated_at": "2023-01-05",
     "subject": {
-      "id": 564289,
-      "name": "想结束这场“我爱你”的游戏",
-      "name_cn": "想结束这场“我爱你”的游戏",
-      "date": "2026-04-14",
+      "id": 378862,
+      "name": "别当欧尼酱了！",
+      "name_cn": "别当欧尼酱了！",
+      "date": "2023-01-05",
       "eps": 12,
-      "short_summary": "升上同一所高中的浅葱优希也与樱美玖，是一对「彼此暗恋」的青梅竹马。 明明已经察觉到自己的心意，却始终无法坦率面对彼此，距离越近，越喜欢对方，也越是说不出口。无法坦率的两人，连系着他们的是从孩提时期就持续到现在的「我爱你游戏」。 两人轮流说出「我爱你」，先害羞的人就输了，这般幼稚的游戏，直到现在，这场意气之争仍然持续着。 为了摆脱彼此暗恋的关系，倾注所有心意的「恋爱游戏」即将开始！！ [简介原文] 同じ高校に進学した浅葱優希也と桜みくは、“両片想い”の幼なじみ。 自分の想いに気づいているのに…。今にも「好き」があふれそうなのに…。…でも、素直になれない!! 近すぎて、遠すぎる、優希也とみく。ふたりをつなぐのは、小6のときにはじまった「愛してるゲーム」。 交互に「愛してる」といって照れたほうが負け。今でもずっと続ける、意地の張り合い。 愛してるゲームに勝てたら、告白したい──。愛してるゲームに勝って、「好き」を認めさせたい──。 両片想いを卒業するための、ありったけの想いを込めた“恋のゲーム”がはじまる!!",
+      "short_summary": "某天，家里蹲的啃老族绪山真寻一觉醒来发现自己变成了“女孩子”！？正当真寻不知道镜子里的美少女是自己而陷入混乱的时候，跳级进入大学的科学家妹妹绪山美波里出现了。她透露在饮料里加了一种奇怪的药物！ 真寻最近2年一直疯狂宅家玩小黄游，偶尔不得已才会工作！突然成为女孩子开始生活的真寻，对于厕所、浴室、裙子、胸罩等女人的生活完全不懂…并且他和美波里中学时期的同学穗月枫和其妹妹穗月椛认识。 真寻的日常生活逐渐热闹起来。在持续的苦难中，到底“前”哥哥的命运会如何...！",
       "tags": [
         {
-          "name": "恋爱"
+          "name": "性转"
         },
         {
-          "name": "校园"
+          "name": "日常"
         },
         {
-          "name": "2026年4月"
+          "name": "搞笑"
         },
         {
-          "name": "漫画改"
+          "name": "百合"
         },
         {
-          "name": "TV"
+          "name": "StudioBind"
         },
         {
-          "name": "FelixFilm"
+          "name": "2023年1月"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/5d/5a/564289_b6sb7.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/7e/ca/378862_24TnR.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "想结束这场“我爱你”的游戏",
+      "title": "别当欧尼酱了！",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/5d/5a/564289_b6sb7.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "想结束这场“我爱你”的游戏",
+      "title": "别当欧尼酱了！",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/5d/5a/564289_b6sb7.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7e/ca/378862_24TnR.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "想结束这场“我爱你”的游戏",
+      "title": "别当欧尼酱了！",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-564289.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-378862.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
