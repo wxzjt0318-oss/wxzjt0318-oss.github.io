@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -79,6 +80,41 @@ async function syncProvider(providerName, targetDir, keepLastValid) {
 		}
 	}
 
+	const targetFile = join(targetDir, `${providerName}.json`);
+
+	// 降级抓取（如 bangumi 主站 HTML 回退）拿不到观看进度：从旧快照按 subjectId 保留，
+	// 避免 API 故障期间番剧页进度条整体清零（API 恢复后自动回到真实进度）
+	if (fetchResult.degraded) {
+		let restored = 0;
+		try {
+			const previous = JSON.parse(readFileSync(targetFile, "utf-8"));
+			const watchedBySubject = new Map();
+			for (const old of Array.isArray(previous?.items) ? previous.items : []) {
+				const sid = old?.identity?.subjectId;
+				const watched = old?.progress?.watched;
+				if (sid && typeof watched === "number" && watched > 0) {
+					watchedBySubject.set(String(sid), watched);
+				}
+			}
+			for (const item of normalizedItems) {
+				const sid = item.identity?.subjectId;
+				if (!sid || !item.progress) continue;
+				const oldWatched = watchedBySubject.get(String(sid));
+				if (oldWatched && item.progress.watched < oldWatched) {
+					item.progress.watched = oldWatched;
+					restored++;
+				}
+			}
+		} catch {
+			// 无旧快照或损坏时跳过保留，直接写入降级数据
+		}
+		if (restored > 0) {
+			console.log(
+				`[anime-sync] ℹ Degraded fetch: preserved watched progress for ${restored} items from the previous snapshot.`,
+			);
+		}
+	}
+
 	const sortedItems = sortAnimeList(normalizedItems);
 
 	const snapshot = {
@@ -94,7 +130,6 @@ async function syncProvider(providerName, targetDir, keepLastValid) {
 	// 敏感凭据扫描
 	scanForSensitiveData(jsonContent);
 
-	const targetFile = join(targetDir, `${providerName}.json`);
 	const tempFile = join(targetDir, `.temp-${providerName}-${Date.now()}.json`);
 
 	// 空结果不覆盖有效快照（snapshot.keepLastValid），其余情况原子写入

@@ -41,6 +41,13 @@ const gameStrings = {
 const ENABLE_REMOTE_GAME_HTML_FALLBACK =
   process.env.ENABLE_REMOTE_GAME_HTML_FALLBACK === "true";
 
+// 离线构建逃生开关：GAMES_FETCH_OFFLINE=1 时游戏页构建期完全不访问网络，
+// 只用本地磁盘缓存（.cache/bangumi，CI 由 actions/cache 持久化）；
+// 无缓存的条目按空态兜底。用于：本地无外网/被墙时构建、API 长时间故障时紧急出站。
+const GAMES_FETCH_OFFLINE = ["1", "true", "yes", "on"].includes(
+  String(process.env.GAMES_FETCH_OFFLINE || "").toLowerCase(),
+);
+
 type GameStatus = "playing" | "completed" | "planned" | "onhold" | "dropped";
 type GameItem = {
   id: number;
@@ -69,11 +76,26 @@ const userAgent = "";
 
 const BANGUMI_USER_ID = animeConfig.providers?.bangumi?.userId || "";
 const BANGUMI_API_BASE = "https://api.bgm.tv";
+const BANGUMI_WEB_BASE = "https://bgm.tv";
 // Bangumi API v0 要求可识别的 User-Agent，缺省（Node/undici 默认 UA）会被 403 拒绝；
 // 与 scripts/anime/providers/bangumi.mjs 保持同一约定。
 const BANGUMI_REQUEST_HEADERS = {
   "User-Agent": "Shirone/1.0 (https://github.com/shirone; GamesSync)",
   Accept: "application/json",
+};
+// 主站 HTML 列表页（API 的 /v0/users/* 子树故障时的回退数据源）需要浏览器 UA。
+// 注意「在玩」的列表段名是 do，不是 play/playing（无效段名会被主站静默回退到 wish）。
+const BANGUMI_WEB_HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+  Accept: "text/html,application/xhtml+xml",
+};
+const GAME_HTML_TYPE_SEGMENTS: Record<number, string> = {
+  3: "do",
+  2: "collect",
+  1: "wish",
+  4: "on_hold",
+  5: "dropped",
 };
 const isValidUserId = !!BANGUMI_USER_ID;
 
@@ -668,6 +690,10 @@ async function fetchSubjectDetailCached(subjectId: number) {
 	if (cached) {
 		return cached;
 	}
+	if (GAMES_FETCH_OFFLINE) {
+		// 离线模式：不发起网络请求，接受任意陈旧缓存
+		return await diskCacheGet<any>(cacheKey, Infinity);
+	}
 	try {
 		const detail = await fetchSubjectDetailRaw(subjectId);
 		await diskCacheSet(cacheKey, detail);
@@ -722,10 +748,92 @@ async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T,
   return results;
 }
 
+function unescapeHtmlText(value: string): string {
+  return String(value || "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+}
+
+/** 解析一页游戏收藏列表 HTML，返回类 API 形状的条目（详情由 /v0/subjects 另行补全） */
+function parseGameListPageItems(html: string): any[] {
+  const items: any[] = [];
+  const itemRe = /<li id="item_(\d+)"[\s\S]*?<\/li>/g;
+  let match = itemRe.exec(html);
+  while (match !== null) {
+    const subjectId = Number(match[1]);
+    const block = match[0];
+    const titleMatch = block.match(
+      /<a href="\/subject\/\d+" class="l">([\s\S]*?)<\/a>\s*(?:<small class="grey">([\s\S]*?)<\/small>)?/,
+    );
+    const coverMatch = block.match(/<img src="([^"]+)" class="cover"/);
+    const rateMatch = block.match(/starlight stars(\d+)/);
+    const dateMatch = block.match(/<span class="tip_j">([\d-]+)<\/span>/);
+
+    let cover = coverMatch ? coverMatch[1] : "";
+    if (!cover || cover.includes("no_icon_subject")) {cover = "";}
+    if (cover.startsWith("//")) {cover = `https:${cover}`;}
+
+    items.push({
+      subject_id: subjectId,
+      rate: rateMatch ? Number(rateMatch[1]) : 0,
+      updated_at: dateMatch ? dateMatch[1] : "",
+      subject: {
+        name_cn: unescapeHtmlText(titleMatch?.[1] || ""),
+        name: unescapeHtmlText(titleMatch?.[2] || ""),
+        ...(cover ? { images: { medium: cover } } : {}),
+      },
+    });
+    match = itemRe.exec(html);
+  }
+  return items;
+}
+
+/**
+ * 主站游戏列表页回退：api.bgm.tv 的 /v0/users/* 子树故障（如整体 502）时，
+ * 改抓 bgm.tv/game/list/{user}/{segment} 分页 HTML（每页 24 条）。
+ */
+async function fetchGameCollectionFromHtml(userId: string, type: number) {
+  const segment = GAME_HTML_TYPE_SEGMENTS[type];
+  if (!segment) {return null;}
+  const allData: any[] = [];
+  const seen = new Set<number>();
+  for (let page = 1; ; page++) {
+    const url = `${BANGUMI_WEB_BASE}/game/list/${encodeURIComponent(userId)}/${segment}?page=${page}`;
+    let html = "";
+    try {
+      const res = await fetchWithRetry(url, { headers: BANGUMI_WEB_HEADERS }, 2, 500, 15000);
+      html = await res.text();
+    } catch {
+      break;
+    }
+    const pageItems = parseGameListPageItems(html);
+    if (pageItems.length === 0) {break;}
+    for (const item of pageItems) {
+      if (seen.has(item.subject_id)) {continue;}
+      seen.add(item.subject_id);
+      allData.push(item);
+      if (allData.length >= MAX_ITEMS) {break;}
+    }
+    if (allData.length >= MAX_ITEMS) {break;}
+    await new Promise((resolve) => setTimeout(resolve, 120));
+  }
+  return allData.length > 0 ? { data: allData } : null;
+}
+
 async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
   const cacheKey = `collection-${userId}-${subjectType}-${type}`;
   const cached = await diskCacheGet<{ data: any[] }>(cacheKey, CACHE_TTL_HOURS);
   if (cached && cached.data?.length) {return cached;}
+  if (GAMES_FETCH_OFFLINE) {
+    // 离线模式：零网络请求，陈旧缓存兜底，保证构建不会被网络拖死
+    const stale = await diskCacheGet<{ data: any[] }>(cacheKey, Infinity);
+    return stale && stale.data?.length ? stale : null;
+  }
   try {
     let allData: any[] = [];
     let offset = 0;
@@ -749,7 +857,13 @@ async function fetchBangumiCollection(userId: string, subjectType: number, type:
     await diskCacheSet(cacheKey, payload);
     return payload;
   } catch {
-    // API 故障（如 api.bgm.tv 502）时回退到任意陈旧的缓存，避免空页面
+    // API 故障（如 api.bgm.tv /v0/users/* 502）时优先回退主站 HTML 列表页（数据仍是新的），
+    // 再退到任意陈旧的缓存，避免构建出空页面
+    const fromHtml = await fetchGameCollectionFromHtml(userId, type);
+    if (fromHtml) {
+      await diskCacheSet(cacheKey, fromHtml);
+      return fromHtml;
+    }
     const stale = await diskCacheGet<{ data: any[] }>(cacheKey, Infinity);
     return stale && stale.data?.length ? stale : null;
   }
@@ -787,7 +901,7 @@ async function processBangumiData(data: any, status: GameStatus): Promise<GameIt
       ]),
     );
     let htmlDeveloperList: string[] = [];
-    if (ENABLE_REMOTE_GAME_HTML_FALLBACK && primaryDeveloperList.length === 0) {
+    if (ENABLE_REMOTE_GAME_HTML_FALLBACK && !GAMES_FETCH_OFFLINE && primaryDeveloperList.length === 0) {
       htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
       if (htmlDeveloperList.length === 0) {
         await new Promise((resolve) => setTimeout(resolve, 150));

@@ -1,5 +1,9 @@
 const BANGUMI_API_BASE = "https://api.bgm.tv";
+const BANGUMI_WEB_BASE = "https://bgm.tv";
 const USER_AGENT = "Shirone/1.0 (https://github.com/shirone; AnimeSync)";
+// 主站 HTML 列表页需要浏览器 UA（api 故障时的回退数据源）
+const BROWSER_USER_AGENT =
+	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -10,6 +14,18 @@ const STATUS_COLLECTIONS = [
 	{ type: 4, status: "onHold" },
 	{ type: 5, status: "dropped" },
 ];
+
+/**
+ * API type → 主站列表页 URL 段名（对动画与游戏均适用，经实测验证）。
+ * 注意「在看/在玩」的段名是 do，不是 watch/playing（无效段名会被主站静默回退到 wish）。
+ */
+const HTML_STATUS_SEGMENTS = {
+	3: "do",
+	2: "collect",
+	1: "wish",
+	4: "on_hold",
+	5: "dropped",
+};
 
 function extractStudioFromInfobox(infobox) {
 	if (!Array.isArray(infobox)) return undefined;
@@ -127,6 +143,112 @@ async function fetchCollectionType(userId, type, status, options) {
 }
 
 /**
+ * ── 主站 HTML 列表页回退 ────────────────────────────────────────────────
+ * api.bgm.tv 的 /v0/users/* 子树曾整体 502（subject/calendar 等端点正常），
+ * 导致收藏同步长期静默空转（keepLastValid 保留旧快照、CI 步骤仍显示成功）。
+ * 此时改抓 bgm.tv 主站列表页（item id / 标题 / 封面 / 评分 / 收藏日期），
+ * 条目详情仍由可用的 /v0/subjects/{id} 补全；进度（ep_status）HTML 不公开，视为 0。
+ */
+
+function unescapeHtmlText(value) {
+	return String(value || "")
+		.replace(/&amp;/g, "&")
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, '"')
+		.replace(/&#0?39;/g, "'")
+		.replace(/&nbsp;/g, " ")
+		.trim();
+}
+
+async function fetchHtmlText(url, timeoutMs = 15000) {
+	const controller = new AbortController();
+	const timer = setTimeout(() => controller.abort(), timeoutMs);
+	try {
+		const res = await fetch(url, {
+			signal: controller.signal,
+			headers: {
+				"User-Agent": BROWSER_USER_AGENT,
+				Accept: "text/html,application/xhtml+xml",
+			},
+		});
+		if (!res.ok) return null;
+		return await res.text();
+	} catch {
+		return null;
+	} finally {
+		clearTimeout(timer);
+	}
+}
+
+/** 解析一页收藏列表 HTML，返回类 API 形状的条目数组 */
+function parseListPageItems(html) {
+	const items = [];
+	const itemRe = /<li id="item_(\d+)"[\s\S]*?<\/li>/g;
+	let match = itemRe.exec(html);
+	while (match !== null) {
+		const subjectId = Number(match[1]);
+		const block = match[0];
+		const titleMatch = block.match(
+			/<a href="\/subject\/\d+" class="l">([\s\S]*?)<\/a>\s*(?:<small class="grey">([\s\S]*?)<\/small>)?/,
+		);
+		const coverMatch = block.match(/<img src="([^"]+)" class="cover"/);
+		const rateMatch = block.match(/starlight stars(\d+)/);
+		const dateMatch = block.match(/<span class="tip_j">([\d-]+)<\/span>/);
+
+		let cover = coverMatch ? coverMatch[1] : "";
+		if (!cover || cover.includes("no_icon_subject")) cover = "";
+		if (cover.startsWith("//")) cover = `https:${cover}`;
+
+		items.push({
+			subject_id: subjectId,
+			rate: rateMatch ? Number(rateMatch[1]) : 0,
+			updated_at: dateMatch ? dateMatch[1] : "",
+			subject: {
+				name_cn: unescapeHtmlText(titleMatch?.[1] || ""),
+				name: unescapeHtmlText(titleMatch?.[2] || ""),
+				...(cover ? { images: { medium: cover } } : {}),
+			},
+		});
+		match = itemRe.exec(html);
+	}
+	return items;
+}
+
+/**
+ * 抓取某个状态的主站列表页（自动翻页，每页 24 条，翻页到底或达到 maxItems 停止）。
+ */
+async function fetchCollectionTypeFromHtml(userId, type, status, options) {
+	const segment = HTML_STATUS_SEGMENTS[type];
+	if (!segment) return [];
+	const maxItems = options.maxItems || 100;
+	const minDelayMs = options.minDelayMs || 200;
+
+	const collected = [];
+	const seen = new Set();
+	for (let page = 1; ; page++) {
+		const url = `${BANGUMI_WEB_BASE}/anime/list/${encodeURIComponent(userId)}/${segment}?page=${page}`;
+		const html = await fetchHtmlText(url);
+		if (html == null) {
+			console.warn(
+				`   [Bangumi] HTML fallback request failed for "${status}" page ${page}`,
+			);
+			break;
+		}
+		const pageItems = parseListPageItems(html);
+		if (pageItems.length === 0) break;
+		for (const item of pageItems) {
+			if (seen.has(item.subject_id)) continue;
+			seen.add(item.subject_id);
+			collected.push({ item, status });
+			if (collected.length >= maxItems) return collected;
+		}
+		await delay(minDelayMs);
+	}
+	return collected;
+}
+
+/**
  * Bangumi 提供方数据抓取入口
  */
 export async function fetchBangumiData(bangumiConfig) {
@@ -155,6 +277,27 @@ export async function fetchBangumiData(bangumiConfig) {
 		console.log(
 			`[Bangumi] Fetched ${entries.length} items for status "${status}".`,
 		);
+	}
+
+	// API 全灭（如 /v0/users/* 整体 502）时回退主站 HTML 列表页，避免同步长期静默空转
+	let usedHtmlFallback = false;
+	if (allEntries.length === 0) {
+		usedHtmlFallback = true;
+		console.warn(
+			"[Bangumi] API returned 0 items across all statuses; falling back to bgm.tv HTML list pages...",
+		);
+		for (const { type, status } of STATUS_COLLECTIONS) {
+			const entries = await fetchCollectionTypeFromHtml(
+				userId,
+				type,
+				status,
+				requestOptions,
+			);
+			allEntries.push(...entries);
+			console.log(
+				`[Bangumi] HTML fallback fetched ${entries.length} items for status "${status}".`,
+			);
+		}
 	}
 
 	console.log(
@@ -281,5 +424,7 @@ export async function fetchBangumiData(bangumiConfig) {
 		provider: "bangumi",
 		accountRef: userId,
 		rawItems: rawAnimeItems,
+		// HTML 回退抓不到观看进度（ep_status 不公开）；调用方应据此从旧快照保留 progress
+		degraded: usedHtmlFallback,
 	};
 }
