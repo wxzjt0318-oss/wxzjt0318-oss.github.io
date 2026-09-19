@@ -17,7 +17,7 @@ import type { AstroUserConfig } from "astro";
  * `astro:config:setup` 阶段的 `updateConfig()`。源码模式（本仓 checkout）与
  * 包模式（npm 安装）都通过 `integrations: [shirones()]` 跑它——本仓的
  * `astro.config.mjs` 只剩这一行接线。源码模式由 in-repo 检测
- * （`paths.isInRepo`）把 config/data/content 指回 `src/` 自身，`src/` 下
+ * （`paths.isThemeRepo`）把 config/data/content 指回 `src/` 自身，`src/` 下
  * 原生的 pages/组件照常被 Astro 拾取。
  *
  * **只放「选项值」和纯函数，不放接线（wiring）。** 接线集中在

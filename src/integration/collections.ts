@@ -3,41 +3,8 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 /**
- * Content collection definitions for Shirone, packaged so a user's
- * `src/content.config.ts` stays three lines long:
- *
- * ```ts
- * import { defineCollections } from "shirones/collections";
- * export const collections = defineCollections();
- * ```
- */
-
-export interface DefineCollectionsOptions {
-	/**
-	 * Directory holding `posts/`, `moments/` and `spec/`, relative to the
-	 * project root.
-	 * @default "shirones/content"
-	 */
-	contentDir?: string;
-	/** Override individual sub-directories. */
-	paths?: {
-		posts?: string;
-		moments?: string;
-		spec?: string;
-		series?: string;
-	};
-}
-
-const DEFAULT_CONTENT_DIR = "shirones/content";
-
-function normaliseBase(value: string): string {
-	const trimmed = value.replace(/^\.\//, "").replace(/\/+$/, "");
-	return `./${trimmed}`;
-}
-
-/**
- * The post schema. Kept identical to the source template so content authored
- * against the git-clone workflow works unchanged in package mode.
+ * Post schema — used by both source repo (inline) and package mode users
+ * (inline in their `src/content.config.ts`).
  */
 export const postSchema = z.object({
 	title: z.string(),
@@ -118,42 +85,27 @@ export const seriesSchema = z.object({
 });
 
 /**
- * Build the `collections` export for `src/content.config.ts`.
+ * Helper to create a collection definition with the standard glob loader.
+ * Package mode users can import this if they need custom paths.
  */
-export function defineCollections(options: DefineCollectionsOptions = {}) {
-	const root = normaliseBase(options.contentDir ?? DEFAULT_CONTENT_DIR);
-
-	const postsBase = options.paths?.posts
-		? normaliseBase(options.paths.posts)
-		: `${root}/posts`;
-	const momentsBase = options.paths?.moments
-		? normaliseBase(options.paths.moments)
-		: `${root}/moments`;
-	const specBase = options.paths?.spec
-		? normaliseBase(options.paths.spec)
-		: `${root}/spec`;
-	const seriesBase = options.paths?.series
-		? normaliseBase(options.paths.series)
-		: `${root}/series`;
-
-	return {
-		posts: defineCollection({
-			loader: glob({ base: postsBase, pattern: "**/*.{md,mdx}" }),
-			schema: postSchema,
-		}),
-		spec: defineCollection({
-			loader: glob({ base: specBase, pattern: "**/*.{md,mdx}" }),
-			schema: specSchema,
-		}),
-		series: defineCollection({
-			loader: glob({ base: seriesBase, pattern: "**/*.md" }),
-			schema: seriesSchema,
-		}),
-		moments: defineCollection({
-			loader: glob({ base: momentsBase, pattern: "**/*.md" }),
-			schema: momentSchema,
-		}),
-	} as const;
+export function createCollection(
+	key: "posts" | "moments" | "spec" | "series",
+	base: string,
+) {
+	const loaders = {
+		posts: glob({ base: `${base}/posts`, pattern: "**/*.{md,mdx}" }),
+		moments: glob({ base: `${base}/moments`, pattern: "**/*.md" }),
+		spec: glob({ base: `${base}/spec`, pattern: "**/*.{md,mdx}" }),
+		series: glob({ base: `${base}/series`, pattern: "**/*.md" }),
+	};
+	const schemas = {
+		posts: postSchema,
+		moments: momentSchema,
+		spec: specSchema,
+		series: seriesSchema,
+	};
+	return defineCollection({
+		loader: loaders[key],
+		schema: schemas[key],
+	});
 }
-
-export default defineCollections;

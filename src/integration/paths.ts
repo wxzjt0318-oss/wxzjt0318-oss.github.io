@@ -30,28 +30,33 @@ export function findPackageRoot(fromUrl: string): string {
 }
 
 /**
- * `true` when the theme is executing from an installed npm package rather than
- * from a checkout of the Shirone repository. Mirrors Starlight/Stalux detection.
- */
-export function detectPluginMode(fromUrl: string): boolean {
-	return fromUrl.includes("/node_modules/") || fromUrl.includes("\\node_modules\\");
-}
-
-/**
- * `true` when the theme executes from its own repository checkout (the
- * git-clone/source workflow) rather than from an installed copy. In that case
- * the "user" directories default to the repository's own `src/config`,
+ * `true` when the integration runs from the theme's *own repository checkout*
+ * (the `git clone` workflow) rather than being consumed as a dependency. When
+ * it is, the "user" directories default to the repository's own `src/config`,
  * `src/config/data` and `src/content` — the layout `astro.config.mjs` and the
  * repo scripts have always assumed.
+ *
+ * This replaces a pair of independent flags — `isPluginMode` (does
+ * `import.meta.url` contain `node_modules`?) and `isInRepo` (this comparison).
+ * The pair had a hole: a *linked* install (`pnpm link`, a pnpm workspace,
+ * `npm link`) reaches the theme through a symlink, and Node and Vite both
+ * report the realpath, so the URL carries no `node_modules` segment and
+ * neither flag came out true. That third state mixed package-mode directory
+ * defaults with source-mode behaviour — no route injection, so a silently
+ * empty site; no "run `npx shirones init`" hint to explain it; and a full
+ * `optimizeDeps.include` list that Vite cannot resolve from the project root.
+ *
+ * Every branch in the integration only ever needs one question: is the theme
+ * building itself? If not, it is a dependency — however it reached the disk.
  */
-export function detectInRepoMode(
+export function detectThemeRepo(
 	projectRoot: string,
 	packageRoot: string,
 ): boolean {
 	// `config.root` arrives as a `file:` URL *with* a trailing slash, so
 	// `fileURLToPath` yields `/path/to/repo/` while `findPackageRoot()` returns
 	// `/path/to/repo`. Strip the trailing separator before comparing, or every
-	// repository checkout is misdetected as package mode.
+	// repository checkout is misdetected as a dependency.
 	return (
 		normalisePath(projectRoot).toLowerCase() ===
 		normalisePath(packageRoot).toLowerCase()
@@ -72,8 +77,7 @@ export function resolvePaths(
 ): ResolvedShironesPaths {
 	const projectRoot = fileURLToPath(projectRootUrl);
 	const packageRoot = findPackageRoot(moduleUrl);
-	const isPluginMode = detectPluginMode(moduleUrl);
-	const isInRepo = detectInRepoMode(projectRoot, packageRoot);
+	const isThemeRepo = detectThemeRepo(projectRoot, packageRoot);
 
 	// In plugin mode the published tarball keeps sources under `src/`.
 	const packageSrc = existsSync(join(packageRoot, "src"))
@@ -88,19 +92,25 @@ export function resolvePaths(
 	// keeps the `shirones/` content root.
 	const configDir = options.paths?.config
 		? toAbsolute(projectRoot, options.paths.config)
-		: isInRepo
+		: isThemeRepo
 			? join(packageSrc, "config")
 			: join(contentRoot, "config");
 
+	// The two layouts are deliberately asymmetric: a scaffolded project nests
+	// its data modules under `shirones/config/data/`, while the repository keeps
+	// them as a sibling of `src/config/`, in `src/data/`. Reading the
+	// package-mode shape here (`src/config/data`, which does not exist) made the
+	// font pipeline silently skip every `src/data/*.ts` module when subsetting,
+	// dropping glyphs that appear only in friends/projects/anime entries.
 	const dataDir = options.paths?.data
 		? toAbsolute(projectRoot, options.paths.data)
-		: isInRepo
-			? join(packageSrc, "config", "data")
+		: isThemeRepo
+			? join(packageSrc, "data")
 			: join(configDir, "data");
 
 	const contentDir = options.paths?.content
 		? toAbsolute(projectRoot, options.paths.content)
-		: isInRepo
+		: isThemeRepo
 			? join(packageSrc, "content")
 			: join(contentRoot, "content");
 
@@ -112,8 +122,7 @@ export function resolvePaths(
 		dataDir,
 		contentDir,
 		cacheDir: join(projectRoot, CACHE_DIR_NAME),
-		isPluginMode,
-		isInRepo,
+		isThemeRepo,
 	};
 }
 

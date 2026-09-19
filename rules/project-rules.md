@@ -153,7 +153,7 @@ Shirone 以两种形态运行：**源码模式**（本仓库 checkout，`astro.c
 1. **新增接线一律进 `src/integration/index.ts`，新增选项值进 `src/config/integrationsConfig.ts`**（`astro.config.mjs` 不再承载任何配置）：
    - 新增 `vite.resolve.alias` → 同步进 `createAliases()`；
    - 新增 integrations → 同步进 `createBundledIntegrations()`；
-   - 新增 vite 插件 → 同步进 `updateConfig` 的 `vite.plugins` 数组（按 `paths.isInRepo` 判断是否两种模式都需要）；
+   - 新增 vite 插件 → 同步进 `updateConfig` 的 `vite.plugins` 数组（按 `paths.isThemeRepo` 判断是否两种模式都需要）；
    - svelte `compilerOptions`（cssHash / warningFilter 等）→ 同步；
    - `markdown.processor` 来自 `src/utils/markdown-processor.mjs`，两种模式共用，改插件顺序/集合会自动生效。
 2. **路径别名三处一致**：`@/`、`@components/` 等别名出现在 `index.ts#createAliases`、`overlay.ts#ALIAS_MAP`、`load-config.ts#ALIAS_MAP` 三处，新增/改名要三处同步。

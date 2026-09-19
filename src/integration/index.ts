@@ -4,17 +4,17 @@ import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { AstroIntegration } from "astro";
 import {
-	IMAGE_ENDPOINT_ROUTE,
-	MUSIC_SIDEBAR_VIRTUAL_ID,
-	TRAILING_SLASH,
 	expressiveCodeShared,
+	IMAGE_ENDPOINT_ROUTE,
 	iconInclude,
 	isMusicBundleFile,
+	MUSIC_SIDEBAR_VIRTUAL_ID,
 	mdxOptions,
 	prebundleSpecifiers,
 	svelteCompilerOptions,
 	swupForwardOptions,
 	swupOptions,
+	TRAILING_SLASH,
 	viteBuildShared,
 } from "../config/integrationsConfig.ts";
 import { shironesFallbackResolver } from "./fallback-resolver.ts";
@@ -26,7 +26,12 @@ import {
 } from "./load-config.ts";
 import { shironesOverlay } from "./overlay.ts";
 import { normalisePath, resolvePaths } from "./paths.ts";
-import { buildOverrideRegistry, createOverlayTargets, type OverrideRegistryRef } from "./registry.ts";
+import {
+	buildOverrideRegistry,
+	createOverlayTargets,
+	findOrphanUserFiles,
+	type OverrideRegistryRef,
+} from "./registry.ts";
 import { collectRoutes, filterRoutes } from "./routes.ts";
 import { shironesSsrNodeShims } from "./ssr-node-shims.ts";
 import type { ResolvedShironesPaths, ShironesOptions } from "./types.ts";
@@ -37,10 +42,11 @@ export type {
 	ShironesPaths,
 } from "./types.ts";
 
-// NOTE: `defineCollections` is deliberately *not* re-exported here. It imports
-// `astro:content`, a virtual module that only exists inside Vite, so pulling it
-// into this Node-side entry would break `astro.config.mjs` loading. Users import
-// it from the dedicated `shirones/collections` entry point instead.
+// NOTE: `defineCollections` function is no longer exported. The schemas
+// (`postSchema`, `momentSchema`, `specSchema`) are exported from
+// `shirones/collections` for users to use inline in their
+// `src/content.config.ts` with \`defineCollection\` from "astro:content".
+// This ensures Astro's typegen works correctly in both source and package modes.
 
 const RESOLVED_MUSIC_VIRTUAL_ID = `\0${MUSIC_SIDEBAR_VIRTUAL_ID}`;
 
@@ -165,16 +171,16 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 				paths = resolvePaths(options, config.root, import.meta.url);
 
 				logger.info(
-					`${paths.isInRepo ? "in-repo (source)" : paths.isPluginMode ? "plugin" : "source"} mode | content: ${paths.contentDir}`,
+					`${paths.isThemeRepo ? "theme repository" : "installed package"} mode | content: ${paths.contentDir}`,
 				);
 
 				// Scan the package + user project once and register every
 				// override. Resolution becomes a table lookup; in dev the table
 				// is rebuilt when an override file changes (see server:setup).
-				// In-repo (source mode) the theme's own files are the resolution
-				// targets, so the registry stays empty and every lookup falls
-				// through to packageSrc.
-				if (!paths.isInRepo) {
+				// Inside the theme's own repository the theme's files *are* the
+				// resolution targets, so the registry stays empty and every lookup
+				// falls through to packageSrc.
+				if (!paths.isThemeRepo) {
 					const registry = buildOverrideRegistry(paths);
 					registryRef.overrides = registry.overrides;
 					{
@@ -184,15 +190,33 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 						);
 						if (total > 0) {
 							logger.info(
-								`[overrides] ${total} registered (${Object.entries(registry.counts)
+								`[overrides] ${total} registered (${Object.entries(
+									registry.counts,
+								)
 									.map(([label, n]) => `${label}:${n}`)
 									.join(", ")})`,
 							);
 						}
 					}
+
+					// Report config files the theme no longer knows about. An
+					// upgrade that renames a config module leaves exactly this
+					// behind: the integration asks for the new name, finds
+					// neither copy, and silently uses the packaged default while
+					// the user's edits sit unread in their project.
+					const orphans = findOrphanUserFiles(paths);
+					if (orphans.length > 0) {
+						logger.warn(
+							`[overrides] ${orphans.length} config file(s) match no module ` +
+								"the theme loads, so they are never read:\n" +
+								`${orphans.map((file) => `  - ${file}`).join("\n")}\n` +
+								"  This usually means the theme renamed a config module — " +
+								"check the release notes and move your edits across.",
+						);
+					}
 				}
 
-				if (paths.isPluginMode && !existsSync(paths.configDir)) {
+				if (!paths.isThemeRepo && !existsSync(paths.configDir)) {
 					logger.warn(
 						`No configuration found at ${paths.configDir}. ` +
 							"Run `npx shirones init` to scaffold it.",
@@ -200,25 +224,41 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 				}
 
 				// ── 1. Load user configuration (Node side) ──────────────────────
-				const siteModule = await loadConfigModule(paths, "siteConfig", registryRef);
+				const siteModule = await loadConfigModule(
+					paths,
+					"siteConfig",
+					registryRef,
+				);
 				const siteConfig = siteModule.siteConfig as {
 					site?: string;
 					base?: string;
 				};
 
-				const sidebarModule = await loadConfigModule(paths, "sidebarConfig", registryRef);
+				const sidebarModule = await loadConfigModule(
+					paths,
+					"sidebarConfig",
+					registryRef,
+				);
 				const sidebarConfig = sidebarModule.sidebarConfig as {
 					enable?: boolean;
 					components?: { type: string; enable: boolean }[];
 				};
 
-				const musicModule = await loadConfigModule(paths, "musicConfig", registryRef);
+				const musicModule = await loadConfigModule(
+					paths,
+					"musicConfig",
+					registryRef,
+				);
 				const musicConfig = musicModule.musicConfig;
 				const resolveMusicOptions = musicModule.resolveMusicOptions as (
 					c: unknown,
 				) => unknown;
 
-				const umamiModule = await loadConfigModule(paths, "umamiConfig", registryRef);
+				const umamiModule = await loadConfigModule(
+					paths,
+					"umamiConfig",
+					registryRef,
+				);
 				const umamiConfig = umamiModule.umamiConfig as { shareUrl: string };
 				const resolveUmamiOptions = umamiModule.resolveUmamiOptions as (
 					c: unknown,
@@ -243,6 +283,9 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 				const fonts = await buildFontDeclarations(
 					paths,
 					{
+						// Subsetting only on `build` keeps `astro dev` free of the
+						// charset scan; `fonts.ts` additionally requires
+						// `fontConfig.subsetting.enable`, so both must hold.
 						subset: options.fonts?.subset ?? command === "build",
 						extraCharacters: options.fonts?.extraCharacters ?? "",
 					},
@@ -292,9 +335,9 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 						resolve: { alias: createAliases(paths) },
 						plugins: [
 							// The overlay rewriter redirects user files onto package
-							// files; in-repo every import already resolves to the
-							// real source, so there is nothing to overlay.
-							...(paths.isInRepo
+							// files; inside the theme's own repository every import already
+							// resolves to the real source, so there is nothing to overlay.
+							...(paths.isThemeRepo
 								? []
 								: [
 										shironesOverlay({
@@ -322,15 +365,15 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 						// docs/plans/single-source-config.md (Q3, in the shirones
 						// pipeline repository).
 						build: viteBuildShared,
-						// Source mode re-enables console-stripping for production
-						// builds. Since Astro 7 ships Vite 8 there is no
+						// The theme's own repository build re-enables console-stripping
+						// for production builds. Since Astro 7 ships Vite 8 there is no
 						// `build.esbuild` key any more — the old astro.config.mjs
 						// carried one and it was silently ignored — so the
 						// transform options go to Vite's *top-level* `esbuild`,
 						// which the vite:esbuild plugin applies during builds.
 						// Gated to `command === "build"` so the dev server keeps
 						// its console output.
-						...(paths.isInRepo && command === "build"
+						...(paths.isThemeRepo && command === "build"
 							? {
 									esbuild: {
 										drop: ["debugger"],
@@ -342,7 +385,7 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 				});
 
 				// ── 7. Inject the theme's routes ────────────────────────────────
-				if (paths.isPluginMode && options.injectRoutes !== false) {
+				if (!paths.isThemeRepo && options.injectRoutes !== false) {
 					const routes = filterRoutes(
 						collectRoutes(join(paths.packageSrc, "pages")),
 						options.excludeRoutes,
@@ -362,13 +405,15 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 				// cache in every mode.
 				server.watcher.on("all", (_event, file) => {
 					if (typeof file !== "string") return;
-					if (file.startsWith(paths.configDir)) {
+					// Trailing separator so a sibling such as `src/configFoo`
+					// does not also match.
+					if (file.startsWith(`${paths.configDir}/`)) {
 						invalidateConfigCache();
 					}
 				});
 
-				// In-repo (source mode) there is no override registry to rebuild.
-				if (paths.isInRepo) return;
+				// The theme's own repository has no override registry to rebuild.
+				if (paths.isThemeRepo) return;
 
 				// Rebuild the override registry when an override file changes so
 				// dev picks new/moved/removed overrides up immediately.
@@ -384,11 +429,11 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 			},
 
 			"astro:build:done": async ({ dir, logger }) => {
-				// Source mode keeps the repo's `pagefind --site dist` CLI build
-				// step, which honours the repository's `pagefind.yml` (workers,
-				// exclusions, ...). Indexing here as well would build the index
-				// twice.
-				if (options.pagefind === false || paths.isInRepo) return;
+				// The theme's own repository keeps its `pagefind --site dist` CLI
+				// build step, which honours the repository's `pagefind.yml`
+				// (workers, exclusions, ...). Indexing here as well would build
+				// the index twice.
+				if (options.pagefind === false || paths.isThemeRepo) return;
 				const outDir = dir.pathname;
 				try {
 					const pagefind = await import("pagefind");
@@ -409,24 +454,29 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 }
 
 /**
- * Filter a list of bare specifiers down to those Node can resolve from the
- * user's project root.
+ * Decide which bare specifiers to list in `vite.optimizeDeps.include`.
+ * Exported for tests: this is one of the three gates that used to key off
+ * `isPluginMode` and silently misbehaved for a linked install.
  *
  * Vite resolves `optimizeDeps.include` relative to the project root. When the
- * theme is installed with pnpm, its own dependencies live under
- * `node_modules/.pnpm/...` and are invisible from there, so every unresolvable
- * entry produces a "Failed to resolve dependency" warning.
+ * theme is a dependency its own dependencies live under `node_modules/.pnpm/`
+ * (or in a linked checkout's own tree) and are invisible from there, so every
+ * unresolvable entry produces a "Failed to resolve dependency" warning.
  */
-function prebundleCandidates(
+export function prebundleCandidates(
 	paths: ResolvedShironesPaths,
 	specifiers: string[],
 ): string[] {
-	// Pre-bundling is a dev-server nicety. In package mode these libraries live
-	// inside the theme's own `node_modules`, where Vite — which resolves
-	// `optimizeDeps.include` from the *project* root — cannot see them, and it
-	// warns once per entry on every cold start. Node's `require.resolve` is not
-	// a reliable proxy for what Vite can reach, so simply skip the hint there.
-	if (paths.isPluginMode) return [];
+	// Pre-bundling is a dev-server nicety. Once the theme is a dependency its
+	// libraries live in *its* `node_modules` — under `.pnpm/` when installed, or
+	// in a linked checkout's own tree — where Vite, which resolves
+	// `optimizeDeps.include` from the *project* root, cannot see them, and it
+	// warns once per entry on every cold start. Node's `require.resolve` is not a
+	// reliable proxy for what Vite can reach, so simply skip the hint.
+	if (!paths.isThemeRepo) return [];
+	// Inside the theme's own repository the specifiers *are* the project's
+	// dependencies, installed under the root Vite resolves from, so the hint is
+	// both visible and useful.
 	return specifiers;
 }
 
@@ -434,9 +484,18 @@ function prebundleCandidates(
  * Instantiate the integrations the theme depends on. Users get them for free so
  * a fresh project only needs `integrations: [shirones()]`.
  */
+/**
+ * The `command` value `astro:config:setup` hands us, derived from the hook
+ * signature rather than spelled out: Astro has grown values here before
+ * (`sync`, `preview`), and a hand-written union silently goes stale.
+ */
+type ConfigCommand = Parameters<
+	NonNullable<AstroIntegration["hooks"]["astro:config:setup"]>
+>[0]["command"];
+
 async function createBundledIntegrations(
 	paths: ResolvedShironesPaths,
-	command: string,
+	command: ConfigCommand,
 	options: { umamiConfig: { shareUrl: string }; umamiEnabled: boolean },
 	registryRef?: { overrides: Map<string, string> },
 ) {
@@ -467,7 +526,11 @@ async function createBundledIntegrations(
 			})
 		: null;
 
-	const ecModule = await loadConfigModule(paths, "expressiveCodeConfig", registryRef);
+	const ecModule = await loadConfigModule(
+		paths,
+		"expressiveCodeConfig",
+		registryRef,
+	);
 	const expressiveCodeConfig = ecModule.expressiveCodeConfig as {
 		theme: string;
 		lightTheme?: string;
@@ -490,7 +553,8 @@ async function createBundledIntegrations(
 	const badge = await loadPackageModule(
 		paths,
 		"plugins/expressive-code/language-badge.ts",
-	);	const copyButton = await loadPackageModule(
+	);
+	const copyButton = await loadPackageModule(
 		paths,
 		"plugins/expressive-code/custom-copy-button.js",
 	);
@@ -525,9 +589,9 @@ async function createBundledIntegrations(
 		}),
 		svelte({
 			// The theme's Svelte components use `<style lang="stylus">`, which
-			// needs `vitePreprocess`. In source mode that comes from the repo's
-			// `svelte.config.js`; a user's project has no such file, so the
-			// integration supplies it.
+			// needs `vitePreprocess`. Supplied here for *every* mode: the repo's
+			// own `svelte.config.js` is only read by editor tooling now, and a
+			// user's project has no such file at all.
 			preprocess: [vitePreprocess({ script: true })],
 			compilerOptions: svelteCompilerOptions(command === "dev"),
 		}),
