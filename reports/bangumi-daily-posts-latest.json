@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-19T12:13:36.760Z",
+  "generatedAt": "2026-09-20T12:49:46.969Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 378862,
+    "subject_id": 335390,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2023-01-05",
+    "updated_at": "2024-09-20",
     "subject": {
-      "id": 378862,
-      "name": "别当欧尼酱了！",
-      "name_cn": "别当欧尼酱了！",
-      "date": "2023-01-05",
-      "eps": 12,
-      "short_summary": "某天，家里蹲的啃老族绪山真寻一觉醒来发现自己变成了“女孩子”！？正当真寻不知道镜子里的美少女是自己而陷入混乱的时候，跳级进入大学的科学家妹妹绪山美波里出现了。她透露在饮料里加了一种奇怪的药物！ 真寻最近2年一直疯狂宅家玩小黄游，偶尔不得已才会工作！突然成为女孩子开始生活的真寻，对于厕所、浴室、裙子、胸罩等女人的生活完全不懂…并且他和美波里中学时期的同学穗月枫和其妹妹穗月椛认识。 真寻的日常生活逐渐热闹起来。在持续的苦难中，到底“前”哥哥的命运会如何...！",
+      "id": 335390,
+      "name": "剧场版 OVERLORD 圣王国篇",
+      "name_cn": "剧场版 OVERLORD 圣王国篇",
+      "date": "2024-09-20",
+      "eps": 1,
+      "short_summary": "丸山くがねの人気ライトノベルを原作とするテレビアニメ「オーバーロード」シリーズの劇場版で、原作でも人気の高い「聖王国編」のエピソードをアニメ化。 聖王女カルカを元首とするローブル聖王国は長大な城壁にその国土を守られてきたが、魔皇ヤルダバオトと亜人連合軍の突然の侵攻により、平和な時代は終わりを迎えた。聖騎士団長レメディオスと神官団長ケラルトの姉妹を中心に戦力を結集して迎え撃つ聖王国だったが、ヤルダバオトとの圧倒的な戦力差になすすべもなく、国家は崩壊の危機に瀕してしまう。レメディオスはヤルダバオトに対抗しうる力を求め、聖騎士団と従者ネイアを伴ってアインズ・ウール・ゴウン魔導国へ向かう。そこは聖王国の人々が忌み嫌う、アンデッドが統べる異形の国家だった。 テレビアニメに続いて伊藤尚往が監督を務め、マッドハウスがアニメーション制作を担当。",
       "tags": [
         {
-          "name": "性转"
+          "name": "剧场版"
         },
         {
-          "name": "日常"
+          "name": "轻小说改"
         },
         {
-          "name": "搞笑"
+          "name": "异世界"
         },
         {
-          "name": "百合"
+          "name": "MADHouse"
         },
         {
-          "name": "StudioBind"
+          "name": "奇幻"
         },
         {
-          "name": "2023年1月"
+          "name": "2024"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/7e/ca/378862_24TnR.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/e7/f2/335390_p0ptv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "别当欧尼酱了！",
+      "title": "剧场版 OVERLORD 圣王国篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "别当欧尼酱了！",
+      "title": "剧场版 OVERLORD 圣王国篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7e/ca/378862_24TnR.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e7/f2/335390_p0ptv.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "别当欧尼酱了！",
+      "title": "剧场版 OVERLORD 圣王国篇",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-378862.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/overlord.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
