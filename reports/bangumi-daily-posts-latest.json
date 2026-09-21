@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-20T12:49:46.969Z",
+  "generatedAt": "2026-09-21T14:47:18.613Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 335390,
+    "subject_id": 172498,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2024-09-20",
+    "updated_at": "2017-04-08",
     "subject": {
-      "id": 335390,
-      "name": "剧场版 OVERLORD 圣王国篇",
-      "name_cn": "剧场版 OVERLORD 圣王国篇",
-      "date": "2024-09-20",
-      "eps": 1,
-      "short_summary": "丸山くがねの人気ライトノベルを原作とするテレビアニメ「オーバーロード」シリーズの劇場版で、原作でも人気の高い「聖王国編」のエピソードをアニメ化。 聖王女カルカを元首とするローブル聖王国は長大な城壁にその国土を守られてきたが、魔皇ヤルダバオトと亜人連合軍の突然の侵攻により、平和な時代は終わりを迎えた。聖騎士団長レメディオスと神官団長ケラルトの姉妹を中心に戦力を結集して迎え撃つ聖王国だったが、ヤルダバオトとの圧倒的な戦力差になすすべもなく、国家は崩壊の危機に瀕してしまう。レメディオスはヤルダバオトに対抗しうる力を求め、聖騎士団と従者ネイアを伴ってアインズ・ウール・ゴウン魔導国へ向かう。そこは聖王国の人々が忌み嫌う、アンデッドが統べる異形の国家だった。 テレビアニメに続いて伊藤尚往が監督を務め、マッドハウスがアニメーション制作を担当。",
+      "id": 172498,
+      "name": "埃罗芒阿老师",
+      "name_cn": "埃罗芒阿老师",
+      "date": "2017-04-08",
+      "eps": 12,
+      "short_summary": "高中生兼小说作家的“和泉正宗”（笔名：和泉征宗）有个家里蹲的妹妹“和泉纱雾”。一年前才成为家人的她，却完全不走出居室，并也用力踩踏地板，要我帮她准备食物。为了这段称不上“兄妹”的关系，正宗得想个办法让她自己走出居室才行，因为两人已是目前仅存能相依为命的“家人”……至于正宗的搭挡插画家“情色漫画老师”，是个能够画出非常棒煽情图的可靠伙伴。虽然双方并没见过面，但我一直很感谢他！只是在某一天，正宗突然发现到一个冲击事实，那就是“情色漫画老师”其实就是纱雾！？",
       "tags": [
         {
-          "name": "剧场版"
+          "name": "妹控"
+        },
+        {
+          "name": "A-1Pictures"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "异世界"
+          "name": "后宫"
         },
         {
-          "name": "MADHouse"
+          "name": "2017年4月"
         },
         {
-          "name": "奇幻"
-        },
-        {
-          "name": "2024"
+          "name": "恋爱"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/e7/f2/335390_p0ptv.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/87/bf/172498_wfm40.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 OVERLORD 圣王国篇",
+      "title": "埃罗芒阿老师",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e7/f2/335390_p0ptv.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 OVERLORD 圣王国篇",
+      "title": "埃罗芒阿老师",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e7/f2/335390_p0ptv.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/87/bf/172498_wfm40.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "剧场版 OVERLORD 圣王国篇",
+      "title": "埃罗芒阿老师",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/overlord.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-172498.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
