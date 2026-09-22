@@ -218,6 +218,14 @@ export function normalizeManagedText(text) {
 		.trim();
 }
 
+/**
+ * 仅把 CRLF/CR 统一为 LF，不裁剪内容。
+ * 用于写盘前归一化，保证仓库内文件换行符一致（见 .gitattributes）。
+ */
+export function toLfText(text) {
+	return String(text ?? "").replace(/\r\n?/g, "\n");
+}
+
 /** 对受管内容取稳定摘要（sha256 前 16 位十六进制） */
 export function digestOf(text) {
 	return createHash("sha256")
@@ -654,9 +662,12 @@ async function processPost(file, ledger) {
 	}
 
 	if (!overviewReplaced && !META_ONLY && !article) changes.push("moegirl-miss");
-	const newRaw = `---\n${newFm}\n---\n\n${newBody.replace(/^\n+/, "")}`;
+	// 统一为 LF：正文来自磁盘（可能是 CRLF），而模板里的分隔符是 \n，
+	// 若直接拼接会产出「frontmatter=LF、正文=CRLF」的混合换行文件，
+	// 既污染 diff 又制造跨平台合并冲突。见仓库根 .gitattributes。
+	const newRaw = toLfText(`---\n${newFm}\n---\n\n${newBody.replace(/^\n+/, "")}`);
 
-	const changed = newRaw !== raw;
+	const changed = newRaw !== toLfText(raw);
 	if (changed && !DRY_RUN) {
 		await fs.writeFile(fullPath, newRaw, "utf8");
 	}

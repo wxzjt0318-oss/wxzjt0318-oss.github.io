@@ -19,6 +19,7 @@ import {
 	rebuildCategory,
 	rebuildTags,
 	STATE,
+	toLfText,
 } from "../scripts/moegirl/rewrite-bangumi-posts.mjs";
 
 const SAMPLE_BODY = [
@@ -60,6 +61,37 @@ describe("normalizeManagedText / digestOf", () => {
 
 	it("归一化保留段落结构与正文空格", () => {
 		assert.equal(normalizeManagedText("a b\n\nc"), "a b\n\nc");
+	});
+});
+
+describe("toLfText（写盘前统一换行符）", () => {
+	it("CRLF 与孤立 CR 一律转为 LF", () => {
+		assert.equal(toLfText("a\r\nb\r\n"), "a\nb\n");
+		assert.equal(toLfText("a\rb\r"), "a\nb\n");
+	});
+
+	it("已是 LF 的内容原样返回", () => {
+		assert.equal(toLfText("a\nb\n"), "a\nb\n");
+	});
+
+	it("不裁剪内容，仅动换行符（与 normalizeManagedText 语义不同）", () => {
+		const src = "\n  保留首尾空白与缩进  \n";
+		assert.equal(toLfText(src), src);
+		assert.notEqual(normalizeManagedText(src), src);
+	});
+
+	it("空值安全", () => {
+		assert.equal(toLfText(null), "");
+		assert.equal(toLfText(undefined), "");
+		assert.equal(toLfText(""), "");
+	});
+
+	it("对混合换行符正文做归一化后不含任何 CR", () => {
+		// 复现真实缺陷：frontmatter 用 \n 拼接、正文来自磁盘带 CRLF
+		const mixed = `---\ntitle: "x"\n---\n\n第一段\r\n\r\n第二段\r\n`;
+		const fixed = toLfText(mixed);
+		assert.ok(!fixed.includes("\r"));
+		assert.equal(fixed, `---\ntitle: "x"\n---\n\n第一段\n\n第二段\n`);
 	});
 });
 

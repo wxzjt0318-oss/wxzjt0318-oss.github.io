@@ -1,0 +1,38 @@
+# 换行符契约（必须保留）
+#
+# 背景：本仓库开发在 Windows、构建/CI 在 Linux。此前没有 .gitattributes，
+# 仅依赖本机 core.autocrlf=true，导致三个连锁问题：
+#   1. checkout 后工作区被转成 CRLF，而 biome 要求 LF → 本地 biome 报 111 个
+#      纯换行符造成的假错误，CI 却是干净的，本地校验失去意义；
+#   2. 脚本混用 "\n" 与从磁盘读入的 CRLF 正文，写出「frontmatter=LF、
+#      正文=CRLF」的混合换行文件（src/content/posts 下 104 个），
+#      每次跨平台改动都产生整文件级 diff，是合并冲突的主要来源；
+#   3. 快照 JSON（bangumi.json）在两端换行符不同，双方各自重生成即冲突。
+#
+# 因此统一声明：文本文件一律以 LF 入库、以 LF 检出，与平台和 core.autocrlf 无关。
+# 这样 git 不再做任何隐式转换，diff/合并/校验在 Windows 与 Linux 上完全一致。
+
+* text=auto eol=lf
+
+# Windows 专用脚本必须保留 CRLF，否则 cmd/PowerShell 可能解析异常
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# 明确标记二进制资源，禁止任何换行符转换与 diff 文本化
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.wav binary
+*.mp3 binary
+*.moc binary
+
+# 第三方 Live2D 模型数据，非本仓库维护，避免无谓的 diff 噪声
+public/pio/models/** -diff
