@@ -126,7 +126,8 @@ export async function getAnimeList(
 	}
 
 	if (options.source.kind === "local") {
-		return animeData;
+		// 本地手写数据同样走统一排序：无 updatedAt 时等价于旧的「状态 → 年份 → 标题」稳定序
+		return sortAnimeList(animeData);
 	}
 
 	if (options.source.kind === "snapshot") {
@@ -211,7 +212,8 @@ export async function getAnimeList(
 		}
 	}
 
-	return animeData;
+	// 兜底：未命中任何数据源分支时同样走统一排序，保证排序语义在页面层恒成立
+	return sortAnimeList(animeData);
 }
 
 /**
@@ -259,7 +261,7 @@ function handleFallback(
 ): AnimeItem[] {
 	console.warn(`[anime] ⚠ ${reason}. Falling back to "${options.fallback}".`);
 	if (options.fallback === "local") {
-		return animeData;
+		return sortAnimeList(animeData);
 	}
 	return [];
 }

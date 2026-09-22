@@ -1,5 +1,6 @@
 import type { AnimeItem, AnimeStatus } from "../../data/anime.ts";
 import type { AnimeIdentity, AnimeSnapshot } from "../../types/animeConfig.ts";
+import { sortByUpdatedAtDesc } from "../updated-sort.ts";
 
 const VALID_STATUSES = new Set<AnimeStatus>([
 	"watching",
@@ -210,6 +211,15 @@ export function normalizeAnimeItem(raw: unknown): AnimeItem | null {
 		}
 	}
 
+	// 7b. 数据源侧最近修改时间（Bangumi updated_at）：主排序键，仅接受可解析的 ISO 字符串
+	let updatedAt: string | undefined;
+	if (typeof record.updatedAt === "string" && record.updatedAt.trim()) {
+		const parsed = Date.parse(record.updatedAt.trim());
+		if (!Number.isNaN(parsed)) {
+			updatedAt = new Date(parsed).toISOString();
+		}
+	}
+
 	// 8. 标识符
 	let identity: AnimeIdentity | undefined;
 	if (record.identity && typeof record.identity === "object") {
@@ -243,6 +253,7 @@ export function normalizeAnimeItem(raw: unknown): AnimeItem | null {
 		...(description ? { description } : {}),
 		...(studio ? { studio } : {}),
 		...(period ? { period } : {}),
+		...(updatedAt ? { updatedAt } : {}),
 		...(identity ? { identity } : {}),
 	};
 
@@ -250,19 +261,31 @@ export function normalizeAnimeItem(raw: unknown): AnimeItem | null {
 }
 
 /**
- * 稳定排序番剧列表（先按状态优先级排序，再按年份倒序，最后按标题稳定排序）
+ * 番剧列表排序：主键为数据源侧「最近修改数据的时间」倒序（Bangumi `updated_at`），
+ * 最近更新过的条目排最前；更新时间相同或缺失时，回退到稳定的
+ * 「状态优先级 → 年份倒序 → 标题字典序」次级排序。
+ *
+ * 由于次级排序只在时间相同/缺失时生效，本地手写数据（无 updatedAt）与
+ * 既有快照的行为与旧版完全一致。
  */
 export function sortAnimeList(items: AnimeItem[]): AnimeItem[] {
-	return [...items].sort((a, b) => {
-		const statusDiff = STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
-		if (statusDiff !== 0) return statusDiff;
+	return sortByUpdatedAtDesc(
+		items,
+		(item) => item.updatedAt,
+		compareAnimeTieBreak,
+	);
+}
 
-		const yearA = Number.parseInt(a.year, 10) || 0;
-		const yearB = Number.parseInt(b.year, 10) || 0;
-		if (yearB !== yearA) return yearB - yearA;
+/** 次级排序：状态优先级 → 年份倒序 → 标题字典序（时间相同/缺失时生效） */
+function compareAnimeTieBreak(a: AnimeItem, b: AnimeItem): number {
+	const statusDiff = STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
+	if (statusDiff !== 0) return statusDiff;
 
-		return a.title.localeCompare(b.title, "en", { sensitivity: "base" });
-	});
+	const yearA = Number.parseInt(a.year, 10) || 0;
+	const yearB = Number.parseInt(b.year, 10) || 0;
+	if (yearB !== yearA) return yearB - yearA;
+
+	return a.title.localeCompare(b.title, "en", { sensitivity: "base" });
 }
 
 /**

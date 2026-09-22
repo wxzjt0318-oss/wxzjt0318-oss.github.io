@@ -79,7 +79,7 @@ test.describe("Bangumi 与 Bilibili 多场景配置契约与落地验证", () =>
 		expect(normalized.length).toBe(5);
 
 		const sorted = sortAnimeList(normalized as AnimeItem[]);
-		// 排序优先级：completed -> watching -> planned -> onHold -> dropped
+		// 无 updatedAt 时回退到状态优先级：completed -> watching -> planned -> onHold -> dropped
 		expect(sorted[0].status).toBe("completed");
 		expect(sorted[1].status).toBe("watching");
 		expect(sorted[2].status).toBe("planned");

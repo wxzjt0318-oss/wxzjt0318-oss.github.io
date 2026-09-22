@@ -121,7 +121,7 @@ test.describe("Anime 数据源与配置解析契约", () => {
 		expect(overflow?.progress).toEqual({ watched: 12, total: 12 });
 	});
 
-	test("sortAnimeList: 稳定排序（状态优先级 -> 年份倒序 -> 标题字典序）", () => {
+	test("sortAnimeList: 主键为「最近修改数据的时间」倒序（时间相同才回退状态→年份→标题）", () => {
 		const items = [
 			{
 				title: "Alpha",
@@ -157,11 +157,27 @@ test.describe("Anime 数据源与配置解析契约", () => {
 			},
 		];
 
+		// 无 updatedAt：等价于旧的稳定序（状态优先级 -> 年份倒序 -> 标题字典序）
 		const sorted = sortAnimeList(items);
 		expect(sorted[0].title).toBe("Delta");
 		expect(sorted[1].title).toBe("Gamma");
 		expect(sorted[2].title).toBe("Beta");
 		expect(sorted[3].title).toBe("Alpha");
+
+		// 有 updatedAt：最近修改的排最前，且跨越状态分组（不再被状态优先级压制）
+		const withUpdated = [
+			{ ...items[0], updatedAt: "2026-09-01T00:00:00.000Z" }, // dropped，最新
+			{ ...items[3], updatedAt: "2026-08-01T00:00:00.000Z" }, // completed，次新
+			{ ...items[1], updatedAt: "2026-07-01T00:00:00.000Z" },
+			{ ...items[2], updatedAt: "2026-06-01T00:00:00.000Z" },
+		];
+		const sortedByUpdated = sortAnimeList(withUpdated);
+		expect(sortedByUpdated.map((i) => i.title)).toEqual([
+			"Alpha",
+			"Delta",
+			"Beta",
+			"Gamma",
+		]);
 	});
 
 	test("parseAnimeSnapshot: 解析 Envelope 结构与旧数据数组", () => {

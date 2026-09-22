@@ -40,6 +40,11 @@ export interface AnimeItem {
 	genres: string[];
 	/** 观看时间段（年-月） */
 	period?: { start: string; end: string };
+	/**
+	 * 数据源侧「最近修改数据的时间」（Bangumi 收藏条目 updated_at，ISO 8601）。
+	 * 番剧页列表按此字段倒序排列（最近更新的排最前）；本地手写数据可省略。
+	 */
+	updatedAt?: string;
 	/** 条目来源身份标识（可选，用于跨源去重与归档） */
 	identity?: AnimeIdentity;
 }

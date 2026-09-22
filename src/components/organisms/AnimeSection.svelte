@@ -18,6 +18,7 @@ import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { ANIME_STATUS_META } from "@utils/anime/status";
 import { flipFromRect } from "@utils/motion";
+import { sortByUpdatedAtDesc } from "@utils/updated-sort";
 import { onMount } from "svelte";
 import type { AnimeItem } from "../../data/anime";
 
@@ -91,9 +92,14 @@ const statusFilters = $derived(
 	})),
 );
 
+/**
+ * 列表顺序：恒定按「最近修改数据的时间」倒序（Bangumi updated_at，最近更新排最前）。
+ * 所有筛选按钮（含「全部」）与搜索都只是过滤子集，不改变这条排序，因此任一按钮
+ * 触发的展示顺序都一致、无遗漏、无错序。时间相同/缺失时保持入参（页面层已排序）顺序。
+ */
 const filtered = $derived.by(() => {
 	const normalizedQuery = query.trim().toLowerCase();
-	return animes.filter((anime) => {
+	const matched = animes.filter((anime) => {
 		if (selectedStatus && anime.status !== selectedStatus) return false;
 		if (!normalizedQuery) return true;
 		return [
@@ -104,6 +110,7 @@ const filtered = $derived.by(() => {
 			...anime.genres,
 		].some((val) => val.toLowerCase().includes(normalizedQuery));
 	});
+	return sortByUpdatedAtDesc(matched, (anime) => anime.updatedAt);
 });
 
 const visibleAnimes = $derived(filtered.slice(0, shownCount));

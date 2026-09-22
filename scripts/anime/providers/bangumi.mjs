@@ -384,6 +384,14 @@ export async function fetchBangumiData(bangumiConfig) {
 					? `https://bgm.tv/subject/${subjectId}`
 					: undefined;
 
+				// 数据源侧「最近修改数据的时间」：收藏条目的 updated_at（HTML 回退时为 tip_j 收藏日期）。
+				// 直达展示层作为番剧页列表的主排序键（最近更新过的条目排最前）。
+				const updatedAtRaw =
+					typeof item.updated_at === "string" ? item.updated_at.trim() : "";
+				const updatedAt = updatedAtRaw
+					? new Date(updatedAtRaw).toISOString()
+					: undefined;
+
 				return {
 					title,
 					status,
@@ -394,6 +402,7 @@ export async function fetchBangumiData(bangumiConfig) {
 					description: description || undefined,
 					year,
 					...(period ? { period } : {}),
+					...(updatedAt ? { updatedAt } : {}),
 					studio,
 					genres: rawTags,
 					identity: {

@@ -6,6 +6,7 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { resolveI18nText } from "@utils/i18n-utils";
+import { sortByUpdatedAtDesc } from "@utils/updated-sort";
 import { Icon } from "astro-icon/components";
 import { animeConfig } from "@/config/animeConfig";
 import { gamesConfig } from "@/config/gamesConfig";
@@ -965,8 +966,10 @@ async function processBangumiData(data: any, status: GameStatus): Promise<GameIt
           .filter(Boolean)
       : [];
 
-    const updatedAtRaw =
-      item.updated_at || item.comment_updated_at || item.created_at || detail?.date || subject?.date || "";
+    // 「最近修改数据的时间」= Bangumi 收藏条目的 updated_at（最近一次改评分/进度/评论的时间）。
+    // 刻意不把 detail?.date / subject?.date（发行日）混入：发行日属于次级排序，
+    // 否则同一批新番的发行日会盖过真实修改时间，导致排序不符合「最近修改」语义。
+    const updatedAtRaw = item.updated_at || item.comment_updated_at || item.created_at || "";
     let updatedAt: string | undefined = undefined;
     if (updatedAtRaw) {
       const ts = toTime(updatedAtRaw);
@@ -1024,11 +1027,14 @@ if (Number.isFinite(MAX_ITEMS)) {
   gameList = gameList.slice(0, MAX_ITEMS as number);
 }
 
-const sortedGameList = [...gameList].sort((a, b) => {
-  const aTime = toTime(a.updatedAt) || toTime(a.displayDate);
-  const bTime = toTime(b.updatedAt) || toTime(b.displayDate);
-  return bTime - aTime;
-});
+const sortedGameList = sortByUpdatedAtDesc(
+  gameList,
+  (game) => game.updatedAt,
+  // 次级排序：时间缺失/相同时按发行日期倒序，再按标题，保证顺序确定
+  (a, b) =>
+    (toTime(b.displayDate) - toTime(a.displayDate)) ||
+    String(a.title).localeCompare(String(b.title)),
+);
 
 const stats = {
   total: gameList.length,
@@ -1229,6 +1235,7 @@ function getStatusInfo(status: GameStatus) {
                   <div
                     class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-transform duration-300 hover:shadow-lg hover:scale-[1.02]"
                     data-game-status={game.status}
+                    data-game-updated={game.updatedAt || ""}
                     data-game-title={String(game.title || "").toLowerCase()}
                     data-game-developer={String(game.developer || "").toLowerCase()}
                     data-game-platform={String(game.platform || "").toLowerCase()}
