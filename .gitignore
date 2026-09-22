@@ -79,3 +79,10 @@ artifacts/lighthouse/*
 
 # generated AI skills plugin packages
 artifacts/shirone-ai-*
+
+# local agent workspace (session memory and notes, not part of the theme)
+.workbuddy/
+
+# local debugging dumps（临时排查用，可随时重建，不入库）
+reports/bgm-list-sample.html
+reports/bangumi-update-latest.log

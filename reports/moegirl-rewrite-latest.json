@@ -1,35 +1,2486 @@
 {
-  "ranAt": "2026-09-19T12:03:45.680Z",
-  "dryRun": false,
+  "ranAt": "2026-09-22T20:18:37.084Z",
+  "dryRun": true,
   "summary": {
-    "total": 1,
-    "changed": 1,
-    "moegirlHit": 0,
-    "moegirlMiss": [
-      "bangumi-564289.md"
+    "total": 97,
+    "changed": 0,
+    "skippedProtected": 66,
+    "skippedFiles": [
+      {
+        "file": "bangumi-110648.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-158043.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-194036.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-194261.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-211723.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-219200.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-219658.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-242170.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-257369.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-27236.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-277399.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-292970.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-293049.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-294059.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-295017.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-296076.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-302523.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-303864.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-315375.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-315745.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-322130.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-322899.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-324295.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-326859.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-327606.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-329114.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-335389.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-338672.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-342667.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-347887.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-347888.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-371546.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-373247.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-376433.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-376708.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-378862.md",
+        "reason": "作品概述:legacy-suspect(与重新生成结果不一致，疑似人工编辑)"
+      },
+      {
+        "file": "bangumi-381793.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-409441.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-410346.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-419846.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-421174.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-4255.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-428823.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-441233.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-444557.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-449567.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-458125.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-464376.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-481410.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-503268.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-531724.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-533027.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-537904.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-554013.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-558088.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-564289.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-575057.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-587109.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-602733.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-623854.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-630163.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-631018.md",
+        "reason": "作品概述:legacy-suspect(与重新生成结果不一致，疑似人工编辑); 剧情简介:legacy-suspect(与重新生成结果不一致，疑似人工编辑)"
+      },
+      {
+        "file": "bangumi-68681.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-75521.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-909.md",
+        "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      },
+      {
+        "file": "bangumi-91651.md",
+        "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)"
+      }
     ],
-    "storyReplaced": 0,
-    "overviewReplaced": 0
+    "moegirlHit": 31,
+    "moegirlMiss": [],
+    "storyReplaced": 31,
+    "overviewReplaced": 31,
+    "judged": {
+      "writable": 31,
+      "protected": 66
+    }
   },
   "results": [
     {
-      "file": "bangumi-564289.md",
-      "status": "rewritten",
-      "moegirl": null,
-      "category": "《想结束这场“我爱你”的游戏》恋爱",
+      "file": "bangumi-104196.md",
+      "status": "unchanged",
+      "moegirl": "伪恋",
+      "category": "《伪恋 OAD》恋爱",
       "tags": [
-        "想结束这场“我爱你”的游戏",
+        "伪恋 OAD",
+        "恋爱",
+        "后宫",
+        "OVA",
+        "新房昭之",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "359b0b79d04e1cc6",
+          "regeneratedDigest": "359b0b79d04e1cc6"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "5b22e24a9e1c7784",
+          "regeneratedDigest": "5b22e24a9e1c7784"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-110648.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "cd32196615ab5d3b",
+          "regeneratedDigest": "cd32196615ab5d3b"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "aa2120ace8388afd",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-158043.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "d6e12b72b51f1ebc",
+          "regeneratedDigest": "d6e12b72b51f1ebc"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "e8edf0578066dd5d",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-194036.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "2f65e4bac619ecea",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "504098c899e19c58",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-194261.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "ec9257b833e9d8e6",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "38e2878fe4de45fc",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-208450.md",
+      "status": "unchanged",
+      "moegirl": "笨蛋",
+      "category": "《笨女孩》搞笑",
+      "tags": [
+        "笨女孩",
+        "搞笑",
+        "漫画改",
+        "泡面番",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "a1e4494366afc2e6",
+          "regeneratedDigest": "a1e4494366afc2e6"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "718d87b858e83ca6",
+          "regeneratedDigest": "718d87b858e83ca6"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-211723.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "4b100a106ca17e9b",
+          "regeneratedDigest": "4b100a106ca17e9b"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "4e3413308942b38d",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-219200.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "6451f0f20c2c43bf",
+          "regeneratedDigest": "6451f0f20c2c43bf"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "4039fcca6e27281d",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-219658.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "2f2756133ee965c8",
+          "regeneratedDigest": "2f2756133ee965c8"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "abddf9fbd6be7a34",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-228254.md",
+      "status": "unchanged",
+      "moegirl": "约会大作战",
+      "category": "《约会大作战 第三季》后宫",
+      "tags": [
+        "约会大作战 第三季",
+        "后宫",
+        "轻小说改",
+        "J.C.STAFF",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "b80daec568f1415f",
+          "regeneratedDigest": "b80daec568f1415f"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "6349645f4cac5039",
+          "regeneratedDigest": "6349645f4cac5039"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-242170.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "29fec06a952fd3c0",
+          "regeneratedDigest": "29fec06a952fd3c0"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "2ef7d51d8f8565eb",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-257369.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "6ccb653dbe0ed406",
+          "regeneratedDigest": "6ccb653dbe0ed406"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "27ac0504701b03d1",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-27236.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "2bd750e03659fe03",
+          "regeneratedDigest": "2bd750e03659fe03"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "ffc9e1ac63110c15",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-277399.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "6fcc92b97b0dd0f9",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "0368e6bca910d423",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-290426.md",
+      "status": "unchanged",
+      "moegirl": "在魔王城说晚安",
+      "category": "《在魔王城说晚安》搞笑",
+      "tags": [
+        "在魔王城说晚安",
+        "搞笑",
+        "日常",
+        "治愈",
+        "动画工房",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "341e6788abb8adcb",
+          "regeneratedDigest": "341e6788abb8adcb"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "f5f582137140fe72",
+          "regeneratedDigest": "f5f582137140fe72"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-292970.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "d60808a30315d0b5",
+          "regeneratedDigest": "d60808a30315d0b5"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "bc4b9961596787cd",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-293049.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "d127b62689a1cfb6",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "e325120e4bbc506c",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-294059.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "6ccb653dbe0ed406",
+          "regeneratedDigest": "6ccb653dbe0ed406"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "8c4112acfe07ca41",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-295017.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "cf97c6bb2991b796",
+          "regeneratedDigest": "cf97c6bb2991b796"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "04726422a6deb3be",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-296076.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "43d62a8b4c0b9a6d",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "6d021fb14ce3b92e",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-29648.md",
+      "status": "unchanged",
+      "moegirl": "中二病也要谈恋爱！",
+      "category": "《中二病也要谈恋爱！》恋爱",
+      "tags": [
+        "中二病也要谈恋爱！",
+        "恋爱",
+        "搞笑",
+        "校园",
+        "京阿尼",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "590579ceeee0a1b3",
+          "regeneratedDigest": "590579ceeee0a1b3"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "e6eff3e7025615c9",
+          "regeneratedDigest": "e6eff3e7025615c9"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-302128.md",
+      "status": "unchanged",
+      "moegirl": "约会大作战",
+      "category": "《约会大作战 第四季》后宫",
+      "tags": [
+        "约会大作战 第四季",
+        "后宫",
+        "轻小说改",
+        "恋爱",
+        "约会大作战",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "b80daec568f1415f",
+          "regeneratedDigest": "b80daec568f1415f"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "6349645f4cac5039",
+          "regeneratedDigest": "6349645f4cac5039"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-302523.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "a0a9c461e1d729f4",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "a9a36a9b8c457654",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-303864.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "d1eac803cd720eca",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "283d189d4b3d219f",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-310178.md",
+      "status": "unchanged",
+      "moegirl": "约战狂三外传 DATE A BULLET",
+      "category": "《约会大作战 赤黑新章：红或白》轻小说改",
+      "tags": [
+        "约会大作战 赤黑新章：红或白",
+        "轻小说改",
+        "剧场版",
+        "约会大作战",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "10547cb17b1bb6ae",
+          "regeneratedDigest": "10547cb17b1bb6ae"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "a99424464f843bf6",
+          "regeneratedDigest": "a99424464f843bf6"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-315375.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "305855c88225bee5",
+          "regeneratedDigest": "305855c88225bee5"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "d8590034ec8e6cf6",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-315745.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "a3eb86c6eb144cb2",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "49448b87805ef73b",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-322130.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "bb63c20c67e0c147",
+          "regeneratedDigest": "bb63c20c67e0c147"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "8a45c6ebc891bd54",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-322899.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "67951f4b7cc74f55",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "5df39df8e1267f90",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-324295.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "72e4c07ff06e7ce7",
+          "regeneratedDigest": "72e4c07ff06e7ce7"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "56404cfa41f1e207",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-326859.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "4e02d8803bb54cc3",
+          "regeneratedDigest": "4e02d8803bb54cc3"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "fea0043dfed91f5f",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-327606.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "07317e11512d8f72",
+          "regeneratedDigest": "07317e11512d8f72"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "66dba0ccd25bcf2a",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-329114.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "0e9bf7840b7ba54a",
+          "regeneratedDigest": "0e9bf7840b7ba54a"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "8582729815c38e55",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-333158.md",
+      "status": "unchanged",
+      "moegirl": "更衣人偶坠入爱河",
+      "category": "《更衣人偶坠入爱河》恋爱",
+      "tags": [
+        "更衣人偶坠入爱河",
         "恋爱",
         "校园",
         "漫画改",
+        "CloverWorks",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "8f8670a190081c50",
+          "regeneratedDigest": "8f8670a190081c50"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "f33b502dc64d18c1",
+          "regeneratedDigest": "f33b502dc64d18c1"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-335389.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "29fec06a952fd3c0",
+          "regeneratedDigest": "29fec06a952fd3c0"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "0a8a4731425cf0d3",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-338672.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "24d0495cbf16ff23",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "626d4ce0200b7e98",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-342667.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "7805d69614dbff1e",
+          "regeneratedDigest": "7805d69614dbff1e"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "c154dc37becf0df5",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-347887.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "6451f0f20c2c43bf",
+          "regeneratedDigest": "6451f0f20c2c43bf"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "c3851b8ef5fa1cc6",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-347888.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "6451f0f20c2c43bf",
+          "regeneratedDigest": "6451f0f20c2c43bf"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "0e259c3c4ee139d5",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-359980.md",
+      "status": "unchanged",
+      "moegirl": "乙女游戏世界对路人角色很不友好",
+      "category": "《恋爱游戏世界对路人角色很不友好》异世界",
+      "tags": [
+        "恋爱游戏世界对路人角色很不友好",
+        "异世界",
+        "后宫",
+        "龙傲天",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "bdf8a89a0b50938d",
+          "regeneratedDigest": "bdf8a89a0b50938d"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "c1833dc98c0c5ebb",
+          "regeneratedDigest": "c1833dc98c0c5ebb"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-364822.md",
+      "status": "unchanged",
+      "moegirl": "关于我在无意间被隔壁的天使变成废柴这件事",
+      "category": "《关于邻家的天使大人不知不觉把我惯成了废人这档子事》恋爱",
+      "tags": [
+        "关于邻家的天使大人不知不觉把我惯成了废人这档子事",
+        "恋爱",
+        "轻小说改",
+        "校园",
+        "projectNo.9",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "1a696929b7414911",
+          "regeneratedDigest": "1a696929b7414911"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "164044efa65008f8",
+          "regeneratedDigest": "164044efa65008f8"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-371546.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "55739ce6bb38ed97",
+          "regeneratedDigest": "55739ce6bb38ed97"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "69439ec8d4f66c71",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-373247.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "fb9a2913134f4286",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "5e899415630837dc",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-376433.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "9696b8d460226e31",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "90e4e58d28a352a3",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-376708.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "3f431ec7abc6d841",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "f27fc49883293140",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-378862.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(与重新生成结果不一致，疑似人工编辑)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "与重新生成结果不一致，疑似人工编辑",
+          "currentDigest": "b64caa0f25afc879",
+          "regeneratedDigest": "fa14aef2a7473a7f"
+        },
+        "story": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "8e9f1b459eb3f385",
+          "regeneratedDigest": "8e9f1b459eb3f385"
+        }
+      }
+    },
+    {
+      "file": "bangumi-381793.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "cbb16c2702aef261",
+          "regeneratedDigest": "cbb16c2702aef261"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "6ff683b396819862",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-395714.md",
+      "status": "unchanged",
+      "moegirl": "转生王女与天才千金的魔法革命",
+      "category": "《转生公主与天才千金的魔法革命》百合",
+      "tags": [
+        "转生公主与天才千金的魔法革命",
+        "百合",
+        "异世界",
+        "轻小说改",
         "TV",
         "Bangumi"
       ],
-      "overviewReplaced": false,
-      "storyReplaced": false,
-      "changes": [
-        "moegirl-miss"
-      ]
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "4966396763c19705",
+          "regeneratedDigest": "4966396763c19705"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "9885c5135a8a2e10",
+          "regeneratedDigest": "9885c5135a8a2e10"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-406180.md",
+      "status": "unchanged",
+      "moegirl": "暴食狂战士～唯有我突破了所谓「等级」的概念～",
+      "category": "《暴食狂战士》异世界",
+      "tags": [
+        "暴食狂战士",
+        "异世界",
+        "战斗",
+        "轻小说改",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "f062971ba9040750",
+          "regeneratedDigest": "f062971ba9040750"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "9d37d2c46801dc0a",
+          "regeneratedDigest": "9d37d2c46801dc0a"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-406307.md",
+      "status": "unchanged",
+      "moegirl": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力",
+      "category": "《身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。》异世界",
+      "tags": [
+        "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。",
+        "异世界",
+        "轻小说改",
+        "恶役大小姐",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "c1cccbcf60c17592",
+          "regeneratedDigest": "c1cccbcf60c17592"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "ff462d1d2533c640",
+          "regeneratedDigest": "ff462d1d2533c640"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-409441.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "dce2aa8a1313a042",
+          "regeneratedDigest": "dce2aa8a1313a042"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "8fe95a054043eab2",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-41028.md",
+      "status": "unchanged",
+      "moegirl": "其中1个是妹妹！",
+      "category": "《三人行必有我妹》后宫",
+      "tags": [
+        "三人行必有我妹",
+        "后宫",
+        "妹系",
+        "轻小说改",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "f1ddddc3b56717d9",
+          "regeneratedDigest": "f1ddddc3b56717d9"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "698788c7628943bb",
+          "regeneratedDigest": "698788c7628943bb"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-410346.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "0163e1ccbe0844e1",
+          "regeneratedDigest": "0163e1ccbe0844e1"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "313797dbd10cdec9",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-412144.md",
+      "status": "unchanged",
+      "moegirl": "乙女游戏世界对路人角色很不友好",
+      "category": "《恋爱游戏世界对路人角色很不友好 第二季》后宫",
+      "tags": [
+        "恋爱游戏世界对路人角色很不友好 第二季",
+        "后宫",
+        "轻小说改",
+        "异世界",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "bdf8a89a0b50938d",
+          "regeneratedDigest": "bdf8a89a0b50938d"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "c1833dc98c0c5ebb",
+          "regeneratedDigest": "c1833dc98c0c5ebb"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-419846.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "0e9bf7840b7ba54a",
+          "regeneratedDigest": "0e9bf7840b7ba54a"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "9892b3d105caf620",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-421174.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "a49fb8b2ccc7c45c",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "b802d7d6568ba0b3",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-424883.md",
+      "status": "unchanged",
+      "moegirl": "不时轻声地以俄语遮羞的邻座艾莉同学",
+      "category": "《不时轻声地以俄语遮羞的邻座艾莉同学》恋爱",
+      "tags": [
+        "不时轻声地以俄语遮羞的邻座艾莉同学",
+        "恋爱",
+        "校园",
+        "轻小说改",
+        "动画工房",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "0b45237a9822289c",
+          "regeneratedDigest": "0b45237a9822289c"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "fd823df004fb92f9",
+          "regeneratedDigest": "fd823df004fb92f9"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-4255.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "cd32196615ab5d3b",
+          "regeneratedDigest": "cd32196615ab5d3b"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "ba7beccdc8ba2db9",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-428823.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "22892324ee15374e",
+          "regeneratedDigest": "22892324ee15374e"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "5e9a189053a0a204",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-441233.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "d4615476e63847d0",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "abf22c0f44e95360",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-444557.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "59126f2c1abcb33c",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "afcb9586b545a4f8",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-449567.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "faf7c66f9aab2822",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "3bba9412aaf9c6a7",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-456080.md",
+      "status": "unchanged",
+      "moegirl": "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
+      "category": "《转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们》恋爱",
+      "tags": [
+        "转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们",
+        "恋爱",
+        "校园",
+        "TV",
+        "projectNo.9",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "d2d3a32dd6b01b10",
+          "regeneratedDigest": "d2d3a32dd6b01b10"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "9a10294b3b2050ee",
+          "regeneratedDigest": "9a10294b3b2050ee"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-456081.md",
+      "status": "unchanged",
+      "moegirl": "最强废渣皇子暗中活跃于帝位之争 佯装无能的SS级皇子背地支配王位继承战",
+      "category": "《最强废渣皇子暗中活跃于帝位之争》轻小说改",
+      "tags": [
+        "最强废渣皇子暗中活跃于帝位之争",
+        "轻小说改",
+        "异世界",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "75cddca857ac3ec9",
+          "regeneratedDigest": "75cddca857ac3ec9"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "00b78cb440a114e1",
+          "regeneratedDigest": "00b78cb440a114e1"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-458125.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "9803716453cdb3d3",
+          "regeneratedDigest": "9803716453cdb3d3"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "998b2683e6f0ee07",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-458684.md",
+      "status": "unchanged",
+      "moegirl": "关于我在无意间被隔壁的天使变成废柴这件事",
+      "category": "《关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季》恋爱",
+      "tags": [
+        "关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季",
+        "恋爱",
+        "校园",
+        "轻小说改",
+        "projectNo.9",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "1a696929b7414911",
+          "regeneratedDigest": "1a696929b7414911"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "164044efa65008f8",
+          "regeneratedDigest": "164044efa65008f8"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-459616.md",
+      "status": "unchanged",
+      "moegirl": "公女殿下的家庭教师",
+      "category": "《公爵千金的家庭教师》萝莉",
+      "tags": [
+        "公爵千金的家庭教师",
+        "萝莉",
+        "轻小说改",
+        "奇幻",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "eb98045868fb3518",
+          "regeneratedDigest": "eb98045868fb3518"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "31836f31a6cc848c",
+          "regeneratedDigest": "31836f31a6cc848c"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-459725.md",
+      "status": "unchanged",
+      "moegirl": "从Lv2开始开外挂的前勇者候补过着悠哉异世界生活",
+      "category": "《从Lv2开始开挂的原勇者候补悠闲的异世界生活》异世界",
+      "tags": [
+        "从Lv2开始开挂的原勇者候补悠闲的异世界生活",
+        "异世界",
+        "龙傲天",
+        "钉宫理惠",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "df517dfc0cf9a537",
+          "regeneratedDigest": "df517dfc0cf9a537"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "1a4601b226c0d539",
+          "regeneratedDigest": "1a4601b226c0d539"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-464376.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "0305917e5fa9ea22",
+          "regeneratedDigest": "0305917e5fa9ea22"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "28e97569cd1a9bfa",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-476129.md",
+      "status": "unchanged",
+      "moegirl": "孤单一人的异世界攻略",
+      "category": "《独自一人的异世界攻略》异世界",
+      "tags": [
+        "独自一人的异世界攻略",
+        "异世界",
+        "轻小说改",
+        "奇幻",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "a8ddbb27b8702a74",
+          "regeneratedDigest": "a8ddbb27b8702a74"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "8773848d7640a375",
+          "regeneratedDigest": "8773848d7640a375"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-479477.md",
+      "status": "unchanged",
+      "moegirl": "杖与剑的魔剑谭",
+      "category": "《杖与剑的魔剑谭》战斗",
+      "tags": [
+        "杖与剑的魔剑谭",
+        "战斗",
+        "奇幻",
+        "异世界",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "89ffe24a80667a36",
+          "regeneratedDigest": "89ffe24a80667a36"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "c2765dadfcff2257",
+          "regeneratedDigest": "c2765dadfcff2257"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-481410.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "c16f34d01de77828",
+          "regeneratedDigest": "c16f34d01de77828"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "33fc714de0b432a7",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-49131.md",
+      "status": "unchanged",
+      "moegirl": "约会大作战",
+      "category": "《约会大作战》后宫",
+      "tags": [
+        "约会大作战",
+        "后宫",
+        "轻小说改",
+        "校园",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "b80daec568f1415f",
+          "regeneratedDigest": "b80daec568f1415f"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "6349645f4cac5039",
+          "regeneratedDigest": "6349645f4cac5039"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-501023.md",
+      "status": "unchanged",
+      "moegirl": "我决定和班上最讨厌的女生结婚了",
+      "category": "《我和班上最讨厌的女生结婚了。》恋爱",
+      "tags": [
+        "我和班上最讨厌的女生结婚了。",
+        "恋爱",
+        "校园",
+        "轻小说改",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "afa55754e284ba41",
+          "regeneratedDigest": "afa55754e284ba41"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "1f62877cc28999c6",
+          "regeneratedDigest": "1f62877cc28999c6"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-503268.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "707cb30ab39fd8fb",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "a5248f57666fbcc8",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-531724.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "1294c69a227e07dc",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "e536152a41d732d9",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-533027.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "f2724c7f4c5c7b1e",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "bfdc8f65401850c4",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-537904.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "1c456751cccc9461",
+          "regeneratedDigest": "1c456751cccc9461"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "04e2b4f4a83d5e4c",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-554013.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "ce916f287129d9cd",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "180c17d31daa73a3",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-558088.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "14ac3355682a5f79",
+          "regeneratedDigest": "14ac3355682a5f79"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "de813ff66e1d6c32",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-564289.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "013e4416a3922820",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "6cc86d01d560cf32",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-565416.md",
+      "status": "unchanged",
+      "moegirl": "魔王的女儿太温柔了!!",
+      "category": "《魔王的女儿太温柔了！！》日常",
+      "tags": [
+        "魔王的女儿太温柔了！！",
+        "日常",
+        "漫画改",
+        "奇幻",
+        "养女儿",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "095d9266ea63d285",
+          "regeneratedDigest": "095d9266ea63d285"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "a506fb4067ff94f7",
+          "regeneratedDigest": "a506fb4067ff94f7"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-575057.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "3da9d2a22f06bb2e",
+          "regeneratedDigest": "3da9d2a22f06bb2e"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "d4404343378d9d76",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-58015.md",
+      "status": "unchanged",
+      "moegirl": "潜行吧！奈亚子",
+      "category": "《潜行吧！奈亚子W》搞笑",
+      "tags": [
+        "潜行吧！奈亚子W",
+        "搞笑",
+        "轻小说改",
+        "后宫",
+        "奈亚子",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "95263fa4b587b092",
+          "regeneratedDigest": "95263fa4b587b092"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "277544c70d20882e",
+          "regeneratedDigest": "277544c70d20882e"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-587109.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "1a80205946ffcdfd",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "69313a9358e7f81a",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-590786.md",
+      "status": "unchanged",
+      "moegirl": "『你们先走我断后』，于是10年后我成为了传说",
+      "category": "《『你们先走我断后』，于是10年后我成为了传说》轻小说改",
+      "tags": [
+        "『你们先走我断后』，于是10年后我成为了传说",
+        "轻小说改",
+        "战斗",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "0e69e11b0d4aebd3",
+          "regeneratedDigest": "0e69e11b0d4aebd3"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "64ba4063a16472cf",
+          "regeneratedDigest": "64ba4063a16472cf"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-599171.md",
+      "status": "unchanged",
+      "moegirl": "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
+      "category": "《最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?》异世界",
+      "tags": [
+        "最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
+        "异世界",
+        "轻小说改",
+        "小说改",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "bc502f8d9d5a6cd3",
+          "regeneratedDigest": "bc502f8d9d5a6cd3"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "a6a4ef0a074995cf",
+          "regeneratedDigest": "a6a4ef0a074995cf"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-602733.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "34c758517901baef",
+          "regeneratedDigest": "34c758517901baef"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "4c0c39c0872a3c4e",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-623854.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "4402ee2721cff403",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "c202ebf8481f09da",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-630163.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "687359acc86d7345",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "0608876e1885edb1",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-631018.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(与重新生成结果不一致，疑似人工编辑); 剧情简介:legacy-suspect(与重新生成结果不一致，疑似人工编辑)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "与重新生成结果不一致，疑似人工编辑",
+          "currentDigest": "151dcb3564bf3159",
+          "regeneratedDigest": "fa45db63424ce098"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "与重新生成结果不一致，疑似人工编辑",
+          "currentDigest": "f23892def3e2c773",
+          "regeneratedDigest": "ce20f7fdc421a897"
+        }
+      }
+    },
+    {
+      "file": "bangumi-68681.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "39d10838a7bef9b4",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "84e555c7217fbbdc",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-74628.md",
+      "status": "unchanged",
+      "moegirl": "伪恋",
+      "category": "《伪恋》恋爱",
+      "tags": [
+        "伪恋",
+        "恋爱",
+        "后宫",
+        "新房昭之",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "359b0b79d04e1cc6",
+          "regeneratedDigest": "359b0b79d04e1cc6"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "a8dec781642411d4",
+          "regeneratedDigest": "a8dec781642411d4"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-75521.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "68f3b2f3204e85e9",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "b63237b780b5887d",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-79226.md",
+      "status": "unchanged",
+      "moegirl": "精灵使的剑舞",
+      "category": "《精灵使的剑舞》后宫",
+      "tags": [
+        "精灵使的剑舞",
+        "后宫",
+        "轻小说改",
+        "战斗",
+        "TV",
+        "Bangumi"
+      ],
+      "overviewReplaced": true,
+      "storyReplaced": true,
+      "judgments": {
+        "overview": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "bb8b40325cc04217",
+          "regeneratedDigest": "bb8b40325cc04217"
+        },
+        "story": {
+          "state": "clean",
+          "reason": "与台账中的机器写入摘要一致",
+          "currentDigest": "84d3bb44c7400eb8",
+          "regeneratedDigest": "84d3bb44c7400eb8"
+        }
+      },
+      "changes": []
+    },
+    {
+      "file": "bangumi-909.md",
+      "status": "protected",
+      "reason": "剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-verified",
+          "reason": "与重新生成结果逐字一致",
+          "currentDigest": "68711823c51d03c9",
+          "regeneratedDigest": "68711823c51d03c9"
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "4d3435479fb36915",
+          "regeneratedDigest": null
+        }
+      }
+    },
+    {
+      "file": "bangumi-91651.md",
+      "status": "protected",
+      "reason": "作品概述:legacy-suspect(无台账基线且无法重新生成比对); 剧情简介:legacy-suspect(无台账基线且无法重新生成比对)",
+      "judgments": {
+        "overview": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "3e63294e4b86a8a7",
+          "regeneratedDigest": null
+        },
+        "story": {
+          "state": "legacy-suspect",
+          "reason": "无台账基线且无法重新生成比对",
+          "currentDigest": "68eeae2f040e7f2a",
+          "regeneratedDigest": null
+        }
+      }
     }
   ]
 }

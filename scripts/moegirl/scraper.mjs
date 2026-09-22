@@ -22,7 +22,6 @@
  *   - 本工具只读不改现有自动发文核心逻辑。
  */
 
-import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -111,7 +110,9 @@ export async function searchMoegirlTitles(query, limit = 5) {
 
 /** 把完整 plain-text extract 解析为 intro + 章节数组 */
 export function parseExtract(extract) {
-	const text = String(extract || "").replace(/\r\n/g, "\n").trim();
+	const text = String(extract || "")
+		.replace(/\r\n/g, "\n")
+		.trim();
 	if (!text) {
 		return { intro: "", sections: [] };
 	}
@@ -169,7 +170,8 @@ export async function fetchMoegirlArticle(title) {
 	const { intro, sections } = parseExtract(page.extract);
 	return {
 		title: page.title,
-		pageUrl: page.fullurl || `${MOEGIRL_PAGE_BASE}${encodeURIComponent(page.title)}`,
+		pageUrl:
+			page.fullurl || `${MOEGIRL_PAGE_BASE}${encodeURIComponent(page.title)}`,
 		intro,
 		sections,
 		fullText: page.extract,
@@ -178,7 +180,7 @@ export async function fetchMoegirlArticle(title) {
 }
 
 function cacheKeyFor(query) {
-	return Buffer.from(query, "utf8").toString("base64url") + ".json";
+	return `${Buffer.from(query, "utf8").toString("base64url")}.json`;
 }
 
 async function readCache(query, ttlMs) {
@@ -199,7 +201,11 @@ async function writeCache(query, result) {
 		await fs.mkdir(CACHE_DIR, { recursive: true });
 		await fs.writeFile(
 			path.join(CACHE_DIR, cacheKeyFor(query)),
-			JSON.stringify({ v: CACHE_VERSION, cachedAt: new Date().toISOString(), result }, null, 2),
+			JSON.stringify(
+				{ v: CACHE_VERSION, cachedAt: new Date().toISOString(), result },
+				null,
+				2,
+			),
 			"utf8",
 		);
 	} catch {}
@@ -246,8 +252,8 @@ export async function fetchMoegirlArticleForWork(workTitle, options = {}) {
 /** 从章节列表中提取剧情类章节文本 */
 export function findStorySection(article) {
 	if (!article?.sections) return "";
-	const storyPatterns = /^(剧情简介|故事简介|剧情|故事梗概|内容简介|简介|故事|世界观|背景设定)$/;
-	const skipAfter = /^(登场人物|登场角色|角色|人物|STAFF|CAST|出版信息|衍生作品|动画版|各话标题|音乐|主题曲)/;
+	const storyPatterns =
+		/^(剧情简介|故事简介|剧情|故事梗概|内容简介|简介|故事|世界观|背景设定)$/;
 	let collecting = "";
 	for (const section of article.sections) {
 		if (storyPatterns.test(section.heading)) {
@@ -259,13 +265,18 @@ export function findStorySection(article) {
 }
 
 // ── CLI ──────────────────────────────────────────────────────────────────────
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (
+	process.argv[1] &&
+	path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
 	const args = process.argv.slice(2);
 	const query = args.find((a) => !a.startsWith("--"));
 	const asJson = args.includes("--json");
 	const useCache = !args.includes("--no-cache");
 	if (!query) {
-		console.error('用法: node scripts/moegirl/scraper.mjs "<条目名>" [--json] [--no-cache]');
+		console.error(
+			'用法: node scripts/moegirl/scraper.mjs "<条目名>" [--json] [--no-cache]',
+		);
 		process.exit(1);
 	}
 	try {
@@ -279,8 +290,12 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 		} else {
 			console.log(`条目: ${article.title}`);
 			console.log(`链接: ${article.pageUrl}`);
-			console.log(`导言 (${article.intro.length} 字):\n${article.intro.slice(0, 500)}`);
-			console.log(`章节: ${article.sections.map((s) => `${s.heading}(${s.text.length})`).join(" / ")}`);
+			console.log(
+				`导言 (${article.intro.length} 字):\n${article.intro.slice(0, 500)}`,
+			);
+			console.log(
+				`章节: ${article.sections.map((s) => `${s.heading}(${s.text.length})`).join(" / ")}`,
+			);
 		}
 	} catch (error) {
 		console.error(`✗ 抓取失败: ${error.message}`);

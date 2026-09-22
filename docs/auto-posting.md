@@ -108,6 +108,12 @@ node scripts/moegirl/rewrite-bangumi-posts.mjs --only 104196,4255
 
 # 只更新 frontmatter（description/标签/分类），不动正文
 node scripts/moegirl/rewrite-bangumi-posts.mjs --meta-only
+
+# 只做来源判定（报告哪些文章会被保护、哪些可覆写），不写入
+node scripts/moegirl/rewrite-bangumi-posts.mjs --status
+
+# 无视保护强制覆写（危险，先提交工作区以便回滚）
+node scripts/moegirl/rewrite-bangumi-posts.mjs --force
 ```
 
 重写规则：
@@ -122,6 +128,43 @@ node scripts/moegirl/rewrite-bangumi-posts.mjs --meta-only
 
 运行报告：`reports/moegirl-rewrite-latest.json`（含每篇命中情况与变更明细）。
 
+#### 人工编辑保护（自动生成 vs 人工编辑）
+
+本工具只拥有两个小节：「一、作品概述」与「三、剧情简介」。写入前会对每篇的每个受管
+小节做一次**来源判定**，只有判定为「机器生成且此后未被改动」才允许覆写：
+
+| 判定状态 | 含义 | 是否覆写 |
+| --- | --- | --- |
+| `protected` | frontmatter 声明 `moegirlRewrite: false` | ❌ 永久保护 |
+| `clean` | 台账记录与当前内容一致（机器写的、没人动过） | ✅ 覆写 |
+| `modified` | 台账有机器基线，但内容已被改动 → 人工编辑 | ❌ 跳过 |
+| `legacy-verified` | 无台账基线，但重新生成的内容与现状逐字一致 | ✅ 覆写 |
+| `legacy-suspect` | 无台账基线，且与重新生成的内容不一致 → 疑似人工编辑 | ❌ 跳过 |
+
+判定基准是 `scripts/moegirl/rewrite-ledger.json` 这份**随仓库提交的台账**，它只记录
+「机器写入过什么」。因此任何与台账不符的改动都会被识别为人工编辑。只要任一受管小节
+落在 ❌ 状态，**整篇文件都会被跳过，连 frontmatter 也不动**，保证人工编辑的文章零改动。
+
+补充说明：
+
+- 指纹比较前会统一换行（CRLF/LF）与行尾空格，避免编辑器差异造成假阳性；
+- 封面图行由工具保留而非生成，故不参与指纹；
+- 存量文章（首次纳入台账）走 `legacy-*` 分支：只要现状与重新生成结果一致即视为
+  机器产物，可安全覆写；一旦有人改过就会落到 `legacy-suspect` 而被保护；
+- 抓取失败导致无法比对时同样判为 `legacy-suspect`，宁可不写；
+- 需要绕过保护时用 `--force`（会同时覆盖被保护的文章，请先提交工作区）。
+
+### 5. 如何深度定制某篇文章
+
+若想彻底重写某篇 bangumi 文章而不被本工具覆盖，任选其一：
+
+1. 在 frontmatter 加一行 `moegirlRewrite: false`（该字段仅本工具读取，不在内容
+   schema 中，不会触发校验错误）；
+2. 或直接把正文改成与机器产物不同的内容 —— 下次运行会因判定为 `modified` /
+   `legacy-suspect` 而自动跳过。
+
+两种方式都不需要改动脚本。
+
 ---
 
 ## 三、注意事项
@@ -131,9 +174,10 @@ node scripts/moegirl/rewrite-bangumi-posts.mjs --meta-only
 2. **内容授权**：萌娘百科内容采用 **CC BY-NC-SA 3.0 CN**，重写后的文章正文已自动附
    出处链接，请勿移除；Bangumi 数据遵循其 API 使用条款。
 3. **抓取礼仪**：萌娘百科工具内置 300ms 请求间隔与 7 天缓存，请勿缩短间隔或用于批量镜像。
-4. **不要手工改 bangumi-* 文章的正文结构**：重写工具与查重依赖固定小节标题
-   （`## 一、作品概述` 等）；要深度定制某篇作品，请新建自主编辑文章（中文文件名），
-   模块的去重机制会保护它不被覆盖。
+4. **不要手工改 bangumi-* 文章的受管小节**：重写工具与查重依赖固定小节标题
+   （`## 一、作品概述` 等）。若确实需要深度定制，改完之后工具会自动识别为人工编辑
+   并跳过该篇（见 §4「人工编辑保护」）；想更稳妥可显式加 `moegirlRewrite: false`。
+   也可以新建自主编辑文章（中文文件名），模块的去重机制会保护它不被覆盖。
 5. **重复文章处理原则**：同一作品同时存在自动发文与自主编辑文章时，**保留自主编辑版**，
    删除 `bangumi-<id>.md` 即可；后续模块不会为同一作品再次发文。
 6. **草稿审核流**：希望先发后审，设置 `BANGUMI_POST_REVIEW_MODE=1`，
