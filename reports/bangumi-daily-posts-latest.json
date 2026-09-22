@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-21T14:47:18.613Z",
+  "generatedAt": "2026-09-22T13:01:44.154Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 172498,
+    "subject_id": 72942,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2017-04-08",
+    "updated_at": "2014-01-08",
     "subject": {
-      "id": 172498,
-      "name": "埃罗芒阿老师",
-      "name_cn": "埃罗芒阿老师",
-      "date": "2017-04-08",
-      "eps": 12,
-      "short_summary": "高中生兼小说作家的“和泉正宗”（笔名：和泉征宗）有个家里蹲的妹妹“和泉纱雾”。一年前才成为家人的她，却完全不走出居室，并也用力踩踏地板，要我帮她准备食物。为了这段称不上“兄妹”的关系，正宗得想个办法让她自己走出居室才行，因为两人已是目前仅存能相依为命的“家人”……至于正宗的搭挡插画家“情色漫画老师”，是个能够画出非常棒煽情图的可靠伙伴。虽然双方并没见过面，但我一直很感谢他！只是在某一天，正宗突然发现到一个冲击事实，那就是“情色漫画老师”其实就是纱雾！？",
+      "id": 72942,
+      "name": "中二病也要谈恋爱！恋",
+      "name_cn": "中二病也要谈恋爱！恋",
+      "date": "2014-01-08",
+      "eps": 13,
+      "short_summary": "由于各种原因导致失去住所的六花开始寻找新家，但过程并不顺利，最终来到了勇太的家里。 然而，勇太的家人却留下勇太一个人到雅加达去了。 现在开始的同栖生活！？这样想着心跳不已的两个人。 但此时樟叶为了迎考而回到了家中。不知应该感到安心还是遗憾，3人开始了奇妙的共同生活。 另一方面，原小鸟游家搬进了新的住户。 那是以前勇太曾经憧憬的，自称为魔法魔王少女、索非亚琳·SP·撒旦7世的七宫智音…… 如此这般，仍然完全称不上普通的、勇太的高二第一学期开始了。",
       "tags": [
         {
-          "name": "妹控"
-        },
-        {
-          "name": "A-1Pictures"
-        },
-        {
-          "name": "轻小说改"
-        },
-        {
-          "name": "后宫"
-        },
-        {
-          "name": "2017年4月"
+          "name": "京阿尼"
         },
         {
           "name": "恋爱"
+        },
+        {
+          "name": "校园"
+        },
+        {
+          "name": "中二病也要谈恋爱"
+        },
+        {
+          "name": "2014年1月"
+        },
+        {
+          "name": "轻小说改"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/87/bf/172498_wfm40.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c8/e4/72942_VniXv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "埃罗芒阿老师",
+      "title": "中二病也要谈恋爱！恋",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/87/bf/172498_wfm40.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "埃罗芒阿老师",
+      "title": "中二病也要谈恋爱！恋",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/87/bf/172498_wfm40.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c8/e4/72942_VniXv.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "埃罗芒阿老师",
+      "title": "中二病也要谈恋爱！恋",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-172498.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-72942.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
