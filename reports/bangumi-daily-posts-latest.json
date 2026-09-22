@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-19T12:13:36.760Z",
+  "generatedAt": "2026-09-22T13:01:44.154Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 378862,
+    "subject_id": 72942,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2023-01-05",
+    "updated_at": "2014-01-08",
     "subject": {
-      "id": 378862,
-      "name": "别当欧尼酱了！",
-      "name_cn": "别当欧尼酱了！",
-      "date": "2023-01-05",
-      "eps": 12,
-      "short_summary": "某天，家里蹲的啃老族绪山真寻一觉醒来发现自己变成了“女孩子”！？正当真寻不知道镜子里的美少女是自己而陷入混乱的时候，跳级进入大学的科学家妹妹绪山美波里出现了。她透露在饮料里加了一种奇怪的药物！ 真寻最近2年一直疯狂宅家玩小黄游，偶尔不得已才会工作！突然成为女孩子开始生活的真寻，对于厕所、浴室、裙子、胸罩等女人的生活完全不懂…并且他和美波里中学时期的同学穗月枫和其妹妹穗月椛认识。 真寻的日常生活逐渐热闹起来。在持续的苦难中，到底“前”哥哥的命运会如何...！",
+      "id": 72942,
+      "name": "中二病也要谈恋爱！恋",
+      "name_cn": "中二病也要谈恋爱！恋",
+      "date": "2014-01-08",
+      "eps": 13,
+      "short_summary": "由于各种原因导致失去住所的六花开始寻找新家，但过程并不顺利，最终来到了勇太的家里。 然而，勇太的家人却留下勇太一个人到雅加达去了。 现在开始的同栖生活！？这样想着心跳不已的两个人。 但此时樟叶为了迎考而回到了家中。不知应该感到安心还是遗憾，3人开始了奇妙的共同生活。 另一方面，原小鸟游家搬进了新的住户。 那是以前勇太曾经憧憬的，自称为魔法魔王少女、索非亚琳·SP·撒旦7世的七宫智音…… 如此这般，仍然完全称不上普通的、勇太的高二第一学期开始了。",
       "tags": [
         {
-          "name": "性转"
+          "name": "京阿尼"
         },
         {
-          "name": "日常"
+          "name": "恋爱"
         },
         {
-          "name": "搞笑"
+          "name": "校园"
         },
         {
-          "name": "百合"
+          "name": "中二病也要谈恋爱"
         },
         {
-          "name": "StudioBind"
+          "name": "2014年1月"
         },
         {
-          "name": "2023年1月"
+          "name": "轻小说改"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/7e/ca/378862_24TnR.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/c8/e4/72942_VniXv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "别当欧尼酱了！",
+      "title": "中二病也要谈恋爱！恋",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/7e/ca/378862_24TnR.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "别当欧尼酱了！",
+      "title": "中二病也要谈恋爱！恋",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/7e/ca/378862_24TnR.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c8/e4/72942_VniXv.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "别当欧尼酱了！",
+      "title": "中二病也要谈恋爱！恋",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-378862.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-72942.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
