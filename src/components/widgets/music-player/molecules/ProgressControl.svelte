@@ -1,68 +1,66 @@
 <script lang="ts">
-	/**
-	 * 进度控制（M3 波浪进度条方案，与上游侧栏 MusicSidebarClient 同款）：
-	 * - ProgressIndicator（linear + wavy）负责可视层，播放时振幅 1、暂停时归零；
-	 * - 叠加透明 <input type="range"> 负责拖拽交互，拖动中显示预览时间（dragTime），
-	 *   松手后回调 onSeek → runtime.seek()。
-	 * legacy 自绘的 ProgressBar（div 百分比宽度）已删除。
-	 */
-	import ProgressIndicator from "@components/atoms/feedback/ProgressIndicator.svelte";
+/**
+ * 进度控制（M3 波浪进度条方案，与上游侧栏 MusicSidebarClient 同款）：
+ * - ProgressIndicator（linear + wavy）负责可视层，播放时振幅 1、暂停时归零；
+ * - 叠加透明 <input type="range"> 负责拖拽交互，拖动中显示预览时间（dragTime），
+ *   松手后回调 onSeek → runtime.seek()。
+ * legacy 自绘的 ProgressBar（div 百分比宽度）已删除。
+ */
+import ProgressIndicator from "@components/atoms/feedback/ProgressIndicator.svelte";
 
-	import { formatTime } from "../hooks/useKeyboardShortcuts";
+import { formatTime } from "../hooks/useKeyboardShortcuts";
 
-	interface Props {
-		currentTime: number;
-		duration: number;
-		isPlaying: boolean;
-		onSeek: (time: number) => void;
+interface Props {
+	currentTime: number;
+	duration: number;
+	isPlaying: boolean;
+	onSeek: (time: number) => void;
+}
+
+const { currentTime, duration, isPlaying, onSeek }: Props = $props();
+
+let draggingSeek = $state(false);
+let dragTime = $state<number | null>(null);
+
+const currentEffectiveTime = $derived(
+	draggingSeek && dragTime !== null ? dragTime : currentTime,
+);
+const progressMax = $derived(duration > 0 ? duration : 1);
+const progressRatio = $derived(
+	duration > 0 ? Math.min(Math.max(currentEffectiveTime / duration, 0), 1) : 0,
+);
+const progressDisabled = $derived(duration <= 0);
+const progressLabel = $derived(
+	`播放进度 ${formatTime(currentEffectiveTime)} / ${formatTime(duration)}`,
+);
+
+function onProgressPointerDown(): void {
+	draggingSeek = true;
+}
+
+function onProgressInput(event: Event): void {
+	const val = Number((event.currentTarget as HTMLInputElement).value);
+	dragTime = Number.isFinite(val) ? Math.max(0, val) : null;
+}
+
+function onProgressChange(event: Event): void {
+	const val = Number((event.currentTarget as HTMLInputElement).value);
+	draggingSeek = false;
+	dragTime = null;
+	if (Number.isFinite(val)) {
+		onSeek(Math.max(0, val));
 	}
+}
 
-	const { currentTime, duration, isPlaying, onSeek }: Props = $props();
-
-	let draggingSeek = $state(false);
-	let dragTime = $state<number | null>(null);
-
-	const currentEffectiveTime = $derived(
-		draggingSeek && dragTime !== null ? dragTime : currentTime,
-	);
-	const progressMax = $derived(duration > 0 ? duration : 1);
-	const progressRatio = $derived(
-		duration > 0
-			? Math.min(Math.max(currentEffectiveTime / duration, 0), 1)
-			: 0,
-	);
-	const progressDisabled = $derived(duration <= 0);
-	const progressLabel = $derived(
-		`播放进度 ${formatTime(currentEffectiveTime)} / ${formatTime(duration)}`,
-	);
-
-	function onProgressPointerDown(): void {
-		draggingSeek = true;
+function onProgressPointerUp(event: PointerEvent): void {
+	draggingSeek = false;
+	const input = event.currentTarget as HTMLInputElement;
+	const val = Number(input.value);
+	dragTime = null;
+	if (Number.isFinite(val)) {
+		onSeek(Math.max(0, val));
 	}
-
-	function onProgressInput(event: Event): void {
-		const val = Number((event.currentTarget as HTMLInputElement).value);
-		dragTime = Number.isFinite(val) ? Math.max(0, val) : null;
-	}
-
-	function onProgressChange(event: Event): void {
-		const val = Number((event.currentTarget as HTMLInputElement).value);
-		draggingSeek = false;
-		dragTime = null;
-		if (Number.isFinite(val)) {
-			onSeek(Math.max(0, val));
-		}
-	}
-
-	function onProgressPointerUp(event: PointerEvent): void {
-		draggingSeek = false;
-		const input = event.currentTarget as HTMLInputElement;
-		const val = Number(input.value);
-		dragTime = null;
-		if (Number.isFinite(val)) {
-			onSeek(Math.max(0, val));
-		}
-	}
+}
 </script>
 
 <div class="mp-progress">

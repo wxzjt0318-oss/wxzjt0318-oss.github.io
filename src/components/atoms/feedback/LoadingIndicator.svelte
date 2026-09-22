@@ -79,22 +79,9 @@ function buildPath(morph: MorphData, t: number): string {
 		const c1y = (a[5] + (b[5] - a[5]) * t - 0.5) * u + c;
 		const x1 = (a[6] + (b[6] - a[6]) * t - 0.5) * u + c;
 		const y1 = (a[7] + (b[7] - a[7]) * t - 0.5) * u + c;
-		d +=
-			(i === 0 ? "M" + x0.toFixed(2) + " " + y0.toFixed(2) : "") +
-			"C" +
-			c0x.toFixed(2) +
-			" " +
-			c0y.toFixed(2) +
-			" " +
-			c1x.toFixed(2) +
-			" " +
-			c1y.toFixed(2) +
-			" " +
-			x1.toFixed(2) +
-			" " +
-			y1.toFixed(2);
+		d += `${i === 0 ? `M${x0.toFixed(2)} ${y0.toFixed(2)}` : ""}C${c0x.toFixed(2)} ${c0y.toFixed(2)} ${c1x.toFixed(2)} ${c1y.toFixed(2)} ${x1.toFixed(2)} ${y1.toFixed(2)}`;
 	}
-	return d + "Z";
+	return `${d}Z`;
 }
 
 // ---- determinate：官方 activeMorphIndex/局部进度 + 逆时针旋转 -progress*180° ----

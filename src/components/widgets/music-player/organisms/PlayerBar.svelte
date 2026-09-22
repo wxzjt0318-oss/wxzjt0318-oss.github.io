@@ -1,69 +1,69 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
+import Icon from "@iconify/svelte";
 
-	import PlayerControls from "../molecules/PlayerControls.svelte";
-	import ProgressControl from "../molecules/ProgressControl.svelte";
-	import TrackDisplay from "../molecules/TrackDisplay.svelte";
-	import VolumeControl from "../molecules/VolumeControl.svelte";
-	import type { Song, RepeatMode } from "../types";
+import PlayerControls from "../molecules/PlayerControls.svelte";
+import ProgressControl from "../molecules/ProgressControl.svelte";
+import TrackDisplay from "../molecules/TrackDisplay.svelte";
+import VolumeControl from "../molecules/VolumeControl.svelte";
+import type { RepeatMode, Song } from "../types";
 
-	interface Props {
-		song: Song;
-		currentTime: number;
-		duration: number;
-		isPlaying: boolean;
-		isLoading: boolean;
-		isShuffled: boolean;
-		isRepeating: RepeatMode;
-		showPlaylist: boolean;
-		canSkip: boolean;
-		volume: number;
-		isMuted: boolean;
-		isVolumeDragging: boolean;
-		isHidden: boolean;
-		volumeBarRef: (node: HTMLElement) => void;
-		onPlayClick: () => void;
-		onPrevClick: () => void;
-		onNextClick: () => void;
-		onShuffleClick: () => void;
-		onRepeatClick: () => void;
-		onProgressSeek: (time: number) => void;
-		onVolumeButtonClick: () => void;
-		onSliderPointerDown: (event: PointerEvent) => void;
-		onSliderKeyDown: (event: KeyboardEvent) => void;
-		onHideClick: () => void;
-		onPlaylistClick: () => void;
-		onCollapseClick: () => void;
-	}
+interface Props {
+	song: Song;
+	currentTime: number;
+	duration: number;
+	isPlaying: boolean;
+	isLoading: boolean;
+	isShuffled: boolean;
+	isRepeating: RepeatMode;
+	showPlaylist: boolean;
+	canSkip: boolean;
+	volume: number;
+	isMuted: boolean;
+	isVolumeDragging: boolean;
+	isHidden: boolean;
+	volumeBarRef: (node: HTMLElement) => void;
+	onPlayClick: () => void;
+	onPrevClick: () => void;
+	onNextClick: () => void;
+	onShuffleClick: () => void;
+	onRepeatClick: () => void;
+	onProgressSeek: (time: number) => void;
+	onVolumeButtonClick: () => void;
+	onSliderPointerDown: (event: PointerEvent) => void;
+	onSliderKeyDown: (event: KeyboardEvent) => void;
+	onHideClick: () => void;
+	onPlaylistClick: () => void;
+	onCollapseClick: () => void;
+}
 
-	const {
-		song,
-		currentTime,
-		duration,
-		isPlaying,
-		isLoading,
-		isShuffled,
-		isRepeating,
-		showPlaylist,
-		canSkip,
-		volume,
-		isMuted,
-		isVolumeDragging,
-		isHidden,
-		volumeBarRef,
-		onPlayClick,
-		onPrevClick,
-		onNextClick,
-		onShuffleClick,
-		onRepeatClick,
-		onProgressSeek,
-		onVolumeButtonClick,
-		onSliderPointerDown,
-		onSliderKeyDown,
-		onHideClick,
-		onPlaylistClick,
-		onCollapseClick,
-	}: Props = $props();
+const {
+	song,
+	currentTime,
+	duration,
+	isPlaying,
+	isLoading,
+	isShuffled,
+	isRepeating,
+	showPlaylist,
+	canSkip,
+	volume,
+	isMuted,
+	isVolumeDragging,
+	isHidden,
+	volumeBarRef,
+	onPlayClick,
+	onPrevClick,
+	onNextClick,
+	onShuffleClick,
+	onRepeatClick,
+	onProgressSeek,
+	onVolumeButtonClick,
+	onSliderPointerDown,
+	onSliderKeyDown,
+	onHideClick,
+	onPlaylistClick,
+	onCollapseClick,
+}: Props = $props();
 </script>
 
 <div

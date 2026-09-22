@@ -1,16 +1,16 @@
 ---
 import { Font } from "astro:assets";
 import Snackbar from "@components/atoms/overlay/Snackbar.svelte";
+import Pio from "@components/features/pio/Pio.svelte";
 import ConfigCarrier from "@components/system/ConfigCarrier.astro";
 import UmamiRuntime from "@components/system/UmamiRuntime.astro";
-import Pio from "@components/features/pio/Pio.svelte";
 import MusicPlayer from "@components/widgets/music-player/MusicPlayer.svelte";
 import { resolveAsset } from "@utils/asset-utils";
 import { pathsEqual, toAbsoluteUrl, url } from "@utils/url-utils";
 import {
 	expressiveCodeConfig,
-	pioConfig,
 	musicConfig,
+	pioConfig,
 	profileConfig,
 	resolvedFontOptions,
 	resolveTextureOptions,

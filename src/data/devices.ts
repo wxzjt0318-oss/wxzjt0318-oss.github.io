@@ -12,8 +12,7 @@ export const devicesData: DeviceItem[] = [
 		category: "mobile",
 		status: "active",
 		specs: "Gray / 16G + 1TB",
-		description:
-			"Flagship performance, Hasselblad imaging, 80W SuperVOOC.",
+		description: "Flagship performance, Hasselblad imaging, 80W SuperVOOC.",
 		image: "/images/device/oneplus13t.png",
 		link: "https://www.oneplus.com/cn/13t",
 	},

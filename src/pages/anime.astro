@@ -6,44 +6,49 @@
 import AnimeSection from "@components/organisms/AnimeSection.svelte";
 import I18nKey from "@i18n/i18nKey";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { animeConfig } from "@/config/animeConfig";
 import { resolveI18nText } from "@utils/i18n-utils";
+import { animeConfig } from "@/config/animeConfig";
 import { getAnimeList, getAnimeSnapshotMeta } from "../utils/anime-data";
 
 if (!animeConfig.enable) {
-    return Astro.redirect("/404/");
+	return Astro.redirect("/404/");
 }
 
 const pageTitle = resolveI18nText(animeConfig.title, I18nKey.anime);
-const pageDescription = resolveI18nText(animeConfig.description, I18nKey.animeBanner);
+const pageDescription = resolveI18nText(
+	animeConfig.description,
+	I18nKey.animeBanner,
+);
 
 const animes = await getAnimeList();
 
 // 统计条：总数 / 平均评分 / 快照同步时间（格式与 games 页统计条一致）
 const snapshotMeta = getAnimeSnapshotMeta();
 const ratedAnimes = animes.filter((anime) => anime.rating > 0);
-const stats = animes.length > 0
-    ? {
-            total: animes.length,
-            avgRating: ratedAnimes.length > 0
-                ? (
-                      ratedAnimes.reduce((sum, anime) => sum + anime.rating, 0) /
-                      ratedAnimes.length
-                  ).toFixed(1)
-                : "0.0",
-            lastUpdated: snapshotMeta
-                ? new Date(snapshotMeta.fetchedAt).toLocaleString("zh-CN", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: false,
-                      timeZone: "Asia/Shanghai",
-                  })
-                : undefined,
-        }
-    : null;
+const stats =
+	animes.length > 0
+		? {
+				total: animes.length,
+				avgRating:
+					ratedAnimes.length > 0
+						? (
+								ratedAnimes.reduce((sum, anime) => sum + anime.rating, 0) /
+								ratedAnimes.length
+							).toFixed(1)
+						: "0.0",
+				lastUpdated: snapshotMeta
+					? new Date(snapshotMeta.fetchedAt).toLocaleString("zh-CN", {
+							year: "numeric",
+							month: "2-digit",
+							day: "2-digit",
+							hour: "2-digit",
+							minute: "2-digit",
+							hour12: false,
+							timeZone: "Asia/Shanghai",
+						})
+					: undefined,
+			}
+		: null;
 ---
 
 <MainGridLayout title={pageTitle} description={pageDescription} page="anime">

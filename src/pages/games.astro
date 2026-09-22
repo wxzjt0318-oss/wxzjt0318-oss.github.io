@@ -13,63 +13,63 @@ import { gamesConfig } from "@/config/gamesConfig";
 import { sidebarConfig } from "@/config/sidebarConfig";
 
 const T = {
-  unknown: i18n(I18nKey.gamesUnknown),
-  searchPlaceholder: i18n(I18nKey.gamesSearchPlaceholder),
-  statsTotal: i18n(I18nKey.gamesStatsTotal),
-  statsAvgRating: i18n(I18nKey.gamesStatsAvgRating),
-  statsLastUpdated: i18n(I18nKey.gamesStatsLastUpdated),
-  releaseDate: i18n(I18nKey.gamesReleaseDate),
-  developer: i18n(I18nKey.gamesDeveloper),
-  platform: i18n(I18nKey.gamesPlatform),
+	unknown: i18n(I18nKey.gamesUnknown),
+	searchPlaceholder: i18n(I18nKey.gamesSearchPlaceholder),
+	statsTotal: i18n(I18nKey.gamesStatsTotal),
+	statsAvgRating: i18n(I18nKey.gamesStatsAvgRating),
+	statsLastUpdated: i18n(I18nKey.gamesStatsLastUpdated),
+	releaseDate: i18n(I18nKey.gamesReleaseDate),
+	developer: i18n(I18nKey.gamesDeveloper),
+	platform: i18n(I18nKey.gamesPlatform),
 };
 
 // 注入内联脚本的运行时文案（is:inline 脚本无法调用 i18n()），
 // 占位符 {page} / {label} / {count} / {term} 由脚本端 replace。
 const gameStrings = {
-  statusLabels: {
-    all: i18n(I18nKey.gamesFilterAll),
-    playing: i18n(I18nKey.gamesStatusPlaying),
-    planned: i18n(I18nKey.gamesStatusPlanned),
-    completed: i18n(I18nKey.gamesStatusCompleted),
-    onhold: i18n(I18nKey.gamesStatusOnHold),
-    dropped: i18n(I18nKey.gamesStatusDropped),
-    unknown: i18n(I18nKey.gamesUnknown),
-  },
-  announceItems: i18n(I18nKey.gamesAnnounceItems),
-  announceSearch: i18n(I18nKey.gamesAnnounceSearch),
+	statusLabels: {
+		all: i18n(I18nKey.gamesFilterAll),
+		playing: i18n(I18nKey.gamesStatusPlaying),
+		planned: i18n(I18nKey.gamesStatusPlanned),
+		completed: i18n(I18nKey.gamesStatusCompleted),
+		onhold: i18n(I18nKey.gamesStatusOnHold),
+		dropped: i18n(I18nKey.gamesStatusDropped),
+		unknown: i18n(I18nKey.gamesUnknown),
+	},
+	announceItems: i18n(I18nKey.gamesAnnounceItems),
+	announceSearch: i18n(I18nKey.gamesAnnounceSearch),
 };
 
 const ENABLE_REMOTE_GAME_HTML_FALLBACK =
-  process.env.ENABLE_REMOTE_GAME_HTML_FALLBACK === "true";
+	process.env.ENABLE_REMOTE_GAME_HTML_FALLBACK === "true";
 
 // 离线构建逃生开关：GAMES_FETCH_OFFLINE=1 时游戏页构建期完全不访问网络，
 // 只用本地磁盘缓存（.cache/bangumi，CI 由 actions/cache 持久化）；
 // 无缓存的条目按空态兜底。用于：本地无外网/被墙时构建、API 长时间故障时紧急出站。
 const GAMES_FETCH_OFFLINE = ["1", "true", "yes", "on"].includes(
-  String(process.env.GAMES_FETCH_OFFLINE || "").toLowerCase(),
+	String(process.env.GAMES_FETCH_OFFLINE || "").toLowerCase(),
 );
 
 type GameStatus = "playing" | "completed" | "planned" | "onhold" | "dropped";
 type GameItem = {
-  id: number;
-  title: string;
-  description: string;
-  rating: number;
-  cover: string;
-  status: GameStatus;
-  displayDate?: string;
-  developer?: string;
-  platform?: string;
-  platformList?: string[];
-  developerMissing?: boolean;
-  platformMissing?: boolean;
-  link: string;
-  updatedAt?: string;
-  genre: string[];
+	id: number;
+	title: string;
+	description: string;
+	rating: number;
+	cover: string;
+	status: GameStatus;
+	displayDate?: string;
+	developer?: string;
+	platform?: string;
+	platformList?: string[];
+	developerMissing?: boolean;
+	platformMissing?: boolean;
+	link: string;
+	updatedAt?: string;
+	genre: string[];
 };
 
 if (!gamesConfig.enable) {
-  return Astro.redirect("/404/");
+	return Astro.redirect("/404/");
 }
 
 const isBothSidebarMode = sidebarConfig.arrangement === "dual";
@@ -81,50 +81,53 @@ const BANGUMI_WEB_BASE = "https://bgm.tv";
 // Bangumi API v0 要求可识别的 User-Agent，缺省（Node/undici 默认 UA）会被 403 拒绝；
 // 与 scripts/anime/providers/bangumi.mjs 保持同一约定。
 const BANGUMI_REQUEST_HEADERS = {
-  "User-Agent": "Shirone/1.0 (https://github.com/shirone; GamesSync)",
-  Accept: "application/json",
+	"User-Agent": "Shirone/1.0 (https://github.com/shirone; GamesSync)",
+	Accept: "application/json",
 };
 // 主站 HTML 列表页（API 的 /v0/users/* 子树故障时的回退数据源）需要浏览器 UA。
 // 注意「在玩」的列表段名是 do，不是 play/playing（无效段名会被主站静默回退到 wish）。
 const BANGUMI_WEB_HEADERS = {
-  "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
-  Accept: "text/html,application/xhtml+xml",
+	"User-Agent":
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+	Accept: "text/html,application/xhtml+xml",
 };
 const GAME_HTML_TYPE_SEGMENTS: Record<number, string> = {
-  3: "do",
-  2: "collect",
-  1: "wish",
-  4: "on_hold",
-  5: "dropped",
+	3: "do",
+	2: "collect",
+	1: "wish",
+	4: "on_hold",
+	5: "dropped",
 };
 const isValidUserId = !!BANGUMI_USER_ID;
 
-const MAX_ITEMS = Infinity;
+const MAX_ITEMS = Number.POSITIVE_INFINITY;
 // 缓存 24 小时：每日定时部署会自然刷新；api.bgm.tv 故障（如 502）时
 // 回退到已提交的过期缓存，避免构建出空页面。
 const CACHE_TTL_HOURS = 24;
 
-const isNode = typeof process !== "undefined" && !!(process as any).versions?.node;
+const isNode =
+	typeof process !== "undefined" &&
+	!!(process as { versions?: { node?: string } }).versions?.node;
 const DISK_CACHE = true;
 
-let fs: typeof import("fs/promises") | null = null;
-let path: typeof import("path") | null = null;
+let fs: typeof import("node:fs/promises") | null = null;
+let path: typeof import("node:path") | null = null;
 if (isNode && DISK_CACHE) {
-  const fsMod = await import("fs/promises");
-  const pathMod = await import("path");
-  fs = fsMod;
-  path = pathMod;
+	const fsMod = await import("node:fs/promises");
+	const pathMod = await import("node:path");
+	fs = fsMod;
+	path = pathMod;
 }
 
-const cacheRoot = isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
+const cacheRoot =
+	isNode && path ? path.resolve(process.cwd(), ".cache", "bangumi") : "";
 if (isNode && DISK_CACHE && fs && cacheRoot) {
-  await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
+	await fs.mkdir(cacheRoot, { recursive: true }).catch(() => {});
 }
 
 const logRoot = isNode && path ? path.resolve(process.cwd(), "logs") : "";
 if (isNode && DISK_CACHE && fs && logRoot) {
-  await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
+	await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
 }
 
 type DiskCacheEnvelope<T> = { savedAt?: string; payload?: T };
@@ -144,7 +147,7 @@ async function diskCacheGet<T>(
 	}
 	try {
 		const raw = await fs.readFile(diskCacheFile(key), {
-			encoding: "utf8" as any,
+			encoding: "utf8",
 		});
 		const envelope = JSON.parse(
 			typeof raw === "string" ? raw : String(raw),
@@ -185,515 +188,879 @@ async function diskCacheSet<T>(key: string, data: T): Promise<void> {
 }
 
 async function appendLog(fileName: string, line: string): Promise<void> {
-  if (!isNode || !fs || !path || !logRoot) {return;}
-  try {
-    await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
-    const file = path.resolve(logRoot, fileName);
-    await fs.appendFile(file, `${line}\n`, { encoding: "utf8" });
-  } catch {}
+	if (!isNode || !fs || !path || !logRoot) {
+		return;
+	}
+	try {
+		await fs.mkdir(logRoot, { recursive: true }).catch(() => {});
+		const file = path.resolve(logRoot, fileName);
+		await fs.appendFile(file, `${line}\n`, { encoding: "utf8" });
+	} catch {}
 }
 
 type DevInfoRecord = {
-  id: number;
-  title?: string;
-  developer?: string;
-  platform?: string;
-  status: "ok" | "missing";
-  lastChecked: string;
+	id: number;
+	title?: string;
+	developer?: string;
+	platform?: string;
+	status: "ok" | "missing";
+	lastChecked: string;
 };
 
 type DevInfoDatabase = {
-  version: number;
-  updatedAt: string;
-  items: Record<string, DevInfoRecord>;
+	version: number;
+	updatedAt: string;
+	items: Record<string, DevInfoRecord>;
 };
 
-const devInfoDbFile = isNode && path && cacheRoot ? path.resolve(cacheRoot, "dev-info.json") : "";
+/**
+ * Bangumi infobox 条目的宽松形状：value 可能是字符串、{v}/{value} 包装对象，
+ * 或上述的数组。本页只做「尽力提取」，因此保留宽类型 + 运行时收窄。
+ */
+type InfoboxEntry = {
+	key?: string;
+	value?: unknown;
+};
+
+/** Bangumi subject（主体）中本页用到的字段，其余一律忽略 */
+type BangumiSubject = {
+	infobox?: InfoboxEntry[];
+	staff?: unknown[];
+	relations?: unknown[];
+	tags?: unknown[];
+	name?: string;
+	name_cn?: string;
+	date?: string;
+	summary?: string;
+	short_summary?: string;
+	images?: { medium?: string };
+	rating?: { score?: number };
+};
+
+/** 收藏列表条目：API 与主站 HTML 回退产出的形状一致 */
+type BangumiCollectionItem = {
+	subject_id: number;
+	rate?: number;
+	updated_at?: string;
+	comment_updated_at?: string;
+	created_at?: string;
+	subject?: BangumiSubject;
+};
+
+/** 收藏列表分页响应的最小形状 */
+type BangumiCollectionPayload = { data: BangumiCollectionItem[] };
+
+const devInfoDbFile =
+	isNode && path && cacheRoot ? path.resolve(cacheRoot, "dev-info.json") : "";
 async function readDevInfoDatabase(): Promise<DevInfoDatabase> {
-  if (!isNode || !fs || !devInfoDbFile) {
-    return { version: 1, updatedAt: new Date().toISOString(), items: {} };
-  }
-  try {
-    const raw = await fs.readFile(devInfoDbFile, { encoding: "utf8" as any });
-    const parsed = JSON.parse(typeof raw === "string" ? raw : String(raw)) as DevInfoDatabase;
-    if (parsed && parsed.items) {return parsed;}
-  } catch {}
-  return { version: 1, updatedAt: new Date().toISOString(), items: {} };
+	if (!isNode || !fs || !devInfoDbFile) {
+		return { version: 1, updatedAt: new Date().toISOString(), items: {} };
+	}
+	try {
+		const raw = await fs.readFile(devInfoDbFile, { encoding: "utf8" });
+		const parsed = JSON.parse(
+			typeof raw === "string" ? raw : String(raw),
+		) as DevInfoDatabase;
+		if (parsed?.items) {
+			return parsed;
+		}
+	} catch {}
+	return { version: 1, updatedAt: new Date().toISOString(), items: {} };
 }
 
 async function writeDevInfoDatabase(db: DevInfoDatabase): Promise<void> {
-  if (!isNode || !fs || !devInfoDbFile) {return;}
-  try {
-    await fs.writeFile(devInfoDbFile, JSON.stringify(db, null, 2), { encoding: "utf8" });
-  } catch {}
+	if (!isNode || !fs || !devInfoDbFile) {
+		return;
+	}
+	try {
+		await fs.writeFile(devInfoDbFile, JSON.stringify(db, null, 2), {
+			encoding: "utf8",
+		});
+	} catch {}
 }
 
 async function fetchWithRetry(
-  url: string,
-  init?: RequestInit,
-  retries = 3,
-  baseDelayMs = 300,
-  timeoutMs = 10000,
+	url: string,
+	init?: RequestInit,
+	retries = 3,
+	baseDelayMs = 300,
+	timeoutMs = 10000,
 ): Promise<Response> {
-  let lastErr: unknown = null;
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    let res: Response | null = null;
-    try {
-      const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-      const timeoutId = controller ? setTimeout(() => controller.abort(), Math.max(0, timeoutMs)) : null;
-      try {
-        res = (await fetch(url, { ...(init || {}), signal: controller?.signal })) as Response;
-      } finally {
-        if (timeoutId) {clearTimeout(timeoutId as any);}
-      }
-    } catch (e) {
-      lastErr = e;
-    }
-    if (res && res.ok) {return res;}
-    const status = res?.status ?? 0;
-    const isTimeout = typeof lastErr === "object" && lastErr && (lastErr as any).name === "AbortError";
-    const retryable = status === 429 || (status >= 500 && status <= 599) || isTimeout;
-    if (attempt < retries && retryable) {
-      let delay = baseDelayMs * Math.pow(2, attempt);
-      const ra = res?.headers?.get("Retry-After");
-      const s = ra ? Number(ra) : NaN;
-      if (!Number.isNaN(s) && s > 0) {delay = s * 1000;}
-      delay += Math.floor(Math.random() * 200);
-      await new Promise((r) => setTimeout(r, delay));
-      continue;
-    }
-    if (res) {throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);}
-    if (isTimeout) {throw new Error(`Timeout after ${timeoutMs}ms for ${url}`);}
-    throw new Error(`Network error: ${String(lastErr)}`);
-  }
-  throw new Error(`fetchWithRetry exhausted for ${url}`);
+	let lastErr: unknown = null;
+	for (let attempt = 0; attempt <= retries; attempt++) {
+		let res: Response | null = null;
+		try {
+			const controller =
+				typeof AbortController !== "undefined" ? new AbortController() : null;
+			const timeoutId = controller
+				? setTimeout(() => controller.abort(), Math.max(0, timeoutMs))
+				: null;
+			try {
+				res = (await fetch(url, {
+					...(init || {}),
+					signal: controller?.signal,
+				})) as Response;
+			} finally {
+				if (timeoutId) {
+					clearTimeout(timeoutId);
+				}
+			}
+		} catch (e) {
+			lastErr = e;
+		}
+		if (res?.ok) {
+			return res;
+		}
+		const status = res?.status ?? 0;
+		const isTimeout =
+			typeof lastErr === "object" &&
+			lastErr !== null &&
+			(lastErr as { name?: unknown }).name === "AbortError";
+		const retryable =
+			status === 429 || (status >= 500 && status <= 599) || isTimeout;
+		if (attempt < retries && retryable) {
+			let delay = baseDelayMs * 2 ** attempt;
+			const ra = res?.headers?.get("Retry-After");
+			const s = ra ? Number(ra) : Number.NaN;
+			if (!Number.isNaN(s) && s > 0) {
+				delay = s * 1000;
+			}
+			delay += Math.floor(Math.random() * 200);
+			await new Promise((r) => setTimeout(r, delay));
+			continue;
+		}
+		if (res) {
+			throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
+		}
+		if (isTimeout) {
+			throw new Error(`Timeout after ${timeoutMs}ms for ${url}`);
+		}
+		throw new Error(`Network error: ${String(lastErr)}`);
+	}
+	throw new Error(`fetchWithRetry exhausted for ${url}`);
 }
 
-function pickFirstUsefulValue(v: any): string | undefined {
-  if (v == null) {return undefined;}
-  if (typeof v === "string") {return v.trim() || undefined;}
-  if (Array.isArray(v)) {
-    for (const it of v) {
-      const got = pickFirstUsefulValue(it);
-      if (got) {return got;}
-    }
-    return undefined;
-  }
-  if (typeof v === "object") {
-    if (typeof (v as any).v === "string") {return (v as any).v.trim() || undefined;}
-    if (typeof (v as any).value === "string") {return (v as any).value.trim() || undefined;}
-  }
-  return undefined;
+function pickFirstUsefulValue(v: unknown): string | undefined {
+	if (v == null) {
+		return undefined;
+	}
+	if (typeof v === "string") {
+		return v.trim() || undefined;
+	}
+	if (Array.isArray(v)) {
+		for (const it of v) {
+			const got = pickFirstUsefulValue(it);
+			if (got) {
+				return got;
+			}
+		}
+		return undefined;
+	}
+	if (typeof v === "object") {
+		const wrapped = v as { v?: unknown; value?: unknown };
+		if (typeof wrapped.v === "string") {
+			return wrapped.v.trim() || undefined;
+		}
+		if (typeof wrapped.value === "string") {
+			return wrapped.value.trim() || undefined;
+		}
+	}
+	return undefined;
 }
 
 function normalizeValue(input: string): string {
-  return input.replace(/\s+/g, " ").trim();
+	return input.replace(/\s+/g, " ").trim();
 }
 
-function flattenInfoboxValues(value: any): string[] {
-  if (value == null) {return [];}
-  if (typeof value === "string") {return [normalizeValue(value)].filter(Boolean);}
-  if (Array.isArray(value)) {return value.flatMap((v) => flattenInfoboxValues(v));}
-  if (typeof value === "object") {
-    if (typeof (value as any).v === "string") {return [normalizeValue((value as any).v)].filter(Boolean);}
-    if (typeof (value as any).value === "string")
-      {return [normalizeValue((value as any).value)].filter(Boolean);}
-  }
-  return [];
+function flattenInfoboxValues(value: unknown): string[] {
+	if (value == null) {
+		return [];
+	}
+	if (typeof value === "string") {
+		return [normalizeValue(value)].filter(Boolean);
+	}
+	if (Array.isArray(value)) {
+		return value.flatMap((v) => flattenInfoboxValues(v));
+	}
+	if (typeof value === "object") {
+		const wrapped = value as { v?: unknown; value?: unknown };
+		if (typeof wrapped.v === "string") {
+			return [normalizeValue(wrapped.v)].filter(Boolean);
+		}
+		if (typeof wrapped.value === "string") {
+			return [normalizeValue(wrapped.value)].filter(Boolean);
+		}
+	}
+	return [];
 }
 
-function getInfoboxValues(subject: any, keys: string[]): string[] {
-  const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) {return [];}
-  const results: string[] = [];
-  for (const k of keys) {
-    const entries = infobox.filter((x: any) => x?.key === k);
-    for (const entry of entries) {
-      results.push(...flattenInfoboxValues(entry?.value));
-    }
-  }
-  return results;
+function getInfoboxValues(
+	subject: BangumiSubject | null | undefined,
+	keys: string[],
+): string[] {
+	const infobox = subject?.infobox;
+	if (!Array.isArray(infobox)) {
+		return [];
+	}
+	const results: string[] = [];
+	for (const k of keys) {
+		const entries = infobox.filter((x) => x?.key === k);
+		for (const entry of entries) {
+			results.push(...flattenInfoboxValues(entry?.value));
+		}
+	}
+	return results;
 }
 
 function splitValueTokens(value: string): string[] {
-  if (!value) {return [];}
-  let v = value.replace(/[（(][^）)]*[）)]/g, " ");
-  v = v.replace(/[，、]/g, ",").replace(/[／]/g, "/").replace(/[＆]/g, "&");
-  v = v.replace(/xbox\s*series\s*x\|s/gi, "Xbox Series X/S");
-  v = v.replace(/xbox\s*series\s*s\|x/gi, "Xbox Series X/S");
-  const parts = v
-    .split(/[\/,|&+]/)
-    .flatMap((p) => p.split(/(?:和|与|及|以及)/))
-    .map((p) => normalizeValue(p))
-    .filter(Boolean);
-  return parts.length ? parts : [normalizeValue(value)].filter(Boolean);
+	if (!value) {
+		return [];
+	}
+	let v = value.replace(/[（(][^）)]*[）)]/g, " ");
+	v = v
+		.replace(/[，、]/g, ",")
+		.replace(/[／]/g, "/")
+		.replace(/[＆]/g, "&");
+	v = v.replace(/xbox\s*series\s*x\|s/gi, "Xbox Series X/S");
+	v = v.replace(/xbox\s*series\s*s\|x/gi, "Xbox Series X/S");
+	const parts = v
+		.split(/[/,|&+]/)
+		.flatMap((p) => p.split(/(?:和|与|及|以及)/))
+		.map((p) => normalizeValue(p))
+		.filter(Boolean);
+	return parts.length ? parts : [normalizeValue(value)].filter(Boolean);
 }
 
 function dedupeList(values: string[]): string[] {
-  const seen = new Set<string>();
-  const result: string[] = [];
-  for (const v of values) {
-    const key = v.toLowerCase();
-    if (!seen.has(key)) {
-      seen.add(key);
-      result.push(v);
-    }
-  }
-  return result;
+	const seen = new Set<string>();
+	const result: string[] = [];
+	for (const v of values) {
+		const key = v.toLowerCase();
+		if (!seen.has(key)) {
+			seen.add(key);
+			result.push(v);
+		}
+	}
+	return result;
 }
 
 const MULTI_PLATFORM_MARKERS = [
-  /跨平台/i,
-  /全平台/i,
-  /多平台/i,
-  /全机种/i,
-  /全机型/i,
-  /多机种/i,
-  /multi\s*platform/i,
-  /multiplatform/i,
-  /all\s*platform/i,
+	/跨平台/i,
+	/全平台/i,
+	/多平台/i,
+	/全机种/i,
+	/全机型/i,
+	/多机种/i,
+	/multi\s*platform/i,
+	/multiplatform/i,
+	/all\s*platform/i,
 ];
 
-const PLATFORM_PATTERNS: { label: string; patterns: RegExp[]; weight: number }[] = [
-  { label: "PS5", patterns: [/ps5/i, /playstation\s*5/i, /ps\s*5/i], weight: 95 },
-  { label: "PS4", patterns: [/ps4/i, /playstation\s*4/i, /ps\s*4/i], weight: 90 },
-  { label: "PS3", patterns: [/ps3/i, /playstation\s*3/i, /ps\s*3/i], weight: 75 },
-  { label: "PS2", patterns: [/ps2/i, /playstation\s*2/i, /ps\s*2/i], weight: 65 },
-  { label: "PS", patterns: [/ps1/i, /playstation(?!\s*\d)/i, /ps\s*one/i], weight: 55 },
-  { label: "PS Vita", patterns: [/ps\s*vita/i, /psv/i, /vita/i], weight: 55 },
-  { label: "PSP", patterns: [/psp/i, /playstation\s*portable/i], weight: 50 },
-  { label: "PS VR2", patterns: [/ps\s*vr2/i, /playstation\s*vr2/i], weight: 50 },
-  { label: "PS VR", patterns: [/ps\s*vr/i, /playstation\s*vr/i], weight: 45 },
-  { label: "Xbox Series X/S", patterns: [/xbox\s*series/i, /series\s*x\/s/i], weight: 85 },
-  { label: "Xbox One", patterns: [/xbox\s*one/i], weight: 70 },
-  { label: "Xbox 360", patterns: [/xbox\s*360/i], weight: 60 },
-  { label: "Xbox", patterns: [/xbox(?!\s*(one|360|series))/i], weight: 50 },
-  { label: "Switch 2", patterns: [/switch\s*2/i, /\bns2\b/i], weight: 95 },
-  { label: "Switch", patterns: [/nintendo\s*switch/i, /\bswitch\b/i, /\bns\b/i], weight: 92 },
-  { label: "Wii U", patterns: [/wii\s*u/i], weight: 60 },
-  { label: "Wii", patterns: [/wii(?!\s*u)/i], weight: 55 },
-  { label: "GameCube", patterns: [/gamecube/i, /\bgc\b/i], weight: 50 },
-  { label: "Nintendo 64", patterns: [/nintendo\s*64/i, /\bn64\b/i], weight: 45 },
-  { label: "SNES", patterns: [/snes/i, /super\s*famicom/i, /sfc/i], weight: 45 },
-  { label: "NES", patterns: [/\bnes\b/i, /famicom/i, /\bfc\b/i], weight: 40 },
-  { label: "Game Boy", patterns: [/game\s*boy(?!\s*advance)/i, /\bgb\b/i], weight: 40 },
-  { label: "GBA", patterns: [/game\s*boy\s*advance/i, /\bgba\b/i], weight: 45 },
-  { label: "DS", patterns: [/\bnds\b/i, /nintendo\s*ds/i, /\bds\b/i], weight: 50 },
-  { label: "3DS", patterns: [/3ds/i, /nintendo\s*3ds/i], weight: 55 },
-  { label: "Steam Deck", patterns: [/steam\s*deck/i], weight: 58 },
-  { label: "Steam", patterns: [/steam(?!\s*deck)/i], weight: 70 },
-  { label: "Epic", patterns: [/epic\s*games\s*store/i, /\begs\b/i, /\bepic\b/i], weight: 45 },
-  { label: "GOG", patterns: [/\bgog\b/i, /good\s*old\s*games/i], weight: 40 },
-  { label: "itch.io", patterns: [/itch\.io/i, /\bitch\b/i], weight: 35 },
-  { label: "Windows", patterns: [/windows/i, /\bwin(32|64)?\b/i, /微软视窗/i], weight: 75 },
-  { label: "macOS", patterns: [/mac\s*os/i, /\bmacos\b/i, /os\s*x/i, /macintosh/i], weight: 55 },
-  { label: "Linux", patterns: [/linux/i, /ubuntu/i, /debian/i, /steam\s*os/i], weight: 45 },
-  { label: "PC-98", patterns: [/pc-?98/i], weight: 35 },
-  { label: "MSX", patterns: [/\bmsx\b/i], weight: 35 },
-  { label: "X68000", patterns: [/x68000/i, /x-?68k/i], weight: 30 },
-  { label: "FM Towns", patterns: [/fm\s*towns/i], weight: 30 },
-  { label: "PC", patterns: [/\bpc\b/i, /个人电脑/i, /电脑/i, /桌面/i], weight: 65 },
-  { label: "Android", patterns: [/android/i, /安卓/i], weight: 80 },
-  { label: "iOS", patterns: [/\bios\b/i, /iphone/i, /ipad/i, /苹果/i], weight: 78 },
-  { label: "HarmonyOS", patterns: [/harmony\s*os/i, /鸿蒙/i], weight: 30 },
-  { label: "移动端", patterns: [/移动/i, /手机/i, /mobile/i], weight: 60 },
-  { label: "Web", patterns: [/web/i, /browser/i, /html5/i, /网页/i, /浏览器/i], weight: 62 },
-  { label: "Arcade", patterns: [/arcade/i, /街机/i, /机台/i], weight: 45 },
-  { label: "Dreamcast", patterns: [/dreamcast/i, /\bdc\b/i], weight: 35 },
-  { label: "Saturn", patterns: [/saturn/i, /sega\s*saturn/i], weight: 35 },
-  { label: "Mega Drive", patterns: [/mega\s*drive/i, /genesis/i, /md\b/i], weight: 35 },
-  { label: "PC Engine", patterns: [/pc\s*engine/i, /turbografx/i, /tg-?16/i], weight: 32 },
-  { label: "Neo Geo", patterns: [/neo\s*geo/i, /\bng\b/i], weight: 30 },
-  { label: "WonderSwan", patterns: [/wonderswan/i, /ws\b/i], weight: 25 },
-  { label: "3DO", patterns: [/\b3do\b/i], weight: 25 },
-  { label: "Atari", patterns: [/atari/i], weight: 20 },
-  { label: "VR", patterns: [/\bvr\b/i, /oculus/i, /quest/i], weight: 30 },
-  { label: "Cloud", patterns: [/cloud/i, /云游戏/i, /stadia/i, /geforce\s*now/i], weight: 22 },
+const PLATFORM_PATTERNS: {
+	label: string;
+	patterns: RegExp[];
+	weight: number;
+}[] = [
+	{
+		label: "PS5",
+		patterns: [/ps5/i, /playstation\s*5/i, /ps\s*5/i],
+		weight: 95,
+	},
+	{
+		label: "PS4",
+		patterns: [/ps4/i, /playstation\s*4/i, /ps\s*4/i],
+		weight: 90,
+	},
+	{
+		label: "PS3",
+		patterns: [/ps3/i, /playstation\s*3/i, /ps\s*3/i],
+		weight: 75,
+	},
+	{
+		label: "PS2",
+		patterns: [/ps2/i, /playstation\s*2/i, /ps\s*2/i],
+		weight: 65,
+	},
+	{
+		label: "PS",
+		patterns: [/ps1/i, /playstation(?!\s*\d)/i, /ps\s*one/i],
+		weight: 55,
+	},
+	{ label: "PS Vita", patterns: [/ps\s*vita/i, /psv/i, /vita/i], weight: 55 },
+	{ label: "PSP", patterns: [/psp/i, /playstation\s*portable/i], weight: 50 },
+	{
+		label: "PS VR2",
+		patterns: [/ps\s*vr2/i, /playstation\s*vr2/i],
+		weight: 50,
+	},
+	{ label: "PS VR", patterns: [/ps\s*vr/i, /playstation\s*vr/i], weight: 45 },
+	{
+		label: "Xbox Series X/S",
+		patterns: [/xbox\s*series/i, /series\s*x\/s/i],
+		weight: 85,
+	},
+	{ label: "Xbox One", patterns: [/xbox\s*one/i], weight: 70 },
+	{ label: "Xbox 360", patterns: [/xbox\s*360/i], weight: 60 },
+	{ label: "Xbox", patterns: [/xbox(?!\s*(one|360|series))/i], weight: 50 },
+	{ label: "Switch 2", patterns: [/switch\s*2/i, /\bns2\b/i], weight: 95 },
+	{
+		label: "Switch",
+		patterns: [/nintendo\s*switch/i, /\bswitch\b/i, /\bns\b/i],
+		weight: 92,
+	},
+	{ label: "Wii U", patterns: [/wii\s*u/i], weight: 60 },
+	{ label: "Wii", patterns: [/wii(?!\s*u)/i], weight: 55 },
+	{ label: "GameCube", patterns: [/gamecube/i, /\bgc\b/i], weight: 50 },
+	{
+		label: "Nintendo 64",
+		patterns: [/nintendo\s*64/i, /\bn64\b/i],
+		weight: 45,
+	},
+	{
+		label: "SNES",
+		patterns: [/snes/i, /super\s*famicom/i, /sfc/i],
+		weight: 45,
+	},
+	{ label: "NES", patterns: [/\bnes\b/i, /famicom/i, /\bfc\b/i], weight: 40 },
+	{
+		label: "Game Boy",
+		patterns: [/game\s*boy(?!\s*advance)/i, /\bgb\b/i],
+		weight: 40,
+	},
+	{ label: "GBA", patterns: [/game\s*boy\s*advance/i, /\bgba\b/i], weight: 45 },
+	{
+		label: "DS",
+		patterns: [/\bnds\b/i, /nintendo\s*ds/i, /\bds\b/i],
+		weight: 50,
+	},
+	{ label: "3DS", patterns: [/3ds/i, /nintendo\s*3ds/i], weight: 55 },
+	{ label: "Steam Deck", patterns: [/steam\s*deck/i], weight: 58 },
+	{ label: "Steam", patterns: [/steam(?!\s*deck)/i], weight: 70 },
+	{
+		label: "Epic",
+		patterns: [/epic\s*games\s*store/i, /\begs\b/i, /\bepic\b/i],
+		weight: 45,
+	},
+	{ label: "GOG", patterns: [/\bgog\b/i, /good\s*old\s*games/i], weight: 40 },
+	{ label: "itch.io", patterns: [/itch\.io/i, /\bitch\b/i], weight: 35 },
+	{
+		label: "Windows",
+		patterns: [/windows/i, /\bwin(32|64)?\b/i, /微软视窗/i],
+		weight: 75,
+	},
+	{
+		label: "macOS",
+		patterns: [/mac\s*os/i, /\bmacos\b/i, /os\s*x/i, /macintosh/i],
+		weight: 55,
+	},
+	{
+		label: "Linux",
+		patterns: [/linux/i, /ubuntu/i, /debian/i, /steam\s*os/i],
+		weight: 45,
+	},
+	{ label: "PC-98", patterns: [/pc-?98/i], weight: 35 },
+	{ label: "MSX", patterns: [/\bmsx\b/i], weight: 35 },
+	{ label: "X68000", patterns: [/x68000/i, /x-?68k/i], weight: 30 },
+	{ label: "FM Towns", patterns: [/fm\s*towns/i], weight: 30 },
+	{
+		label: "PC",
+		patterns: [/\bpc\b/i, /个人电脑/i, /电脑/i, /桌面/i],
+		weight: 65,
+	},
+	{ label: "Android", patterns: [/android/i, /安卓/i], weight: 80 },
+	{
+		label: "iOS",
+		patterns: [/\bios\b/i, /iphone/i, /ipad/i, /苹果/i],
+		weight: 78,
+	},
+	{ label: "HarmonyOS", patterns: [/harmony\s*os/i, /鸿蒙/i], weight: 30 },
+	{ label: "移动端", patterns: [/移动/i, /手机/i, /mobile/i], weight: 60 },
+	{
+		label: "Web",
+		patterns: [/web/i, /browser/i, /html5/i, /网页/i, /浏览器/i],
+		weight: 62,
+	},
+	{ label: "Arcade", patterns: [/arcade/i, /街机/i, /机台/i], weight: 45 },
+	{ label: "Dreamcast", patterns: [/dreamcast/i, /\bdc\b/i], weight: 35 },
+	{ label: "Saturn", patterns: [/saturn/i, /sega\s*saturn/i], weight: 35 },
+	{
+		label: "Mega Drive",
+		patterns: [/mega\s*drive/i, /genesis/i, /md\b/i],
+		weight: 35,
+	},
+	{
+		label: "PC Engine",
+		patterns: [/pc\s*engine/i, /turbografx/i, /tg-?16/i],
+		weight: 32,
+	},
+	{ label: "Neo Geo", patterns: [/neo\s*geo/i, /\bng\b/i], weight: 30 },
+	{ label: "WonderSwan", patterns: [/wonderswan/i, /ws\b/i], weight: 25 },
+	{ label: "3DO", patterns: [/\b3do\b/i], weight: 25 },
+	{ label: "Atari", patterns: [/atari/i], weight: 20 },
+	{ label: "VR", patterns: [/\bvr\b/i, /oculus/i, /quest/i], weight: 30 },
+	{
+		label: "Cloud",
+		patterns: [/cloud/i, /云游戏/i, /stadia/i, /geforce\s*now/i],
+		weight: 22,
+	},
 ];
 
 function matchPlatformLabels(token: string): string[] {
-  const labels: string[] = [];
-  for (const entry of PLATFORM_PATTERNS) {
-    if (entry.patterns.some((p) => p.test(token))) {labels.push(entry.label);}
-  }
-  return labels;
+	const labels: string[] = [];
+	for (const entry of PLATFORM_PATTERNS) {
+		if (entry.patterns.some((p) => p.test(token))) {
+			labels.push(entry.label);
+		}
+	}
+	return labels;
 }
 
 function postProcessPlatforms(list: string[]): string[] {
-  const set = new Set(list);
-  const hasPlayStationSpecific =
-    set.has("PS5") || set.has("PS4") || set.has("PS3") || set.has("PS2") || set.has("PS");
-  if (hasPlayStationSpecific) {set.delete("PlayStation");}
-  const hasXboxSpecific =
-    set.has("Xbox Series X/S") || set.has("Xbox One") || set.has("Xbox 360");
-  if (hasXboxSpecific) {set.delete("Xbox");}
-  const hasNintendoSpecific =
-    set.has("Switch 2") ||
-    set.has("Switch") ||
-    set.has("Wii U") ||
-    set.has("Wii") ||
-    set.has("GameCube") ||
-    set.has("Nintendo 64") ||
-    set.has("SNES") ||
-    set.has("NES") ||
-    set.has("Game Boy") ||
-    set.has("GBA") ||
-    set.has("DS") ||
-    set.has("3DS");
-  if (hasNintendoSpecific) {set.delete("Nintendo");}
-  if ((set.has("Windows") || set.has("macOS") || set.has("Linux")) && set.has("PC")) {
-    set.delete("PC");
-  }
-  if (set.has("移动端") && (set.has("Android") || set.has("iOS"))) {
-    set.delete("移动端");
-  }
-  return Array.from(set);
+	const set = new Set(list);
+	const hasPlayStationSpecific =
+		set.has("PS5") ||
+		set.has("PS4") ||
+		set.has("PS3") ||
+		set.has("PS2") ||
+		set.has("PS");
+	if (hasPlayStationSpecific) {
+		set.delete("PlayStation");
+	}
+	const hasXboxSpecific =
+		set.has("Xbox Series X/S") || set.has("Xbox One") || set.has("Xbox 360");
+	if (hasXboxSpecific) {
+		set.delete("Xbox");
+	}
+	const hasNintendoSpecific =
+		set.has("Switch 2") ||
+		set.has("Switch") ||
+		set.has("Wii U") ||
+		set.has("Wii") ||
+		set.has("GameCube") ||
+		set.has("Nintendo 64") ||
+		set.has("SNES") ||
+		set.has("NES") ||
+		set.has("Game Boy") ||
+		set.has("GBA") ||
+		set.has("DS") ||
+		set.has("3DS");
+	if (hasNintendoSpecific) {
+		set.delete("Nintendo");
+	}
+	if (
+		(set.has("Windows") || set.has("macOS") || set.has("Linux")) &&
+		set.has("PC")
+	) {
+		set.delete("PC");
+	}
+	if (set.has("移动端") && (set.has("Android") || set.has("iOS"))) {
+		set.delete("移动端");
+	}
+	return Array.from(set);
 }
 
 function detectDeviceType(ua: string): string {
-  const s = ua.toLowerCase();
-  if (s.includes("android")) {return "android";}
-  if (s.includes("iphone") || s.includes("ipad") || s.includes("ios")) {return "ios";}
-  if (s.includes("playstation") || s.includes("ps5") || s.includes("ps4")) {return "playstation";}
-  if (s.includes("xbox")) {return "xbox";}
-  if (s.includes("nintendo") || s.includes("switch")) {return "switch";}
-  if (s.includes("steam deck")) {return "steamdeck";}
-  if (s.includes("windows")) {return "windows";}
-  if (s.includes("mac os") || s.includes("macintosh")) {return "mac";}
-  if (s.includes("linux")) {return "linux";}
-  return "unknown";
+	const s = ua.toLowerCase();
+	if (s.includes("android")) {
+		return "android";
+	}
+	if (s.includes("iphone") || s.includes("ipad") || s.includes("ios")) {
+		return "ios";
+	}
+	if (s.includes("playstation") || s.includes("ps5") || s.includes("ps4")) {
+		return "playstation";
+	}
+	if (s.includes("xbox")) {
+		return "xbox";
+	}
+	if (s.includes("nintendo") || s.includes("switch")) {
+		return "switch";
+	}
+	if (s.includes("steam deck")) {
+		return "steamdeck";
+	}
+	if (s.includes("windows")) {
+		return "windows";
+	}
+	if (s.includes("mac os") || s.includes("macintosh")) {
+		return "mac";
+	}
+	if (s.includes("linux")) {
+		return "linux";
+	}
+	return "unknown";
 }
 
 function getPlatformWeight(label: string, deviceType: string): number {
-  const base =
-    PLATFORM_PATTERNS.find((p) => p.label === label)?.weight ??
-    (label === "跨平台" ? 70 : 40);
-  const deviceBoostMap: Record<string, string[]> = {
-    android: ["Android", "移动端"],
-    ios: ["iOS", "移动端"],
-    windows: ["Windows", "PC", "Steam", "Epic", "GOG", "itch.io"],
-    mac: ["macOS", "PC", "Steam"],
-    linux: ["Linux", "PC", "Steam", "Steam Deck"],
-    steamdeck: ["Steam Deck", "Steam", "PC"],
-    playstation: ["PS5", "PS4", "PS3", "PS2", "PS", "PS Vita", "PSP", "PS VR2", "PS VR"],
-    xbox: ["Xbox Series X/S", "Xbox One", "Xbox 360", "Xbox"],
-    switch: ["Switch 2", "Switch", "Wii U", "Wii", "3DS", "DS", "GBA", "Game Boy"],
-  };
-  const boostTargets = deviceBoostMap[deviceType] || [];
-  const boost = boostTargets.includes(label) ? 120 : 0;
-  return base + boost;
+	const base =
+		PLATFORM_PATTERNS.find((p) => p.label === label)?.weight ??
+		(label === "跨平台" ? 70 : 40);
+	const deviceBoostMap: Record<string, string[]> = {
+		android: ["Android", "移动端"],
+		ios: ["iOS", "移动端"],
+		windows: ["Windows", "PC", "Steam", "Epic", "GOG", "itch.io"],
+		mac: ["macOS", "PC", "Steam"],
+		linux: ["Linux", "PC", "Steam", "Steam Deck"],
+		steamdeck: ["Steam Deck", "Steam", "PC"],
+		playstation: [
+			"PS5",
+			"PS4",
+			"PS3",
+			"PS2",
+			"PS",
+			"PS Vita",
+			"PSP",
+			"PS VR2",
+			"PS VR",
+		],
+		xbox: ["Xbox Series X/S", "Xbox One", "Xbox 360", "Xbox"],
+		switch: [
+			"Switch 2",
+			"Switch",
+			"Wii U",
+			"Wii",
+			"3DS",
+			"DS",
+			"GBA",
+			"Game Boy",
+		],
+	};
+	const boostTargets = deviceBoostMap[deviceType] || [];
+	const boost = boostTargets.includes(label) ? 120 : 0;
+	return base + boost;
 }
 
 function sortPlatformsByPriority(list: string[], ua: string): string[] {
-  const deviceType = detectDeviceType(ua);
-  return [...list].sort((a, b) => {
-    const wa = getPlatformWeight(a, deviceType);
-    const wb = getPlatformWeight(b, deviceType);
-    if (wa !== wb) {return wb - wa;}
-    return a.localeCompare(b);
-  });
+	const deviceType = detectDeviceType(ua);
+	return [...list].sort((a, b) => {
+		const wa = getPlatformWeight(a, deviceType);
+		const wb = getPlatformWeight(b, deviceType);
+		if (wa !== wb) {
+			return wb - wa;
+		}
+		return a.localeCompare(b);
+	});
 }
 
-function normalizePlatforms(rawValues: string[], ua: string): { list: string[]; display: string } {
-  const rawTokens = dedupeList(rawValues.flatMap((v) => splitValueTokens(v)));
-  if (rawTokens.length === 0) {return { list: [], display: T.unknown };}
-  if (rawTokens.some((t) => MULTI_PLATFORM_MARKERS.some((m) => m.test(t)))) {
-    return { list: ["跨平台"], display: "跨平台" };
-  }
-  const matchedLabels: string[] = [];
-  const unmatchedTokens: string[] = [];
-  for (const token of rawTokens) {
-    const labels = matchPlatformLabels(token);
-    if (labels.length > 0) {matchedLabels.push(...labels);}
-    else {unmatchedTokens.push(token);}
-  }
-  const combined = dedupeList([...postProcessPlatforms(matchedLabels), ...unmatchedTokens]);
-  const ordered = sortPlatformsByPriority(combined, ua);
-  return { list: ordered, display: ordered.join("/") };
+function normalizePlatforms(
+	rawValues: string[],
+	ua: string,
+): { list: string[]; display: string } {
+	const rawTokens = dedupeList(rawValues.flatMap((v) => splitValueTokens(v)));
+	if (rawTokens.length === 0) {
+		return { list: [], display: T.unknown };
+	}
+	if (rawTokens.some((t) => MULTI_PLATFORM_MARKERS.some((m) => m.test(t)))) {
+		return { list: ["跨平台"], display: "跨平台" };
+	}
+	const matchedLabels: string[] = [];
+	const unmatchedTokens: string[] = [];
+	for (const token of rawTokens) {
+		const labels = matchPlatformLabels(token);
+		if (labels.length > 0) {
+			matchedLabels.push(...labels);
+		} else {
+			unmatchedTokens.push(token);
+		}
+	}
+	const combined = dedupeList([
+		...postProcessPlatforms(matchedLabels),
+		...unmatchedTokens,
+	]);
+	const ordered = sortPlatformsByPriority(combined, ua);
+	return { list: ordered, display: ordered.join("/") };
 }
 
-function getReleaseDateFromInfobox(subject: any): string | undefined {
-  const keys = ["发售日", "発売日", "発売", "发行日期", "发售时间", "首发日", "上架日期"];
-  const infobox = subject?.infobox;
-  if (!Array.isArray(infobox)) {return undefined;}
-  for (const k of keys) {
-    const entry = infobox.find((x: any) => x?.key === k);
-    if (!entry) {continue;}
-    const v = pickFirstUsefulValue(entry?.value);
-    if (v) {return v;}
-  }
-  return undefined;
+function getReleaseDateFromInfobox(
+	subject: BangumiSubject | null | undefined,
+): string | undefined {
+	const keys = [
+		"发售日",
+		"発売日",
+		"発売",
+		"发行日期",
+		"发售时间",
+		"首发日",
+		"上架日期",
+	];
+	const infobox = subject?.infobox;
+	if (!Array.isArray(infobox)) {
+		return undefined;
+	}
+	for (const k of keys) {
+		const entry = infobox.find((x) => x?.key === k);
+		if (!entry) {
+			continue;
+		}
+		const v = pickFirstUsefulValue(entry?.value);
+		if (v) {
+			return v;
+		}
+	}
+	return undefined;
 }
 
-function getDeveloperListFromInfobox(subject: any): string[] {
-  const keys = [
-    "开发",
-    "开发商",
-    "开发公司",
-    "开发者",
-    "游戏开发",
-    "制作",
-    "制作组",
-    "制作公司",
-    "製作",
-    "製作会社",
-    "開発",
-    "開発元",
-    "開発会社",
-    "Developer",
-    "Developed by",
-    "Development",
-  ];
-  const values = getInfoboxValues(subject, keys);
-  const tokens = values.flatMap((v) => splitValueTokens(v));
-  return dedupeList(tokens);
+function getDeveloperListFromInfobox(
+	subject: BangumiSubject | null | undefined,
+): string[] {
+	const keys = [
+		"开发",
+		"开发商",
+		"开发公司",
+		"开发者",
+		"游戏开发",
+		"制作",
+		"制作组",
+		"制作公司",
+		"製作",
+		"製作会社",
+		"開発",
+		"開発元",
+		"開発会社",
+		"Developer",
+		"Developed by",
+		"Development",
+	];
+	const values = getInfoboxValues(subject, keys);
+	const tokens = values.flatMap((v) => splitValueTokens(v));
+	return dedupeList(tokens);
 }
 
 const DEVELOPER_ALIAS_MAP: Record<string, string> = {
-  "任天堂株式会社": "任天堂",
-  "任天堂(株)": "任天堂",
-  "nintendo co., ltd.": "Nintendo",
-  "nintendo": "Nintendo",
-  "sony interactive entertainment": "SIE",
-  "sony interactive entertainment inc.": "SIE",
-  "sega corporation": "SEGA",
-  "square enix": "Square Enix",
-  "bandai namco entertainment": "Bandai Namco",
-  "capcom co., ltd.": "CAPCOM",
-  "fromsoftware": "FromSoftware",
+	任天堂株式会社: "任天堂",
+	"任天堂(株)": "任天堂",
+	"nintendo co., ltd.": "Nintendo",
+	nintendo: "Nintendo",
+	"sony interactive entertainment": "SIE",
+	"sony interactive entertainment inc.": "SIE",
+	"sega corporation": "SEGA",
+	"square enix": "Square Enix",
+	"bandai namco entertainment": "Bandai Namco",
+	"capcom co., ltd.": "CAPCOM",
+	fromsoftware: "FromSoftware",
 };
 
 function normalizeDeveloperName(name: string): string {
-  let v = String(name || "").trim();
-  v = v.replace(/[（(].*?[）)]/g, " ");
-  v = v.replace(/\s+/g, " ").trim();
-  const key = v.toLowerCase();
-  const mapped = DEVELOPER_ALIAS_MAP[key];
-  return mapped || v;
+	let v = String(name || "").trim();
+	v = v.replace(/[（(].*?[）)]/g, " ");
+	v = v.replace(/\s+/g, " ").trim();
+	const key = v.toLowerCase();
+	const mapped = DEVELOPER_ALIAS_MAP[key];
+	return mapped || v;
 }
 
 function normalizeDeveloperList(values: string[]): string[] {
-  const normalized = values.map((v) => normalizeDeveloperName(v)).filter(Boolean);
-  return dedupeList(normalized);
+	const normalized = values
+		.map((v) => normalizeDeveloperName(v))
+		.filter(Boolean);
+	return dedupeList(normalized);
 }
 
 function pickBetterDeveloperName(a: string, b: string): string {
-  if (!a) {return b;}
-  if (!b) {return a;}
-  if (a === b) {return a;}
-  const aHasCjk = /[\u4e00-\u9fff]/.test(a);
-  const bHasCjk = /[\u4e00-\u9fff]/.test(b);
-  if (aHasCjk !== bHasCjk) {return aHasCjk ? a : b;}
-  return a.length >= b.length ? a : b;
+	if (!a) {
+		return b;
+	}
+	if (!b) {
+		return a;
+	}
+	if (a === b) {
+		return a;
+	}
+	const aHasCjk = /[\u4e00-\u9fff]/.test(a);
+	const bHasCjk = /[\u4e00-\u9fff]/.test(b);
+	if (aHasCjk !== bHasCjk) {
+		return aHasCjk ? a : b;
+	}
+	return a.length >= b.length ? a : b;
 }
 
-function mergeDeveloperValues(primary: string[], secondary: string[]): string[] {
-  const merged: Record<string, string> = {};
-  for (const name of [...primary, ...secondary]) {
-    const normalized = normalizeDeveloperName(name);
-    if (!normalized) {continue;}
-    const key = normalized.toLowerCase();
-    merged[key] = pickBetterDeveloperName(merged[key] || "", normalized);
-  }
-  return Object.values(merged);
+function mergeDeveloperValues(
+	primary: string[],
+	secondary: string[],
+): string[] {
+	const merged: Record<string, string> = {};
+	for (const name of [...primary, ...secondary]) {
+		const normalized = normalizeDeveloperName(name);
+		if (!normalized) {
+			continue;
+		}
+		const key = normalized.toLowerCase();
+		merged[key] = pickBetterDeveloperName(merged[key] || "", normalized);
+	}
+	return Object.values(merged);
 }
 
-function pickName(value: any): string {
-  if (typeof value === "string") {return value.trim();}
-  if (value && typeof value === "object") {
-    if (typeof value.name_cn === "string" && value.name_cn.trim()) {return value.name_cn.trim();}
-    if (typeof value.name === "string" && value.name.trim()) {return value.name.trim();}
-    if (value.person) {return pickName(value.person);}
-  }
-  return "";
+/** 人员/关联条目可能被包装为 { person: ... }，统一取出可读名称 */
+type NamedEntity = {
+	name?: unknown;
+	name_cn?: unknown;
+	person?: unknown;
+};
+
+function pickName(value: unknown): string {
+	if (typeof value === "string") {
+		return value.trim();
+	}
+	if (value && typeof value === "object") {
+		const entity = value as NamedEntity;
+		if (typeof entity.name_cn === "string" && entity.name_cn.trim()) {
+			return entity.name_cn.trim();
+		}
+		if (typeof entity.name === "string" && entity.name.trim()) {
+			return entity.name.trim();
+		}
+		if (entity.person) {
+			return pickName(entity.person);
+		}
+	}
+	return "";
 }
 
-function getStaffNamesByJobs(subject: any, jobMatchers: RegExp[]): string[] {
-  const staff = Array.isArray(subject?.staff) ? subject.staff : [];
-  const names: string[] = [];
-  for (const member of staff) {
-    const jobs: string[] = [];
-    if (Array.isArray(member?.jobs)) {jobs.push(...member.jobs.map((j: any) => String(j || "")));}
-    if (typeof member?.job === "string") {jobs.push(member.job);}
-    if (typeof member?.role === "string") {jobs.push(member.role);}
-    const jobText = jobs.join(" ");
-    if (!jobText) {continue;}
-    if (!jobMatchers.some((m) => m.test(jobText))) {continue;}
-    const name = pickName(member);
-    if (name) {names.push(name);}
-  }
-  return dedupeList(names);
+function getStaffNamesByJobs(
+	subject: BangumiSubject | null | undefined,
+	jobMatchers: RegExp[],
+): string[] {
+	const staff = Array.isArray(subject?.staff) ? subject.staff : [];
+	const names: string[] = [];
+	for (const member of staff) {
+		const m = member as {
+			jobs?: unknown;
+			job?: unknown;
+			role?: unknown;
+		} | null;
+		const jobs: string[] = [];
+		if (Array.isArray(m?.jobs)) {
+			jobs.push(...m.jobs.map((j) => String(j || "")));
+		}
+		if (typeof m?.job === "string") {
+			jobs.push(m.job);
+		}
+		if (typeof m?.role === "string") {
+			jobs.push(m.role);
+		}
+		const jobText = jobs.join(" ");
+		if (!jobText) {
+			continue;
+		}
+		if (!jobMatchers.some((m) => m.test(jobText))) {
+			continue;
+		}
+		const name = pickName(member);
+		if (name) {
+			names.push(name);
+		}
+	}
+	return dedupeList(names);
 }
 
-function getRelationNamesByTypes(subject: any, relationMatchers: RegExp[]): string[] {
-  const relations = Array.isArray(subject?.relations) ? subject.relations : [];
-  const names: string[] = [];
-  for (const rel of relations) {
-    const relText = String(rel?.relation || rel?.type || "").trim();
-    if (!relText) {continue;}
-    if (!relationMatchers.some((m) => m.test(relText))) {continue;}
-    const name = pickName(rel);
-    if (name) {names.push(name);}
-  }
-  return dedupeList(names);
+function getRelationNamesByTypes(
+	subject: BangumiSubject | null | undefined,
+	relationMatchers: RegExp[],
+): string[] {
+	const relations = Array.isArray(subject?.relations) ? subject.relations : [];
+	const names: string[] = [];
+	for (const rel of relations) {
+		const r = rel as { relation?: unknown; type?: unknown } | null;
+		const relText = String(r?.relation || r?.type || "").trim();
+		if (!relText) {
+			continue;
+		}
+		if (!relationMatchers.some((m) => m.test(relText))) {
+			continue;
+		}
+		const name = pickName(rel);
+		if (name) {
+			names.push(name);
+		}
+	}
+	return dedupeList(names);
 }
 
-function getPlatformValuesFromInfobox(subject: any): string[] {
-  const keys = ["平台", "游戏平台", "プラットフォーム", "Platform"];
-  return getInfoboxValues(subject, keys);
+function getPlatformValuesFromInfobox(
+	subject: BangumiSubject | null | undefined,
+): string[] {
+	const keys = ["平台", "游戏平台", "プラットフォーム", "Platform"];
+	return getInfoboxValues(subject, keys);
 }
 
 function toDisplayYearOrYearMonth(input?: string): string {
-  if (!input) {return T.unknown;}
-  const s = input.trim();
-  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;
-  const ym = /^(\d{4})-(\d{2})$/;
-  const y = /^(\d{4})$/;
-  if (ymd.test(s) || ym.test(s) || y.test(s)) {return s;}
-  const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
-  if (mYMD) {
-    const year = mYMD[1];
-    const mm = String(mYMD[2]).padStart(2, "0");
-    const dd = String(mYMD[3]).padStart(2, "0");
-    return `${year}-${mm}-${dd}`;
-  }
-  const mYM = s.match(/(\d{4})[-/年](\d{1,2})/);
-  if (mYM) {
-    const year = mYM[1];
-    const mm = String(mYM[2]).padStart(2, "0");
-    return `${year}-${mm}`;
-  }
-  const mY = s.match(/(\d{4})/);
-  if (mY) {return mY[1];}
-  return T.unknown;
+	if (!input) {
+		return T.unknown;
+	}
+	const s = input.trim();
+	const ymd = /^(\d{4})-(\d{2})-(\d{2})$/;
+	const ym = /^(\d{4})-(\d{2})$/;
+	const y = /^(\d{4})$/;
+	if (ymd.test(s) || ym.test(s) || y.test(s)) {
+		return s;
+	}
+	const mYMD = s.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/);
+	if (mYMD) {
+		const year = mYMD[1];
+		const mm = String(mYMD[2]).padStart(2, "0");
+		const dd = String(mYMD[3]).padStart(2, "0");
+		return `${year}-${mm}-${dd}`;
+	}
+	const mYM = s.match(/(\d{4})[-/年](\d{1,2})/);
+	if (mYM) {
+		const year = mYM[1];
+		const mm = String(mYM[2]).padStart(2, "0");
+		return `${year}-${mm}`;
+	}
+	const mY = s.match(/(\d{4})/);
+	if (mY) {
+		return mY[1];
+	}
+	return T.unknown;
 }
 
 function toTime(input?: string) {
-  if (!input) {return 0;}
-  const s = input.trim();
-  if (/^\d{4}$/.test(s)) {return Date.parse(`${s}-01-01T00:00:00Z`);}
-  if (/^\d{4}-\d{2}$/.test(s)) {return Date.parse(`${s}-01T00:00:00Z`);}
-  const t = Date.parse(s);
-  return Number.isNaN(t) ? 0 : t;
+	if (!input) {
+		return 0;
+	}
+	const s = input.trim();
+	if (/^\d{4}$/.test(s)) {
+		return Date.parse(`${s}-01-01T00:00:00Z`);
+	}
+	if (/^\d{4}-\d{2}$/.test(s)) {
+		return Date.parse(`${s}-01T00:00:00Z`);
+	}
+	const t = Date.parse(s);
+	return Number.isNaN(t) ? 0 : t;
 }
 
-async function fetchSubjectDetailRaw(subjectId: number) {
-  // CI（GitHub Actions 海外节点）到 api.bgm.tv 的往返远高于本地，超时从 500ms 提到 10s
-  const res = await fetchWithRetry(`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`, { headers: BANGUMI_REQUEST_HEADERS }, 3, 500, 10000);
-  const ct = res.headers.get("content-type") || "";
-  if (!ct.includes("application/json")) {throw new Error(`Bangumi subject ${subjectId} non-JSON`);}
-  return await res.json();
+async function fetchSubjectDetailRaw(
+	subjectId: number,
+): Promise<BangumiSubject> {
+	// CI（GitHub Actions 海外节点）到 api.bgm.tv 的往返远高于本地，超时从 500ms 提到 10s
+	const res = await fetchWithRetry(
+		`${BANGUMI_API_BASE}/v0/subjects/${subjectId}`,
+		{ headers: BANGUMI_REQUEST_HEADERS },
+		3,
+		500,
+		10000,
+	);
+	const ct = res.headers.get("content-type") || "";
+	if (!ct.includes("application/json")) {
+		throw new Error(`Bangumi subject ${subjectId} non-JSON`);
+	}
+	return await res.json();
 }
 
-async function fetchSubjectDetailCached(subjectId: number) {
+async function fetchSubjectDetailCached(
+	subjectId: number,
+): Promise<BangumiSubject | null> {
 	const cacheKey = `subject-${subjectId}`;
-	const cached = await diskCacheGet<any>(cacheKey, CACHE_TTL_HOURS);
+	const cached = await diskCacheGet<BangumiSubject>(cacheKey, CACHE_TTL_HOURS);
 	if (cached) {
 		return cached;
 	}
 	if (GAMES_FETCH_OFFLINE) {
 		// 离线模式：不发起网络请求，接受任意陈旧缓存
-		return await diskCacheGet<any>(cacheKey, Infinity);
+		return await diskCacheGet<BangumiSubject>(
+			cacheKey,
+			Number.POSITIVE_INFINITY,
+		);
 	}
 	try {
 		const detail = await fetchSubjectDetailRaw(subjectId);
@@ -701,97 +1068,123 @@ async function fetchSubjectDetailCached(subjectId: number) {
 		return detail;
 	} catch {
 		// API 故障时回退到任意陈旧的缓存
-		return await diskCacheGet<any>(cacheKey, Infinity);
+		return await diskCacheGet<BangumiSubject>(
+			cacheKey,
+			Number.POSITIVE_INFINITY,
+		);
 	}
 }
 
 function stripTags(input: string): string {
-  return String(input || "").replace(/<[^>]+>/g, " ");
+	return String(input || "").replace(/<[^>]+>/g, " ");
 }
 
 function extractDeveloperFromHtml(html: string): string[] {
-  const entries: string[] = [];
-  const liBlocks = html.match(/<li[^>]*>[\s\S]*?<\/li>/gi) || [];
-  for (const block of liBlocks) {
-    const tip = block.match(/<span[^>]*class="tip"[^>]*>(.*?)<\/span>/i);
-    const label = tip ? stripTags(tip[1]).trim() : "";
-    if (!label) {continue;}
-    if (!/开发|开发商|開発|Developer|Developers/i.test(label)) {continue;}
-    const text = stripTags(block.replace(tip?.[0] || "", ""));
-    const anchors = Array.from(block.matchAll(/<a[^>]*>(.*?)<\/a>/gi)).map((m) => stripTags(m[1]).trim());
-    const rawList = anchors.length ? anchors : splitValueTokens(text);
-    entries.push(...rawList);
-  }
-  return normalizeDeveloperList(entries);
+	const entries: string[] = [];
+	const liBlocks = html.match(/<li[^>]*>[\s\S]*?<\/li>/gi) || [];
+	for (const block of liBlocks) {
+		const tip = block.match(/<span[^>]*class="tip"[^>]*>(.*?)<\/span>/i);
+		const label = tip ? stripTags(tip[1]).trim() : "";
+		if (!label) {
+			continue;
+		}
+		if (!/开发|开发商|開発|Developer|Developers/i.test(label)) {
+			continue;
+		}
+		const text = stripTags(block.replace(tip?.[0] || "", ""));
+		const anchors = Array.from(block.matchAll(/<a[^>]*>(.*?)<\/a>/gi)).map(
+			(m) => stripTags(m[1]).trim(),
+		);
+		const rawList = anchors.length ? anchors : splitValueTokens(text);
+		entries.push(...rawList);
+	}
+	return normalizeDeveloperList(entries);
 }
 
 async function fetchDeveloperFromHtml(subjectId: number): Promise<string[]> {
-  // 禁用缓存，直接从 API 获取最新数据
-  try {
-    const res = await fetchWithRetry(`https://bgm.tv/subject/${subjectId}`, { headers: { "User-Agent": BANGUMI_REQUEST_HEADERS["User-Agent"] } }, 2, 500, 10000);
-    const html = await res.text();
-    return extractDeveloperFromHtml(html);
-  } catch {
-    return [];
-  }
+	// 禁用缓存，直接从 API 获取最新数据
+	try {
+		const res = await fetchWithRetry(
+			`https://bgm.tv/subject/${subjectId}`,
+			{ headers: { "User-Agent": BANGUMI_REQUEST_HEADERS["User-Agent"] } },
+			2,
+			500,
+			10000,
+		);
+		const html = await res.text();
+		return extractDeveloperFromHtml(html);
+	} catch {
+		return [];
+	}
 }
 
-async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T, index: number) => Promise<R>) {
-  const results: R[] = new Array(items.length);
-  let idx = 0;
-  const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
-    while (idx < items.length) {
-      const current = idx++;
-      results[current] = await fn(items[current], current);
-    }
-  });
-  await Promise.all(runners);
-  return results;
+async function mapWithConcurrency<T, R>(
+	items: T[],
+	limit: number,
+	fn: (item: T, index: number) => Promise<R>,
+) {
+	const results: R[] = new Array(items.length);
+	let idx = 0;
+	const runners = Array.from(
+		{ length: Math.min(limit, items.length) },
+		async () => {
+			while (idx < items.length) {
+				const current = idx++;
+				results[current] = await fn(items[current], current);
+			}
+		},
+	);
+	await Promise.all(runners);
+	return results;
 }
 
 function unescapeHtmlText(value: string): string {
-  return String(value || "")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#0?39;/g, "'")
-    .replace(/&nbsp;/g, " ")
-    .trim();
+	return String(value || "")
+		.replace(/&amp;/g, "&")
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, '"')
+		.replace(/&#0?39;/g, "'")
+		.replace(/&nbsp;/g, " ")
+		.trim();
 }
 
 /** 解析一页游戏收藏列表 HTML，返回类 API 形状的条目（详情由 /v0/subjects 另行补全） */
-function parseGameListPageItems(html: string): any[] {
-  const items: any[] = [];
-  const itemRe = /<li id="item_(\d+)"[\s\S]*?<\/li>/g;
-  let match = itemRe.exec(html);
-  while (match !== null) {
-    const subjectId = Number(match[1]);
-    const block = match[0];
-    const titleMatch = block.match(
-      /<a href="\/subject\/\d+" class="l">([\s\S]*?)<\/a>\s*(?:<small class="grey">([\s\S]*?)<\/small>)?/,
-    );
-    const coverMatch = block.match(/<img src="([^"]+)" class="cover"/);
-    const rateMatch = block.match(/starlight stars(\d+)/);
-    const dateMatch = block.match(/<span class="tip_j">([\d-]+)<\/span>/);
+function parseGameListPageItems(html: string): BangumiCollectionItem[] {
+	const items: BangumiCollectionItem[] = [];
+	const itemRe = /<li id="item_(\d+)"[\s\S]*?<\/li>/g;
+	let match = itemRe.exec(html);
+	while (match !== null) {
+		const subjectId = Number(match[1]);
+		const block = match[0];
+		const titleMatch = block.match(
+			/<a href="\/subject\/\d+" class="l">([\s\S]*?)<\/a>\s*(?:<small class="grey">([\s\S]*?)<\/small>)?/,
+		);
+		const coverMatch = block.match(/<img src="([^"]+)" class="cover"/);
+		const rateMatch = block.match(/starlight stars(\d+)/);
+		const dateMatch = block.match(/<span class="tip_j">([\d-]+)<\/span>/);
 
-    let cover = coverMatch ? coverMatch[1] : "";
-    if (!cover || cover.includes("no_icon_subject")) {cover = "";}
-    if (cover.startsWith("//")) {cover = `https:${cover}`;}
+		let cover = coverMatch ? coverMatch[1] : "";
+		if (!cover || cover.includes("no_icon_subject")) {
+			cover = "";
+		}
+		if (cover.startsWith("//")) {
+			cover = `https:${cover}`;
+		}
 
-    items.push({
-      subject_id: subjectId,
-      rate: rateMatch ? Number(rateMatch[1]) : 0,
-      updated_at: dateMatch ? dateMatch[1] : "",
-      subject: {
-        name_cn: unescapeHtmlText(titleMatch?.[1] || ""),
-        name: unescapeHtmlText(titleMatch?.[2] || ""),
-        ...(cover ? { images: { medium: cover } } : {}),
-      },
-    });
-    match = itemRe.exec(html);
-  }
-  return items;
+		items.push({
+			subject_id: subjectId,
+			rate: rateMatch ? Number(rateMatch[1]) : 0,
+			updated_at: dateMatch ? dateMatch[1] : "",
+			subject: {
+				name_cn: unescapeHtmlText(titleMatch?.[1] || ""),
+				name: unescapeHtmlText(titleMatch?.[2] || ""),
+				...(cover ? { images: { medium: cover } } : {}),
+			},
+		});
+		match = itemRe.exec(html);
+	}
+	return items;
 }
 
 /**
@@ -799,306 +1192,446 @@ function parseGameListPageItems(html: string): any[] {
  * 改抓 bgm.tv/game/list/{user}/{segment} 分页 HTML（每页 24 条）。
  */
 async function fetchGameCollectionFromHtml(userId: string, type: number) {
-  const segment = GAME_HTML_TYPE_SEGMENTS[type];
-  if (!segment) {return null;}
-  const allData: any[] = [];
-  const seen = new Set<number>();
-  for (let page = 1; ; page++) {
-    const url = `${BANGUMI_WEB_BASE}/game/list/${encodeURIComponent(userId)}/${segment}?page=${page}`;
-    let html = "";
-    try {
-      const res = await fetchWithRetry(url, { headers: BANGUMI_WEB_HEADERS }, 2, 500, 15000);
-      html = await res.text();
-    } catch {
-      break;
-    }
-    const pageItems = parseGameListPageItems(html);
-    if (pageItems.length === 0) {break;}
-    for (const item of pageItems) {
-      if (seen.has(item.subject_id)) {continue;}
-      seen.add(item.subject_id);
-      allData.push(item);
-      if (allData.length >= MAX_ITEMS) {break;}
-    }
-    if (allData.length >= MAX_ITEMS) {break;}
-    await new Promise((resolve) => setTimeout(resolve, 120));
-  }
-  return allData.length > 0 ? { data: allData } : null;
+	const segment = GAME_HTML_TYPE_SEGMENTS[type];
+	if (!segment) {
+		return null;
+	}
+	const allData: BangumiCollectionItem[] = [];
+	const seen = new Set<number>();
+	for (let page = 1; ; page++) {
+		const url = `${BANGUMI_WEB_BASE}/game/list/${encodeURIComponent(userId)}/${segment}?page=${page}`;
+		let html = "";
+		try {
+			const res = await fetchWithRetry(
+				url,
+				{ headers: BANGUMI_WEB_HEADERS },
+				2,
+				500,
+				15000,
+			);
+			html = await res.text();
+		} catch {
+			break;
+		}
+		const pageItems = parseGameListPageItems(html);
+		if (pageItems.length === 0) {
+			break;
+		}
+		for (const item of pageItems) {
+			if (seen.has(item.subject_id)) {
+				continue;
+			}
+			seen.add(item.subject_id);
+			allData.push(item);
+			if (allData.length >= MAX_ITEMS) {
+				break;
+			}
+		}
+		if (allData.length >= MAX_ITEMS) {
+			break;
+		}
+		await new Promise((resolve) => setTimeout(resolve, 120));
+	}
+	return allData.length > 0 ? { data: allData } : null;
 }
 
-async function fetchBangumiCollection(userId: string, subjectType: number, type: number) {
-  const cacheKey = `collection-${userId}-${subjectType}-${type}`;
-  const cached = await diskCacheGet<{ data: any[] }>(cacheKey, CACHE_TTL_HOURS);
-  if (cached && cached.data?.length) {return cached;}
-  if (GAMES_FETCH_OFFLINE) {
-    // 离线模式：零网络请求，陈旧缓存兜底，保证构建不会被网络拖死
-    const stale = await diskCacheGet<{ data: any[] }>(cacheKey, Infinity);
-    return stale && stale.data?.length ? stale : null;
-  }
-  try {
-    let allData: any[] = [];
-    let offset = 0;
-    const pageLimit = 50;
-    while (true) {
-      const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
-      const response = await fetchWithRetry(url, { headers: BANGUMI_REQUEST_HEADERS }, 3, 500, 15000);
-      const data = await response.json();
-      const batch = data.data || [];
-      if (batch.length > 0) {allData = [...allData, ...batch];}
-      if (allData.length >= MAX_ITEMS) {
-        allData = allData.slice(0, MAX_ITEMS as number);
-        break;
-      }
-      const hasMore = batch.length === pageLimit;
-      if (!hasMore) {break;}
-      offset += pageLimit;
-      await new Promise((resolve) => setTimeout(resolve, 120));
-    }
-    const payload = { data: allData };
-    await diskCacheSet(cacheKey, payload);
-    return payload;
-  } catch {
-    // API 故障（如 api.bgm.tv /v0/users/* 502）时优先回退主站 HTML 列表页（数据仍是新的），
-    // 再退到任意陈旧的缓存，避免构建出空页面
-    const fromHtml = await fetchGameCollectionFromHtml(userId, type);
-    if (fromHtml) {
-      await diskCacheSet(cacheKey, fromHtml);
-      return fromHtml;
-    }
-    const stale = await diskCacheGet<{ data: any[] }>(cacheKey, Infinity);
-    return stale && stale.data?.length ? stale : null;
-  }
+async function fetchBangumiCollection(
+	userId: string,
+	subjectType: number,
+	type: number,
+) {
+	const cacheKey = `collection-${userId}-${subjectType}-${type}`;
+	const cached = await diskCacheGet<BangumiCollectionPayload>(
+		cacheKey,
+		CACHE_TTL_HOURS,
+	);
+	if (cached?.data?.length) {
+		return cached;
+	}
+	if (GAMES_FETCH_OFFLINE) {
+		// 离线模式：零网络请求，陈旧缓存兜底，保证构建不会被网络拖死
+		const stale = await diskCacheGet<BangumiCollectionPayload>(
+			cacheKey,
+			Number.POSITIVE_INFINITY,
+		);
+		return stale?.data?.length ? stale : null;
+	}
+	try {
+		let allData: BangumiCollectionItem[] = [];
+		let offset = 0;
+		const pageLimit = 50;
+		while (true) {
+			const url = `${BANGUMI_API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&type=${type}&limit=${pageLimit}&offset=${offset}`;
+			const response = await fetchWithRetry(
+				url,
+				{ headers: BANGUMI_REQUEST_HEADERS },
+				3,
+				500,
+				15000,
+			);
+			const data = await response.json();
+			const batch = data.data || [];
+			if (batch.length > 0) {
+				allData = [...allData, ...batch];
+			}
+			if (allData.length >= MAX_ITEMS) {
+				allData = allData.slice(0, MAX_ITEMS as number);
+				break;
+			}
+			const hasMore = batch.length === pageLimit;
+			if (!hasMore) {
+				break;
+			}
+			offset += pageLimit;
+			await new Promise((resolve) => setTimeout(resolve, 120));
+		}
+		const payload = { data: allData };
+		await diskCacheSet(cacheKey, payload);
+		return payload;
+	} catch {
+		// API 故障（如 api.bgm.tv /v0/users/* 502）时优先回退主站 HTML 列表页（数据仍是新的），
+		// 再退到任意陈旧的缓存，避免构建出空页面
+		const fromHtml = await fetchGameCollectionFromHtml(userId, type);
+		if (fromHtml) {
+			await diskCacheSet(cacheKey, fromHtml);
+			return fromHtml;
+		}
+		const stale = await diskCacheGet<BangumiCollectionPayload>(
+			cacheKey,
+			Number.POSITIVE_INFINITY,
+		);
+		return stale?.data?.length ? stale : null;
+	}
 }
 
 const devInfoDb = await readDevInfoDatabase();
 let devInfoDirty = false;
 
-async function processBangumiData(data: any, status: GameStatus): Promise<GameItem[]> {
-  if (!data || !data.data) {return [];}
-  const items: any[] = data.data;
-  const detailedItems = await mapWithConcurrency(items, 8, async (item: any) => {
-    const subjectId = item.subject_id;
-    const subject = item.subject || {};
-    const detail = await fetchSubjectDetailCached(subjectId);
-    const title = subject?.name_cn || subject?.name || detail?.name_cn || detail?.name || T.unknown;
-    const description = (detail?.summary || subject?.short_summary || "").trim();
-    const rating = typeof item.rate === "number" ? Number(item.rate.toFixed(1)) : Number(subject?.rating?.score || 0);
-    const cover = subject?.images?.medium || detail?.images?.medium || "/assets/anime/default.webp";
+async function processBangumiData(
+	data: BangumiCollectionPayload | null | undefined,
+	status: GameStatus,
+): Promise<GameItem[]> {
+	if (!data?.data) {
+		return [];
+	}
+	const items: BangumiCollectionItem[] = data.data;
+	const detailedItems = await mapWithConcurrency(items, 8, async (item) => {
+		const subjectId = item.subject_id;
+		const subject = item.subject || {};
+		const detail = await fetchSubjectDetailCached(subjectId);
+		const title =
+			subject?.name_cn ||
+			subject?.name ||
+			detail?.name_cn ||
+			detail?.name ||
+			T.unknown;
+		const description = (
+			detail?.summary ||
+			subject?.short_summary ||
+			""
+		).trim();
+		const rating =
+			typeof item.rate === "number"
+				? Number(item.rate.toFixed(1))
+				: Number(subject?.rating?.score || 0);
+		const cover =
+			subject?.images?.medium ||
+			detail?.images?.medium ||
+			"/assets/anime/default.webp";
 
-    const releaseDate =
-      (subject?.date || "").trim() ||
-      (detail?.date || "").trim() ||
-      getReleaseDateFromInfobox(detail) ||
-      "";
-    const displayDate = toDisplayYearOrYearMonth(releaseDate);
-    const primaryDeveloperList = normalizeDeveloperList(
-      dedupeList([
-        ...getDeveloperListFromInfobox(detail),
-        ...getDeveloperListFromInfobox(subject),
-        ...getStaffNamesByJobs(detail, [/开发/i, /制作/i, /developer/i, /development/i, /dev/i, /开発/i, /製作/i]),
-        ...getStaffNamesByJobs(subject, [/开发/i, /制作/i, /developer/i, /development/i, /dev/i, /开発/i, /製作/i]),
-        ...getRelationNamesByTypes(detail, [/厂商/i, /開発/i, /开发/i, /制作/i, /製作/i, /开发商/i]),
-        ...getRelationNamesByTypes(subject, [/厂商/i, /開発/i, /开发/i, /制作/i, /製作/i, /开发商/i]),
-      ]),
-    );
-    let htmlDeveloperList: string[] = [];
-    if (ENABLE_REMOTE_GAME_HTML_FALLBACK && !GAMES_FETCH_OFFLINE && primaryDeveloperList.length === 0) {
-      htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
-      if (htmlDeveloperList.length === 0) {
-        await new Promise((resolve) => setTimeout(resolve, 150));
-        htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
-      }
-    }
-    const existingRecord = devInfoDb.items[String(subjectId)];
-    const existingDeveloperList = existingRecord?.developer
-      ? normalizeDeveloperList(splitValueTokens(existingRecord.developer))
-      : [];
-    let developerList = mergeDeveloperValues(primaryDeveloperList, htmlDeveloperList);
-    if (developerList.length === 0 && existingDeveloperList.length > 0) {
-      developerList = existingDeveloperList;
-    } else if (existingDeveloperList.length > 0 && developerList.length > 0) {
-      const merged = mergeDeveloperValues(developerList, existingDeveloperList);
-      const before = existingDeveloperList.join("/");
-      const after = merged.join("/");
-      if (before && after && before !== after) {
-        await appendLog(
-          "dev-info-conflict.log",
-          JSON.stringify({ time: new Date().toISOString(), id: subjectId, title, before, after }),
-        );
-      }
-      developerList = merged;
-    }
-    const developer = developerList.length ? developerList.join("/") : T.unknown;
-    const platformValues = dedupeList([
-      ...getPlatformValuesFromInfobox(detail),
-      ...getPlatformValuesFromInfobox(subject),
-    ]);
-    const platformInfo = normalizePlatforms(platformValues, userAgent);
-    const platform = platformInfo.display || T.unknown;
+		const releaseDate =
+			(subject?.date || "").trim() ||
+			(detail?.date || "").trim() ||
+			getReleaseDateFromInfobox(detail) ||
+			"";
+		const displayDate = toDisplayYearOrYearMonth(releaseDate);
+		const primaryDeveloperList = normalizeDeveloperList(
+			dedupeList([
+				...getDeveloperListFromInfobox(detail),
+				...getDeveloperListFromInfobox(subject),
+				...getStaffNamesByJobs(detail, [
+					/开发/i,
+					/制作/i,
+					/developer/i,
+					/development/i,
+					/dev/i,
+					/开発/i,
+					/製作/i,
+				]),
+				...getStaffNamesByJobs(subject, [
+					/开发/i,
+					/制作/i,
+					/developer/i,
+					/development/i,
+					/dev/i,
+					/开発/i,
+					/製作/i,
+				]),
+				...getRelationNamesByTypes(detail, [
+					/厂商/i,
+					/開発/i,
+					/开发/i,
+					/制作/i,
+					/製作/i,
+					/开发商/i,
+				]),
+				...getRelationNamesByTypes(subject, [
+					/厂商/i,
+					/開発/i,
+					/开发/i,
+					/制作/i,
+					/製作/i,
+					/开发商/i,
+				]),
+			]),
+		);
+		let htmlDeveloperList: string[] = [];
+		if (
+			ENABLE_REMOTE_GAME_HTML_FALLBACK &&
+			!GAMES_FETCH_OFFLINE &&
+			primaryDeveloperList.length === 0
+		) {
+			htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
+			if (htmlDeveloperList.length === 0) {
+				await new Promise((resolve) => setTimeout(resolve, 150));
+				htmlDeveloperList = await fetchDeveloperFromHtml(subjectId);
+			}
+		}
+		const existingRecord = devInfoDb.items[String(subjectId)];
+		const existingDeveloperList = existingRecord?.developer
+			? normalizeDeveloperList(splitValueTokens(existingRecord.developer))
+			: [];
+		let developerList = mergeDeveloperValues(
+			primaryDeveloperList,
+			htmlDeveloperList,
+		);
+		if (developerList.length === 0 && existingDeveloperList.length > 0) {
+			developerList = existingDeveloperList;
+		} else if (existingDeveloperList.length > 0 && developerList.length > 0) {
+			const merged = mergeDeveloperValues(developerList, existingDeveloperList);
+			const before = existingDeveloperList.join("/");
+			const after = merged.join("/");
+			if (before && after && before !== after) {
+				await appendLog(
+					"dev-info-conflict.log",
+					JSON.stringify({
+						time: new Date().toISOString(),
+						id: subjectId,
+						title,
+						before,
+						after,
+					}),
+				);
+			}
+			developerList = merged;
+		}
+		const developer = developerList.length
+			? developerList.join("/")
+			: T.unknown;
+		const platformValues = dedupeList([
+			...getPlatformValuesFromInfobox(detail),
+			...getPlatformValuesFromInfobox(subject),
+		]);
+		const platformInfo = normalizePlatforms(platformValues, userAgent);
+		const platform = platformInfo.display || T.unknown;
 
-    const developerMissing = !developer || developer === T.unknown;
-    const platformMissing = !platform || platform === T.unknown;
-    const record: DevInfoRecord = {
-      id: subjectId,
-      title,
-      developer: developerMissing ? undefined : developer,
-      platform: platformMissing ? undefined : platform,
-      status: developerMissing ? "missing" : "ok",
-      lastChecked: new Date().toISOString(),
-    };
-    devInfoDb.items[String(subjectId)] = record;
-    devInfoDirty = true;
-    if (developerMissing) {
-      await appendLog(
-        "dev-info-missing.log",
-        JSON.stringify({ time: record.lastChecked, id: subjectId, title }),
-      );
-    }
+		const developerMissing = !developer || developer === T.unknown;
+		const platformMissing = !platform || platform === T.unknown;
+		const record: DevInfoRecord = {
+			id: subjectId,
+			title,
+			developer: developerMissing ? undefined : developer,
+			platform: platformMissing ? undefined : platform,
+			status: developerMissing ? "missing" : "ok",
+			lastChecked: new Date().toISOString(),
+		};
+		devInfoDb.items[String(subjectId)] = record;
+		devInfoDirty = true;
+		if (developerMissing) {
+			await appendLog(
+				"dev-info-missing.log",
+				JSON.stringify({ time: record.lastChecked, id: subjectId, title }),
+			);
+		}
 
-    const genre: string[] = Array.isArray(subject?.tags)
-      ? subject.tags
-          .slice(0, 4)
-          .map((t: any) => {
-            if (typeof t === "string") {return t.trim();}
-            if (t && typeof t.name === "string") {return t.name.trim();}
-            return "";
-          })
-          .filter(Boolean)
-      : [];
+		const genre: string[] = Array.isArray(subject?.tags)
+			? subject.tags
+					.slice(0, 4)
+					.map((t) => {
+						if (typeof t === "string") {
+							return t.trim();
+						}
+						if (t && typeof (t as { name?: unknown }).name === "string") {
+							return String((t as { name: string }).name).trim();
+						}
+						return "";
+					})
+					.filter(Boolean)
+			: [];
 
-    // 「最近修改数据的时间」= Bangumi 收藏条目的 updated_at（最近一次改评分/进度/评论的时间）。
-    // 刻意不把 detail?.date / subject?.date（发行日）混入：发行日属于次级排序，
-    // 否则同一批新番的发行日会盖过真实修改时间，导致排序不符合「最近修改」语义。
-    const updatedAtRaw = item.updated_at || item.comment_updated_at || item.created_at || "";
-    let updatedAt: string | undefined = undefined;
-    if (updatedAtRaw) {
-      const ts = toTime(updatedAtRaw);
-      if (ts > 0) {updatedAt = new Date(ts).toISOString();}
-    }
+		// 「最近修改数据的时间」= Bangumi 收藏条目的 updated_at（最近一次改评分/进度/评论的时间）。
+		// 刻意不把 detail?.date / subject?.date（发行日）混入：发行日属于次级排序，
+		// 否则同一批新番的发行日会盖过真实修改时间，导致排序不符合「最近修改」语义。
+		const updatedAtRaw =
+			item.updated_at || item.comment_updated_at || item.created_at || "";
+		let updatedAt: string | undefined;
+		if (updatedAtRaw) {
+			const ts = toTime(updatedAtRaw);
+			if (ts > 0) {
+				updatedAt = new Date(ts).toISOString();
+			}
+		}
 
-    return {
-      id: subjectId,
-      title,
-      description,
-      rating,
-      cover,
-      status,
-      displayDate,
-      developer,
-      platform,
-      platformList: platformInfo.list,
-      developerMissing,
-      platformMissing,
-      link: `https://bgm.tv/subject/${subjectId}`,
-      updatedAt,
-      genre,
-    } as GameItem;
-  });
-  return detailedItems as GameItem[];
+		return {
+			id: subjectId,
+			title,
+			description,
+			rating,
+			cover,
+			status,
+			displayDate,
+			developer,
+			platform,
+			platformList: platformInfo.list,
+			developerMissing,
+			platformMissing,
+			link: `https://bgm.tv/subject/${subjectId}`,
+			updatedAt,
+			genre,
+		} as GameItem;
+	});
+	return detailedItems as GameItem[];
 }
 
 let gameList: GameItem[] = [];
 if (!isValidUserId) {
-  gameList = [];
+	gameList = [];
 } else {
-  const [playingData, plannedData, completedData, onHoldData, droppedData] = await Promise.all([
-    fetchBangumiCollection(BANGUMI_USER_ID, 4, 3),
-    fetchBangumiCollection(BANGUMI_USER_ID, 4, 1),
-    fetchBangumiCollection(BANGUMI_USER_ID, 4, 2),
-    fetchBangumiCollection(BANGUMI_USER_ID, 4, 4),
-    fetchBangumiCollection(BANGUMI_USER_ID, 4, 5),
-  ]);
+	const [playingData, plannedData, completedData, onHoldData, droppedData] =
+		await Promise.all([
+			fetchBangumiCollection(BANGUMI_USER_ID, 4, 3),
+			fetchBangumiCollection(BANGUMI_USER_ID, 4, 1),
+			fetchBangumiCollection(BANGUMI_USER_ID, 4, 2),
+			fetchBangumiCollection(BANGUMI_USER_ID, 4, 4),
+			fetchBangumiCollection(BANGUMI_USER_ID, 4, 5),
+		]);
 
-  const playingList = playingData ? await processBangumiData(playingData, "playing") : [];
-  const plannedList = plannedData ? await processBangumiData(plannedData, "planned") : [];
-  const completedList = completedData ? await processBangumiData(completedData, "completed") : [];
-  const onHoldList = onHoldData ? await processBangumiData(onHoldData, "onhold") : [];
-  const droppedList = droppedData ? await processBangumiData(droppedData, "dropped") : [];
+	const playingList = playingData
+		? await processBangumiData(playingData, "playing")
+		: [];
+	const plannedList = plannedData
+		? await processBangumiData(plannedData, "planned")
+		: [];
+	const completedList = completedData
+		? await processBangumiData(completedData, "completed")
+		: [];
+	const onHoldList = onHoldData
+		? await processBangumiData(onHoldData, "onhold")
+		: [];
+	const droppedList = droppedData
+		? await processBangumiData(droppedData, "dropped")
+		: [];
 
-  gameList = [...playingList, ...plannedList, ...completedList, ...onHoldList, ...droppedList];
+	gameList = [
+		...playingList,
+		...plannedList,
+		...completedList,
+		...onHoldList,
+		...droppedList,
+	];
 }
 
 if (devInfoDirty) {
-  devInfoDb.updatedAt = new Date().toISOString();
-  await writeDevInfoDatabase(devInfoDb);
+	devInfoDb.updatedAt = new Date().toISOString();
+	await writeDevInfoDatabase(devInfoDb);
 }
 
 if (Number.isFinite(MAX_ITEMS)) {
-  gameList = gameList.slice(0, MAX_ITEMS as number);
+	gameList = gameList.slice(0, MAX_ITEMS as number);
 }
 
 const sortedGameList = sortByUpdatedAtDesc(
-  gameList,
-  (game) => game.updatedAt,
-  // 次级排序：时间缺失/相同时按发行日期倒序，再按标题，保证顺序确定
-  (a, b) =>
-    (toTime(b.displayDate) - toTime(a.displayDate)) ||
-    String(a.title).localeCompare(String(b.title)),
+	gameList,
+	(game) => game.updatedAt,
+	// 次级排序：时间缺失/相同时按发行日期倒序，再按标题，保证顺序确定
+	(a, b) =>
+		toTime(b.displayDate) - toTime(a.displayDate) ||
+		String(a.title).localeCompare(String(b.title)),
 );
 
 const stats = {
-  total: gameList.length,
-  avgRating: (() => {
-    const ratedGames = gameList.filter((game) => (game.rating || 0) > 0);
-    if (ratedGames.length === 0) {return "0.0";}
-    return (
-      ratedGames.reduce((sum, game) => sum + (game.rating || 0), 0) / ratedGames.length
-    ).toFixed(1);
-  })(),
+	total: gameList.length,
+	avgRating: (() => {
+		const ratedGames = gameList.filter((game) => (game.rating || 0) > 0);
+		if (ratedGames.length === 0) {
+			return "0.0";
+		}
+		return (
+			ratedGames.reduce((sum, game) => sum + (game.rating || 0), 0) /
+			ratedGames.length
+		).toFixed(1);
+	})(),
 };
 
 const lastUpdated = new Date().toLocaleString("zh-CN", {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: false,
-  timeZone: "Asia/Shanghai",
+	year: "numeric",
+	month: "2-digit",
+	day: "2-digit",
+	hour: "2-digit",
+	minute: "2-digit",
+	hour12: false,
+	timeZone: "Asia/Shanghai",
 });
 
 const titleText = resolveI18nText(gamesConfig.title, I18nKey.games);
-const subtitleText = resolveI18nText(gamesConfig.description, I18nKey.gamesBanner);
+const subtitleText = resolveI18nText(
+	gamesConfig.description,
+	I18nKey.gamesBanner,
+);
 
 function getStatusInfo(status: GameStatus) {
-  switch (status) {
-    case "playing":
-      return {
-        text: i18n(I18nKey.gamesStatusPlaying),
-        class: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
-        icon: "▶",
-      };
-    case "completed":
-      return {
-        text: i18n(I18nKey.gamesStatusCompleted),
-        class: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
-        icon: "✓",
-      };
-    case "planned":
-      return {
-        text: i18n(I18nKey.gamesStatusPlanned),
-        class: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
-        icon: "⏰",
-      };
-    case "onhold":
-      return {
-        text: i18n(I18nKey.gamesStatusOnHold),
-        class: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
-        icon: "⏸",
-      };
-    case "dropped":
-      return {
-        text: i18n(I18nKey.gamesStatusDropped),
-        class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
-        icon: "✗",
-      };
-    default:
-      return {
-        text: status,
-        class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
-        icon: "?",
-      };
-  }
+	switch (status) {
+		case "playing":
+			return {
+				text: i18n(I18nKey.gamesStatusPlaying),
+				class:
+					"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+				icon: "▶",
+			};
+		case "completed":
+			return {
+				text: i18n(I18nKey.gamesStatusCompleted),
+				class:
+					"bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+				icon: "✓",
+			};
+		case "planned":
+			return {
+				text: i18n(I18nKey.gamesStatusPlanned),
+				class:
+					"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+				icon: "⏰",
+			};
+		case "onhold":
+			return {
+				text: i18n(I18nKey.gamesStatusOnHold),
+				class:
+					"bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+				icon: "⏸",
+			};
+		case "dropped":
+			return {
+				text: i18n(I18nKey.gamesStatusDropped),
+				class: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
+				icon: "✗",
+			};
+		default:
+			return {
+				text: status,
+				class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+				icon: "?",
+			};
+	}
 }
 ---
 

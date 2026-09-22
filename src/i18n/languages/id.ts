@@ -126,7 +126,8 @@ export const id: Translation = {
 	[Key.gamesOpenOnBangumi]: "Buka {title} di Bangumi",
 	[Key.gamesStatusLabel]: "Status: {status}",
 	[Key.gamesRatingBadge]: "Peringkat {rating}",
-	[Key.gamesEmptyHint]: "Silakan periksa konfigurasi Bangumi atau koneksi jaringan",
+	[Key.gamesEmptyHint]:
+		"Silakan periksa konfigurasi Bangumi atau koneksi jaringan",
 	[Key.gamesAnnounceItems]: "Menampilkan {count} item dalam “{label}”",
 	[Key.gamesAnnounceSearch]: " dengan pencarian “{term}”",
 

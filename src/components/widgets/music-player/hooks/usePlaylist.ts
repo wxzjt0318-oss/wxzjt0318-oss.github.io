@@ -16,7 +16,9 @@ export const PLAYBACK_MODE_CYCLE: PlaybackMode[] = [
 
 export function nextPlaybackMode(current: PlaybackMode): PlaybackMode {
 	const index = PLAYBACK_MODE_CYCLE.indexOf(current);
-	return PLAYBACK_MODE_CYCLE[(index + 1) % PLAYBACK_MODE_CYCLE.length] ?? "sequence";
+	return (
+		PLAYBACK_MODE_CYCLE[(index + 1) % PLAYBACK_MODE_CYCLE.length] ?? "sequence"
+	);
 }
 
 export function isShuffleMode(mode: PlaybackMode): boolean {

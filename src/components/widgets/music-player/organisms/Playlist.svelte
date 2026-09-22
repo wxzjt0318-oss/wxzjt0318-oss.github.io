@@ -1,27 +1,21 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
-	import { slide } from "svelte/transition";
+import Icon from "@iconify/svelte";
+import { slide } from "svelte/transition";
 
-	import PlaylistItem from "../atoms/PlaylistItem.svelte";
-	import type { Song } from "../types";
+import PlaylistItem from "../atoms/PlaylistItem.svelte";
+import type { Song } from "../types";
 
-	interface Props {
-		playlist: readonly Song[];
-		currentIndex: number;
-		isPlaying: boolean;
-		show: boolean;
-		onClose: () => void;
-		onPlaySong: (index: number) => void;
-	}
+interface Props {
+	playlist: readonly Song[];
+	currentIndex: number;
+	isPlaying: boolean;
+	show: boolean;
+	onClose: () => void;
+	onPlaySong: (index: number) => void;
+}
 
-	const {
-		playlist,
-		currentIndex,
-		isPlaying,
-		show,
-		onClose,
-		onPlaySong,
-	}: Props = $props();
+const { playlist, currentIndex, isPlaying, show, onClose, onPlaySong }: Props =
+	$props();
 </script>
 
 {#if show}

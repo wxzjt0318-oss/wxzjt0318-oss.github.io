@@ -88,8 +88,7 @@ export const skillsData: SkillItem[] = [
 	},
 	{
 		name: "Webpack",
-		description:
-			"A static module bundler for modern JavaScript applications.",
+		description: "A static module bundler for modern JavaScript applications.",
 		icon: "logos:webpack",
 		category: "frontend",
 		level: "intermediate",
@@ -445,8 +444,7 @@ export const skillsData: SkillItem[] = [
 	},
 	{
 		name: "Cypress",
-		description:
-			"A modern end-to-end testing framework for web applications.",
+		description: "A modern end-to-end testing framework for web applications.",
 		icon: "logos:cypress-icon",
 		category: "other",
 		level: "beginner",

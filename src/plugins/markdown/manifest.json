@@ -145,9 +145,7 @@
 				"modules": ["src/utils/abbreviations.ts"],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": [
 				"tests/plugins/markdown/inline/abbreviations.test.mjs",
 				"tests/site/abbreviations.spec.ts"
@@ -271,9 +269,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": [
 				"tests/plugins/markdown/containers/admonitions.test.mjs",
 				"tests/site/admonitions.spec.ts"
@@ -386,9 +382,7 @@
 					"author-declared audio source only after activation; preload=none"
 				]
 			},
-			"docs": [
-				".agents/skills/shirone-markdown-syntax/SKILL.md"
-			],
+			"docs": [".agents/skills/shirone-markdown-syntax/SKILL.md"],
 			"tests": [
 				"tests/plugins/markdown/inline/audio-reader.test.mjs",
 				"tests/site/markdown-runtime.spec.ts"
@@ -590,9 +584,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": [
 				"tests/plugins/markdown/containers/collapse-panels.test.mjs",
 				"tests/plugins/markdown/core/disclosure.test.mjs",
@@ -742,20 +734,51 @@
 			"category": "container",
 			"source": "shirone",
 			"summary": "将 API、组件 Props 或配置字段渲染为结构化参数卡片。",
-			"forms": [{"kind": "container-directive", "pattern": ":::: field-group ... ::: field name ... ::::", "example": ":::: field-group\\n\\n::: field title\\n@type string\\n@optional\\n\\nDescription.\\n:::\\n\\n::::"}],
-			"attributes": [
-				{"name": "name", "required": true, "values": "non-empty text", "default": null},
-				{"name": "@type", "required": false, "values": "text", "default": null},
-				{"name": "@default", "required": false, "values": "text", "default": null},
-				{"name": "@required | @optional | @deprecated", "required": false, "values": "flag", "default": null}
+			"forms": [
+				{
+					"kind": "container-directive",
+					"pattern": ":::: field-group ... ::: field name ... ::::",
+					"example": ":::: field-group\\n\\n::: field title\\n@type string\\n@optional\\n\\nDescription.\\n:::\\n\\n::::"
+				}
 			],
-			"implementation": ["src/plugins/markdown/remark-fields.mjs", "src/plugins/markdown/containers/rehype-fields.mjs"],
+			"attributes": [
+				{
+					"name": "name",
+					"required": true,
+					"values": "non-empty text",
+					"default": null
+				},
+				{
+					"name": "@type",
+					"required": false,
+					"values": "text",
+					"default": null
+				},
+				{
+					"name": "@default",
+					"required": false,
+					"values": "text",
+					"default": null
+				},
+				{
+					"name": "@required | @optional | @deprecated",
+					"required": false,
+					"values": "flag",
+					"default": null
+				}
+			],
+			"implementation": [
+				"src/plugins/markdown/remark-fields.mjs",
+				"src/plugins/markdown/containers/rehype-fields.mjs"
+			],
 			"registeredIn": "src/utils/markdown-processor.mjs",
 			"styles": ["src/styles/markdown/fields.css"],
-			"runtime": {"mode": "none", "modules": [], "network": []},
+			"runtime": { "mode": "none", "modules": [], "network": [] },
 			"docs": ["docs/markdown-extensions.md"],
 			"tests": ["tests/plugins/markdown/containers/fields.test.mjs"],
-			"notes": ["无效或不完整的字段标签保留为可读 Markdown；组件为纯 SSR 输出，不增加客户端运行时。"]
+			"notes": [
+				"无效或不完整的字段标签保留为可读 Markdown；组件为纯 SSR 输出，不增加客户端运行时。"
+			]
 		},
 		{
 			"id": "file-tree",
@@ -806,9 +829,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": [
 				"tests/plugins/markdown/containers/file-tree.test.mjs",
 				"tests/plugins/markdown/core/disclosure.test.mjs",
@@ -877,8 +898,8 @@
 					"kind": "container-directive",
 					"pattern": ":::grid{columns=\"1..6\" aspect=\"W/H\" fit=\"cover|contain\"} ... :::",
 					"example": ":::grid{columns=\"3\" aspect=\"16/9\" fit=\"cover\"}\n![说明](./one.webp)\n![说明](./two.webp)\n:::"
-		}
-	],
+				}
+			],
 			"attributes": [
 				{
 					"name": "columns",
@@ -950,9 +971,7 @@
 				"modules": [],
 				"network": ["author-declared image URLs only"]
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": ["tests/plugins/rehype-markdown-images.test.mjs"],
 			"notes": ["非法或越界宽度令牌保留在 alt，不静默改写。"]
 		},
@@ -1002,9 +1021,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": ["tests/plugins/markdown/inline/includes.test.mjs"],
 			"notes": [
 				"只处理独立一行且位于 fenced code 之外的注释；缺失、越界、未闭合或递归包含保留原注释。",
@@ -1050,9 +1067,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": [
 				"tests/plugins/markdown/inline/markers.test.mjs",
 				"tests/site/markers.spec.ts"
@@ -1090,9 +1105,7 @@
 				"modules": [],
 				"network": []
 			},
-			"docs": [
-				"src/content/posts/guide/index.md"
-			],
+			"docs": ["src/content/posts/guide/index.md"],
 			"tests": [
 				"tests/plugins/markdown/katex-version.test.mjs",
 				"tests/site/math.spec.ts",
@@ -1177,9 +1190,7 @@
 				"modules": ["src/utils/option-groups.ts"],
 				"network": []
 			},
-			"docs": [
-				"docs/markdown-extensions.md"
-			],
+			"docs": ["docs/markdown-extensions.md"],
 			"tests": [
 				"tests/plugins/markdown/containers/option-groups.test.mjs",
 				"tests/site/option-groups.spec.ts"

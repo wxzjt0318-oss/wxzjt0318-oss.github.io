@@ -125,7 +125,9 @@ async function syncProvider(providerName, targetDir, keepLastValid) {
 		items: sortedItems,
 	};
 
-	const jsonContent = JSON.stringify(snapshot, null, 2);
+	// 用制表符缩进以与 biome 的格式化输出保持一致（biome.json formatter.indentStyle = "tab"），
+	// 否则每日 cron 重新生成的快照会立刻产生 format 报错与无意义的 diff。
+	const jsonContent = JSON.stringify(snapshot, null, "\t");
 
 	// 敏感凭据扫描
 	scanForSensitiveData(jsonContent);

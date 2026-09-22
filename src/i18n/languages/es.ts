@@ -124,7 +124,8 @@ export const es: Translation = {
 	[Key.gamesOpenOnBangumi]: "Abrir {title} en Bangumi",
 	[Key.gamesStatusLabel]: "Estado: {status}",
 	[Key.gamesRatingBadge]: "Puntuación {rating}",
-	[Key.gamesEmptyHint]: "Comprueba la configuración de Bangumi o la conexión de red",
+	[Key.gamesEmptyHint]:
+		"Comprueba la configuración de Bangumi o la conexión de red",
 	[Key.gamesAnnounceItems]: "Mostrando {count} elemento(s) en “{label}”",
 	[Key.gamesAnnounceSearch]: " con búsqueda “{term}”",
 

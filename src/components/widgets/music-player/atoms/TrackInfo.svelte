@@ -1,22 +1,22 @@
 <script lang="ts">
-	import type { Song } from "../types";
-	import { formatTime } from "../hooks/useKeyboardShortcuts";
+import { formatTime } from "../hooks/useKeyboardShortcuts";
+import type { Song } from "../types";
 
-	interface Props {
-		song: Song;
-		currentTime: number;
-		duration: number;
-		showTime?: boolean;
-		size?: "mini" | "expanded";
-	}
+interface Props {
+	song: Song;
+	currentTime: number;
+	duration: number;
+	showTime?: boolean;
+	size?: "mini" | "expanded";
+}
 
-	const {
-		song,
-		currentTime,
-		duration,
-		showTime = false,
-		size = "mini",
-	}: Props = $props();
+const {
+	song,
+	currentTime,
+	duration,
+	showTime = false,
+	size = "mini",
+}: Props = $props();
 </script>
 
 {#if size === "mini"}

@@ -1,45 +1,45 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
+import Icon from "@iconify/svelte";
 
-	import CoverImage from "../atoms/CoverImage.svelte";
-	import TrackInfo from "../atoms/TrackInfo.svelte";
-	import type { Song } from "../types";
+import CoverImage from "../atoms/CoverImage.svelte";
+import TrackInfo from "../atoms/TrackInfo.svelte";
+import type { Song } from "../types";
 
-	interface Props {
-		song: Song;
-		currentTime: number;
-		duration: number;
-		isPlaying: boolean;
-		isLoading: boolean;
-		size?: "mini" | "expanded";
-		showControls?: boolean;
-		showPlaylist?: boolean;
-		onCoverClick?: () => void;
-		onInfoClick?: () => void;
-		onHideClick?: () => void;
-		onExpandClick?: () => void;
-		onPlaylistClick?: () => void;
-	}
+interface Props {
+	song: Song;
+	currentTime: number;
+	duration: number;
+	isPlaying: boolean;
+	isLoading: boolean;
+	size?: "mini" | "expanded";
+	showControls?: boolean;
+	showPlaylist?: boolean;
+	onCoverClick?: () => void;
+	onInfoClick?: () => void;
+	onHideClick?: () => void;
+	onExpandClick?: () => void;
+	onPlaylistClick?: () => void;
+}
 
-	const {
-		song,
-		currentTime,
-		duration,
-		isPlaying,
-		isLoading,
-		size = "mini",
-		showControls = false,
-		showPlaylist = false,
-		onCoverClick,
-		onInfoClick,
-		onHideClick,
-		onExpandClick,
-		onPlaylistClick,
-	}: Props = $props();
+const {
+	song,
+	currentTime,
+	duration,
+	isPlaying,
+	isLoading,
+	size = "mini",
+	showControls = false,
+	showPlaylist = false,
+	onCoverClick,
+	onInfoClick,
+	onHideClick,
+	onExpandClick,
+	onPlaylistClick,
+}: Props = $props();
 
-	// legacy 的 btn-plain 主题类在上游不存在，改用等价的表面容器 hover 变量
-	const iconButtonClass =
-		"w-8 h-8 rounded-lg flex items-center justify-center transition active:scale-95 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]";
+// legacy 的 btn-plain 主题类在上游不存在，改用等价的表面容器 hover 变量
+const iconButtonClass =
+	"w-8 h-8 rounded-lg flex items-center justify-center transition active:scale-95 hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]";
 </script>
 
 <div

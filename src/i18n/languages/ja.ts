@@ -121,7 +121,8 @@ export const ja: Translation = {
 	[Key.gamesOpenOnBangumi]: "Bangumi で {title} を開く",
 	[Key.gamesStatusLabel]: "ステータス: {status}",
 	[Key.gamesRatingBadge]: "評価 {rating}",
-	[Key.gamesEmptyHint]: "Bangumi の設定またはネットワーク接続を確認してください",
+	[Key.gamesEmptyHint]:
+		"Bangumi の設定またはネットワーク接続を確認してください",
 	[Key.gamesAnnounceItems]: "「{label}」の表示件数: {count}件",
 	[Key.gamesAnnounceSearch]: "（検索: 「{term}」）",
 

@@ -1,6 +1,6 @@
+import { getMusicRuntime, MUSIC_VOLUME_STORAGE_KEY } from "@utils/music";
 import { musicConfig, resolveMusicOptions } from "@/config/musicConfig";
 import type { MusicRuntime, MusicSnapshot } from "@/types/musicConfig";
-import { getMusicRuntime, MUSIC_VOLUME_STORAGE_KEY } from "@utils/music";
 
 export type { MusicRuntime, MusicSnapshot };
 

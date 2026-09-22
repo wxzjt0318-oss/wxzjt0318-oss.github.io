@@ -86,7 +86,8 @@ class Sakura {
 	}
 
 	private resetPosition() {
-		this.r = getRandom("fnr", this.config);
+		// 注意：此处不要预置 this.r。两个分支都会用 getRandom("r") 覆盖它，
+		// 历史代码里的 getRandom("fnr") 赋值既被覆盖、类型也不对（函数赋给 number）。
 		if (Math.random() > 0.4) {
 			this.x = getRandom("x", this.config);
 			this.y = 0;
@@ -137,8 +138,21 @@ class SakuraList {
 }
 
 // 获取随机值的函数
-function getRandom(option: string, config: SakuraConfig): any {
-	let ret: any;
+// 按 option 返回标量（x/y/s/r/a）或缓动函数（fnx/fny/fnr/fna），用重载表达联合返回。
+type Easing2D = (x: number, y: number) => number;
+type Easing1D = (value: number) => number;
+
+function getRandom(
+	option: "x" | "y" | "s" | "r" | "a",
+	config: SakuraConfig,
+): number;
+function getRandom(option: "fnx" | "fny", config: SakuraConfig): Easing2D;
+function getRandom(option: "fnr" | "fna", config: SakuraConfig): Easing1D;
+function getRandom(
+	option: string,
+	config: SakuraConfig,
+): number | Easing2D | Easing1D {
+	let ret: number | Easing2D | Easing1D = 0;
 	let random: number;
 
 	switch (option) {
@@ -150,8 +164,7 @@ function getRandom(option: string, config: SakuraConfig): any {
 			break;
 		case "s":
 			ret =
-				config.size.min +
-				Math.random() * (config.size.max - config.size.min);
+				config.size.min + Math.random() * (config.size.max - config.size.min);
 			break;
 		case "r":
 			ret = Math.random() * 6;
@@ -171,8 +184,7 @@ function getRandom(option: string, config: SakuraConfig): any {
 		case "fny":
 			random =
 				config.speed.vertical.min +
-				Math.random() *
-					(config.speed.vertical.max - config.speed.vertical.min);
+				Math.random() * (config.speed.vertical.max - config.speed.vertical.min);
 			ret = (_x: number, y: number) => y + random;
 			break;
 		case "fnr":

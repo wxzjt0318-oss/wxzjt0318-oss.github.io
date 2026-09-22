@@ -1,25 +1,25 @@
 <script lang="ts">
-	import type { Action } from "svelte/action";
+import type { Action } from "svelte/action";
 
-	interface Props {
-		volume: number;
-		isVolumeDragging: boolean;
-		volumeBarRef: Action<HTMLElement, undefined>;
-		oninput: (event: Event) => void;
-		onkeydown: (event: KeyboardEvent) => void;
-		ariaLabel: string;
-	}
+interface Props {
+	volume: number;
+	isVolumeDragging: boolean;
+	volumeBarRef: Action<HTMLElement, undefined>;
+	oninput: (event: Event) => void;
+	onkeydown: (event: KeyboardEvent) => void;
+	ariaLabel: string;
+}
 
-	const {
-		volume,
-		isVolumeDragging,
-		volumeBarRef,
-		oninput,
-		onkeydown,
-		ariaLabel,
-	}: Props = $props();
+const {
+	volume,
+	isVolumeDragging,
+	volumeBarRef,
+	oninput,
+	onkeydown,
+	ariaLabel,
+}: Props = $props();
 
-	const percent = $derived(Math.round(Math.max(0, Math.min(1, volume)) * 100));
+const percent = $derived(Math.round(Math.max(0, Math.min(1, volume)) * 100));
 </script>
 
 <!--

@@ -1,18 +1,17 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
+import Icon from "@iconify/svelte";
+import { getAssetPath } from "../hooks/useKeyboardShortcuts";
+import type { Song } from "../types";
 
-	import type { Song } from "../types";
-	import { getAssetPath } from "../hooks/useKeyboardShortcuts";
+interface Props {
+	song: Song;
+	index: number;
+	isCurrent: boolean;
+	isPlaying: boolean;
+	onclick: () => void;
+}
 
-	interface Props {
-		song: Song;
-		index: number;
-		isCurrent: boolean;
-		isPlaying: boolean;
-		onclick: () => void;
-	}
-
-	const { song, index, isCurrent, isPlaying, onclick }: Props = $props();
+const { song, index, isCurrent, isPlaying, onclick }: Props = $props();
 </script>
 
 <div

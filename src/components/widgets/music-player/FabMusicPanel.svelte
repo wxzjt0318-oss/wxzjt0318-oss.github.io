@@ -1,84 +1,83 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
-	import { slide } from "svelte/transition";
+import Icon from "@iconify/svelte";
+import { slide } from "svelte/transition";
+import type { PlaybackMode } from "@/types/musicConfig";
+import CoverImage from "./atoms/CoverImage.svelte";
+import NextButton from "./atoms/NextButton.svelte";
+import PlayButton from "./atoms/PlayButton.svelte";
+import PlaylistItem from "./atoms/PlaylistItem.svelte";
+import PrevButton from "./atoms/PrevButton.svelte";
+import VolumeButton from "./atoms/VolumeButton.svelte";
+import VolumeSlider from "./atoms/VolumeSlider.svelte";
+import { formatTime } from "./hooks/useKeyboardShortcuts";
+import { isShuffleMode, repeatLevel } from "./hooks/usePlaylist";
+import ProgressControl from "./molecules/ProgressControl.svelte";
+import type { Song } from "./types";
 
-	import CoverImage from "./atoms/CoverImage.svelte";
-	import PlaylistItem from "./atoms/PlaylistItem.svelte";
-	import NextButton from "./atoms/NextButton.svelte";
-	import PlayButton from "./atoms/PlayButton.svelte";
-	import PrevButton from "./atoms/PrevButton.svelte";
-	import VolumeButton from "./atoms/VolumeButton.svelte";
-	import VolumeSlider from "./atoms/VolumeSlider.svelte";
-	import ProgressControl from "./molecules/ProgressControl.svelte";
-	import { formatTime } from "./hooks/useKeyboardShortcuts";
-	import { isShuffleMode, repeatLevel } from "./hooks/usePlaylist";
-	import type { Song } from "./types";
-	import type { PlaybackMode } from "@/types/musicConfig";
+interface Props {
+	song: Song;
+	playlist: readonly Song[];
+	currentIndex: number;
+	currentTime: number;
+	duration: number;
+	isPlaying: boolean;
+	isLoading: boolean;
+	volume: number;
+	isMuted: boolean;
+	isVolumeDragging: boolean;
+	volumeBarRef: (node: HTMLElement) => void;
+	mode: PlaybackMode;
+	onTogglePlay: () => void;
+	onPrev: () => void;
+	onNext: () => void;
+	onCycleMode: () => void;
+	onSeek: (time: number) => void;
+	onToggleMute: () => void;
+	onPlaySong: (index: number) => void;
+	onVolumeInput: (event: Event) => void;
+	onVolumeKeyDown: (event: KeyboardEvent) => void;
+}
 
-	interface Props {
-		song: Song;
-		playlist: readonly Song[];
-		currentIndex: number;
-		currentTime: number;
-		duration: number;
-		isPlaying: boolean;
-		isLoading: boolean;
-		volume: number;
-		isMuted: boolean;
-		isVolumeDragging: boolean;
-		volumeBarRef: (node: HTMLElement) => void;
-		mode: PlaybackMode;
-		onTogglePlay: () => void;
-		onPrev: () => void;
-		onNext: () => void;
-		onCycleMode: () => void;
-		onSeek: (time: number) => void;
-		onToggleMute: () => void;
-		onPlaySong: (index: number) => void;
-		onVolumeInput: (event: Event) => void;
-		onVolumeKeyDown: (event: KeyboardEvent) => void;
-	}
+const {
+	song,
+	playlist,
+	currentIndex,
+	currentTime,
+	duration,
+	isPlaying,
+	isLoading,
+	volume,
+	isMuted,
+	isVolumeDragging,
+	volumeBarRef,
+	mode,
+	onTogglePlay,
+	onPrev,
+	onNext,
+	onCycleMode,
+	onSeek,
+	onToggleMute,
+	onPlaySong,
+	onVolumeInput,
+	onVolumeKeyDown,
+}: Props = $props();
 
-	const {
-		song,
-		playlist,
-		currentIndex,
-		currentTime,
-		duration,
-		isPlaying,
-		isLoading,
-		volume,
-		isMuted,
-		isVolumeDragging,
-		volumeBarRef,
-		mode,
-		onTogglePlay,
-		onPrev,
-		onNext,
-		onCycleMode,
-		onSeek,
-		onToggleMute,
-		onPlaySong,
-		onVolumeInput,
-		onVolumeKeyDown,
-	}: Props = $props();
+// legacy 依赖 widgets/music-sidebar 的 Sidebar* 子组件（上游已移除），
+// 改为直接组合本目录内的原子/分子组件，结构与原 FAB 面板一致。
+let showPlaylist = $state(false);
 
-	// legacy 依赖 widgets/music-sidebar 的 Sidebar* 子组件（上游已移除），
-	// 改为直接组合本目录内的原子/分子组件，结构与原 FAB 面板一致。
-	let showPlaylist = $state(false);
+const modeIcon = $derived(
+	isShuffleMode(mode)
+		? "material-symbols:shuffle-rounded"
+		: repeatLevel(mode) === 1
+			? "material-symbols:repeat-one-rounded"
+			: "material-symbols:repeat-rounded",
+);
+const modeActive = $derived(isShuffleMode(mode) || repeatLevel(mode) > 0);
 
-	const modeIcon = $derived(
-		isShuffleMode(mode)
-			? "material-symbols:shuffle-rounded"
-			: repeatLevel(mode) === 1
-				? "material-symbols:repeat-one-rounded"
-				: "material-symbols:repeat-rounded",
-	);
-	const modeActive = $derived(isShuffleMode(mode) || repeatLevel(mode) > 0);
-
-	function togglePlaylistView() {
-		showPlaylist = !showPlaylist;
-	}
+function togglePlaylistView() {
+	showPlaylist = !showPlaylist;
+}
 </script>
 
 <div

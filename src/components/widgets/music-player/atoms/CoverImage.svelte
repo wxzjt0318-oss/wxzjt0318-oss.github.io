@@ -1,31 +1,31 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte";
+import Icon from "@iconify/svelte";
 
-	import { getAssetPath } from "../hooks/useKeyboardShortcuts";
+import { getAssetPath } from "../hooks/useKeyboardShortcuts";
 
-	interface Props {
-		cover: string;
-		isPlaying: boolean;
-		isLoading: boolean;
-		size?: "mini" | "expanded" | "orb";
-		onclick?: () => void;
-		interactive?: boolean;
-	}
+interface Props {
+	cover: string;
+	isPlaying: boolean;
+	isLoading: boolean;
+	size?: "mini" | "expanded" | "orb";
+	onclick?: () => void;
+	interactive?: boolean;
+}
 
-	const {
-		cover,
-		isPlaying,
-		isLoading,
-		size = "mini",
-		onclick,
-		interactive = false,
-	}: Props = $props();
+const {
+	cover,
+	isPlaying,
+	isLoading,
+	size = "mini",
+	onclick,
+	interactive = false,
+}: Props = $props();
 
-	const containerClasses = {
-		mini: "cover-container relative w-12 h-12 rounded-full overflow-hidden",
-		expanded:
-			"cover-container relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0",
-	};
+const containerClasses = {
+	mini: "cover-container relative w-12 h-12 rounded-full overflow-hidden",
+	expanded:
+		"cover-container relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0",
+};
 </script>
 
 {#if size === "orb"}

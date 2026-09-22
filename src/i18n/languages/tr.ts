@@ -123,7 +123,8 @@ export const tr: Translation = {
 	[Key.gamesOpenOnBangumi]: "{title} oyununu Bangumi'de aç",
 	[Key.gamesStatusLabel]: "Durum: {status}",
 	[Key.gamesRatingBadge]: "Puan {rating}",
-	[Key.gamesEmptyHint]: "Lütfen Bangumi yapılandırmasını veya ağ bağlantısını kontrol edin",
+	[Key.gamesEmptyHint]:
+		"Lütfen Bangumi yapılandırmasını veya ağ bağlantısını kontrol edin",
 	[Key.gamesAnnounceItems]: "“{label}” için {count} öğe gösteriliyor",
 	[Key.gamesAnnounceSearch]: " — “{term}” aramasıyla",
 

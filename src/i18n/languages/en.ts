@@ -124,7 +124,8 @@ export const en: Translation = {
 	[Key.gamesOpenOnBangumi]: "Open {title} on Bangumi",
 	[Key.gamesStatusLabel]: "Status: {status}",
 	[Key.gamesRatingBadge]: "Rating {rating}",
-	[Key.gamesEmptyHint]: "Please check Bangumi configuration or network connection",
+	[Key.gamesEmptyHint]:
+		"Please check Bangumi configuration or network connection",
 	[Key.gamesAnnounceItems]: "Showing {count} item(s) for “{label}”",
 	[Key.gamesAnnounceSearch]: " with search “{term}”",
 

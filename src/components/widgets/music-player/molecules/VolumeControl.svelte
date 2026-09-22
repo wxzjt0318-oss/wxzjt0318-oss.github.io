@@ -1,32 +1,32 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
+import type { Snippet } from "svelte";
 
-	import VolumeButton from "../atoms/VolumeButton.svelte";
-	import VolumeSlider from "../atoms/VolumeSlider.svelte";
+import VolumeButton from "../atoms/VolumeButton.svelte";
+import VolumeSlider from "../atoms/VolumeSlider.svelte";
 
-	interface Props {
-		volume: number;
-		isMuted: boolean;
-		isVolumeDragging: boolean;
-		volumeBarRef: (node: HTMLElement) => void;
-		onVolumeButtonClick: () => void;
-		onSliderPointerDown: (event: PointerEvent) => void;
-		onSliderKeyDown: (event: KeyboardEvent) => void;
-		ariaLabel: string;
-		children?: Snippet;
-	}
+interface Props {
+	volume: number;
+	isMuted: boolean;
+	isVolumeDragging: boolean;
+	volumeBarRef: (node: HTMLElement) => void;
+	onVolumeButtonClick: () => void;
+	onSliderPointerDown: (event: PointerEvent) => void;
+	onSliderKeyDown: (event: KeyboardEvent) => void;
+	ariaLabel: string;
+	children?: Snippet;
+}
 
-	const {
-		volume,
-		isMuted,
-		isVolumeDragging,
-		volumeBarRef,
-		onVolumeButtonClick,
-		onSliderPointerDown,
-		onSliderKeyDown,
-		ariaLabel,
-		children,
-	}: Props = $props();
+const {
+	volume,
+	isMuted,
+	isVolumeDragging,
+	volumeBarRef,
+	onVolumeButtonClick,
+	onSliderPointerDown,
+	onSliderKeyDown,
+	ariaLabel,
+	children,
+}: Props = $props();
 </script>
 
 <div class="bottom-controls flex items-center gap-2">
