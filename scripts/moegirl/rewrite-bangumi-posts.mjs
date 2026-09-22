@@ -665,7 +665,9 @@ async function processPost(file, ledger) {
 	// 统一为 LF：正文来自磁盘（可能是 CRLF），而模板里的分隔符是 \n，
 	// 若直接拼接会产出「frontmatter=LF、正文=CRLF」的混合换行文件，
 	// 既污染 diff 又制造跨平台合并冲突。见仓库根 .gitattributes。
-	const newRaw = toLfText(`---\n${newFm}\n---\n\n${newBody.replace(/^\n+/, "")}`);
+	const newRaw = toLfText(
+		`---\n${newFm}\n---\n\n${newBody.replace(/^\n+/, "")}`,
+	);
 
 	const changed = newRaw !== toLfText(raw);
 	if (changed && !DRY_RUN) {
