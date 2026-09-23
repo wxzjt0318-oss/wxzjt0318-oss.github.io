@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-22T13:01:44.154Z",
+  "generatedAt": "2026-09-23T13:16:54.854Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 72942,
+    "subject_id": 484623,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2014-01-08",
+    "ep_status": 12,
+    "updated_at": "2025-07-04",
     "subject": {
-      "id": 72942,
-      "name": "中二病也要谈恋爱！恋",
-      "name_cn": "中二病也要谈恋爱！恋",
-      "date": "2014-01-08",
-      "eps": 13,
-      "short_summary": "由于各种原因导致失去住所的六花开始寻找新家，但过程并不顺利，最终来到了勇太的家里。 然而，勇太的家人却留下勇太一个人到雅加达去了。 现在开始的同栖生活！？这样想着心跳不已的两个人。 但此时樟叶为了迎考而回到了家中。不知应该感到安心还是遗憾，3人开始了奇妙的共同生活。 另一方面，原小鸟游家搬进了新的住户。 那是以前勇太曾经憧憬的，自称为魔法魔王少女、索非亚琳·SP·撒旦7世的七宫智音…… 如此这般，仍然完全称不上普通的、勇太的高二第一学期开始了。",
+      "id": 484623,
+      "name": "彻夜之歌 第二季",
+      "name_cn": "彻夜之歌 第二季",
+      "date": "2025-07-04",
+      "eps": 12,
+      "short_summary": "\"夜はまだ終わらない\" 吸血鬼になることへの戸惑いを乗り越え、 ナズナを“好き”になることを決めたコウと、コウに“惚れさせる”決意をしたナズナ。 「恋」が一体なんなのか、わからないまま二人の夜は加速していく。 吸血鬼を殺そうと企む探偵・鶯 餡子の手が、すぐそこまで迫る。 吸血鬼の弱点は「人間時代に思い入れの強かったもの」。 その弱点を予め処分しようとするが、ナズナには人間時代の記憶が一切ない。 ナズナの隠された過去とは？なぜ餡子は吸血鬼を殺すようになったのか？ そして、ナズナと餡子に交錯する“秘密”とは――？ コウ、ナズナ、餡子…… 楽しい「よふかし」では終わらない、新たな“夜”がはじまる！ [中文简介] 夜晚尚未终结！ 跨越了是否要成为吸血鬼的困扰之后，夜守光下定决心要喜欢上七草荠，荠则决定要让光喜欢上自己。尚未知晓「恋爱」为何物，两人的夜晚依旧持续加速。 企图猎杀吸血鬼的侦探莺馅子已经逼近到身旁了。虽然想尽早把「充满人类时期眷恋的东西」这项吸血鬼的弱点给处理掉，没想到荠却完全没有人类时期的记忆。荠隐藏的过去是？馅子为什么会想杀吸血鬼呢？ 然后，交错于荠与馅子之间的「秘密」又是──？…",
       "tags": [
-        {
-          "name": "京阿尼"
-        },
         {
           "name": "恋爱"
         },
         {
-          "name": "校园"
+          "name": "奇幻"
         },
         {
-          "name": "中二病也要谈恋爱"
+          "name": "2025年7月"
         },
         {
-          "name": "2014年1月"
+          "name": "漫画改"
         },
         {
-          "name": "轻小说改"
+          "name": "TV"
+        },
+        {
+          "name": "LIDENFILMS"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/15/5f/484623_6EWej.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/15/5f/484623_6EWej.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/15/5f/484623_6EWej.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c8/e4/72942_VniXv.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/15/5f/484623_6EWej.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "中二病也要谈恋爱！恋",
+      "title": "彻夜之歌 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/c8/e4/72942_VniXv.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/15/5f/484623_6EWej.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "中二病也要谈恋爱！恋",
+      "title": "彻夜之歌 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c8/e4/72942_VniXv.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/15/5f/484623_6EWej.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "中二病也要谈恋爱！恋",
+      "title": "彻夜之歌 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-72942.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-484623.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }

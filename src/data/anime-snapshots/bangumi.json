@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"provider": "bangumi",
-	"fetchedAt": "2026-09-22T21:49:39.885Z",
+	"fetchedAt": "2026-09-23T13:16:52.122Z",
 	"accountRef": "1180323",
 	"items": [
 		{
@@ -9,7 +9,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "恋爱", "TV", "漫画改", "ZERO-G", "2026"],
+			"genres": [
+				"2026年7月",
+				"恋爱",
+				"TV",
+				"漫画改",
+				"ZERO-G",
+				"2026"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -33,7 +40,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "异世界", "战斗", "奇幻", "TV", "轻小说改"],
+			"genres": [
+				"2026年7月",
+				"异世界",
+				"战斗",
+				"奇幻",
+				"TV",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 13
@@ -57,7 +71,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "异世界", "轻小说改", "TV", "奇幻", "后宫"],
+			"genres": [
+				"2026年7月",
+				"异世界",
+				"轻小说改",
+				"奇幻",
+				"TV",
+				"后宫"
+			],
 			"progress": {
 				"watched": 11,
 				"total": 12
@@ -81,7 +102,14 @@
 			"status": "watching",
 			"rating": 4.8,
 			"year": "2026",
-			"genres": ["2026年7月", "后宫", "轻小说改", "异世界", "TV", "奇幻"],
+			"genres": [
+				"2026年7月",
+				"后宫",
+				"轻小说改",
+				"异世界",
+				"TV",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 11,
 				"total": 12
@@ -105,7 +133,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "2026年7月", "WHITEFOX", "TV", "奇幻", "战斗"],
+			"genres": [
+				"异世界",
+				"2026年7月",
+				"WHITEFOX",
+				"TV",
+				"奇幻",
+				"战斗"
+			],
 			"progress": {
 				"watched": 6,
 				"total": 8
@@ -129,7 +164,14 @@
 			"status": "watching",
 			"rating": 9,
 			"year": "2026",
-			"genres": ["2026年7月", "恋爱", "校园", "projectNo.9", "TV", "轻小说改"],
+			"genres": [
+				"恋爱",
+				"2026年7月",
+				"校园",
+				"TV",
+				"projectNo.9",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 11,
 				"total": 12
@@ -153,7 +195,14 @@
 			"status": "planned",
 			"rating": 1,
 			"year": "",
-			"genres": ["TV", "奇幻", "战斗", "轻小说改", "animationstudio42", "日本"],
+			"genres": [
+				"TV",
+				"奇幻",
+				"战斗",
+				"轻小说改",
+				"animationstudio42",
+				"日本"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -171,7 +220,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "轻小说改", "2026年7月", "奇幻", "StudioBind", "TV"],
+			"genres": [
+				"异世界",
+				"轻小说改",
+				"2026年7月",
+				"奇幻",
+				"StudioBind",
+				"TV"
+			],
 			"progress": {
 				"watched": 9,
 				"total": 14
@@ -195,7 +251,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "战斗", "异世界", "奇幻", "轻小说改", "TV"],
+			"genres": [
+				"2026年7月",
+				"战斗",
+				"异世界",
+				"奇幻",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 8,
 				"total": 12
@@ -219,7 +282,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "校园", "恋爱", "TV", "轻小说改", "BrainsBase"],
+			"genres": [
+				"2026年7月",
+				"校园",
+				"恋爱",
+				"TV",
+				"轻小说改",
+				"BrainsBase"
+			],
 			"progress": {
 				"watched": 5,
 				"total": 12
@@ -243,7 +313,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "龙傲天", "异世界", "TV", "轻小说改", "后宫"],
+			"genres": [
+				"2026年7月",
+				"龙傲天",
+				"异世界",
+				"TV",
+				"轻小说改",
+				"后宫"
+			],
 			"progress": {
 				"watched": 7,
 				"total": 12
@@ -267,7 +344,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年7月", "异世界", "TV", "轻小说改", "奇幻", "后宫"],
+			"genres": [
+				"2026年7月",
+				"异世界",
+				"TV",
+				"轻小说改",
+				"奇幻",
+				"后宫"
+			],
 			"progress": {
 				"watched": 6,
 				"total": 12
@@ -291,7 +375,14 @@
 			"status": "watching",
 			"rating": 6.9,
 			"year": "2026",
-			"genres": ["2026年7月", "恋爱", "校园", "漫画改", "喜剧", "TV"],
+			"genres": [
+				"2026年7月",
+				"恋爱",
+				"校园",
+				"漫画改",
+				"喜剧",
+				"TV"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 12
@@ -315,7 +406,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年1月", "漫画改", "党争", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年1月",
+				"漫画改",
+				"党争",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -339,7 +437,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["战斗", "2026年4月", "奇幻", "漫画改", "TV", "BNPictures"],
+			"genres": [
+				"战斗",
+				"2026年4月",
+				"奇幻",
+				"漫画改",
+				"TV",
+				"BNPictures"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -363,7 +468,14 @@
 			"status": "watching",
 			"rating": 8,
 			"year": "2017",
-			"genres": ["萝莉", "2017年7月", "轻小说改", "后宫", "TV", "音乐"],
+			"genres": [
+				"萝莉",
+				"2017年7月",
+				"轻小说改",
+				"后宫",
+				"TV",
+				"音乐"
+			],
 			"progress": {
 				"watched": 3,
 				"total": 12
@@ -387,7 +499,14 @@
 			"status": "planned",
 			"rating": 7.8,
 			"year": "2026",
-			"genres": ["恋爱", "2026年7月", "校园", "漫画改", "TV", "LapinTrack"],
+			"genres": [
+				"恋爱",
+				"2026年7月",
+				"校园",
+				"漫画改",
+				"TV",
+				"LapinTrack"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -442,7 +561,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年4月", "卖肉", "漫画改", "校园", "后宫", "TV"],
+			"genres": [
+				"2026年4月",
+				"卖肉",
+				"漫画改",
+				"校园",
+				"后宫",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -466,7 +592,14 @@
 			"status": "completed",
 			"rating": 6,
 			"year": "2026",
-			"genres": ["异世界", "2026年1月", "奇幻", "TV", "轻小说改", "战斗"],
+			"genres": [
+				"异世界",
+				"2026年1月",
+				"奇幻",
+				"TV",
+				"轻小说改",
+				"战斗"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -490,7 +623,14 @@
 			"status": "watching",
 			"rating": 6.5,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年4月", "漫画改", "TV", "FelixFilm"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年4月",
+				"漫画改",
+				"TV",
+				"FelixFilm"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 12
@@ -514,7 +654,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年4月", "轻小说改", "TV", "CONNECT"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年4月",
+				"轻小说改",
+				"TV",
+				"CONNECT"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -538,7 +685,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "奇幻", "2026年4月", "战斗", "WHITEFOX", "TV"],
+			"genres": [
+				"异世界",
+				"奇幻",
+				"2026年4月",
+				"战斗",
+				"WHITEFOX",
+				"TV"
+			],
 			"progress": {
 				"watched": 11,
 				"total": 11
@@ -562,7 +716,14 @@
 			"status": "completed",
 			"rating": 5.4,
 			"year": "2026",
-			"genres": ["2026年4月", "异世界", "乙女向", "TV", "轻小说改", "日本"],
+			"genres": [
+				"2026年4月",
+				"异世界",
+				"乙女向",
+				"TV",
+				"轻小说改",
+				"日本"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -586,7 +747,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "2026年4月", "后宫", "日常", "种田", "TV"],
+			"genres": [
+				"异世界",
+				"2026年4月",
+				"后宫",
+				"日常",
+				"种田",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -610,7 +778,14 @@
 			"status": "completed",
 			"rating": 6.4,
 			"year": "2023",
-			"genres": ["百合", "异世界", "2023年1月", "轻小说改", "TV", "凤傲天"],
+			"genres": [
+				"百合",
+				"异世界",
+				"2023年1月",
+				"轻小说改",
+				"TV",
+				"凤傲天"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -634,7 +809,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["恋爱", "2026年4月", "喜剧", "漫画改", "校园", "TV"],
+			"genres": [
+				"恋爱",
+				"2026年4月",
+				"喜剧",
+				"漫画改",
+				"校园",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -658,7 +840,14 @@
 			"status": "completed",
 			"rating": 6.1,
 			"year": "2022",
-			"genres": ["异世界", "2022年7月", "轻小说改", "药学", "TV", "奇幻"],
+			"genres": [
+				"异世界",
+				"2022年7月",
+				"轻小说改",
+				"药学",
+				"TV",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -682,7 +871,14 @@
 			"status": "completed",
 			"rating": 4.4,
 			"year": "2025",
-			"genres": ["2025年4月", "TV", "恋爱", "女性向", "轻小说改", "乙女向"],
+			"genres": [
+				"2025年4月",
+				"TV",
+				"恋爱",
+				"女性向",
+				"轻小说改",
+				"乙女向"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -706,7 +902,14 @@
 			"status": "completed",
 			"rating": 5.8,
 			"year": "2022",
-			"genres": ["后宫", "异世界", "卖肉", "2022年7月", "肉番", "TV"],
+			"genres": [
+				"后宫",
+				"异世界",
+				"卖肉",
+				"2022年7月",
+				"肉番",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -822,7 +1025,14 @@
 			"status": "completed",
 			"rating": 6.5,
 			"year": "2026",
-			"genres": ["恋爱", "2026年4月", "恶役", "女性向", "TV", "异世界"],
+			"genres": [
+				"恋爱",
+				"2026年4月",
+				"恶役",
+				"女性向",
+				"TV",
+				"异世界"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -846,7 +1056,14 @@
 			"status": "completed",
 			"rating": 5.4,
 			"year": "2023",
-			"genres": ["异世界", "2023年7月", "轻小说改", "恶役大小姐", "恶役", "TV"],
+			"genres": [
+				"异世界",
+				"2023年7月",
+				"轻小说改",
+				"恶役大小姐",
+				"恶役",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -870,7 +1087,14 @@
 			"status": "planned",
 			"rating": 3.7,
 			"year": "2025",
-			"genres": ["异世界", "2025年1月", "厕纸", "TV", "奇幻", "轻小说改"],
+			"genres": [
+				"异世界",
+				"2025年1月",
+				"厕纸",
+				"TV",
+				"奇幻",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -894,7 +1118,14 @@
 			"status": "planned",
 			"rating": 0,
 			"year": "",
-			"genres": ["TV", "日本", "小说改", "轻小说改", "异世界", "后宫"],
+			"genres": [
+				"TV",
+				"日本",
+				"小说改",
+				"轻小说改",
+				"异世界",
+				"后宫"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -913,7 +1144,14 @@
 			"status": "completed",
 			"rating": 7,
 			"year": "2026",
-			"genres": ["异世界", "2026年4月", "TV", "轻小说改", "奇幻", "小说改"],
+			"genres": [
+				"异世界",
+				"2026年4月",
+				"TV",
+				"轻小说改",
+				"奇幻",
+				"小说改"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -937,7 +1175,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2026",
-			"genres": ["恋爱", "2026年4月", "泡面番", "漫画改", "校园", "后宫"],
+			"genres": [
+				"恋爱",
+				"2026年4月",
+				"泡面番",
+				"漫画改",
+				"校园",
+				"后宫"
+			],
 			"progress": {
 				"watched": 8,
 				"total": 8
@@ -960,7 +1205,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2025",
-			"genres": ["异世界", "2025年1月", "卖肉", "TV", "轻小说改", "转生"],
+			"genres": [
+				"异世界",
+				"2025年1月",
+				"卖肉",
+				"TV",
+				"轻小说改",
+				"转生"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -984,7 +1236,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["战斗", "2024年7月", "奇幻", "异世界", "漫画改", "TV"],
+			"genres": [
+				"战斗",
+				"2024年7月",
+				"奇幻",
+				"异世界",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1008,7 +1267,14 @@
 			"status": "planned",
 			"rating": 5.5,
 			"year": "2026",
-			"genres": ["泡面番", "2026年4月", "漫画改", "卖肉", "WEB", "2026"],
+			"genres": [
+				"泡面番",
+				"2026年4月",
+				"漫画改",
+				"卖肉",
+				"WEB",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 6
@@ -1031,7 +1297,14 @@
 			"status": "planned",
 			"rating": 7.1,
 			"year": "2026",
-			"genres": ["百合", "漫画改", "日常", "2026年4月", "TV", "Soigne"],
+			"genres": [
+				"百合",
+				"漫画改",
+				"日常",
+				"2026年4月",
+				"TV",
+				"Soigne"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1055,7 +1328,14 @@
 			"status": "onHold",
 			"rating": 8,
 			"year": "2023",
-			"genres": ["2023年10月", "异世界", "轻小说改", "TV", "奇幻", "父女"],
+			"genres": [
+				"2023年10月",
+				"异世界",
+				"轻小说改",
+				"TV",
+				"奇幻",
+				"父女"
+			],
 			"progress": {
 				"watched": 3,
 				"total": 13
@@ -1079,7 +1359,14 @@
 			"status": "onHold",
 			"rating": 8,
 			"year": "2013",
-			"genres": ["2013年1月", "魔王勇者", "轻小说改", "TV", "福山润", "奇幻"],
+			"genres": [
+				"2013年1月",
+				"魔王勇者",
+				"轻小说改",
+				"TV",
+				"福山润",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 2,
 				"total": 12
@@ -1165,7 +1452,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["轻小说改", "后宫", "龙傲天", "2026", "TV", "2026年4月"],
+			"genres": [
+				"轻小说改",
+				"后宫",
+				"龙傲天",
+				"2026",
+				"TV",
+				"2026年4月"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -1189,7 +1483,14 @@
 			"status": "watching",
 			"rating": 8,
 			"year": "2026",
-			"genres": ["搞笑", "异世界", "2026年4月", "TV", "轻小说改", "抽象"],
+			"genres": [
+				"搞笑",
+				"异世界",
+				"2026年4月",
+				"TV",
+				"轻小说改",
+				"抽象"
+			],
 			"progress": {
 				"watched": 6,
 				"total": 12
@@ -1213,7 +1514,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["后宫", "2026年1月", "漫画改", "战斗", "肉番", "TV"],
+			"genres": [
+				"后宫",
+				"2026年1月",
+				"漫画改",
+				"战斗",
+				"肉番",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1237,7 +1545,14 @@
 			"status": "watching",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "projectNo.9", "2026年4月", "轻小说改", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"projectNo.9",
+				"2026年4月",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 3,
 				"total": 12
@@ -1261,7 +1576,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["恋爱", "校园", "2023年7月", "轻小说改", "Studio五组", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2023年7月",
+				"轻小说改",
+				"Studio五组",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1285,7 +1607,14 @@
 			"status": "completed",
 			"rating": 6,
 			"year": "2019",
-			"genres": ["萝莉", "异世界", "轻小说改", "2019年7月", "治愈", "TV"],
+			"genres": [
+				"萝莉",
+				"异世界",
+				"轻小说改",
+				"2019年7月",
+				"治愈",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1309,7 +1638,14 @@
 			"status": "planned",
 			"rating": 6.4,
 			"year": "2017",
-			"genres": ["恋爱", "原创", "2017年1月", "校园", "Studio五组", "TV"],
+			"genres": [
+				"恋爱",
+				"原创",
+				"2017年1月",
+				"校园",
+				"Studio五组",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1333,7 +1669,14 @@
 			"status": "onHold",
 			"rating": 8,
 			"year": "2024",
-			"genres": ["伪娘", "恋爱", "projectNo.9", "2024年7月", "校园", "漫画改"],
+			"genres": [
+				"伪娘",
+				"恋爱",
+				"projectNo.9",
+				"2024年7月",
+				"校园",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1357,7 +1700,14 @@
 			"status": "onHold",
 			"rating": 8,
 			"year": "2015",
-			"genres": ["泡面番", "搞笑", "2015年10月", "TV", "原创", "2015"],
+			"genres": [
+				"泡面番",
+				"搞笑",
+				"2015年10月",
+				"TV",
+				"原创",
+				"2015"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -1412,7 +1762,14 @@
 			"status": "onHold",
 			"rating": 8,
 			"year": "2013",
-			"genres": ["日常", "A-1Pictures", "2013年7月", "搞笑", "漫画改", "TV"],
+			"genres": [
+				"日常",
+				"A-1Pictures",
+				"2013年7月",
+				"搞笑",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 13
@@ -1436,7 +1793,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["异世界", "种田", "后宫", "2023年1月", "日常", "轻小说改"],
+			"genres": [
+				"异世界",
+				"种田",
+				"后宫",
+				"2023年1月",
+				"日常",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1460,7 +1824,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2018",
-			"genres": ["后宫", "异世界", "2018年7月", "龙傲天", "轻小说改", "卖肉"],
+			"genres": [
+				"后宫",
+				"异世界",
+				"2018年7月",
+				"龙傲天",
+				"轻小说改",
+				"卖肉"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1484,7 +1855,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年1月", "漫画改", "TV", "搞笑"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年1月",
+				"漫画改",
+				"TV",
+				"搞笑"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1508,7 +1886,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "2026年1月", "恋爱", "TV", "轻小说改", "月虹"],
+			"genres": [
+				"异世界",
+				"2026年1月",
+				"恋爱",
+				"TV",
+				"轻小说改",
+				"月虹"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -1532,7 +1917,14 @@
 			"status": "completed",
 			"rating": 3,
 			"year": "2026",
-			"genres": ["异世界", "2026年1月", "TV", "轻小说改", "奇幻", "2026"],
+			"genres": [
+				"异世界",
+				"2026年1月",
+				"TV",
+				"轻小说改",
+				"奇幻",
+				"2026"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1556,7 +1948,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "2021",
-			"genres": ["恋爱", "校园", "2021年10月", "漫画改", "搞笑", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2021年10月",
+				"漫画改",
+				"搞笑",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1611,7 +2010,14 @@
 			"status": "completed",
 			"rating": 7.3,
 			"year": "2023",
-			"genres": ["异世界", "龙傲天", "2023年10月", "搞笑", "轻小说改", "战斗"],
+			"genres": [
+				"异世界",
+				"龙傲天",
+				"2023年10月",
+				"搞笑",
+				"轻小说改",
+				"战斗"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1635,7 +2041,14 @@
 			"status": "planned",
 			"rating": 6.5,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年4月", "漫画改", "辣妹", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年4月",
+				"漫画改",
+				"辣妹",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1690,7 +2103,14 @@
 			"status": "planned",
 			"rating": 7.7,
 			"year": "2020",
-			"genres": ["卖肉", "搞笑", "2020年1月", "TV", "奇幻", "漫改"],
+			"genres": [
+				"卖肉",
+				"搞笑",
+				"2020年1月",
+				"TV",
+				"奇幻",
+				"漫改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1714,7 +2134,14 @@
 			"status": "planned",
 			"rating": 6.8,
 			"year": "2024",
-			"genres": ["搞笑", "2024年1月", "日常", "美食", "漫画改", "TV"],
+			"genres": [
+				"搞笑",
+				"2024年1月",
+				"日常",
+				"美食",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1738,7 +2165,14 @@
 			"status": "onHold",
 			"rating": 6,
 			"year": "2023",
-			"genres": ["MAPPA", "战斗", "2023年4月", "奇幻", "漫改", "TV"],
+			"genres": [
+				"MAPPA",
+				"战斗",
+				"2023年4月",
+				"奇幻",
+				"漫改",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -1762,7 +2196,14 @@
 			"status": "planned",
 			"rating": 8.2,
 			"year": "2012",
-			"genres": ["京阿尼", "校园", "氷菓", "青春", "推理", "推理系"],
+			"genres": [
+				"京阿尼",
+				"校园",
+				"氷菓",
+				"青春",
+				"推理",
+				"推理系"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 22
@@ -1786,7 +2227,14 @@
 			"status": "planned",
 			"rating": 7.4,
 			"year": "2023",
-			"genres": ["动画工房", "偶像", "2023年4月", "漫画改", "赤坂明", "恋爱"],
+			"genres": [
+				"动画工房",
+				"偶像",
+				"2023年4月",
+				"漫画改",
+				"赤坂明",
+				"恋爱"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 11
@@ -1810,7 +2258,14 @@
 			"status": "planned",
 			"rating": 7.8,
 			"year": "2023",
-			"genres": ["恋爱", "校园", "2023年4月", "漫画改", "牛尾宪辅", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2023年4月",
+				"漫画改",
+				"牛尾宪辅",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -1834,7 +2289,14 @@
 			"status": "planned",
 			"rating": 6.3,
 			"year": "2026",
-			"genres": ["恋爱", "2026年4月", "校园", "轻小说改", "TV", "2026"],
+			"genres": [
+				"恋爱",
+				"2026年4月",
+				"校园",
+				"轻小说改",
+				"TV",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -1889,7 +2351,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["后宫", "异世界", "2021年4月", "卖肉", "轻小说改", "TV"],
+			"genres": [
+				"后宫",
+				"异世界",
+				"2021年4月",
+				"卖肉",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 10
@@ -1913,7 +2382,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "2026年1月", "养女儿", "漫画改", "日常", "TV"],
+			"genres": [
+				"异世界",
+				"2026年1月",
+				"养女儿",
+				"漫画改",
+				"日常",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1937,7 +2413,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["异世界", "2026年1月", "轻小说改", "奇幻", "TV", "种田"],
+			"genres": [
+				"异世界",
+				"2026年1月",
+				"轻小说改",
+				"奇幻",
+				"TV",
+				"种田"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1961,7 +2444,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年1月", "日常", "养女儿", "漫画改", "奇幻", "TV"],
+			"genres": [
+				"2026年1月",
+				"日常",
+				"养女儿",
+				"漫画改",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -1985,7 +2475,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2026",
-			"genres": ["2026年1月", "异世界", "战斗", "厕纸", "奇幻", "退队流"],
+			"genres": [
+				"2026年1月",
+				"异世界",
+				"战斗",
+				"厕纸",
+				"奇幻",
+				"退队流"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2040,7 +2537,14 @@
 			"status": "planned",
 			"rating": 5.8,
 			"year": "2026",
-			"genres": ["2026年1月", "奇幻", "异世界", "轻小说改", "搞笑", "TV"],
+			"genres": [
+				"2026年1月",
+				"奇幻",
+				"异世界",
+				"轻小说改",
+				"搞笑",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2064,7 +2568,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["里番", "纯爱", "漫画改", "OVA", "R18", "2025"],
+			"genres": [
+				"里番",
+				"纯爱",
+				"漫画改",
+				"OVA",
+				"R18",
+				"2025"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -2087,7 +2598,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["里番", "姐妹丼", "2022", "漫画改", "后宫", "R18"],
+			"genres": [
+				"里番",
+				"姐妹丼",
+				"2022",
+				"漫画改",
+				"后宫",
+				"R18"
+			],
 			"progress": {
 				"watched": 3,
 				"total": 3
@@ -2110,7 +2628,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2020",
-			"genres": ["搞笑", "动画工房", "日常", "2020年10月", "治愈", "漫画改"],
+			"genres": [
+				"搞笑",
+				"动画工房",
+				"日常",
+				"2020年10月",
+				"治愈",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2165,7 +2690,14 @@
 			"status": "planned",
 			"rating": 7.9,
 			"year": "",
-			"genres": ["恋爱", "漫画改", "校园", "TV", "cosplay", "后宫"],
+			"genres": [
+				"恋爱",
+				"漫画改",
+				"校园",
+				"TV",
+				"cosplay",
+				"后宫"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -2183,7 +2715,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["恋爱", "2024年7月", "J.C.STAFF", "漫画改", "校园", "cosplay"],
+			"genres": [
+				"恋爱",
+				"2024年7月",
+				"J.C.STAFF",
+				"漫画改",
+				"校园",
+				"cosplay"
+			],
 			"progress": {
 				"watched": 24,
 				"total": 24
@@ -2207,7 +2746,14 @@
 			"status": "planned",
 			"rating": 7.7,
 			"year": "2019",
-			"genres": ["剧场版", "搞笑", "异世界", "J.C.STAFF", "轻小说改", "2019"],
+			"genres": [
+				"剧场版",
+				"搞笑",
+				"异世界",
+				"J.C.STAFF",
+				"轻小说改",
+				"2019"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 1
@@ -2231,7 +2777,14 @@
 			"status": "planned",
 			"rating": 6.1,
 			"year": "2026",
-			"genres": ["日常", "2026年1月", "漫画改", "TV", "OkurutoNoboru", "2026"],
+			"genres": [
+				"日常",
+				"2026年1月",
+				"漫画改",
+				"TV",
+				"OkurutoNoboru",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2255,7 +2808,14 @@
 			"status": "planned",
 			"rating": 7.3,
 			"year": "2026",
-			"genres": ["日常", "搞笑", "2026年1月", "漫画改", "美食", "TV"],
+			"genres": [
+				"日常",
+				"搞笑",
+				"2026年1月",
+				"漫画改",
+				"美食",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2279,7 +2839,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "2026",
-			"genres": ["恋爱", "2026年1月", "偶像", "J.C.STAFF", "漫画改", "TV"],
+			"genres": [
+				"恋爱",
+				"2026年1月",
+				"偶像",
+				"J.C.STAFF",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2303,7 +2870,14 @@
 			"status": "planned",
 			"rating": 6.7,
 			"year": "2026",
-			"genres": ["战斗", "奇幻", "2026年1月", "StudioKAI", "TV", "异世界"],
+			"genres": [
+				"战斗",
+				"奇幻",
+				"2026年1月",
+				"StudioKAI",
+				"TV",
+				"异世界"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2327,7 +2901,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2016",
-			"genres": ["搞笑", "A-1Pictures", "2016年10月", "日常", "漫画改", "TV"],
+			"genres": [
+				"搞笑",
+				"A-1Pictures",
+				"2016年10月",
+				"日常",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2351,7 +2932,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2015",
-			"genres": ["搞笑", "日常", "A-1Pictures", "2015年7月", "漫画改", "TV"],
+			"genres": [
+				"搞笑",
+				"日常",
+				"A-1Pictures",
+				"2015年7月",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2403,7 +2991,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2010",
-			"genres": ["搞笑", "WORKING", "A-1Pictures", "2010年4月", "TV", "福山润"],
+			"genres": [
+				"搞笑",
+				"WORKING",
+				"A-1Pictures",
+				"2010年4月",
+				"TV",
+				"福山润"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2427,7 +3022,14 @@
 			"status": "planned",
 			"rating": 5.9,
 			"year": "2013",
-			"genres": ["GAL改", "2013年4月", "后宫", "写真女友", "校园", "MADHouse"],
+			"genres": [
+				"GAL改",
+				"2013年4月",
+				"后宫",
+				"写真女友",
+				"校园",
+				"MADHouse"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2451,7 +3053,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["2025年10月", "恋爱", "校园", "漫画改", "TV", "Feel."],
+			"genres": [
+				"2025年10月",
+				"恋爱",
+				"校园",
+				"漫画改",
+				"TV",
+				"Feel."
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2475,7 +3084,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["恋爱", "奇幻", "2025年7月", "漫画改", "TV", "LIDENFILMS"],
+			"genres": [
+				"恋爱",
+				"奇幻",
+				"2025年7月",
+				"漫画改",
+				"TV",
+				"LIDENFILMS"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2499,7 +3115,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["日常", "漫画改", "2025年10月", "搞笑", "CloverWorks", "喜剧"],
+			"genres": [
+				"日常",
+				"漫画改",
+				"2025年10月",
+				"搞笑",
+				"CloverWorks",
+				"喜剧"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -2523,7 +3146,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "2012",
-			"genres": ["萌", "治愈", "呆毛", "2012年4月", "日常", "一起一起这里那里"],
+			"genres": [
+				"萌",
+				"治愈",
+				"呆毛",
+				"2012年4月",
+				"日常",
+				"一起一起这里那里"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2609,7 +3239,14 @@
 			"status": "planned",
 			"rating": 5.6,
 			"year": "2026",
-			"genres": ["TV", "2026年10月", "奇幻", "白毛", "轻小说改", "Engi"],
+			"genres": [
+				"TV",
+				"2026年10月",
+				"奇幻",
+				"白毛",
+				"轻小说改",
+				"Engi"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2632,7 +3269,14 @@
 			"status": "planned",
 			"rating": 5,
 			"year": "",
-			"genres": ["恋爱", "动画工房", "轻小说改", "校园", "TV", "轻改"],
+			"genres": [
+				"恋爱",
+				"动画工房",
+				"轻小说改",
+				"校园",
+				"TV",
+				"轻改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -2651,7 +3295,14 @@
 			"status": "planned",
 			"rating": 4,
 			"year": "2026",
-			"genres": ["2026年1月", "恋爱", "TV", "轻小说改", "2026", "studiodeen"],
+			"genres": [
+				"2026年1月",
+				"恋爱",
+				"TV",
+				"轻小说改",
+				"2026",
+				"studiodeen"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2675,7 +3326,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["异世界", "2025年10月", "战斗", "奇幻", "TV", "SUNRISE"],
+			"genres": [
+				"异世界",
+				"2025年10月",
+				"战斗",
+				"奇幻",
+				"TV",
+				"SUNRISE"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2699,7 +3357,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["恋爱", "2023年7月", "职场", "漫画改", "projectNo.9", "TV"],
+			"genres": [
+				"恋爱",
+				"2023年7月",
+				"职场",
+				"漫画改",
+				"projectNo.9",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2723,7 +3388,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["恋爱", "校园", "2025年10月", "轻小说改", "TV", "后宫"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2025年10月",
+				"轻小说改",
+				"TV",
+				"后宫"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2747,7 +3419,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["恋爱", "校园", "2025年10月", "漫画改", "STUDIOPOLON", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2025年10月",
+				"漫画改",
+				"STUDIOPOLON",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2771,7 +3450,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["异世界", "2025年10月", "J.C.STAFF", "轻小说改", "后宫", "TV"],
+			"genres": [
+				"异世界",
+				"2025年10月",
+				"J.C.STAFF",
+				"轻小说改",
+				"后宫",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -2795,7 +3481,14 @@
 			"status": "planned",
 			"rating": 4.5,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年4月", "TV", "轻小说改", "2026"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年4月",
+				"TV",
+				"轻小说改",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2819,7 +3512,14 @@
 			"status": "planned",
 			"rating": 4.1,
 			"year": "2026",
-			"genres": ["恋爱", "漫画改", "2026年4月", "后宫", "TV", "2026"],
+			"genres": [
+				"恋爱",
+				"漫画改",
+				"2026年4月",
+				"后宫",
+				"TV",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2843,7 +3543,14 @@
 			"status": "planned",
 			"rating": 6,
 			"year": "2026",
-			"genres": ["恋爱", "校园", "2026年1月", "后宫", "漫画改", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2026年1月",
+				"后宫",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2865,9 +3572,16 @@
 		{
 			"title": "感谢对战。 ～大小姐才不玩格斗游戏～",
 			"status": "planned",
-			"rating": 7.3,
+			"rating": 7.4,
 			"year": "2026",
-			"genres": ["百合", "2026年7月", "漫画改", "TV", "竞技", "校园"],
+			"genres": [
+				"百合",
+				"2026年7月",
+				"漫画改",
+				"TV",
+				"竞技",
+				"校园"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2891,7 +3605,14 @@
 			"status": "planned",
 			"rating": 0,
 			"year": "",
-			"genres": ["TV", "小说改", "异世界", "日本", "校园", "后宫"],
+			"genres": [
+				"TV",
+				"小说改",
+				"异世界",
+				"日本",
+				"校园",
+				"后宫"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -2910,7 +3631,14 @@
 			"status": "planned",
 			"rating": 4.8,
 			"year": "2026",
-			"genres": ["2026年10月", "TV", "轻小说改", "SILVERLINK.", "奇幻", "穿越"],
+			"genres": [
+				"2026年10月",
+				"TV",
+				"轻小说改",
+				"SILVERLINK.",
+				"奇幻",
+				"穿越"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2934,7 +3662,14 @@
 			"status": "planned",
 			"rating": 5.8,
 			"year": "2026",
-			"genres": ["2026年4月", "美食", "日常", "漫画改", "TV", "2026"],
+			"genres": [
+				"2026年4月",
+				"美食",
+				"日常",
+				"漫画改",
+				"TV",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -2958,7 +3693,14 @@
 			"status": "planned",
 			"rating": 6.1,
 			"year": "2026",
-			"genres": ["恋爱", "2026年4月", "战斗", "漫画改", "TV", "BONES"],
+			"genres": [
+				"恋爱",
+				"2026年4月",
+				"战斗",
+				"漫画改",
+				"TV",
+				"BONES"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -2982,7 +3724,14 @@
 			"status": "planned",
 			"rating": 4.2,
 			"year": "2026",
-			"genres": ["2026年1月", "战斗", "漫画改", "奇幻", "TV", "SynergySP"],
+			"genres": [
+				"2026年1月",
+				"战斗",
+				"漫画改",
+				"奇幻",
+				"TV",
+				"SynergySP"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3006,7 +3755,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "",
-			"genres": ["TV", "小说改", "轻小说改", "僵尸", "日本", "奇幻"],
+			"genres": [
+				"TV",
+				"小说改",
+				"轻小说改",
+				"僵尸",
+				"日本",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -3026,7 +3782,14 @@
 			"status": "planned",
 			"rating": 5.2,
 			"year": "2026",
-			"genres": ["2026年1月", "TV", "轻小说改", "恶役", "苇PRODUCTION", "悬疑"],
+			"genres": [
+				"2026年1月",
+				"TV",
+				"轻小说改",
+				"恶役",
+				"苇PRODUCTION",
+				"悬疑"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3050,7 +3813,14 @@
 			"status": "planned",
 			"rating": 5.8,
 			"year": "2026",
-			"genres": ["百合", "泡面番", "2026年1月", "漫画改", "里番", "TV"],
+			"genres": [
+				"百合",
+				"泡面番",
+				"2026年1月",
+				"漫画改",
+				"里番",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 8
@@ -3073,7 +3843,14 @@
 			"status": "planned",
 			"rating": 6,
 			"year": "2026",
-			"genres": ["2026年7月", "漫画改", "搞笑", "喜剧", "温馨", "TV"],
+			"genres": [
+				"2026年7月",
+				"漫画改",
+				"搞笑",
+				"喜剧",
+				"温馨",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3097,7 +3874,14 @@
 			"status": "planned",
 			"rating": 4.6,
 			"year": "2026",
-			"genres": ["百合", "2026年1月", "TV", "战斗", "轻小说改", "猎奇"],
+			"genres": [
+				"百合",
+				"2026年1月",
+				"TV",
+				"战斗",
+				"轻小说改",
+				"猎奇"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3121,7 +3905,14 @@
 			"status": "planned",
 			"rating": 4.7,
 			"year": "2026",
-			"genres": ["游戏改", "2026年4月", "TV", "YostarPictures", "2026", "原创"],
+			"genres": [
+				"游戏改",
+				"2026年4月",
+				"TV",
+				"YostarPictures",
+				"2026",
+				"原创"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -3145,7 +3936,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["2025年10月", "异世界", "龙傲天", "轻小说改", "奇幻", "厕纸"],
+			"genres": [
+				"2025年10月",
+				"异世界",
+				"龙傲天",
+				"轻小说改",
+				"奇幻",
+				"厕纸"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -3200,7 +3998,14 @@
 			"status": "onHold",
 			"rating": 10,
 			"year": "2014",
-			"genres": ["轻小说改", "MADHouse", "异世界", "2014年4月", "TV", "游戏"],
+			"genres": [
+				"轻小说改",
+				"MADHouse",
+				"异世界",
+				"2014年4月",
+				"TV",
+				"游戏"
+			],
 			"progress": {
 				"watched": 4,
 				"total": 12
@@ -3223,7 +4028,14 @@
 			"status": "planned",
 			"rating": 6.6,
 			"year": "2010",
-			"genres": ["妹控", "GAL改", "缘之空", "恋爱", "TV", "2010年10月"],
+			"genres": [
+				"妹控",
+				"GAL改",
+				"缘之空",
+				"恋爱",
+				"TV",
+				"2010年10月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3278,7 +4090,14 @@
 			"status": "planned",
 			"rating": 7.9,
 			"year": "2017",
-			"genres": ["恋爱", "校园", "原创", "青春", "纯爱", "2017年4月"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"原创",
+				"青春",
+				"纯爱",
+				"2017年4月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3302,7 +4121,14 @@
 			"status": "planned",
 			"rating": 5.2,
 			"year": "2026",
-			"genres": ["2026年1月", "悬疑", "TV", "轻小说改", "大逃杀", "studiodeen"],
+			"genres": [
+				"2026年1月",
+				"悬疑",
+				"TV",
+				"轻小说改",
+				"大逃杀",
+				"studiodeen"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 11
@@ -3326,7 +4152,14 @@
 			"status": "planned",
 			"rating": 8,
 			"year": "2014",
-			"genres": ["恋爱", "音乐", "A-1Pictures", "治愈", "青春", "催泪"],
+			"genres": [
+				"恋爱",
+				"音乐",
+				"A-1Pictures",
+				"治愈",
+				"青春",
+				"催泪"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 22
@@ -3350,7 +4183,14 @@
 			"status": "planned",
 			"rating": 5.2,
 			"year": "2025",
-			"genres": ["2025年10月", "恋爱", "漫画改", "TV", "喜剧", "搞笑"],
+			"genres": [
+				"2025年10月",
+				"恋爱",
+				"漫画改",
+				"TV",
+				"喜剧",
+				"搞笑"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3374,7 +4214,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2008",
-			"genres": ["钉宫理惠", "校园", "龙与虎", "恋爱", "J.C.STAFF", "青春"],
+			"genres": [
+				"钉宫理惠",
+				"校园",
+				"龙与虎",
+				"恋爱",
+				"J.C.STAFF",
+				"青春"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 25
@@ -3459,7 +4306,14 @@
 			"status": "planned",
 			"rating": 7.5,
 			"year": "2023",
-			"genres": ["推理", "2023年10月", "轻小说改", "TV", "中国风", "悠木碧"],
+			"genres": [
+				"推理",
+				"2023年10月",
+				"轻小说改",
+				"TV",
+				"中国风",
+				"悠木碧"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 24
@@ -3514,7 +4368,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["肉番", "异世界", "爽片", "后宫", "2021年1月", "轻小说改"],
+			"genres": [
+				"肉番",
+				"异世界",
+				"爽片",
+				"后宫",
+				"2021年1月",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3538,7 +4399,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "2024",
-			"genres": ["百合", "卖肉", "魔法少女", "2024年1月", "搞笑", "漫画改"],
+			"genres": [
+				"百合",
+				"卖肉",
+				"魔法少女",
+				"2024年1月",
+				"搞笑",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -3593,7 +4461,14 @@
 			"status": "planned",
 			"rating": 7.6,
 			"year": "2022",
-			"genres": ["搞笑", "异世界", "2022年7月", "漫画改", "奇幻", "子安武人"],
+			"genres": [
+				"搞笑",
+				"异世界",
+				"2022年7月",
+				"漫画改",
+				"奇幻",
+				"子安武人"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -3617,7 +4492,14 @@
 			"status": "planned",
 			"rating": 8.2,
 			"year": "2018",
-			"genres": ["芳文社", "治愈", "百合", "日常", "2018年1月", "漫画改"],
+			"genres": [
+				"芳文社",
+				"治愈",
+				"百合",
+				"日常",
+				"2018年1月",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3641,7 +4523,14 @@
 			"status": "planned",
 			"rating": 8.3,
 			"year": "2024",
-			"genres": ["恋爱", "校园", "纯爱", "漫画改", "2024年1月", "牛尾宪辅"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"纯爱",
+				"漫画改",
+				"2024年1月",
+				"牛尾宪辅"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -3665,7 +4554,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "2008",
-			"genres": ["后宫", "卖肉", "ToLoveる", "TV", "2008年4月", "杀必死"],
+			"genres": [
+				"后宫",
+				"卖肉",
+				"ToLoveる",
+				"TV",
+				"2008年4月",
+				"杀必死"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 26
@@ -3689,7 +4585,14 @@
 			"status": "planned",
 			"rating": 7.4,
 			"year": "2017",
-			"genres": ["京阿尼", "日常", "搞笑", "百合", "2017年1月", "漫画改"],
+			"genres": [
+				"京阿尼",
+				"日常",
+				"搞笑",
+				"百合",
+				"2017年1月",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 14
@@ -3713,7 +4616,14 @@
 			"status": "planned",
 			"rating": 7.2,
 			"year": "2026",
-			"genres": ["动画工房", "漫画改", "2026年1月", "偶像", "TV", "恋爱"],
+			"genres": [
+				"动画工房",
+				"漫画改",
+				"2026年1月",
+				"偶像",
+				"TV",
+				"恋爱"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 11
@@ -3737,7 +4647,14 @@
 			"status": "planned",
 			"rating": 5.3,
 			"year": "2025",
-			"genres": ["2025年10月", "卖肉", "漫画改", "后宫", "恋爱", "TV"],
+			"genres": [
+				"2025年10月",
+				"卖肉",
+				"漫画改",
+				"后宫",
+				"恋爱",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3761,7 +4678,14 @@
 			"status": "planned",
 			"rating": 7.5,
 			"year": "2026",
-			"genres": ["奇幻", "MADHouse", "漫画改", "2026年1月", "公路片", "TV"],
+			"genres": [
+				"奇幻",
+				"MADHouse",
+				"漫画改",
+				"2026年1月",
+				"公路片",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 10
@@ -3785,7 +4709,14 @@
 			"status": "planned",
 			"rating": 6.7,
 			"year": "2025",
-			"genres": ["GAL改", "搞笑", "2025年7月", "抽象", "游戏改", "TV"],
+			"genres": [
+				"GAL改",
+				"搞笑",
+				"2025年7月",
+				"抽象",
+				"游戏改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 11
@@ -3809,7 +4740,14 @@
 			"status": "planned",
 			"rating": 6.6,
 			"year": "2025",
-			"genres": ["美食", "异世界", "2025年10月", "MAPPA", "奇幻", "TV"],
+			"genres": [
+				"美食",
+				"异世界",
+				"2025年10月",
+				"MAPPA",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3832,7 +4770,14 @@
 			"status": "planned",
 			"rating": 8.1,
 			"year": "2025",
-			"genres": ["科普", "日常", "StudioBind", "漫画改", "2025年7月", "TV"],
+			"genres": [
+				"科普",
+				"日常",
+				"StudioBind",
+				"漫画改",
+				"2025年7月",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -3856,7 +4801,14 @@
 			"status": "planned",
 			"rating": 7.4,
 			"year": "2025",
-			"genres": ["百合", "后宫", "校园", "喜剧", "恋爱", "2025年7月"],
+			"genres": [
+				"百合",
+				"后宫",
+				"校园",
+				"喜剧",
+				"恋爱",
+				"2025年7月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3880,7 +4832,14 @@
 			"status": "planned",
 			"rating": 6.8,
 			"year": "2025",
-			"genres": ["百合", "2025年10月", "漫画改", "奇幻", "TV", "StudioLings"],
+			"genres": [
+				"百合",
+				"2025年10月",
+				"漫画改",
+				"奇幻",
+				"TV",
+				"StudioLings"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -3904,7 +4863,14 @@
 			"status": "planned",
 			"rating": 8.3,
 			"year": "2025",
-			"genres": ["恋爱", "A-1Pictures", "校园", "漫画改", "搞笑", "OVA"],
+			"genres": [
+				"恋爱",
+				"A-1Pictures",
+				"校园",
+				"漫画改",
+				"搞笑",
+				"OVA"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 2
@@ -3928,7 +4894,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2023",
-			"genres": ["异世界", "2023年10月", "战斗", "轻小说改", "奇幻", "龙傲天"],
+			"genres": [
+				"异世界",
+				"2023年10月",
+				"战斗",
+				"轻小说改",
+				"奇幻",
+				"龙傲天"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -3952,7 +4925,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2014",
-			"genres": ["OVA", "日常", "动画工房", "GJ部", "搞笑", "轻小说改"],
+			"genres": [
+				"OVA",
+				"日常",
+				"动画工房",
+				"GJ部",
+				"搞笑",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -3976,7 +4956,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2013",
-			"genres": ["日常", "动画工房", "2013年1月", "轻小说改", "搞笑", "GJ部"],
+			"genres": [
+				"日常",
+				"动画工房",
+				"2013年1月",
+				"轻小说改",
+				"搞笑",
+				"GJ部"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4030,7 +5017,14 @@
 			"status": "planned",
 			"rating": 8.1,
 			"year": "2026",
-			"genres": ["百合", "剧场版", "原创", "音乐", "科幻", "奇幻"],
+			"genres": [
+				"百合",
+				"剧场版",
+				"原创",
+				"音乐",
+				"科幻",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 1
@@ -4054,7 +5048,14 @@
 			"status": "onHold",
 			"rating": 5,
 			"year": "2025",
-			"genres": ["2025年10月", "异世界", "J.C.STAFF", "TV", "轻小说改", "厕纸"],
+			"genres": [
+				"2025年10月",
+				"异世界",
+				"J.C.STAFF",
+				"TV",
+				"轻小说改",
+				"厕纸"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4109,7 +5110,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["后宫", "肉番", "2024年1月", "漫画改", "战斗", "TV"],
+			"genres": [
+				"后宫",
+				"肉番",
+				"2024年1月",
+				"漫画改",
+				"战斗",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4164,7 +5172,14 @@
 			"status": "planned",
 			"rating": 6.2,
 			"year": "2025",
-			"genres": ["剧场版", "P.A.WORKS", "游戏改", "2025", "初音未来", "音乐"],
+			"genres": [
+				"剧场版",
+				"P.A.WORKS",
+				"游戏改",
+				"2025",
+				"初音未来",
+				"音乐"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 1
@@ -4188,7 +5203,14 @@
 			"status": "planned",
 			"rating": 6.9,
 			"year": "2025",
-			"genres": ["搞笑", "喜剧", "2025年4月", "漫画改", "日常", "TV"],
+			"genres": [
+				"搞笑",
+				"喜剧",
+				"2025年4月",
+				"漫画改",
+				"日常",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 25
@@ -4212,7 +5234,14 @@
 			"status": "planned",
 			"rating": 7.2,
 			"year": "2025",
-			"genres": ["GAL改", "key", "恋爱", "2025年4月", "游戏改", "TV"],
+			"genres": [
+				"GAL改",
+				"key",
+				"恋爱",
+				"2025年4月",
+				"游戏改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 26
@@ -4236,7 +5265,14 @@
 			"status": "planned",
 			"rating": 6.6,
 			"year": "2025",
-			"genres": ["奇幻", "2025年7月", "轻小说改", "校园", "TV", "A-1Pictures"],
+			"genres": [
+				"奇幻",
+				"2025年7月",
+				"轻小说改",
+				"校园",
+				"TV",
+				"A-1Pictures"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -4260,7 +5296,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["异世界", "龙傲天", "搞笑", "2022年10月", "轻小说改", "中二"],
+			"genres": [
+				"异世界",
+				"龙傲天",
+				"搞笑",
+				"2022年10月",
+				"轻小说改",
+				"中二"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 20
@@ -4284,7 +5327,14 @@
 			"status": "planned",
 			"rating": 3.5,
 			"year": "2025",
-			"genres": ["原创", "P.A.WORKS", "科幻", "2025年10月", "恋爱", "TV"],
+			"genres": [
+				"原创",
+				"P.A.WORKS",
+				"科幻",
+				"2025年10月",
+				"恋爱",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -4339,7 +5389,14 @@
 			"status": "planned",
 			"rating": 7.3,
 			"year": "2026",
-			"genres": ["百合", "后宫", "校园", "喜剧", "恋爱", "studioMOTHER"],
+			"genres": [
+				"百合",
+				"后宫",
+				"校园",
+				"喜剧",
+				"恋爱",
+				"studioMOTHER"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 5
@@ -4362,7 +5419,14 @@
 			"status": "planned",
 			"rating": 7.7,
 			"year": "2025",
-			"genres": ["恋爱", "校园", "CloverWorks", "漫画改", "2025年7月", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"CloverWorks",
+				"漫画改",
+				"2025年7月",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4386,7 +5450,14 @@
 			"status": "completed",
 			"rating": 7,
 			"year": "2022",
-			"genres": ["恋爱", "CloverWorks", "校园", "漫画改", "2022年1月", "日常"],
+			"genres": [
+				"恋爱",
+				"CloverWorks",
+				"校园",
+				"漫画改",
+				"2022年1月",
+				"日常"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -4410,7 +5481,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2022",
-			"genres": ["剧场版", "异世界", "轻小说改", "2022", "奇幻", "战斗"],
+			"genres": [
+				"剧场版",
+				"异世界",
+				"轻小说改",
+				"2022",
+				"奇幻",
+				"战斗"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -4434,7 +5512,14 @@
 			"status": "completed",
 			"rating": 9,
 			"year": "2014",
-			"genres": ["京阿尼", "轻小说改", "搞笑", "2014年10月", "TV", "武本康弘"],
+			"genres": [
+				"京阿尼",
+				"轻小说改",
+				"搞笑",
+				"2014年10月",
+				"TV",
+				"武本康弘"
+			],
 			"progress": {
 				"watched": 14,
 				"total": 14
@@ -4489,7 +5574,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2014",
-			"genres": ["后宫", "轻小说改", "2014年7月", "TV", "战斗", "奇幻"],
+			"genres": [
+				"后宫",
+				"轻小说改",
+				"2014年7月",
+				"TV",
+				"战斗",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -4513,7 +5605,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["异世界", "龙傲天", "2024年1月", "轻小说改", "TV", "搞笑"],
+			"genres": [
+				"异世界",
+				"龙傲天",
+				"2024年1月",
+				"轻小说改",
+				"TV",
+				"搞笑"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4537,7 +5636,14 @@
 			"status": "onHold",
 			"rating": 9,
 			"year": "2025",
-			"genres": ["后宫", "恋爱", "搞笑", "漫画改", "2025年1月", "TV"],
+			"genres": [
+				"后宫",
+				"恋爱",
+				"搞笑",
+				"漫画改",
+				"2025年1月",
+				"TV"
+			],
 			"progress": {
 				"watched": 11,
 				"total": 12
@@ -4561,7 +5667,14 @@
 			"status": "onHold",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["恋爱", "轻小说改", "2024年7月", "兄妹", "日常", "TV"],
+			"genres": [
+				"恋爱",
+				"轻小说改",
+				"2024年7月",
+				"兄妹",
+				"日常",
+				"TV"
+			],
 			"progress": {
 				"watched": 4,
 				"total": 12
@@ -4585,7 +5698,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2014",
-			"genres": ["OVA", "新房昭之", "SHAFT", "恋爱", "后宫", "伪恋"],
+			"genres": [
+				"OVA",
+				"新房昭之",
+				"SHAFT",
+				"恋爱",
+				"后宫",
+				"伪恋"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 4
@@ -4609,7 +5729,14 @@
 			"status": "completed",
 			"rating": 9,
 			"year": "2015",
-			"genres": ["新房昭之", "恋爱", "后宫", "SHAFT", "2015年4月", "漫画改"],
+			"genres": [
+				"新房昭之",
+				"恋爱",
+				"后宫",
+				"SHAFT",
+				"2015年4月",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4632,7 +5759,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2014",
-			"genres": ["新房昭之", "恋爱", "后宫", "SHAFT", "2014年1月", "漫画改"],
+			"genres": [
+				"新房昭之",
+				"恋爱",
+				"后宫",
+				"SHAFT",
+				"2014年1月",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 20
@@ -4656,7 +5790,14 @@
 			"status": "planned",
 			"rating": 8.3,
 			"year": "2007",
-			"genres": ["京阿尼", "吐槽", "日常", "LUCKY☆STAR", "脑残星", "≡ω≡"],
+			"genres": [
+				"京阿尼",
+				"吐槽",
+				"日常",
+				"LUCKY☆STAR",
+				"脑残星",
+				"≡ω≡"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 24
@@ -4680,7 +5821,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["恋爱", "搞笑", "校园", "A-1Pictures", "漫画改", "2022年4月"],
+			"genres": [
+				"恋爱",
+				"搞笑",
+				"校园",
+				"A-1Pictures",
+				"漫画改",
+				"2022年4月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -4704,7 +5852,14 @@
 			"status": "planned",
 			"rating": 8.4,
 			"year": "2007",
-			"genres": ["Clannad", "京阿尼", "key", "催泪", "団子大家族", "治愈"],
+			"genres": [
+				"Clannad",
+				"京阿尼",
+				"key",
+				"催泪",
+				"団子大家族",
+				"治愈"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 23
@@ -4728,7 +5883,14 @@
 			"status": "planned",
 			"rating": 8.5,
 			"year": "2011",
-			"genres": ["日常", "京阿尼", "搞笑", "治愈", "爆笑", "电波"],
+			"genres": [
+				"日常",
+				"京阿尼",
+				"搞笑",
+				"治愈",
+				"爆笑",
+				"电波"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 26
@@ -4752,7 +5914,14 @@
 			"status": "planned",
 			"rating": 8.5,
 			"year": "2023",
-			"genres": ["治愈", "公路片", "奇幻", "MADHouse", "漫画改", "2023年10月"],
+			"genres": [
+				"治愈",
+				"公路片",
+				"奇幻",
+				"MADHouse",
+				"漫画改",
+				"2023年10月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 28
@@ -4776,7 +5945,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["恋爱", "2023年7月", "校园", "漫画改", "SILVERLINK.", "TV"],
+			"genres": [
+				"恋爱",
+				"2023年7月",
+				"校园",
+				"漫画改",
+				"SILVERLINK.",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -4800,7 +5976,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2017",
-			"genres": ["恋爱", "校园", "2017年1月", "漫画改", "SILVERLINK.", "搞笑"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2017年1月",
+				"漫画改",
+				"SILVERLINK.",
+				"搞笑"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -4824,7 +6007,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2017",
-			"genres": ["搞笑", "漫画改", "2017年7月", "泡面番", "校园", "TV"],
+			"genres": [
+				"搞笑",
+				"漫画改",
+				"2017年7月",
+				"泡面番",
+				"校园",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4848,7 +6038,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["恋爱", "异世界", "2025年1月", "穿越", "轻小说改", "TV"],
+			"genres": [
+				"恋爱",
+				"异世界",
+				"2025年1月",
+				"穿越",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4872,7 +6069,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["后宫", "卖肉", "2021年7月", "TV", "漫画改", "正太"],
+			"genres": [
+				"后宫",
+				"卖肉",
+				"2021年7月",
+				"TV",
+				"漫画改",
+				"正太"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 10
@@ -4896,7 +6100,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["异世界", "2023年4月", "轻小说改", "龙傲天", "后宫", "TV"],
+			"genres": [
+				"异世界",
+				"2023年4月",
+				"轻小说改",
+				"龙傲天",
+				"后宫",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -4920,7 +6131,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2020",
-			"genres": ["恋爱", "搞笑", "校园", "A-1Pictures", "漫画改", "2020年4月"],
+			"genres": [
+				"恋爱",
+				"搞笑",
+				"校园",
+				"A-1Pictures",
+				"漫画改",
+				"2020年4月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4944,7 +6162,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2019",
-			"genres": ["恋爱", "搞笑", "A-1Pictures", "校园", "漫画改", "2019年1月"],
+			"genres": [
+				"恋爱",
+				"搞笑",
+				"A-1Pictures",
+				"校园",
+				"漫画改",
+				"2019年1月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4968,7 +6193,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["恋爱", "校园", "2023年1月", "漫画改", "TV", "日常"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2023年1月",
+				"漫画改",
+				"TV",
+				"日常"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -4992,7 +6224,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["恋爱", "动画工房", "校园", "2022年4月", "漫画改", "日常"],
+			"genres": [
+				"恋爱",
+				"动画工房",
+				"校园",
+				"2022年4月",
+				"漫画改",
+				"日常"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5016,7 +6255,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["2025年7月", "恋爱", "校园", "漫画改", "后宫", "党争"],
+			"genres": [
+				"2025年7月",
+				"恋爱",
+				"校园",
+				"漫画改",
+				"后宫",
+				"党争"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5040,7 +6286,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["恋爱", "2022年4月", "党争", "校园", "漫画改", "TV"],
+			"genres": [
+				"恋爱",
+				"2022年4月",
+				"党争",
+				"校园",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 24
@@ -5064,7 +6317,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["恋爱", "异世界", "2024年4月", "轻小说改", "奇幻", "TV"],
+			"genres": [
+				"恋爱",
+				"异世界",
+				"2024年4月",
+				"轻小说改",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5088,7 +6348,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["异世界", "2024年10月", "TV", "轻小说改", "厕纸", "奇幻"],
+			"genres": [
+				"异世界",
+				"2024年10月",
+				"TV",
+				"轻小说改",
+				"厕纸",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5112,7 +6379,14 @@
 			"status": "planned",
 			"rating": 7.5,
 			"year": "2026",
-			"genres": ["后宫", "恋爱", "2026年7月", "漫画改", "搞笑", "TV"],
+			"genres": [
+				"后宫",
+				"恋爱",
+				"2026年7月",
+				"漫画改",
+				"搞笑",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5136,7 +6410,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["后宫", "恋爱", "搞笑", "2023年10月", "漫画改", "逆天"],
+			"genres": [
+				"后宫",
+				"恋爱",
+				"搞笑",
+				"2023年10月",
+				"漫画改",
+				"逆天"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5160,7 +6441,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2015",
-			"genres": ["轻小说改", "MADHouse", "穿越", "异世界", "2015年7月", "网游"],
+			"genres": [
+				"轻小说改",
+				"MADHouse",
+				"穿越",
+				"异世界",
+				"2015年7月",
+				"网游"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -5213,7 +6501,14 @@
 			"status": "completed",
 			"rating": 7,
 			"year": "2024",
-			"genres": ["剧场版", "轻小说改", "异世界", "MADHouse", "奇幻", "2024"],
+			"genres": [
+				"剧场版",
+				"轻小说改",
+				"异世界",
+				"MADHouse",
+				"奇幻",
+				"2024"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 1
@@ -5330,7 +6625,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2025",
-			"genres": ["2025年7月", "奇幻", "战斗", "异世界", "轮回", "TV"],
+			"genres": [
+				"2025年7月",
+				"奇幻",
+				"战斗",
+				"异世界",
+				"轮回",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5354,7 +6656,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2020",
-			"genres": ["轻小说改", "百合", "公路片", "奇幻", "魔法", "2020年10月"],
+			"genres": [
+				"轻小说改",
+				"百合",
+				"公路片",
+				"奇幻",
+				"魔法",
+				"2020年10月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5378,7 +6687,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2015",
-			"genres": ["搞笑", "后宫", "2015年7月", "漫画改", "TV", "校园"],
+			"genres": [
+				"搞笑",
+				"后宫",
+				"2015年7月",
+				"漫画改",
+				"TV",
+				"校园"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -5402,7 +6718,14 @@
 			"status": "planned",
 			"rating": 6,
 			"year": "2026",
-			"genres": ["校园", "2026年4月", "轻小说改", "TV", "智斗", "2026"],
+			"genres": [
+				"校园",
+				"2026年4月",
+				"轻小说改",
+				"TV",
+				"智斗",
+				"2026"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 16
@@ -5426,7 +6749,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["校园", "轻小说改", "2022年7月", "智斗", "TV", "装逼"],
+			"genres": [
+				"校园",
+				"轻小说改",
+				"2022年7月",
+				"智斗",
+				"TV",
+				"装逼"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -5450,7 +6780,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["校园", "轻小说改", "2024年1月", "智斗", "装逼", "TV"],
+			"genres": [
+				"校园",
+				"轻小说改",
+				"2024年1月",
+				"智斗",
+				"装逼",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -5474,7 +6811,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2017",
-			"genres": ["校园", "轻小说改", "2017年7月", "装逼", "TV", "智斗"],
+			"genres": [
+				"校园",
+				"轻小说改",
+				"2017年7月",
+				"装逼",
+				"TV",
+				"智斗"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5498,7 +6842,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2017",
-			"genres": ["国产", "后宫", "恋爱", "爱神巧克力", "漫改", "漫画改"],
+			"genres": [
+				"国产",
+				"后宫",
+				"恋爱",
+				"爱神巧克力",
+				"漫改",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 15
@@ -5522,7 +6873,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2015",
-			"genres": ["国产", "后宫", "漫画改", "恋爱", "爱神巧克力", "WEB"],
+			"genres": [
+				"国产",
+				"后宫",
+				"漫画改",
+				"恋爱",
+				"爱神巧克力",
+				"WEB"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 15
@@ -5546,7 +6904,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2018",
-			"genres": ["OVA", "恋爱", "漫画改", "校园", "狗粮", "擅长捉弄的高木同学"],
+			"genres": [
+				"OVA",
+				"恋爱",
+				"漫画改",
+				"校园",
+				"狗粮",
+				"擅长捉弄的高木同学"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 1
@@ -5570,7 +6935,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["恋爱", "校园", "日常", "2022年1月", "狗粮", "漫画改"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"日常",
+				"2022年1月",
+				"狗粮",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5594,7 +6966,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2018",
-			"genres": ["恋爱", "校园", "狗粮", "日常", "2018年1月", "漫画改"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"狗粮",
+				"日常",
+				"2018年1月",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5618,7 +6997,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["剧场版", "恋爱", "日常", "校园", "2022", "狗粮"],
+			"genres": [
+				"剧场版",
+				"恋爱",
+				"日常",
+				"校园",
+				"2022",
+				"狗粮"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 1
@@ -5642,7 +7028,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2019",
-			"genres": ["恋爱", "校园", "狗粮", "日常", "2019年7月", "漫画改"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"狗粮",
+				"日常",
+				"2019年7月",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5666,7 +7059,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["性转", "日常", "搞笑", "百合", "StudioBind", "2023年1月"],
+			"genres": [
+				"性转",
+				"日常",
+				"搞笑",
+				"百合",
+				"StudioBind",
+				"2023年1月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5690,7 +7090,14 @@
 			"status": "onHold",
 			"rating": 4,
 			"year": "2025",
-			"genres": ["恋爱", "2025年7月", "漫画改", "TV", "后宫", "2025"],
+			"genres": [
+				"恋爱",
+				"2025年7月",
+				"漫画改",
+				"TV",
+				"后宫",
+				"2025"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5714,7 +7121,14 @@
 			"status": "completed",
 			"rating": 5,
 			"year": "2023",
-			"genres": ["恋爱", "2023年7月", "漫画改", "后宫", "TV", "2023"],
+			"genres": [
+				"恋爱",
+				"2023年7月",
+				"漫画改",
+				"后宫",
+				"TV",
+				"2023"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5738,7 +7152,14 @@
 			"status": "completed",
 			"rating": 6,
 			"year": "2022",
-			"genres": ["恋爱", "2022年7月", "后宫", "漫画改", "TV", "党争"],
+			"genres": [
+				"恋爱",
+				"2022年7月",
+				"后宫",
+				"漫画改",
+				"TV",
+				"党争"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5762,7 +7183,14 @@
 			"status": "completed",
 			"rating": 7,
 			"year": "2020",
-			"genres": ["恋爱", "2020年7月", "漫改", "校园", "后宫", "漫画改"],
+			"genres": [
+				"恋爱",
+				"2020年7月",
+				"漫改",
+				"校园",
+				"后宫",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -5879,7 +7307,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["恋爱", "校园", "2025年1月", "轻小说改", "TV", "Studio五组"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"2025年1月",
+				"轻小说改",
+				"TV",
+				"Studio五组"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -5934,7 +7369,14 @@
 			"status": "onHold",
 			"rating": 8,
 			"year": "2025",
-			"genres": ["奇幻", "战斗", "2025年7月", "漫画改", "异世界", "TV"],
+			"genres": [
+				"奇幻",
+				"战斗",
+				"2025年7月",
+				"漫画改",
+				"异世界",
+				"TV"
+			],
 			"progress": {
 				"watched": 5,
 				"total": 12
@@ -5958,7 +7400,14 @@
 			"status": "completed",
 			"rating": 9,
 			"year": "2024",
-			"genres": ["异世界", "2024年4月", "轻小说改", "正太", "龙傲天", "奇幻"],
+			"genres": [
+				"异世界",
+				"2024年4月",
+				"轻小说改",
+				"正太",
+				"龙傲天",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -5982,7 +7431,14 @@
 			"status": "planned",
 			"rating": 6.4,
 			"year": "2025",
-			"genres": ["异世界", "2025年7月", "龙傲天", "战斗", "奇幻", "TV"],
+			"genres": [
+				"异世界",
+				"2025年7月",
+				"龙傲天",
+				"战斗",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -6099,7 +7555,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["恋爱", "吸血鬼", "奇幻", "2022年7月", "漫画改", "TV"],
+			"genres": [
+				"恋爱",
+				"吸血鬼",
+				"奇幻",
+				"2022年7月",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -6218,8 +7681,8 @@
 				"京阿尼",
 				"泡面番",
 				"2014年1月",
-				"中二病也要谈恋爱！",
 				"恋爱",
+				"中二病也要谈恋爱！",
 				"WEB"
 			],
 			"progress": {
@@ -6305,7 +7768,14 @@
 			"status": "onHold",
 			"rating": 6,
 			"year": "2023",
-			"genres": ["战斗", "2023年10月", "网游", "漫画改", "异世界", "TV"],
+			"genres": [
+				"战斗",
+				"2023年10月",
+				"网游",
+				"漫画改",
+				"异世界",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 25
@@ -6360,7 +7830,14 @@
 			"status": "planned",
 			"rating": 6.3,
 			"year": "2026",
-			"genres": ["2026年4月", "异世界", "轻小说改", "奇幻", "战斗", "TV"],
+			"genres": [
+				"2026年4月",
+				"异世界",
+				"轻小说改",
+				"奇幻",
+				"战斗",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 24
@@ -6384,7 +7861,14 @@
 			"status": "completed",
 			"rating": 7,
 			"year": "2023",
-			"genres": ["OVA", "异世界", "轻小说改", "战斗", "奇幻", "2023年10月"],
+			"genres": [
+				"OVA",
+				"异世界",
+				"轻小说改",
+				"战斗",
+				"奇幻",
+				"2023年10月"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 3
@@ -6408,7 +7892,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2025",
-			"genres": ["卖肉", "2025年4月", "校园", "漫画改", "恋爱", "TV"],
+			"genres": [
+				"卖肉",
+				"2025年4月",
+				"校园",
+				"漫画改",
+				"恋爱",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -6432,7 +7923,14 @@
 			"status": "planned",
 			"rating": 6.1,
 			"year": "",
-			"genres": ["轻小说改", "TV", "战斗", "异世界", "SILVERLINK.", "后宫"],
+			"genres": [
+				"轻小说改",
+				"TV",
+				"战斗",
+				"异世界",
+				"SILVERLINK.",
+				"后宫"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -6452,7 +7950,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["异世界", "龙傲天", "2021年10月", "轻小说改", "后宫", "战斗"],
+			"genres": [
+				"异世界",
+				"龙傲天",
+				"2021年10月",
+				"轻小说改",
+				"后宫",
+				"战斗"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -6507,7 +8012,14 @@
 			"status": "completed",
 			"rating": 4,
 			"year": "2022",
-			"genres": ["异世界", "后宫", "2022年4月", "龙傲天", "轻小说改", "TV"],
+			"genres": [
+				"异世界",
+				"后宫",
+				"2022年4月",
+				"龙傲天",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -6530,7 +8042,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2010",
-			"genres": ["治愈", "萌", "GAINAX", "萝莉", "花丸幼儿园", "2010年1月"],
+			"genres": [
+				"治愈",
+				"萌",
+				"GAINAX",
+				"萝莉",
+				"花丸幼儿园",
+				"2010年1月"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -6585,7 +8104,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["异世界", "2021年7月", "后宫", "轻小说改", "穿越", "TV"],
+			"genres": [
+				"异世界",
+				"2021年7月",
+				"后宫",
+				"轻小说改",
+				"穿越",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -6609,7 +8135,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["异世界", "2024年1月", "后宫", "轻小说改", "TV", "J.C.STAFF"],
+			"genres": [
+				"异世界",
+				"2024年1月",
+				"后宫",
+				"轻小说改",
+				"TV",
+				"J.C.STAFF"
+			],
 			"progress": {
 				"watched": 25,
 				"total": 25
@@ -6633,7 +8166,14 @@
 			"status": "planned",
 			"rating": 7,
 			"year": "",
-			"genres": ["异世界", "未定档", "TV", "后宫", "轻改", "第三季"],
+			"genres": [
+				"异世界",
+				"未定档",
+				"TV",
+				"后宫",
+				"轻改",
+				"第三季"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 0
@@ -6651,7 +8191,14 @@
 			"status": "completed",
 			"rating": 6,
 			"year": "2024",
-			"genres": ["异世界", "2024年4月", "轻小说改", "TV", "战斗", "奇幻"],
+			"genres": [
+				"异世界",
+				"2024年4月",
+				"轻小说改",
+				"TV",
+				"战斗",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 24,
 				"total": 24
@@ -6706,7 +8253,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2021",
-			"genres": ["异世界", "2021年7月", "轻小说改", "奇幻", "战斗", "TV"],
+			"genres": [
+				"异世界",
+				"2021年7月",
+				"轻小说改",
+				"奇幻",
+				"战斗",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -6730,7 +8284,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2018",
-			"genres": ["轻小说改", "异世界", "穿越", "2018年10月", "奇幻", "TV"],
+			"genres": [
+				"轻小说改",
+				"异世界",
+				"穿越",
+				"2018年10月",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 24,
 				"total": 24
@@ -6754,7 +8315,14 @@
 			"status": "dropped",
 			"rating": 4,
 			"year": "2023",
-			"genres": ["恋爱", "2023年10月", "校园", "轻小说改", "TV", "Engi"],
+			"genres": [
+				"恋爱",
+				"2023年10月",
+				"校园",
+				"轻小说改",
+				"TV",
+				"Engi"
+			],
 			"progress": {
 				"watched": 7,
 				"total": 12
@@ -6778,7 +8346,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2013",
-			"genres": ["OVA", "搞笑", "后宫", "XEBEC", "轻小说改", "2013"],
+			"genres": [
+				"OVA",
+				"搞笑",
+				"后宫",
+				"XEBEC",
+				"轻小说改",
+				"2013"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -6801,7 +8376,14 @@
 			"status": "completed",
 			"rating": 7,
 			"year": "2013",
-			"genres": ["搞笑", "奈亚子", "2013年4月", "轻小说改", "后宫", "TV"],
+			"genres": [
+				"搞笑",
+				"奈亚子",
+				"2013年4月",
+				"轻小说改",
+				"后宫",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -6887,7 +8469,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["GAL改", "2024年7月", "游戏改", "花田十辉", "TV", "恋爱"],
+			"genres": [
+				"GAL改",
+				"2024年7月",
+				"游戏改",
+				"花田十辉",
+				"TV",
+				"恋爱"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -6911,7 +8500,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2025",
-			"genres": ["异世界", "2025年1月", "轻小说改", "TV", "魔法", "奇幻"],
+			"genres": [
+				"异世界",
+				"2025年1月",
+				"轻小说改",
+				"TV",
+				"魔法",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -6935,7 +8531,14 @@
 			"status": "onHold",
 			"rating": 7,
 			"year": "2025",
-			"genres": ["漫画改", "致郁", "校园", "2025年7月", "奇幻", "ENISHIYA"],
+			"genres": [
+				"漫画改",
+				"致郁",
+				"校园",
+				"2025年7月",
+				"奇幻",
+				"ENISHIYA"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 6
@@ -6959,7 +8562,14 @@
 			"status": "onHold",
 			"rating": 5,
 			"year": "2022",
-			"genres": ["芳文社", "音乐", "轻百合", "CloverWorks", "日常", "乐队题材"],
+			"genres": [
+				"芳文社",
+				"音乐",
+				"轻百合",
+				"CloverWorks",
+				"日常",
+				"乐队题材"
+			],
 			"progress": {
 				"watched": 5,
 				"total": 12
@@ -7075,7 +8685,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2006",
-			"genres": ["傲娇", "零之使魔", "钉宫理惠", "J.C.STAFF", "轻小说改", "TV"],
+			"genres": [
+				"傲娇",
+				"零之使魔",
+				"钉宫理惠",
+				"J.C.STAFF",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -7099,7 +8716,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2019",
-			"genres": ["OVA", "恋爱", "2019", "后宫", "漫画改", "校园"],
+			"genres": [
+				"OVA",
+				"恋爱",
+				"2019",
+				"后宫",
+				"漫画改",
+				"校园"
+			],
 			"progress": {
 				"watched": 2,
 				"total": 2
@@ -7122,7 +8746,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2019",
-			"genres": ["恋爱", "后宫", "2019年10月", "校园", "漫画改", "TV"],
+			"genres": [
+				"恋爱",
+				"后宫",
+				"2019年10月",
+				"校园",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -7146,7 +8777,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2019",
-			"genres": ["后宫", "恋爱", "校园", "2019年4月", "漫改", "漫画改"],
+			"genres": [
+				"后宫",
+				"恋爱",
+				"校园",
+				"2019年4月",
+				"漫改",
+				"漫画改"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -7201,7 +8839,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["恋爱", "2024年7月", "校园", "漫画改", "早見沙織", "纯爱"],
+			"genres": [
+				"恋爱",
+				"2024年7月",
+				"校园",
+				"漫画改",
+				"早見沙織",
+				"纯爱"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -7256,7 +8901,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["剧场版", "搞笑", "WITSTUDIO", "2023", "CloverWorks", "日常"],
+			"genres": [
+				"剧场版",
+				"搞笑",
+				"WITSTUDIO",
+				"2023",
+				"CloverWorks",
+				"日常"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -7342,7 +8994,14 @@
 			"status": "completed",
 			"rating": 8,
 			"year": "2022",
-			"genres": ["新海诚", "剧场版", "原创", "2022", "奇幻", "恋爱"],
+			"genres": [
+				"新海诚",
+				"剧场版",
+				"原创",
+				"2022",
+				"奇幻",
+				"恋爱"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -7366,7 +9025,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["恋爱", "动画工房", "校园", "2024年7月", "轻小说改", "TV"],
+			"genres": [
+				"恋爱",
+				"动画工房",
+				"校园",
+				"2024年7月",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 12
@@ -7421,7 +9087,14 @@
 			"status": "completed",
 			"rating": 6.6,
 			"year": "2024",
-			"genres": ["后宫", "轻小说改", "约会大作战", "恋爱", "2024年4月", "战斗"],
+			"genres": [
+				"后宫",
+				"轻小说改",
+				"约会大作战",
+				"恋爱",
+				"2024年4月",
+				"战斗"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -7476,7 +9149,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2014",
-			"genres": ["后宫", "约会大作战", "轻小说改", "2014年4月", "TV", "战斗"],
+			"genres": [
+				"后宫",
+				"约会大作战",
+				"轻小说改",
+				"2014年4月",
+				"TV",
+				"战斗"
+			],
 			"progress": {
 				"watched": 10,
 				"total": 10
@@ -7500,7 +9180,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["剧场版", "轻小说改", "约会大作战", "OVA", "2020", "战斗"],
+			"genres": [
+				"剧场版",
+				"轻小说改",
+				"约会大作战",
+				"OVA",
+				"2020",
+				"战斗"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -7524,7 +9211,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["剧场版", "轻小说改", "约会大作战", "OVA", "战斗", "2020"],
+			"genres": [
+				"剧场版",
+				"轻小说改",
+				"约会大作战",
+				"OVA",
+				"战斗",
+				"2020"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -7548,7 +9242,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["后宫", "约会大作战", "轻小说改", "恋爱", "2022年4月", "战斗"],
+			"genres": [
+				"后宫",
+				"约会大作战",
+				"轻小说改",
+				"恋爱",
+				"2022年4月",
+				"战斗"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -7572,7 +9273,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2013",
-			"genres": ["后宫", "约会大作战", "轻小说改", "校园", "2013年4月", "TV"],
+			"genres": [
+				"后宫",
+				"约会大作战",
+				"轻小说改",
+				"校园",
+				"2013年4月",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -7627,7 +9335,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["异世界", "奇幻", "战斗", "WHITEFOX", "2025年1月", "轻小说改"],
+			"genres": [
+				"异世界",
+				"奇幻",
+				"战斗",
+				"WHITEFOX",
+				"2025年1月",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 8,
 				"total": 8
@@ -7651,7 +9366,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["异世界", "轻小说改", "2021年1月", "奇幻", "轮回", "TV"],
+			"genres": [
+				"异世界",
+				"轻小说改",
+				"2021年1月",
+				"奇幻",
+				"轮回",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -7675,7 +9397,14 @@
 			"status": "completed",
 			"rating": 7.4,
 			"year": "2020",
-			"genres": ["异世界", "轻小说改", "WHITEFOX", "奇幻", "2020年7月", "TV"],
+			"genres": [
+				"异世界",
+				"轻小说改",
+				"WHITEFOX",
+				"奇幻",
+				"2020年7月",
+				"TV"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -7699,7 +9428,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2020",
-			"genres": ["异世界", "轻小说改", "WHITEFOX", "2020年1月", "奇幻", "TV"],
+			"genres": [
+				"异世界",
+				"轻小说改",
+				"WHITEFOX",
+				"2020年1月",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 25,
 				"total": 25
@@ -7785,7 +9521,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["异世界", "轻小说改", "后宫", "2021年1月", "奇幻", "穿越"],
+			"genres": [
+				"异世界",
+				"轻小说改",
+				"后宫",
+				"2021年1月",
+				"奇幻",
+				"穿越"
+			],
 			"progress": {
 				"watched": 11,
 				"total": 11
@@ -7809,7 +9552,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["恋爱", "2024年4月", "漫画改", "日常", "后宫", "TV"],
+			"genres": [
+				"恋爱",
+				"2024年4月",
+				"漫画改",
+				"日常",
+				"后宫",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -7833,7 +9583,14 @@
 			"status": "planned",
 			"rating": 6.8,
 			"year": "2025",
-			"genres": ["搞笑", "2025年10月", "奇幻", "误解系", "轻小说改", "异世界"],
+			"genres": [
+				"搞笑",
+				"2025年10月",
+				"奇幻",
+				"误解系",
+				"轻小说改",
+				"异世界"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 11
@@ -7857,7 +9614,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["搞笑", "2024年10月", "异世界", "轻小说改", "误解系", "奇幻"],
+			"genres": [
+				"搞笑",
+				"2024年10月",
+				"异世界",
+				"轻小说改",
+				"误解系",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 13,
 				"total": 13
@@ -7881,7 +9645,14 @@
 			"status": "onHold",
 			"rating": 6.5,
 			"year": "2025",
-			"genres": ["异世界", "2025年10月", "凤傲天", "战斗", "奇幻", "轻小说改"],
+			"genres": [
+				"异世界",
+				"2025年10月",
+				"凤傲天",
+				"战斗",
+				"奇幻",
+				"轻小说改"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 12
@@ -7905,7 +9676,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2013",
-			"genres": ["OVA", "后宫", "校园", "2013", "三人行必有我妹", "Studio五组"],
+			"genres": [
+				"OVA",
+				"后宫",
+				"校园",
+				"2013",
+				"三人行必有我妹",
+				"Studio五组"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -7960,7 +9738,14 @@
 			"status": "planned",
 			"rating": 6.9,
 			"year": "2025",
-			"genres": ["恋爱", "校园", "CloverWorks", "2025年7月", "漫画改", "TV"],
+			"genres": [
+				"恋爱",
+				"校园",
+				"CloverWorks",
+				"2025年7月",
+				"漫画改",
+				"TV"
+			],
 			"progress": {
 				"watched": 0,
 				"total": 13
@@ -8046,7 +9831,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2017",
-			"genres": ["后宫", "异世界", "龙傲天", "2017年7月", "轻小说改", "TV"],
+			"genres": [
+				"后宫",
+				"异世界",
+				"龙傲天",
+				"2017年7月",
+				"轻小说改",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -8070,7 +9862,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2022",
-			"genres": ["OVA", "恋爱", "日常", "漫画改", "2022", "狗粮"],
+			"genres": [
+				"OVA",
+				"恋爱",
+				"日常",
+				"漫画改",
+				"2022",
+				"狗粮"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -8124,7 +9923,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2020",
-			"genres": ["恋爱", "狗粮", "漫画改", "2020年10月", "日常", "TV"],
+			"genres": [
+				"恋爱",
+				"狗粮",
+				"漫画改",
+				"2020年10月",
+				"日常",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -8148,7 +9954,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2023",
-			"genres": ["恋爱", "漫画改", "日常", "2023年7月", "OVA", "校园"],
+			"genres": [
+				"恋爱",
+				"漫画改",
+				"日常",
+				"2023年7月",
+				"OVA",
+				"校园"
+			],
 			"progress": {
 				"watched": 4,
 				"total": 4
@@ -8172,7 +9985,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["OVA", "恋爱", "漫画改", "日常", "2021", "总之就是非常可爱"],
+			"genres": [
+				"OVA",
+				"恋爱",
+				"漫画改",
+				"日常",
+				"2021",
+				"总之就是非常可爱"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 1
@@ -8194,7 +10014,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2024",
-			"genres": ["异世界", "后宫", "2024年10月", "轻小说改", "TV", "奇幻"],
+			"genres": [
+				"异世界",
+				"后宫",
+				"2024年10月",
+				"轻小说改",
+				"TV",
+				"奇幻"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -8218,7 +10045,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2021",
-			"genres": ["异世界", "后宫", "轻小说改", "2021年7月", "奇幻", "TV"],
+			"genres": [
+				"异世界",
+				"后宫",
+				"轻小说改",
+				"2021年7月",
+				"奇幻",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -8242,7 +10076,14 @@
 			"status": "onHold",
 			"rating": 4.1,
 			"year": "2025",
-			"genres": ["校园", "恋爱", "2025年10月", "轻小说改", "Feel.", "TV"],
+			"genres": [
+				"校园",
+				"恋爱",
+				"2025年10月",
+				"轻小说改",
+				"Feel.",
+				"TV"
+			],
 			"progress": {
 				"watched": 1,
 				"total": 13
@@ -8266,7 +10107,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["恋爱", "2025年7月", "漫画改", "萝莉", "日常", "TV"],
+			"genres": [
+				"恋爱",
+				"2025年7月",
+				"漫画改",
+				"萝莉",
+				"日常",
+				"TV"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
@@ -8290,7 +10138,14 @@
 			"status": "completed",
 			"rating": 10,
 			"year": "2025",
-			"genres": ["2025年7月", "萝莉", "轻小说改", "奇幻", "后宫", "恋爱"],
+			"genres": [
+				"2025年7月",
+				"萝莉",
+				"轻小说改",
+				"奇幻",
+				"后宫",
+				"恋爱"
+			],
 			"progress": {
 				"watched": 12,
 				"total": 12
