@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-25T13:12:04.147Z",
+  "generatedAt": "2026-09-26T12:37:52.010Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 48031,
+    "subject_id": 1880,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2013-01-09",
+    "ep_status": 13,
+    "updated_at": "2006-07-02",
     "subject": {
-      "id": 48031,
-      "name": "GJ部",
-      "name_cn": "GJ部",
-      "date": "2013-01-09",
-      "eps": 12,
-      "short_summary": "改编自号称“四格小说”的同名轻小说。 故事主要讲述了主人公四之宫京夜与他所属的活动内容不明的GJ部的部员们——有着要强性格的部长天使真央、游戏天才皇紫音、性格我行我素的天使惠、身体丰满的绮罗々・伯恩斯坦以及之后的新入部员的神无月环交织而成的日常小故事。",
+      "id": 1880,
+      "name": "零之使魔",
+      "name_cn": "零之使魔",
+      "date": "2006-07-02",
+      "eps": 13,
+      "short_summary": "在异世界哈尔凯尼亚被当作“使魔”被召唤出来的高中生平贺才人卷入了一场满载这四种元素的幻想罗曼史大冒险中。将才人召唤至异世界的是长相可爱却没有丝毫魔法才能的主人样·露易丝。面对突然出现的迷之美少女，满心疑惑的才人在听她讲完契约内容之后，遭遇了突如其来的强吻……之后，他的手背上浮现出了不可思议的文字，才人就这样莫名其妙的成为了露易丝的使魔…… 　　以全寄宿制的托丽斯汀魔法学院为舞台，主人样美少女魔法使露易丝与使魔才人在争吵、责备、爱恋中开始了充满了勇气与屈辱的学园生活……在异世界波澜万丈的交流之中，露易丝和才人的命运会怎么样呢？",
       "tags": [
         {
-          "name": "日常"
+          "name": "傲娇"
         },
         {
-          "name": "动画工房"
+          "name": "零之使魔"
         },
         {
-          "name": "2013年1月"
+          "name": "钉宫理惠"
+        },
+        {
+          "name": "J.C.STAFF"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "搞笑"
-        },
-        {
-          "name": "GJ部"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/8e/a4/48031_31K3k.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/8e/a4/48031_31K3k.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/8e/a4/48031_31K3k.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/8e/a4/48031_31K3k.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/32/14/1880_fsmcg.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "GJ部",
+      "title": "零之使魔",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/8e/a4/48031_31K3k.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "GJ部",
+      "title": "零之使魔",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/8e/a4/48031_31K3k.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/32/14/1880_fsmcg.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "GJ部",
+      "title": "零之使魔",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-48031.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-1880.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
