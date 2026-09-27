@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-26T12:37:52.010Z",
+  "generatedAt": "2026-09-27T13:29:31.302Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 1880,
+    "subject_id": 3848,
     "type": 2,
-    "ep_status": 13,
-    "updated_at": "2006-07-02",
+    "ep_status": 12,
+    "updated_at": "2010-01-10",
     "subject": {
-      "id": 1880,
-      "name": "零之使魔",
-      "name_cn": "零之使魔",
-      "date": "2006-07-02",
-      "eps": 13,
-      "short_summary": "在异世界哈尔凯尼亚被当作“使魔”被召唤出来的高中生平贺才人卷入了一场满载这四种元素的幻想罗曼史大冒险中。将才人召唤至异世界的是长相可爱却没有丝毫魔法才能的主人样·露易丝。面对突然出现的迷之美少女，满心疑惑的才人在听她讲完契约内容之后，遭遇了突如其来的强吻……之后，他的手背上浮现出了不可思议的文字，才人就这样莫名其妙的成为了露易丝的使魔…… 　　以全寄宿制的托丽斯汀魔法学院为舞台，主人样美少女魔法使露易丝与使魔才人在争吵、责备、爱恋中开始了充满了勇气与屈辱的学园生活……在异世界波澜万丈的交流之中，露易丝和才人的命运会怎么样呢？",
+      "id": 3848,
+      "name": "花丸幼稚园",
+      "name_cn": "花丸幼稚园",
+      "date": "2010-01-10",
+      "eps": 12,
+      "short_summary": "欢迎来到花丸幼稚园！这里是一群活泼可爱的孩子们每天生活的乐园。 陷入恋爱的女孩子杏一直都喜欢着自己的班主任土田老师，为杏的恋爱加油的同伴有“万事通”之称的小柊与天真可爱的小梅。让人砰砰心跳的恋爱大作战，到幼稚园外面进行作战侦察……虽然有时也因为和其他孩子们吵架而被责备，但是要好的三人组正在一点一点成长。",
       "tags": [
         {
-          "name": "傲娇"
+          "name": "治愈"
         },
         {
-          "name": "零之使魔"
+          "name": "萌"
         },
         {
-          "name": "钉宫理惠"
+          "name": "GAINAX"
         },
         {
-          "name": "J.C.STAFF"
+          "name": "萝莉"
         },
         {
-          "name": "轻小说改"
+          "name": "花丸幼儿园"
         },
         {
-          "name": "TV"
+          "name": "2010年1月"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/42/c8/3848_Z5Lnm.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/42/c8/3848_Z5Lnm.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/42/c8/3848_Z5Lnm.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/32/14/1880_fsmcg.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/42/c8/3848_Z5Lnm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "零之使魔",
+      "title": "花丸幼稚园",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/32/14/1880_fsmcg.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/42/c8/3848_Z5Lnm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "零之使魔",
+      "title": "花丸幼稚园",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/32/14/1880_fsmcg.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/42/c8/3848_Z5Lnm.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "零之使魔",
+      "title": "花丸幼稚园",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-1880.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-3848.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
