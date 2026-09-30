@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-29T14:33:40.010Z",
+  "generatedAt": "2026-09-30T14:31:56.296Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 342200,
+    "subject_id": 406251,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2022-07-10",
+    "ep_status": 0,
+    "updated_at": "2024-04-04",
     "subject": {
-      "id": 342200,
-      "name": "异世界药局",
-      "name_cn": "异世界药局",
-      "date": "2022-07-10",
+      "id": 406251,
+      "name": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "name_cn": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "date": "2024-04-04",
       "eps": 12,
-      "short_summary": "现代日本药学研究者药谷完治醒来后，发现自己转世为宫廷药师名家德·梅迪西斯家的儿子法尔玛·德·梅迪西斯。 法尔玛对这个世界上充斥着错误的治疗方法和药物调配、无法称之为医疗行为的巫术和魔法的医疗感到绝望。 前世培养的现代药学，再加上在异世界得到的特异能力【物质创造&物质消除】，使用只有贵族才能使用的【神术】，对抗所有疾病。 然后，为了将真正有效的药物广泛地传递给人们，开设了“异世界药局”…… 异世界作弊×现代药学！改变异世界医疗的助人幻想，今天开业！",
+      "short_summary": "人人所畏惧的邪恶魔术师萨冈，是个不擅言语的人，今天也一边研究魔术，一边打击领地内的恶贼。萨冈受到损友巴尔巴洛士的邀请，来到地下拍卖会会场。在那里与一位被当作魔王遗物来拍卖的白发精灵少女涅菲，命运般地相遇。 萨冈花费所有财产，将涅菲带回自己的城堡里。至今从未与人相处过，且内向寡言的萨冈，不知如何对待涅菲，只是过着没什么对话又狼狈的生活。 究竟两人的共同生活走向如何呢？ 不擅言语的魔术师与美少女精灵的欢乐喜剧就此展开。",
       "tags": [
+        {
+          "name": "恋爱"
+        },
         {
           "name": "异世界"
         },
         {
-          "name": "2022年7月"
+          "name": "2024年4月"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "药学"
+          "name": "奇幻"
         },
         {
           "name": "TV"
-        },
-        {
-          "name": "奇幻"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/05/43/342200_2hdHa.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/05/43/342200_2hdHa.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/05/43/342200_2hdHa.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/05/43/342200_2hdHa.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/d2/b8/406251_MjAw4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "异世界药局",
+      "title": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/05/43/342200_2hdHa.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "异世界药局",
+      "title": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/05/43/342200_2hdHa.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d2/b8/406251_MjAw4.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "异世界药局",
+      "title": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-342200.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-406251.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
