@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-09-30T14:31:56.296Z",
+  "generatedAt": "2026-10-01T15:01:52.761Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 406251,
+    "subject_id": 317275,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2024-04-04",
+    "ep_status": 12,
+    "updated_at": "2021-07-07",
     "subject": {
-      "id": 406251,
-      "name": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
-      "name_cn": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
-      "date": "2024-04-04",
+      "id": 317275,
+      "name": "月光下的异世界之旅",
+      "name_cn": "月光下的异世界之旅",
+      "date": "2021-07-07",
       "eps": 12,
-      "short_summary": "人人所畏惧的邪恶魔术师萨冈，是个不擅言语的人，今天也一边研究魔术，一边打击领地内的恶贼。萨冈受到损友巴尔巴洛士的邀请，来到地下拍卖会会场。在那里与一位被当作魔王遗物来拍卖的白发精灵少女涅菲，命运般地相遇。 萨冈花费所有财产，将涅菲带回自己的城堡里。至今从未与人相处过，且内向寡言的萨冈，不知如何对待涅菲，只是过着没什么对话又狼狈的生活。 究竟两人的共同生活走向如何呢？ 不擅言语的魔术师与美少女精灵的欢乐喜剧就此展开。",
+      "short_summary": "曾经是平凡高中生的深澄真，因为某种缘由被召唤到异世界成为了“勇者”。然而世界的女神却因为“长得太丑了”而立刻剥夺了他的“勇者”称号，发配到了世界尽头的荒野上。在荒野上彷徨的真遇到了龙与蜘蛛、半兽人和矮人族等等非人种族。与原本的世界环境过于不同、不管是在魔法还是战斗中都发挥出超出常识的力量的真，能否通过各种各样的邂逅，在这个世界生活下去…… 被神和人族抛弃的男人的异世界改造奇幻剧开幕！",
       "tags": [
-        {
-          "name": "恋爱"
-        },
         {
           "name": "异世界"
         },
         {
-          "name": "2024年4月"
+          "name": "2021年7月"
+        },
+        {
+          "name": "后宫"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "奇幻"
+          "name": "穿越"
         },
         {
           "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/d2/b8/406251_MjAw4.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/26/ea/317275_t23SU.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "title": "月光下的异世界之旅",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d2/b8/406251_MjAw4.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "title": "月光下的异世界之旅",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d2/b8/406251_MjAw4.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/26/ea/317275_t23SU.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？",
+      "title": "月光下的异世界之旅",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-406251.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-317275.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
