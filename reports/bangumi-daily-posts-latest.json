@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-01T15:01:52.761Z",
+  "generatedAt": "2026-10-02T14:24:20.461Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 317275,
+    "subject_id": 378101,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2021-07-07",
+    "updated_at": "2023-04-03",
     "subject": {
-      "id": 317275,
-      "name": "月光下的异世界之旅",
-      "name_cn": "月光下的异世界之旅",
-      "date": "2021-07-07",
+      "id": 378101,
+      "name": "带着智能手机闯荡异世界。 第二季",
+      "name_cn": "带着智能手机闯荡异世界。 第二季",
+      "date": "2023-04-03",
       "eps": 12,
-      "short_summary": "曾经是平凡高中生的深澄真，因为某种缘由被召唤到异世界成为了“勇者”。然而世界的女神却因为“长得太丑了”而立刻剥夺了他的“勇者”称号，发配到了世界尽头的荒野上。在荒野上彷徨的真遇到了龙与蜘蛛、半兽人和矮人族等等非人种族。与原本的世界环境过于不同、不管是在魔法还是战斗中都发挥出超出常识的力量的真，能否通过各种各样的邂逅，在这个世界生活下去…… 被神和人族抛弃的男人的异世界改造奇幻剧开幕！",
+      "short_summary": "望月冬夜虽然死了一次，但他凭借神之力转生到异世界，与未婚妻由美娜、琳赛、艾尔赛还有八重一起充分利用智能手机，享受异世界生活。一起讨伐魔兽，妖精族的首领翎也参与其中一起寻找巴比伦博士留下的空中遗迹，开设读书咖啡馆，建立国家。最终在了解世界秘密的同时，渐渐增加的可爱未婚妻们与冬夜的冒险也走向了世界。",
       "tags": [
+        {
+          "name": "后宫"
+        },
         {
           "name": "异世界"
         },
         {
-          "name": "2021年7月"
+          "name": "龙傲天"
         },
         {
-          "name": "后宫"
+          "name": "2023年4月"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "穿越"
-        },
-        {
-          "name": "TV"
+          "name": "J.C.STAFF"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/98/25/378101_XGh49.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "月光下的异世界之旅",
+      "title": "带着智能手机闯荡异世界。 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "月光下的异世界之旅",
+      "title": "带着智能手机闯荡异世界。 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/26/ea/317275_t23SU.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/98/25/378101_XGh49.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "月光下的异世界之旅",
+      "title": "带着智能手机闯荡异世界。 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-317275.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-378101.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
