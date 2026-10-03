@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-02T14:24:20.461Z",
+  "generatedAt": "2026-10-03T12:58:54.475Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 378101,
+    "subject_id": 305390,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2023-04-03",
+    "ep_status": 0,
+    "updated_at": "2021-07-14",
     "subject": {
-      "id": 378101,
-      "name": "带着智能手机闯荡异世界。 第二季",
-      "name_cn": "带着智能手机闯荡异世界。 第二季",
-      "date": "2023-04-03",
-      "eps": 12,
-      "short_summary": "望月冬夜虽然死了一次，但他凭借神之力转生到异世界，与未婚妻由美娜、琳赛、艾尔赛还有八重一起充分利用智能手机，享受异世界生活。一起讨伐魔兽，妖精族的首领翎也参与其中一起寻找巴比伦博士留下的空中遗迹，开设读书咖啡馆，建立国家。最终在了解世界秘密的同时，渐渐增加的可爱未婚妻们与冬夜的冒险也走向了世界。",
+      "id": 305390,
+      "name": "女神宿舍的宿管君。",
+      "name_cn": "女神宿舍的宿管君。",
+      "date": "2021-07-14",
+      "eps": 10,
+      "short_summary": "房子被烧掉、爸爸失踪、也没有储蓄。初中男生南云孝士在城市中一个人走着倒下了。偶然相遇的女大学生和知音流向他提案，让孝士去她住的大学生宿舍来担任管理员。 在女生宿舍相遇的有，对男性没有耐性的超纯情少女早乙女天奈、一害羞就会拳脚相向的武斗派少女战咲桐谷、喜欢让人COSPLAY的失控型COSER芙蕾、怠惰的运动裤电波少女八月朔日濑玲音、以及做着诡异实验的疯狂科学家和知音流，全都是特异独行的美少女们。 他将担任管理员和她们一同度过每天，在逐渐认识的过程中加深羁绊。孝士被大姐姐们耍得团团转的日常开始了。",
       "tags": [
         {
           "name": "后宫"
         },
         {
-          "name": "异世界"
+          "name": "卖肉"
         },
         {
-          "name": "龙傲天"
+          "name": "2021年7月"
         },
         {
-          "name": "2023年4月"
+          "name": "TV"
         },
         {
-          "name": "轻小说改"
+          "name": "漫画改"
         },
         {
-          "name": "J.C.STAFF"
+          "name": "肉番"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/98/25/378101_XGh49.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b1/bc/305390_KH6W1.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "带着智能手机闯荡异世界。 第二季",
+      "title": "女神宿舍的宿管君。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/98/25/378101_XGh49.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "带着智能手机闯荡异世界。 第二季",
+      "title": "女神宿舍的宿管君。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/98/25/378101_XGh49.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b1/bc/305390_KH6W1.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "带着智能手机闯荡异世界。 第二季",
+      "title": "女神宿舍的宿管君。",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-378101.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-305390.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
