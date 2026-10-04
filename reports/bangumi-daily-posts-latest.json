@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-03T12:58:54.475Z",
+  "generatedAt": "2026-10-04T13:40:12.430Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 305390,
+    "subject_id": 241418,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2021-07-14",
+    "updated_at": "2018-07-12",
     "subject": {
-      "id": 305390,
-      "name": "女神宿舍的宿管君。",
-      "name_cn": "女神宿舍的宿管君。",
-      "date": "2021-07-14",
-      "eps": 10,
-      "short_summary": "房子被烧掉、爸爸失踪、也没有储蓄。初中男生南云孝士在城市中一个人走着倒下了。偶然相遇的女大学生和知音流向他提案，让孝士去她住的大学生宿舍来担任管理员。 在女生宿舍相遇的有，对男性没有耐性的超纯情少女早乙女天奈、一害羞就会拳脚相向的武斗派少女战咲桐谷、喜欢让人COSPLAY的失控型COSER芙蕾、怠惰的运动裤电波少女八月朔日濑玲音、以及做着诡异实验的疯狂科学家和知音流，全都是特异独行的美少女们。 他将担任管理员和她们一同度过每天，在逐渐认识的过程中加深羁绊。孝士被大姐姐们耍得团团转的日常开始了。",
+      "id": 241418,
+      "name": "擅长捉弄的高木同学 OVA",
+      "name_cn": "擅长捉弄的高木同学 OVA",
+      "date": "2018-07-12",
+      "eps": 1,
+      "short_summary": "漫画单行本第九卷特别版同捆新作OVA。",
       "tags": [
         {
-          "name": "后宫"
+          "name": "OVA"
         },
         {
-          "name": "卖肉"
-        },
-        {
-          "name": "2021年7月"
-        },
-        {
-          "name": "TV"
+          "name": "恋爱"
         },
         {
           "name": "漫画改"
         },
         {
-          "name": "肉番"
+          "name": "校园"
+        },
+        {
+          "name": "狗粮"
+        },
+        {
+          "name": "擅长捉弄的高木同学"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/23/4c/241418_C0qSS.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/23/4c/241418_C0qSS.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/23/4c/241418_C0qSS.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b1/bc/305390_KH6W1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/23/4c/241418_C0qSS.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "女神宿舍的宿管君。",
+      "title": "擅长捉弄的高木同学 OVA",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b1/bc/305390_KH6W1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/23/4c/241418_C0qSS.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "女神宿舍的宿管君。",
+      "title": "擅长捉弄的高木同学 OVA",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b1/bc/305390_KH6W1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/23/4c/241418_C0qSS.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "女神宿舍的宿管君。",
+      "title": "擅长捉弄的高木同学 OVA",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-305390.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-241418.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
