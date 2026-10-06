@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-05T16:45:54.631Z",
+  "generatedAt": "2026-10-06T14:41:03.444Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 355798,
+    "subject_id": 278031,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2023-04-07",
+    "updated_at": "2021-01-12",
     "subject": {
-      "id": 355798,
-      "name": "总之就是非常可爱 第二季",
-      "name_cn": "总之就是非常可爱 第二季",
-      "date": "2023-04-07",
+      "id": 278031,
+      "name": "关于我转生变成史莱姆这档事 第二季",
+      "name_cn": "关于我转生变成史莱姆这档事 第二季",
+      "date": "2021-01-12",
       "eps": 12,
-      "short_summary": "「一人では形をなさぬ　二人の愛を誓い合うんだ」 運命の出会いからのプロポーズ、ボロアパートの新婚生活、結婚指輪に両親への挨拶からのアパート全焼にもめげず、昭和な家屋で愛を深めていく新婚のふたり……だんな様の名前は由崎星空（ナサ）、お嫁さんの名前は司。トニカク可愛いお嫁さんと、ときめき、うきうきがいっぱいの新婚生活は、お世話になっている有栖川家の綾と要、だまされやすい純真な少女・千歳とメイドたち、そして新たに登場する素敵な友人たちを迎え、さらに賑やかに！さてさて、ふたりの結婚式はどうなることやら！？ 2022年画業20周年を迎え、その筆がますます冴えわたる畑健二郎・原作、小学館「週刊少年サンデー」にて絶賛連載中！人は何故、結婚するのか――トニカク可愛い、そして尊い、珠玉のエピソードが満載！全世界にカワイイとトウトイを拡散した大ヒットアニメ、第2期シリーズ！",
+      "short_summary": "三上悟過著不起眼的人生，在隨機殺人魔肆虐下結束了三十七年生涯…… 看似如此。當他甦醒時，不僅眼睛看不見，就連耳朵也聽不到…… 面對一連串突發狀況，他意識到自己投胎轉世成「史萊姆」！儘管變成最弱魔物讓他頗有怨言，三上悟還是決定要快樂地過史萊姆生活，沒想到卻碰上天災級魔物「暴風龍維爾德拉」，命運就此出現巨大轉折──維爾德拉將他命名為「利姆路」，正要展開史萊姆式的異世界新生活時，卻被捲入哥布靈對牙狼族的紛爭之中，最後還莫名其妙當上魔物大王…… 能奪取對手能力的「捕食者」以及精通世界真理的「大賢者」，有這兩項特殊技能當武器，最強的史萊姆傳說正式展開！",
       "tags": [
         {
-          "name": "恋爱"
+          "name": "异世界"
         },
         {
-          "name": "日常"
+          "name": "轻小说改"
         },
         {
-          "name": "2023年4月"
+          "name": "2021年1月"
         },
         {
-          "name": "漫画改"
+          "name": "奇幻"
         },
         {
           "name": "TV"
         },
         {
-          "name": "总之就是非常可爱"
+          "name": "关于我转生变成史莱姆这档事"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/16/65/355798_bZmZ5.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/16/65/355798_bZmZ5.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/16/65/355798_bZmZ5.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/16/65/355798_bZmZ5.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/e6/78/278031_skvSD.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "总之就是非常可爱 第二季",
+      "title": "关于我转生变成史莱姆这档事 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/16/65/355798_bZmZ5.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "总之就是非常可爱 第二季",
+      "title": "关于我转生变成史莱姆这档事 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/16/65/355798_bZmZ5.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e6/78/278031_skvSD.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "总之就是非常可爱 第二季",
+      "title": "关于我转生变成史莱姆这档事 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-355798.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-278031.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
