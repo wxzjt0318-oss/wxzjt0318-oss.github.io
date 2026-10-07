@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-06T14:41:03.444Z",
+  "generatedAt": "2026-10-07T15:00:47.306Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 278031,
+    "subject_id": 185762,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2021-01-12",
+    "updated_at": "2017-01-05",
     "subject": {
-      "id": 278031,
-      "name": "关于我转生变成史莱姆这档事 第二季",
-      "name_cn": "关于我转生变成史莱姆这档事 第二季",
-      "date": "2021-01-12",
+      "id": 185762,
+      "name": "政宗君的复仇",
+      "name_cn": "政宗君的复仇",
+      "date": "2017-01-05",
       "eps": 12,
-      "short_summary": "三上悟過著不起眼的人生，在隨機殺人魔肆虐下結束了三十七年生涯…… 看似如此。當他甦醒時，不僅眼睛看不見，就連耳朵也聽不到…… 面對一連串突發狀況，他意識到自己投胎轉世成「史萊姆」！儘管變成最弱魔物讓他頗有怨言，三上悟還是決定要快樂地過史萊姆生活，沒想到卻碰上天災級魔物「暴風龍維爾德拉」，命運就此出現巨大轉折──維爾德拉將他命名為「利姆路」，正要展開史萊姆式的異世界新生活時，卻被捲入哥布靈對牙狼族的紛爭之中，最後還莫名其妙當上魔物大王…… 能奪取對手能力的「捕食者」以及精通世界真理的「大賢者」，有這兩項特殊技能當武器，最強的史萊姆傳說正式展開！",
+      "short_summary": "为了复仇，我又回到这座城市了！ 8年前，被美少女·安达垣爱姬残忍拒绝的肥胖少年·真壁政宗，变得超瘦又更改了名字，变身成帅哥回来了。没错，一切都是为了让那个号称残虐公主的抖S女生迷上自己，完成最高形式的复仇——。",
       "tags": [
         {
-          "name": "异世界"
+          "name": "恋爱"
         },
         {
-          "name": "轻小说改"
+          "name": "校园"
         },
         {
-          "name": "2021年1月"
+          "name": "2017年1月"
         },
         {
-          "name": "奇幻"
+          "name": "漫画改"
         },
         {
-          "name": "TV"
+          "name": "SILVERLINK."
         },
         {
-          "name": "关于我转生变成史莱姆这档事"
+          "name": "搞笑"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/05/bf/185762_xyM3h.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/05/bf/185762_xyM3h.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/05/bf/185762_xyM3h.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/e6/78/278031_skvSD.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/05/bf/185762_xyM3h.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "关于我转生变成史莱姆这档事 第二季",
+      "title": "政宗君的复仇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/e6/78/278031_skvSD.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/05/bf/185762_xyM3h.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "关于我转生变成史莱姆这档事 第二季",
+      "title": "政宗君的复仇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/e6/78/278031_skvSD.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/05/bf/185762_xyM3h.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "关于我转生变成史莱姆这档事 第二季",
+      "title": "政宗君的复仇",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-278031.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-185762.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
