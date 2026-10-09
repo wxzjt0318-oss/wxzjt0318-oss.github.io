@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-08T15:09:09.133Z",
+  "generatedAt": "2026-10-09T14:54:32.563Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 424379,
+    "subject_id": 514997,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2023-10-08",
+    "ep_status": 12,
+    "updated_at": "2025-04-06",
     "subject": {
-      "id": 424379,
-      "name": "超超超超超喜欢你的100个女朋友",
-      "name_cn": "超超超超超喜欢你的100个女朋友",
-      "date": "2023-10-08",
+      "id": 514997,
+      "name": "受到猩猩之神庇护的大小姐在皇家骑士团受到宠爱",
+      "name_cn": "受到猩猩之神庇护的大小姐在皇家骑士团受到宠爱",
+      "date": "2025-04-06",
       "eps": 12,
-      "short_summary": "爱城恋太郎在初中的失恋次数达到了100次的大关，他抱着高中一定要交到女朋友的心愿造访神社。出现在那里的恋爱之神告诉他「你会在高中遇见的真命天女有100人」。 然而神表示，和命中注定的人相遇的人，如果不和那个人彼此相爱并获得幸福的话就会死掉……。 面对一个又一个等待着他的真命天女的相遇——恋太郎该怎么办！？100个女朋友又将何去何从！？ [简介原文] 中学で失恋100回を達成した愛城恋太郎は、高校でこそ彼女を！と願い訪れた神社で、現れた恋の神様から「高校で出会う運命の人は100人いる」と告げられる。 しかし神様いわく、運命の人と出会った人間は、その相手と愛し合って幸せになれなければ死んでしまうという……。 次々に待ち受ける運命の人との出会い──どうする恋太郎？どうなる100人の彼女！？",
+      "short_summary": "16歳になると、さまざまな動物神から 加護を得られる世界一 気弱な伯爵令嬢ソフィア・リーラーは 戦闘系最強と言われる『ゴリラの神」を 引き当ててしまう。 平穏な学園生活を送りたいと悩む一方、 その希少な力を求められ、 王立騎士団から従騎士のスカウトを受ける。 圧倒的な力を隠せず一目置かれる中、 有望な若手騎士たちは ソフィアをやさしく見守ってくれて一",
       "tags": [
         {
-          "name": "后宫"
+          "name": "2025年4月"
+        },
+        {
+          "name": "TV"
         },
         {
           "name": "恋爱"
         },
         {
-          "name": "搞笑"
+          "name": "女性向"
         },
         {
-          "name": "2023年10月"
+          "name": "轻小说改"
         },
         {
-          "name": "漫画改"
-        },
-        {
-          "name": "逆天"
+          "name": "乙女向"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/37/03/424379_UfMuk.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/37/03/424379_UfMuk.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/37/03/424379_UfMuk.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/3b/cb/514997_6RM6C.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/3b/cb/514997_6RM6C.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3b/cb/514997_6RM6C.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/37/03/424379_UfMuk.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/3b/cb/514997_6RM6C.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "超超超超超喜欢你的100个女朋友",
+      "title": "受到猩猩之神庇护的大小姐在皇家骑士团受到宠爱",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/37/03/424379_UfMuk.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3b/cb/514997_6RM6C.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "超超超超超喜欢你的100个女朋友",
+      "title": "受到猩猩之神庇护的大小姐在皇家骑士团受到宠爱",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/37/03/424379_UfMuk.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3b/cb/514997_6RM6C.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "超超超超超喜欢你的100个女朋友",
+      "title": "受到猩猩之神庇护的大小姐在皇家骑士团受到宠爱",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-424379.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-514997.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
