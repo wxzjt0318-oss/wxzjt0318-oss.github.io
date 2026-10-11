@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-10T14:09:56.367Z",
+  "generatedAt": "2026-10-11T14:34:51.694Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 536102,
+    "subject_id": 397604,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2025-10-12",
+    "ep_status": 13,
+    "updated_at": "2024-07-13",
     "subject": {
-      "id": 536102,
-      "name": "不擅吸血的吸血鬼",
-      "name_cn": "不擅吸血的吸血鬼",
-      "date": "2025-10-12",
-      "eps": 12,
-      "short_summary": "血を吸われた者すべてが虜になる圧倒的尊み!新感覚甘やかし餌付けコメディ クラスメイトの石川月菜は吸血鬼。 クールでミステリアスな彼女はクラスの人気者! だけど、実は血を吸うのがメッチャ下手!? クラスのモブ的存在・大鳥くんは ひょんなことからそんな吸血鬼ちゃんの 練習相手になることに…!",
+      "id": 397604,
+      "name": "亚托莉 -我挚爱的时光-",
+      "name_cn": "亚托莉 -我挚爱的时光-",
+      "date": "2024-07-13",
+      "eps": 13,
+      "short_summary": "「在逐渐沉没的世界，我找到了你。」在近未来，不明原因的海平面上升导致大面积地表被海水淹没。幼时因意外事故失去了一条腿的少年斑鸠夏生厌倦了城市生活，迁居到了海边的乡村小镇。他无亲无故，留给他的只有曾属于海洋地质学家的祖母的船和潜水艇，以及债款。夏生为了取回自己“失去的未来”，潜入大海寻找据说沉睡着祖母遗产的海底仓库。他在那里找到的，是沉睡在棺材状装置中的神秘少女——亚托莉。她是几乎与人类无异的，精巧且感情丰富的机器人。从海底被打捞上来的亚托莉说道。「我想完成主人留下的最后一道命令。在那之前，我来做夏生的脚！」在逐渐沉入海中的安宁小镇，少年与机器人少女难以忘怀的夏天开始了——",
       "tags": [
         {
-          "name": "2025年10月"
+          "name": "GAL改"
         },
         {
-          "name": "恋爱"
+          "name": "2024年7月"
         },
         {
-          "name": "校园"
+          "name": "游戏改"
         },
         {
-          "name": "漫画改"
+          "name": "花田十辉"
         },
         {
           "name": "TV"
         },
         {
-          "name": "Feel."
+          "name": "恋爱"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/11/05/536102_Gohth.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/11/05/536102_Gohth.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/11/05/536102_Gohth.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/11/05/536102_Gohth.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/66/6d/397604_TgJ63.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "不擅吸血的吸血鬼",
+      "title": "亚托莉 -我挚爱的时光-",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/11/05/536102_Gohth.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "不擅吸血的吸血鬼",
+      "title": "亚托莉 -我挚爱的时光-",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/11/05/536102_Gohth.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/66/6d/397604_TgJ63.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "不擅吸血的吸血鬼",
+      "title": "亚托莉 -我挚爱的时光-",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-536102.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-397604.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
