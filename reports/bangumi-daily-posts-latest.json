@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-11T14:34:51.694Z",
+  "generatedAt": "2026-10-12T17:16:37.463Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 397604,
+    "subject_id": 485469,
     "type": 2,
-    "ep_status": 13,
-    "updated_at": "2024-07-13",
+    "ep_status": 0,
+    "updated_at": "2025-01-04",
     "subject": {
-      "id": 397604,
-      "name": "亚托莉 -我挚爱的时光-",
-      "name_cn": "亚托莉 -我挚爱的时光-",
-      "date": "2024-07-13",
-      "eps": 13,
-      "short_summary": "「在逐渐沉没的世界，我找到了你。」在近未来，不明原因的海平面上升导致大面积地表被海水淹没。幼时因意外事故失去了一条腿的少年斑鸠夏生厌倦了城市生活，迁居到了海边的乡村小镇。他无亲无故，留给他的只有曾属于海洋地质学家的祖母的船和潜水艇，以及债款。夏生为了取回自己“失去的未来”，潜入大海寻找据说沉睡着祖母遗产的海底仓库。他在那里找到的，是沉睡在棺材状装置中的神秘少女——亚托莉。她是几乎与人类无异的，精巧且感情丰富的机器人。从海底被打捞上来的亚托莉说道。「我想完成主人留下的最后一道命令。在那之前，我来做夏生的脚！」在逐渐沉入海中的安宁小镇，少年与机器人少女难以忘怀的夏天开始了——",
+      "id": 485469,
+      "name": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
+      "name_cn": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
+      "date": "2025-01-04",
+      "eps": 12,
+      "short_summary": "迷宫都市──琉因。这座城镇中有着充满怪兽的迷宫，而聚集了大量的冒险者。 丧命而转生的主角在迷宫当中醒来，其外型却怎么看都是只小猫！？但它的真实身分是──灾害级的S级怪兽「贝希摩斯」的幼兽！ 它遇见了一位D级的新人冒险者──爱莉亚。爱莉亚将它误认为小猫，把受到重伤的它带回家包扎照顾，并将它取名为「球球」，然后收养为宠物。球球被她的温柔举止打动，而发誓要成为守护爱莉亚的骑士。 球球活用它S级的力量，与爱莉亚一起在迷宫冒险。它将遇见性格丰富的伙伴们，以骑士（宠物）的身分过起有时会受人溺爱的每一天！ [简介原文] 迷宮都市・リューイン。モンスターはびこる迷宮があるこの町には、数多くの冒険者たちが集まっていた。 命を落とし転生した主人公は、迷宮の中で目を覚ます。その外見は、どう見ても仔猫！？しかし正体は──災害級のSランクモンスター《ベヒーモス》の幼体だった！ 彼が出会ったのは、駆け出しのDランク冒険者・アリア。仔猫と勘違いしたアリアは、重傷を負っていた彼を連れ帰って手当てし、「タマ」と名付けてペットにする。その優しさに心を打たれたタマは、アリアを守る騎士となることを誓うのだった。 Sランクの力…",
       "tags": [
         {
-          "name": "GAL改"
+          "name": "异世界"
         },
         {
-          "name": "2024年7月"
+          "name": "2025年1月"
         },
         {
-          "name": "游戏改"
-        },
-        {
-          "name": "花田十辉"
+          "name": "卖肉"
         },
         {
           "name": "TV"
         },
         {
-          "name": "恋爱"
+          "name": "轻小说改"
+        },
+        {
+          "name": "肉"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/66/6d/397604_TgJ63.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/0e/9b/485469_qv0QM.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "亚托莉 -我挚爱的时光-",
+      "title": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/66/6d/397604_TgJ63.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "亚托莉 -我挚爱的时光-",
+      "title": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/66/6d/397604_TgJ63.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/0e/9b/485469_qv0QM.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "亚托莉 -我挚爱的时光-",
+      "title": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-397604.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-485469.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
