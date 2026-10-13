@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-12T17:16:37.463Z",
+  "generatedAt": "2026-10-13T15:31:02.108Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 485469,
+    "subject_id": 291171,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2025-01-04",
+    "ep_status": 1,
+    "updated_at": "2021-03-24",
     "subject": {
-      "id": 485469,
-      "name": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
-      "name_cn": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
-      "date": "2025-01-04",
-      "eps": 12,
-      "short_summary": "迷宫都市──琉因。这座城镇中有着充满怪兽的迷宫，而聚集了大量的冒险者。 丧命而转生的主角在迷宫当中醒来，其外型却怎么看都是只小猫！？但它的真实身分是──灾害级的S级怪兽「贝希摩斯」的幼兽！ 它遇见了一位D级的新人冒险者──爱莉亚。爱莉亚将它误认为小猫，把受到重伤的它带回家包扎照顾，并将它取名为「球球」，然后收养为宠物。球球被她的温柔举止打动，而发誓要成为守护爱莉亚的骑士。 球球活用它S级的力量，与爱莉亚一起在迷宫冒险。它将遇见性格丰富的伙伴们，以骑士（宠物）的身分过起有时会受人溺爱的每一天！ [简介原文] 迷宮都市・リューイン。モンスターはびこる迷宮があるこの町には、数多くの冒険者たちが集まっていた。 命を落とし転生した主人公は、迷宮の中で目を覚ます。その外見は、どう見ても仔猫！？しかし正体は──災害級のSランクモンスター《ベヒーモス》の幼体だった！ 彼が出会ったのは、駆け出しのDランク冒険者・アリア。仔猫と勘違いしたアリアは、重傷を負っていた彼を連れ帰って手当てし、「タマ」と名付けてペットにする。その優しさに心を打たれたタマは、アリアを守る騎士となることを誓うのだった。 Sランクの力…",
+      "id": 291171,
+      "name": "约会大作战 赤黑新章：虚或实",
+      "name_cn": "约会大作战 赤黑新章：虚或实",
+      "date": "2021-03-24",
+      "eps": 1,
+      "short_summary": "〈最悪の精霊〉時崎狂三　顕界——   この世界とは異なる隣界より顕現し、地上に厄災をもたらす精霊と呼ばれる少女たち—— 或る者は無垢であり、或る者は救いを求め、そして或る少女は己の目的のため、自らの心を殺し続けた—— 第３の精霊、コードネーム。 時間を操る規格外に強大な天使を行使し、その行動、思想、そして目的に至るまで数多の謎を抱えた最悪の精霊・時崎狂三—— 彼女が舞い降りたのは、人間も、精霊すらも存在しない隣界の片隅だった…… 全世界シリーズ累計発行部数６００万部の大人気ライトノベル『デート・ア・ライブ』。 その中でも異色の存在感を誇る時崎狂三のスピンオフ作品が新作アニメ化！ 彼女の左眼に刻まれる狂三だけの戦争(デート)の引鉄が今、引かれる——",
       "tags": [
         {
-          "name": "异世界"
-        },
-        {
-          "name": "2025年1月"
-        },
-        {
-          "name": "卖肉"
-        },
-        {
-          "name": "TV"
+          "name": "剧场版"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "肉"
+          "name": "约会大作战"
+        },
+        {
+          "name": "OVA"
+        },
+        {
+          "name": "战斗"
+        },
+        {
+          "name": "2020"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/0e/9b/485469_qv0QM.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/b6/8f/291171_PA7pA.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
+      "title": "约会大作战 赤黑新章：虚或实",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/0e/9b/485469_qv0QM.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
+      "title": "约会大作战 赤黑新章：虚或实",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/0e/9b/485469_qv0QM.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b6/8f/291171_PA7pA.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活",
+      "title": "约会大作战 赤黑新章：虚或实",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-485469.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-291171.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
