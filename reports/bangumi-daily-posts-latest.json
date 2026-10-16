@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-13T15:31:02.108Z",
+  "generatedAt": "2026-10-16T12:58:30.223Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 291171,
+    "subject_id": 547888,
     "type": 2,
-    "ep_status": 1,
-    "updated_at": "2021-03-24",
+    "ep_status": 11,
+    "updated_at": "2026-04-08",
     "subject": {
-      "id": 291171,
-      "name": "约会大作战 赤黑新章：虚或实",
-      "name_cn": "约会大作战 赤黑新章：虚或实",
-      "date": "2021-03-24",
-      "eps": 1,
-      "short_summary": "〈最悪の精霊〉時崎狂三　顕界——   この世界とは異なる隣界より顕現し、地上に厄災をもたらす精霊と呼ばれる少女たち—— 或る者は無垢であり、或る者は救いを求め、そして或る少女は己の目的のため、自らの心を殺し続けた—— 第３の精霊、コードネーム。 時間を操る規格外に強大な天使を行使し、その行動、思想、そして目的に至るまで数多の謎を抱えた最悪の精霊・時崎狂三—— 彼女が舞い降りたのは、人間も、精霊すらも存在しない隣界の片隅だった…… 全世界シリーズ累計発行部数６００万部の大人気ライトノベル『デート・ア・ライブ』。 その中でも異色の存在感を誇る時崎狂三のスピンオフ作品が新作アニメ化！ 彼女の左眼に刻まれる狂三だけの戦争(デート)の引鉄が今、引かれる——",
+      "id": 547888,
+      "name": "Re：从零开始的异世界生活 第四季 丧失篇",
+      "name_cn": "Re：从零开始的异世界生活 第四季 丧失篇",
+      "date": "2026-04-08",
+      "eps": 11,
+      "short_summary": "在水门都市朴利斯提拉的死战中，昴等人虽然勉强取得胜利，但付出的代价，却过于沉重。因「暴食」权能而陷入沉睡的雷姆，被夺走记忆的库珥修，以及，被夺去名字的由里乌斯。 为了寻找拯救他们的线索，昴得知了一位据说能看透一切、拥有无尽知识的存在——「贤者」夏乌拉。 下一个目的地，是贤者所居住的「普莱迪斯监视塔」。那是一座矗立于大砂漠「奥吉拉沙丘」最深处的最果之塔，就连最强的「剑圣」莱因哈鲁特，也未曾成功攻略。 狂暴的自然—— 未知的魔兽—— 以及，超越想象的威胁接连袭来。 为了夺回一切—— 少年与伙伴们，赌上性命的旅程，就此展开。 [简介原文] 水門都市プリステラの死闘で辛くも勝利を収めたスバルたちだったが、その代償はあまりに大きかった。“暴食“の権能によって眠り続けるレム、記憶を奪われたクルシュ、そして名前を奪われてしまったユリウス。 彼らを救う手がかりを求める中、スバルは全てを見通し、あらゆる知識を持つと言われる『賢者』シャウラの存在を知る。 次の目的地は賢者の住まう「プレアデス監視塔」──そこは、最強の『剣聖』ラインハルトですら攻略できなかった大砂漠「アウグリア砂丘」にそびえ立つ最果ての塔。…",
       "tags": [
         {
-          "name": "剧场版"
+          "name": "异世界"
         },
         {
-          "name": "轻小说改"
+          "name": "奇幻"
         },
         {
-          "name": "约会大作战"
-        },
-        {
-          "name": "OVA"
+          "name": "2026年4月"
         },
         {
           "name": "战斗"
         },
         {
-          "name": "2020"
+          "name": "WHITEFOX"
+        },
+        {
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b6/8f/291171_PA7pA.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/8e/70/547888_46dnk.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 赤黑新章：虚或实",
+      "title": "Re：从零开始的异世界生活 第四季 丧失篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b6/8f/291171_PA7pA.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 赤黑新章：虚或实",
+      "title": "Re：从零开始的异世界生活 第四季 丧失篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b6/8f/291171_PA7pA.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/8e/70/547888_46dnk.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "约会大作战 赤黑新章：虚或实",
+      "title": "Re：从零开始的异世界生活 第四季 丧失篇",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-291171.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-547888.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
