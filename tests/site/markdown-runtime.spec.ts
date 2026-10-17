@@ -165,9 +165,12 @@ test.describe("Markdown syntax runtime loading", () => {
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await page.evaluate((path) => window.swup?.navigate(path), PLAIN_POST_PATH);
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
+		// Swup prunes optional resources during its render settle; against
+		// PLAIN_POST_PATH the marker can survive about five seconds, which is
+		// exactly the default retry budget.
 		await expect(
 			page.locator('style[data-swup-optional="artplayer"]'),
-		).toHaveCount(0);
+		).toHaveCount(0, { timeout: 15_000 });
 	});
 
 	test("renders Audio Reader as a compact speaker control without preloading", async ({
@@ -267,9 +270,12 @@ test.describe("Markdown syntax runtime loading", () => {
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await page.evaluate((path) => window.swup?.navigate(path), PLAIN_POST_PATH);
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
+		// Swup prunes optional resources during its render settle; against
+		// PLAIN_POST_PATH the marker can survive about five seconds, which is
+		// exactly the default retry budget.
 		await expect(
 			page.locator('style[data-swup-optional="audio-reader"]'),
-		).toHaveCount(0);
+		).toHaveCount(0, { timeout: 15_000 });
 	});
 
 	test("preloads the AcFun player near the viewport and cleans styles on navigation", async ({
@@ -290,7 +296,12 @@ test.describe("Markdown syntax runtime loading", () => {
 		await expect(facade.locator(".m3-acfun__poster")).toHaveCount(0);
 		await facade.scrollIntoViewIfNeeded();
 		await expect(facade.locator("iframe")).toHaveCount(1);
-		expect(playerRequests).toEqual(["https://www.acfun.cn/player/ac48649632"]);
+		// The player runtime loads on demand, so the request can lag the
+		// iframe on a cold Vite cache. Poll rather than asserting once; a
+		// wrong src still fails inside the timeout.
+		await expect
+			.poll(() => playerRequests, { timeout: 8_000 })
+			.toEqual(["https://www.acfun.cn/player/ac48649632"]);
 		await expect(page.locator('style[data-swup-optional="acfun"]')).toHaveCount(
 			1,
 		);
@@ -317,13 +328,26 @@ test.describe("Markdown syntax runtime loading", () => {
 			"referrerpolicy",
 			"strict-origin-when-cross-origin",
 		);
-		expect(playerRequests).toEqual(["https://www.acfun.cn/player/ac48649632"]);
+		// The player runtime loads on demand, so the request can lag the
+		// iframe on a cold Vite cache. Poll rather than asserting once; a
+		// wrong src still fails inside the timeout.
+		await expect
+			.poll(() => playerRequests, { timeout: 8_000 })
+			.toEqual(["https://www.acfun.cn/player/ac48649632"]);
 
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await page.evaluate((path) => window.swup?.navigate(path), PLAIN_POST_PATH);
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
+		// Swup prunes the outgoing page's optional resources during its render
+		// settle, so the element disappears a beat after the URL changes. How
+		// long that beat is depends on how much the incoming page has to lay
+		// out: measured against /posts/admonitions/ the marker survives roughly
+		// five seconds, which is exactly the default retry budget.
 		await expect(page.locator('style[data-swup-optional="acfun"]')).toHaveCount(
 			0,
+			{
+				timeout: 15_000,
+			},
 		);
 		await expect(
 			page.locator("#swup-container [data-acfun] iframe"),
@@ -348,9 +372,14 @@ test.describe("Markdown syntax runtime loading", () => {
 		await expect(facade.locator(".m3-youtube__poster")).toHaveCount(0);
 		await facade.scrollIntoViewIfNeeded();
 		await expect(facade.locator("iframe")).toHaveCount(1);
-		expect(playerRequests).toEqual([
-			"https://www.youtube-nocookie.com/embed/5gIf0_xpFPI?rel=0&modestbranding=1",
-		]);
+		// The player runtime is loaded on demand, so on a cold Vite cache the
+		// facade can render before its script hydrates. Poll instead of
+		// asserting once; a genuinely wrong src still fails within the timeout.
+		await expect
+			.poll(() => playerRequests, { timeout: 15_000 })
+			.toEqual([
+				"https://www.youtube-nocookie.com/embed/5gIf0_xpFPI?rel=0&modestbranding=1",
+			]);
 		await expect(
 			page.locator('style[data-swup-optional="youtube"]'),
 		).toHaveCount(1);
@@ -377,16 +406,24 @@ test.describe("Markdown syntax runtime loading", () => {
 			"referrerpolicy",
 			"strict-origin-when-cross-origin",
 		);
-		expect(playerRequests).toEqual([
-			"https://www.youtube-nocookie.com/embed/5gIf0_xpFPI?rel=0&modestbranding=1",
-		]);
+		// The player runtime is loaded on demand, so on a cold Vite cache the
+		// facade can render before its script hydrates. Poll instead of
+		// asserting once; a genuinely wrong src still fails within the timeout.
+		await expect
+			.poll(() => playerRequests, { timeout: 15_000 })
+			.toEqual([
+				"https://www.youtube-nocookie.com/embed/5gIf0_xpFPI?rel=0&modestbranding=1",
+			]);
 
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await page.evaluate((path) => window.swup?.navigate(path), PLAIN_POST_PATH);
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
+		// Swup prunes optional resources during its render settle; against
+		// PLAIN_POST_PATH the marker can survive about five seconds, which is
+		// exactly the default retry budget.
 		await expect(
 			page.locator('style[data-swup-optional="youtube"]'),
-		).toHaveCount(0);
+		).toHaveCount(0, { timeout: 15_000 });
 		await expect(
 			page.locator("#swup-container [data-youtube] iframe"),
 		).toHaveCount(0);
@@ -410,9 +447,14 @@ test.describe("Markdown syntax runtime loading", () => {
 		await expect(facade.locator(".m3-bilibili__poster")).toHaveCount(0);
 		await facade.scrollIntoViewIfNeeded();
 		await expect(facade.locator("iframe")).toHaveCount(1);
-		expect(playerRequests).toEqual([
-			"https://player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&p=1&high_quality=1&danmaku=0",
-		]);
+		// The player runtime loads on demand, so the request can lag the
+		// iframe on a cold Vite cache. Poll rather than asserting once; a
+		// wrong src still fails inside the timeout.
+		await expect
+			.poll(() => playerRequests, { timeout: 15_000 })
+			.toEqual([
+				"https://player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&p=1&high_quality=1&danmaku=0",
+			]);
 		await expect(
 			page.locator('style[data-swup-optional="bilibili"]'),
 		).toHaveCount(1);
@@ -439,16 +481,24 @@ test.describe("Markdown syntax runtime loading", () => {
 			"referrerpolicy",
 			"strict-origin-when-cross-origin",
 		);
-		expect(playerRequests).toEqual([
-			"https://player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&p=1&high_quality=1&danmaku=0",
-		]);
+		// The player runtime loads on demand, so the request can lag the
+		// iframe on a cold Vite cache. Poll rather than asserting once; a
+		// wrong src still fails inside the timeout.
+		await expect
+			.poll(() => playerRequests, { timeout: 15_000 })
+			.toEqual([
+				"https://player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&p=1&high_quality=1&danmaku=0",
+			]);
 
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await page.evaluate((path) => window.swup?.navigate(path), PLAIN_POST_PATH);
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
+		// Swup prunes optional resources during its render settle; against
+		// PLAIN_POST_PATH the marker can survive about five seconds, which is
+		// exactly the default retry budget.
 		await expect(
 			page.locator('style[data-swup-optional="bilibili"]'),
-		).toHaveCount(0);
+		).toHaveCount(0, { timeout: 15_000 });
 		await expect(
 			page.locator("#swup-container [data-bilibili] iframe"),
 		).toHaveCount(0);
@@ -746,6 +796,18 @@ test.describe("Markdown syntax runtime loading", () => {
 		const toggle = page.locator(".collapse-toggle-btn").first();
 		await expect(toggle).toBeVisible();
 		await expect(toggle).toHaveAttribute("aria-label", "Expand code block");
+		await expect(toggle.locator("svg")).toHaveCSS("transform", "none");
+
+		await toggle.click();
+		await expect(toggle).toHaveAttribute("aria-label", "Collapse code block");
+		await expect(toggle.locator("svg")).toHaveCSS(
+			"transform",
+			"matrix(-1, 0, 0, -1, 0, 0)",
+		);
+
+		await toggle.click();
+		await expect(toggle).toHaveAttribute("aria-label", "Expand code block");
+		await expect(toggle.locator("svg")).toHaveCSS("transform", "none");
 
 		expect(
 			requests.some((url) => optionalRuntimeModules.codeCollapse.test(url)),
@@ -788,6 +850,7 @@ test.describe("Markdown syntax runtime loading", () => {
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await expect(page.locator('style[data-swup-optional="trees"]')).toHaveCount(
 			0,
+			{ timeout: 15_000 },
 		);
 		expect(
 			hasRequestFor(requests, [
@@ -823,6 +886,7 @@ test.describe("Markdown syntax runtime loading", () => {
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
 		await expect(page.locator('style[data-swup-optional="trees"]')).toHaveCount(
 			0,
+			{ timeout: 15_000 },
 		);
 	});
 
@@ -934,6 +998,7 @@ test.describe("Markdown syntax runtime loading", () => {
 		await page.waitForFunction(() => Boolean(window.swup?.navigate));
 		await expect(page.locator('style[data-swup-optional="steps"]')).toHaveCount(
 			0,
+			{ timeout: 15_000 },
 		);
 		expect(hasRequestFor(requests, [optionalRuntimeModules.steps])).toBe(false);
 
@@ -950,6 +1015,7 @@ test.describe("Markdown syntax runtime loading", () => {
 		await page.waitForURL(`**${PLAIN_POST_PATH}`);
 		await expect(page.locator('style[data-swup-optional="steps"]')).toHaveCount(
 			0,
+			{ timeout: 15_000 },
 		);
 	});
 

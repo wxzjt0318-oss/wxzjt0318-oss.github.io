@@ -6,7 +6,7 @@ import { z } from "astro/zod";
  * Post schema — used by both source repo (inline) and package mode users
  * (inline in their `src/content.config.ts`).
  */
-export const postSchema = z.object({
+export const postSchema: z.ZodType = z.object({
 	title: z.string(),
 	published: z.date(),
 	publishedAt: z.date().optional(),
@@ -52,7 +52,7 @@ export const postSchema = z.object({
 });
 
 /** Schema for the short-form "moments" timeline. */
-export const momentSchema = z.object({
+export const momentSchema: z.ZodType = z.object({
 	published: z.date(),
 	pinned: z.boolean().optional().default(false),
 	location: z.string().optional().default(""),
@@ -72,13 +72,13 @@ export const momentSchema = z.object({
 });
 
 /** Schema for free-form spec pages (currently just `about.md`). */
-export const specSchema = z.object({});
+export const specSchema: z.ZodType = z.object({});
 
 /**
  * Schema for series entities. Each entry is one series; the Markdown body is
  * the optional overview rendered on the series page.
  */
-export const seriesSchema = z.object({
+export const seriesSchema: z.ZodType = z.object({
 	title: z.string(),
 	status: z.enum(["ongoing", "completed"]).optional().default("ongoing"),
 	defaultCategory: z.string().optional().default(""),
@@ -91,7 +91,7 @@ export const seriesSchema = z.object({
 export function createCollection(
 	key: "posts" | "moments" | "spec" | "series",
 	base: string,
-) {
+): ReturnType<typeof defineCollection> {
 	const loaders = {
 		posts: glob({ base: `${base}/posts`, pattern: "**/*.{md,mdx}" }),
 		moments: glob({ base: `${base}/moments`, pattern: "**/*.md" }),

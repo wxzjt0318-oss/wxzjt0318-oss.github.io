@@ -90,6 +90,8 @@ export function resolvePageKey(
 	if (pathname === "/timeline") return "timeline";
 	if (pathname === "/albums" || pathname.startsWith("/albums/"))
 		return "albums";
+	if (pathname === "/series" || pathname.startsWith("/series/"))
+		return "series";
 	if (pathname === "/about") return "about";
 	return "";
 }

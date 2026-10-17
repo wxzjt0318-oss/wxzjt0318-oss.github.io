@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { registerPersistentShellSync } from "./feature-page";
 
 const SKILL_COUNT = 21;
 const FRONTEND_COUNT = 8;
@@ -58,24 +59,11 @@ test.describe("技能页", () => {
 test.describe("技能页 Swup 导航", () => {
 	test.use({ viewport: { width: 1280, height: 900 } });
 
-	test("从持久顶栏进入后同步页面、导航与侧栏状态", async ({ page }) => {
-		await page.goto("/compass/", { waitUntil: "domcontentloaded" });
-		await page.getByRole("button", { name: "More", exact: true }).click();
-		await page.locator('a[data-nav-key="skills"]').click();
-
-		await expect(page).toHaveURL(/\/skills\/$/);
-		await expect(page.locator("#swup-container")).toHaveAttribute(
-			"data-current-page",
-			"skills",
-		);
-		await expect(page.locator(".skill-card")).toHaveCount(SKILL_COUNT);
-		await expect(page.locator('a[data-nav-key="skills"]')).toHaveAttribute(
-			"aria-current",
-			"page",
-		);
-		await expect(
-			page.locator('widget-layout[data-id="categories"]'),
-		).toBeVisible();
-		await expect(page.locator('widget-layout[data-id="tags"]')).toBeVisible();
+	registerPersistentShellSync("从持久顶栏进入后同步页面、导航与侧栏状态", {
+		key: "skills",
+		fromPath: "/games/",
+		toPath: /\/skills\/$/,
+		cardSelector: "skill-card",
+		cardCount: SKILL_COUNT,
 	});
 });

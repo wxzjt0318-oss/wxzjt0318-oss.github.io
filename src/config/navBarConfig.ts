@@ -131,7 +131,7 @@ export const LinkPresets: Record<string, NavBarLink> = {
 	GitHub: {
 		name: "GitHub",
 		url: "https://github.com/LyraVoid/Shirone",
-		icon: "fa6-brands:github",
+		icon: "fa7-brands:github",
 		external: true,
 		pageKey: "github",
 	},
@@ -149,19 +149,19 @@ const defaultNavBarConfig: NavBarConfig = {
 					name: "GitHub",
 					url: "https://github.com/wxzjt0318-oss/wxzjt0318-oss.github.io",
 					external: true,
-					icon: "fa6-brands:github",
+					icon: "fa7-brands:github",
 				},
 				{
 					name: "Bilibili",
 					url: "https://b23.tv/Ny6RChH",
 					external: true,
-					icon: "fa6-brands:bilibili",
+					icon: "fa7-brands:bilibili",
 				},
 				{
 					name: "QQ",
 					url: "https://qm.qq.com/q/toDlBSdPxu",
 					external: true,
-					icon: "fa6-brands:qq",
+					icon: "fa7-brands:qq",
 				},
 				{
 					name: "网易云",

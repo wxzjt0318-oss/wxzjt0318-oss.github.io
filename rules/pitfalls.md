@@ -78,7 +78,7 @@ svelte({
 **解法**：
 - 静态 SSR 场景：用 `children` snippet 传 astro-icon 的 `<Icon>`（或任何已渲染 svg），**禁止**用 `icon` prop；
 - 需要水合的 Svelte 场景：统一使用 `src/components/atoms/display/Icon.svelte`，它通过 `OfflineIcon` 消费 `src/generated/local-icon-collections.ts`，禁止业务组件直接导入在线 Iconify 组件；
-- 新增或改名图标后运行 `pnpm.cmd icons:generate`，无效图标名必须修正，不能依赖网络回退；
+- 新增或改名图标后确认图标名真实存在（`src/generated/local-icon-collections.ts` 会自动重算），无效图标名必须修正，不能依赖网络回退；
 - 组件 scoped CSS 里 `> :global(svg)` 会强制覆盖 children 图标的尺寸（如强制 24px 覆盖调用方 `text-[1.25rem]`）——尺寸规则只应作用于 `icon` prop 模式的图标容器（`.m3-icon-button__icon`），children 图标尺寸由调用方 class 控制。
 
 **防回归**：`tests/site/icons.spec.ts` 断言真实页面（首页/侧栏/文章页）SSR 输出 svg 可见，并检查初始页面不请求 Iconify API；静态场景改回 `icon` prop 或交互场景绕过离线包装都会变红。

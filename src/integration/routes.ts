@@ -1,6 +1,6 @@
 import { existsSync, readdirSync } from "node:fs";
 import { join, relative } from "node:path";
-import { normalisePath } from "./paths.ts";
+import { normalisePath } from "./resolve/paths.ts";
 
 export interface ShironeRoute {
 	/** Route pattern passed to `injectRoute`. */

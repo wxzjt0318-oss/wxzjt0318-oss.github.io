@@ -13,8 +13,8 @@ import { pathToFileURL } from "node:url";
 import {
 	invalidateConfigCache,
 	loadConfigModule,
-} from "../src/integration/load-config.ts";
-import { resolvePaths } from "../src/integration/paths.ts";
+} from "../src/integration/resolve/load-config.ts";
+import { resolvePaths } from "../src/integration/resolve/paths.ts";
 
 const roots = [];
 const world = () => {
@@ -124,4 +124,66 @@ test("explains where to look when a config module is missing entirely", async ()
 		() => loadConfigModule(paths, "noSuchConfig"),
 		/Could not find config module "noSuchConfig"[\s\S]*npx shirones init/,
 	);
+});
+
+test("falls back to the package copy for a sibling an override does not mirror", async () => {
+	const { themeRoot, siteRoot, paths } = world();
+	const themeConfig = join(themeRoot, "src", "config");
+	const userConfig = join(siteRoot, "shirones", "config");
+	mkdirSync(userConfig, { recursive: true });
+
+	// The package ships both modules.
+	writeFileSync(
+		join(themeConfig, "sitemapFilter.ts"),
+		'import { siteConfig } from "./siteConfig.ts";\n' +
+			"export const isAllowed = () => siteConfig.site;\n",
+	);
+	writeFileSync(
+		join(themeConfig, "siteConfig.ts"),
+		'export const siteConfig = { site: "from-package" };\n',
+	);
+
+	// The user overrides only the entry module, not the sibling it imports.
+	writeFileSync(
+		join(userConfig, "sitemapFilter.ts"),
+		'import { siteConfig } from "./siteConfig.ts";\n' +
+			"export const isAllowed = () => `user:${siteConfig.site}`;\n",
+	);
+
+	invalidateConfigCache();
+	const loaded = await loadConfigModule(paths, "sitemapFilter");
+	// The user's copy wins for the entry…
+	assert.equal(loaded.isAllowed(), "user:from-package");
+	// …and the sibling it never mirrored resolves to the package's.
+});
+
+test("a mirrored sibling still wins over the package copy", async () => {
+	const { themeRoot, siteRoot, paths } = world();
+	const themeConfig = join(themeRoot, "src", "config");
+	const userConfig = join(siteRoot, "shirones", "config");
+	mkdirSync(userConfig, { recursive: true });
+
+	writeFileSync(
+		join(themeConfig, "sitemapFilter.ts"),
+		'import { siteConfig } from "./siteConfig.ts";\n' +
+			"export const isAllowed = () => siteConfig.site;\n",
+	);
+	writeFileSync(
+		join(themeConfig, "siteConfig.ts"),
+		'export const siteConfig = { site: "from-package" };\n',
+	);
+	writeFileSync(
+		join(userConfig, "sitemapFilter.ts"),
+		'import { siteConfig } from "./siteConfig.ts";\n' +
+			"export const isAllowed = () => `user:${siteConfig.site}`;\n",
+	);
+	// This one the user did mirror.
+	writeFileSync(
+		join(userConfig, "siteConfig.ts"),
+		'export const siteConfig = { site: "from-user" };\n',
+	);
+
+	invalidateConfigCache();
+	const loaded = await loadConfigModule(paths, "sitemapFilter");
+	assert.equal(loaded.isAllowed(), "user:from-user");
 });

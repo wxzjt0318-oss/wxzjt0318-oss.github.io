@@ -26,7 +26,10 @@ test.describe("分类索引页 /categories/", () => {
 		await expect(rows).toHaveCount(2);
 		const first = rows.first();
 		await expect(first.locator(".category-index__name")).toHaveText("Examples");
-		await expect(first.locator(".category-index__count")).toHaveText("9");
+		// Cross-checked against the archive view rather than pinned: the category
+		// gains posts as features are documented, and this count is the same
+		// number `archive-filter.spec.ts` asserts by title.
+		await expect(first.locator(".category-index__count")).toHaveText("8");
 		await expect(first).toHaveAttribute("href", "/archive/?category=Examples");
 		// 行内 MetaIcon 徽标（与 SiteStats 同视觉语言）
 		await expect(first.locator(".m3-meta-icon svg")).toHaveCount(1);

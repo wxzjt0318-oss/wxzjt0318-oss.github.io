@@ -110,8 +110,13 @@ test.describe("article last updated notice", () => {
 	test("uses updated when present and published as fallback", async ({
 		page,
 	}) => {
-		await page.clock.setFixedTime(new Date("2025-04-01T12:00:00Z"));
+		// After both posts' own dates, so the staleness notice is legitimately
+		// visible. A clock earlier than a post makes the notice hidden and the
+		// assertion below tests nothing.
+		await page.clock.setFixedTime(new Date("2026-10-01T12:00:00Z"));
 
+		// `/posts/markdown-extended/` carries both fields; the notice must show
+		// `updated` (2024-11-29), not `published` (2024-05-01).
 		await page.goto("/posts/markdown-extended/", {
 			waitUntil: "domcontentloaded",
 		});
@@ -119,34 +124,48 @@ test.describe("article last updated notice", () => {
 		await expect(updatedNotice).toBeVisible();
 		await expect(updatedNotice).toContainText("2024-11-29");
 		await expect(updatedNotice.locator("[data-last-updated-days]")).toHaveText(
-			"123",
+			"671",
 		);
 
-		await page.goto("/posts/guide/", { waitUntil: "domcontentloaded" });
+		// `/posts/expressive-code/` has `published` only, so it must fall back to
+		// that. This used to be `/posts/guide/`, which now declares `updated` as
+		// well and so no longer exercises the fallback branch at all.
+		await page.goto("/posts/expressive-code/", {
+			waitUntil: "domcontentloaded",
+		});
 		const publishedFallback = page.locator(NOTICE);
 		await expect(publishedFallback).toBeVisible();
-		await expect(publishedFallback).toContainText("2024-04-01");
+		await expect(publishedFallback).toContainText("2024-04-10");
+		await expect(
+			publishedFallback.locator("[data-last-updated-days]"),
+		).toHaveText("904");
 	});
 
 	test("recalculates visibility after Swup navigation", async ({ page }) => {
-		await page.clock.setFixedTime(new Date("2025-01-01T12:00:00Z"));
+		// Past `/posts/guide/`'s dates (2026-08-26) *and* its 90-day staleness
+		// threshold, so the notice is genuinely shown.
+		await page.clock.setFixedTime(new Date("2026-12-05T12:00:00Z"));
 		await page.goto("/", { waitUntil: "domcontentloaded" });
 		await page.locator('a[href="/posts/guide/"]').first().click();
 		await expect(page).toHaveURL(/\/posts\/guide\/$/);
 		await expect(page.locator(NOTICE)).toBeVisible();
-		await expect(page.locator("[data-last-updated-days]")).toHaveText("275");
+		// 2026-08-26 → 2026-12-05, matching the clock above.
+		await expect(page.locator("[data-last-updated-days]")).toHaveText("101");
 	});
 
 	test("sits between the article card and navigation without narrow overflow", async ({
 		page,
 	}) => {
 		await page.setViewportSize({ width: 390, height: 844 });
-		await page.clock.setFixedTime(new Date("2025-01-01T12:00:00Z"));
+		// Past `/posts/guide/`'s dates and its 90-day staleness threshold.
+		await page.clock.setFixedTime(new Date("2026-12-05T12:00:00Z"));
 		await page.goto("/posts/guide/", { waitUntil: "domcontentloaded" });
 		const notice = page.locator(NOTICE);
 		await expect(notice).toBeVisible();
 		const layout = await notice.evaluate((element) => {
-			const article = document.querySelector("#post-container");
+			// `#post-container` no longer exists; the article body is wrapped in
+			// `#content-wrapper`.
+			const article = document.querySelector("#content-wrapper");
 			const navigation = document.querySelector(".post-nav");
 			return {
 				afterArticle: Boolean(

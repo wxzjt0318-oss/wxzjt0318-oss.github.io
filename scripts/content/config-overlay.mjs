@@ -60,7 +60,7 @@ export const EMPTY_MODULE = `/**
  * 校验、归一化之后写进 \`userConfigOverrides\`，再由 \`withUserConfig()\` 在各配置文件里深合并。
  *
  * 放在 \`src/user/\` 而不是 \`src/generated/\` 是有意为之：
- * \`scripts/icons/generate-local-icons.mjs\` 会跳过 \`src/generated/\`，
+ * \`src/integration/vite/icon/collections.ts\` 会跳过 \`src/generated/\`，
  * 只在用户配置里出现的图标（如 \`profile.links[].icon\`）会因此漏扫。
  *
  * 契约见 \`docs/content-separation/config-overlay.md\`。
@@ -139,10 +139,14 @@ function assertSerializable(value, path, file, seen) {
 		return;
 	}
 	if (kind !== "object") {
-		fail(`${file}'s ${path} is of type ${kind} which cannot be represented as configuration.`);
+		fail(
+			`${file}'s ${path} is of type ${kind} which cannot be represented as configuration.`,
+		);
 	}
 	if (seen.has(value)) {
-		fail(`${file}'s ${path} forms a circular reference (YAML anchor points to itself).`);
+		fail(
+			`${file}'s ${path} forms a circular reference (YAML anchor points to itself).`,
+		);
 	}
 	seen.add(value);
 
@@ -392,7 +396,9 @@ const DIAGNOSTIC_PATTERN = /^(.+?)\((\d+),(\d+)\): error TS\d+: (.+)$/;
 export function typeCheckModule(root, lineOwners) {
 	const tsc = join(root, "node_modules", "typescript", "bin", "tsc");
 	if (!existsSync(tsc)) {
-		fail("Cannot find local typescript to check user config. Please run pnpm install first.");
+		fail(
+			"Cannot find local typescript to check user config. Please run pnpm install first.",
+		);
 	}
 
 	let output = "";

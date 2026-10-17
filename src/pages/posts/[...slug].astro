@@ -324,6 +324,13 @@ const jsonLd = {
                 </Markdown>
             )}
 
+			{/* 系列块（cardPosition: bottom）紧贴正文之后：与 top 变体对称（元信息之后 / 正文之后），
+			    并排在版权、分享与 Continue reading 这些收尾区块之前——系列导航是「继续读」，
+			    应先于署名/分发/相关推荐（页面实际顺序：系列 → 版权 → 分享 → 延伸阅读 → 评论 → 更新提示 → 全局 post-nav） */}
+			{seriesCardVisible && !seriesCardAtTop && series && (
+				<SeriesCard context={series} class="mb-6 onload-animation" />
+			)}
+
 			{licenseConfig.enable && <License title={entry.data.title} slug={entry.id} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
 			{shareOptions && (
@@ -347,10 +354,6 @@ const jsonLd = {
 				random={discovery.random}
 				class="onload-animation"
 			/>
-
-			{seriesCardVisible && !seriesCardAtTop && series && (
-				<SeriesCard context={series} class="mb-6 onload-animation" />
-			)}
 
 		</Card>
     </div>

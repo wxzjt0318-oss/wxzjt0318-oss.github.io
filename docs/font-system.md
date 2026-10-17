@@ -51,9 +51,12 @@ export const fontConfig: FontConfig = {
         enable: false,
         includeContent: false,
         includeI18n: false,
-        includeConfig: false,
+        includeConfig: true,
         includeCommon: true,
-        allowRemoteText: false,
+        // 默认 true：构建期允许抓取 Meting 云端歌单的曲目文本，
+        // 使歌名里的汉字进入字体子集，避免前台缺字。
+        // 网络访问的取舍见 docs/performance-guidelines.md。
+        allowRemoteText: true,
     },
     budget: {
         maxTotalBytes: 8 * 1024 * 1024,

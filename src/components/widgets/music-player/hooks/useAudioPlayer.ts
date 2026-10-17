@@ -1,5 +1,9 @@
 import { getMusicRuntime, MUSIC_VOLUME_STORAGE_KEY } from "@utils/music";
-import { musicConfig, resolveMusicOptions } from "@/config/musicConfig";
+import {
+	musicConfig,
+	type ResolvedMusicOptions,
+	resolveMusicOptions,
+} from "@/config/musicConfig";
 import type { MusicRuntime, MusicSnapshot } from "@/types/musicConfig";
 
 export type { MusicRuntime, MusicSnapshot };
@@ -10,7 +14,8 @@ export type { MusicRuntime, MusicSnapshot };
  * - getMusicRuntime(options) 返回跨组件共享的单例（与上游侧栏播放器共用）；
  * - 音量持久化、Meting 拉取、播放/ seek / 模式切换全部由运行时负责。
  */
-export const musicOptions = resolveMusicOptions(musicConfig);
+export const musicOptions: ResolvedMusicOptions | null =
+	resolveMusicOptions(musicConfig);
 
 /** legacy 播放器的音量持久化键（fork-snapshot 4be61c3 用户的既有设置） */
 export const LEGACY_VOLUME_STORAGE_KEY = "music-player-volume";

@@ -17,24 +17,26 @@ import {
 	TRAILING_SLASH,
 	viteBuildShared,
 } from "../config/integrationsConfig.ts";
-import { shironesFallbackResolver } from "./fallback-resolver.ts";
 import { buildFontDeclarations } from "./fonts.ts";
 import {
 	invalidateConfigCache,
 	loadConfigModule,
 	loadPackageModule,
-} from "./load-config.ts";
-import { shironesOverlay } from "./overlay.ts";
-import { normalisePath, resolvePaths } from "./paths.ts";
+} from "./resolve/load-config.ts";
+import { normalisePath, resolvePaths } from "./resolve/paths.ts";
 import {
 	buildOverrideRegistry,
 	createOverlayTargets,
 	findOrphanUserFiles,
 	type OverrideRegistryRef,
-} from "./registry.ts";
+} from "./resolve/registry.ts";
 import { collectRoutes, filterRoutes } from "./routes.ts";
-import { shironesSsrNodeShims } from "./ssr-node-shims.ts";
 import type { ResolvedShironesPaths, ShironesOptions } from "./types.ts";
+import { shironesFallbackResolver } from "./vite/fallback-resolver.ts";
+import { shironesIconRegeneration } from "./vite/icon/regeneration.ts";
+import { shironesOverlay } from "./vite/overlay.ts";
+import { shironesSsrNodeShims } from "./vite/ssr-node-shims.ts";
+import { shironesThumbnailsRegeneration } from "./vite/thumbnails/regeneration.ts";
 
 export type {
 	ShironesFontOptions,
@@ -347,6 +349,8 @@ export function shirones(options: ShironesOptions = {}): AstroIntegration {
 										}),
 									]),
 							shironesFallbackResolver(paths),
+							shironesIconRegeneration(paths, logger),
+							shironesThumbnailsRegeneration(paths),
 							shironesSsrNodeShims(),
 							createMusicSidebarPlugin(paths, musicEnabled),
 							(await import("@tailwindcss/vite")).default(),

@@ -4,6 +4,9 @@ import { expect, test } from "@playwright/test";
 
 const POST_PATH = "/posts/markdown-enhancements/";
 
+/** Marks the single tree the current axe pass is scoped to. */
+const AXE_SCOPE_ATTRIBUTE = "data-code-tree-axe-scope";
+
 async function openPost(page: Page) {
 	await page.goto(POST_PATH, { waitUntil: "domcontentloaded" });
 	await page.waitForFunction(() =>
@@ -169,12 +172,39 @@ test.describe("Markdown interactive code trees", () => {
 		expect(styles.borderRadius).toBe("16px");
 		expect(styles.activeBtnRadius).toBe("8px");
 
-		// Run accessibility check
-		const results = await new AxeBuilder({ page })
-			.include(".custom-md .m3-code-tree")
-			.disableRules(["color-contrast"])
-			.analyze();
-		expect(results.violations).toEqual([]);
+		// Run accessibility check. This post renders two trees: a 217-node one and
+		// a 22,608-node one (2,667 code lines). axe charges for every matched
+		// root, so scanning both together costs ~140s and blows the budget.
+		// `include` is evaluated with native querySelectorAll, so Playwright
+		// pseudo-classes do not work — mark each tree in turn and scope to the
+		// single marked element instead.
+		const trees = page.locator(".custom-md .m3-code-tree");
+		const treeCount = await trees.count();
+		expect(treeCount).toBeGreaterThan(0);
+		for (let index = 0; index < treeCount; index += 1) {
+			const tree = trees.nth(index);
+			const nodeCount = await tree.evaluate(
+				(element) => element.querySelectorAll("*").length,
+			);
+			// ~7ms per node on a loaded runner, with headroom for cold CI.
+			test.setTimeout(Math.max(60_000, nodeCount * 25));
+			await tree.evaluate((element, attribute) => {
+				element.setAttribute(attribute, "");
+			}, AXE_SCOPE_ATTRIBUTE);
+			const results = await new AxeBuilder({ page })
+				.include(`.custom-md .m3-code-tree[${AXE_SCOPE_ATTRIBUTE}]`)
+				.disableRules(["color-contrast"])
+				.analyze();
+			expect(
+				results.violations.map((violation) => ({
+					id: violation.id,
+					nodes: violation.nodes.length,
+				})),
+			).toEqual([]);
+			await tree.evaluate((element, attribute) => {
+				element.removeAttribute(attribute);
+			}, AXE_SCOPE_ATTRIBUTE);
+		}
 	});
 
 	test("supports narrow mobile viewport layout without horizontal page overflow", async ({

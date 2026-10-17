@@ -4,12 +4,12 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test, { after } from "node:test";
 import { pathToFileURL } from "node:url";
-import { resolvePaths } from "../src/integration/paths.ts";
+import { resolvePaths } from "../src/integration/resolve/paths.ts";
 import {
 	buildOverrideRegistry,
 	findOrphanUserFiles,
 	overrideKey,
-} from "../src/integration/registry.ts";
+} from "../src/integration/resolve/registry.ts";
 
 /** A package-mode layout: theme checkout + a user's site beside it. */
 function makeWorld() {

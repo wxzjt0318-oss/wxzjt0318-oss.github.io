@@ -29,7 +29,9 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
-          version: 9.14.4
+          # Must match `packageManager` in package.json: pnpm/action-setup
+          # rejects the run when both specify a version.
+          version: 11.28.2
           run_install: false
 
       - name: Set up Node.js
@@ -60,7 +62,9 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
-          version: 9.14.4
+          # Must match `packageManager` in package.json: pnpm/action-setup
+          # rejects the run when both specify a version.
+          version: 11.28.2
           run_install: false
 
       - name: Set up Node.js
@@ -100,7 +104,9 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
-          version: 9.14.4
+          # Must match `packageManager` in package.json: pnpm/action-setup
+          # rejects the run when both specify a version.
+          version: 11.28.2
           run_install: false
 
       - name: Set up Node.js

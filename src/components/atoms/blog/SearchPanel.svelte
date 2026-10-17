@@ -45,7 +45,7 @@ let {
 		<a class="m3-blog-searchpanel__item" href={item.url}>
 			<span class="m3-blog-searchpanel__title">
 				{item.title}
-				<Icon icon="fa6-solid:chevron-right" />
+				<Icon icon="fa7-solid:chevron-right" />
 			</span>
 			<span class="m3-blog-searchpanel__excerpt">{@html item.excerpt}</span>
 		</a>

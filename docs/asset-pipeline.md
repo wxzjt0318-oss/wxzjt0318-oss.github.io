@@ -24,12 +24,10 @@
 
 当前命令：
 
-```powershell
-pnpm.cmd icons:generate
-pnpm.cmd images:generate
-```
+图标集合与说说缩略图都已改为自动生成，不再需要手动命令：
 
-`pnpm.cmd dev` 与 `pnpm.cmd build` 已包含这两个步骤。
+- 图标集合在 `astro:config:setup` 重算（`dev` / `build` / `sync` 都覆盖），dev 期间新增图标还会触发 HMR 重算。
+- 缩略图在 `buildStart` 重算（`dev` / `build` 覆盖），dev 期间新增图片也会触发 HMR 重算。
 
 ---
 
@@ -69,7 +67,7 @@ Astro 图片优化有两类输入，不能混为一谈：
 - 卡片网格和缩略图条读取 `thumbnailSrc` / `thumbnailSrcset`；
 - 查看器舞台和 Fancybox 始终读取原始 `src`。
 
-这能降低列表流量，同时避免“优化”后灯箱只能看到低清图。新增动态原图后运行 `pnpm.cmd images:generate`；生成器会在 `public/assets/moments/thumbnails/` 创建 `192/384/640` 宽度的 WebP，并清理孤立文件。
+这能降低列表流量，同时避免“优化”后灯箱只能看到低清图。新增动态原图后无需手动操作：生成器在每次构建时于 `public/assets/moments/thumbnails/` 创建 `192/384/640` 宽度的 WebP，并清理孤立文件。它按源图内容哈希判断新鲜度，因此未变更时是空操作。
 
 ### 3.3 本地音乐封面
 
@@ -87,7 +85,7 @@ Astro 图片优化有两类输入，不能混为一谈：
 - 需要水合的 Svelte 组件使用 `src/components/atoms/display/Icon.svelte`；它只消费 `src/generated/local-icon-collections.ts` 中的本地集合。
 - 禁止业务组件直接导入在线 Iconify 组件，避免首屏访问 Iconify API，也避免 SSR 阶段输出空图标。
 
-`scripts/icons/generate-local-icons.mjs` 会扫描项目实际使用的图标名，从已安装的 `@iconify-json/*` 集合生成最小本地数据。新增图标后应执行 `pnpm.cmd icons:generate`，并确认图标名确实存在；不存在的 Material Symbols 名称不会因为本地化而自动修复。
+`src/integration/vite/icon/collections.ts` 会扫描项目实际使用的图标名，从已安装的 `@iconify-json/*` 集合生成最小本地数据，产物写入 `src/generated/local-icon-collections.ts`。该文件在 `astro:config:setup` 自动重算，无需手动命令；但**图标名拼错不会自动修复**——生成器只在报错时跳过，Material Symbols 的错误名称不会因本地化而纠正。
 
 图标回归至少应覆盖：
 
@@ -115,8 +113,6 @@ Astro 图片优化有两类输入，不能混为一谈：
 涉及本地资产或响应式媒体时，按风险运行：
 
 ```powershell
-pnpm.cmd icons:generate
-pnpm.cmd images:generate
 npx.cmd astro check
 pnpm.cmd build
 ```

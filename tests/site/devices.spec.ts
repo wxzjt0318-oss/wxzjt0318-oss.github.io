@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { registerPersistentShellSync } from "./feature-page";
 
 const DEVICE_COUNT = 5;
 
@@ -124,24 +125,11 @@ test.describe("设备展示页", () => {
 test.describe("设备展示页 Swup 导航", () => {
 	test.use({ viewport: { width: 1280, height: 900 } });
 
-	test("从持久顶栏进入后同步页面、导航与侧栏状态", async ({ page }) => {
-		await page.goto("/skills/", { waitUntil: "domcontentloaded" });
-		await page.getByRole("button", { name: "More", exact: true }).click();
-		await page.locator('a[data-nav-key="devices"]').click();
-
-		await expect(page).toHaveURL(/\/devices\/$/);
-		await expect(page.locator("#swup-container")).toHaveAttribute(
-			"data-current-page",
-			"devices",
-		);
-		await expect(page.locator(".device-card")).toHaveCount(DEVICE_COUNT);
-		await expect(page.locator('a[data-nav-key="devices"]')).toHaveAttribute(
-			"aria-current",
-			"page",
-		);
-		await expect(
-			page.locator('widget-layout[data-id="categories"]'),
-		).toBeVisible();
-		await expect(page.locator('widget-layout[data-id="tags"]')).toBeVisible();
+	registerPersistentShellSync("从持久顶栏进入后同步页面、导航与侧栏状态", {
+		key: "devices",
+		fromPath: "/skills/",
+		toPath: /\/devices\/$/,
+		cardSelector: "device-card",
+		cardCount: DEVICE_COUNT,
 	});
 });

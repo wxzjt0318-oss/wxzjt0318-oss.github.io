@@ -1,8 +1,10 @@
+export type ThemeMode = "light" | "dark" | "auto";
+
 export const LIGHT_MODE = "light",
 	DARK_MODE = "dark",
 	AUTO_MODE = "auto";
-export const DEFAULT_THEME = AUTO_MODE;
-export const THEME_CHANGE_EVENT = "shirone:theme-change";
+export const DEFAULT_THEME: ThemeMode = AUTO_MODE;
+export const THEME_CHANGE_EVENT: string = "shirone:theme-change";
 
 export const WALLPAPER_MODE_KEY = "wallpaper-mode";
 export const WALLPAPER_MODE_CHANGE_EVENT = "wallpaper-mode:change";
@@ -23,7 +25,7 @@ export const TEXTURE_PRESETS = [
 // Banner height unit: vh
 export const BANNER_HEIGHT = 35;
 export const BANNER_HEIGHT_EXTEND = 30;
-export const BANNER_HEIGHT_HOME = BANNER_HEIGHT + BANNER_HEIGHT_EXTEND;
+export const BANNER_HEIGHT_HOME: number = BANNER_HEIGHT + BANNER_HEIGHT_EXTEND;
 
 // The height the main panel overlaps the banner, unit: rem
 // Keep a small overlap so the content frame meets the wave edge naturally.

@@ -24,7 +24,7 @@ export function createVolumeDragState(): VolumeDragState {
 export function handleVolumeKeyDown(
 	event: KeyboardEvent,
 	onToggleMute: () => void,
-) {
+): void {
 	if (event.key === "Enter" || event.key === " ") {
 		event.preventDefault();
 		if (event.key === "Enter") {

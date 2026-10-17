@@ -68,7 +68,11 @@ Shirone 遵循 **「内容先行、布局稳定、平滑渐显、按需水合、
 ### 2.6 构建管线与资源预算准则（包体瘦身与离线自律）
 
 - **构建显式压缩**：Vite 构建管线开启 esbuild 压缩、CSS 代码拆分，并在生产打包时通过 `pure: ["console.log", "console.debug"]` 自动移除调试日志。
-- **离线与零外部依赖构建**：`fontConfig.subsetting.allowRemoteText` 默认设为 `false`，字体子集化与站点构建不依赖外部网络 API。
+- **构建期网络访问**：字体子集化默认允许访问网络。`fontConfig.subsetting.allowRemoteText`
+  为 `true`，且 `musicConfig.enable` 为真、provider 为 `meting` 或 `mixed` 时，
+  构建会抓取云端歌单的曲目文本，使歌名中的汉字进入子集，避免前台缺字。
+  任一条件不满足即不发起请求。抓取失败只会告警并退化为仅使用本地文本，不会中断构建。
+  完全不需要该行为时（例如只用本地曲目），把它设为 `false` 即可换回零网络构建。
 - **零额外负担落地**：第三方 widget（如评论、播放器）必须通过动态加载或条件构建插件接入。
 
 ---

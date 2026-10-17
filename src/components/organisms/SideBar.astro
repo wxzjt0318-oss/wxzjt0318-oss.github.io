@@ -287,6 +287,13 @@ const hasVisibleSticky = stickyWidgets.some(isVisible);
 	}
 
 	function onSwupReplace(): void {
+		// Swup does not always reach `visit:start` — its visit routine bails
+		// early when a navigation is already in flight — but `content:replace`
+		// means the containers were swapped either way. That is the signal
+		// this sidebar needs, so mark the navigation active here too; otherwise
+		// `finishNavigation` bails and the widgets keep their SSR visibility
+		// until the next full page load.
+		navigationActive = true;
 		sidebarSyncPending = true;
 	}
 
@@ -323,6 +330,28 @@ const hasVisibleSticky = stickyWidgets.some(isVisible);
 		}
 	}
 
+	// `bindSwupHooks` returns early while `window.swup` is still undefined, and
+	// this script runs before the Swup client is guaranteed to exist. The
+	// `swup:enable` listener alone does not close that window — measured on
+	// plain page loads, roughly half of them never bound, leaving the sidebar
+	// at its SSR visibility for every client-side navigation.
 	bindSwupHooks();
 	document.addEventListener("swup:enable", bindSwupHooks, { once: true });
+
+	// Bounded poll: Swup is present within a few frames on any page that has
+	// it, and a page without it never gains one. Retrying forever would burn a
+	// timer every 50ms until the tab closes.
+	if (typeof window !== "undefined" && !window.__shironeSidebarBound) {
+		const INTERVAL = 50;
+		const MAX_ATTEMPTS = 40; // 2s, far beyond Swup's own startup
+		let attempts = 0;
+		const retry = (): void => {
+			attempts += 1;
+			bindSwupHooks();
+			if (!window.__shironeSidebarBound && attempts < MAX_ATTEMPTS) {
+				window.setTimeout(retry, INTERVAL);
+			}
+		};
+		window.setTimeout(retry, INTERVAL);
+	}
 </script>

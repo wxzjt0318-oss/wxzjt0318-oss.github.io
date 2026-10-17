@@ -4,6 +4,11 @@ dist/
 # integration cache (esbuild config bundles, plugin-mode font subsets)
 .shirones/
 
+# Scratch directories the packaging pipeline creates when it transpiles the
+# theme's TypeScript generators. They should never survive a run; the pattern
+# is here so that an aborted one cannot reach a commit.
+.shirones-ts-*/
+
 # content repository working copy, provenance, and safe cleanup backups
 .content-src/
 .content-backup/

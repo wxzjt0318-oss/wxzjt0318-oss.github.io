@@ -9,7 +9,7 @@ import {
 	findPackageRoot,
 	normalisePath,
 	resolvePaths,
-} from "../src/integration/paths.ts";
+} from "../src/integration/resolve/paths.ts";
 
 // Two throwaway trees: the theme checkout (has `src/`) and a user's site.
 const themeRoot = mkdtempSync(join(tmpdir(), "shirones-theme-"));

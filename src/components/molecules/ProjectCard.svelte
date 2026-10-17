@@ -137,7 +137,7 @@ const showCover = $derived(Boolean(project.cover) && !coverFailed);
 				{/if}
 				{#if project.repository}
 					<a href={project.repository} target="_blank" rel="noopener noreferrer">
-						<Icon icon="fa6-brands:github" aria-hidden="true" />
+						<Icon icon="fa7-brands:github" aria-hidden="true" />
 						{i18n(I18nKey.projectSource)}
 					</a>
 				{/if}

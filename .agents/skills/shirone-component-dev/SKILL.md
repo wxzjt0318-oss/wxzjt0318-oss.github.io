@@ -45,4 +45,4 @@ description: Creating or modifying UI components in the Shirone theme - atomic d
 
 ## npm 包兼容性
 
-组件和布局修改必须同时适用于仓库 checkout 与 `node_modules` 中的 `shirones`。遵循 `src/integration/overlay.ts` 的覆盖边界，保持包模式 alias 同步，并避免用 `process.cwd()` 读取主题自有文件。双模式检查清单见 `docs/packaging-contract.md` 和 `rules/project-rules.md` 第 12 节。
+组件和布局修改必须同时适用于仓库 checkout 与 `node_modules` 中的 `shirones`。遵循 `src/integration/vite/overlay.ts` 的覆盖边界，保持包模式 alias 同步，并避免用 `process.cwd()` 读取主题自有文件。双模式检查清单见 `docs/packaging-contract.md` 和 `rules/project-rules.md` 第 12 节。

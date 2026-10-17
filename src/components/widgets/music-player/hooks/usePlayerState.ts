@@ -22,7 +22,7 @@ export function createPlayerUIState(): PlayerUIState {
 /**
  * 切换展开状态：展开时强制显示播放器且关闭播放列表
  */
-export function toggleExpandedUI(state: PlayerUIState) {
+export function toggleExpandedUI(state: PlayerUIState): void {
 	state.isExpanded = !state.isExpanded;
 	if (state.isExpanded) {
 		state.showPlaylist = false;
@@ -33,7 +33,7 @@ export function toggleExpandedUI(state: PlayerUIState) {
 /**
  * 切换隐藏状态：隐藏时收起播放器并关闭播放列表
  */
-export function toggleHiddenUI(state: PlayerUIState) {
+export function toggleHiddenUI(state: PlayerUIState): void {
 	state.isHidden = !state.isHidden;
 	if (state.isHidden) {
 		state.isExpanded = false;
@@ -44,14 +44,17 @@ export function toggleHiddenUI(state: PlayerUIState) {
 /**
  * 切换播放列表面板展示
  */
-export function togglePlaylistUI(state: PlayerUIState) {
+export function togglePlaylistUI(state: PlayerUIState): void {
 	state.showPlaylist = !state.showPlaylist;
 }
 
 /**
  * 显示错误提示，并在固定时间后自动隐藏
  */
-export function showErrorMessageUI(state: PlayerUIState, message: string) {
+export function showErrorMessageUI(
+	state: PlayerUIState,
+	message: string,
+): void {
 	state.errorMessage = message;
 	state.showError = true;
 	setTimeout(() => {
@@ -59,6 +62,6 @@ export function showErrorMessageUI(state: PlayerUIState, message: string) {
 	}, ERROR_DISPLAY_DURATION);
 }
 
-export function hideErrorUI(state: PlayerUIState) {
+export function hideErrorUI(state: PlayerUIState): void {
 	state.showError = false;
 }
