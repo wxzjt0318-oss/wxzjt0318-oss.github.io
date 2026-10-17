@@ -52,6 +52,9 @@ test("protected model renders, rejects blank clicks, speaks and survives navigat
 	await expect(widget.getByRole("status")).toHaveText(
 		"我的名字叫瑟莉亚·库列尔",
 	);
+	const bubble = await widget.getByRole("status").boundingBox();
+	if (!bubble) throw new Error("Introduction bubble must be visible");
+	expect(bubble.y + bubble.height).toBeLessThanOrEqual(box.y - 8);
 	await expect(page.locator("html")).toHaveAttribute(
 		"data-seria-audio-played",
 		"true",
