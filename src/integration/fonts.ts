@@ -11,7 +11,7 @@ import {
 import { basename, extname, join } from "node:path";
 import type { MetingMusicConfig, MusicProvider } from "../types/musicConfig.ts";
 import { buildMetingUrl } from "../utils/music/meting.ts";
-import { loadConfigModule } from "./load-config.ts";
+import { loadConfigModule } from "./resolve/load-config.ts";
 import type { ResolvedShironesPaths } from "./types.ts";
 
 /**

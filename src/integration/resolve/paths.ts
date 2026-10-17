@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { ResolvedShironesPaths, ShironesOptions } from "./types.ts";
+import type { ResolvedShironesPaths, ShironesOptions } from "../types.ts";
 
 /**
  * Directory name used for user content/config. Intentionally identical to the

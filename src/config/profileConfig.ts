@@ -12,22 +12,22 @@ export const profileConfig: ProfileConfig = withUserConfig("profile", {
 	links: [
 		{
 			name: "Bilibili",
-			icon: "fa6-brands:bilibili", // Visit https://icones.js.org/ for icon codes
+			icon: "fa7-brands:bilibili", // Visit https://icones.js.org/ for icon codes
 			url: "https://b23.tv/Ny6RChH",
 		},
 		{
 			name: "GitHub",
-			icon: "fa6-brands:github",
+			icon: "fa7-brands:github",
 			url: "https://github.com/wxzjt0318-oss/wxzjt0318-oss.github.io",
 		},
 		{
 			name: "Steam",
-			icon: "fa6-brands:steam",
+			icon: "fa7-brands:steam",
 			url: "https://steamcommunity.com/profiles/76561198428249076/",
 		},
 		{
 			name: "Discord",
-			icon: "fa6-brands:discord",
+			icon: "fa7-brands:discord",
 			url: "https://discord.gg/cZSyH7RKvu",
 		},
 	],

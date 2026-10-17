@@ -12,6 +12,9 @@ export interface SeriesConfig {
 	 * 空字符串 = 使用动态汇总（「x 个系列 · y 篇文章」）。
 	 */
 	description: string;
-	/** 文章内系列卡位置：top = 头部元信息区下方；bottom = 相关阅读之后 */
+	/**
+	 * 文章内系列块位置：top = 头部元信息区下方（正文之前）；
+	 * bottom = 正文之后、版权/分享/延伸阅读之前。
+	 */
 	cardPosition: "top" | "bottom";
 }

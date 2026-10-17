@@ -11,12 +11,6 @@ import Markdown from "@components/content/Markdown.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { seriesConfig } from "@/config";
-
-if (!seriesConfig.enable) {
-	return Astro.redirect("/404/");
-}
-
 import { getSeriesCatalog, getSortedPostsList } from "@utils/content-utils";
 import { formatDateToYYYYMMDD } from "@utils/date-utils";
 import { getMarkdownStylesheetAssets } from "@utils/markdown-assets";
@@ -26,8 +20,14 @@ import {
 	type SeriesMemberInput,
 } from "@utils/series-utils";
 import { url } from "@utils/url-utils";
+import { seriesConfig } from "@/config";
 
 export async function getStaticPaths() {
+	// Gate here rather than redirecting in the body: a redirect still emits a
+	// page, so `/series/<slug>/` would answer 200 with a meta-refresh stub while
+	// the feature is off. Returning no paths means Astro never generates the
+	// route, so the URL is a plain 404.
+	if (!seriesConfig.enable) return [];
 	const catalog = await getSeriesCatalog();
 	return [...catalog.keys()].map((slug) => ({ params: { slug } }));
 }

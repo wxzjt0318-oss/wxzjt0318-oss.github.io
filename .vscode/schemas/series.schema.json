@@ -31,7 +31,7 @@
           ]
         }
       ],
-      "description": "文章内系列卡位置：top = 头部元信息区下方；bottom = 相关阅读之后"
+      "description": "文章内系列块位置：top = 头部元信息区下方（正文之前）；\nbottom = 正文之后、版权/分享/延伸阅读之前。"
     }
   },
   "additionalProperties": false

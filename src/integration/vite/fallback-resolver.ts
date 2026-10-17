@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { isAbsolute, join } from "node:path";
 import type { Plugin } from "vite";
-import type { ResolvedShironesPaths } from "./types.ts";
+import type { ResolvedShironesPaths } from "../types.ts";
 
 /**
  * Resolve bare specifiers that only exist inside the theme package.

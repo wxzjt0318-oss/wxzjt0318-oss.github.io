@@ -94,7 +94,7 @@ export function collapse(node: HTMLElement, params: CollapseParams) {
 	}
 
 	return {
-		update(next: CollapseParams) {
+		update(next: CollapseParams): void {
 			currentParams = next;
 			if (next.resetKey !== resetKey) {
 				resetKey = next.resetKey;
@@ -107,7 +107,7 @@ export function collapse(node: HTMLElement, params: CollapseParams) {
 			current = next.open;
 			play(current, next.animate !== false);
 		},
-		destroy() {
+		destroy(): void {
 			anim?.cancel();
 			node.style.height = "";
 			node.style.overflow = "";
@@ -158,11 +158,11 @@ export function reveal(node: HTMLElement, params: RevealParams = {}) {
 	play();
 
 	return {
-		update(next: RevealParams) {
+		update(next: RevealParams): void {
 			currentParams = next;
 			play();
 		},
-		destroy() {
+		destroy(): void {
 			anim?.cancel();
 		},
 	};
@@ -223,7 +223,13 @@ export async function fadeOutThenHide(
 	try {
 		await anim.finished;
 	} catch {
-		// Ownership passed to a newer collection sync; leave visibility unchanged.
+		// The animation was cancelled. Callers only pass elements that must
+		// end up hidden, so the settled state is still `hidden` — leaving it
+		// out is what strands a widget visible when its route no longer wants
+		// it. A newer collection sync that cancelled this will find the
+		// element already hidden, which is consistent.
+		el.classList.add("hidden");
+		anim.cancel();
 		return;
 	}
 	el.classList.add("hidden");

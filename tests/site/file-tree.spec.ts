@@ -19,6 +19,8 @@ test.describe("Markdown file trees", () => {
 	test("renders both syntaxes as accessible, token-driven SSR trees", async ({
 		page,
 	}) => {
+		// 文档有 ~25k 节点，前置断言跑完后 axe 扫描需要超过默认的 30s 预算。
+		test.slow();
 		const trees = await openPost(page);
 		await expect(trees).toHaveCount(2);
 		await expect(trees.nth(0)).toHaveClass(/\bnot-prose\b/);
@@ -82,7 +84,13 @@ test.describe("Markdown file trees", () => {
 			};
 		});
 		expect(styles.borderRadius).toBe("16px");
-		expect(styles.fontFamily).toContain("ui-monospace");
+		// `--font-mono` is owned by Astro Fonts whenever a custom mono role is
+		// enabled (see the comment in src/styles/font-faces.css), so the resolved
+		// stack is the generated family rather than the `ui-monospace` fallback
+		// chain, which only applies when `--font-mono` is absent. Assert the family
+		// that actually applies and that it is not inheriting the body stack.
+		expect(styles.fontFamily).toContain("JetBrains Mono");
+		expect(styles.fontFamily).not.toContain("Outfit");
 		expect(styles.addedBackground).not.toBe("rgba(0, 0, 0, 0)");
 		expect(styles.listStyle).toBe("none");
 		expect(styles.userSelect).toBe("none");

@@ -85,7 +85,7 @@ test.describe("article share page integration", () => {
 		await expect(share).toBeVisible();
 
 		const domOrder = await page.evaluate(() => {
-			const container = document.querySelector("#post-container");
+			const container = document.querySelector("#content-wrapper");
 			const license = document.querySelector(".license-container");
 			const share = document.querySelector("[data-article-share]");
 			const discovery = document.querySelector("[data-article-discovery]");

@@ -248,7 +248,7 @@ const stylePreviews = $derived(
                     {i18n(I18nKey.themeColor)}
                     <button aria-label="Reset to Default" class="float-control w-7 h-7 rounded-md active:scale-90 will-change-transform flex items-center justify-center"
                             class:opacity-0={!isDirty} class:pointer-events-none={!isDirty} onclick={confirmReset}>
-                        <Icon icon="fa6-solid:arrow-rotate-left" class="text-[0.875rem]"></Icon>
+                        <Icon icon="fa7-solid:arrow-rotate-left" class="text-[0.875rem]"></Icon>
                     </button>
                 </div>
                 <div class="flex gap-1 items-center">

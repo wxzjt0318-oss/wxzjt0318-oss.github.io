@@ -8,6 +8,11 @@ async function expectNotFoundShell(page: import("@playwright/test").Page) {
 	await expect(page.locator("#swup-container h1")).toHaveText(
 		"This page wandered off",
 	);
+	// The sidebar renders outside the Swup container, so on client-side
+	// navigation its `hidden` markers are applied by a pass bound to Swup's
+	// hooks. That binding used to race `window.swup` becoming available and
+	// silently lose, leaving the sidebar at its SSR visibility; see
+	// `SideBar.astro`. Direct loads get the marker from SSR immediately.
 	await expect(page.locator('[data-sidebar-pages="home"]').first()).toHaveClass(
 		/hidden/,
 	);

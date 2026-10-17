@@ -120,6 +120,40 @@ describe("buildSeriesContexts", () => {
 		},
 	});
 
+	// A post with a custom permalink is not reachable at /posts/<slug>/, so
+	// the canonical URL has to survive into the refs that navigation renders.
+	it("把条目的规范 URL 透传到 refs，缺失时不写入该键", () => {
+		const withUrl = buildSeriesContexts({
+			catalog,
+			posts: [
+				{
+					slug: "p1",
+					title: "P1",
+					published: new Date("2026-01-01"),
+					series: "demo",
+					url: "/guides/custom-permalink/",
+				},
+				{
+					slug: "p2",
+					title: "P2",
+					published: new Date("2026-01-02"),
+					series: "demo",
+				},
+			],
+		});
+		const [first, second] = withUrl.get("p1").posts;
+		assert.equal(first.url, "/guides/custom-permalink/");
+		assert.equal("url" in second, false);
+
+		const withoutUrl = buildSeriesContexts({
+			catalog,
+			posts: [
+				{ slug: "p1", title: "P1", published: new Date("2026-01-01"), series: "demo" },
+			],
+		});
+		assert.equal("url" in withoutUrl.get("p1").posts[0], false);
+	});
+
 	it("按阅读顺序给出 index/total 与组内上一篇/下一篇", () => {
 		const posts = [
 			{

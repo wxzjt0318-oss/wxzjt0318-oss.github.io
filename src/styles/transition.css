@@ -46,10 +46,19 @@ html.is-animating .transition-swup-fade {
     animation-delay: 250ms;
 }
 
-/* Post content */
-#post-container .onload-animation:nth-child(1) { animation-delay: calc(var(--content-delay) + 0ms) }
-#post-container .onload-animation:nth-child(2) { animation-delay: calc(var(--content-delay) + 50ms) }
-#post-container .onload-animation:nth-child(3) { animation-delay: calc(var(--content-delay) + 100ms) }
-#post-container .onload-animation:nth-child(4) { animation-delay: calc(var(--content-delay) + 175ms) }
-#post-container .onload-animation:nth-child(5) { animation-delay: calc(var(--content-delay) + 250ms) }
-#post-container .onload-animation:nth-child(6) { animation-delay: calc(var(--content-delay) + 325ms) }
+/* Post content
+ *
+ * The staggered entry delays this used to set are gone. They were scoped to
+ * `#post-container`, which no longer exists in `src/`, so the rules matched
+ * nothing and article sections animated with the base delay instead.
+ *
+ * Re-anchoring them is not a drop-in fix. `:nth-child()` only reaches direct
+ * children, and of the 11 `.onload-animation` elements inside
+ * `#content-wrapper` only 2 are direct children — the rest sit deeper, so a
+ * re-anchored selector would apply to a different, much smaller set than the
+ * one originally intended, and `#content-wrapper` already sets its own
+ * `animation-delay`, making the first step ambiguous.
+ *
+ * Restoring the stagger means picking the intended element list explicitly
+ * rather than by nth-child. */
+

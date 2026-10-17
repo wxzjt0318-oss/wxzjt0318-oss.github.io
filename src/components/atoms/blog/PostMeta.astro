@@ -6,6 +6,8 @@
  * body-medium 文字；链接 hover 变 primary。
  */
 import MetaIcon from "@components/atoms/display/MetaIcon.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
 
 export interface BlogMetaLink {
 	name: string;
@@ -41,8 +43,8 @@ const {
 	wordCount,
 	hideTags = false,
 	hideUpdate = false,
-	uncategorizedLabel = "未分类",
-	noTagsLabel = "无标签",
+	uncategorizedLabel = i18n(I18nKey.uncategorized),
+	noTagsLabel = i18n(I18nKey.noTags),
 } = Astro.props;
 ---
 

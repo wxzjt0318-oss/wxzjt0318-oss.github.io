@@ -137,7 +137,7 @@ pnpm's strict layout, so the source repository never sees them:
 
 - **Bare imports inside the package** — Vite resolves them from the *project*
   root and fails (`@astrojs/svelte/server.js`, all the `@swup/astro/*` entries).
-  `src/integration/fallback-resolver.ts` retries the failed ones with the
+  `src/integration/vite/fallback-resolver.ts` retries the failed ones with the
   package itself as importer. In `astro dev` the retry has to see through
   truthy stand-ins first: Vite's builtin dev resolver answers an unresolvable
   bare specifier from a virtual importer (like `astro:scripts/page.js`) with a
@@ -151,7 +151,7 @@ pnpm's strict layout, so the source repository never sees them:
   image service imports dynamically.
 - **CommonJS deps that get inlined into the SSR bundle** — `stylus` reads
   `__dirname` and then loads `lib/functions/index.styl` from disk.
-  `src/integration/ssr-node-shims.ts` gives every bundled CJS module its real
+  `src/integration/vite/ssr-node-shims.ts` gives every bundled CJS module its real
   `__dirname` / `__filename` back.
 - **Images next to content** — `import.meta.glob("../../**")` inside a component
   can never reach `<project>/shirones/…`. `src/utils/project-images.ts` adds a

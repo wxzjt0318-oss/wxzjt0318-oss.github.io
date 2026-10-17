@@ -6,7 +6,7 @@ import test, { after } from "node:test";
 import {
 	isGenuineResolution,
 	shironesFallbackResolver,
-} from "../src/integration/fallback-resolver.ts";
+} from "../src/integration/vite/fallback-resolver.ts";
 
 // A throwaway "theme package" whose own node_modules holds the dependency the
 // user's project cannot see (pnpm strict layout).

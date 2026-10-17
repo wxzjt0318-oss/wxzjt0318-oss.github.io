@@ -40,7 +40,7 @@ emitted chunk's location rather than the source file's.
 > **"Server" in a static site.** Shirone ships as SSG — every page is HTML on
 > disk and there is no server at runtime. But Astro still *renders* those pages
 > by executing components in Node at build time, and Vite calls that build the
-> SSR build (hence `src/integration/ssr-node-shims.ts`). So build-time Node
+> SSR build (hence `src/integration/vite/ssr-node-shims.ts`). So build-time Node
 > concerns — `__dirname`, `require`, filesystem reads — are real here even
 > though nothing runs on a server in production.
 

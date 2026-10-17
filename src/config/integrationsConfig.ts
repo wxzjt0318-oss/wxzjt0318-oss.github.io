@@ -115,7 +115,7 @@ export const swupOptions: NonNullable<Parameters<typeof swup>[0]> = {
  */
 export const swupForwardOptions = {
 	animateHistoryBrowsing: false,
-	skipPopStateHandling: (event: { state?: { url?: string } }) =>
+	skipPopStateHandling: (event: { state?: { url?: string } }): boolean =>
 		Boolean(event.state?.url?.includes("#")),
 };
 
@@ -132,9 +132,8 @@ export const iconInclude: NonNullable<
 > = {
 	"material-symbols": ["*"],
 	"simple-icons": ["*"],
-	"fa6-brands": ["*"],
-	"fa6-regular": ["*"],
-	"fa6-solid": ["*"],
+	"fa7-brands": ["*"],
+	"fa7-solid": ["*"],
 };
 
 /**
@@ -201,7 +200,7 @@ export function svelteCompilerOptions(isDev: boolean) {
 			`svelte-${hash(css)}`,
 		// Keep repeated Svelte compiler diagnostics out of the dev terminal;
 		// check/build still surface the full warning set in CI.
-		warningFilter: () => !isDev,
+		warningFilter: (): boolean => !isDev,
 	};
 }
 
@@ -238,6 +237,16 @@ export const viteBuildShared: NonNullable<
 			) {
 				return;
 			}
+			// Astro's MDX bridge injects this directive before Rolldown sees the
+			// module; the directive is consumed by Astro and is not meaningful in
+			// the final browser bundle. Remove this filter once the bridge stops
+			// forwarding `astro:head-inject` to the bundler.
+			if (
+				warning.code === "MODULE_LEVEL_DIRECTIVE" &&
+				warning.message.includes('"use astro:head-inject"')
+			) {
+				return;
+			}
 			defaultHandler(warning);
 		},
 	},
@@ -250,11 +259,16 @@ export const viteBuildShared: NonNullable<
  * 根解析这些 id，看不见主题自己的嵌套依赖，列一个解析不了的 id 会让每次冷启动
  * 都刷一条警告。
  */
-export const prebundleSpecifiers = [
+export const prebundleSpecifiers: string[] = [
 	"mermaid",
 	"@panzoom/panzoom",
 	"overlayscrollbars",
 	"@fancyapps/ui",
+	// share-poster.ts reaches for this one at runtime, on the first share
+	// dialog rather than during SSR. Without it here the dev server serves a
+	// stale pre-bundle id and the dynamic import rejects, so poster
+	// generation fails only in dev.
+	"qrcode",
 ];
 
 /**

@@ -7,15 +7,16 @@ import {
 	unlinkSync,
 	writeFileSync,
 } from "node:fs";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import { pathToFileURL } from "node:url";
+import type { ResolvedShironesPaths } from "../types.ts";
+import { normalisePath } from "./paths.ts";
 import {
 	createOverlayTargets,
 	type OverrideRegistryRef,
 	overrideKey,
 	resolveOverride,
 } from "./registry.ts";
-import type { ResolvedShironesPaths } from "./types.ts";
 
 /**
  * The integration needs values from user-authored TypeScript *before* Vite
@@ -118,10 +119,31 @@ function overlayEsbuildPlugin(
 			);
 
 			// Relative imports: resolve, then apply user overrides.
+			//
+			// A config module the user overrode keeps the theme's own relative
+			// imports. When the matching sibling exists in their project it wins;
+			// when it does not, the equivalent file inside the package is used, so
+			// overriding one config module does not require mirroring everything
+			// it imports. `vite/overlay.ts` has the same rule as "Case 3" for
+			// component files; without it here, `config/sitemapFilter.ts` — which
+			// imports twelve siblings and is documented as not needing to be
+			// scaffolded — fails to bundle as soon as a user overrides it alone.
 			// biome-ignore lint/suspicious/noExplicitAny: see above.
 			build.onResolve({ filter: /^\.{1,2}\// }, (args: any) => {
 				const file = probeFile(join(args.resolveDir, args.path));
-				return file ? { path: redirect(file) } : undefined;
+				if (file) return { path: redirect(file) };
+				// `resolveDir` is the importer's own directory, so for an entry
+				// override it equals `configDir` exactly rather than a subpath.
+				const dir = normalisePath(args.resolveDir);
+				const configRoot = normalisePath(paths.configDir);
+				const fromUserConfig =
+					dir === configRoot || dir.startsWith(`${configRoot}/`);
+				if (!fromUserConfig) return undefined;
+				const relativeToConfig = relative(paths.configDir, args.resolveDir);
+				const sibling = probeFile(
+					join(paths.packageSrc, "config", relativeToConfig, args.path),
+				);
+				return sibling ? { path: redirect(sibling) } : undefined;
 			});
 
 			// `astro` and its virtual modules must never be bundled: they are
@@ -166,7 +188,7 @@ function outputDir(paths: ResolvedShironesPaths): string {
 export async function loadModuleFile(
 	paths: ResolvedShironesPaths,
 	entry: string,
-	cacheKey = entry,
+	cacheKey: string = entry,
 	registryRef?: OverrideRegistryRef,
 ): Promise<LoadedModule> {
 	const cached = cache.get(cacheKey);

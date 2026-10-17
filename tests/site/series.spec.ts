@@ -100,6 +100,61 @@ test.describe("文章内系列块", () => {
 			);
 		}
 	});
+
+	test("bottom 位置紧贴正文：先于版权、分享与 Continue reading", async ({
+		page,
+	}) => {
+		await openSitePage(page, POST);
+
+		// 阅读顺序契约：cardPosition 默认 bottom = 正文之后、收尾区块（版权/分享/相关推荐）之前。
+		// 不锁具体像素位置，只锁 DOM 顺序——系列导航属于「继续读」，不应被署名/分发/推荐挤到页面末尾。
+		const closers: [string, string][] = [
+			["license", ".m3-license-card"],
+			["share", "[data-article-share]"],
+			["discovery", "[data-article-discovery]"],
+		];
+		const readingOrder = await page.evaluate((pairs) => {
+			const card = document.querySelector("[data-series-card]");
+			const content = document.querySelector(".markdown-content");
+			const follows = (anchor: Element, node: Element) =>
+				Boolean(
+					anchor.compareDocumentPosition(node) &
+						Node.DOCUMENT_POSITION_FOLLOWING,
+				);
+
+			let closersBeforeCard: string[] = [];
+			if (card) {
+				closersBeforeCard = pairs
+					.map(([name, selector]) => {
+						const node = document.querySelector(selector);
+						return node && !follows(card, node) ? name : null;
+					})
+					.filter((entry): entry is string => entry !== null);
+			}
+
+			return {
+				// 存在性：demo 文章必须同时有正文、系列块与三个收尾区块，
+				// 否则顺序断言会退化成空断言（缺哪个在 missingClosers 里点名）
+				hasContent: Boolean(content),
+				hasCard: Boolean(card),
+				missingClosers: pairs
+					.filter(([, selector]) => !document.querySelector(selector))
+					.map(([name]) => name),
+				// 顺序：系列块在正文之后、每个收尾区块之前
+				cardAfterContent: Boolean(content && card && follows(content, card)),
+				closersBeforeCard,
+			};
+		}, closers);
+
+		// 存在性断言放在顺序断言之前：收尾区块没渲染时先在这里失败并点名，
+		// 不会被误读成「顺序错了」
+		expect(readingOrder.hasContent).toBe(true);
+		expect(readingOrder.hasCard).toBe(true);
+		expect(readingOrder.missingClosers).toEqual([]);
+
+		expect(readingOrder.cardAfterContent).toBe(true);
+		expect(readingOrder.closersBeforeCard).toEqual([]);
+	});
 });
 
 test("系列详情页按 seriesOrder 排序并标注篇号", async ({ page }) => {

@@ -32,7 +32,11 @@ test.describe("MDX Support and M3E Integration", () => {
 		await page.waitForTimeout(600);
 
 		// 验证标题与元数据
-		const title = page.locator("#post-container [data-pagefind-meta='title']");
+		// `#post-container` no longer exists; the article body is wrapped in
+		// `#content-wrapper`.
+		const title = page.locator(
+			"#content-wrapper [data-pagefind-meta='title']",
+		);
 		await expect(title).toContainText(
 			"MDX Integration and M3E Atomic Components",
 		);
@@ -70,7 +74,7 @@ test.describe("MDX Support and M3E Integration", () => {
 		await expect(textFields.first()).toBeVisible();
 
 		const switchInput = page
-			.locator("#post-container .m3-switch__input")
+			.locator("#swup-container .m3-switch__input")
 			.first();
 		await switchInput.scrollIntoViewIfNeeded();
 		await page.waitForTimeout(300);
@@ -106,7 +110,8 @@ test.describe("MDX Support and M3E Integration", () => {
 	test("Swup client-side navigation smoothly loads MDX post and hydrates islands", async ({
 		page,
 	}) => {
-		await page.goto("/", { waitUntil: "networkidle" });
+		// 该文章已不在首页列表里；/archive/ 是唯一稳定列出它的入口。
+		await page.goto("/archive/", { waitUntil: "networkidle" });
 		await page.waitForTimeout(500);
 
 		// 点击跳转到 MDX 演示文章
@@ -120,7 +125,7 @@ test.describe("MDX Support and M3E Integration", () => {
 
 		// 验证文章正文与水合状态
 		const switchInput = page
-			.locator("#post-container .m3-switch__input")
+			.locator("#swup-container .m3-switch__input")
 			.first();
 		await switchInput.scrollIntoViewIfNeeded();
 		await page.waitForTimeout(400);

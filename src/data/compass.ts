@@ -46,7 +46,7 @@ export const compassData: CompassShelf[] = [
 				label: "GitHub",
 				href: "https://github.com",
 				note: "Code hosting & collaboration",
-				icon: "fa6-brands:github",
+				icon: "fa7-brands:github",
 			},
 			{
 				label: "MDN",

@@ -29,6 +29,7 @@ const pages = [
 	{ name: "关于", path: "/about/" },
 	{ name: "文章页", path: "/posts/guide/" },
 	{ name: "MDX文章页", path: "/posts/mdx-showcase/" },
+	{ name: "系列文章页", path: "/posts/markdown-extended/" },
 	{ name: "分类索引", path: "/categories/" },
 	{ name: "标签索引", path: "/tags/" },
 	{ name: "系列索引", path: "/series/" },

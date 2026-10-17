@@ -1,14 +1,14 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import type { Plugin } from "vite";
-import { normalisePath } from "./paths.ts";
+import { normalisePath } from "../resolve/paths.ts";
 import {
 	createOverlayTargets,
 	type OverrideRegistryRef,
 	overrideKey,
 	probe,
-} from "./registry.ts";
-import type { ResolvedShironesPaths } from "./types.ts";
+} from "../resolve/registry.ts";
+import type { ResolvedShironesPaths } from "../types.ts";
 
 export interface OverlayPluginOptions {
 	paths: ResolvedShironesPaths;

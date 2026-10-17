@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { shironesSsrNodeShims } from "../src/integration/ssr-node-shims.ts";
+import { shironesSsrNodeShims } from "../src/integration/vite/ssr-node-shims.ts";
 
 // The plugin exists because package mode inlines CommonJS dependencies into
 // ESM prerender chunks, where `__dirname` / `__filename` / `require` do not

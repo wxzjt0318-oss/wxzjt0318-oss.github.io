@@ -26,7 +26,21 @@ test.describe("archive filter breadcrumb", () => {
 		await expect(
 			page.getByRole("navigation", { name: "Breadcrumb" }),
 		).toBeVisible();
-		await expect(page.locator(".m3-blog-archive__item")).toHaveCount(9);
+		// Asserted by title rather than by a literal count. The Examples category
+		// gains posts as the theme documents features — `image-grid-demo` arrived
+		// at a nested path, which is where a hard-coded number drifts from.
+		await expect(
+			page.locator(".m3-blog-archive__title-text"),
+		).toHaveText([
+			"Password Protection and Post Encryption Demo",
+			"Audio Reader: Japanese Anime Mystery Voices",
+			"Image Gallery Grid: Syntax and Complete Examples",
+			"Mermaid Diagram Gallery",
+			"Expressive Code Example",
+			"Markdown Example",
+			"Include Video in the Posts",
+			"Draft Example",
+		]);
 	});
 
 	test("keeps mobile insets and long values inside the archive card", async ({
