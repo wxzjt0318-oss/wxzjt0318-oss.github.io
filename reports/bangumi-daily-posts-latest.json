@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-16T12:58:30.223Z",
+  "generatedAt": "2026-10-17T11:56:51.025Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 547888,
+    "subject_id": 328313,
     "type": 2,
-    "ep_status": 11,
-    "updated_at": "2026-04-08",
+    "ep_status": 0,
+    "updated_at": "2021-10-06",
     "subject": {
-      "id": 547888,
-      "name": "Re：从零开始的异世界生活 第四季 丧失篇",
-      "name_cn": "Re：从零开始的异世界生活 第四季 丧失篇",
-      "date": "2026-04-08",
-      "eps": 11,
-      "short_summary": "在水门都市朴利斯提拉的死战中，昴等人虽然勉强取得胜利，但付出的代价，却过于沉重。因「暴食」权能而陷入沉睡的雷姆，被夺走记忆的库珥修，以及，被夺去名字的由里乌斯。 为了寻找拯救他们的线索，昴得知了一位据说能看透一切、拥有无尽知识的存在——「贤者」夏乌拉。 下一个目的地，是贤者所居住的「普莱迪斯监视塔」。那是一座矗立于大砂漠「奥吉拉沙丘」最深处的最果之塔，就连最强的「剑圣」莱因哈鲁特，也未曾成功攻略。 狂暴的自然—— 未知的魔兽—— 以及，超越想象的威胁接连袭来。 为了夺回一切—— 少年与伙伴们，赌上性命的旅程，就此展开。 [简介原文] 水門都市プリステラの死闘で辛くも勝利を収めたスバルたちだったが、その代償はあまりに大きかった。“暴食“の権能によって眠り続けるレム、記憶を奪われたクルシュ、そして名前を奪われてしまったユリウス。 彼らを救う手がかりを求める中、スバルは全てを見通し、あらゆる知識を持つと言われる『賢者』シャウラの存在を知る。 次の目的地は賢者の住まう「プレアデス監視塔」──そこは、最強の『剣聖』ラインハルトですら攻略できなかった大砂漠「アウグリア砂丘」にそびえ立つ最果ての塔。…",
+      "id": 328313,
+      "name": "世界顶尖的暗杀者转生为异世界贵族",
+      "name_cn": "世界顶尖的暗杀者转生为异世界贵族",
+      "date": "2021-10-06",
+      "eps": 12,
+      "short_summary": "世界第一的暗杀者投胎成暗杀世家的长男重生了。作为能够转生到异世界的条件，他接下了女神给下达的唯一一项任务。 那就是“杀了被预言会带给人类灾厄的‘勇者’”。 这是曾经世界上最强暗杀者在新的人生中必须要完成的使命。在现代曾让万般暗杀方式变得可行的广泛知识及经验，还有暗杀者家族被誉为异世界最强的秘术与魔法。一切都相辅相成，使他逐步成为史上无人能及的暗杀者—— “有意思，真没想到转生后还要继续从事暗杀工作啊” 得以转生的“传说中的暗杀者”向更高境界进发！突破极限的冒险幻想谭，现在开幕！！",
       "tags": [
         {
           "name": "异世界"
         },
         {
-          "name": "奇幻"
+          "name": "龙傲天"
         },
         {
-          "name": "2026年4月"
+          "name": "2021年10月"
+        },
+        {
+          "name": "轻小说改"
+        },
+        {
+          "name": "后宫"
         },
         {
           "name": "战斗"
-        },
-        {
-          "name": "WHITEFOX"
-        },
-        {
-          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/8e/70/547888_46dnk.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/49/32/328313_oQlyW.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第四季 丧失篇",
+      "title": "世界顶尖的暗杀者转生为异世界贵族",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/8e/70/547888_46dnk.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第四季 丧失篇",
+      "title": "世界顶尖的暗杀者转生为异世界贵族",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/8e/70/547888_46dnk.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/49/32/328313_oQlyW.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "Re：从零开始的异世界生活 第四季 丧失篇",
+      "title": "世界顶尖的暗杀者转生为异世界贵族",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-547888.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-328313.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
