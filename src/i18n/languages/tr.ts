@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const tr: Translation = {
+	[Key.live2dInteract]: "Tanıtımı oynat",
+	[Key.live2dHide]: "Karakteri gizle",
+	[Key.live2dShow]: "Karakteri göster",
+	[Key.live2dUnavailable]: "Karakter kullanılamıyor",
+	[Key.live2dDrag]: "Karakteri taşı",
+
 	[Key.home]: "Anasayfa",
 	[Key.about]: "Hakkında",
 	[Key.archive]: "Arşiv",

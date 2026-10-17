@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const zh_CN: Translation = {
+	[Key.live2dInteract]: "播放自我介绍",
+	[Key.live2dHide]: "隐藏看板娘",
+	[Key.live2dShow]: "显示看板娘",
+	[Key.live2dUnavailable]: "看板娘暂不可用",
+	[Key.live2dDrag]: "拖动看板娘",
+
 	[Key.home]: "主页",
 	[Key.about]: "关于",
 	[Key.archive]: "归档",

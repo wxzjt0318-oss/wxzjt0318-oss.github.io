@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const th: Translation = {
+	[Key.live2dInteract]: "เล่นเสียงแนะนำตัว",
+	[Key.live2dHide]: "ซ่อนตัวละคร",
+	[Key.live2dShow]: "แสดงตัวละคร",
+	[Key.live2dUnavailable]: "ตัวละครไม่พร้อมใช้งาน",
+	[Key.live2dDrag]: "ลากตัวละคร",
+
 	[Key.home]: "หน้าแรก",
 	[Key.about]: "เกี่ยวกับ",
 	[Key.archive]: "คลัง",

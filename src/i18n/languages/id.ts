@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const id: Translation = {
+	[Key.live2dInteract]: "Putar perkenalan",
+	[Key.live2dHide]: "Sembunyikan karakter",
+	[Key.live2dShow]: "Tampilkan karakter",
+	[Key.live2dUnavailable]: "Karakter tidak tersedia",
+	[Key.live2dDrag]: "Geser karakter",
+
 	[Key.home]: "Beranda",
 	[Key.about]: "Tentang",
 	[Key.archive]: "Arsip",

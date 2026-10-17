@@ -157,7 +157,7 @@ const hasMonoFont =
 		{umamiOptions?.websiteId && umamiOptions.scriptUrl && (
 			<script is:inline async src={umamiOptions.scriptUrl} data-website-id={umamiOptions.websiteId} data-auto-track="true"></script>
 		)}
-		{pioConfig.enable && <link rel="stylesheet" href={url("/pio/static/pio.css")} />}
+		{pioConfig.enable && <link rel="stylesheet" href={url(pioConfig.models?.[0]?.split("?")[0].endsWith(".bin") ? "/pio/seria/widget.css" : "/pio/static/pio.css")} />}
 				{favicons.map(favicon => (
 			<link rel="icon"
 				href={favicon.src.startsWith('/') ? url(favicon.src) : favicon.src}

@@ -7,10 +7,10 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  */
 export const pioConfig: PioConfig = withUserConfig("pio", {
 	enable: true,
-	models: ["/pio/models/kato/katou_01.model.json"],
+	models: ["/pio/seria/seria-4ea5cdb2d840f6c7.bin"],
 	position: "left",
 	width: 280,
-	height: 250,
+	height: 420,
 	mode: "draggable",
 	hiddenOnMobile: true,
 	dialog: {

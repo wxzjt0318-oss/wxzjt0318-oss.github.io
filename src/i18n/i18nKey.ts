@@ -1,4 +1,10 @@
 enum I18nKey {
+	live2dInteract = "live2dInteract",
+	live2dHide = "live2dHide",
+	live2dShow = "live2dShow",
+	live2dUnavailable = "live2dUnavailable",
+	live2dDrag = "live2dDrag",
+
 	home = "home",
 	notFound = "notFound",
 	notFoundTitle = "notFoundTitle",

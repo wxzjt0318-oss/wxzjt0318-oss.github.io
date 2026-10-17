@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const es: Translation = {
+	[Key.live2dInteract]: "Reproducir presentación",
+	[Key.live2dHide]: "Ocultar personaje",
+	[Key.live2dShow]: "Mostrar personaje",
+	[Key.live2dUnavailable]: "Personaje no disponible",
+	[Key.live2dDrag]: "Mover personaje",
+
 	[Key.home]: "Inicio",
 	[Key.about]: "Sobre mí",
 	[Key.archive]: "Archivo",

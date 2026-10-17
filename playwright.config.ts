@@ -1,5 +1,9 @@
 import { defineConfig } from "@playwright/test";
 
+// Production preview also exercises decrypted graphics in the actual static build.
+// This avoids Windows dev-watcher limits without changing individual spec servers.
+const sitePreview = process.env.PLAYWRIGHT_SITE_PREVIEW === "true";
+
 /**
  * 组件质量专项 — Playwright 配置
  * 说明：测试针对 Astro 开发服务器上的 atoms-*-test 页面（组件库验证页）。
@@ -23,8 +27,9 @@ export default defineConfig({
 		trace: "retain-on-failure",
 	},
 	webServer: {
-		command:
-			process.platform === "win32"
+		command: sitePreview
+			? `${process.platform === "win32" ? "pnpm.cmd" : "pnpm"} preview --port 4321 --host`
+			: process.platform === "win32"
 				? "pnpm.cmd astro dev --port 4321 --host"
 				: "pnpm astro dev --port 4321 --host",
 		url: "http://localhost:4321",

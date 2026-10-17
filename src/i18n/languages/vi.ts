@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const vi: Translation = {
+	[Key.live2dInteract]: "Phát lời giới thiệu",
+	[Key.live2dHide]: "Ẩn nhân vật",
+	[Key.live2dShow]: "Hiện nhân vật",
+	[Key.live2dUnavailable]: "Nhân vật chưa khả dụng",
+	[Key.live2dDrag]: "Di chuyển nhân vật",
+
 	[Key.home]: "Trang chủ",
 	[Key.about]: "Giới thiệu",
 	[Key.archive]: "Kho bài",

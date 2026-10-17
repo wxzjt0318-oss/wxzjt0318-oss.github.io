@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const ja: Translation = {
+	[Key.live2dInteract]: "自己紹介を再生",
+	[Key.live2dHide]: "キャラクターを隠す",
+	[Key.live2dShow]: "キャラクターを表示",
+	[Key.live2dUnavailable]: "キャラクターを利用できません",
+	[Key.live2dDrag]: "キャラクターを移動",
+
 	[Key.home]: "Home",
 	[Key.about]: "About",
 	[Key.archive]: "Archive",

@@ -249,6 +249,7 @@ export class SakuraManager {
 			`position: fixed; left: 0; top: 0; pointer-events: none; z-index: ${this.config.zIndex}; transform: translateZ(0); will-change: transform;`,
 		);
 		this.canvas.setAttribute("id", "canvas_sakura");
+		this.canvas.setAttribute("aria-hidden", "true");
 		document.body.appendChild(this.canvas);
 		this.ctx = this.canvas.getContext("2d");
 

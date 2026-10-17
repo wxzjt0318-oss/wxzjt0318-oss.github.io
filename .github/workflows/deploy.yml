@@ -74,6 +74,8 @@ jobs:
           fi
 
       - name: Build site
+        env:
+          PUBLIC_SERIA_ASSET_KEY: ${{ secrets.PUBLIC_SERIA_ASSET_KEY }}
         run: pnpm build
 
       - name: Setup Pages

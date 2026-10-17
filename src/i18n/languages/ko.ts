@@ -2,6 +2,12 @@ import Key from "../i18nKey-runtime.mjs";
 import type { Translation } from "../translation.ts";
 
 export const ko: Translation = {
+	[Key.live2dInteract]: "자기소개 재생",
+	[Key.live2dHide]: "캐릭터 숨기기",
+	[Key.live2dShow]: "캐릭터 표시",
+	[Key.live2dUnavailable]: "캐릭터를 사용할 수 없습니다",
+	[Key.live2dDrag]: "캐릭터 이동",
+
 	[Key.home]: "홈",
 	[Key.about]: "소개",
 	[Key.archive]: "아카이브",
