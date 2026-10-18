@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-17T11:56:51.025Z",
+  "generatedAt": "2026-10-18T12:24:39.905Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 328313,
+    "subject_id": 510256,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2021-10-06",
+    "ep_status": 12,
+    "updated_at": "2025-07-06",
     "subject": {
-      "id": 328313,
-      "name": "世界顶尖的暗杀者转生为异世界贵族",
-      "name_cn": "世界顶尖的暗杀者转生为异世界贵族",
-      "date": "2021-10-06",
+      "id": 510256,
+      "name": "与游戏中心的少女异文化交流的故事",
+      "name_cn": "与游戏中心的少女异文化交流的故事",
+      "date": "2025-07-06",
       "eps": 12,
-      "short_summary": "世界第一的暗杀者投胎成暗杀世家的长男重生了。作为能够转生到异世界的条件，他接下了女神给下达的唯一一项任务。 那就是“杀了被预言会带给人类灾厄的‘勇者’”。 这是曾经世界上最强暗杀者在新的人生中必须要完成的使命。在现代曾让万般暗杀方式变得可行的广泛知识及经验，还有暗杀者家族被誉为异世界最强的秘术与魔法。一切都相辅相成，使他逐步成为史上无人能及的暗杀者—— “有意思，真没想到转生后还要继续从事暗杀工作啊” 得以转生的“传说中的暗杀者”向更高境界进发！突破极限的冒险幻想谭，现在开幕！！",
+      "short_summary": "ゲームセンターでアルバイト中の青年・草壁蓮司が目にしたのは、 バレンタインデーにひとりクレーンゲームに熱中する英国少女・リリー。 何度挑戦しても景品を手にできず涙目の彼女に、思わず蓮司は手を貸す。 無事にぬいぐるみを手にしたリリーから後日渡されたのは、思わぬメッセージカード─── “Be My Valentine!”（私の恋人になって！） キュートで天真爛漫な英国少女との出会い。勘違いから始まる、ゲーセンでの異文化交流！",
       "tags": [
         {
-          "name": "异世界"
+          "name": "恋爱"
         },
         {
-          "name": "龙傲天"
+          "name": "2025年7月"
         },
         {
-          "name": "2021年10月"
+          "name": "漫画改"
         },
         {
-          "name": "轻小说改"
+          "name": "萝莉"
         },
         {
-          "name": "后宫"
+          "name": "日常"
         },
         {
-          "name": "战斗"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/55/d5/510256_09w10.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/55/d5/510256_09w10.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/55/d5/510256_09w10.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/49/32/328313_oQlyW.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/55/d5/510256_09w10.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "世界顶尖的暗杀者转生为异世界贵族",
+      "title": "与游戏中心的少女异文化交流的故事",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/49/32/328313_oQlyW.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/55/d5/510256_09w10.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "世界顶尖的暗杀者转生为异世界贵族",
+      "title": "与游戏中心的少女异文化交流的故事",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/49/32/328313_oQlyW.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/55/d5/510256_09w10.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "世界顶尖的暗杀者转生为异世界贵族",
+      "title": "与游戏中心的少女异文化交流的故事",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-328313.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-510256.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
