@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-04-10
 published: 2026-04-10
 pinned: false
-alias: "bangumi-590393"
+alias: "gals-cant-be-kind-to-otaku"
 image: "https://lain.bgm.tv/pic/cover/l/50/b9/590393_4so3z.jpg"
 ---
 

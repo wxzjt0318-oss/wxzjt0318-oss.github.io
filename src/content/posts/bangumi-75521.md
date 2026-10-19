@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-28
 published: 2026-07-28
 pinned: false
-alias: "bangumi-75521"
+alias: "chunibyo-rikka-version-movie"
 image: "https://lain.bgm.tv/pic/cover/l/fc/76/75521_e7hEp.jpg"
 ---
 

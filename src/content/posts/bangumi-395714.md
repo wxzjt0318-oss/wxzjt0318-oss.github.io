@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-22
 published: 2026-06-22
 pinned: false
-alias: "bangumi-395714"
+alias: "the-magical-revolution-of-the-reincarnated-princess"
 image: "https://lain.bgm.tv/pic/cover/l/fd/3c/395714_5EeZx.jpg"
 ---
 

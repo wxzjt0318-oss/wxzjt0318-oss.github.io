@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-06
 published: 2026-07-06
 pinned: false
-alias: "bangumi-602733"
+alias: "caring-for-the-elite-academys-top-lady"
 image: "https://lain.bgm.tv/pic/cover/l/bd/74/602733_X0NNo.jpg"
 ---
 

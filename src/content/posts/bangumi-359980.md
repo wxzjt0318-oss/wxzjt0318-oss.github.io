@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-28
 published: 2026-06-28
 pinned: false
-alias: "bangumi-359980"
+alias: "trapped-in-a-dating-sim"
 image: "https://lain.bgm.tv/pic/cover/l/38/2b/359980_JRjE0.jpg"
 ---
 

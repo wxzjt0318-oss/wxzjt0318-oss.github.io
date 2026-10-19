@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-08
 published: 2026-09-08
 pinned: false
-alias: "bangumi-219200"
+alias: "teasing-master-takagi-san"
 image: "https://lain.bgm.tv/pic/cover/l/09/16/219200_wFT9i.jpg"
 ---
 

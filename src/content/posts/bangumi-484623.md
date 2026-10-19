@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-23
 published: 2026-09-23
 pinned: false
-alias: "bangumi-484623"
+alias: "call-of-the-night-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/15/5f/484623_6EWej.jpg"
 ---
 

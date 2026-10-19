@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-24
 published: 2026-07-24
 pinned: false
-alias: "bangumi-587109"
+alias: "kaori-wants-to-fight-even-after-reincarnation"
 image: "https://lain.bgm.tv/pic/cover/l/59/84/587109_q1iCs.jpg"
 ---
 

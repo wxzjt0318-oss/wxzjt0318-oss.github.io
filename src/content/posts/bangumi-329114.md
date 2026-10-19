@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-21
 published: 2026-08-21
 pinned: false
-alias: "bangumi-329114"
+alias: "the-eminence-in-shadow"
 image: "https://lain.bgm.tv/pic/cover/l/39/96/329114_mB55b.jpg"
 ---
 

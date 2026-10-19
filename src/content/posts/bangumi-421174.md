@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-20
 published: 2026-08-20
 pinned: false
-alias: "bangumi-421174"
+alias: "that-time-i-got-reincarnated-as-a-slime-coleus-dream"
 image: "https://lain.bgm.tv/pic/cover/l/fc/78/421174_nlx3z.jpg"
 ---
 

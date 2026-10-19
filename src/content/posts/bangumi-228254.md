@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-26
 published: 2026-08-26
 pinned: false
-alias: "bangumi-228254"
+alias: "date-a-live-season-3"
 image: "https://lain.bgm.tv/pic/cover/l/73/8c/228254_X7Y56.jpg"
 ---
 

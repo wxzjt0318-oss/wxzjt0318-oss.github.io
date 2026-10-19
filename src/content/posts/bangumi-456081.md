@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-08
 published: 2026-07-08
 pinned: false
-alias: "bangumi-456081"
+alias: "the-weakest-prince-schemes-for-the-throne"
 image: "https://lain.bgm.tv/pic/cover/l/a7/a6/456081_Bs2nE.jpg"
 ---
 

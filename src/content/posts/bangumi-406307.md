@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-18
 published: 2026-06-18
 pinned: false
-alias: "bangumi-406307"
+alias: "the-most-heretical-last-boss-queen"
 image: "https://lain.bgm.tv/pic/cover/l/3a/2b/406307_XOXhn.jpg"
 ---
 

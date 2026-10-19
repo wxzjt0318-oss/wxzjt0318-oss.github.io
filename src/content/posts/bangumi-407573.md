@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-29
 published: 2026-09-29
 pinned: false
-alias: "bangumi-407573"
+alias: "that-time-i-got-reincarnated-as-a-slime-season-3"
 image: "https://lain.bgm.tv/pic/cover/l/f0/f4/407573_993Vy.jpg"
 ---
 

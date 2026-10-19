@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-16
 published: 2026-09-16
 pinned: false
-alias: "bangumi-294059"
+alias: "we-never-learn-ova"
 image: "https://lain.bgm.tv/pic/cover/l/df/d3/294059_Teorx.jpg"
 ---
 

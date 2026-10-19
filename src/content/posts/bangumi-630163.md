@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-03
 published: 2026-07-03
 pinned: false
-alias: "bangumi-630163"
+alias: "the-failed-sage-dominates-the-academy"
 image: "https://lain.bgm.tv/pic/cover/l/fd/f7/630163_y1Ql1.jpg"
 ---
 

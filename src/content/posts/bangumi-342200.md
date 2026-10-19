@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-29
 published: 2026-09-29
 pinned: false
-alias: "bangumi-342200"
+alias: "parallel-world-pharmacy"
 image: "https://lain.bgm.tv/pic/cover/l/05/43/342200_2hdHa.jpg"
 ---
 

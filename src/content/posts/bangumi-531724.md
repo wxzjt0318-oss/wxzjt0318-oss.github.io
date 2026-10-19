@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-05-31
 published: 2026-05-31
 pinned: false
-alias: "bangumi-531724"
+alias: "noble-reincarnation"
 image: "https://lain.bgm.tv/pic/cover/l/08/c8/531724_U8Ti8.jpg"
 ---
 

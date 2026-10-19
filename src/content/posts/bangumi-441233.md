@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-17
 published: 2026-08-17
 pinned: false
-alias: "bangumi-441233"
+alias: "tonikawa-high-school-days"
 image: "https://lain.bgm.tv/pic/cover/l/5a/24/441233_nJ7Do.jpg"
 ---
 

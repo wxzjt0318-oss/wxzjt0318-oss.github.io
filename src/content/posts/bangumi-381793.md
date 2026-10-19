@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-24
 published: 2026-08-24
 pinned: false
-alias: "bangumi-381793"
+alias: "kubo-wont-let-me-be-invisible"
 image: "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg"
 ---
 

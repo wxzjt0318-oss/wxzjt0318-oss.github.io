@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-21
 published: 2026-09-21
 pinned: false
-alias: "bangumi-172498"
+alias: "eromanga-sensei"
 image: "https://lain.bgm.tv/pic/cover/l/87/bf/172498_wfm40.jpg"
 ---
 

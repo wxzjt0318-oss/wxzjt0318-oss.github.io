@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-02
 published: 2026-10-02
 pinned: false
-alias: "bangumi-378101"
+alias: "in-another-world-with-my-smartphone-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/98/25/378101_XGh49.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-04-09
 published: 2026-04-09
 pinned: false
-alias: "bangumi-501963"
+alias: "mushoku-tensei-season-3"
 image: "https://lain.bgm.tv/pic/cover/l/1f/9e/501963_h8jWc.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-09
 published: 2026-08-09
 pinned: false
-alias: "bangumi-565416"
+alias: "the-demon-kings-daughter-is-too-kind"
 image: "https://lain.bgm.tv/pic/cover/l/b4/0f/565416_a994t.jpg"
 ---
 

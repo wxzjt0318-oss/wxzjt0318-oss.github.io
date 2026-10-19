@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-11
 published: 2026-08-11
 pinned: false
-alias: "bangumi-303864"
+alias: "how-not-to-summon-a-demon-lord-omega"
 image: "https://lain.bgm.tv/pic/cover/l/2e/9b/303864_md2TS.jpg"
 ---
 

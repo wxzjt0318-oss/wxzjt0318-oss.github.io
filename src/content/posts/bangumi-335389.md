@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-28
 published: 2026-08-28
 pinned: false
-alias: "bangumi-335389"
+alias: "overlord-season-4"
 image: "https://lain.bgm.tv/pic/cover/l/69/c7/335389_Z8WRS.jpg"
 ---
 

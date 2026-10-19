@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-08
 published: 2026-06-08
 pinned: false
-alias: "bangumi-208450"
+alias: "aho-girl"
 image: "https://lain.bgm.tv/pic/cover/l/bf/83/208450_0l5MJ.jpg"
 ---
 

@@ -25,7 +25,7 @@ import {
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
-import { findDuplicatePost, postIdentities } from "./wiki/duplicate-guard.mjs";
+import { findDuplicatePost, postIdentities, seasonKey } from "./wiki/duplicate-guard.mjs";
 import { buildTaxonomy } from "./wiki/taxonomy.mjs";
 import { applyGlossary } from "./wiki/zh-glossary.mjs";
 import {
@@ -310,6 +310,46 @@ async function enrichCharacters(characters, { workTitles, fetchDetail, fetchBio 
 	return result;
 }
 
+const SEASON_SUFFIX = { s2: "season-2", s3: "season-3", s4: "season-4", s5: "season-5", ova: "ova", movie: "movie", part: "part-2" };
+
+function slugifyEnglish(name) {
+	return String(name || "")
+		.normalize("NFKD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.replace(/['’]/g, "")
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/^-+|-+$/g, "")
+		.slice(0, 80)
+		.replace(/-+$/g, "");
+}
+
+/** Bangumi infobox「别名」里的全部值 */
+function infoboxAliases(detail) {
+	const item = (Array.isArray(detail?.infobox) ? detail.infobox : []).find((e) => e?.key === "别名");
+	const values = Array.isArray(item?.value) ? item.value : [item?.value];
+	return values.map((v) => (typeof v === "string" ? v : v?.v || "")).filter(Boolean);
+}
+
+/**
+ * 文章英文链接：百科导言里的英文名 → Bangumi 别名里的英文名，再按季度 / OVA / 剧场版加后缀。
+ * 都没有时返回空字符串，由调用方回退到 bangumi-<条目ID>。
+ */
+export function englishAlias({ detail, encyclopedia, titleCn }) {
+	const english =
+		encyclopedia?.englishTitle ||
+		infoboxAliases(detail).find((v) => /^[A-Za-z0-9][A-Za-z0-9 :;'’!?.,&\-–]+$/.test(v) && /\s/.test(v)) ||
+		"";
+	const base = slugifyEnglish(english);
+	if (base.length < 3) return "";
+	const suffix = seasonKey(titleCn || "", [detail?.platform].filter(Boolean))
+		.split("+")
+		.map((k) => SEASON_SUFFIX[k])
+		.filter((k) => k && !base.includes(k))
+		.join("-");
+	return suffix ? `${base}-${suffix}` : base;
+}
+
 /** 百科来源 → 文章许可证：引用萌娘百科须遵循 NC-SA，仅引用维基百科须遵循 SA */
 function resolveLicense(sources) {
 	if (sources.some((s) => s.key === "moegirl")) return "CC BY-NC-SA 3.0";
@@ -320,7 +360,7 @@ function resolveLicense(sources) {
 function buildArticlePayload(candidate, detail, imageSelection, options) {
 	const { titleCn, titleJp, encyclopedia } = options;
 	const articleTitle = `《${titleCn}》`;
-	const alias = slugifyTitle(titleJp || titleCn, `bangumi-${candidate.subject_id}`);
+	const alias = englishAlias({ detail, encyclopedia, titleCn }) || `bangumi-${candidate.subject_id}`;
 	const bangumiSummary = cleanChineseProse(
 		detail?.summary || candidate?.subject?.short_summary || "",
 	);
@@ -615,7 +655,7 @@ async function main() {
 	const fallbackAlias = `bangumi-${candidate.subject_id}`;
 	const existingAliases = new Set(existingPosts.map((post) => post.alias).filter(Boolean));
 	let safeAlias = sanitizeFileName(payload.alias, fallbackAlias);
-	if (safeAlias !== fallbackAlias && (existingAliases.has(safeAlias) || existsSync(path.join(POSTS_DIR, `${safeAlias}.md`)))) {
+	if (safeAlias !== fallbackAlias && existingAliases.has(safeAlias)) {
 		console.warn(`⚠ Alias "${safeAlias}" is already taken, falling back to "${fallbackAlias}".`);
 		safeAlias = fallbackAlias;
 	}
@@ -660,7 +700,8 @@ async function main() {
 		console.log("✅ No content duplication detected.");
 	}
 
-	let outputFileName = `${safeAlias}.md`;
+	// 文件名固定为 bangumi-<条目ID>.md（各维护脚本依赖这个命名），链接用英文 alias
+	let outputFileName = `bangumi-${candidate.subject_id}.md`;
 	let outputPath = path.join(POSTS_DIR, outputFileName);
 
 	const relativeOutputPath = path.relative(ROOT_DIR, outputPath).split(path.sep).join("/");

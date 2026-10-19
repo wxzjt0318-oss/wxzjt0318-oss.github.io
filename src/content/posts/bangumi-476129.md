@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-29
 published: 2026-07-29
 pinned: false
-alias: "bangumi-476129"
+alias: "loner-life-in-another-world"
 image: "https://lain.bgm.tv/pic/cover/l/d2/66/476129_q83DE.jpg"
 ---
 

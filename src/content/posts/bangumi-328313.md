@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-17
 published: 2026-10-17
 pinned: false
-alias: "bangumi-328313"
+alias: "the-worlds-finest-assassin-gets-reincarnated"
 image: "https://lain.bgm.tv/pic/cover/l/49/32/328313_oQlyW.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-11
 published: 2026-07-11
 pinned: false
-alias: "bangumi-347888"
+alias: "teasing-master-takagi-san-movie"
 image: "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg"
 ---
 

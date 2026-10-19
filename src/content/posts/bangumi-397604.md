@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-11
 published: 2026-10-11
 pinned: false
-alias: "bangumi-397604"
+alias: "atri-my-dear-moments"
 image: "https://lain.bgm.tv/pic/cover/l/66/6d/397604_TgJ63.jpg"
 ---
 

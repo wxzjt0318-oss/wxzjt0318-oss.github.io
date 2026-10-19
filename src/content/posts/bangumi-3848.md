@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-27
 published: 2026-09-27
 pinned: false
-alias: "bangumi-3848"
+alias: "hanamaru-kindergarten"
 image: "https://lain.bgm.tv/pic/cover/l/42/c8/3848_Z5Lnm.jpg"
 ---
 

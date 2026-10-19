@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-13
 published: 2026-07-13
 pinned: false
-alias: "bangumi-322899"
+alias: "tonikawa-sns"
 image: "https://lain.bgm.tv/pic/cover/l/28/82/322899_3MgZ1.jpg"
 ---
 

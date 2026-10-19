@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-19
 published: 2026-06-19
 pinned: false
-alias: "bangumi-257369"
+alias: "we-never-learn"
 image: "https://lain.bgm.tv/pic/cover/l/21/a6/257369_32HM0.jpg"
 ---
 

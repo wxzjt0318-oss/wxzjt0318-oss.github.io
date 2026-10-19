@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-21
 published: 2026-07-21
 pinned: false
-alias: "bangumi-242170"
+alias: "overlord-season-3"
 image: "https://lain.bgm.tv/pic/cover/l/47/d4/242170_iz9Ko.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-06
 published: 2026-08-06
 pinned: false
-alias: "bangumi-406180"
+alias: "berserk-of-gluttony"
 image: "https://lain.bgm.tv/pic/cover/l/d0/9c/406180_zvAgW.jpg"
 ---
 

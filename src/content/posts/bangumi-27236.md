@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-10
 published: 2026-09-10
 pinned: false
-alias: "bangumi-27236"
+alias: "love-election-and-chocolate"
 image: "https://lain.bgm.tv/pic/cover/l/5a/18/27236_7T6Is.jpg"
 ---
 

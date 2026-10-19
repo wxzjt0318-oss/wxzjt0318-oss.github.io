@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-19
 published: 2026-10-19
 pinned: false
-alias: "bangumi-25823"
+alias: "the-familiar-of-zero-final"
 image: "https://lain.bgm.tv/pic/cover/l/c4/9b/25823_RgPyZ.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-01
 published: 2026-07-01
 pinned: false
-alias: "bangumi-49131"
+alias: "date-a-live"
 image: "https://lain.bgm.tv/pic/cover/l/99/08/49131_CIPjC.jpg"
 ---
 

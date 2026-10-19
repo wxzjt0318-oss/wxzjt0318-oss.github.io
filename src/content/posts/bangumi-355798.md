@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-06
 published: 2026-10-06
 pinned: false
-alias: "bangumi-355798"
+alias: "tonikawa-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/16/65/355798_bZmZ5.jpg"
 ---
 

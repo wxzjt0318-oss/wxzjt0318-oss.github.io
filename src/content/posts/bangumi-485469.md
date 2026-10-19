@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-13
 published: 2026-10-13
 pinned: false
-alias: "bangumi-485469"
+alias: "the-s-rank-behemoth-mistaken-for-a-cat"
 image: "https://lain.bgm.tv/pic/cover/l/0e/9b/485469_qv0QM.jpg"
 ---
 

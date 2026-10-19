@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-31
 published: 2026-08-31
 pinned: false
-alias: "bangumi-444557"
+alias: "mushoku-tensei-season-2-part-2"
 image: "https://lain.bgm.tv/pic/cover/l/ad/25/444557_e4hPO.jpg"
 ---
 

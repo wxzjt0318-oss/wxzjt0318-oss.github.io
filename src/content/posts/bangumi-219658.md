@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-30
 published: 2026-06-30
 pinned: false
-alias: "bangumi-219658"
+alias: "the-ryuos-work-is-never-done"
 image: "https://lain.bgm.tv/pic/cover/l/58/d3/219658_Reey1.jpg"
 ---
 

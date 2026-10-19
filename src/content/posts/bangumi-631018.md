@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-19
 published: 2026-07-19
 pinned: false
-alias: "bangumi-631018"
+alias: "the-duke-who-said-he-would-not-love-me"
 image: "https://lain.bgm.tv/pic/cover/l/e9/a8/631018_i8egE.jpg"
 ---
 

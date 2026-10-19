@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-25
 published: 2026-06-25
 pinned: false
-alias: "bangumi-211723"
+alias: "in-another-world-with-my-smartphone"
 image: "https://lain.bgm.tv/pic/cover/l/28/7f/211723_EEfet.jpg"
 ---
 

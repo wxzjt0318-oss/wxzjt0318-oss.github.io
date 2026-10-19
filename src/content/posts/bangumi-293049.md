@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-09
 published: 2026-09-09
 pinned: false
-alias: "bangumi-293049"
+alias: "kaguya-sama-love-is-war-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/36/16/293049_0e0re.jpg"
 ---
 

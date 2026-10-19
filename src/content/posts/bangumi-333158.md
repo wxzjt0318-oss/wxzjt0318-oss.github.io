@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-06
 published: 2026-09-06
 pinned: false
-alias: "bangumi-333158"
+alias: "my-dress-up-darling"
 image: "https://lain.bgm.tv/pic/cover/l/9c/4d/333158_PA0F4.jpg"
 ---
 

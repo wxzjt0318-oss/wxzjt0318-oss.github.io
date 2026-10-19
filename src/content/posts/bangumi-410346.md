@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-29
 published: 2026-06-29
 pinned: false
-alias: "bangumi-410346"
+alias: "2-5-dimensional-seduction"
 image: "https://lain.bgm.tv/pic/cover/l/53/13/410346_MmQCm.jpg"
 ---
 

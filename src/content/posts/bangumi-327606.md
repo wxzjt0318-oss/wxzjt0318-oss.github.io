@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-26
 published: 2026-06-26
 pinned: false
-alias: "bangumi-327606"
+alias: "a-couple-of-cuckoos"
 image: "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg"
 ---
 

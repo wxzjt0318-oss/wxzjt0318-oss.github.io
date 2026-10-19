@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-26
 published: 2026-09-26
 pinned: false
-alias: "bangumi-1880"
+alias: "the-familiar-of-zero"
 image: "https://lain.bgm.tv/pic/cover/l/32/14/1880_fsmcg.jpg"
 ---
 

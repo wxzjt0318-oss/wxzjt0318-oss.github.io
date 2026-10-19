@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-22
 published: 2026-08-22
 pinned: false
-alias: "bangumi-464376"
+alias: "too-many-losing-heroines"
 image: "https://lain.bgm.tv/pic/cover/l/e4/dc/464376_NsZRw.jpg"
 ---
 

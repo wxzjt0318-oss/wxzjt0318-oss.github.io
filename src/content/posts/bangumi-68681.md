@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-09
 published: 2026-06-09
 pinned: false
-alias: "bangumi-68681"
+alias: "the-familiar-of-zero-rondo-of-princesses-ova"
 image: "https://lain.bgm.tv/pic/cover/l/20/a9/68681_t96av.jpg"
 ---
 

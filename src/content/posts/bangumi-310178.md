@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-27
 published: 2026-06-27
 pinned: false
-alias: "bangumi-310178"
+alias: "date-a-bullet-nightmare-or-queen"
 image: "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg"
 ---
 

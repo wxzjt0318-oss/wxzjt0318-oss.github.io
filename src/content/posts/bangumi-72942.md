@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-22
 published: 2026-09-22
 pinned: false
-alias: "bangumi-72942"
+alias: "love-chunibyo-and-other-delusions-heart-throb"
 image: "https://lain.bgm.tv/pic/cover/l/c8/e4/72942_VniXv.jpg"
 ---
 

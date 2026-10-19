@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-25
 published: 2026-08-25
 pinned: false
-alias: "bangumi-295017"
+alias: "redo-of-healer"
 image: "https://lain.bgm.tv/pic/cover/l/c7/3f/295017_90As6.jpg"
 ---
 

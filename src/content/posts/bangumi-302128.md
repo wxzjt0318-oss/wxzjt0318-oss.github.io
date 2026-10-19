@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-14
 published: 2026-07-14
 pinned: false
-alias: "bangumi-302128"
+alias: "date-a-live-season-4"
 image: "https://lain.bgm.tv/pic/cover/l/6c/2a/302128_82c5B.jpg"
 ---
 

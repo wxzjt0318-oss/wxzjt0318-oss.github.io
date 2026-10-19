@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-25
 published: 2026-09-25
 pinned: false
-alias: "bangumi-48031"
+alias: "gj-club"
 image: "https://lain.bgm.tv/pic/cover/l/8e/a4/48031_31K3k.jpg"
 ---
 

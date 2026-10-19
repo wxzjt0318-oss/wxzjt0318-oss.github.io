@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-11
 published: 2026-09-11
 pinned: false
-alias: "bangumi-58015"
+alias: "nyaruko-crawling-with-love-w"
 image: "https://lain.bgm.tv/pic/cover/l/5a/69/58015_P8711.jpg"
 ---
 

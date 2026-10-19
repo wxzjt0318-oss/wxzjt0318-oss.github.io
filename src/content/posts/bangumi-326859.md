@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-22
 published: 2026-07-22
 pinned: false
-alias: "bangumi-326859"
+alias: "my-friends-little-sister-has-it-in-for-me"
 image: "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg"
 ---
 

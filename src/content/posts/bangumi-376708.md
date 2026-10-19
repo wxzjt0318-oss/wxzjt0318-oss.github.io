@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-06
 published: 2026-06-06
 pinned: false
-alias: "bangumi-376708"
+alias: "tonikawa-uniform"
 image: "https://lain.bgm.tv/pic/cover/l/d2/c7/376708_Hznbs.jpg"
 ---
 

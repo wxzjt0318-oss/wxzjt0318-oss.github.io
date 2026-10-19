@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-19
 published: 2026-09-19
 pinned: false
-alias: "bangumi-378862"
+alias: "onimai-im-now-your-sister"
 image: "https://lain.bgm.tv/pic/cover/l/7e/ca/378862_24TnR.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-04
 published: 2026-08-04
 pinned: false
-alias: "bangumi-315375"
+alias: "sword-art-online-progressive-aria-of-a-starless-night"
 image: "https://lain.bgm.tv/pic/cover/l/63/24/315375_1ivNC.jpg"
 ---
 

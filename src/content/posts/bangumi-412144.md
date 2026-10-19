@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-25
 published: 2026-07-25
 pinned: false
-alias: "bangumi-412144"
+alias: "trapped-in-a-dating-sim-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/16/a8/412144_39HJH.jpg"
 ---
 

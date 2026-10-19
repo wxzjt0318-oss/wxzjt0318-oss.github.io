@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-07
 published: 2026-06-07
 pinned: false
-alias: "bangumi-277399"
+alias: "high-school-prodigies-have-it-easy-in-another-world"
 image: "https://lain.bgm.tv/pic/cover/l/6a/c3/277399_YYYpv.jpg"
 ---
 

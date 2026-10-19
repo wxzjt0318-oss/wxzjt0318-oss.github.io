@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-30
 published: 2026-09-30
 pinned: false
-alias: "bangumi-406251"
+alias: "an-archdemons-dilemma"
 image: "https://lain.bgm.tv/pic/cover/l/d2/b8/406251_MjAw4.jpg"
 ---
 

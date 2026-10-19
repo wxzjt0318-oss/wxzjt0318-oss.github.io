@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-29
 published: 2026-08-29
 pinned: false
-alias: "bangumi-503268"
+alias: "magic-maker"
 image: "https://lain.bgm.tv/pic/cover/l/00/da/503268_SdLDD.jpg"
 ---
 

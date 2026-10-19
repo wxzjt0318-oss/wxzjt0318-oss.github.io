@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-17
 published: 2026-06-17
 pinned: false
-alias: "bangumi-79226"
+alias: "blade-dance-of-the-elementalers"
 image: "https://lain.bgm.tv/pic/cover/l/c0/3b/79226_8EZ7i.jpg"
 ---
 

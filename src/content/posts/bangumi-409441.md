@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-13
 published: 2026-09-13
 pinned: false
-alias: "bangumi-409441"
+alias: "my-instant-death-ability-is-overpowered"
 image: "https://lain.bgm.tv/pic/cover/l/ef/c7/409441_wrBwz.jpg"
 ---
 

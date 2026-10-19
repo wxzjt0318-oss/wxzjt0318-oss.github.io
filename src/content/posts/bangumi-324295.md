@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-10
 published: 2026-08-10
 pinned: false
-alias: "bangumi-324295"
+alias: "shikimoris-not-just-a-cutie"
 image: "https://lain.bgm.tv/pic/cover/l/6a/7b/324295_Klk2K.jpg"
 ---
 

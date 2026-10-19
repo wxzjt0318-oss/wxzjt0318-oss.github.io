@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-10
 published: 2026-10-10
 pinned: false
-alias: "bangumi-536102"
+alias: "the-vampire-who-cant-suck-blood"
 image: "https://lain.bgm.tv/pic/cover/l/11/05/536102_Gohth.jpg"
 ---
 

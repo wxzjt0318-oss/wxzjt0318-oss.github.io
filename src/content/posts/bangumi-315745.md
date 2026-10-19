@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-14
 published: 2026-09-14
 pinned: false
-alias: "bangumi-315745"
+alias: "rent-a-girlfriend-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/a6/f0/315745_n981m.jpg"
 ---
 

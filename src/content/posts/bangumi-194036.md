@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-12
 published: 2026-06-12
 pinned: false
-alias: "bangumi-194036"
+alias: "overlord-the-undead-king-movie"
 image: "https://lain.bgm.tv/pic/cover/l/1a/96/194036_iUGLE.jpg"
 ---
 

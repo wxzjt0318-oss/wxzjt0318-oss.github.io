@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-08
 published: 2026-10-08
 pinned: false
-alias: "bangumi-424379"
+alias: "the-100-girlfriends-who-really-love-you"
 image: "https://lain.bgm.tv/pic/cover/l/37/03/424379_UfMuk.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-04
 published: 2026-10-04
 pinned: false
-alias: "bangumi-241418"
+alias: "teasing-master-takagi-san-ova"
 image: "https://lain.bgm.tv/pic/cover/l/23/4c/241418_C0qSS.jpg"
 ---
 

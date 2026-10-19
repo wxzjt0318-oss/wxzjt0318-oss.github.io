@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-19
 published: 2026-09-19
 pinned: false
-alias: "bangumi-564289"
+alias: "i-want-to-end-this-love-game"
 image: "https://lain.bgm.tv/pic/cover/l/5d/5a/564289_b6sb7.jpg"
 ---
 

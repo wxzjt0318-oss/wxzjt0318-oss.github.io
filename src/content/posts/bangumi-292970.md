@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-30
 published: 2026-08-30
 pinned: false
-alias: "bangumi-292970"
+alias: "wandering-witch-the-journey-of-elaina"
 image: "https://lain.bgm.tv/pic/cover/l/99/17/292970_mxMxx.jpg"
 ---
 

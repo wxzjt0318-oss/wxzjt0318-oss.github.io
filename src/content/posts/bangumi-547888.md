@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-16
 published: 2026-10-16
 pinned: false
-alias: "bangumi-547888"
+alias: "re-zero-season-4-loss"
 image: "https://lain.bgm.tv/pic/cover/l/8e/70/547888_46dnk.jpg"
 ---
 

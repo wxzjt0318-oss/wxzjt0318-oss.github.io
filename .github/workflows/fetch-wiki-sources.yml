@@ -11,14 +11,14 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: "fetch-wiki-sources-${{ github.ref }}"
-  cancel-in-progress: false
-
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -31,12 +31,18 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: node scripts/wiki/fetch-sources.mjs
+        env:
+          SHARD: ${{ matrix.shard }}
+          SHARDS: 4
       - name: Commit sources
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -f reports/wiki-sources
           if git diff --staged --quiet; then echo "No changes"; else
-            git commit -m "chore(sources): fetch wiki sources"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
+            git commit -m "chore(sources): fetch wiki sources (shard ${{ matrix.shard }})"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && break
+              sleep $((i * 5))
+            done
           fi

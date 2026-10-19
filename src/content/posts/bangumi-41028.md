@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-04
 published: 2026-06-04
 pinned: false
-alias: "bangumi-41028"
+alias: "one-of-them-is-my-little-sister"
 image: "https://lain.bgm.tv/pic/cover/l/ad/52/41028_WRhd0.jpg"
 ---
 

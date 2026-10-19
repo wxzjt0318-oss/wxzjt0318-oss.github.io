@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-15
 published: 2026-09-15
 pinned: false
-alias: "bangumi-104196"
+alias: "nisekoi-oad"
 image: "https://lain.bgm.tv/pic/cover/l/2d/bb/104196_mIzDE.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-18
 published: 2026-08-18
 pinned: false
-alias: "bangumi-376433"
+alias: "masamune-kuns-revenge-r"
 image: "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg"
 ---
 

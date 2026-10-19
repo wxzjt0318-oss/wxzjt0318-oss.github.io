@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-07
 published: 2026-10-07
 pinned: false
-alias: "bangumi-185762"
+alias: "masamune-kuns-revenge"
 image: "https://lain.bgm.tv/pic/cover/l/05/bf/185762_xyM3h.jpg"
 ---
 

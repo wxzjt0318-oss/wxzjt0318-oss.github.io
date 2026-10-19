@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-20
 published: 2026-06-20
 pinned: false
-alias: "bangumi-424883"
+alias: "alya-sometimes-hides-her-feelings-in-russian"
 image: "https://lain.bgm.tv/pic/cover/l/7c/8e/424883_BpzVb.jpg"
 ---
 

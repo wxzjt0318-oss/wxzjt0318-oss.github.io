@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-15
 published: 2026-07-15
 pinned: false
-alias: "bangumi-449567"
+alias: "i-will-become-a-villainess-who-goes-down-in-history"
 image: "https://lain.bgm.tv/pic/cover/l/6b/ca/449567_uN5U8.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-05-28
 published: 2026-05-28
 pinned: false
-alias: "bangumi-575057"
+alias: "farming-life-in-another-world-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/cd/71/575057_BCS8O.jpg"
 ---
 

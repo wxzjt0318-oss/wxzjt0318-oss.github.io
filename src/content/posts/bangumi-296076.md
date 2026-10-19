@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-15
 published: 2026-08-15
 pinned: false
-alias: "bangumi-296076"
+alias: "rent-a-girlfriend"
 image: "https://lain.bgm.tv/pic/cover/l/7a/37/296076_6cP6Q.jpg"
 ---
 

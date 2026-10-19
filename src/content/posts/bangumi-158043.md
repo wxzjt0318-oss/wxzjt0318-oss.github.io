@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-31
 published: 2026-07-31
 pinned: false
-alias: "bangumi-158043"
+alias: "love-chocolate-ing"
 image: "https://lain.bgm.tv/pic/cover/l/66/ca/158043_XUFoP.jpg"
 ---
 

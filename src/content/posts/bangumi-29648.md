@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-17
 published: 2026-09-17
 pinned: false
-alias: "bangumi-29648"
+alias: "love-chunibyo-and-other-delusions"
 image: "https://lain.bgm.tv/pic/cover/l/3d/fd/29648_LOcOx.jpg"
 ---
 

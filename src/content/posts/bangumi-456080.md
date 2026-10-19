@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-07
 published: 2026-07-07
 pinned: false
-alias: "bangumi-456080"
+alias: "my-childhood-friend-i-thought-was-a-boy"
 image: "https://lain.bgm.tv/pic/cover/l/ce/e2/456080_C4q4C.jpg"
 ---
 

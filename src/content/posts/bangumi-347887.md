@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-07
 published: 2026-09-07
 pinned: false
-alias: "bangumi-347887"
+alias: "teasing-master-takagi-san-season-3"
 image: "https://lain.bgm.tv/pic/cover/l/2d/ad/347887_j0DFj.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-13
 published: 2026-10-13
 pinned: false
-alias: "bangumi-291171"
+alias: "date-a-bullet-dead-or-bullet"
 image: "https://lain.bgm.tv/pic/cover/l/b6/8f/291171_PA7pA.jpg"
 ---
 

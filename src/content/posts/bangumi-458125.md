@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-02
 published: 2026-06-02
 pinned: false
-alias: "bangumi-458125"
+alias: "hero-without-a-class"
 image: "https://lain.bgm.tv/pic/cover/l/92/d0/458125_KsU95.jpg"
 ---
 

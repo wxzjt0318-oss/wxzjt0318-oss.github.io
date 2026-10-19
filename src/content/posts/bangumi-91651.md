@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-13
 published: 2026-08-13
 pinned: false
-alias: "bangumi-91651"
+alias: "love-chunibyo-heart-throb-lite"
 image: "https://lain.bgm.tv/pic/cover/l/41/83/91651_vpgN9.jpg"
 ---
 

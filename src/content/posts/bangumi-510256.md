@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-18
 published: 2026-10-18
 pinned: false
-alias: "bangumi-510256"
+alias: "cultural-exchange-with-a-game-centre-girl"
 image: "https://lain.bgm.tv/pic/cover/l/55/d5/510256_09w10.jpg"
 ---
 

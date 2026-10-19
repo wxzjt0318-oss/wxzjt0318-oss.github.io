@@ -54,6 +54,13 @@ export function stripDisambiguation(title) {
 		.trim();
 }
 
+/** 从百科导言的「（日语：…；英语：Xxx）」里取作品英文名，用作文章英文链接 */
+export function extractEnglishTitle(intro) {
+	const m = String(intro || "").match(/英[语文語]\s*[:：]\s*([A-Za-z0-9][^；;（）()，,、\n]*)/);
+	const name = m?.[1]?.split("/")[0].trim() || "";
+	return /^[A-Za-z0-9 :;'’!?.,&\-–]+$/.test(name) && name.length >= 3 ? name : "";
+}
+
 /** 条目是否确实在讲这部作品 */
 export function isRelevantWorkArticle(article, { titleCn, titleJp } = {}) {
 	if (!article) return false;
@@ -101,6 +108,7 @@ export async function fetchWorkEncyclopedia(
 	let intro = "";
 	let story = "";
 	let title = "";
+	let englishTitle = "";
 	const used = [];
 
 	for (const source of sources) {
@@ -119,6 +127,7 @@ export async function fetchWorkEncyclopedia(
 		if (!article) continue;
 
 		let contributed = false;
+		englishTitle ||= extractEnglishTitle(article.intro);
 		const articleIntro = cleanIntro(article);
 		if (!intro && articleIntro.length >= minLength) {
 			intro = articleIntro;
@@ -142,7 +151,7 @@ export async function fetchWorkEncyclopedia(
 	}
 
 	if (!intro && !story) return null;
-	return { title, intro, story, sources: used };
+	return { title, intro, story, sources: used, englishTitle };
 }
 
 const PROFILE_HEADING_RE =

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-23
 published: 2026-07-23
 pinned: false
-alias: "bangumi-74628"
+alias: "nisekoi"
 image: "https://lain.bgm.tv/pic/cover/l/98/71/74628_8HHlL.jpg"
 ---
 

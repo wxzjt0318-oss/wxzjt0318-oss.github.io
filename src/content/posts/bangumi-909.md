@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-29
 published: 2026-08-29
 pinned: false
-alias: "bangumi-909"
+alias: "toradora"
 image: "https://lain.bgm.tv/pic/cover/l/a4/30/909_e5zhk.jpg"
 ---
 

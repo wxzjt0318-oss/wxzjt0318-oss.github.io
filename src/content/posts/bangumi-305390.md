@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-03
 published: 2026-10-03
 pinned: false
-alias: "bangumi-305390"
+alias: "the-dorm-mother-of-the-goddess-dormitory"
 image: "https://lain.bgm.tv/pic/cover/l/b1/bc/305390_KH6W1.jpg"
 ---
 

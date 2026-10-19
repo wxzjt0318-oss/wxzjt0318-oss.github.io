@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-23
 published: 2026-08-23
 pinned: false
-alias: "bangumi-428823"
+alias: "pseudo-harem"
 image: "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg"
 ---
 

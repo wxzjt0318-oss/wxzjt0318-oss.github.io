@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-20
 published: 2026-07-20
 pinned: false
-alias: "bangumi-479477"
+alias: "wistoria-wand-and-sword"
 image: "https://lain.bgm.tv/pic/cover/l/6d/e5/479477_19844.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-10-09
 published: 2026-10-09
 pinned: false
-alias: "bangumi-514997"
+alias: "the-gorilla-gods-go-to-girl"
 image: "https://lain.bgm.tv/pic/cover/l/3b/cb/514997_6RM6C.jpg"
 ---
 

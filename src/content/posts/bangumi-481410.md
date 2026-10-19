@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-17
 published: 2026-07-17
 pinned: false
-alias: "bangumi-481410"
+alias: "let-this-grieving-soul-retire"
 image: "https://lain.bgm.tv/pic/cover/l/76/9a/481410_f635f.jpg"
 ---
 

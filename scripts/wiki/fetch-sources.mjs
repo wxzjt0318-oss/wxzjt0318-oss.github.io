@@ -21,18 +21,25 @@ const ROOT_DIR = path.resolve(__dirname, "..", "..");
 const REQUESTS = path.join(__dirname, "source-requests.json");
 const OUT_DIR = path.join(ROOT_DIR, "reports", "wiki-sources");
 
+const MAX_TEXT = 20000;
+// 分片：SHARD=0..SHARDS-1，各自处理一部分组，便于在 Actions 里并行
+const SHARD = Number(process.env.SHARD || 0);
+const SHARDS = Number(process.env.SHARDS || 1);
+
 function pack(article) {
 	if (!article) return null;
 	return {
 		title: toSimplified(article.title),
 		url: article.pageUrl,
-		text: toSimplified(article.fullText || ""),
+		text: toSimplified(article.fullText || "").slice(0, MAX_TEXT),
 	};
 }
 
 const requests = JSON.parse(await fs.readFile(REQUESTS, "utf8"));
 await fs.mkdir(OUT_DIR, { recursive: true });
-for (const [group, queries] of Object.entries(requests)) {
+const groups = Object.entries(requests).filter((_, i) => i % SHARDS === SHARD);
+for (const [group, queries] of groups) {
+	if (await fs.stat(path.join(OUT_DIR, `${group}.json`)).catch(() => null)) continue;
 	const out = {};
 	for (const query of queries) {
 		const [moegirl, wikipedia] = await Promise.all([

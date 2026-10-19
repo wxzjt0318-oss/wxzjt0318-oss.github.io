@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-16
 published: 2026-06-16
 pinned: false
-alias: "bangumi-558088"
+alias: "observation-records-of-my-fiancee-a-self-proclaimed-villainess"
 image: "https://lain.bgm.tv/pic/cover/l/61/04/558088_BrFF1.jpg"
 ---
 

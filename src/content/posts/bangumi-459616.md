@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-10
 published: 2026-07-10
 pinned: false
-alias: "bangumi-459616"
+alias: "the-princess-tutor"
 image: "https://lain.bgm.tv/pic/cover/l/ac/67/459616_916Qm.jpg"
 ---
 

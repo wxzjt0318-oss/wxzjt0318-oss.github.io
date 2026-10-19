@@ -121,7 +121,7 @@ export function postIdentities(raw) {
 		.split(",");
 	const season = seasonKey(title, tags);
 	const names = [title];
-	const original = raw.match(/\*\*原作标题\*\*：\s*([^|\n]+)/)?.[1];
+	const original = raw.match(/\*\*(?:原作标题|原名)\*\*\s*(?:：|\|)\s*([^|\n]+)/)?.[1]?.trim();
 	if (original) names.push(original);
 	const jp = raw
 		.slice(0, 3000)

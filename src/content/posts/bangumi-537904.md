@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-08-07
 published: 2026-08-07
 pinned: false
-alias: "bangumi-537904"
+alias: "my-status-as-an-assassin-obviously-exceeds-the-heros"
 image: "https://lain.bgm.tv/pic/cover/l/4a/44/537904_2b515.jpg"
 ---
 

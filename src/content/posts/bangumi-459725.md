@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-14
 published: 2026-06-14
 pinned: false
-alias: "bangumi-459725"
+alias: "chillin-in-another-world-with-level-2-super-cheat-powers"
 image: "https://lain.bgm.tv/pic/cover/l/ed/46/459725_Ur6Ap.jpg"
 ---
 

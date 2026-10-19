@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-21
 published: 2026-06-21
 pinned: false
-alias: "bangumi-322130"
+alias: "harem-in-the-labyrinth-of-another-world"
 image: "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg"
 ---
 

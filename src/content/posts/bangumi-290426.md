@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-27
 published: 2026-07-27
 pinned: false
-alias: "bangumi-290426"
+alias: "sleepy-princess-in-the-demon-castle"
 image: "https://lain.bgm.tv/pic/cover/l/b1/c3/290426_165P5.jpg"
 ---
 

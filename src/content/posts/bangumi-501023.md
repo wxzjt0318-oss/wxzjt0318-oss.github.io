@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-03
 published: 2026-09-03
 pinned: false
-alias: "bangumi-501023"
+alias: "i-am-marrying-the-girl-i-hate"
 image: "https://lain.bgm.tv/pic/cover/l/a3/f5/501023_yl6U2.jpg"
 ---
 

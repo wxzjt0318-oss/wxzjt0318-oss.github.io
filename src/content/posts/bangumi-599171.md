@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-01
 published: 2026-06-01
 pinned: false
-alias: "bangumi-599171"
+alias: "the-strongest-job-is-apparently-appraiser"
 image: "https://lain.bgm.tv/pic/cover/l/24/7b/599171_9JGa4.jpg"
 ---
 

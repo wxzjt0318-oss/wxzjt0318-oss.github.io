@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-09-24
 published: 2026-09-24
 pinned: false
-alias: "bangumi-225462"
+alias: "re-zero-memory-snow"
 image: "https://lain.bgm.tv/pic/cover/l/12/61/225462_j7I3O.jpg"
 ---
 

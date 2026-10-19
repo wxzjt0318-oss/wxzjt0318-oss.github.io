@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-09
 published: 2026-07-09
 pinned: false
-alias: "bangumi-194261"
+alias: "angels-3piece"
 image: "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg"
 ---
 

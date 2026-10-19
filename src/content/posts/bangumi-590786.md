@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-05
 published: 2026-07-05
 pinned: false
-alias: "bangumi-590786"
+alias: "leave-it-to-me-10-years-later-i-became-a-legend"
 image: "https://lain.bgm.tv/pic/cover/l/2c/93/590786_48D8M.jpg"
 ---
 

@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-05-29
 published: 2026-05-29
 pinned: false
-alias: "bangumi-458684"
+alias: "the-angel-next-door-spoils-me-rotten-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg"
 ---
 

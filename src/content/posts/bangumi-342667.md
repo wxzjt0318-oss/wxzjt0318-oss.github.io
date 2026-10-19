@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-24
 published: 2026-06-24
 pinned: false
-alias: "bangumi-342667"
+alias: "konosuba-season-3"
 image: "https://lain.bgm.tv/pic/cover/l/4c/8a/342667_0RfU8.jpg"
 ---
 
