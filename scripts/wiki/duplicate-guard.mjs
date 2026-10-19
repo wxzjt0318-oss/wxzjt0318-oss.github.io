@@ -64,7 +64,7 @@ export function seasonKey(title, forms = []) {
 }
 
 const STRIP_RE =
-	/[《》「」『』【】“”"'‘’()（）[\]{}·•・:：;；,.，。!?！？~～\-－_\s]/g;
+	/[《》「」『』【】“”"'‘’()（）[\]{}·•・:：;；,.，。!?！？~～|｜\-－_\s]/g;
 
 /** 拆成「基础标题」与「副标题」（都已去掉季度标记与标点） */
 export function splitTitle(title) {
@@ -77,7 +77,7 @@ export function splitTitle(title) {
 	} catch {}
 	for (const [re] of SEASON_PATTERNS) text = text.replace(re, " ");
 	let sub = "";
-	const cut = text.search(/——|―|～|~|\s-\S|》/);
+	const cut = text.search(/——|―|～|~|｜|\||\s-\S|》/);
 	if (cut >= 4) {
 		sub = text.slice(cut);
 		text = text.slice(0, cut);
