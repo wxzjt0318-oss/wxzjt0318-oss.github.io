@@ -35,7 +35,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add reports/wiki-sources
+          git add -f reports/wiki-sources
           if git diff --staged --quiet; then echo "No changes"; else
             git commit -m "chore(sources): fetch wiki sources"
             git push origin "HEAD:${GITHUB_REF_NAME}"
