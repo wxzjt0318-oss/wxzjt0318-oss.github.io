@@ -100,7 +100,7 @@ export const BLOCKING_STATES = new Set([
 /** frontmatter 显式退出声明：moegirlRewrite: false */
 const PROTECT_FIELD_RE = /^moegirlRewrite:\s*(false|0|no)\s*$/im;
 
-const FORM_TAGS = new Set([
+export const FORM_TAGS = new Set([
 	"TV",
 	"OVA",
 	"OAD",
@@ -110,7 +110,7 @@ const FORM_TAGS = new Set([
 	"SP",
 	"特别篇",
 ]);
-const SKIP_TAG = [/^\d{4}/, /^星期/, /^周[一二三四五六日]/];
+export const SKIP_TAG = [/^\d{4}/, /^星期/, /^周[一二三四五六日]/];
 
 /** 题材词表：只有命中词表的 CJK 标签才算"题材"，避免把导演/公司/人名当题材 */
 const GENRE_VOCAB = new Set([
@@ -199,7 +199,7 @@ const GENRE_VOCAB = new Set([
 ]);
 
 /** 判断一个标签是否"题材"（命中词表或包含词表词） */
-function isGenreTag(tag) {
+export function isGenreTag(tag) {
 	if (GENRE_VOCAB.has(tag)) return true;
 	for (const word of GENRE_VOCAB) {
 		if (word.length >= 2 && tag.includes(word) && tag.length <= word.length + 3)

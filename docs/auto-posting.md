@@ -1,4 +1,4 @@
-# 自动发文模块说明（Bangumi 每日追番 + 萌娘百科增强）
+# 自动发文模块说明（Bangumi 每日追番 + 萌娘百科 / 维基百科增强）
 
 本文档说明博客的自动发文模块：它做什么、怎么运行、如何排障。
 适用文件：
@@ -7,7 +7,11 @@
 | --- | --- |
 | `scripts/generate-bangumi-daily-post.mjs` | 每日发文主流程（选候选 → 抓详情 → 生成文章 → 查重 → 落盘） |
 | `scripts/bangumi-daily-posts.mjs` | 共享工具库（Markdown 模板、封面选择、查重算法、状态记录） |
-| `scripts/moegirl/scraper.mjs` | 萌娘百科精准爬取工具（本模块内容增强源） |
+| `scripts/moegirl/scraper.mjs` | 萌娘百科精准爬取工具（首选内容增强源） |
+| `scripts/wiki/wikipedia.mjs` | 中文维基百科抓取（萌娘百科缺资料时兜底） |
+| `scripts/wiki/mediawiki.mjs` | 两个百科共用的 MediaWiki 抓取 / 解析 / 缓存客户端 |
+| `scripts/wiki/encyclopedia.mjs` | 百科资料聚合：相关性校验、导言 / 剧情择优、角色简介 |
+| `scripts/wiki/zh-text.mjs` | 中文化：繁转简、日文汉字转简体、去外文注释、过滤日文段落 |
 | `scripts/moegirl/rewrite-bangumi-posts.mjs` | 存量 bangumi 文章的批量重写/维护工具 |
 | `.github/workflows/bangumi-update.yml` | GitHub Actions 每日定时驱动 |
 
@@ -17,14 +21,49 @@
 
 模块每天从 **Bangumi 追番快照** 中选出一部尚未写过文章的作品，自动抓取资料并生成一篇结构完整的作品介绍文章（`src/content/posts/bangumi-<subjectId>.md`），随后提交到仓库并触发部署。
 
-文章结构固定为：作品概述 → 基础信息 → 剧情简介 → 主要角色 → 制作阵容 → 作品看点 → 综合评价。
+文章结构固定为：作品概述 → 基础信息 → 剧情简介 → 主要角色 → 制作阵容 → 作品看点 → 综合评价 → 参考资料。
 
 数据来源优先级：
 
 1. **番剧快照** `src/data/anime-snapshots/bangumi.json`（由 `anime:sync` 每日刷新，与番剧页同源）作为候选池；
 2. **Bangumi API**（`api.bgm.tv`）补充条目详情、角色表、封面图；
-3. **萌娘百科**（`zh.moegirl.org.cn`，可选增强，默认开启）提供更准确完整的作品导言与剧情简介，替换 Bangumi 简介；
-4. 全部失败时仍有降级链：萌娘百科失败 → Bangumi 简介；Bangumi 失败 → 快照自带短简介。
+3. **萌娘百科**（`zh.moegirl.org.cn`，默认开启）提供作品导言、剧情简介与角色中文简介；
+4. **中文维基百科**（`zh.wikipedia.org`，默认开启）在萌娘百科缺导言或缺剧情时补位；
+5. 降级链：萌娘百科 → 维基百科 → Bangumi 简介；Bangumi 详情失败 → 快照自带短简介。
+
+### 全中文输出
+
+文章正文只输出简体中文（「原作标题」与 CV 等信息行除外）：
+
+- 所有百科 / Bangumi 文本经 OpenCC 繁转简，日文汉字人名转简体（平賀才人 → 平贺才人）；
+- 去掉「（日语：…）」类外文注释与引用角标，丢弃以假名为主的段落；
+- 角色名取 Bangumi 角色资料的「简体中文名」，没有中文名的角色与旁白不进正文；
+  角色简介是日文时改用萌娘百科同名角色条目（条目必须提到本作，避免同名错配）；
+- 百科条目必须提到作品名并带有动画 / 漫画 / 轻小说等语境，否则视为同名无关条目；
+- 只保留题材 / 形式类标签（声优、播出星期、放送年月不再进入标签与分类）；
+- 生成后统计正文假名占比，超过 3% 会在日志里告警。
+
+### 引言（封面下方的引用块）
+
+- 每篇文章开头的 `> 引言` 优先取 `scripts/wiki/post-quotes.json` 中按 Bangumi 条目 ID 人工撰写的句子，
+  风格对齐自主编辑文章：角色口吻的一句台词，或「设定 + 反转」式的作品主旨句；
+- 没有人工引言的新文章，自动取中文剧情的前一两句作为引言；连剧情都没有时才退回题材通用句；
+- 想给某篇换引言，改 JSON 里对应条目，并同步改文章里的引用块即可。
+
+### 中文化词表
+
+`scripts/wiki/zh-glossary.mjs` 收录百科资料里常见的日文 / 英文说法（作品内专有名词、英文俗称等）与中文写法，
+生成 Markdown 后统一套用。作者、插画师的笔名没有通行中文写法，保持原样。
+
+### 存量文章批量重写
+
+`scripts/wiki/rewrite-bangumi-chinese.mjs` 用与每日发文相同的流程重建全部 `bangumi-*` 文章
+（保留 URL、发布日期、封面、草稿 / 置顶状态）。它需要访问外网，因此通过 GitHub Actions
+「Rewrite Bangumi Posts in Chinese」手动运行，结果提交回所选分支；`only` 可限定条目 ID。
+重写会覆盖文章里的人工修改，运行前请确认。
+
+引用了百科内容时，文末「参考资料」列出条目链接，`licenseName` 自动随来源调整：
+引用萌娘百科为 `CC BY-NC-SA 3.0`，仅引用维基百科为 `CC BY-SA 4.0`，否则保持 `CC BY 4.0`。
 
 ### 内置安全机制
 
@@ -69,7 +108,9 @@ pnpm.cmd generate-bangumi-post
 | --- | --- | --- |
 | `BANGUMI_POSTS_PER_RUN` | `1` | 单次运行发文数量上限 |
 | `BANGUMI_POST_REVIEW_MODE` | `false` | `1/true` 时新文章标记 `draft: true`，需人工改为 `false` 才会发布 |
-| `BANGUMI_POST_MOEGIRL` | `true` | `0` 时关闭萌娘百科增强，纯用 Bangumi 简介 |
+| `BANGUMI_POST_WIKI` | `true` | `0` 时关闭全部百科增强，纯用 Bangumi 简介 |
+| `BANGUMI_POST_MOEGIRL` | `true` | `0` 时只关闭萌娘百科（含角色简介） |
+| `BANGUMI_POST_WIKIPEDIA` | `true` | `0` 时只关闭维基百科兜底 |
 | `BANGUMI_DAILY_POSTS_ALLOW_DUPLICATE` | `false` | `1` 时跳过查重中止（慎用） |
 
 产出物：
@@ -171,9 +212,9 @@ node scripts/moegirl/rewrite-bangumi-posts.mjs --force
 
 1. **网络依赖**：`anime:sync` 与详情抓取依赖 `api.bgm.tv`；该 API 故障（如 502）时
    发文会自动使用快照与萌娘百科兜底，但候选池不会更新。萌娘百科大陆可直连。
-2. **内容授权**：萌娘百科内容采用 **CC BY-NC-SA 3.0 CN**，重写后的文章正文已自动附
-   出处链接，请勿移除；Bangumi 数据遵循其 API 使用条款。
-3. **抓取礼仪**：萌娘百科工具内置 300ms 请求间隔与 7 天缓存，请勿缩短间隔或用于批量镜像。
+2. **内容授权**：萌娘百科内容采用 **CC BY-NC-SA 3.0 CN**，维基百科内容采用 **CC BY-SA 4.0**，
+   文章已自动附出处链接，请勿移除；Bangumi 数据遵循其 API 使用条款。
+3. **抓取礼仪**：萌娘百科 300ms、维基百科 500ms 请求间隔，均有 7 天缓存，请勿缩短间隔或用于批量镜像。
 4. **不要手工改 bangumi-* 文章的受管小节**：重写工具与查重依赖固定小节标题
    （`## 一、作品概述` 等）。若确实需要深度定制，改完之后工具会自动识别为人工编辑
    并跳过该篇（见 §4「人工编辑保护」）；想更稳妥可显式加 `moegirlRewrite: false`。
@@ -182,5 +223,5 @@ node scripts/moegirl/rewrite-bangumi-posts.mjs --force
    删除 `bangumi-<id>.md` 即可；后续模块不会为同一作品再次发文。
 6. **草稿审核流**：希望先发后审，设置 `BANGUMI_POST_REVIEW_MODE=1`，
    审核时把文章 frontmatter 的 `draft: true` 改为 `false` 再提交。
-7. **缓存清理**：`.cache/moegirl/` 可随时整个删除；解析逻辑升级时工具会通过
+7. **缓存清理**：`.cache/moegirl/` 与 `.cache/wikipedia/` 可随时整个删除；解析逻辑升级时工具会通过
    缓存版本号自动失效旧缓存，无需手动处理。
