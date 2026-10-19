@@ -25,6 +25,7 @@ import {
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
+import { findDuplicatePost, postIdentities } from "./wiki/duplicate-guard.mjs";
 import { buildTaxonomy } from "./wiki/taxonomy.mjs";
 import { applyGlossary } from "./wiki/zh-glossary.mjs";
 import {
@@ -46,6 +47,8 @@ const REPORT_FILE = path.join(ROOT_DIR, "reports", "bangumi-daily-posts-latest.j
 const BANGUMI_API_BASE = "https://api.bgm.tv/v0";
 // 人工撰写的作品引言（封面下方的引用块），按 Bangumi 条目 ID 索引；没有时按剧情自动生成
 const QUOTES_FILE = path.join(ROOT_DIR, "scripts", "wiki", "post-quotes.json");
+// 与已有文章（多为自主编辑文章）是同一作品而跳过的条目，随每日发文提交
+const SKIPPED_FILE = path.join(ROOT_DIR, "scripts", "wiki", "skipped-subjects.json");
 // 人工撰写的分类短语与特色标签（按 Bangumi 条目 ID 索引）
 const TAXONOMY_FILE = path.join(ROOT_DIR, "scripts", "wiki", "post-taxonomy.json");
 
@@ -132,6 +135,7 @@ async function readExistingPosts() {
 			body,
 			alias: getField("alias"),
 			sourceLink: getField("sourceLink"),
+			identities: postIdentities(raw),
 		});
 	}
 	return posts;
@@ -521,6 +525,14 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 	return { payload, imageSelection, detail, rawCharacters, encyclopedia, titleCn, titleJp };
 }
 
+async function recordSkipped(skipped, item, hit) {
+	const id = String(item.subject_id);
+	const file = path.basename(hit.file);
+	console.log(`⏭ 跳过 ${id}（${item.subject?.name_cn || item.subject?.name}）：与已有文章 ${file} 是同一作品`);
+	skipped[id] = { title: item.subject?.name_cn || item.subject?.name || "", duplicateOf: file };
+	await fs.writeFile(SKIPPED_FILE, `${JSON.stringify(skipped, null, "\t")}\n`, "utf8");
+}
+
 async function main() {
 	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
 	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
@@ -534,12 +546,52 @@ async function main() {
 
 	const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
 	const existingPosts = await readExistingPosts();
-	const selected = selectNextAnimeCandidate({
+	// 已判定为「与已有文章重复」的条目：跳过，避免每天重新抓取后再判重一次
+	const skipped = await readJsonIfExists(SKIPPED_FILE, {});
+	const selectionState = {
+		...generatedState,
+		generated: [
+			...(generatedState.generated || []),
+			...Object.keys(skipped).map((id) => ({ subjectId: Number(id) })),
+		],
+	};
+	// 多选几个候选：前面的被判重时顺延到下一个
+	const pool = selectNextAnimeCandidate({
 		collections: normalizedCollections,
-		generatedState,
+		generatedState: selectionState,
 		existingPosts,
-		maxPerRun,
+		maxPerRun: maxPerRun + 5,
 	});
+	const selected = [];
+	let composed = null;
+	for (const item of pool) {
+		const quickHit = findDuplicatePost(
+			{ titleCn: item.subject?.name_cn, titleJp: item.subject?.name },
+			existingPosts,
+		);
+		if (quickHit) {
+			await recordSkipped(skipped, item, quickHit);
+			continue;
+		}
+		console.log(`📝 Generating Bangumi daily post for subject ${item.subject_id}...`);
+		const result = await composeArticle(item, { now, reviewMode });
+		const hit = findDuplicatePost(
+			{
+				titleCn: result.titleCn,
+				titleJp: result.titleJp,
+				encyclopediaTitles: (result.encyclopedia?.sources || []).map((ref) => ref.title),
+				forms: [result.detail?.platform, ...(result.payload.tags || [])].filter(Boolean),
+			},
+			existingPosts,
+		);
+		if (hit) {
+			await recordSkipped(skipped, item, hit);
+			continue;
+		}
+		selected.push(item);
+		composed = result;
+		break;
+	}
 
 	if (selected.length === 0) {
 		console.log("ℹ No new Bangumi anime candidates available for article generation.");
@@ -554,8 +606,7 @@ async function main() {
 	}
 
 	const candidate = selected[0];
-	console.log(`📝 Generating Bangumi daily post for subject ${candidate.subject_id}...`);
-	const { payload, imageSelection } = await composeArticle(candidate, { now, reviewMode });
+	const { payload, imageSelection } = composed;
 
 	// Alias 唯一性保障：slugify 归一化会让不同动画撞名（如多部"第二季"都归一化为
 	// "2nd-season"，"Working!!" 系列都归一化为 "working"），alias 重复会导致多篇文章

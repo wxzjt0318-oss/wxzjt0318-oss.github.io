@@ -69,7 +69,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          git add src/data/anime-snapshots src/content/posts reports/bangumi-daily-posts-latest.json 2>/dev/null || true
+          git add src/data/anime-snapshots src/content/posts reports/bangumi-daily-posts-latest.json scripts/wiki/skipped-subjects.json 2>/dev/null || true
 
           if git diff --staged --quiet; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
