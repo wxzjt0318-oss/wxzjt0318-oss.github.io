@@ -3,7 +3,7 @@ title: "《我们真的学不来》"
 description: "《我们无法一起学习》是由日本漫画家筒井大志创作的恋爱漫画作品，于《周刊少年Jump》2017年10号开始连载，2021年3·4合并号完结。此部作品是作者在《魔法甜点师小咲!!》（与古味直志作品《伪恋》合作的外传漫画）连载完毕后独自推出的作…"
 tags: ["后宫", "恋爱", "校园", "漫改", "TV", "Bangumi"]
 category: "后宫作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/257369"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-257369"
 image: "https://lain.bgm.tv/pic/cover/l/21/a6/257369_32HM0.jpg"
 ---
 
-> 心动的瞬间总是来得猝不及防，这正是《我们真的学不来》想要传达的美好。
+> 为了拿到大学免学费的推荐资格，他要辅导几位“学不来”的天才少女——偏偏她们想学的，都是自己最不擅长的那一科。
 
 ---
 
@@ -111,3 +111,4 @@ Studio Silver×Arvo Animation 的制作实力为作品的视觉呈现提供了�
 
 - [Bangumi 番组计划「我们真的学不来」](https://bgm.tv/subject/257369)：基础信息、角色与制作人员
 - [维基百科「我們真的學不來！」](https://zh.wikipedia.org/wiki/%E6%88%91%E5%80%91%E7%9C%9F%E7%9A%84%E5%AD%B8%E4%B8%8D%E4%BE%86%EF%BC%81)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

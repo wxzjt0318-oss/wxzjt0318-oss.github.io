@@ -30,6 +30,7 @@ import {
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
+import { applyGlossary } from "./wiki/zh-glossary.mjs";
 import {
 	cleanChineseProse,
 	hasKana,
@@ -47,6 +48,8 @@ const STATE_FILE = path.join(ROOT_DIR, "src", "data", "bangumi-posts-state.json"
 const REPORT_FILE = path.join(ROOT_DIR, "reports", "bangumi-daily-posts-latest.json");
 
 const BANGUMI_API_BASE = "https://api.bgm.tv/v0";
+// 人工撰写的作品引言（封面下方的引用块），按 Bangumi 条目 ID 索引；没有时按剧情自动生成
+const QUOTES_FILE = path.join(ROOT_DIR, "scripts", "wiki", "post-quotes.json");
 
 function getEnvBoolean(name, defaultValue = false) {
 	const raw = process.env[name];
@@ -308,9 +311,13 @@ async function enrichCharacters(characters, { workTitles, fetchDetail, fetchBio 
 		}
 
 		let description = cleanChineseProse(character.summary || detail?.summary || "");
+		let bioSource = null;
 		if (description.length < 30) {
 			const bio = await fetchBio({ nameCn, workTitles });
-			if (bio?.text && bio.text.length > description.length) description = bio.text;
+			if (bio?.text && bio.text.length > description.length) {
+				description = bio.text;
+				bioSource = bio.source;
+			}
 		}
 		description = truncateAtSentence(description, 320);
 
@@ -318,6 +325,7 @@ async function enrichCharacters(characters, { workTitles, fetchDetail, fetchBio 
 		const birth =
 			detail?.birth_mon && detail?.birth_day ? `${detail.birth_mon}月${detail.birth_day}日` : "";
 		result.push({
+			bioSource,
 			name: nameCn,
 			name_cn: nameCn,
 			description,
@@ -356,7 +364,13 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 	const meta = buildMeta(candidate, detail, statusLabel);
 	const tags = buildTags(candidate, detail, { titleCn, studio: meta.studio });
 	const primaryGenre = tags.find((t) => t !== "Bangumi" && t !== meta.studio && !FORM_TAGS.has(t));
-	const sources = encyclopedia?.sources || [];
+	const sources = [...(encyclopedia?.sources || [])];
+	for (const character of options.characters || []) {
+		const ref = character.bioSource;
+		if (ref && !sources.some((s) => s.url === ref.url)) {
+			sources.push({ key: "moegirl", label: ref.label, title: ref.title, url: ref.url, license: "CC BY-NC-SA 3.0", usage: "角色资料" });
+		}
+	}
 	return {
 		subjectId: candidate.subject_id,
 		title: articleTitle,
@@ -377,6 +391,7 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 		characters: options.characters || [],
 		references: sources,
 		licenseName: resolveLicense(sources),
+		quote: options.quote || null,
 	};
 }
 
@@ -516,6 +531,7 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 		fetchBio,
 	});
 
+	const curatedQuotes = await readJsonIfExists(QUOTES_FILE, {});
 	const payload = buildArticlePayload(candidate, detail, imageSelection, {
 		now,
 		reviewMode,
@@ -523,6 +539,7 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 		titleCn,
 		titleJp,
 		encyclopedia,
+		quote: curatedQuotes[String(candidate.subject_id)] || null,
 	});
 	return { payload, imageSelection, detail, rawCharacters, encyclopedia, titleCn, titleJp };
 }
@@ -577,7 +594,7 @@ async function main() {
 	payload.alias = safeAlias;
 
 	console.log("📝 Building Bangumi article markdown...");
-	const articleContent = buildAnimeArticleMarkdown(payload);
+	const articleContent = applyGlossary(buildAnimeArticleMarkdown(payload));
 	const japaneseRatio = measureJapaneseRatio(articleContent);
 	if (japaneseRatio > 0.03) {
 		console.warn(`⚠ 正文仍含 ${(japaneseRatio * 100).toFixed(1)}% 日文假名，请检查：${payload.title}`);

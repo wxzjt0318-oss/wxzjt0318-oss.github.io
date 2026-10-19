@@ -3,7 +3,7 @@ name: Rewrite Bangumi Posts in Chinese
 # 存量 bangumi-* 文章中文化重写（scripts/wiki/rewrite-bangumi-chinese.mjs）。
 # 需要访问 Bangumi / 萌娘百科 / 维基百科，因此在 Actions 中运行，结果提交回触发分支。
 # - 手动运行：Actions → 本工作流 → Run workflow（可填 only = 逗号分隔的条目 ID）
-# - claude/** 分支上修改重写 / 发文脚本或本文件时自动运行一次
+# 只能手动触发：重写会覆盖已发布文章，必须由人决定何时运行。
 on:
   workflow_dispatch:
     inputs:
@@ -12,13 +12,6 @@ on:
         required: false
         default: ""
         type: string
-  push:
-    branches: ["claude/**"]
-    paths:
-      - "scripts/wiki/**"
-      - "scripts/generate-bangumi-daily-post.mjs"
-      - "scripts/bangumi-daily-posts.mjs"
-      - ".github/workflows/bangumi-chinese-rewrite.yml"
 
 permissions:
   contents: write

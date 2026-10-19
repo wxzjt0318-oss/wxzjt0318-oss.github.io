@@ -3,7 +3,7 @@ title: "《擅长捉弄的高木同学 剧场版》"
 description: "《擅长捉弄的高木同学》是根据山本崇一朗创作的日本漫画《擅长捉弄的高木同学》和《明天星期六》改编的动画作品。"
 tags: ["恋爱", "日常", "校园", "漫画改", "剧场版", "新锐动画", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/347888"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-347888"
 image: "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg"
 ---
 
-> 爱情的模样有千万种，《擅长捉弄的高木同学 剧场版》为我们呈现了其中最动人的那一种。
+> 初中最后的那个夏天，一只走失的小猫，让高木与西片的约定有了更深的意义。
 
 ---
 
@@ -109,3 +109,4 @@ image: "https://lain.bgm.tv/pic/cover/l/fd/00/347888_fBpdB.jpg"
 
 - [Bangumi 番组计划「擅长捉弄的高木同学 剧场版」](https://bgm.tv/subject/347888)：基础信息、角色与制作人员
 - [维基百科「擅長捉弄人的高木同學 (動畫)」](https://zh.wikipedia.org/wiki/%E6%93%85%E9%95%B7%E6%8D%89%E5%BC%84%E4%BA%BA%E7%9A%84%E9%AB%98%E6%9C%A8%E5%90%8C%E5%AD%B8_(%E5%8B%95%E7%95%AB))：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

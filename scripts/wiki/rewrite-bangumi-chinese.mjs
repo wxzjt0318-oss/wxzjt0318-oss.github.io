@@ -28,6 +28,7 @@ import {
 	loadSnapshotCollections,
 	measureJapaneseRatio,
 } from "../generate-bangumi-daily-post.mjs";
+import { applyGlossary } from "./zh-glossary.mjs";
 import { cleanChineseProse, hasKana } from "./zh-text.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -173,10 +174,9 @@ async function main() {
 			payload.draft = fm.draft;
 			payload.pinned = fm.pinned;
 
-			const markdown = buildAnimeArticleMarkdown(payload).replace(
-				/^pinned: (true|false)$/m,
-				`pinned: ${fm.pinned}`,
-			);
+			const markdown = applyGlossary(
+				buildAnimeArticleMarkdown(payload),
+			).replace(/^pinned: (true|false)$/m, `pinned: ${fm.pinned}`);
 			const ratio = measureJapaneseRatio(markdown);
 			if (!DRY_RUN)
 				await fs.writeFile(filePath, `${markdown.trimEnd()}\n`, "utf8");

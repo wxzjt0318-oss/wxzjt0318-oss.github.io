@@ -3,7 +3,7 @@ title: "《关于我转生变成史莱姆这档事 第二季 第2部分》"
 description: "《关于我转生变成史莱姆这档事》是伏濑所撰同名轻小说改编动画。现已改编成电视动画和剧场动画。"
 tags: ["异世界", "轻小说改", "奇幻", "战斗", "TV", "8bit", "Bangumi"]
 category: "异世界作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/302523"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-302523"
 image: "https://lain.bgm.tv/pic/cover/l/c5/e7/302523_1wCsw.jpg"
 ---
 
-> 奇幻的世界总是充满无限可能，《关于我转生变成史莱姆这档事 第二季 第2部分》带我们踏上了一段奇妙的冒险之旅。
+> 魔王们的宴会即将召开，利姆路必须站上那张谈判桌——为了伙伴，也为了守护这个国家。
 
 ---
 
@@ -113,3 +113,4 @@ image: "https://lain.bgm.tv/pic/cover/l/c5/e7/302523_1wCsw.jpg"
 
 - [Bangumi 番组计划「关于我转生变成史莱姆这档事 第二季 第2部分」](https://bgm.tv/subject/302523)：基础信息、角色与制作人员
 - [维基百科「關於我轉生變成史萊姆這檔事 (動畫)」](https://zh.wikipedia.org/wiki/%E9%97%9C%E6%96%BC%E6%88%91%E8%BD%89%E7%94%9F%E8%AE%8A%E6%88%90%E5%8F%B2%E8%90%8A%E5%A7%86%E9%80%99%E6%AA%94%E4%BA%8B_(%E5%8B%95%E7%95%AB))：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

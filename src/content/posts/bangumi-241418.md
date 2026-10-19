@@ -3,7 +3,7 @@ title: "《擅长捉弄的高木同学 OVA》"
 description: "《擅长捉弄的高木同学》是由日本漫画家山本崇一朗所创作的少年漫画作品，起初于日本漫画杂志《月刊少年Sunday》2012年7月号上推出单篇，之后在《月刊少年Sunday-mini》2号〈Sunday 2013年7号 附录别册〉开始连载。内容…"
 tags: ["恋爱", "漫画改", "校园", "日常", "OVA", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/241418"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-241418"
 image: "https://lain.bgm.tv/pic/cover/l/23/4c/241418_C0qSS.jpg"
 ---
 
-> 心动的瞬间总是来得猝不及防，这正是《擅长捉弄的高木同学 OVA》想要传达的美好。
+> 夏天的祭典、海边与水着——高木同学的捉弄，在假日里也没有休息过。
 
 ---
 
@@ -109,3 +109,4 @@ image: "https://lain.bgm.tv/pic/cover/l/23/4c/241418_C0qSS.jpg"
 
 - [Bangumi 番组计划「擅长捉弄的高木同学 OVA」](https://bgm.tv/subject/241418)：基础信息、角色与制作人员
 - [维基百科「擅長捉弄人的高木同學」](https://zh.wikipedia.org/wiki/%E6%93%85%E9%95%B7%E6%8D%89%E5%BC%84%E4%BA%BA%E7%9A%84%E9%AB%98%E6%9C%A8%E5%90%8C%E5%AD%B8)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

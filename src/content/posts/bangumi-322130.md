@@ -3,7 +3,7 @@ title: "《异世界迷宫里的后宫生活》"
 description: "《异世界迷宫里的后宫生活》是苏我舍耻所着的日本轻小说。2011年4月至2019年11月以《异世界迷宫里的奴隶后宫生活》之名在成为小说家吧连载（Web版）。2012年12月起由主妇之友社旗下英雄文库以《异世界迷宫里的后宫生活》为书名发行文库…"
 tags: ["后宫", "异世界", "肉番", "轻小说改", "TV", "Bangumi"]
 category: "后宫作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/322130"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-322130"
 image: "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg"
 ---
 
-> 在光影交织的画面中，总有一些作品能够触动心灵——《异世界迷宫里的后宫生活》便是其中之一。
+> 对现实绝望的少年，按下了“前往异世界”的按钮——在那里，迷宫、奴隶与后宫都成了真实。
 
 ---
 
@@ -110,3 +110,4 @@ image: "https://lain.bgm.tv/pic/cover/l/b3/a6/322130_g6hkc.jpg"
 
 - [Bangumi 番组计划「异世界迷宫里的后宫生活」](https://bgm.tv/subject/322130)：基础信息、角色与制作人员
 - [维基百科「異世界迷宮裡的後宮生活」](https://zh.wikipedia.org/wiki/%E7%95%B0%E4%B8%96%E7%95%8C%E8%BF%B7%E5%AE%AE%E8%A3%A1%E7%9A%84%E5%BE%8C%E5%AE%AE%E7%94%9F%E6%B4%BB)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

@@ -3,7 +3,7 @@ title: "《我们真的学不来 OVA》"
 description: "单行本第14、16卷同捆OVA"
 tags: ["恋爱", "后宫", "漫画改", "校园", "OVA", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/294059"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-294059"
 image: "https://lain.bgm.tv/pic/cover/l/df/d3/294059_Teorx.jpg"
 ---
 
-> 心动的瞬间总是来得猝不及防，这正是《我们真的学不来 OVA》想要传达的美好。
+> 在单行本附赠的番外里，“学不来”的少女们也能放下课本，享受一段属于自己的小插曲。
 
 ---
 
@@ -104,3 +104,4 @@ image: "https://lain.bgm.tv/pic/cover/l/df/d3/294059_Teorx.jpg"
 ## 参考资料
 
 - [Bangumi 番组计划「我们真的学不来 OVA」](https://bgm.tv/subject/294059)：基础信息、角色与制作人员
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

@@ -3,7 +3,7 @@ title: "《久保同学不放过我》"
 description: "《久保同学不放过我》是由雪森宁宁创作的日本漫画，于集英社《周刊Young Jump》2019年第47号开始连载，至2023年第14号连载结束。2020年8月12日起开始同步连载于《少年Jump+》，逢星期三更新。改编电视动画由PINE J…"
 tags: ["恋爱", "校园", "漫画改", "日常", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/381793"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-381793"
 image: "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg"
 ---
 
-> 爱情的模样有千万种，《久保同学不放过我》为我们呈现了其中最动人的那一种。
+> 存在感为零的少年，只有她能一眼找到——久保同学的捉弄，是他平凡日常里最亮的光。
 
 ---
 
@@ -105,3 +105,4 @@ image: "https://lain.bgm.tv/pic/cover/l/12/39/381793_oNshs.jpg"
 
 - [Bangumi 番组计划「久保同学不放过我」](https://bgm.tv/subject/381793)：基础信息、角色与制作人员
 - [维基百科「久保同學不放過我」](https://zh.wikipedia.org/wiki/%E4%B9%85%E4%BF%9D%E5%90%8C%E5%AD%B8%E4%B8%8D%E6%94%BE%E9%81%8E%E6%88%91)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

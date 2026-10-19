@@ -3,7 +3,7 @@ title: "《疑似后宫》"
 description: "《百变的七仓同学》是日本漫画家齐藤祐创作的日本漫画，本来是他由2018年6月起，上传至自己Twitter（@54110yu）的网络漫画作品，逢星期五晚上10点左右更新。其后漫画杂志《月刊少年Sunday》，于2019年2月号至2021年4…"
 tags: ["恋爱", "校园", "漫画改", "纯爱", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/428823"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-428823"
 image: "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg"
 ---
 
-> 心动的瞬间总是来得猝不及防，这正是《疑似后宫》想要传达的美好。
+> 为了让学长体验“后宫”，她一个人分饰好几个不同性格的女孩——真正想被看见的，其实只有她自己。
 
 ---
 
@@ -104,3 +104,4 @@ image: "https://lain.bgm.tv/pic/cover/l/0c/fd/428823_vuwNR.jpg"
 
 - [Bangumi 番组计划「疑似后宫」](https://bgm.tv/subject/428823)：基础信息、角色与制作人员
 - [维基百科「模擬後宮體驗」](https://zh.wikipedia.org/wiki/%E6%A8%A1%E6%93%AC%E5%BE%8C%E5%AE%AE%E9%AB%94%E9%A9%97)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

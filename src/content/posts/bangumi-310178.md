@@ -3,7 +3,7 @@ title: "《约会大作战 赤黑新章：红或白》"
 description: "约会大作战 赤黑新章：红或白"
 tags: ["轻小说改", "战斗", "奇幻", "轻改", "剧场版", "Bangumi"]
 category: "轻小说改作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/310178"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-310178"
 image: "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg"
 ---
 
-> 当异世界的门扉悄然打开——一段超越想象边界的旅程便由此启程。
+> 邻界中的战斗进入终章，狂三与响的羁绊，将在“红”与“白”的选择之间迎来结局。
 
 ---
 
@@ -123,3 +123,4 @@ image: "https://lain.bgm.tv/pic/cover/l/7d/d1/310178_fmSFj.jpg"
 
 - [Bangumi 番组计划「约会大作战 赤黑新章：红或白」](https://bgm.tv/subject/310178)：基础信息、角色与制作人员
 - [维基百科「約會大作戰 (動畫)」](https://zh.wikipedia.org/wiki/%E7%B4%84%E6%9C%83%E5%A4%A7%E4%BD%9C%E6%88%B0_(%E5%8B%95%E7%95%AB))：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

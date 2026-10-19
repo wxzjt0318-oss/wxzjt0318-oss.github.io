@@ -57,7 +57,9 @@ export function stripDisambiguation(title) {
 /** 条目是否确实在讲这部作品 */
 export function isRelevantWorkArticle(article, { titleCn, titleJp } = {}) {
 	if (!article) return false;
-	const text = normalizeForMatch(article.fullText || article.intro || "");
+	// 作品名必须出现在导言里（或与条目标题相符）：公司、人物等条目只会在正文
+	// 作品列表里提到它，不能当作作品介绍（如「京都动画」条目里的《中二病》）
+	const text = normalizeForMatch(article.intro || "");
 	const pageTitle = normalizeForMatch(stripDisambiguation(article.title));
 	if (
 		!ACG_CONTEXT_RE.test(toSimplified(article.fullText || article.intro || ""))

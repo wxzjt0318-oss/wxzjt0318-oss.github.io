@@ -3,7 +3,7 @@ title: "《Re：从零开始的异世界生活 第四季 丧失篇》"
 description: "此列表是《Re:从零开始的异世界生活》内的登场人物的介绍。列表中所提及的年龄资料皆为登场时年龄，不随剧情时间推进而异动。"
 tags: ["异世界", "奇幻", "战斗", "轻小说改", "TV", "Bangumi"]
 category: "异世界作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/547888"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-547888"
 image: "https://lain.bgm.tv/pic/cover/l/8e/70/547888_46dnk.jpg"
 ---
 
-> 奇幻的世界总是充满无限可能，《Re：从零开始的异世界生活 第四季 丧失篇》带我们踏上了一段奇妙的冒险之旅。
+> 胜利的代价过于沉重，被“暴食”夺走的名字与记忆，要怎样才能找回来？
 
 ---
 
@@ -115,3 +115,4 @@ image: "https://lain.bgm.tv/pic/cover/l/8e/70/547888_46dnk.jpg"
 
 - [Bangumi 番组计划「Re：从零开始的异世界生活 第四季 丧失篇」](https://bgm.tv/subject/547888)：基础信息、角色与制作人员
 - [维基百科「Re:從零開始的異世界生活角色列表」](https://zh.wikipedia.org/wiki/Re:%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E7%9A%84%E7%95%B0%E4%B8%96%E7%95%8C%E7%94%9F%E6%B4%BB%E8%A7%92%E8%89%B2%E5%88%97%E8%A1%A8)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

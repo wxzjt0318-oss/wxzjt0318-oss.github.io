@@ -3,7 +3,7 @@ title: "《败犬女主太多了！》"
 description: "《败犬女主太多了！》是日本作家雨森焚火创作的轻小说系列，由《这个美术社大有问题！》作者伊右群担纲插图，2021年7月起经小学馆旗下GAGAGA文库发行。第15届小学馆轻小说大奖“GAGAGA奖”得奖作品。改编漫画由2022年4月29日起，…"
 tags: ["恋爱", "校园", "青春", "轻小说改", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/464376"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-464376"
 image: "https://lain.bgm.tv/pic/cover/l/e4/dc/464376_NsZRw.jpg"
 ---
 
-> 有些故事，从一次不经意的相遇开始——而它，正是这样一段值得驻足的时光。
+> 没能赢得心上人的女孩们，各自带着失恋的伤口——而他，只是不小心成了她们的倾听者。
 
 ---
 
@@ -113,3 +113,4 @@ image: "https://lain.bgm.tv/pic/cover/l/e4/dc/464376_NsZRw.jpg"
 
 - [Bangumi 番组计划「败犬女主太多了！」](https://bgm.tv/subject/464376)：基础信息、角色与制作人员
 - [维基百科「敗北女角太多了！」](https://zh.wikipedia.org/wiki/%E6%95%97%E5%8C%97%E5%A5%B3%E8%A7%92%E5%A4%AA%E5%A4%9A%E4%BA%86%EF%BC%81)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

@@ -3,7 +3,7 @@ title: "《关于我转生变成史莱姆这档事 柯里乌斯之梦》"
 description: "《关于我转生变成史莱姆这档事》，通常简称为《转生史莱姆》，是日本小说家伏濑创作的一部网络小说作品，描述一名上班族转生到异世界成为史莱姆的新人生故事。"
 tags: ["异世界", "轻小说改", "战斗", "奇幻", "OVA", "Bangumi"]
 category: "异世界作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/421174"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-421174"
 image: "https://lain.bgm.tv/pic/cover/l/fc/78/421174_nlx3z.jpg"
 ---
 
-> 当异世界的门扉悄然打开——一段超越想象边界的旅程便由此启程。
+> 离开了魔物之国的利姆路，在另一个国家遇见了需要守护的新面孔——这是一段番外里的温柔冒险。
 
 ---
 
@@ -108,3 +108,4 @@ image: "https://lain.bgm.tv/pic/cover/l/fc/78/421174_nlx3z.jpg"
 
 - [Bangumi 番组计划「关于我转生变成史莱姆这档事 柯里乌斯之梦」](https://bgm.tv/subject/421174)：基础信息、角色与制作人员
 - [维基百科「關於我轉生變成史萊姆這檔事」](https://zh.wikipedia.org/wiki/%E9%97%9C%E6%96%BC%E6%88%91%E8%BD%89%E7%94%9F%E8%AE%8A%E6%88%90%E5%8F%B2%E8%90%8A%E5%A7%86%E9%80%99%E6%AA%94%E4%BA%8B)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

@@ -3,7 +3,7 @@ title: "《约会大作战 赤黑新章：虚或实》"
 description: "约会大作战 赤黑新章：虚或实"
 tags: ["轻小说改", "战斗", "后宫", "轻改", "剧场版", "GEEKTOYS", "Bangumi"]
 category: "轻小说改作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/291171"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-291171"
 image: "https://lain.bgm.tv/pic/cover/l/b6/8f/291171_PA7pA.jpg"
 ---
 
-> 动画的魅力在于它能将想象变为现实，而这部作品正是这种魅力的完美体现。
+> 在只属于精灵的邻界里，狂三与名为“绯衣响”的少女踏上了一段只为寻找自己的旅程。
 
 ---
 
@@ -127,3 +127,4 @@ GEEKTOYS 的制作实力为作品的视觉呈现提供了可靠保障。
 
 - [Bangumi 番组计划「约会大作战 赤黑新章：虚或实」](https://bgm.tv/subject/291171)：基础信息、角色与制作人员
 - [维基百科「約會大作戰 (動畫)」](https://zh.wikipedia.org/wiki/%E7%B4%84%E6%9C%83%E5%A4%A7%E4%BD%9C%E6%88%B0_(%E5%8B%95%E7%95%AB))：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

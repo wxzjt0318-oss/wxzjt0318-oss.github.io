@@ -3,7 +3,7 @@ title: "《擅长捉弄的高木同学 第三季》"
 description: "《擅长捉弄的高木同学》是由日本漫画家山本崇一朗所创作的少年漫画作品，起初于日本漫画杂志《月刊少年Sunday》2012年7月号上推出单篇，之后在《月刊少年Sunday-mini》2号〈Sunday 2013年7号 附录别册〉开始连载。内容…"
 tags: ["恋爱", "校园", "日常", "漫画改", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/347887"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-347887"
 image: "https://lain.bgm.tv/pic/cover/l/2d/ad/347887_j0DFj.jpg"
 ---
 
-> 有些故事，从一次不经意的相遇开始——而它，正是这样一段值得驻足的时光。
+> 最后一个初中的夏天，西片终于要鼓起勇气——这一次，被捉弄的人能不能扳回一局？
 
 ---
 
@@ -113,3 +113,4 @@ image: "https://lain.bgm.tv/pic/cover/l/2d/ad/347887_j0DFj.jpg"
 
 - [Bangumi 番组计划「擅长捉弄的高木同学 第三季」](https://bgm.tv/subject/347887)：基础信息、角色与制作人员
 - [维基百科「擅長捉弄人的高木同學」](https://zh.wikipedia.org/wiki/%E6%93%85%E9%95%B7%E6%8D%89%E5%BC%84%E4%BA%BA%E7%9A%84%E9%AB%98%E6%9C%A8%E5%90%8C%E5%AD%B8)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

@@ -771,7 +771,7 @@ export function buildAnimeArticleMarkdown(payload) {
 
 	const cleanTitle = filled.title.replace(/^《|》$/g, "");
 	const genreTags = ensureArray(filled.tags);
-	const finalQuote = quote || selectOpeningQuote(cleanTitle, genreTags);
+	const finalQuote = quote || buildSynopsisQuote(summary) || selectOpeningQuote(cleanTitle, genreTags);
 	const introText = overview
 		? buildOverviewText({ cleanTitle, overview, meta })
 		: buildIntroText({ cleanTitle, description, summary, genreTags, meta });
@@ -826,6 +826,28 @@ ${contentOverride.summary || summarySection}
 
 ${referenceSection}
 `;
+}
+
+/**
+ * 引言优先用作品自己的故事开端：取中文剧情的前一两句（≤ 72 字），
+ * 与手写文章「以作品设定开篇」的引言一致；没有中文剧情时才退回题材通用句。
+ */
+export function buildSynopsisQuote(summary, maxLength = 72) {
+	const text = String(summary || "")
+		.split(/\n+/)
+		.map((line) => line.trim())
+		.find((line) => line.length >= 12 && !/[\u3040-\u30ff]/.test(line));
+	if (!text) return "";
+	const sentences = text.match(/[^。！？!?]+[。！？!?]?/g) || [];
+	let quote = "";
+	for (const sentence of sentences) {
+		if ((quote + sentence).length > maxLength) break;
+		quote += sentence;
+		if (quote.length >= 28) break;
+	}
+	quote = quote.trim();
+	if (quote.length < 12) return "";
+	return /[。！？!?…」』]$/.test(quote) ? quote : `${quote}……`;
 }
 
 function selectOpeningQuote(cleanTitle, genreTags) {
@@ -974,7 +996,7 @@ function buildOverviewText({ cleanTitle, overview, meta }) {
 function buildReferenceSection({ cleanTitle, sourceLink, references }) {
 	const lines = [`- [Bangumi 番组计划「${cleanTitle}」](${sourceLink})：基础信息、角色与制作人员`];
 	for (const ref of ensureArray(references)) {
-		lines.push(`- [${ref.label}「${ref.title}」](${ref.url})：作品介绍与剧情（${ref.license}）`);
+		lines.push(`- [${ref.label}「${ref.title}」](${ref.url})：${ref.usage || "作品介绍与剧情"}（${ref.license}）`);
 	}
 	return `## 参考资料\n\n${lines.join("\n")}`;
 }

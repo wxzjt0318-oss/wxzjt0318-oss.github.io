@@ -3,7 +3,7 @@ title: "《朋友的妹妹只喜欢烦我》"
 description: "《朋友的妹妹只喜欢烦我》是三河Ghost所着的日本轻小说系列。2019年4月起经GA文库发行，由トマリ担纲插画，出版至今共10册。截至2025年3月，本系列累积发行逾60万本。改编漫画由平冈平作画，由2019年12月13日起开始连载。改编…"
 tags: ["恋爱", "校园", "轻小说改", "后宫", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/326859"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-326859"
 image: "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg"
 ---
 
-> 有些故事，从一次不经意的相遇开始——而它，正是这样一段值得驻足的时光。
+> 认定青春毫无效率的少年，身边偏偏有个只对他“烦人”的好友妹妹——她的骚扰，其实都是心意。
 
 ---
 
@@ -112,3 +112,4 @@ image: "https://lain.bgm.tv/pic/cover/l/82/62/326859_1pOHy.jpg"
 
 - [Bangumi 番组计划「朋友的妹妹只喜欢烦我」](https://bgm.tv/subject/326859)：基础信息、角色与制作人员
 - [维基百科「朋友的妹妹只纏著我」](https://zh.wikipedia.org/wiki/%E6%9C%8B%E5%8F%8B%E7%9A%84%E5%A6%B9%E5%A6%B9%E5%8F%AA%E7%BA%8F%E8%91%97%E6%88%91)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

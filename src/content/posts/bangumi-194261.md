@@ -3,7 +3,7 @@ title: "《天使的3P!》"
 description: "《天使的3P！》是苍山探所写的日本轻小说，由Tinkle绘制插画。"
 tags: ["萝莉", "轻小说改", "后宫", "音乐", "TV", "Bangumi"]
 category: "萝莉作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/194261"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-194261"
 image: "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg"
 ---
 
-> 每一部动画都是一扇通往异世界的门——而这，正是为你敞开的某一扇。
+> 一个想重新出发的少年，三个心怀梦想的小学女生——四个人的乐队，要用音乐守护属于她们的“家”。
 
 ---
 
@@ -111,3 +111,4 @@ image: "https://lain.bgm.tv/pic/cover/l/c3/3f/194261_Z90c0.jpg"
 
 - [Bangumi 番组计划「天使的3P!」](https://bgm.tv/subject/194261)：基础信息、角色与制作人员
 - [维基百科「天使的3P！」](https://zh.wikipedia.org/wiki/%E5%A4%A9%E4%BD%BF%E7%9A%843P%EF%BC%81)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

@@ -3,7 +3,7 @@ title: "《政宗君的复仇R》"
 description: "《政宗君的复仇》是由竹冈叶月担任原作，Tiv担任作画的漫画作品，于2012年12月号至2018年8月号在一迅社的《月刊Comic REX》上连载。单行本全13卷+外传1卷。2023年12月本作累计发行量突破380万册。"
 tags: ["恋爱", "校园", "漫画改", "漫改", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY-SA 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/376433"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-376433"
 image: "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg"
 ---
 
-> 有些故事，从一次不经意的相遇开始——而它，正是这样一段值得驻足的时光。
+> 八年的魔鬼训练换来一张帅脸，政宗回到故乡，要让当年羞辱自己的大小姐爱上他——再狠狠甩掉她。
 
 ---
 
@@ -110,3 +110,4 @@ image: "https://lain.bgm.tv/pic/cover/l/37/da/376433_EhTZ4.jpg"
 
 - [Bangumi 番组计划「政宗君的复仇R」](https://bgm.tv/subject/376433)：基础信息、角色与制作人员
 - [维基百科「政宗君的復仇」](https://zh.wikipedia.org/wiki/%E6%94%BF%E5%AE%97%E5%90%9B%E7%9A%84%E5%BE%A9%E4%BB%87)：作品介绍与剧情（CC BY-SA 4.0）
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

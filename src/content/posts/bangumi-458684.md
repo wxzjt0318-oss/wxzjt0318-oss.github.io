@@ -3,7 +3,7 @@ title: "《关于邻家的天使大人不知不觉把我惯成了废人这档子
 description: "因成为了公寓邻居而开始交流的藤宫周与椎名真昼，在高中二年级的运动会结束后，终于正式交往。无论是亲手制作的料理还是浴衣约会，两人间充满了如新婚夫妻般的氛围，但那份怦然心动的感觉却依然让他们不知所措。随着各种事件的发生，两人也逐渐携手跨越了各…"
 tags: ["恋爱", "校园", "轻小说改", "日常", "TV", "Bangumi"]
 category: "恋爱作品介绍"
-licenseName: "CC BY 4.0"
+licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
 sourceLink: "https://bgm.tv/subject/458684"
 draft: false
@@ -14,7 +14,7 @@ alias: "bangumi-458684"
 image: "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg"
 ---
 
-> 心动的瞬间总是来得猝不及防，这正是《关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季》想要传达的美好。
+> 运动会结束后，藤宫周与真昼的关系终于有了新的名字——从邻居，到恋人。
 
 ---
 
@@ -108,3 +108,4 @@ image: "https://lain.bgm.tv/pic/cover/l/53/22/458684_28O4i.jpg"
 ## 参考资料
 
 - [Bangumi 番组计划「关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季」](https://bgm.tv/subject/458684)：基础信息、角色与制作人员
+- [萌娘百科](https://zh.moegirl.org.cn/)：角色资料（CC BY-NC-SA 3.0）

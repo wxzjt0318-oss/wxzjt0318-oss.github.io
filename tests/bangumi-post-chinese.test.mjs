@@ -21,8 +21,8 @@ import {
 import {
 	cleanChineseProse,
 	isMostlyJapanese,
-	normalizeStudioName,
 	jpToSimplified,
+	normalizeStudioName,
 	stripForeignNotes,
 	toSimplified,
 } from "../scripts/wiki/zh-text.mjs";
