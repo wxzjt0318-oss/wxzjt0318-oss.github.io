@@ -234,6 +234,9 @@ importers:
       esbuild:
         specifier: ^0.28.2
         version: 0.28.2
+      opencc-js:
+        specifier: 1.4.2
+        version: 1.4.2
       vite:
         specifier: ^8.3.2
         version: 8.3.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass@1.80.4)(stylus@0.64.0(supports-color@7.2.0))(terser@5.43.1)(yaml@2.9.1)
@@ -5234,6 +5237,9 @@ packages:
   open@8.4.2:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
+
+  opencc-js@1.4.2:
+    resolution: {integrity: sha512-EdcspgdROiCCZDM+jZR6Pa670xW+EW2QhctPBQ8gRjg6lrx4IHEl+2s+kt5izk/TkxVRgdWuFgaGkaEdIUfdaw==}
 
   opencollective-postinstall@2.0.3:
     resolution: {integrity: sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==}
@@ -12947,6 +12953,8 @@ snapshots:
       define-lazy-prop: 2.0.0
       is-docker: 2.2.1
       is-wsl: 2.2.0
+
+  opencc-js@1.4.2: {}
 
   opencollective-postinstall@2.0.3: {}
 

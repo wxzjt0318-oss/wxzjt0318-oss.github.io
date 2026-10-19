@@ -651,6 +651,7 @@ export function autoFillMetadata(payload) {
 		alias,
 		meta = {},
 		category,
+		licenseName,
 	} = payload;
 
 	const cleanTitle = title || titleRaw || "未知作品";
@@ -679,7 +680,7 @@ export function autoFillMetadata(payload) {
 		image: image || DEFAULT_FALLBACK_IMAGE,
 		draft: false,
 		pinned: false,
-		licenseName: "CC BY 4.0",
+		licenseName: licenseName || "CC BY 4.0",
 		author: "灵梦",
 		pubDate: published || formatDate(),
 	};
@@ -741,6 +742,9 @@ export function buildAnimeArticleMarkdown(payload) {
 		characters = [],
 		quote = null,
 		manualEdits = {},
+		overview = "",
+		references = [],
+		licenseName,
 	} = payload;
 
 	const filled = autoFillMetadata({
@@ -756,6 +760,7 @@ export function buildAnimeArticleMarkdown(payload) {
 		alias,
 		meta,
 		category,
+		licenseName,
 	});
 
 	const frontmatter = buildFrontmatter({
@@ -767,7 +772,9 @@ export function buildAnimeArticleMarkdown(payload) {
 	const cleanTitle = filled.title.replace(/^《|》$/g, "");
 	const genreTags = ensureArray(filled.tags);
 	const finalQuote = quote || selectOpeningQuote(cleanTitle, genreTags);
-	const introText = buildIntroText({ cleanTitle, description, summary, genreTags, meta });
+	const introText = overview
+		? buildOverviewText({ cleanTitle, overview, meta })
+		: buildIntroText({ cleanTitle, description, summary, genreTags, meta });
 	const infoSection = buildInfoSection({
 		cleanTitle,
 		originalTitle,
@@ -780,6 +787,7 @@ export function buildAnimeArticleMarkdown(payload) {
 	const staffSection = buildStaffSection(staff);
 	const viewingPoints = buildViewingPoints({ cleanTitle, genreTags, meta, summary, characters });
 	const summarySection = buildSummarySection({ cleanTitle, genreTags, meta });
+	const referenceSection = buildReferenceSection({ cleanTitle, sourceLink: filled.sourceLink, references });
 	const contentOverride = manualEdits.content || {};
 
 	return `${frontmatter}
@@ -814,7 +822,10 @@ ${contentOverride.viewingPoints || viewingPoints}
 
 ## 五、综合评价
 
-${contentOverride.summary || summarySection}`;
+${contentOverride.summary || summarySection}
+
+${referenceSection}
+`;
 }
 
 function selectOpeningQuote(cleanTitle, genreTags) {
@@ -941,6 +952,31 @@ function buildIntroText({ cleanTitle, description, summary, genreTags, meta }) {
 		`《${cleanTitle}》${studioInfo}是一部${primaryTag}题材的作品${airDateInfo}。${fallbackSummary}\n\n它的魅力在于那种润物细无声的叙事方式，让人在不知不觉中沉浸其中。`,
 	];
 	return fallbackTemplates[Math.floor(Math.random() * fallbackTemplates.length)];
+}
+
+/** 百科导言作为「作品概述」：最多三段，接一句制作信息收尾 */
+function buildOverviewText({ cleanTitle, overview, meta }) {
+	const paragraphs = String(overview)
+		.split("\n\n")
+		.map((p) => p.trim())
+		.filter(Boolean)
+		.slice(0, 3);
+	const facts = [
+		meta.studio ? `动画由${meta.studio}制作` : "",
+		meta.airDate ? `于${meta.airDate}开播` : "",
+		meta.episodes ? `全${meta.episodes}` : "",
+	].filter(Boolean);
+	const closing = facts.length > 0 ? `\n\n本篇介绍的《${cleanTitle}》${facts.join("，")}。` : "";
+	return `${paragraphs.join("\n\n")}${closing}`;
+}
+
+/** 参考资料与许可证声明（百科内容必须署名并保留出处链接） */
+function buildReferenceSection({ cleanTitle, sourceLink, references }) {
+	const lines = [`- [Bangumi 番组计划「${cleanTitle}」](${sourceLink})：基础信息、角色与制作人员`];
+	for (const ref of ensureArray(references)) {
+		lines.push(`- [${ref.label}「${ref.title}」](${ref.url})：作品介绍与剧情（${ref.license}）`);
+	}
+	return `## 参考资料\n\n${lines.join("\n")}`;
 }
 
 function buildPlotSection({ cleanTitle, summary, description, meta }) {
