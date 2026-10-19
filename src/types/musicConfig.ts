@@ -43,8 +43,11 @@ export interface MetingMusicConfig {
 	readonly type?: MetingType;
 	/** 歌单 / 单曲 / 专辑 ID */
 	readonly id?: string;
-	/** Meting API 地址模板，默认使用公开 API */
-	readonly api?: string;
+	/**
+	 * Meting API 地址模板，默认使用公开 API。
+	 * 传入数组时按顺序尝试，前一个失效（网络错误 / 非 2xx / 空歌单）自动切换下一个。
+	 */
+	readonly api?: string | readonly string[];
 	/**
 	 * 是否在音乐组件进入视口时预取歌单元数据：
 	 * - "metadata"：进入视口即请求一次歌单，**仅取元信息**（曲名/歌手/封面，不预取音频流），

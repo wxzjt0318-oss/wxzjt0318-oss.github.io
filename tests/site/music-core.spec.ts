@@ -6,7 +6,9 @@ import {
 import type { MusicConfig } from "../../src/types/musicConfig";
 import {
 	buildMetingUrl,
+	buildMetingUrls,
 	createMusicRuntime,
+	fetchMetingTracks,
 	nextTrackIndex,
 	parseMetingSong,
 	previousTrackIndex,
@@ -234,6 +236,42 @@ test.describe("music configuration and playlist helpers", () => {
 		expect(mixedResolved?.playlist.length).toBeGreaterThan(0);
 		expect(mixedResolved?.meting?.id).toBe("12345");
 		expect(mixedResolved?.meting?.preload).toBe("none");
+	});
+
+	test("falls back to the next meting api when one source fails", async () => {
+		const config = {
+			id: "42",
+			api: [
+				"https://dead.example/?server=:server&id=:id&r=:r",
+				"https://empty.example/?server=:server&id=:id&r=:r",
+				"https://ok.example/?server=:server&id=:id&r=:r",
+			],
+		};
+		const urls = buildMetingUrls(config);
+		expect(urls).toHaveLength(3);
+		expect(urls[2]).toContain("ok.example/?server=netease&id=42");
+
+		const requested: string[] = [];
+		const mockFetch = (async (input: RequestInfo | URL) => {
+			const url = String(input);
+			requested.push(new URL(url).host);
+			if (url.includes("dead.example")) throw new TypeError("network error");
+			const body = url.includes("ok.example")
+				? [{ id: 1, name: "Song", artist: "Artist", url: "https://a/1.mp3" }]
+				: [];
+			return new Response(JSON.stringify(body), { status: 200 });
+		}) as typeof fetch;
+
+		const tracks = await fetchMetingTracks(config, mockFetch);
+		expect(requested).toEqual(["dead.example", "empty.example", "ok.example"]);
+		expect(tracks.map((track) => track.title)).toEqual(["Song"]);
+
+		const failing = (async () => {
+			throw new TypeError("network error");
+		}) as typeof fetch;
+		await expect(fetchMetingTracks(config, failing)).rejects.toThrow(
+			"network error",
+		);
 	});
 
 	test("builds meting url and parses raw meting song items", () => {

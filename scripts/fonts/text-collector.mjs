@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { animeConfig } from "../../src/config/animeConfig.ts";
 import { fontConfig } from "../../src/config/fontConfig.ts";
 import { musicConfig } from "../../src/config/musicConfig.ts";
-import { buildMetingUrl } from "../../src/utils/music/meting.ts";
+import { buildMetingUrls } from "../../src/utils/music/meting.ts";
 
 const projectRoot = fileURLToPath(new URL("../../", import.meta.url));
 
@@ -141,8 +141,7 @@ async function collectMusicText(charSet) {
 		musicConfig.meting.id &&
 		(fontConfig.subsetting?.allowRemoteText ?? false)
 	) {
-		const url = buildMetingUrl(musicConfig.meting);
-		if (url) {
+		for (const url of buildMetingUrls(musicConfig.meting)) {
 			console.log(`[subsetting] Fetching Meting playlist text: ${url}`);
 			try {
 				const controller = new AbortController();
@@ -156,33 +155,35 @@ async function collectMusicText(charSet) {
 				});
 				clearTimeout(timeoutId);
 
-				if (res.ok) {
-					const data = await res.json();
-					if (Array.isArray(data)) {
-						let songCount = 0;
-						for (const song of data) {
-							const title = song.name ?? song.title ?? "";
-							const artist = song.artist ?? song.author ?? "";
-							const str = `${title} ${artist}`;
-							if (str.trim()) {
-								songCount++;
-								for (const ch of str) {
-									if (ch.charCodeAt(0) > 31) charSet.add(ch);
-								}
-							}
-						}
-						console.log(
-							`[subsetting] ✓ Collected text from ${songCount} Meting remote songs`,
-						);
-					}
-				} else {
+				if (!res.ok) {
 					console.warn(
-						`[subsetting] ⚠ Meting API returned HTTP ${res.status}, skipping remote song text`,
+						`[subsetting] ⚠ Meting API returned HTTP ${res.status}, trying next source`,
 					);
+					continue;
 				}
+				const data = await res.json();
+				if (!Array.isArray(data)) continue;
+
+				let songCount = 0;
+				for (const song of data) {
+					const title = song.name ?? song.title ?? "";
+					const artist = song.artist ?? song.author ?? "";
+					const str = `${title} ${artist}`;
+					if (str.trim()) {
+						songCount++;
+						for (const ch of str) {
+							if (ch.charCodeAt(0) > 31) charSet.add(ch);
+						}
+					}
+				}
+				if (songCount === 0) continue;
+				console.log(
+					`[subsetting] ✓ Collected text from ${songCount} Meting remote songs`,
+				);
+				break;
 			} catch (error) {
 				console.warn(
-					`[subsetting] ⚠ Failed to fetch Meting playlist text (${error.message}), continuing with local charset`,
+					`[subsetting] ⚠ Failed to fetch Meting playlist text (${error.message}), trying next source`,
 				);
 			}
 		}

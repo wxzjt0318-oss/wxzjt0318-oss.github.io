@@ -52,7 +52,12 @@ export const musicConfig: MusicConfig = withUserConfig("music", {
 	enable: true,
 	provider: "meting",
 	meting: {
-		api: "https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r",
+		// 按顺序尝试，前一个源失效时自动切换下一个
+		api: [
+			"https://api.qijieya.cn/meting/?server=:server&type=:type&id=:id&r=:r",
+			"https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r",
+			"https://meting.mysqil.com/api?server=:server&type=:type&id=:id&auth=:auth&r=:r",
+		],
 		server: "netease",
 		type: "playlist",
 		id: "13985124277",
