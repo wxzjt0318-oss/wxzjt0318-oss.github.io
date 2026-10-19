@@ -7,7 +7,6 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { buildAnimeArticleMarkdown } from "../scripts/bangumi-daily-posts.mjs";
 import {
-	buildTags,
 	measureJapaneseRatio,
 	resolveCharacterNameCn,
 } from "../scripts/generate-bangumi-daily-post.mjs";
@@ -18,6 +17,7 @@ import {
 	isRelevantWorkArticle,
 	stripDisambiguation,
 } from "../scripts/wiki/encyclopedia.mjs";
+import { buildTaxonomy } from "../scripts/wiki/taxonomy.mjs";
 import {
 	cleanChineseProse,
 	isMostlyJapanese,
@@ -117,32 +117,46 @@ describe("glosses and studios", () => {
 	});
 });
 
-describe("tags", () => {
-	it("keeps genres and drops voice actors, weekdays and air months", () => {
-		const tags = buildTags(
-			{
-				subject: {
-					tags: [
-						"钉宫理惠",
-						"零之使魔",
-						"J.C.STAFF",
-						"后宫",
-						"2012年1月",
-						"星期六",
-					].map((name) => ({ name })),
-				},
+describe("taxonomy", () => {
+	it("builds manual-style tags: genres, source, season, themes, series", () => {
+		const { category, tags } = buildTaxonomy({
+			rawTags: [
+				"钉宫理惠",
+				"后宫",
+				"轻改",
+				"傲娇",
+				"2012年1月",
+				"星期六",
+				"TV",
+				"J.C.STAFF",
+				"Bangumi",
+			],
+			airDate: "2012-01-07",
+			override: {
+				category: "使魔与公主的最终章",
+				themes: ["使魔", "魔法学院"],
+				series: "零之使魔",
 			},
-			{ tags: [{ name: "奇幻" }, { name: "轻小说改" }, { name: "TV" }] },
-			{ titleCn: "零之使魔F", studio: "J.C.STAFF" },
-		);
+		});
+		assert.equal(category, "使魔与公主的最终章");
 		assert.deepEqual(tags, [
-			"奇幻",
-			"轻小说改",
 			"后宫",
-			"TV",
-			"J.C.STAFF",
-			"Bangumi",
+			"傲娇",
+			"轻小说改",
+			"2012年1月",
+			"使魔",
+			"魔法学院",
+			"零之使魔",
 		]);
+	});
+
+	it("falls back to a genre category without curated data", () => {
+		const { category, tags } = buildTaxonomy({
+			rawTags: ["恋爱", "漫改", "OVA"],
+			airDate: "2020-04-01",
+		});
+		assert.equal(category, "恋爱作品介绍");
+		assert.deepEqual(tags, ["恋爱", "漫画改", "OVA", "2020年4月"]);
 	});
 });
 

@@ -490,8 +490,23 @@ async function processPost(file, ledger) {
 	if (!shortTitle) return { file, status: "skip", reason: "no title" };
 
 	const oldTags = splitTags(fm);
-	const newTags = rebuildTags(shortTitle, oldTags);
-	const newCategory = rebuildCategory(shortTitle, newTags);
+	// 分类 / 标签统一走 scripts/wiki/taxonomy.mjs（与每日发文、自主编辑文章同一套规则），
+	// 动态导入避免与 taxonomy.mjs 的循环依赖
+	const { buildTaxonomy } = await import("../wiki/taxonomy.mjs");
+	const subjectId = file.match(/\d+/)?.[0] || "";
+	const curated = JSON.parse(
+		await fs
+			.readFile(
+				path.join(ROOT_DIR, "scripts", "wiki", "post-taxonomy.json"),
+				"utf8",
+			)
+			.catch(() => "{}"),
+	);
+	const { tags: newTags, category: newCategory } = buildTaxonomy({
+		rawTags: oldTags,
+		airDate: body.match(/\*\*首播时间\*\*：(\S+)/)?.[1] || "",
+		override: curated[subjectId] || null,
+	});
 
 	// ── 第 1 步：来源判定 ──
 	const protectedByFrontmatter = PROTECT_FIELD_RE.test(fm);
