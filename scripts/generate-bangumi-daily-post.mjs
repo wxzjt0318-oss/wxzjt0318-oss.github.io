@@ -59,8 +59,14 @@ function getEnvNumber(name, defaultValue) {
 	return Number.isFinite(raw) && raw > 0 ? raw : defaultValue;
 }
 
+const BANGUMI_MIN_INTERVAL_MS = 250;
+let lastBangumiRequestAt = 0;
+
 async function fetchJson(url, init, retries = 3) {
 	for (let attempt = 0; attempt < retries; attempt++) {
+		const wait = BANGUMI_MIN_INTERVAL_MS - (Date.now() - lastBangumiRequestAt);
+		if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+		lastBangumiRequestAt = Date.now();
 		try {
 			const response = await fetch(url, {
 				headers: {
@@ -380,11 +386,8 @@ export function measureJapaneseRatio(markdown) {
 	return kanaRatio(body);
 }
 
-async function main() {
-	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
-	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
-	const now = new Date();
-
+/** 读取追番快照（或 legacy 缓存），归一化为 Bangumi 收藏条目结构 */
+export async function loadSnapshotCollections() {
 	// 数据源优先级：
 	// 1. 上游 anime:sync 快照 src/data/anime-snapshots/bangumi.json（CI 每日刷新，与追番页同源）
 	// 2. 兼容 legacy 缓存 .cache/bangumi/anime.json
@@ -451,34 +454,14 @@ async function main() {
 		normalizedCollections = legacyCache.data;
 	}
 	normalizedCollections = normalizedCollections.filter((candidate) => candidate.subject_id > 0);
-	if (normalizedCollections.length === 0) {
-		console.log(`ℹ No Bangumi snapshot found at ${snapshotFile} (or legacy cache ${legacyCacheFile}), skipping daily article generation.`);
-		return;
-	}
+	return { collections: normalizedCollections, snapshotFile, legacyCacheFile };
+}
 
-	const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
-	const existingPosts = await readExistingPosts();
-	const selected = selectNextAnimeCandidate({
-		collections: normalizedCollections,
-		generatedState,
-		existingPosts,
-		maxPerRun,
-	});
-
-	if (selected.length === 0) {
-		console.log("ℹ No new Bangumi anime candidates available for article generation.");
-		await writeJson(REPORT_FILE, buildReviewReport({
-			selected: null,
-			candidates: [],
-			outputPath: "",
-			statePath: STATE_FILE,
-			reviewMode,
-		}));
-		return;
-	}
-
-	const candidate = selected[0];
-	console.log(`📝 Generating Bangumi daily post for subject ${candidate.subject_id}...`);
+/**
+ * 为一个收藏条目组装文章数据：抓 Bangumi 详情 / 角色 → 百科增强 → 中文化 → payload。
+ * 每日发文与存量重写共用这一流程。
+ */
+export async function composeArticle(candidate, { now = new Date(), reviewMode = false } = {}) {
 	console.log(`📡 Fetching Bangumi subject detail for ${candidate.subject_id}...`);
 	const detail = await fetchBangumiSubjectDetail(candidate.subject_id);
 	console.log(`📡 Fetching Bangumi characters for ${candidate.subject_id}...`);
@@ -537,6 +520,44 @@ async function main() {
 		titleJp,
 		encyclopedia,
 	});
+	return { payload, imageSelection, detail, rawCharacters, encyclopedia, titleCn, titleJp };
+}
+
+async function main() {
+	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
+	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
+	const now = new Date();
+
+	const { collections: normalizedCollections, snapshotFile, legacyCacheFile } = await loadSnapshotCollections();
+	if (normalizedCollections.length === 0) {
+		console.log(`ℹ No Bangumi snapshot found at ${snapshotFile} (or legacy cache ${legacyCacheFile}), skipping daily article generation.`);
+		return;
+	}
+
+	const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
+	const existingPosts = await readExistingPosts();
+	const selected = selectNextAnimeCandidate({
+		collections: normalizedCollections,
+		generatedState,
+		existingPosts,
+		maxPerRun,
+	});
+
+	if (selected.length === 0) {
+		console.log("ℹ No new Bangumi anime candidates available for article generation.");
+		await writeJson(REPORT_FILE, buildReviewReport({
+			selected: null,
+			candidates: [],
+			outputPath: "",
+			statePath: STATE_FILE,
+			reviewMode,
+		}));
+		return;
+	}
+
+	const candidate = selected[0];
+	console.log(`📝 Generating Bangumi daily post for subject ${candidate.subject_id}...`);
+	const { payload, imageSelection } = await composeArticle(candidate, { now, reviewMode });
 
 	// Alias 唯一性保障：slugify 归一化会让不同动画撞名（如多部"第二季"都归一化为
 	// "2nd-season"，"Working!!" 系列都归一化为 "working"），alias 重复会导致多篇文章
