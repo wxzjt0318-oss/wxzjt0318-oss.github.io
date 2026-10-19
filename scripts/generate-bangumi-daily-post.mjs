@@ -20,16 +20,12 @@ import {
 	writeJson,
 } from "./bangumi-daily-posts.mjs";
 import {
-	FORM_TAGS,
-	isGenreTag,
-	SKIP_TAG,
-} from "./moegirl/rewrite-bangumi-posts.mjs";
-import {
 	DEFAULT_SOURCES,
 	fetchCharacterBio,
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
+import { buildTaxonomy } from "./wiki/taxonomy.mjs";
 import { applyGlossary } from "./wiki/zh-glossary.mjs";
 import {
 	cleanChineseProse,
@@ -50,6 +46,8 @@ const REPORT_FILE = path.join(ROOT_DIR, "reports", "bangumi-daily-posts-latest.j
 const BANGUMI_API_BASE = "https://api.bgm.tv/v0";
 // 人工撰写的作品引言（封面下方的引用块），按 Bangumi 条目 ID 索引；没有时按剧情自动生成
 const QUOTES_FILE = path.join(ROOT_DIR, "scripts", "wiki", "post-quotes.json");
+// 人工撰写的分类短语与特色标签（按 Bangumi 条目 ID 索引）
+const TAXONOMY_FILE = path.join(ROOT_DIR, "scripts", "wiki", "post-taxonomy.json");
 
 function getEnvBoolean(name, defaultValue = false) {
 	const raw = process.env[name];
@@ -148,36 +146,6 @@ function deriveStatusLabel(type) {
 		5: "抛弃",
 	};
 	return mapping[type] || "已收藏";
-}
-
-/**
- * 标签只保留「题材 / 形式」类：Bangumi 用户标签里常混有声优、播出星期、
- * 放送年月、制作公司等，直接用会产生「钉宫理惠作品介绍」这类分类。
- */
-export function buildTags(candidate, detail, { titleCn = "", studio = "" } = {}) {
-	const rawTags = [
-		...(Array.isArray(detail?.tags) ? detail.tags : []),
-		...(Array.isArray(candidate?.subject?.tags) ? candidate.subject.tags : []),
-	]
-		.map((tag) => toSimplified(typeof tag === "string" ? tag : tag?.name || "").trim())
-		.filter(Boolean);
-
-	const genres = [];
-	const forms = [];
-	for (const tag of rawTags) {
-		if (/^Bangumi$/i.test(tag) || SKIP_TAG.some((re) => re.test(tag)) || hasKana(tag)) continue;
-		if (titleCn && tag === titleCn) continue;
-		if (FORM_TAGS.has(tag)) {
-			if (!forms.includes(tag)) forms.push(tag);
-		} else if (isGenreTag(tag) && !genres.includes(tag)) {
-			genres.push(tag);
-		}
-	}
-
-	const tags = [...genres.slice(0, 4), ...forms.slice(0, 1)];
-	if (studio && !hasKana(studio) && studio.length <= 20) tags.push(studio);
-	tags.push("Bangumi");
-	return [...new Set(tags)].slice(0, 7);
 }
 
 function summarizeStudio(value) {
@@ -362,8 +330,15 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 	);
 	const statusLabel = deriveStatusLabel(candidate?.type);
 	const meta = buildMeta(candidate, detail, statusLabel);
-	const tags = buildTags(candidate, detail, { titleCn, studio: meta.studio });
-	const primaryGenre = tags.find((t) => t !== "Bangumi" && t !== meta.studio && !FORM_TAGS.has(t));
+	// 分类与标签对齐自主编辑文章：人工撰写的分类短语 / 特色标签优先，其余由题材、原作类型、放送季度组成
+	const { category, tags } = buildTaxonomy({
+		rawTags: [
+			...(Array.isArray(detail?.tags) ? detail.tags : []),
+			...(Array.isArray(candidate?.subject?.tags) ? candidate.subject.tags : []),
+		],
+		airDate: meta.airDate,
+		override: options.taxonomy || null,
+	});
 	const sources = [...(encyclopedia?.sources || [])];
 	for (const character of options.characters || []) {
 		const ref = character.bioSource;
@@ -379,7 +354,7 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 		overview: intro,
 		summary: story || bangumiSummary,
 		tags,
-		category: primaryGenre ? `${primaryGenre}作品介绍` : "Bangumi 每日追番",
+		category,
 		sourceLink: `https://bgm.tv/subject/${candidate.subject_id}`,
 		published: formatDate(options.now),
 		alias,
@@ -532,6 +507,7 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 	});
 
 	const curatedQuotes = await readJsonIfExists(QUOTES_FILE, {});
+	const curatedTaxonomy = await readJsonIfExists(TAXONOMY_FILE, {});
 	const payload = buildArticlePayload(candidate, detail, imageSelection, {
 		now,
 		reviewMode,
@@ -540,6 +516,7 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 		titleJp,
 		encyclopedia,
 		quote: curatedQuotes[String(candidate.subject_id)] || null,
+		taxonomy: curatedTaxonomy[String(candidate.subject_id)] || null,
 	});
 	return { payload, imageSelection, detail, rawCharacters, encyclopedia, titleCn, titleJp };
 }
