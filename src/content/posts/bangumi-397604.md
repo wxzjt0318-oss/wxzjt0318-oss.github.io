@@ -1,6 +1,6 @@
 ---
 title: "《亚托莉 -我挚爱的时光-》"
-description: "《ATRI -My Dear Moments-》是由ANIPLEX.EXE和Frontwing、枕社(The pillow)共同制作，并由ANIPLEX.EXE发行的一部视觉小说游戏。于2020年6月19日在Steam平台和DMM平台上同…"
+description: "《ATRI -My Dear Moments-》是由ANIPLEX.EXE和Frontwing、枕社共同制作，并由ANIPLEX.EXE发行的一部视觉小说游戏。于2020年6月19日在Steam平台和DMM平台上同步发售，售价2000日元…"
 tags: ["GAL改", "游戏改", "恋爱", "治愈", "TV", "Bangumi"]
 category: "GAL改作品介绍"
 licenseName: "CC BY-NC-SA 3.0"
@@ -14,7 +14,7 @@ alias: "bangumi-397604"
 image: "https://lain.bgm.tv/pic/cover/l/66/6d/397604_TgJ63.jpg"
 ---
 
-> 心动的瞬间总是来得猝不及防，这正是《亚托莉 -我挚爱的时光-》想要传达的美好。
+> 爱情的模样有千万种，《亚托莉 -我挚爱的时光-》为我们呈现了其中最动人的那一种。
 
 ---
 
@@ -22,7 +22,7 @@ image: "https://lain.bgm.tv/pic/cover/l/66/6d/397604_TgJ63.jpg"
 
 ## 一、作品概述
 
-《ATRI -My Dear Moments-》是由ANIPLEX.EXE和Frontwing、枕社(The pillow)共同制作，并由ANIPLEX.EXE发行的一部视觉小说游戏。于2020年6月19日在Steam平台和DMM平台上同步发售，售价2000日元+税（Steam平台售价73元人民币）；并于2020年12月28日在DLsite平台发售，售价2200日元。
+《ATRI -My Dear Moments-》是由ANIPLEX.EXE和Frontwing、枕社共同制作，并由ANIPLEX.EXE发行的一部视觉小说游戏。于2020年6月19日在Steam平台和DMM平台上同步发售，售价2000日元+税（Steam平台售价73元人民币）；并于2020年12月28日在DLsite平台发售，售价2200日元。
 
 2024年10月6日，ANIPLEX.EXE宣布本作销量已达到50万。
 
@@ -55,31 +55,31 @@ image: "https://lain.bgm.tv/pic/cover/l/66/6d/397604_TgJ63.jpg"
 
 相对一般的视觉小说UI增添了一些新功能，例如对于触屏设备进行支持的手势操作，可以同时进行双语显示的文本界面（可以用来学日语）以及剧场模式（播放语音的时候隐藏文本界面以达到“沉浸式体验”可以用来练听力）。然而没了文本框根本听不懂谈何体验。
 
-从故事架构来看，《亚托莉 -我挚爱的时光-》采用了一种循序渐进的叙事方式。开篇先用明确的设定吸引注意力，随后通过情节推进逐步展开更深层的世界观与人物关系，让人越看越有味道。
+《亚托莉 -我挚爱的时光-》的剧情设计颇具匠心，它没有急于抛出所有信息，而是选择在合适的时机揭示关键信息，让观众在探索的过程中逐渐沉浸其中。这种张弛有度的节奏把控，是这部作品的一大亮点。
 
 ## 主要角色
 
 ### 斑鸠夏生
 
-斑鸠夏生是由 ANIPLEX.EXE 和 Frontwing、枕社(The pillow) 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色。
+斑鸠夏生是由 ANIPLEX.EXE 和 Frontwing、枕社 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色。
 
 > **性别**：男 | **CV**：小野贤章
 
 ### 亚托莉
 
-亚托莉是由 ANIPLEX.EXE 和 Frontwing、枕社(The pillow) 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色，女主角。
+亚托莉是由 ANIPLEX.EXE 和 Frontwing、枕社 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色，女主角。
 
 > **性别**：女 | **生日**：8月28日 | **CV**：赤尾ひかる
 
 ### 神白水菜萌
 
-神白水菜萌（）水菜萌（みなも））是由 ANIPLEX.EXE 和 Frontwing、枕社(The pillow) 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色。
+神白水菜萌是由 ANIPLEX.EXE 和 Frontwing、枕社 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色。
 
 > **性别**：女 | **CV**：髙桥ミナミ
 
 ### 野岛龙司
 
-野岛龙司（） 竜司（りゅうじ））是由 ANIPLEX.EXE 和 Frontwing、枕社(The pillow) 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色。
+野岛龙司是由 ANIPLEX.EXE 和 Frontwing、枕社 共同制作，并由 ANIPLEX.EXE 发行的视觉小说游戏《ATRI -My Dear Moments-》及其衍生作品的登场角色。
 
 > **性别**：男 | **CV**：细谷佳正
 

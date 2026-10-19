@@ -80,6 +80,7 @@ image: "https://lain.bgm.tv/pic/cover/l/d0/9c/406180_zvAgW.jpg"
 
 ## 制作阵容
 
+- 📖 **原作**：一色一凛
 - 🎵 **音乐**：大野裕一
 
 ## 四、作品看点

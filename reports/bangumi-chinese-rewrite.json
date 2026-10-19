@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-19T18:20:50.224Z",
+  "generatedAt": "2026-10-19T18:46:59.026Z",
   "posts": [
     {
       "file": "bangumi-909.md",
@@ -10,7 +10,7 @@
       "sources": [
         "萌娘百科:龙与虎"
       ],
-      "kanaRatio": 0.0053,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -54,7 +54,7 @@
       "sources": [
         "萌娘百科:零之使魔"
       ],
-      "kanaRatio": 0.0032,
+      "kanaRatio": 0.0033,
       "pending": {
         "characters": [
           {
@@ -207,7 +207,7 @@
       "sources": [
         "萌娘百科:零之使魔"
       ],
-      "kanaRatio": 0.0033,
+      "kanaRatio": 0.0036,
       "pending": {
         "characters": [
           {
@@ -355,7 +355,7 @@
       "sources": [
         "萌娘百科:中二病也要谈恋爱！"
       ],
-      "kanaRatio": 0.0142,
+      "kanaRatio": 0.0023,
       "pending": {
         "characters": [
           {
@@ -452,9 +452,7 @@
           "国立凛香",
           "天导爱菜"
         ],
-        "emptyBios": [
-          "神凪雅"
-        ]
+        "emptyBios": []
       }
     },
     {
@@ -467,7 +465,7 @@
         "萌娘百科:GJ部",
         "维基百科:GJ部"
       ],
-      "kanaRatio": 0.0055,
+      "kanaRatio": 0.0052,
       "pending": {
         "characters": [
           {
@@ -525,7 +523,7 @@
       "sources": [
         "萌娘百科:约会大作战"
       ],
-      "kanaRatio": 0.0023,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -614,7 +612,7 @@
       "sources": [
         "维基百科:零之使魔"
       ],
-      "kanaRatio": 0.004,
+      "kanaRatio": 0.0031,
       "pending": {
         "characters": [
           {
@@ -679,7 +677,7 @@
       "sources": [
         "维基百科:中二病也想談戀愛！"
       ],
-      "kanaRatio": 0.0146,
+      "kanaRatio": 0.0023,
       "pending": {
         "characters": [
           {
@@ -758,7 +756,7 @@
       "sources": [
         "萌娘百科:伪恋"
       ],
-      "kanaRatio": 0.0009,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -825,10 +823,10 @@
       "file": "bangumi-75521.md",
       "subjectId": 75521,
       "status": "rewritten",
-      "title": "《小鸟游六花・改 ～剧场版 中二病でも恋がしたい！～》",
+      "title": "《小鸟游六花·改 ～剧场版 中二病でも恋がしたい！～》",
       "originalTitle": "小鳥遊六花・改 ～劇場版 中二病でも恋がしたい！～",
       "sources": [],
-      "kanaRatio": 0.0632,
+      "kanaRatio": 0.0403,
       "pending": {
         "characters": [
           {
@@ -908,7 +906,7 @@
         "萌娘百科:精灵使的剑舞",
         "维基百科:精灵使的剑舞"
       ],
-      "kanaRatio": 0.0317,
+      "kanaRatio": 0.0037,
       "pending": {
         "characters": [
           {
@@ -987,7 +985,7 @@
       "sources": [
         "维基百科:京都動畫"
       ],
-      "kanaRatio": 0.0048,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -1201,7 +1199,7 @@
       "sources": [
         "萌娘百科:埃罗芒阿老师"
       ],
-      "kanaRatio": 0.0061,
+      "kanaRatio": 0.0059,
       "pending": {
         "characters": [
           {
@@ -1264,10 +1262,9 @@
       "title": "《政宗君的复仇》",
       "originalTitle": "政宗くんのリベンジ",
       "sources": [
-        "萌娘百科:政宗君的复仇",
-        "维基百科:政宗君的復仇"
+        "萌娘百科:政宗君的复仇"
       ],
-      "kanaRatio": 0.0068,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -1346,7 +1343,7 @@
       "sources": [
         "维基百科:OVERLORD (動畫)"
       ],
-      "kanaRatio": 0.0218,
+      "kanaRatio": 0.0078,
       "pending": {
         "characters": [
           {
@@ -1380,7 +1377,7 @@
       "sources": [
         "维基百科:天使的3P！"
       ],
-      "kanaRatio": 0.0118,
+      "kanaRatio": 0.0068,
       "pending": {
         "characters": [
           {
@@ -1513,7 +1510,7 @@
         "萌娘百科:带着智能手机闯荡异世界。",
         "维基百科:帶著智慧型手機闖蕩異世界。"
       ],
-      "kanaRatio": 0.0555,
+      "kanaRatio": 0.0024,
       "pending": {
         "characters": [
           {
@@ -1578,7 +1575,7 @@
       "sources": [
         "维基百科:擅長捉弄人的高木同學"
       ],
-      "kanaRatio": 0.014,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -1790,7 +1787,7 @@
       "sources": [
         "萌娘百科:约会大作战"
       ],
-      "kanaRatio": 0.0067,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -1834,7 +1831,7 @@
       "sources": [
         "维基百科:擅長捉弄人的高木同學"
       ],
-      "kanaRatio": 0.0144,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -1914,7 +1911,7 @@
         "萌娘百科:OVERLORD",
         "维基百科:OVERLORD (動畫)"
       ],
-      "kanaRatio": 0.0364,
+      "kanaRatio": 0.0179,
       "pending": {
         "characters": [
           {
@@ -1993,7 +1990,7 @@
       "sources": [
         "维基百科:我們真的學不來！"
       ],
-      "kanaRatio": 0.0408,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2072,7 +2069,7 @@
       "sources": [
         "维基百科:超人高中生們即便在異世界也能從容生存！"
       ],
-      "kanaRatio": 0.002,
+      "kanaRatio": 0.0019,
       "pending": {
         "characters": [
           {
@@ -2116,7 +2113,7 @@
       "sources": [
         "萌娘百科:关于我转生变成史莱姆这档事"
       ],
-      "kanaRatio": 0.0034,
+      "kanaRatio": 0.0032,
       "pending": {
         "characters": [
           {
@@ -2266,7 +2263,7 @@
       "sources": [
         "维基百科:約會大作戰 (動畫)"
       ],
-      "kanaRatio": 0.0026,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2343,7 +2340,7 @@
         "萌娘百科:魔女之旅",
         "维基百科:魔女之旅"
       ],
-      "kanaRatio": 0.009,
+      "kanaRatio": 0.0074,
       "pending": {
         "characters": [
           {
@@ -2417,7 +2414,7 @@
       "sources": [
         "维基百科:輝夜姬想讓人告白～天才們的戀愛頭腦戰～ (動畫)"
       ],
-      "kanaRatio": 0.0064,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2532,7 +2529,7 @@
         "萌娘百科:回复术士的重启人生",
         "维基百科:回復術士的重啟人生"
       ],
-      "kanaRatio": 0.0249,
+      "kanaRatio": 0.003,
       "pending": {
         "characters": [
           {
@@ -2616,7 +2613,7 @@
         "萌娘百科:租借女友",
         "维基百科:租借女友"
       ],
-      "kanaRatio": 0.0393,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2674,7 +2671,7 @@
       "sources": [
         "萌娘百科:约会大作战"
       ],
-      "kanaRatio": 0.0222,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2718,7 +2715,7 @@
       "sources": [
         "维基百科:關於我轉生變成史萊姆這檔事 (動畫)"
       ],
-      "kanaRatio": 0.014,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2790,7 +2787,7 @@
       "sources": [
         "维基百科:異世界魔王與召喚少女的奴隸魔術"
       ],
-      "kanaRatio": 0.0381,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -2947,7 +2944,7 @@
       "sources": [
         "维基百科:約會大作戰 (動畫)"
       ],
-      "kanaRatio": 0.0026,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3092,7 +3089,7 @@
         "萌娘百科:租借女友",
         "维基百科:租借女友"
       ],
-      "kanaRatio": 0.0393,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3235,7 +3232,7 @@
       "sources": [
         "维基百科:異世界迷宮裡的後宮生活"
       ],
-      "kanaRatio": 0.0049,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3315,7 +3312,7 @@
       "title": "《总之就是非常可爱 ～SNS～》",
       "originalTitle": "トニカクカワイイ ～SNS～",
       "sources": [],
-      "kanaRatio": 0.0058,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3373,7 +3370,7 @@
       "sources": [
         "维基百科:式守同學不只可愛而已"
       ],
-      "kanaRatio": 0.0141,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3438,7 +3435,7 @@
       "sources": [
         "维基百科:朋友的妹妹只纏著我"
       ],
-      "kanaRatio": 0.0057,
+      "kanaRatio": 0.0023,
       "pending": {
         "characters": [
           {
@@ -3507,7 +3504,7 @@
       "sources": [
         "维基百科:杜鵑婚約"
       ],
-      "kanaRatio": 0.0174,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3588,7 +3585,7 @@
       "sources": [
         "萌娘百科:世界顶尖的暗杀者转生为异世界贵族"
       ],
-      "kanaRatio": 0.0148,
+      "kanaRatio": 0.0016,
       "pending": {
         "characters": [
           {
@@ -3736,7 +3733,7 @@
       "sources": [
         "萌娘百科:更衣人偶坠入爱河"
       ],
-      "kanaRatio": 0.009,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -3806,7 +3803,7 @@
         "萌娘百科:OVERLORD",
         "维基百科:OVERLORD (動畫)"
       ],
-      "kanaRatio": 0.0362,
+      "kanaRatio": 0.0177,
       "pending": {
         "characters": [
           {
@@ -3971,7 +3968,7 @@
       "sources": [
         "萌娘百科:为美好的世界献上祝福！"
       ],
-      "kanaRatio": 0.0104,
+      "kanaRatio": 0.0021,
       "pending": {
         "characters": [
           {
@@ -4043,7 +4040,7 @@
       "sources": [
         "维基百科:擅長捉弄人的高木同學"
       ],
-      "kanaRatio": 0.0138,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4122,7 +4119,7 @@
       "sources": [
         "维基百科:擅長捉弄人的高木同學 (動畫)"
       ],
-      "kanaRatio": 0.014,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4201,7 +4198,7 @@
       "sources": [
         "萌娘百科:总之就是非常可爱"
       ],
-      "kanaRatio": 0.0046,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4252,7 +4249,7 @@
       "sources": [
         "萌娘百科:乙女游戏世界对路人角色很不友好"
       ],
-      "kanaRatio": 0.0009,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4337,7 +4334,7 @@
       "sources": [
         "萌娘百科:关于我在无意间被隔壁的天使变成废柴这件事"
       ],
-      "kanaRatio": 0.013,
+      "kanaRatio": 0.0079,
       "pending": {
         "characters": [
           {
@@ -4409,7 +4406,7 @@
       "title": "《无职转生 第二季 ～到了异世界就拿出真本事～》",
       "originalTitle": "無職転生Ⅱ ～異世界行ったら本気だす～",
       "sources": [],
-      "kanaRatio": 0.0006,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4492,7 +4489,7 @@
       "sources": [
         "维基百科:政宗君的復仇"
       ],
-      "kanaRatio": 0.0067,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4569,7 +4566,7 @@
       "title": "《总之就是非常可爱 ～制服～》",
       "originalTitle": "トニカクカワイイ ～制服～",
       "sources": [],
-      "kanaRatio": 0.0059,
+      "kanaRatio": 0,
       "pending": {
         "plot": "有栖川家で幸せな新婚生活を送る司とナサ。運命的な出会いを果たした一方、普通の高校生の恋愛、制服デートの経験もなかった 2人だったが、綾の手引きで司は制服を着ることになる。普段見ることのない制服姿の司に、ナサはドキドキを隠せず・・・。",
         "characters": [
@@ -4624,7 +4621,7 @@
         "萌娘百科:带着智能手机闯荡异世界。",
         "维基百科:帶著智慧型手機闖蕩異世界。"
       ],
-      "kanaRatio": 0.0024,
+      "kanaRatio": 0.0025,
       "pending": {
         "characters": [
           {
@@ -4689,7 +4686,7 @@
       "sources": [
         "萌娘百科:别当欧尼酱了！"
       ],
-      "kanaRatio": 0.0035,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4768,7 +4765,7 @@
       "sources": [
         "维基百科:久保同學不放過我"
       ],
-      "kanaRatio": 0.0094,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -4837,7 +4834,7 @@
       "sources": [
         "萌娘百科:转生王女与天才千金的魔法革命"
       ],
-      "kanaRatio": 0.0129,
+      "kanaRatio": 0.0124,
       "pending": {
         "characters": [
           {
@@ -4918,7 +4915,7 @@
       "sources": [
         "萌娘百科:ATRI -My Dear Moments-"
       ],
-      "kanaRatio": 0.0059,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -5064,7 +5061,7 @@
       "sources": [
         "萌娘百科:身为魔王的我娶了奴隶精灵为妻，该如何表白我的爱？"
       ],
-      "kanaRatio": 0.0022,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -5227,7 +5224,7 @@
       "sources": [
         "萌娘百科:关于我转生变成史莱姆这档事"
       ],
-      "kanaRatio": 0.0041,
+      "kanaRatio": 0.0035,
       "pending": {
         "characters": [
           {
@@ -5449,7 +5446,7 @@
       "sources": [
         "维基百科:女性向遊戲世界對路人角色很不友好"
       ],
-      "kanaRatio": 0.0052,
+      "kanaRatio": 0.0026,
       "pending": {
         "characters": [
           {
@@ -5613,7 +5610,7 @@
       "sources": [
         "维基百科:關於我轉生變成史萊姆這檔事"
       ],
-      "kanaRatio": 0.0037,
+      "kanaRatio": 0.0036,
       "pending": {
         "characters": [
           {
@@ -5685,7 +5682,7 @@
       "sources": [
         "萌娘百科:超超超超超喜欢你的100个女朋友"
       ],
-      "kanaRatio": 0.0135,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -5750,7 +5747,7 @@
       "sources": [
         "萌娘百科:不时轻声地以俄语遮羞的邻座艾莉同学"
       ],
-      "kanaRatio": 0.004,
+      "kanaRatio": 0.0022,
       "pending": {
         "characters": [
           {
@@ -5915,7 +5912,7 @@
       "sources": [
         "维基百科:總之就是很可愛"
       ],
-      "kanaRatio": 0.0104,
+      "kanaRatio": 0.0053,
       "pending": {
         "plot": "中学時代の恩師である柳先生の頼みで高校のプログラムの授業を任されることになったナサ。その着任先は、なんと女子高だった。青春無限大な女子高生たちに囲まれるナサに、冷静を装いつつも内心落ち着かない司。\r\n移り気な彼氏、密かに憧れるあの人への想い、プログラムでは解けない恋愛相談の数々――ナサは恋の数式を解けるのか!? 　全世界にカワイイとトウトイを拡散した大ヒットシリーズ、女子高を舞台に贈る完全新作エピソード全4話！",
         "characters": [
@@ -5972,7 +5969,7 @@
       "title": "《无职转生 第二季 ～到了异世界就拿出真本事～ 第2部分》",
       "originalTitle": "無職転生Ⅱ ～異世界行ったら本気だす～ 第2クール",
       "sources": [],
-      "kanaRatio": 0.0007,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -6056,7 +6053,7 @@
       "sources": [
         "维基百科:成為名留歷史的壞女人吧"
       ],
-      "kanaRatio": 0.0024,
+      "kanaRatio": 0.0023,
       "pending": {
         "characters": [
           {
@@ -6141,7 +6138,7 @@
       "sources": [
         "萌娘百科:转学后班上的清纯可爱美少女，竟是小时候玩在一起的哥儿们"
       ],
-      "kanaRatio": 0.0014,
+      "kanaRatio": 0.0015,
       "pending": {
         "characters": [
           {
@@ -6369,7 +6366,7 @@
       "title": "《关于邻家的天使大人不知不觉把我惯成了废人这档子事 第二季》",
       "originalTitle": "お隣の天使様にいつの間にか駄目人間にされていた件2",
       "sources": [],
-      "kanaRatio": 0.008,
+      "kanaRatio": 0.0037,
       "pending": {
         "characters": [
           {
@@ -6422,7 +6419,7 @@
       "sources": [
         "萌娘百科:公女殿下的家庭教师"
       ],
-      "kanaRatio": 0.004,
+      "kanaRatio": 0.0038,
       "pending": {
         "characters": [
           {
@@ -6591,7 +6588,7 @@
       "sources": [
         "维基百科:敗北女角太多了！"
       ],
-      "kanaRatio": 0.0128,
+      "kanaRatio": 0.0201,
       "pending": {
         "characters": [
           {
@@ -6658,12 +6655,7 @@
           "小鞠知花",
           "温水佳树"
         ],
-        "emptyBios": [
-          "温水和彦",
-          "烧盐柠檬",
-          "小鞠知花",
-          "温水佳树"
-        ]
+        "emptyBios": []
       }
     },
     {
@@ -6675,7 +6667,7 @@
       "sources": [
         "萌娘百科:孤单一人的异世界攻略"
       ],
-      "kanaRatio": 0.0416,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -6761,7 +6753,7 @@
         "萌娘百科:杖与剑的魔剑谭",
         "维基百科:杖與劍的魔劍譚"
       ],
-      "kanaRatio": 0.0145,
+      "kanaRatio": 0.0009,
       "pending": {
         "characters": [
           {
@@ -6846,7 +6838,7 @@
       "sources": [
         "萌娘百科:叹气的亡灵想隐退 ～最弱猎人的最强队伍育成术～"
       ],
-      "kanaRatio": 0.0024,
+      "kanaRatio": 0.0025,
       "pending": {
         "characters": [
           {
@@ -6931,7 +6923,7 @@
       "sources": [
         "维基百科:徹夜之歌"
       ],
-      "kanaRatio": 0.0152,
+      "kanaRatio": 0.0056,
       "pending": {
         "characters": [
           {
@@ -7010,7 +7002,7 @@
       "title": "《S级怪兽《贝希摩斯》被误认成小猫，成为精灵女孩的骑士(宠物)一起生活》",
       "originalTitle": "Sランクモンスターの≪ベヒーモス≫だけど、猫と間違われてエルフ娘の騎士(ペット)として暮らしてます",
       "sources": [],
-      "kanaRatio": 0.0326,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -7094,7 +7086,7 @@
       "sources": [
         "萌娘百科:我决定和班上最讨厌的女生结婚了"
       ],
-      "kanaRatio": 0.0194,
+      "kanaRatio": 0.01,
       "pending": {
         "characters": [
           {
@@ -7166,7 +7158,7 @@
       "title": "《无职转生 第三季 ～到了异世界就拿出真本事～》",
       "originalTitle": "無職転生Ⅲ ～異世界行ったら本気だす～",
       "sources": [],
-      "kanaRatio": 0.0008,
+      "kanaRatio": 0,
       "pending": {
         "plot": "「俺は、この異世界で本気だす！」\r\n34歳・童貞・無職の引きこもりニート男。\r\n両親の葬儀の日に家を追い出された瞬間、トラックに轢かれ命を落としてしまう。\r\n目覚めると、なんと剣と魔法の異世界で赤ん坊に生まれ変わっていた！\r\nゴミクズのように生きてきた男は、少年・ルーデウスとして異世界で本気をだして生きていく事を誓うー！\r\nルーデウスを待ち受けるのは、ロリっ子魔術師、エルフ耳のボクっ子幼馴染、凶暴ツンデレお嬢様、\r\nそのほかの様々な人間との出会い。そして過酷な冒険と戦い。\r\n新しい人生が動き出す！\r\n「人生やり直し」ファンタジー、開幕！",
         "characters": [
@@ -7592,7 +7584,7 @@
         "萌娘百科:租借女友",
         "维基百科:租借女友"
       ],
-      "kanaRatio": 0.003,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -7735,7 +7727,7 @@
       "sources": [
         "萌娘百科:身为暗杀者的我明显比勇者还强"
       ],
-      "kanaRatio": 0.0052,
+      "kanaRatio": 0.0054,
       "pending": {
         "plot": "クラスメイトと共に異世界に召喚された高校生・織田 晶。\r\n召喚によってクラスメイト全員にチート能力が付与される中、\r\n彼は生来の影の薄さからか平凡な“暗殺者”の能力を得る。\r\n\r\nだが、ただの“暗殺者”のはずなのにステータス値が、\r\n最強の職業“勇者”すら軽々と凌駕していて——!?\r\n\r\nそして、召喚の首謀者である国王の言動に疑念を抱いた晶は、\r\n自分の存在をひた隠しその陰謀を暴くも、逆にあらぬ罪を\r\n着せられ追われる立場に追い込まれてしまう。\r\n\r\n国王への復讐を誓った彼は、逃げ込んだ前人未踏の迷宮深層で\r\nエルフの少女アメリアと邂逅を果たす——…。\r\n\r\nこれは“暗殺者”の能力を得た少年が、エルフの少女と出逢い\r\n真の“暗殺者”へと至るまでの物語。",
         "characters": [
@@ -7978,7 +7970,7 @@
       "sources": [
         "萌娘百科:自称恶役千金的未婚妻观察记录。"
       ],
-      "kanaRatio": 0.0228,
+      "kanaRatio": 0.0028,
       "pending": {
         "characters": [
           {
@@ -8353,7 +8345,7 @@
         "萌娘百科:哪里有温柔对待阿宅的辣妹!?",
         "维基百科:哪里有温柔对待阿宅的辣妹！？"
       ],
-      "kanaRatio": 0.0606,
+      "kanaRatio": 0,
       "pending": {
         "characters": [
           {
@@ -8401,7 +8393,7 @@
         "萌娘百科:『你们先走我断后』，于是10年后我成为了传说",
         "维基百科:說出這邊交給我你們先走以後十年過去成了傳說。"
       ],
-      "kanaRatio": 0.006,
+      "kanaRatio": 0.0061,
       "pending": {
         "characters": [
           {
@@ -8484,10 +8476,9 @@
       "title": "《最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?》",
       "originalTitle": "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？",
       "sources": [
-        "萌娘百科:最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?",
-        "维基百科:最強的職業不是勇者也不是賢者好像是鑑定師（暫定）的樣子"
+        "萌娘百科:最强的职业不是勇者也不是贤者好像是鉴定士(伪)的样子?"
       ],
-      "kanaRatio": 0.022,
+      "kanaRatio": 0.0028,
       "pending": {
         "characters": [
           {
@@ -8570,9 +8561,10 @@
       "title": "《才女的侍从 在满是高岭之花的贵族学校暗中照顾（毫无生活自理能力的）学院第一大小姐》",
       "originalTitle": "才女のお世話 高嶺の花だらけな名門校で、学院一のお嬢様（生活能力皆無）を陰ながらお世話することになりました",
       "sources": [
+        "萌娘百科:才女的侍从 在满是高岭之花的贵族学校暗中照顾（毫无生活自理能力的）学院第一大小姐",
         "维基百科:才女的侍從 在滿是高嶺之花的貴族學校暗中照顧（毫無生活自理能力的）學院第一大小姐"
       ],
-      "kanaRatio": 0,
+      "kanaRatio": 0.0039,
       "pending": {
         "characters": [
           {
@@ -8655,7 +8647,7 @@
       "sources": [
         "维基百科:女神“异世界转生想成为什么”我“勇者的肋骨”"
       ],
-      "kanaRatio": 0.0024,
+      "kanaRatio": 0.0023,
       "pending": {
         "characters": [
           {
@@ -8726,7 +8718,7 @@
       "sources": [
         "维基百科:落第賢者的學院無雙"
       ],
-      "kanaRatio": 0.0062,
+      "kanaRatio": 0.0063,
       "pending": {
         "characters": [
           {
@@ -8811,7 +8803,7 @@
       "sources": [
         "萌娘百科:明明说了“我不会爱你”的下任公爵大人为何突然开始宠溺我"
       ],
-      "kanaRatio": 0.0287,
+      "kanaRatio": 0.0037,
       "pending": {
         "characters": [
           {
