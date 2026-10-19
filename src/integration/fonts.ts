@@ -10,7 +10,7 @@ import {
 } from "node:fs/promises";
 import { basename, extname, join } from "node:path";
 import type { MetingMusicConfig, MusicProvider } from "../types/musicConfig.ts";
-import { buildMetingUrl } from "../utils/music/meting.ts";
+import { buildMetingUrls } from "../utils/music/meting.ts";
 import { loadConfigModule } from "./resolve/load-config.ts";
 import type { ResolvedShironesPaths } from "./types.ts";
 
@@ -200,53 +200,53 @@ async function collectMetingText(
 	const provider = musicConfig.provider ?? "local";
 	if (provider !== "meting" && provider !== "mixed") return "";
 
-	const url = buildMetingUrl(musicConfig.meting ?? {});
-	if (!url) return "";
+	for (const url of buildMetingUrls(musicConfig.meting ?? {})) {
+		logger.info(`fetching Meting playlist text: ${url}`);
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 8000);
+			const response = await fetch(url, {
+				signal: controller.signal,
+				headers: { "User-Agent": METING_USER_AGENT },
+			});
+			clearTimeout(timeoutId);
 
-	logger.info(`fetching Meting playlist text: ${url}`);
-	try {
-		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 8000);
-		const response = await fetch(url, {
-			signal: controller.signal,
-			headers: { "User-Agent": METING_USER_AGENT },
-		});
-		clearTimeout(timeoutId);
-
-		if (!response.ok) {
-			logger.warn(
-				`Meting API returned HTTP ${response.status}, skipping remote song text`,
-			);
-			return "";
-		}
-
-		const data = (await response.json()) as unknown;
-		if (!Array.isArray(data)) return "";
-
-		let songCount = 0;
-		const charSet = new Set<string>();
-		for (const song of data) {
-			const record = song as {
-				name?: string;
-				title?: string;
-				artist?: string;
-				author?: string;
-			};
-			const str = `${record.name ?? record.title ?? ""} ${record.artist ?? record.author ?? ""}`;
-			if (!str.trim()) continue;
-			songCount += 1;
-			for (const ch of str) {
-				if (ch.charCodeAt(0) > 31) charSet.add(ch);
+			if (!response.ok) {
+				logger.warn(
+					`Meting API returned HTTP ${response.status}, trying next source`,
+				);
+				continue;
 			}
+
+			const data = (await response.json()) as unknown;
+			if (!Array.isArray(data)) continue;
+
+			let songCount = 0;
+			const charSet = new Set<string>();
+			for (const song of data) {
+				const record = song as {
+					name?: string;
+					title?: string;
+					artist?: string;
+					author?: string;
+				};
+				const str = `${record.name ?? record.title ?? ""} ${record.artist ?? record.author ?? ""}`;
+				if (!str.trim()) continue;
+				songCount += 1;
+				for (const ch of str) {
+					if (ch.charCodeAt(0) > 31) charSet.add(ch);
+				}
+			}
+			if (songCount === 0) continue;
+			logger.info(`collected text from ${songCount} Meting remote songs`);
+			return Array.from(charSet).sort().join("");
+		} catch (error) {
+			logger.warn(
+				`failed to fetch Meting playlist text (${(error as Error).message}), trying next source`,
+			);
 		}
-		logger.info(`collected text from ${songCount} Meting remote songs`);
-		return Array.from(charSet).sort().join("");
-	} catch (error) {
-		logger.warn(
-			`failed to fetch Meting playlist text (${(error as Error).message}), continuing with local charset`,
-		);
-		return "";
 	}
+	return "";
 }
 
 /** Resolve a configured font file to an absolute path on disk. */

@@ -9,7 +9,7 @@ import type {
 	TrackDescriptor,
 } from "@/types/musicConfig";
 import { MUSIC_VOLUME_STORAGE_KEY, PLAYBACK_MODES } from "./constants";
-import { fetchMetingTracks } from "./meting";
+import { buildMetingUrls, fetchMetingTracks } from "./meting";
 import { nextTrackIndex, previousTrackIndex } from "./playlist";
 
 interface RuntimeState {
@@ -279,7 +279,9 @@ export function createMusicRuntime(
 				try {
 					const fetched = await withTimeout(
 						fetchMetingTracks(options.meting, customFetch),
-						dependencies.fetchTimeoutMs ?? DEFAULT_FETCH_TIMEOUT_MS,
+						dependencies.fetchTimeoutMs ??
+							DEFAULT_FETCH_TIMEOUT_MS *
+								Math.max(1, buildMetingUrls(options.meting).length),
 					);
 					if (generation !== lifecycleGeneration) return;
 					if (fetched.length > 0) {

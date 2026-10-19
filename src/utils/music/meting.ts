@@ -21,23 +21,39 @@ export interface RawMetingSong {
 }
 
 /**
- * 根据 Meting 配置组装请求 URL。若 ID 为空则返回 null。
+ * 根据 Meting 配置按顺序组装所有候选请求 URL（`api` 可为单个模板或模板数组）。
+ * 若 ID 为空则返回空数组。
  */
-export function buildMetingUrl(config: MetingMusicConfig): string | null {
+export function buildMetingUrls(config: MetingMusicConfig): string[] {
 	const id = config.id?.trim();
-	if (!id) return null;
+	if (!id) return [];
 
-	const api = config.api?.trim() || DEFAULT_METING_API;
+	const templates = (
+		typeof config.api === "string" ? [config.api] : (config.api ?? [])
+	)
+		.map((api) => api.trim())
+		.filter(Boolean);
+	if (templates.length === 0) templates.push(DEFAULT_METING_API);
+
 	const server = config.server?.trim() || DEFAULT_METING_SERVER;
 	const type = config.type?.trim() || DEFAULT_METING_TYPE;
 	const random = Date.now().toString();
 
-	return api
-		.replace(":server", encodeURIComponent(server))
-		.replace(":type", encodeURIComponent(type))
-		.replace(":id", encodeURIComponent(id))
-		.replace(":auth", "")
-		.replace(":r", random);
+	return [...new Set(templates)].map((api) =>
+		api
+			.replace(":server", encodeURIComponent(server))
+			.replace(":type", encodeURIComponent(type))
+			.replace(":id", encodeURIComponent(id))
+			.replace(":auth", "")
+			.replace(":r", random),
+	);
+}
+
+/**
+ * 根据 Meting 配置组装首选请求 URL。若 ID 为空则返回 null。
+ */
+export function buildMetingUrl(config: MetingMusicConfig): string | null {
+	return buildMetingUrls(config)[0] ?? null;
 }
 
 /**
@@ -88,23 +104,67 @@ export function parseMetingSong(
 	});
 }
 
+/** 单个 Meting 源的请求超时（毫秒），超时后切换到下一个源。 */
+export const METING_SOURCE_TIMEOUT_MS = 6_000;
+
 /**
  * 从 Meting API 异步获取并解析曲目列表。
+ * 配置了多个 API 时按顺序尝试，直到某个源返回非空歌单；
+ * 所有源都出错时抛出最后一个错误，至少一个源正常但歌单为空时返回空数组。
  */
 export async function fetchMetingTracks(
 	config: MetingMusicConfig,
 	customFetch: typeof fetch = fetch,
 ): Promise<readonly TrackDescriptor[]> {
-	const url = buildMetingUrl(config);
-	if (!url) return [];
+	const urls = buildMetingUrls(config);
+	let lastError: unknown = null;
+	let anySucceeded = false;
 
-	const response = await customFetch(url);
-	if (!response.ok) {
-		throw new Error(`Meting API HTTP ${response.status}`);
+	for (const url of urls) {
+		try {
+			const tracks = await fetchMetingTracksFrom(url, config, customFetch);
+			if (tracks.length > 0) return tracks;
+			anySucceeded = true;
+		} catch (error) {
+			lastError = error;
+		}
 	}
 
-	const data = (await response.json()) as RawMetingSong[];
-	if (!Array.isArray(data)) return [];
+	if (!anySucceeded && lastError) throw lastError;
+	return [];
+}
+
+async function fetchMetingTracksFrom(
+	url: string,
+	config: MetingMusicConfig,
+	customFetch: typeof fetch,
+): Promise<readonly TrackDescriptor[]> {
+	const controller =
+		typeof AbortController === "function" ? new AbortController() : null;
+	const timeoutId = controller
+		? setTimeout(() => controller.abort(), METING_SOURCE_TIMEOUT_MS)
+		: null;
+
+	try {
+		const response = await customFetch(
+			url,
+			controller ? { signal: controller.signal } : undefined,
+		);
+		if (!response.ok) {
+			throw new Error(`Meting API HTTP ${response.status}`);
+		}
+		return parseMetingResponse(await response.json(), config);
+	} finally {
+		if (timeoutId) clearTimeout(timeoutId);
+	}
+}
+
+function parseMetingResponse(
+	payload: unknown,
+	config: MetingMusicConfig,
+): readonly TrackDescriptor[] {
+	if (!Array.isArray(payload)) return [];
+	const data = payload as RawMetingSong[];
 
 	const server = config.server || DEFAULT_METING_SERVER;
 	const tracks: TrackDescriptor[] = [];
