@@ -143,13 +143,47 @@ export async function fetchWorkEncyclopedia(
 	return { title, intro, story, sources: used };
 }
 
+const PROFILE_HEADING_RE =
+	/^(简介|人物简介|角色简介|人物介绍|角色介绍|人物|经历|人物经历|概要|性格|形象|人物形象)$/;
+
+/** 在句号处截断，避免把句子切成半截 */
+export function truncateAtSentence(text, maxLength) {
+	if (text.length <= maxLength) return text;
+	const cut = text.slice(0, maxLength);
+	const end = Math.max(
+		cut.lastIndexOf("。"),
+		cut.lastIndexOf("！"),
+		cut.lastIndexOf("？"),
+	);
+	return end >= maxLength * 0.4
+		? cut.slice(0, end + 1)
+		: `${cut.slice(0, maxLength - 1)}…`;
+}
+
+/**
+ * 角色简介 = 萌娘百科导言首句（「X是……的登场角色」）+ 人物简介章节。
+ * 只有导言一句时内容太单薄，补上简介 / 经历章节的首段。
+ */
+export function composeCharacterBio(article, maxLength = 300) {
+	const lead = cleanChineseProse(article?.intro || "").split("\n\n")[0] || "";
+	const parts = [lead];
+	if (lead.length < 80) {
+		const section = (article?.sections || []).find(
+			(s) => PROFILE_HEADING_RE.test(s.heading) && s.text,
+		);
+		const extra = cleanChineseProse(section?.text || "").split("\n\n")[0] || "";
+		if (extra && !lead.includes(extra)) parts.push(extra);
+	}
+	return truncateAtSentence(parts.filter(Boolean).join(""), maxLength);
+}
+
 /**
  * 角色中文简介：Bangumi 简介是日文时，到萌娘百科查同名角色条目。
  * 角色条目必须提到所属作品，避免同名角色张冠李戴。
  */
 export async function fetchCharacterBio(
 	{ nameCn, workTitles = [] },
-	{ fetchForWork = fetchMoegirlArticleForWork, maxLength = 220 } = {},
+	{ fetchForWork = fetchMoegirlArticleForWork, maxLength = 300 } = {},
 ) {
 	const name = String(nameCn || "").trim();
 	if (!name || hasKana(name)) return null;
@@ -170,10 +204,10 @@ export async function fetchCharacterBio(
 			},
 		});
 		if (!article) return null;
-		const text = cleanChineseProse(article.intro).split("\n\n")[0] || "";
+		const text = composeCharacterBio(article, maxLength);
 		if (text.length < 20) return null;
 		return {
-			text: text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text,
+			text,
 			source: { label: "萌娘百科", title: article.title, url: article.pageUrl },
 		};
 	} catch {

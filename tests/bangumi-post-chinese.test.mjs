@@ -12,6 +12,7 @@ import {
 	resolveCharacterNameCn,
 } from "../scripts/generate-bangumi-daily-post.mjs";
 import {
+	composeCharacterBio,
 	fetchCharacterBio,
 	fetchWorkEncyclopedia,
 	isRelevantWorkArticle,
@@ -20,6 +21,7 @@ import {
 import {
 	cleanChineseProse,
 	isMostlyJapanese,
+	normalizeStudioName,
 	jpToSimplified,
 	stripForeignNotes,
 	toSimplified,
@@ -54,6 +56,64 @@ describe("zh-text", () => {
 			false,
 		);
 		assert.equal(isMostlyJapanese("ゲームセンターでの遊びに熱中する"), true);
+	});
+});
+
+describe("glosses and studios", () => {
+	it("removes Japanese / English glosses, including nested ones", () => {
+		assert.equal(
+			cleanChineseProse(
+				"小野寺小咲（日语：小野寺（おのでら） 小咲（こさき））是登场角色。",
+			),
+			"小野寺小咲是登场角色。",
+		);
+		assert.equal(
+			cleanChineseProse("职业：守护者(ガーディアン)Lv10"),
+			"职业：守护者Lv10",
+		);
+		assert.equal(
+			cleanChineseProse("安兹·乌尔·恭（Ainz Ooal Gown）是角色"),
+			"安兹·乌尔·恭是角色",
+		);
+		assert.equal(
+			cleanChineseProse("本名一之濑千鹤（一ノ瀬 ちづる）。[mask]剧透[/mask]"),
+			"本名一之濑千鹤。剧透",
+		);
+		assert.equal(
+			cleanChineseProse("动画（TV版）于2017年播出（第一季）。"),
+			"动画（TV版）于2017年播出（第一季）。",
+		);
+	});
+
+	it("maps katakana studio names to their usual Chinese / English names", () => {
+		assert.equal(
+			normalizeStudioName("プロダクション リード[苇プロダクション]"),
+			"Production Reed",
+		);
+		assert.equal(
+			normalizeStudioName("トムス・エンタテインメント/第6スタジオ"),
+			"TMS娱乐/第6工作室",
+		);
+		assert.equal(
+			normalizeStudioName("st.シルバー×アルボアニメーション"),
+			"Studio Silver×Arvo Animation",
+		);
+	});
+
+	it("extends a one-line character lead with the profile section", () => {
+		const bio = composeCharacterBio({
+			intro: "桐崎千棘是漫画《伪恋》及其衍生作品的登场角色。",
+			sections: [
+				{
+					heading: "简介",
+					text: "美国黑帮首领的独生女，金发碧眼，运动神经极佳。",
+				},
+			],
+		});
+		assert.equal(
+			bio,
+			"桐崎千棘是漫画《伪恋》及其衍生作品的登场角色。美国黑帮首领的独生女，金发碧眼，运动神经极佳。",
+		);
 	});
 });
 

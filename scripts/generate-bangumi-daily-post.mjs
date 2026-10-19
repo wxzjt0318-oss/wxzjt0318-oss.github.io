@@ -28,6 +28,7 @@ import {
 	DEFAULT_SOURCES,
 	fetchCharacterBio,
 	fetchWorkEncyclopedia,
+	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
 import {
 	cleanChineseProse,
@@ -35,6 +36,7 @@ import {
 	isMostlyJapanese,
 	jpToSimplified,
 	kanaRatio,
+	normalizeStudioName,
 	toSimplified,
 } from "./wiki/zh-text.mjs";
 
@@ -177,7 +179,7 @@ export function buildTags(candidate, detail, { titleCn = "", studio = "" } = {})
 
 function summarizeStudio(value) {
 	if (!value) return "";
-	return jpToSimplified(String(value).split(/[（(]/)[0].trim());
+	return normalizeStudioName(String(value).split(/[（(]/)[0].trim());
 }
 
 function extractStaff(detail) {
@@ -188,7 +190,11 @@ function extractStaff(detail) {
 	for (const key of interestingKeys) {
 		const value = pickInfoboxValue({ infobox }, [key]);
 		// 纯假名的人名（笔名等）没有通行中文写法，不放进中文正文
-		const name = value ? jpToSimplified(value) : "";
+		const name = value
+			? key === "动画制作"
+				? normalizeStudioName(value)
+				: cleanChineseProse(jpToSimplified(value)) || jpToSimplified(value)
+			: "";
 		if (name && !isMostlyJapanese(name)) {
 			staff.push({ relation: key, name });
 		}
@@ -306,9 +312,7 @@ async function enrichCharacters(characters, { workTitles, fetchDetail, fetchBio 
 			const bio = await fetchBio({ nameCn, workTitles });
 			if (bio?.text && bio.text.length > description.length) description = bio.text;
 		}
-		if (description.length > 320) {
-			description = `${description.slice(0, 319)}…`;
-		}
+		description = truncateAtSentence(description, 320);
 
 		const actor = Array.isArray(character.actors) ? character.actors[0] : null;
 		const birth =
