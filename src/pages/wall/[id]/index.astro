@@ -1,0 +1,44 @@
+---
+import PageHeader from "@components/atoms/display/PageHeader.astro";
+import PhotoWall from "@components/organisms/PhotoWall.svelte";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { toPhotoWallItem, wallAlbums } from "@utils/photo-wall";
+import { url } from "@utils/url-utils";
+import type { AlbumGroup } from "@/types/album";
+
+export function getStaticPaths() {
+	return wallAlbums().map((album) => ({
+		params: { id: album.id },
+		props: { album },
+	}));
+}
+
+const { album } = Astro.props as { album: AlbumGroup };
+const photos = album.photos.map(toPhotoWallItem);
+---
+
+<MainGridLayout
+	title={album.title}
+	description={album.description || album.title}
+	page="albums"
+>
+	<section class="wall-page">
+		<PageHeader
+			title={album.title}
+			subtitle={album.description}
+			icon="material-symbols:photo-library-outline-rounded"
+		/>
+		<PhotoWall
+			photos={photos}
+			randomHref={url(`/wall/${album.id}/random/`)}
+			client:load
+		/>
+	</section>
+</MainGridLayout>
+
+<style lang="stylus">
+	.wall-page
+		display: flex
+		flex-direction: column
+		gap: var(--m3e-space-4, 1rem)
+</style>

@@ -189,6 +189,12 @@ export const CONFIG_DOMAINS = Object.freeze([
 		module: "@/types/albumsConfig",
 	},
 	{
+		key: "photoWall",
+		file: "photo-wall",
+		type: "PhotoWallConfig",
+		module: "@/types/photoWallConfig",
+	},
+	{
 		key: "compass",
 		file: "compass",
 		type: "CompassConfig",

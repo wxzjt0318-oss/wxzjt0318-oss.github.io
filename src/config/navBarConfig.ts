@@ -8,6 +8,7 @@ import { devicesConfig } from "@/config/devicesConfig";
 import { friendsConfig } from "@/config/friendsConfig";
 import { gamesConfig } from "@/config/gamesConfig";
 import { momentsConfig } from "@/config/momentsConfig";
+import { photoWallConfig } from "@/config/photoWallConfig";
 import { projectsConfig } from "@/config/projectsConfig";
 import { seriesConfig } from "@/config/seriesConfig";
 import { skillsConfig } from "@/config/skillsConfig";
@@ -183,6 +184,23 @@ const defaultNavBarConfig: NavBarConfig = {
 			],
 		},
 		{
+			name: "Celia",
+			icon: "material-symbols:photo-library-outline-rounded",
+			children: [
+				{
+					name: "照片墙",
+					url: "/wall/celia/",
+					icon: "material-symbols:grid-view-rounded",
+				},
+				{
+					name: "随机图",
+					url: "/wall/celia/random/",
+					external: true,
+					icon: "material-symbols:shuffle-rounded",
+				},
+			],
+		},
+		{
 			name: "留言版",
 			url: "/visitorbook/",
 			icon: "material-symbols:chat",
@@ -212,6 +230,12 @@ const unavailableFeatureRoutes: ReadonlySet<string> = new Set([
 	...(animeConfig.enable ? [] : ["/anime"]),
 	...(compassConfig.enable ? [] : ["/compass"]),
 	...(albumsConfig.enable ? [] : ["/albums"]),
+	...(photoWallConfig.enable === false
+		? (photoWallConfig.albums ?? []).flatMap((id) => [
+				`/wall/${id}`,
+				`/wall/${id}/random`,
+			])
+		: []),
 	...(skillsConfig.enable ? [] : ["/skills"]),
 	...(projectsConfig.enable ? [] : ["/projects"]),
 	...(devicesConfig.enable ? [] : ["/devices"]),

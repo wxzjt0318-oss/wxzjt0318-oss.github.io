@@ -1,0 +1,66 @@
+---
+/**
+ * 静态随机图入口：浏览器打开即随机跳到一张原图。
+ * - 默认按设备挑图：手机（UA 含 Mobi/Android/iPhone/iPad）出竖图，桌面出横图；该方向没有图时退回全部；
+ * - `?type=landscape|portrait|square|all` 强制方向（兼容 `pc` = 横图、`phone` = 竖图）；
+ * - `?json=1` 不跳转，直接输出所选图片的 JSON。
+ * 纯静态页面，不经过站点外壳（链接请用新标签页打开，避免被 Swup 接管）。
+ */
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import { toPhotoWallItem, wallAlbums } from "@utils/photo-wall";
+import { url } from "@utils/url-utils";
+import type { AlbumGroup } from "@/types/album";
+
+export function getStaticPaths() {
+	return wallAlbums().map((album) => ({
+		params: { id: album.id },
+		props: { album },
+	}));
+}
+
+const { album } = Astro.props as { album: AlbumGroup };
+const site = Astro.site;
+const items = album.photos.map(toPhotoWallItem).map((photo) => ({
+	src: site ? new URL(url(photo.src), site).toString() : url(photo.src),
+	width: photo.width,
+	height: photo.height,
+	orientation: photo.orientation,
+}));
+const data = JSON.stringify(items);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<title>{album.title}</title>
+	</head>
+	<body>
+		<p id="status">{i18n(I18nKey.photoWallRedirecting)}</p>
+		<script is:inline type="application/json" id="wall-data" set:html={data} />
+		<script is:inline>
+			(() => {
+				const items = JSON.parse(document.getElementById("wall-data").textContent || "[]");
+				const params = new URLSearchParams(location.search);
+				const alias = { pc: "landscape", phone: "portrait" };
+				const raw = params.get("type");
+				const mobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+				const type = alias[raw] || raw || (mobile ? "portrait" : "landscape");
+				const pool = type === "all" ? items : items.filter((item) => item.orientation === type);
+				const list = pool.length ? pool : items;
+				if (!list.length) return;
+				const pick = list[Math.floor(Math.random() * list.length)];
+				if (params.get("json") === "1") {
+					const pre = document.createElement("pre");
+					pre.textContent = JSON.stringify({ ...pick, type: pool.length ? type : "all" }, null, 2);
+					document.body.replaceChildren(pre);
+					return;
+				}
+				location.replace(pick.src);
+			})();
+		</script>
+	</body>
+</html>

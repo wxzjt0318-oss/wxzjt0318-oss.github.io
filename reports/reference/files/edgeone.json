@@ -1,7 +1,0 @@
-{
-  "name": "zmm-randpic",
-  "buildCommand": "npm run web:build",
-  "installCommand": "npm ci",
-  "outputDirectory": "web/dist",
-  "nodeVersion": "22.11.0"
-}
