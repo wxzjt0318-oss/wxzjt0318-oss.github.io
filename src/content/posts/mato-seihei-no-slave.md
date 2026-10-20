@@ -5,7 +5,7 @@ tags: ["战斗", "奇幻", "后宫", "漫画改", "2024年1月", "主从契约",
 category: "魔防队少女与少年的主从契约"
 licenseName: "CC BY-NC-SA 3.0"
 author: "灵梦"
-sourceLink: ""
+sourceLink: "https://bgm.tv/subject/357962"
 draft: false
 pubDate: 2026-04-05
 published: 2026-04-05
