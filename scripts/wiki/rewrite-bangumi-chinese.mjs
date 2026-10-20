@@ -146,6 +146,12 @@ async function main() {
 			counts.skipped++;
 			continue;
 		}
+		// 已改写成长篇深度文章（不再是自动模板结构）的永久跳过，避免覆盖人工内容
+		if (!raw.includes("## 一、作品概述") || !raw.includes("## 三、剧情简介")) {
+			console.log(`🛡 ${file}：已是人工撰写的长篇文章，跳过`);
+			counts.skipped++;
+			continue;
+		}
 		if (PROTECT_RE.test(fm.raw)) {
 			console.log(`🛡 ${file}：已声明保护，跳过`);
 			counts.skipped++;

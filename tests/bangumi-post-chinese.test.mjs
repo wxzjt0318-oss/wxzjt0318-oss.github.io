@@ -319,3 +319,109 @@ describe("article markdown", () => {
 		assert.ok(measureJapaneseRatio(markdown) < 0.03);
 	});
 });
+
+describe("duplicate guard", () => {
+	const manual = (title, extra = "") =>
+		`---\ntitle: ${title}\ntags: ["恋爱"]\nsourceLink: ""\n---\n${extra}`;
+
+	it("matches a manual post with a subtitle, another translation or a Moegirl link", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "a.md",
+				identities: postIdentities(
+					manual("《月光下的异世界之旅》——被神抛弃之人的异世界改革之路"),
+				),
+			},
+			{
+				filePath: "b.md",
+				identities: postIdentities(
+					'---\ntitle: 《安闲领主的愉快领地防卫》\ntags: []\nsourceLink: "https://zh.moegirl.org.cn/お気楽領主の楽しい領地防衛"\n---\n',
+				),
+			},
+		];
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "月光下的异世界之旅", titleJp: "月が導く異世界道中" },
+				posts,
+			)?.file,
+			"a.md",
+		);
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "安逸领主的愉快领地防卫～以生产系魔术～",
+					titleJp: "お気楽領主の楽しい領地防衛 ～生産系魔術で～",
+				},
+				posts,
+			)?.file,
+			"b.md",
+		);
+	});
+
+	it("keeps other seasons, OVAs and films separate", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "a.md",
+				identities: postIdentities(manual("《总之就是非常可爱》")),
+			},
+		];
+		assert.equal(
+			findDuplicatePost({ titleCn: "总之就是非常可爱 第二季" }, posts),
+			null,
+		);
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "总之就是非常可爱 ～SNS～", forms: ["OVA"] },
+				posts,
+			),
+			null,
+		);
+		assert.equal(
+			findDuplicatePost({ titleCn: "剧场版 总之就是非常可爱" }, posts),
+			null,
+		);
+		assert.equal(
+			findDuplicatePost({ titleCn: "总之就是非常可爱" }, posts)?.file,
+			"a.md",
+		);
+	});
+});
+
+describe("duplicate guard sequels", () => {
+	it("does not match a sequel through the shared series page", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "s1.md",
+				identities: postIdentities(
+					'---\ntitle: "《零之使魔》"\ntags: []\nsourceLink: ""\n---\n',
+				),
+			},
+		];
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "零之使魔F", encyclopediaTitles: ["零之使魔"] },
+				posts,
+			),
+			null,
+		);
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "月光下的异世界之旅 第二幕",
+					encyclopediaTitles: ["零之使魔"],
+				},
+				posts,
+			),
+			null,
+		);
+	});
+});

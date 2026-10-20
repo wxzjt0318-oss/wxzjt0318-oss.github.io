@@ -94,3 +94,4 @@ artifacts/shirone-ai-*
 # local debugging dumps（临时排查用，可随时重建，不入库）
 reports/bgm-list-sample.html
 reports/bangumi-update-latest.log
+reports/wiki-sources/
