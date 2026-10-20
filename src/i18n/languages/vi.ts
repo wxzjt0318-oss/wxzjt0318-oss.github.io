@@ -206,6 +206,7 @@ export const vi: Translation = {
 	[Key.announcementClose]: "Đóng thông báo",
 
 	[Key.comments]: "Bình luận",
+	[Key.commentsEditor]: "Nội dung bình luận",
 	[Key.commentsLoading]: "Đang tải bình luận...",
 	[Key.commentsLoadFailed]: "Không thể tải bình luận",
 	[Key.commentsRequiresJavaScript]: "Bình luận yêu cầu JavaScript để hiển thị",
@@ -277,7 +278,7 @@ export const vi: Translation = {
 	[Key.musicOpenPlayer]: "Mở trình phát nhạc",
 	[Key.musicClosePlayer]: "Thu gọn trình phát nhạc",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "Màu chủ đề",
 	[Key.colorStyle]: "Phong cách màu",
 	[Key.colorSpec]: "Đặc tả màu",
 

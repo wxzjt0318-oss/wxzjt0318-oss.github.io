@@ -73,11 +73,11 @@ svelte({
 
 **现象**：Svelte 原子（如 IconButton）在**无 `client:*` 指令**的 Astro 页面（TopAppBar / Profile / 文章页）中，`icon` prop 渲染的图标消失，按钮只剩空圆。
 
-**根因**：`@iconify/svelte` 的在线 `Icon` 组件靠运行时 `loadIcon`（浏览器 API）加载图标数据；SSR 无 hydration 时数据永远为 null → 渲染空，还可能在客户端请求 Iconify API。astro-icon 是构建期收集数据、SSR 直出 svg，无此问题。
+**根因**：`@iconify/svelte` 的在线 `Icon` 组件靠运行时 `loadIcon`（浏览器 API）加载图标数据；SSR 无 hydration 时数据永远为 null → 渲染空，还可能在客户端请求 Iconify API。`atoms/display/Icon.svelte` 是构建期把用到的图标摇成一棵小树、SSR 直出 svg，无此问题。
 
 **解法**：
-- 静态 SSR 场景：用 `children` snippet 传 astro-icon 的 `<Icon>`（或任何已渲染 svg），**禁止**用 `icon` prop；
-- 需要水合的 Svelte 场景：统一使用 `src/components/atoms/display/Icon.svelte`，它通过 `OfflineIcon` 消费 `src/generated/local-icon-collections.ts`，禁止业务组件直接导入在线 Iconify 组件；
+- 静态 SSR 场景：一律用 `<Icon icon="prefix:name" />`（`atoms/display/Icon.svelte`，别名 `@iconify/svelte`），**禁止**直接导入 `@iconify/svelte/dist/Icon.svelte` 这类在线组件；
+- 需要水合的 Svelte 场景：同一个 `Icon.svelte` 照样可用，它经 `OfflineIcon` 消费 `src/generated/local-icon-collections.ts`，禁止业务组件直接导入在线 Iconify 组件；
 - 新增或改名图标后确认图标名真实存在（`src/generated/local-icon-collections.ts` 会自动重算），无效图标名必须修正，不能依赖网络回退；
 - 组件 scoped CSS 里 `> :global(svg)` 会强制覆盖 children 图标的尺寸（如强制 24px 覆盖调用方 `text-[1.25rem]`）——尺寸规则只应作用于 `icon` prop 模式的图标容器（`.m3-icon-button__icon`），children 图标尺寸由调用方 class 控制。
 
@@ -156,6 +156,16 @@ svelte({
 **解法**：外壳声明 `color-scheme: light dark`（与第三方默认一致），iframe 画布保持透明，留白透出卡片底色，内部配色仍由 `data-theme` 自绘。验证方式：亮色站点 + `emulateMedia({ colorScheme: "dark" })`，`.giscus-frame` 的计算值必须是 `light dark`。
 
 **通用教训**：给第三方 iframe 加 `color-scheme` 只能放宽不能收窄；`normal` 不是「不表态」，而是「只支持 light」。
+
+---
+
+### 2.4 内联 Stylus 的注释里不能写反引号
+
+**现象**：给 `Waline.astro` 的样式加了一行引用类名的注释，类名用反引号包起来；开发服务器随即把整个评论区渲染为空，日志报 `emoji is not defined`。
+
+**根因**：`Waline.astro` 与 `Twikoo.astro` 把 Stylus 源码写在 frontmatter 的 JS 模板字符串里，再交给 `stylus.render()` 在构建期编译。注释里的反引号会提前结束模板字符串，其后的样式被当作 JS 求值；`${` 同样会触发插值。
+
+**解法**：内联 Stylus 的注释和取值中不写反引号与 `${`，引用类名直接写纯文本。改动后至少在开发服务器打开一次启用该 Provider 的页面，确认评论区与内联样式都已输出。
 
 ---
 
@@ -557,3 +567,118 @@ snapshotPathTemplate: "{snapshotDir}/{testFileDir}/{testFileName}-snapshots/{arg
 
 **防回归**：`tests/site/layout-stability.spec.ts`（覆盖槽位预留、长短页宽度一致、长/短页双向导航、壁纸模式切换、页面滚动锁、无槽位时的补偿）。注意 Playwright 默认带 `--hide-scrollbars`，滚动条宽度为 0 时该契约完全不可观测，spec 必须显式关掉该默认参数。
 
+---
+
+## 11. npm 包模式的依赖归属
+
+### 11.1 「能不能解析」和「会不会被发现」是两件事
+
+**现象**：想把 `@iconify-json/*` 从 peer 依赖下沉成 `shirones` 自己的依赖，这样用户 `package.json` 里就不用列图标集。把包从 `devDependencies` 挪进 `dependencies`、删掉 `package.manifest.json` 的 `extraDependencies` 条目，一切静态检查全绿，但真按包模式装出来，每个图标都抛 `Unable to locate the "material-symbols" icon set!`。
+
+**根因**：`astro-icon` 有两个独立环节，容易被「依赖解析」的直觉混为一谈：
+
+1. **文件解析** —— `loadCollectionFromFS` 用 `import-meta-resolve` 从 `process.cwd()` 往上找 `<set>/icons.json`。pnpm 严格布局下**这条是通的**：主题自己的依赖装在
+   `.pnpm/<pkg>@<ver>/node_modules/`，与主题源码同级，Node 向上走一级就命中。实测（真实 tarball 安装后调用 astro-icon 的 loader）确认解析成功。
+2. **集合发现** —— `detectInstalledCollections(root)` 读的是**用户项目的 `package.json`**，只收集其中声明过的 `@iconify-json/*`；`include` 只能往这个列表里补 `["*"]`，**不能把列表外的集合加进来**。下沉依赖后用户 `package.json` 里没有这些条目，发现列表为空，虚拟模块导出 `{}` —— 文件明明在盘上，图标却一个都不渲染。
+
+**解法（演进，非一步到位）**：
+
+- **短期**：`@iconify-json/*` 留在 peer 依赖里。`package.manifest.json` 的 `extraDependencies` 也不要因「主题自己 import 了」就删——真正判断某个包该放哪，按「谁需要发现它」而不是「谁能 import 它」。
+- **终局（已落地）**：彻底删掉 `astro-icon`，改由 `vite/icon/collections.ts` 用
+  `createRequire(import.meta.url)` 在**包内部**解析并摇出小集合，`Icon.svelte` +
+  `@shirone/iconify-offline` 消费。这条链路没有发现环节，所以四个图标集现在是
+  shirones 的普通 `dependencies`，用户 `package.json` 里一个都不用写。
+  `src/icons/*.svg` 的 `local` 集合也由同一模块接管（`collectLocalIcons`），
+  `Icon.svelte` 对裸名回退 `local:` 前缀以保持 astro-icon 时代的调用写法。
+  代价是放弃 astro-icon 的 symbol/use 复用——实测全站 HTML 只涨 0.65%
+  （去重本来就是每页的，跨页重复它也没解决），为这一点在 Svelte SSR 里自建
+  注册表不值得。顺带 `tsconfig.json` 给 `@iconify/svelte` 加了指向主题
+  `Icon.svelte` 的 path，否则 TypeScript 会解析到真包的废弃签名，28 个
+  `.astro` 调用点全报 ts(2322)。
+
+**教训（可迁移）**：pnpm 的严格布局下，「主题的依赖在主题内部能不能解析」和「消费方要不要在别处查它」是两个问题，且只有读消费方源码才能知道后者。any 依赖下沉前，先确认消费方是按文件系统走还是按清单查——按清单查的（`astro-icon` 查用户 `package.json`）永远下不去，除非把消费方换掉。
+
+**验证方式**：不要用「`astro check` 过了 + `check:package-manifest` 过了」当下沉的证据。必须真装一次：流水线 `pnpm templates && pnpm build` 产出 tarball → 临时目录 `pnpm add file:…` → `shirones init` → `pnpm build` → 数 `dist/` 里 svg 是否渲染、数据量是否符合预期。本仓库 `icons.spec.ts` 的 5 条用例中 4 条在干净 `work` 分支上也会因 `networkidle` 点击超时而失败，**不能**用它单独证明回归；要和未改动提交跑同一 spec 对比。
+
+### 11.2 并发跑多个重型构建会把验证阶段打成假失败
+
+**现象**：流水线 `validate` 的 dev-server 冒烟阶段报 `[ERROR] transport invoke timed out after 60000ms` 并 `dev server returned 500 for /`，同一批日志里 `astro build` 却刚成功。
+
+**根因**：`validate`、`override-test` 和 Playwright 各自要起 Astro dev/build，各自峰值 3–6 GB。2 核 8 GB 上并行跑，cgroup 先 OOM kill 掉其中一两个，剩下的看起来像是代码坏掉。
+
+**解法**：这几个步骤**串行**跑，每步单独占满内存；同时跑两个必假阳性。判断「是不是我的改动引起的」—— 同一条命令在未改动提交上再跑一遍，结果一致即为环境问题。
+
+
+### 11.3 `astro check` 不检查 `.svelte`，必须单独运行 `svelte-check`
+
+**现象**：`Icon.svelte.d.ts` 曾把 `Icon` 声明成 Svelte 4 的
+`SvelteComponent<IconProps>`；`astro check` 报 0 errors，而 `svelte-check` 在 64 个
+`.svelte` 文件里报 164 条「not assignable to parameter of type `Component<…>`」——
+也就是每一个 `<Icon>` 调用点。
+
+**根因**：`astro check` 不会替代 Svelte language server 的类型检查。实测在 `.svelte`
+里写 `const bad: number = "x"`、在 `.astro` 里写
+`<Icon icon={123} notARealProp="x" />`，`astro check` 都仍是 0 errors。
+
+**现状与门禁**：仓库将 `svelte-check@4.7.6` 固定为 devDependency；CI 用
+`pnpm exec svelte-check --tsconfig ./tsconfig.json --threshold error`，并以错误阈值
+作为阻塞检查。不要改回未固定的 `pnpm dlx`：那会临时联网解析工具版本，且锁文件无法
+复现它。
+
+**判断**：改 `.svelte` 或 `.svelte.d.ts` 时，`astro check` 通过**不构成**类型验证证据；
+须同时运行上述固定版本的 `svelte-check`。旧的 28-error 宽限基线已过时，不能据此放行新错误。
+
+### 11.4 Playwright 测试不在 CI，回归只能靠源码级契约兜住
+
+**现象**：`1cd5466` 的图标迁移漏了 4 个跨行 `<Icon name=…>` 标签，导致文章卡片箭头、
+相关文章条目箭头、系列卡片箭头在 `dist/` 里是空节点。这类遗漏 `icons.spec.ts` 覆盖不到
+（它只检查顶栏、社交链接、复制按钮、FAB），而 `astro check` 又看不到属性名。
+
+**根因**：`playwright.config.ts` 写死 `channel: "chrome"`，且 `ci.yml` 没有 `pnpm test`，
+所以浏览器测试只能手工跑。
+
+**解法**：对「属性名换掉会导致静默空渲染」这类问题，用**源码级契约测试**兜：
+`tests/icon-call-site-contract.test.mjs` 扫描每个 `.astro`/`.svelte`，屏蔽注释与字符串
+字面量后断言 `<Icon>` 带 `icon` 且不带 `name`。这比 Playwright 更早、更便宜，且
+`icons.spec.ts` 只能作为渲染质量的补充。
+
+**教训**：源码级契约测试的关键是**先屏蔽注释与字符串**。第一版没屏蔽，
+`Icon.svelte` 自己的 deprecation 文案、JSDoc 里的 `<Icon … />` 示例全被当成调用点，
+67 个假阳性——一条没人看的测试比没有测试更糟。
+
+### 11.5 包发布流水线会重建 `workspace/`，必须核对同步的源码提交
+
+**现象**：运行模板、打包和验证步骤后，产物看起来像是源码改动没有生效；手工放入
+`workspace/` 的文件也消失了。
+
+**根因**：发布流水线的模板同步步骤会整体重建 `workspace/`：从配置的源码仓库与 ref
+同步到临时目录，再复制进 `workspace/` 并移除 `.git`。因此手改 `workspace/` 会被覆盖，
+而包验证实际使用的是所配置的仓库/ref，不一定是正在开发的那条分支。
+
+**解法**：先用 `workspace/.synced-sha` 确认本次包构建实际同步的提交。要验证尚未合并的
+改动时，显式设置发布流水线的 `SHIRONES_UPSTREAM_REPO` 和 `SHIRONES_UPSTREAM_REF`，再运行
+模板、打包与验证；不要仅凭目录名或分支名推断产物来自哪里：
+
+```bash
+SHIRONES_UPSTREAM_REPO=<repository-url> \
+SHIRONES_UPSTREAM_REF=<branch-or-commit> \
+pnpm templates && pnpm build && pnpm validate
+```
+
+**教训**：跨仓验证先确认源码来自哪个 ref，再看产物数字。若 ref 不对，箭头数量或
+`is:inline` 计数只能说明流水线测了另一份源码，不能作为回归证据。
+
+### 11.6 包模式 dev 冒烟在资源受限环境中超时，结果仍属未通过
+
+**现象**：`validate` 的 dev 冒烟曾在从 `styles/main.css` 加载模块时触发
+`transport invoke timed out after 60000ms`，随后 `/` 返回 500。用户在 2 核环境报告，
+单独等待约 68 秒后首页才返回 HTTP 200；完整验证超过 200 秒仍未完成。用户怀疑首次
+Stylus/CSS 解析在 2 核环境中太慢，这是合理假设，但目前没有证明它是唯一原因。
+
+**对照**：在不包含本次 PR 改动的干净上游基线上也复现了同一类失败。因此，
+这次失败不能单独归因于 PR 分支；但这也**不代表冒烟通过**，更不能据此保证包模式 dev
+在其他环境正常。
+
+**结论**：将该历史 smoke 状态如实记为失败/未验证。若要确认性能原因或验证修复，需在
+资源充足的环境中串行运行同一包 tarball、记录完整请求时序和日志，再与基线比较；在此
+之前不要把超时称作通过，也不要断言它是上游缺陷或 fork 回归。

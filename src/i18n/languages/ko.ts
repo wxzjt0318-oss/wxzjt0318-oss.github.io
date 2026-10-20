@@ -202,6 +202,7 @@ export const ko: Translation = {
 	[Key.announcementClose]: "공지 닫기",
 
 	[Key.comments]: "댓글",
+	[Key.commentsEditor]: "댓글 내용",
 	[Key.commentsLoading]: "댓글을 불러오는 중...",
 	[Key.commentsLoadFailed]: "댓글을 불러오지 못했습니다",
 	[Key.commentsRequiresJavaScript]:
@@ -274,7 +275,7 @@ export const ko: Translation = {
 	[Key.musicOpenPlayer]: "음악 플레이어 열기",
 	[Key.musicClosePlayer]: "음악 플레이어 접기",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "테마 색상",
 	[Key.colorStyle]: "색상 스타일",
 	[Key.colorSpec]: "색상 규격",
 

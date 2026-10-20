@@ -206,6 +206,7 @@ export const tr: Translation = {
 	[Key.announcementClose]: "Duyuruyu Kapat",
 
 	[Key.comments]: "Yorumlar",
+	[Key.commentsEditor]: "Yorum içeriği",
 	[Key.commentsLoading]: "Yorumlar yükleniyor...",
 	[Key.commentsLoadFailed]: "Yorumlar yüklenemedi",
 	[Key.commentsRequiresJavaScript]:
@@ -278,7 +279,7 @@ export const tr: Translation = {
 	[Key.musicOpenPlayer]: "Müzik çaları aç",
 	[Key.musicClosePlayer]: "Müzik çalarını kapat",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "Tema Rengi",
 	[Key.colorStyle]: "Renk Stili",
 	[Key.colorSpec]: "Renk Spesifikasyonu",
 

@@ -208,6 +208,7 @@ export const id: Translation = {
 	[Key.announcementClose]: "Tutup pengumuman",
 
 	[Key.comments]: "Komentar",
+	[Key.commentsEditor]: "Isi komentar",
 	[Key.commentsLoading]: "Memuat komentar...",
 	[Key.commentsLoadFailed]: "Gagal memuat komentar",
 	[Key.commentsRequiresJavaScript]:
@@ -280,7 +281,7 @@ export const id: Translation = {
 	[Key.musicOpenPlayer]: "Buka pemutar musik",
 	[Key.musicClosePlayer]: "Tutup pemutar musik",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "Warna Tema",
 	[Key.colorStyle]: "Gaya Warna",
 	[Key.colorSpec]: "Spesifikasi Warna",
 

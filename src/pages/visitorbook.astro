@@ -8,8 +8,8 @@
  */
 import Card from "@components/atoms/display/Card.svelte";
 import PageHeader from "@components/atoms/display/PageHeader.astro";
+import Icon from "@iconify/svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { Icon } from "astro-icon/components";
 import { commentConfig, resolveCommentOptions, siteConfig } from "@/config";
 import type { CommentContext } from "@/types/commentConfig";
 
@@ -76,7 +76,7 @@ const Giscus =
 				{features.map((item) => (
 					<li class="visitorbook__feature">
 						<span class="visitorbook__feature-icon" aria-hidden="true">
-							<Icon name={item.icon} />
+							<Icon icon={item.icon} />
 						</span>
 						<span class="visitorbook__feature-text">
 							<strong>{item.title}</strong>
@@ -88,7 +88,7 @@ const Giscus =
 
 			<aside class="visitorbook__notice" aria-label="温馨提示">
 				<span class="visitorbook__notice-title">
-					<Icon name="material-symbols:info-outline-rounded" aria-hidden="true" />
+					<Icon icon="material-symbols:info-outline-rounded" aria-hidden="true" />
 					温馨提示
 				</span>
 				<ul>
@@ -100,7 +100,7 @@ const Giscus =
 		{options && (
 			<Card color="var(--card-bg)" radius="l" class="visitorbook__board">
 				<h2 class="visitorbook__board-title">
-					<Icon name="material-symbols:edit-square-outline-rounded" aria-hidden="true" />
+					<Icon icon="material-symbols:edit-square-outline-rounded" aria-hidden="true" />
 					写下你的留言
 				</h2>
 				{Twikoo && options.provider === "twikoo" && (
