@@ -23,7 +23,7 @@ jobs:
           mkdir -p reports/reference
           if [ -d /tmp/ref ]; then
             (cd /tmp/ref && find . -path ./.git -prune -o -type f -print | sort) > reports/reference/tree.txt
-            (cd /tmp/ref && find . -path ./.git -prune -o -type f -size -200k \( -name '*.md' -o -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.ts' -o -name '*.json' -o -name '*.php' -o -name '*.py' -o -name '*.yml' -o -name '*.yaml' -o -name '*.txt' -o -name '*.toml' -o -name '*.vue' -o -name '*.go' \) -print | while read f; do mkdir -p "reports/reference/files/$(dirname "$f")"; cp "$f" "reports/reference/files/$f"; done)
+            mkdir -p reports/reference/files && (cd /tmp/ref && tar --exclude=.git --exclude=package-lock.json -cf - .) | tar -xf - -C reports/reference/files
           fi
           [ -f /tmp/ref.html ] && cp /tmp/ref.html reports/reference/page.html || true
           ls -R reports/reference | head -50
