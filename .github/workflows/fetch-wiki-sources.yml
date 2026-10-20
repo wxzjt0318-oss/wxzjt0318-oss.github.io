@@ -1,0 +1,49 @@
+name: Fetch Wiki Sources
+
+# 抓取撰写深度文章所需的萌娘百科 / 维基百科全文（scripts/wiki/source-requests.json），
+# 结果写入 reports/wiki-sources/ 并提交回触发分支。只在 claude/** 分支修改请求清单时运行。
+# 用于每日长文改写流程，见 docs/longform-rewrite.md；请求清单与抓取结果都不进 main。
+on:
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "scripts/wiki/source-requests.json"
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/wiki/fetch-sources.mjs
+        env:
+          SHARD: ${{ matrix.shard }}
+          SHARDS: 4
+      - name: Commit sources
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -f reports/wiki-sources
+          if git diff --staged --quiet; then echo "No changes"; else
+            git commit -m "chore(sources): fetch wiki sources (shard ${{ matrix.shard }})"
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && break
+              sleep $((i * 5))
+            done
+          fi
