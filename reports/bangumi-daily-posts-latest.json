@@ -1,63 +1,71 @@
 {
-  "generatedAt": "2026-10-19T15:17:17.251Z",
+  "generatedAt": "2026-10-20T13:14:55.741Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 25823,
+    "subject_id": 350185,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2012-01-07",
+    "ep_status": 1,
+    "updated_at": "2022-11-25",
     "subject": {
-      "id": 25823,
-      "name": "零之使魔F",
-      "name_cn": "零之使魔F",
-      "date": "2012-01-07",
-      "eps": 12,
-      "short_summary": "在异世界“哈尔凯尼亚”，被露易丝当作使魔召唤出来的日本高中生平贺才人被卷入了这个世界的一切。召唤才人出来的是长相可爱但完全没有魔法才能的露易丝。一脸茫然的才人突然被露易丝强吻之后，他的手背出现了一个卢恩字母(符文)，才人自此变成了露易丝的使魔。 故事主要围绕在托里斯汀（即露易丝等人所在的王国）所发生的大小事情，并描述露易丝和才人从最差的主仆关系逐渐亲近的成长过程。",
+      "id": 350185,
+      "name": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
+      "name_cn": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
+      "date": "2022-11-25",
+      "eps": 1,
+      "short_summary": "利姆露·坦派斯特为拯救伙伴而进化成为了魔王。在位于他与伙伴们共同建立的魔物之国“魔国联邦(坦派斯特)”西方的“拉贾小亚国”，有著持有不可思议力量的女王，长久以来围绕著这个国家的阴谋将掀起涟漪。然而，“食人魔的幸存者”绯色突然出现在利姆路等人面前。利姆路的同伴红丸等人与这个对他们来说有如大哥般的存在重逢。这段过去一度断绝的“红莲之绊”，如今将成为引发新战斗的导火线…！？",
       "tags": [
         {
-          "name": "钉宫理惠"
+          "name": "剧场版"
         },
         {
-          "name": "零之使魔"
-        },
-        {
-          "name": "J.C.STAFF"
-        },
-        {
-          "name": "后宫"
-        },
-        {
-          "name": "2012年1月"
+          "name": "异世界"
         },
         {
           "name": "轻小说改"
+        },
+        {
+          "name": "2022"
+        },
+        {
+          "name": "奇幻"
+        },
+        {
+          "name": "战斗"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/400/pic/cover/l/c4/9b/25823_RgPyZ.jpg",
-        "common": "https://lain.bgm.tv/r/400/pic/cover/l/c4/9b/25823_RgPyZ.jpg",
-        "medium": "https://lain.bgm.tv/r/400/pic/cover/l/c4/9b/25823_RgPyZ.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/c4/9b/25823_RgPyZ.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/41/be/350185_M4C4V.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "零之使魔F",
+      "title": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/c4/9b/25823_RgPyZ.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg",
+      "source": "bangumi-large",
+      "width": 1200,
+      "height": 1700,
+      "title": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
+      "score": 100
+    },
+    {
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/41/be/350185_M4C4V.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "零之使魔F",
+      "title": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-25823.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-350185.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
