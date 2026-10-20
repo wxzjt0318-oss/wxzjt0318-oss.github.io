@@ -7,10 +7,9 @@ import type { PioProps } from "./types";
 
 /** 由 public 目录下的 Paul_Pio 脚本在 window 上挂载的全局构造器 */
 type PaulPioConstructor = new (options: unknown) => unknown;
-declare global {
-	interface Window {
-		Paul_Pio?: PaulPioConstructor;
-	}
+// 组件 <script> 里不能写 `declare global`（svelte-check 报 ambient module 错误），改为就地断言
+function getPaulPio(): PaulPioConstructor | undefined {
+	return (window as Window & { Paul_Pio?: PaulPioConstructor }).Paul_Pio;
 }
 
 export let config: Partial<PioProps["config"]> = {};
@@ -28,10 +27,11 @@ let pioContainer: HTMLDivElement | null = null;
 let pioCanvas: HTMLCanvasElement | null = null;
 
 function initPio() {
-	if (typeof window !== "undefined" && window.Paul_Pio) {
+	const PaulPio = typeof window !== "undefined" ? getPaulPio() : undefined;
+	if (PaulPio) {
 		try {
 			if (pioContainer && pioCanvas && !pioInitialized) {
-				pioInstance = new window.Paul_Pio(pioOptions);
+				pioInstance = new PaulPio(pioOptions);
 				pioInitialized = true;
 				console.log("Pio initialized successfully (Svelte)");
 			} else if (!pioContainer || !pioCanvas) {
