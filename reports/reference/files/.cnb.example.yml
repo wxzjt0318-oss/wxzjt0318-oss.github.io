@@ -1,0 +1,69 @@
+# .cnb.example.yml
+# CNB 流水线示例：main 分支推送 → 重建索引 → 生成 EdgeOne 静态产物 → 部署到 EdgeOne Makers
+#
+# 使用方式：
+#   1. 复制为 .cnb.yml（真实 .cnb.yml 已被 .gitignore 排除，不会进公共仓库）
+#   2. 在 CNB 密钥仓库中配置以下变量（参考 .env_template）：
+#        EDGEONE_API_TOKEN       —— EdgeOne Makers 部署令牌
+#        QINIU_*                 —— 七牛 S3 凭证（build-index 从桶重建索引必需）
+#        GITHUB_USERNAME / GITHUB_TOKEN / FEISHU_BOT_WEBHOOK   —— 备份与通知（可选）
+#   3. 将示例中的仓库地址替换为你自己的
+main:
+  push:
+    - imports: https://cnb.cool/YOUR_ACCOUNT/Secret-YOUR_PROJECT/-/blob/main/YOUR_PROJECT.yml
+      stages:
+        - name: "⏱️ 记录构建时间戳"
+          image: alpine:3.22
+          script: date "+%Y-%m-%d %H:%M:%S"
+          exports:
+            info: CUSTOM_ENV_DATE_INFO
+
+        - name: "🔄 同步备份代码到 GitHub(main→main)"
+          image: node:22
+          allowFailure: true
+          script: |
+            git config --global user.name "$GITHUB_USERNAME"
+            git config --global user.email "$GITHUB_USERNAME@users.noreply.github.com"
+            GITHUB_REMOTE="https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/YOUR_ACCOUNT/YOUR_PROJECT.git"
+            git remote add github "$GITHUB_REMOTE" || git remote set-url github "$GITHUB_REMOTE"
+            git push github refs/heads/main:refs/heads/main
+
+        - name: "🛠 构建 EdgeOne 静态产物"
+          image: node:22
+          script: |
+            npm ci
+
+            # 构建期注入存储凭证（仓库内 config/env.ci.json 保持空占位）
+            node scripts/inject-env.mjs
+
+            # 从 S3 桶扫描重建索引（gallery-index.json + manifest.js 双产物）
+            node scripts/build-index.mjs
+
+            # npm 的 npx/install 解析 edgeone 包会崩（edgesOut），改用 pnpm dlx 执行 edgeone CLI
+            # --allow-build=esbuild：放行 esbuild postinstall（pnpm 12 默认拦截）
+            corepack enable
+            pnpm dlx --allow-build=esbuild edgeone@1.6.31-2 makers build --mode prod
+            test -f web/dist/index.html
+            test -f web/dist/data/gallery-index.json
+
+        - name: "🚀 部署站点到 EdgeOne Makers"
+          image: node:22
+          script: |
+            corepack enable
+            pnpm dlx --allow-build=esbuild edgeone@1.6.31-2 makers deploy .edgeone --name YOUR_PROJECT --token "$EDGEONE_API_TOKEN" --env production
+          retry: 1
+
+        - name: "📡 飞书构建结果通知"
+          alwaysRun: true
+          image: tencentcom/feishu-message
+          settings:
+            robot: ${FEISHU_BOT_WEBHOOK}
+            msg_type: interactive
+            card: |
+              {
+                "header": { "title": { "content": "构建通知", "tag": "plain_text" } },
+                "elements": [
+                  { "tag": "div", "text": { "content": "**构建时间**：{CUSTOM_ENV_DATE_INFO}\n**构建 ID**：{CNB_BUILD_ID}\n**提交 ID**：{CNB_COMMIT_SHORT}\n**构建分支**：{CNB_BRANCH}\n**提交信息**：{CNB_COMMIT_MESSAGE_TITLE}", "tag": "lark_md" } },
+                  { "tag": "div", "text": { "content": "[访问 CNB 仓库]($CNB_REPO_URL_HTTPS)", "tag": "lark_md" } }
+                ]
+              }

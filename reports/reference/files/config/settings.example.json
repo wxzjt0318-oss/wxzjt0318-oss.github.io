@@ -1,0 +1,10 @@
+{
+  "avif": {
+    "quality": 60,
+    "effort": 4,
+    "maxDimension": { "pc": 3840, "phone": 2160, "both": 2560 }
+  },
+  "thumb": { "width": 640, "quality": 55 },
+  "pool": { "pcMinRatio": 1.2, "phoneMaxRatio": 0.9 },
+  "rename": { "hashLength": 8, "timezone": "+08:00" }
+}
