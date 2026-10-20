@@ -29,7 +29,7 @@ interface Props {
 	onRepeatClick: () => void;
 	onProgressSeek: (time: number) => void;
 	onVolumeButtonClick: () => void;
-	onSliderPointerDown: (event: PointerEvent) => void;
+	onVolumeInput: (event: Event) => void;
 	onSliderKeyDown: (event: KeyboardEvent) => void;
 	onHideClick: () => void;
 	onPlaylistClick: () => void;
@@ -58,7 +58,7 @@ const {
 	onRepeatClick,
 	onProgressSeek,
 	onVolumeButtonClick,
-	onSliderPointerDown,
+	onVolumeInput,
 	onSliderKeyDown,
 	onHideClick,
 	onPlaylistClick,
@@ -108,7 +108,7 @@ const {
 		{isVolumeDragging}
 		{volumeBarRef}
 		{onVolumeButtonClick}
-		{onSliderPointerDown}
+		{onVolumeInput}
 		{onSliderKeyDown}
 		ariaLabel="音量"
 	>

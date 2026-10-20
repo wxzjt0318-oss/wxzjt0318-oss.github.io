@@ -24,9 +24,10 @@ and in one request.
 `regeneration.ts` regenerates in two places:
 
 - `buildStart` — the collection must exist before Vite resolves
-  `Icon.svelte`. This runs for `astro dev` and `astro build`. `astro sync`
-  does not fire it, so that command reads whatever the last dev or build
-  left behind; run `pnpm dev` once after adding an icon to a component.
+  `Icon.svelte`. Verified to fire for `astro dev`, `astro build` **and**
+  `astro sync`, so all three regenerate it and none of them needs a step in the
+  script chain. `astro check` does the same, which is why a broken icon name
+  shows up before CI rather than at runtime.
 - `handleHotUpdate` — an icon added while the dev server is up regenerates
   without a restart. This is the reason the plugin exists at all; generation used
   to happen only in the script chain, which ran once before the server started.
@@ -42,9 +43,25 @@ absent in source mode). Together those cover both modes without a mode check:
 in source mode the theme *is* the project, so `packageSrc` already contains
 `src/content`.
 
-`ICON_PREFIXES` in `collections.ts` is the allow-list of usable sets, and it
-duplicates `iconInclude` in `src/config/integrationsConfig.ts`. Both need a new
-set; keep them in step.
+`ICON_PREFIXES` in `collections.ts` is the allow-list of usable sets. A new set
+needs adding there, and a `@iconify-json/<set>` entry in the theme's
+`dependencies` — that is the whole configuration. Nothing else needs editing:
+this module no longer shares the list with `astro-icon`, so there is no second
+copy to keep in step.
+
+## The `local` collection
+
+A project's own `src/icons/*.svg` is emitted under the `local` prefix, which is
+what replaced astro-icon's icon directory. It used to require four
+`@iconify-json/*` packages on every user's `package.json` because astro-icon
+located sets by reading that file; this module resolves them from inside the
+installed package instead, so those sets ship as the theme's dependencies and
+the user declares none of them.
+
+`Icon.svelte` maps a bare `<icon>` (no `prefix:`) onto `local:`, which keeps
+astro-icon's call-site syntax working. Parsing is regex-based and lenient — a
+file with no `viewBox`/`width`/`height`, or an empty `<svg>`, is dropped rather
+than thrown on, matching what astro-icon did.
 
 ## Gotcha: Vite resolves aliases before plugins
 
@@ -81,9 +98,16 @@ redirect look broken — and `Icon.svelte` shipping as source is easy to miss,
 because `find node_modules/shirones -name Icon.svelte` follows no symlink under
 pnpm's layout and reports nothing while the file is there.
 
-## Errors are swallowed on purpose
+## Errors: dev warns, build throws
 
-`regeneration.ts` catches failures. A typo in one post should cost one icon,
-not take the dev server down or fail a deploy. The CLI path is gone, so nothing
-reports the problem loudly — if an icon silently does not appear, check that the
-name exists in the installed set.
+`regeneration.ts` catches failures and then splits by command, which `configResolved`
+records:
+
+- `astro dev` warns and keeps going, leaving the previous collection in place.
+  A typo in one post should cost one icon, not take the dev server down.
+- `astro build` **throws**. An icon that fails to resolve renders as nothing at
+  runtime, which is exactly the silent breakage worth failing a deploy on.
+
+So a blank icon in `dist/` means the build did not run this plugin, not that the
+error was swallowed. If an icon is missing in dev, check the warning first, then
+that the name exists in an installed set.

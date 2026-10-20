@@ -1,9 +1,11 @@
 name: Update Bangumi Data
 
 on:
-  # UTC 08:00 = 北京时间 16:00。推送变更后会自动触发 deploy.yml（on.push.main）。
+  # UTC 06:17 = 北京时间 14:17。避开整点：GitHub 定时任务在整点积压最严重，常被推迟数小时。
+  # 提交后由下方「Trigger deploy」步骤显式触发 deploy.yml——用 GITHUB_TOKEN 推送的提交
+  # 不会触发其他工作流的 on.push，过去只能靠 deploy.yml 的每日兜底重建碰运气。
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "17 6 * * *"
   workflow_dispatch:
     inputs:
       clear_cache:
@@ -16,6 +18,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: "bangumi-update"
@@ -78,5 +81,12 @@ jobs:
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
             git commit -m "chore: update bangumi snapshots and daily anime post"
             git push origin HEAD:main
-            echo "Changes committed and pushed (deploy.yml will pick this up)"
+            echo "Changes committed and pushed"
           fi
+
+      # GITHUB_TOKEN 的推送不会触发 deploy.yml，这里用 workflow_dispatch 显式部署（该事件不受此限制）
+      - name: Trigger deploy
+        if: steps.commit.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main --repo "${{ github.repository }}"

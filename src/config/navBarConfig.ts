@@ -181,22 +181,10 @@ const defaultNavBarConfig: NavBarConfig = {
 				LinkPresets.Moments,
 				LinkPresets.Albums,
 				LinkPresets.Friends,
-			],
-		},
-		{
-			name: "Celia",
-			icon: "material-symbols:photo-library-outline-rounded",
-			children: [
 				{
-					name: "照片墙",
+					name: "Celia",
 					url: "/wall/celia/",
 					icon: "material-symbols:grid-view-rounded",
-				},
-				{
-					name: "随机图",
-					url: "/wall/celia/random/",
-					external: true,
-					icon: "material-symbols:shuffle-rounded",
 				},
 			],
 		},

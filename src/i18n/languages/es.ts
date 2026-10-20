@@ -206,6 +206,7 @@ export const es: Translation = {
 	[Key.announcementClose]: "Cerrar anuncio",
 
 	[Key.comments]: "Comentarios",
+	[Key.commentsEditor]: "Contenido del comentario",
 	[Key.commentsLoading]: "Cargando comentarios...",
 	[Key.commentsLoadFailed]: "Error al cargar comentarios",
 	[Key.commentsRequiresJavaScript]:
@@ -278,7 +279,7 @@ export const es: Translation = {
 	[Key.musicOpenPlayer]: "Abrir reproductor de música",
 	[Key.musicClosePlayer]: "Contraer reproductor de música",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "Color del tema",
 	[Key.colorStyle]: "Estilo de color",
 	[Key.colorSpec]: "Especificación",
 

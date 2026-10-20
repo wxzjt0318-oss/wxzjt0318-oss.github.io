@@ -157,72 +157,6 @@ function handleVolumeButtonClick() {
 	toggleMute();
 }
 
-function startVolumeDrag(event: PointerEvent) {
-	const slider = event.currentTarget as HTMLElement | null;
-	if (!slider) {
-		return;
-	}
-
-	const updateVolume = (clientX: number) => {
-		const rect = slider.getBoundingClientRect();
-		if (rect.width <= 0) {
-			return;
-		}
-		const percent = Math.max(
-			0,
-			Math.min(1, (clientX - rect.left) / rect.width),
-		);
-		controller?.runtime.setVolume(percent);
-		// 拖动音量即视为恢复播放声音，避免静音态下调节音量无任何反馈
-		if (percent > 0 && muted) {
-			controller?.runtime.setMuted(false);
-		}
-	};
-
-	updateVolume(event.clientX);
-
-	const pointerId = event.pointerId;
-	slider.setPointerCapture(pointerId);
-
-	const handleMove = (moveEvent: PointerEvent) => {
-		if (moveEvent.pointerId !== pointerId) {
-			return;
-		}
-		isVolumeDragging = true;
-		updateVolume(moveEvent.clientX);
-	};
-
-	const cleanup = () => {
-		slider.removeEventListener("pointermove", handleMove);
-		slider.removeEventListener("pointerup", handleUp);
-		slider.removeEventListener("pointercancel", handleCancel);
-		if (slider.hasPointerCapture(pointerId)) {
-			slider.releasePointerCapture(pointerId);
-		}
-	};
-
-	const handleUp = (upEvent: PointerEvent) => {
-		if (upEvent.pointerId !== pointerId) {
-			return;
-		}
-		updateVolume(upEvent.clientX);
-		isVolumeDragging = false;
-		cleanup();
-	};
-
-	const handleCancel = (cancelEvent: PointerEvent) => {
-		if (cancelEvent.pointerId !== pointerId) {
-			return;
-		}
-		isVolumeDragging = false;
-		cleanup();
-	};
-
-	slider.addEventListener("pointermove", handleMove);
-	slider.addEventListener("pointerup", handleUp);
-	slider.addEventListener("pointercancel", handleCancel);
-}
-
 function handleSliderKeyDown(event: KeyboardEvent) {
 	handleVolumeKeyDown(event, toggleMute);
 }
@@ -479,7 +413,7 @@ onDestroy(() => {
 				showPlaylist={ui.showPlaylist}
 				canSkip={canSkipNow}
 				{volume}
-				{muted}
+				isMuted={muted}
 				{isVolumeDragging}
 				isHidden={!ui.isExpanded}
 				{volumeBarRef}
@@ -490,7 +424,7 @@ onDestroy(() => {
 				onRepeatClick={toggleRepeat}
 				onProgressSeek={seek}
 				onVolumeButtonClick={handleVolumeButtonClick}
-				onSliderPointerDown={startVolumeDrag}
+				onVolumeInput={handleVolumeInput}
 				onSliderKeyDown={handleSliderKeyDown}
 				onHideClick={toggleHidden}
 				onPlaylistClick={togglePlaylist}

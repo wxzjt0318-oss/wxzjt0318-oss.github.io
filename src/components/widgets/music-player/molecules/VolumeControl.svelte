@@ -10,7 +10,7 @@ interface Props {
 	isVolumeDragging: boolean;
 	volumeBarRef: (node: HTMLElement) => void;
 	onVolumeButtonClick: () => void;
-	onSliderPointerDown: (event: PointerEvent) => void;
+	onVolumeInput: (event: Event) => void;
 	onSliderKeyDown: (event: KeyboardEvent) => void;
 	ariaLabel: string;
 	children?: Snippet;
@@ -22,7 +22,7 @@ const {
 	isVolumeDragging,
 	volumeBarRef,
 	onVolumeButtonClick,
-	onSliderPointerDown,
+	onVolumeInput,
 	onSliderKeyDown,
 	ariaLabel,
 	children,
@@ -35,7 +35,7 @@ const {
 		volume={isMuted ? 0 : volume}
 		{isVolumeDragging}
 		{volumeBarRef}
-		onpointerdown={onSliderPointerDown}
+		oninput={onVolumeInput}
 		onkeydown={onSliderKeyDown}
 		{ariaLabel}
 	/>

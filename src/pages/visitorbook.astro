@@ -1,169 +1,226 @@
 ---
+/**
+ * 留言板：站点级留言页。
+ * 评论区复用主题的评论组件（Twikoo / Giscus，随 commentConfig 切换，懒加载、Swup 安全），
+ * 不再自带一份 SDK 与初始化脚本——旧脚本每次换页都会重复注册监听并反复初始化。
+ * 留言挂在固定路径 /visitorbook 上（与旧版一致，历史留言不受影响）。
+ * 评论关闭时只显示介绍区，不加载任何评论资源。
+ */
 import Card from "@components/atoms/display/Card.svelte";
+import PageHeader from "@components/atoms/display/PageHeader.astro";
+import Icon from "@iconify/svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { commentConfig } from "@/config/commentConfig";
+import { commentConfig, resolveCommentOptions, siteConfig } from "@/config";
+import type { CommentContext } from "@/types/commentConfig";
 
-const pageTitle = "留言版";
+const pageTitle = "留言板";
 const pageSubtitle = "留下你的足迹，分享你的想法";
-const twikoo = commentConfig.twikoo;
+
+const features = [
+	{
+		icon: "material-symbols:lightbulb-outline-rounded",
+		title: "分享想法",
+		text: "聊聊你对文章或番剧的看法",
+	},
+	{
+		icon: "material-symbols:rate-review-outline-rounded",
+		title: "建议反馈",
+		text: "网站哪里不好用，欢迎告诉我",
+	},
+	{
+		icon: "material-symbols:edit-note-rounded",
+		title: "记录心情",
+		text: "今天过得怎么样，随手写两句",
+	},
+	{
+		icon: "material-symbols:forum-outline-rounded",
+		title: "互动交流",
+		text: "和其他访客打个招呼吧",
+	},
+];
+
+const notices = [
+	"请保持友善和尊重，营造良好的交流氛围",
+	"欢迎分享你的想法，也可以提出对网站的建议",
+	"你的每一条留言都是对我最大的支持 ✨",
+];
+
+const options = resolveCommentOptions(commentConfig);
+const context: CommentContext = {
+	key: "page:visitorbook",
+	path: "/visitorbook",
+	title: pageTitle,
+	language: siteConfig.lang,
+};
+
+const Twikoo =
+	options?.provider === "twikoo"
+		? (await import("@components/organisms/comment/Twikoo.astro")).default
+		: null;
+const Giscus =
+	options?.provider === "giscus"
+		? (await import("@components/organisms/comment/Giscus.astro")).default
+		: null;
 ---
 
 <MainGridLayout title={pageTitle} description={pageSubtitle}>
-  <!-- Hero -->
-  <div class="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--tertiary)] text-white py-6 mb-6 rounded-t-[var(--shape-corner-l)]">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold leading-tight drop-shadow-sm dark:drop-shadow-md">{pageTitle}</h1>
-      <p class="mt-2 opacity-90 text-sm md:text-base drop-shadow-sm dark:drop-shadow-md">{pageSubtitle}</p>
-    </div>
-  </div>
+	<div class="visitorbook">
+		<Card color="var(--card-bg)" radius="l" class="visitorbook__intro">
+			<PageHeader title={pageTitle} subtitle={pageSubtitle} icon="material-symbols:chat-outline-rounded" />
 
-  <!-- 主内容区 -->
-  <div class="flex w-full rounded-[var(--shape-corner-l)] overflow-hidden relative min-h-32">
-    <Card color="var(--card-bg)" radius="l" class="z-10 px-4 py-4 md:px-6 md:py-5 relative w-full">
-      <div class="relative max-w-4xl mx-auto">
+			<p class="visitorbook__welcome">
+				欢迎来到留言板！这里是一个自由交流的空间，无论你想说什么，都欢迎在下方留言。
+			</p>
 
-        <div class="visitorbook-header mb-6">
-          <h2 class="text-xl md:text-2xl font-bold text-90 mb-2">💬 留言板</h2>
-          <p class="subtitle text-sm md:text-base text-75 mb-3">欢迎来到留言板！这里是一个自由交流的空间，你可以：</p>
+			<ul class="visitorbook__features">
+				{features.map((item) => (
+					<li class="visitorbook__feature">
+						<span class="visitorbook__feature-icon" aria-hidden="true">
+							<Icon icon={item.icon} />
+						</span>
+						<span class="visitorbook__feature-text">
+							<strong>{item.title}</strong>
+							<span>{item.text}</span>
+						</span>
+					</li>
+				))}
+			</ul>
 
-          <ul class="features-list space-y-2 mb-4 list-none">
-            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 分享你的想法和观点</li>
-            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 留下你的建议和反馈</li>
-            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 记录你的心情和故事</li>
-            <li class="text-75 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 与其他访客互动交流</li>
-          </ul>
+			<aside class="visitorbook__notice" aria-label="温馨提示">
+				<span class="visitorbook__notice-title">
+					<Icon icon="material-symbols:info-outline-rounded" aria-hidden="true" />
+					温馨提示
+				</span>
+				<ul>
+					{notices.map((text) => <li>{text}</li>)}
+				</ul>
+			</aside>
+		</Card>
 
-          <p class="welcome-text text-75">无论你想说什么，都欢迎在下方评论区留言！</p>
-        </div>
-
-        <div class="notice-section mb-6 p-4 rounded-lg bg-[var(--btn-regular-bg)] border border-[var(--line-divider)]">
-          <h3 class="notice-title text-base font-semibold text-90 mb-2">温馨提示：</h3>
-          <ul class="notice-list space-y-1 text-sm text-75 list-none">
-            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 请保持友善和尊重，营造良好的交流氛围</li>
-            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 欢迎分享你的想法，也可以提出对网站的建议</li>
-            <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span> 你的每一条留言都是对我最大的支持 ✨</li>
-          </ul>
-        </div>
-
-        <div class="divider h-px bg-gradient-to-r from-transparent via-[var(--line-divider)] to-transparent my-6"></div>
-
-        <!-- Twikoo 评论容器 -->
-        <div id="twikoo" class="w-full mt-4"></div>
-
-      </div>
-    </Card>
-  </div>
+		{options && (
+			<Card color="var(--card-bg)" radius="l" class="visitorbook__board">
+				<h2 class="visitorbook__board-title">
+					<Icon icon="material-symbols:edit-square-outline-rounded" aria-hidden="true" />
+					写下你的留言
+				</h2>
+				{Twikoo && options.provider === "twikoo" && (
+					<Twikoo context={context} config={options.twikoo} lazy={options.lazy} />
+				)}
+				{Giscus && options.provider === "giscus" && (
+					<Giscus context={context} config={options.giscus} lazy={options.lazy} />
+				)}
+			</Card>
+		)}
+	</div>
 </MainGridLayout>
 
-<!-- 只保留一次 SDK 引入，版本与全局评论配置一致 -->
-<script src={twikoo.scriptUrl} defer crossorigin="anonymous" is:inline data-swup-reload-script></script>
+<style lang="stylus">
+	.visitorbook
+		display: flex
+		flex-direction: column
+		gap: 1rem
+		width: 100%
 
-<!-- 初始化（兼容 Astro 客户端导航） -->
-<script is:inline data-swup-reload-script define:vars={{ envId: twikoo.envId, twikooLang: twikoo.lang }}>
-  (function () {
-    // 生成稳定 path，避免末尾斜杠造成分身
-    function getStablePath() {
-      let p = window.location.pathname || "/";
-      if (p.length > 1 && p.endsWith("/")) {p = p.slice(0, -1);}
-      return p || "/";
-    }
+	.visitorbook :global(.visitorbook__intro),
+	.visitorbook :global(.visitorbook__board)
+		padding: 1.5rem
+		@media (min-width: 48rem)
+			padding: 2rem
 
-    // 可重复调用的初始化
-    function initTwikoo() {
-      const container = document.getElementById("twikoo");
-      if (!container) {return;}
+	.visitorbook__welcome
+		margin: 1rem 0 0
+		color: var(--on-surface-variant)
+		font: var(--m3e-type-body-large)
 
-      // 清空容器，避免重复挂载
-      container.innerHTML = "";
+	.visitorbook__features
+		display: grid
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+		@media (min-width: 64rem)
+			grid-template-columns: repeat(4, minmax(0, 1fr))
+		gap: 0.75rem
+		margin: 1.25rem 0 0
+		padding: 0
+		list-style: none
 
-      try {
-        if (window.twikoo && window.twikoo.init) {
-          window.twikoo.init({
-            envId: envId,
-            el: "#twikoo",
-            path: getStablePath(),
-            lang: twikooLang
-          });
-        }
-      } catch (err) {
-        console.error("[Twikoo] init error:", err);
-      }
-    }
+	.visitorbook__feature
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+		gap: 0.625rem
+		padding: 1rem
+		border: 1px solid var(--outline-variant)
+		border-radius: var(--shape-corner-l)
+		background: var(--surface-container-low)
+		transition: border-color var(--m3e-duration-short) var(--m3e-easing-standard), transform var(--m3e-duration-short) var(--m3e-easing-standard)
+		&:hover
+			border-color: var(--primary)
+			transform: translateY(-2px)
 
-    // 等待 SDK 可用再执行初始化（解决首次进入或切页时序问题）
-    function whenTwikooReady(cb) {
-      if (window.twikoo && window.twikoo.init) {
-        cb();
-        return;
-      }
-      let tries = 0;
-      const t = setInterval(function () {
-      if (window.twikoo && window.twikoo.init) {
-        clearInterval(t);
-        cb();
-      } else if (++tries > 200) {
-        clearInterval(t);
-        console.error("[Twikoo] SDK failed to load");
-      }
-    }, 50);
-    }
+	.visitorbook__feature-icon
+		display: inline-flex
+		flex: none
+		align-items: center
+		justify-content: center
+		width: 2.5rem
+		height: 2.5rem
+		border-radius: var(--shape-corner-m)
+		background: var(--primary-container)
+		color: var(--on-primary-container)
+		> :global(svg)
+			width: 1.375rem
+			height: 1.375rem
 
-    function scheduleInitTry(timesLeft) {
-      const container = document.getElementById("twikoo");
-      if (container) {
-        whenTwikooReady(initTwikoo);
-        return;
-      }
-      if (timesLeft > 0) {
-        setTimeout(function () { scheduleInitTry(timesLeft - 1); }, 120);
-      }
-    }
+	.visitorbook__feature-text
+		display: flex
+		flex-direction: column
+		gap: 0.125rem
+		min-width: 0
+		> strong
+			color: var(--on-surface)
+			font: var(--m3e-type-title-small)
+		> span
+			color: var(--on-surface-variant)
+			font: var(--m3e-type-body-small)
 
-    function boot() {
-      scheduleInitTry(30);
-    }
+	.visitorbook__notice
+		margin-top: 1.25rem
+		padding: 1rem 1.25rem
+		border-radius: var(--shape-corner-l)
+		background: var(--secondary-container)
+		color: var(--on-secondary-container)
+		> ul
+			display: flex
+			flex-direction: column
+			gap: 0.25rem
+			margin: 0.5rem 0 0
+			padding-left: 1.25rem
+			list-style: disc
+			font: var(--m3e-type-body-medium)
 
-    // 首次进入页面
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", boot, { once: true });
-    } else {
-      boot();
-    }
+	.visitorbook__notice-title
+		display: inline-flex
+		align-items: center
+		gap: 0.375rem
+		font: var(--m3e-type-title-small)
+		> :global(svg)
+			width: 1.25rem
+			height: 1.25rem
 
-    // Astro 客户端导航：每次进入页面重新初始化（先等待 SDK）
-    if (typeof window !== "undefined") {
-      window.addEventListener("astro:page-load", function () { boot(); });
-      document.addEventListener("swup:contentReplaced", function () { boot(); });
-      document.addEventListener("swup:pageView", function () { boot(); });
-      document.addEventListener("swup:animationInDone", function () { boot(); });
-      if (window.swup && window.swup.hooks && typeof window.swup.hooks.on === "function") {
-        window.swup.hooks.on("content:replace", function () { boot(); });
-        window.swup.hooks.on("page:view", function () { boot(); });
-        window.swup.hooks.on("animation:in:end", function () { boot(); });
-      }
-    }
-  })();
-</script>
+	.visitorbook__board-title
+		display: flex
+		align-items: center
+		gap: 0.5rem
+		margin: 0 0 1.25rem
+		color: var(--on-surface)
+		font: var(--m3e-type-title-large)
+		> :global(svg)
+			width: 1.5rem
+			height: 1.5rem
+			color: var(--primary)
 
-<style>
-  .visitorbook-header h2 {
-    text-align: left;
-  }
-  .features-list,
-  .notice-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  .emoji {
-    font-size: 1rem;
-  }
-  #twikoo {
-    min-height: 300px;
-  }
-  @media (max-width: 640px) {
-    .card-base {
-      margin: 0 -0.5rem;
-      border-radius: 0;
-    }
-  }
+	@media (prefers-reduced-motion: reduce)
+		.visitorbook__feature
+			transition: none
+			&:hover
+				transform: none
 </style>

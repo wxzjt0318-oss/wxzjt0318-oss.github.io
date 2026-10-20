@@ -196,6 +196,7 @@ export const zh_CN: Translation = {
 	[Key.announcementClose]: "关闭公告",
 
 	[Key.comments]: "评论",
+	[Key.commentsEditor]: "评论内容",
 	[Key.commentsLoading]: "正在加载评论...",
 	[Key.commentsLoadFailed]: "评论加载失败",
 	[Key.commentsRequiresJavaScript]: "评论区需要启用 JavaScript 才能显示",
@@ -266,7 +267,7 @@ export const zh_CN: Translation = {
 	[Key.musicOpenPlayer]: "打开音乐播放器",
 	[Key.musicClosePlayer]: "收起音乐播放器",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "主题色",
 	[Key.colorStyle]: "配色风格",
 	[Key.colorSpec]: "配色规范",
 

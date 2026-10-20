@@ -194,6 +194,7 @@ export const th: Translation = {
 	[Key.announcementClose]: "ปิดประกาศ",
 
 	[Key.comments]: "ความคิดเห็น",
+	[Key.commentsEditor]: "เนื้อหาความคิดเห็น",
 	[Key.commentsLoading]: "กำลังโหลดความคิดเห็น...",
 	[Key.commentsLoadFailed]: "โหลดความคิดเห็นไม่สำเร็จ",
 	[Key.commentsRequiresJavaScript]:
@@ -265,7 +266,7 @@ export const th: Translation = {
 	[Key.musicOpenPlayer]: "เปิดเครื่องเล่นเพลง",
 	[Key.musicClosePlayer]: "ย่อเครื่องเล่นเพลง",
 
-	[Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "สีธีม",
 	[Key.colorStyle]: "สไตล์สี",
 	[Key.colorSpec]: "สเปกสี",
 

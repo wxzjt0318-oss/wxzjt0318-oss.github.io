@@ -9,9 +9,9 @@
  *
  * Writing during `buildStart` is safe: it happens before Vite resolves any
  * import of the generated module, so `Icon.svelte` cannot observe a missing
- * file. `astro sync` and `astro check` do not run `buildStart`, so they read
- * whatever the last dev/build run left behind; run `pnpm dev` once after
- * adding an icon to a component.
+ * file. Verified that `astro dev`, `astro build`, `astro sync` and `astro check`
+ * all fire `buildStart`, so every entry point regenerates the collection and
+ * none of them needs a step in the script chain.
  */
 
 import { existsSync } from "node:fs";
@@ -57,12 +57,17 @@ export function shironesIconRegeneration(
 	// `packageSrc` covers the theme's own components; `contentDir` covers a
 	// user's posts in package mode and does not exist in source mode.
 	const roots = [paths.packageSrc, paths.contentDir];
+	// The project's own `src/icons/`, emitted as the `local` collection. It is
+	// the only icon source owned by the user, so it is resolved from
+	// `projectRoot` rather than from the package.
+	const localIconDir = join(paths.projectRoot, "src", "icons");
 
 	const generate = () => {
 		try {
 			generateIconCollections({
 				roots,
 				outputPath: userCopy,
+				localIconDir,
 			});
 		} catch (error) {
 			// A typo in one post should cost one icon, not take the dev

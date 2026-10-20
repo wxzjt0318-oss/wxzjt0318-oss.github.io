@@ -158,9 +158,11 @@ function onItemPointerDown(i: number) {
 
 function resetWidths() {
 	if (!containerEl) return;
-	containerEl.querySelectorAll(".m3-button-group__item").forEach((el) => {
-		el.style.width = "";
-	});
+	containerEl
+		.querySelectorAll<HTMLElement>(".m3-button-group__item")
+		.forEach((el) => {
+			el.style.width = "";
+		});
 }
 
 function onItemPointerUp() {

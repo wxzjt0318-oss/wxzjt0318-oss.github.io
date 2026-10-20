@@ -4,10 +4,10 @@ import TextField from "@components/atoms/input/TextField.svelte";
 import ImageWrapper from "@components/molecules/ImageWrapper.astro";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
+import Icon from "@iconify/svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { resolveI18nText } from "@utils/i18n-utils";
 import { sortByUpdatedAtDesc } from "@utils/updated-sort";
-import { Icon } from "astro-icon/components";
 import { animeConfig } from "@/config/animeConfig";
 import { gamesConfig } from "@/config/gamesConfig";
 import { sidebarConfig } from "@/config/sidebarConfig";
@@ -37,6 +37,7 @@ const gameStrings = {
 	},
 	announceItems: i18n(I18nKey.gamesAnnounceItems),
 	announceSearch: i18n(I18nKey.gamesAnnounceSearch),
+	countsLabel: i18n(I18nKey.gamesCounts),
 };
 
 const ENABLE_REMOTE_GAME_HTML_FALLBACK =
@@ -1666,9 +1667,9 @@ function getStatusInfo(status: GameStatus) {
 
       <div id="list-announce" aria-live="polite" class="visually-hidden"></div>
 
-      <div class="search-container mb-6">
-        <div class="flex items-center gap-3">
-          <div class="games-search relative flex-1 min-w-0">
+      <div class="games-tools">
+        <div class="games-tools__search-row">
+          <div class="games-search">
             <TextField
               type="search"
               id="search-input"
@@ -1679,7 +1680,7 @@ function getStatusInfo(status: GameStatus) {
               class="!rounded-(--shape-corner-l)"
             />
             <span class="games-search__icon" aria-hidden="true">
-              <Icon name="material-symbols:search-rounded" class="text-xl" />
+              <Icon icon="material-symbols:search-rounded" class="text-xl" />
             </span>
             <button
               id="search-clear"
@@ -1688,7 +1689,7 @@ function getStatusInfo(status: GameStatus) {
               style="display: none"
               aria-label={i18n(I18nKey.clear)}
             >
-              <Icon name="material-symbols:close-rounded" class="text-xl" aria-hidden="true" />
+              <Icon icon="material-symbols:close-rounded" class="text-xl" aria-hidden="true" />
             </button>
           </div>
 
@@ -1701,7 +1702,7 @@ function getStatusInfo(status: GameStatus) {
               title={i18n(I18nKey.layoutGrid)}
               aria-pressed="true"
             >
-              <Icon name="material-symbols:grid-view-rounded" class="text-xl" aria-hidden="true" />
+              <Icon icon="material-symbols:grid-view-rounded" class="text-xl" aria-hidden="true" />
             </button>
             <button
               id="layout-list"
@@ -1711,14 +1712,13 @@ function getStatusInfo(status: GameStatus) {
               title={i18n(I18nKey.layoutList)}
               aria-pressed="false"
             >
-              <Icon name="material-symbols:view-list-rounded" class="text-xl" aria-hidden="true" />
+              <Icon icon="material-symbols:view-list-rounded" class="text-xl" aria-hidden="true" />
             </button>
           </div>
         </div>
-      </div>
 
-      <div class="mb-6">
-        <div class="filter-container flex flex-wrap gap-2">
+        <div class="games-tools__filter-row">
+        <div class="filter-container">
           <button class="filter-tag active" data-status="all" aria-pressed="true">
             {i18n(I18nKey.gamesFilterAll)}
             <span id="count-all" class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({gameList.length})</span>
@@ -1744,11 +1744,13 @@ function getStatusInfo(status: GameStatus) {
             <span id="count-dropped" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "dropped").length})</span>
           </button>
         </div>
+        <p id="games-result-count" class="games-tools__count" aria-hidden="true">{gameList.length} {i18n(I18nKey.gamesCounts)}</p>
+        </div>
       </div>
 
       {(!isValidUserId && (
         <div class="games-empty">
-          <Icon name="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
+          <Icon icon="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
           <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
             {i18n(I18nKey.gamesNoResults)}
           </h3>
@@ -1835,7 +1837,7 @@ function getStatusInfo(status: GameStatus) {
             </div>
           ) : (
             <div id="game-empty" class="games-empty">
-              <Icon name="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
+              <Icon icon="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
               <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
                 {i18n(I18nKey.gamesNoResults)}
               </h3>
@@ -1845,7 +1847,7 @@ function getStatusInfo(status: GameStatus) {
             </div>
           )}
           <div id="game-empty-filter" class="games-empty hidden">
-            <Icon name="material-symbols:search-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
+            <Icon icon="material-symbols:search-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
             <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.gamesNoResults)}
             </h3>
@@ -1855,7 +1857,7 @@ function getStatusInfo(status: GameStatus) {
           </div>
           <div id="loadmore-container" class="loadmore-container" style="display: none">
             <Button variant="outlined" class="loadmore-btn" ariaLabel={i18n(I18nKey.loadMore)}>
-              <Icon name="material-symbols:expand-more-rounded" class="text-lg" aria-hidden="true" />
+              <Icon icon="material-symbols:expand-more-rounded" class="text-lg" aria-hidden="true" />
               {i18n(I18nKey.loadMore)}
             </Button>
           </div>
@@ -1898,12 +1900,27 @@ function getStatusInfo(status: GameStatus) {
     .game-grid-container.grid-mode { display: grid; grid-template-columns: repeat(5, 1fr); }
     .game-grid-container.list-mode { display: grid; grid-template-columns: repeat(4, 1fr); }
 
-    .search-container { position: relative; margin-bottom: 1.5rem; z-index: 2; pointer-events: auto; }
-    .filter-container { display: flex; flex-wrap: wrap; gap: 0.5rem; position: relative; z-index: 2; pointer-events: auto; }
+    /* 搜索 / 筛选区：与番剧页 AnimeSection 的 __tools 同一布局
+       （搜索框限宽 32rem + 右侧布局切换；下方筛选 chips + 右侧结果计数；底部分隔线） */
+    .games-tools {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 0.875rem;
+      margin-bottom: 1.25rem; padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .games-tools__search-row { display: flex; align-items: center; gap: 0.625rem; width: 100%; }
+    .games-tools__filter-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; width: 100%; }
+    .games-tools__count { margin: 0; color: var(--on-surface-variant); font: var(--m3e-type-body-small); white-space: nowrap; }
+    .filter-container {
+      flex: 1; min-width: 0;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .filter-container::-webkit-scrollbar { display: none; }
     .filter-tag {
       padding: 0.5rem 1rem; border: 1px solid var(--line-divider); border-radius: var(--radius-large);
       background: var(--btn-regular-bg); color: var(--btn-content);
-      font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; white-space: nowrap; display: flex; align-items: center; position: relative; pointer-events: auto;
+      font: var(--m3e-type-label-large); cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; white-space: nowrap; display: flex; align-items: center; position: relative; pointer-events: auto;
     }
     .filter-tag:hover:not(.active) { background: var(--btn-hover-bg); border-color: var(--primary); transform: translateY(-1px); }
     .filter-tag.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
@@ -1946,6 +1963,7 @@ function getStatusInfo(status: GameStatus) {
     }
 
     /* 搜索区：TextField 原子 + 兄弟定位图标/清除按钮（与番剧页 AnimeSection 同款结构） */
+    .games-search { position: relative; flex: 1; min-width: 0; max-width: 32rem; }
     .games-search :global(.m3-text-field) { width: 100%; }
     .games-search :global(#search-input) { padding-left: 2.75rem; }
     .games-search__icon {
@@ -2044,16 +2062,12 @@ function getStatusInfo(status: GameStatus) {
       .group .p-3 { padding: 0.875rem; }
       .group h3 { font-size: 1rem; line-height: 1.5; }
       .group p { font-size: 0.9375rem; line-height: 1.6; }
-
-      .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
     }
 
     @media (min-width: 1024px) {
       .group .p-3 { padding: 0.875rem; }
       .group h3 { font-size: 1rem; line-height: 1.5; }
       .group p { font-size: 0.9375rem; line-height: 1.6; }
-
-      .filter-tag { padding: 0.625rem 1rem; font-size: 1rem; }
     }
   </style>
 
@@ -2440,6 +2454,11 @@ function getStatusInfo(status: GameStatus) {
           const activeStatus = (activeStatusEl && activeStatusEl.getAttribute('data-status')) || 'all';
           const showing = computeFiltered().length;
           const label = gameStrings.statusLabels[activeStatus] || activeStatus;
+          const resultCount = root.querySelector('#games-result-count');
+          if (resultCount) {
+            resultCount.textContent = `${showing} ${gameStrings.countsLabel}`;
+            resultCount.hidden = showing === 0;
+          }
           if (announce) {
             announce.textContent =
               gameStrings.announceItems.replace('{label}', label).replace('{count}', String(showing)) +
