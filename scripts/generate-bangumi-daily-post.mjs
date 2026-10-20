@@ -134,6 +134,10 @@ async function readExistingPosts() {
 			tags: getArrayField("tags"),
 			body,
 			alias: getField("alias"),
+			// 文件名对应的默认地址（index.md 取目录名），新 alias 不能与之重名
+			slug: path.basename(fullPath) === "index.md"
+				? path.basename(path.dirname(fullPath))
+				: path.basename(fullPath, ".md"),
 			sourceLink: getField("sourceLink"),
 			identities: postIdentities(raw),
 		});
@@ -333,7 +337,7 @@ function infoboxAliases(detail) {
 
 /**
  * 文章英文链接：百科导言里的英文名 → Bangumi 别名里的英文名，再按季度 / OVA / 剧场版加后缀。
- * 都没有时返回空字符串，由调用方回退到 bangumi-<条目ID>。
+ * 都没有时返回空字符串：调用方跳过该条目，不生成数字链接。
  */
 export function englishAlias({ detail, encyclopedia, titleCn }) {
 	const english =
@@ -350,6 +354,17 @@ export function englishAlias({ detail, encyclopedia, titleCn }) {
 	return suffix ? `${base}-${suffix}` : base;
 }
 
+/** 已被占用时依次尝试 `<alias>-<年份>`、`<alias>-2`、`<alias>-3`… */
+export function uniqueEnglishAlias(alias, taken, year = "") {
+	if (!taken.has(alias)) return alias;
+	if (/^\d{4}$/.test(year) && !alias.endsWith(`-${year}`) && !taken.has(`${alias}-${year}`)) {
+		return `${alias}-${year}`;
+	}
+	for (let n = 2; ; n += 1) {
+		if (!taken.has(`${alias}-${n}`)) return `${alias}-${n}`;
+	}
+}
+
 /** 百科来源 → 文章许可证：引用萌娘百科须遵循 NC-SA，仅引用维基百科须遵循 SA */
 function resolveLicense(sources) {
 	if (sources.some((s) => s.key === "moegirl")) return "CC BY-NC-SA 3.0";
@@ -360,7 +375,7 @@ function resolveLicense(sources) {
 function buildArticlePayload(candidate, detail, imageSelection, options) {
 	const { titleCn, titleJp, encyclopedia } = options;
 	const articleTitle = `《${titleCn}》`;
-	const alias = englishAlias({ detail, encyclopedia, titleCn }) || `bangumi-${candidate.subject_id}`;
+	const alias = englishAlias({ detail, encyclopedia, titleCn });
 	const bangumiSummary = cleanChineseProse(
 		detail?.summary || candidate?.subject?.short_summary || "",
 	);
@@ -652,6 +667,11 @@ async function main() {
 			await recordSkipped(skipped, item, hit);
 			continue;
 		}
+		// 文章只用英文链接：找不到英文名就顺延到下一个候选（不记入跳过名单，资料补全后还能再选）
+		if (!result.payload.alias) {
+			console.warn(`⚠ 条目 ${item.subject_id} 找不到英文名，无法生成英文链接，顺延到下一个候选。`);
+			continue;
+		}
 		selected.push(item);
 		composed = result;
 		break;
@@ -674,14 +694,17 @@ async function main() {
 
 	// Alias 唯一性保障：slugify 归一化会让不同动画撞名（如多部"第二季"都归一化为
 	// "2nd-season"，"Working!!" 系列都归一化为 "working"），alias 重复会导致多篇文章
-	// 共享同一 URL 互相覆盖。与已有文章 alias 或目标文件名冲突时，回退到稳定的
-	// `bangumi-{subjectId}`。
-	const fallbackAlias = `bangumi-${candidate.subject_id}`;
-	const existingAliases = new Set(existingPosts.map((post) => post.alias).filter(Boolean));
-	let safeAlias = sanitizeFileName(payload.alias, fallbackAlias);
-	if (safeAlias !== fallbackAlias && existingAliases.has(safeAlias)) {
-		console.warn(`⚠ Alias "${safeAlias}" is already taken, falling back to "${fallbackAlias}".`);
-		safeAlias = fallbackAlias;
+	// 共享同一 URL 互相覆盖。冲突时依次加播出年份、-2/-3… 后缀，链接始终是英文。
+	const existingAliases = new Set(
+		existingPosts.flatMap((post) => [post.alias, post.slug]).filter(Boolean),
+	);
+	const safeAlias = uniqueEnglishAlias(
+		sanitizeFileName(payload.alias, payload.alias),
+		existingAliases,
+		String(composed.detail?.date || "").slice(0, 4),
+	);
+	if (safeAlias !== payload.alias) {
+		console.warn(`⚠ Alias "${payload.alias}" is already taken, using "${safeAlias}".`);
 	}
 	payload.alias = safeAlias;
 	payload.relatedPosts = findSeriesPosts(payload.title, existingPosts);

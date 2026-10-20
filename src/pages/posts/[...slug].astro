@@ -81,9 +81,11 @@ export async function getStaticPaths() {
 			})
 		: new Map<string, SeriesPostContext>();
 
+	// 带上文章的正式地址（英文 alias），推荐列表不再退回文件名地址
 	const discoveryCandidates = blogEntries.map((entry) => ({
 		slug: entry.id,
 		data: entry.data,
+		url: getPostUrl(entry),
 	}));
 	const discoveryOptions = resolveArticleDiscoveryOptions(articleConfig);
 
@@ -111,14 +113,25 @@ export async function getStaticPaths() {
 					)
 				: { related: [], random: [] };
 
-		paths.push({
-			params: { slug: defaultSlug },
-			props: {
-				entry,
-				discovery,
-				series: seriesContexts.get(entry.id) ?? null,
-			},
-		});
+		// 自动发文的文件名是 bangumi-<条目ID>，只是内部存储名：有英文 alias 时
+		// 只发布 alias 地址，不再额外生成一份数字地址的重复页面
+		const cleanAlias = (entry.data.alias ?? "")
+			.replace(/^\/+|\/+$/g, "")
+			.replace(/^posts\//, "");
+		const aliasOnly =
+			/^bangumi-\d+$/.test(defaultSlug) &&
+			cleanAlias.length > 0 &&
+			cleanAlias !== defaultSlug;
+		if (!aliasOnly) {
+			paths.push({
+				params: { slug: defaultSlug },
+				props: {
+					entry,
+					discovery,
+					series: seriesContexts.get(entry.id) ?? null,
+				},
+			});
+		}
 
 		if (entry.data.alias) {
 			let alias = entry.data.alias.replace(/^\/+/, "").replace(/\/+$/, "");

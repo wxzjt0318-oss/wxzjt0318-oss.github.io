@@ -66,9 +66,11 @@ export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
 	initPostIdMap(blogEntries);
 
+	// 带上文章的正式地址（英文 alias），推荐列表不再退回文件名地址
 	const discoveryCandidates = blogEntries.map((entry) => ({
 		slug: entry.id,
 		data: entry.data,
+		url: getPostUrl(entry),
 	}));
 	const discoveryOptions = resolveArticleDiscoveryOptions(articleConfig);
 
