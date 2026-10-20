@@ -22,20 +22,30 @@ jobs:
         shard: [0, 1, 2, 3]
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      # 清理步骤删除请求清单时也会触发本工作流：清单不存在就什么都不做
+      - name: Check request list
+        id: req
+        run: |
+          if [ -f scripts/wiki/source-requests.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "No source-requests.json, nothing to fetch"; fi
+      - if: steps.req.outputs.exists == 'true'
+        uses: pnpm/action-setup@v4
         with:
           run_install: false
-      - uses: actions/setup-node@v4
+      - if: steps.req.outputs.exists == 'true'
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
-      - run: pnpm install --frozen-lockfile
-      - run: node scripts/wiki/fetch-sources.mjs
+      - if: steps.req.outputs.exists == 'true'
+        run: pnpm install --frozen-lockfile
+      - if: steps.req.outputs.exists == 'true'
+        run: node scripts/wiki/fetch-sources.mjs
         env:
           SHARD: ${{ matrix.shard }}
           SHARDS: 4
       - name: Commit sources
+        if: steps.req.outputs.exists == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
