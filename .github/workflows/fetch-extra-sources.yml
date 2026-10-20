@@ -1,0 +1,28 @@
+name: Fetch Extra Sources (temporary)
+
+# 临时：为资料稀缺的作品抓取 AniList / MyAnimeList / Bangumi 数据并提交回触发分支。合并前删除。
+on:
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "scripts/tmp/extra-requests.json"
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/tmp/fetch-extra-sources.mjs
+      - name: Commit sources
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -f reports/extra-sources
+          git diff --staged --quiet || { git commit -m "chore(sources): fetch extra sources"; git push origin "HEAD:${GITHUB_REF_NAME}"; }
