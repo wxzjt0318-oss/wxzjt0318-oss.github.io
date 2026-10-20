@@ -25,7 +25,7 @@ import {
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
-import { findDuplicatePost, postIdentities, seasonKey } from "./wiki/duplicate-guard.mjs";
+import { baseTitle, findDuplicatePost, postIdentities, seasonKey } from "./wiki/duplicate-guard.mjs";
 import { buildTaxonomy } from "./wiki/taxonomy.mjs";
 import { applyGlossary } from "./wiki/zh-glossary.mjs";
 import {
@@ -565,6 +565,30 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 	return { payload, imageSelection, detail, rawCharacters, encyclopedia, titleCn, titleJp };
 }
 
+/**
+ * 站内同系列文章，用于正文「系列作品」小节的站内链接。
+ * 基础标题（去掉季度与标点）一方是另一方的前缀，或共同前缀至少 8 个字，就视为同系列
+ * ——「中二病也要谈恋爱」与「中二病也要谈恋爱恋」、「Re:从零开始的异世界生活」与「…丧失篇」。
+ */
+export function findSeriesPosts(title, existingPosts) {
+	const base = baseTitle(title);
+	if (base.length < 4) return [];
+	const commonPrefix = (a, b) => {
+		let i = 0;
+		while (i < a.length && i < b.length && a[i] === b[i]) i++;
+		return i;
+	};
+	const sameSeries = (other) => {
+		if (other.length < 4) return false;
+		const shared = commonPrefix(base, other);
+		return shared === Math.min(base.length, other.length) || shared >= 8;
+	};
+	return existingPosts
+		.filter((post) => post.alias && post.title && sameSeries(baseTitle(post.title)))
+		.map((post) => ({ title: post.title, alias: post.alias }))
+		.slice(0, 8);
+}
+
 async function recordSkipped(skipped, item, hit) {
 	const id = String(item.subject_id);
 	const file = path.basename(hit.file);
@@ -660,6 +684,7 @@ async function main() {
 		safeAlias = fallbackAlias;
 	}
 	payload.alias = safeAlias;
+	payload.relatedPosts = findSeriesPosts(payload.title, existingPosts);
 
 	console.log("📝 Building Bangumi article markdown...");
 	const articleContent = applyGlossary(buildAnimeArticleMarkdown(payload));

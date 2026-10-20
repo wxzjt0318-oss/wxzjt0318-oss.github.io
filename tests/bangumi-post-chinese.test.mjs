@@ -312,11 +312,36 @@ describe("article markdown", () => {
 		assert.match(markdown, /licenseName: "CC BY-NC-SA 3\.0"/);
 		assert.match(markdown, /## 参考资料/);
 		assert.match(markdown, /\[萌娘百科「零之使魔」\]/);
-		assert.match(
-			markdown,
-			/动画由J\.C\.STAFF制作，于2012-01-07开播，全12 话。/,
-		);
+		assert.match(markdown, /\| \*\*动画制作\*\* \| J\.C\.STAFF \|/);
+		assert.match(markdown, /# 二、剧情简介\n\n平贺才人被召唤到异世界/);
+		assert.match(markdown, /由J\.C\.STAFF制作，2012-01-07开播，共12话。/);
+		assert.match(markdown, /<!-- shirone:auto-draft -->/);
 		assert.ok(measureJapaneseRatio(markdown) < 0.03);
+	});
+
+	it("drops Japanese paragraphs and links same-series posts", () => {
+		const markdown = buildAnimeArticleMarkdown({
+			subjectId: 1,
+			title: "《测试作品 第二季》",
+			summary: "主角踏上旅程。\n\nアレンは村で暮らす少年です。",
+			tags: ["奇幻"],
+			category: "x",
+			sourceLink: "https://bgm.tv/subject/1",
+			published: "2026-10-20",
+			alias: "test-s2",
+			image: "https://example.org/c.jpg",
+			characters: [
+				{ name: "アレン", name_cn: "亚莲", cv: "某声优", description: "出身农奴的少年。" },
+				{ name: "クレナ", name_cn: "克蕾娜", description: "アレンの幼馴染みです。" },
+			],
+			relatedPosts: [{ title: "《测试作品》", alias: "test" }],
+			licenseName: "CC BY 4.0",
+		});
+		const body = markdown.replace(/^---\n[\s\S]*?\n---/, "");
+		assert.ok(!/アレンは/.test(body));
+		assert.match(markdown, /## 亚莲（CV：某声优）\n\n出身农奴的少年。/);
+		assert.ok(!markdown.includes("## 克蕾娜"));
+		assert.match(markdown, /\[测试作品\]\(\/posts\/test\/\)/);
 	});
 });
 

@@ -21,7 +21,9 @@
 
 模块每天从 **Bangumi 追番快照** 中选出一部尚未写过文章的作品，自动抓取资料并生成一篇结构完整的作品介绍文章（`src/content/posts/bangumi-<subjectId>.md`），随后提交到仓库并触发部署。
 
-文章结构固定为：作品概述 → 基础信息 → 剧情简介 → 主要角色 → 制作阵容 → 作品看点 → 综合评价 → 参考资料。
+文章与站内长文同一骨架（`scripts/wiki/longform-layout.mjs`）：开篇导言 → 封面 → 一、作品基本信息（表格）→ 二、剧情简介 → 三、动画制作与声优（制作阵容表 + 声优表）→ 四、主要角色 → 五、系列作品（自动链接站内同系列文章）→ 总结 → 参考资料。只使用 Bangumi / 萌娘百科 / 维基百科给出的事实，日文段落一律不进正文，不写空泛的套话。
+
+这一版是**资料稿**：正文末尾带 `<!-- shirone:auto-draft -->` 标记。每天的「长文改写」定时任务会找到带标记的文章，改写成带个人语气的深度长文（引言、分类、标签一并重写），合并上线后标记随之移除。流程见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
 
 数据来源优先级：
 
@@ -91,8 +93,10 @@
 GitHub Actions 每天北京时间 16:00 运行 `bangumi-update.yml`：
 
 ```text
-anime:sync 刷新快照 → generate-bangumi-post 生成 1 篇文章 → 提交并推送 → 自动触发部署
+anime:sync 刷新快照 → generate-bangumi-post 生成 1 篇资料稿 → 提交并推送 → 自动触发部署
 ```
+
+随后（北京时间约 17:00）Claude Code 的「长文改写」定时任务把当天的资料稿改写成深度长文并合并上线，见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
 
 在仓库 **Actions → Update Bangumi Data → Run workflow** 可随时手动触发；
 勾选 `clear_cache` 会先清空快照再重新抓取（数据异常时用）。
