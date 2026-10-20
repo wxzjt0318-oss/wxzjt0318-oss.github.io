@@ -99,9 +99,11 @@ export class FancyboxHandler {
 			await this.loadFancybox();
 		}
 		const config = getDefaultFancyboxConfig();
+		// Fancybox v6 reads the start slide from the top-level `startIndex` option;
+		// `Carousel.startIndex` is ignored, which always opened the first image.
 		this.Fancybox.show(items, {
 			...config,
-			Carousel: { ...config.Carousel, startIndex },
+			startIndex,
 		});
 	}
 

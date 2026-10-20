@@ -362,6 +362,16 @@ enum I18nKey {
 	feedHowToUseDesc = "feedHowToUseDesc",
 	feedOpenXml = "feedOpenXml",
 	feedRecentPosts = "feedRecentPosts",
+	photoWallAll = "photoWallAll",
+	photoWallLandscape = "photoWallLandscape",
+	photoWallPortrait = "photoWallPortrait",
+	photoWallSquare = "photoWallSquare",
+	photoWallFilter = "photoWallFilter",
+	photoWallColumns = "photoWallColumns",
+	photoWallRandom = "photoWallRandom",
+	photoWallRandomLink = "photoWallRandomLink",
+	photoWallRedirecting = "photoWallRedirecting",
+	photoWallCount = "photoWallCount",
 }
 
 export default I18nKey;

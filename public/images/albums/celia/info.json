@@ -1,0 +1,178 @@
+{
+	"mode": "external",
+	"title": "Celia",
+	"description": "瑟莉亚·库列尔的照片墙",
+	"date": "2026-10-20",
+	"location": "精灵幻想记",
+	"tags": [
+		"精灵幻想记",
+		"瑟莉亚",
+		"Celia"
+	],
+	"layout": "masonry",
+	"columns": 4,
+	"hidden": false,
+	"cover": "/images/albums/celia/cover.webp",
+	"photos": [
+		{
+			"id": "celia-01",
+			"src": "/images/albums/celia/01.webp",
+			"thumbnail": "/images/albums/celia/thumb/01.webp",
+			"alt": "Celia 01",
+			"width": 1400,
+			"height": 1400
+		},
+		{
+			"id": "celia-02",
+			"src": "/images/albums/celia/02.webp",
+			"thumbnail": "/images/albums/celia/thumb/02.webp",
+			"alt": "Celia 02",
+			"width": 400,
+			"height": 400
+		},
+		{
+			"id": "celia-03",
+			"src": "/images/albums/celia/03.webp",
+			"thumbnail": "/images/albums/celia/thumb/03.webp",
+			"alt": "Celia 03",
+			"width": 500,
+			"height": 500
+		},
+		{
+			"id": "celia-04",
+			"src": "/images/albums/celia/04.webp",
+			"thumbnail": "/images/albums/celia/thumb/04.webp",
+			"alt": "Celia 04",
+			"width": 1080,
+			"height": 1523
+		},
+		{
+			"id": "celia-05",
+			"src": "/images/albums/celia/05.webp",
+			"thumbnail": "/images/albums/celia/thumb/05.webp",
+			"alt": "Celia 05",
+			"width": 1041,
+			"height": 1040
+		},
+		{
+			"id": "celia-06",
+			"src": "/images/albums/celia/06.webp",
+			"thumbnail": "/images/albums/celia/thumb/06.webp",
+			"alt": "Celia 06",
+			"width": 1200,
+			"height": 1600
+		},
+		{
+			"id": "celia-07",
+			"src": "/images/albums/celia/07.webp",
+			"thumbnail": "/images/albums/celia/thumb/07.webp",
+			"alt": "Celia 07",
+			"width": 1200,
+			"height": 1600
+		},
+		{
+			"id": "celia-08",
+			"src": "/images/albums/celia/08.webp",
+			"thumbnail": "/images/albums/celia/thumb/08.webp",
+			"alt": "Celia 08",
+			"width": 1000,
+			"height": 1552
+		},
+		{
+			"id": "celia-09",
+			"src": "/images/albums/celia/09.webp",
+			"thumbnail": "/images/albums/celia/thumb/09.webp",
+			"alt": "Celia 09",
+			"width": 1080,
+			"height": 1080
+		},
+		{
+			"id": "celia-10",
+			"src": "/images/albums/celia/10.webp",
+			"thumbnail": "/images/albums/celia/thumb/10.webp",
+			"alt": "Celia 10",
+			"width": 1024,
+			"height": 1536
+		},
+		{
+			"id": "celia-11",
+			"src": "/images/albums/celia/11.webp",
+			"thumbnail": "/images/albums/celia/thumb/11.webp",
+			"alt": "Celia 11",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-12",
+			"src": "/images/albums/celia/12.webp",
+			"thumbnail": "/images/albums/celia/thumb/12.webp",
+			"alt": "Celia 12",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-13",
+			"src": "/images/albums/celia/13.webp",
+			"thumbnail": "/images/albums/celia/thumb/13.webp",
+			"alt": "Celia 13",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-14",
+			"src": "/images/albums/celia/14.webp",
+			"thumbnail": "/images/albums/celia/thumb/14.webp",
+			"alt": "Celia 14",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-15",
+			"src": "/images/albums/celia/15.webp",
+			"thumbnail": "/images/albums/celia/thumb/15.webp",
+			"alt": "Celia 15",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-16",
+			"src": "/images/albums/celia/16.webp",
+			"thumbnail": "/images/albums/celia/thumb/16.webp",
+			"alt": "Celia 16",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-17",
+			"src": "/images/albums/celia/17.webp",
+			"thumbnail": "/images/albums/celia/thumb/17.webp",
+			"alt": "Celia 17",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-18",
+			"src": "/images/albums/celia/18.webp",
+			"thumbnail": "/images/albums/celia/thumb/18.webp",
+			"alt": "Celia 18",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-19",
+			"src": "/images/albums/celia/19.webp",
+			"thumbnail": "/images/albums/celia/thumb/19.webp",
+			"alt": "Celia 19",
+			"width": 1254,
+			"height": 1254
+		},
+		{
+			"id": "celia-20",
+			"src": "/images/albums/celia/20.webp",
+			"thumbnail": "/images/albums/celia/thumb/20.webp",
+			"alt": "Celia 20",
+			"width": 1000,
+			"height": 1396
+		}
+	]
+}
