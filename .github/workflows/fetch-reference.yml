@@ -1,0 +1,35 @@
+name: Fetch Reference Repo (temporary)
+
+# 临时：克隆参考项目并把文本文件（不含图片）提交回触发分支。合并前删除。
+on:
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "scripts/tmp/ref-request.json"
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clone reference
+        run: |
+          url=$(node -e 'console.log(require("./scripts/tmp/ref-request.json").repo)')
+          git clone --depth 1 "$url" /tmp/ref || curl -sSL "${url%.git}" -o /tmp/ref.html || true
+          mkdir -p reports/reference
+          if [ -d /tmp/ref ]; then
+            (cd /tmp/ref && find . -path ./.git -prune -o -type f -print | sort) > reports/reference/tree.txt
+            (cd /tmp/ref && find . -path ./.git -prune -o -type f -size -200k \( -name '*.md' -o -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.ts' -o -name '*.json' -o -name '*.php' -o -name '*.py' -o -name '*.yml' -o -name '*.yaml' -o -name '*.txt' -o -name '*.toml' -o -name '*.vue' -o -name '*.go' \) -print | while read f; do mkdir -p "reports/reference/files/$(dirname "$f")"; cp "$f" "reports/reference/files/$f"; done)
+          fi
+          [ -f /tmp/ref.html ] && cp /tmp/ref.html reports/reference/page.html || true
+          ls -R reports/reference | head -50
+      - name: Commit
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -f reports/reference
+          git diff --staged --quiet || { git commit -m "chore(ref): fetch reference repo"; git push origin "HEAD:${GITHUB_REF_NAME}"; }
