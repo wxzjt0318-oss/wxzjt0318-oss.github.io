@@ -90,13 +90,13 @@
 
 ### 1. 全自动（默认，无需操作）
 
-GitHub Actions 每天北京时间 16:00 运行 `bangumi-update.yml`：
+GitHub Actions 每天北京时间 14:17 运行 `bangumi-update.yml`（GitHub 的定时任务常会推迟，晚到几小时也正常）：
 
 ```text
-anime:sync 刷新快照 → generate-bangumi-post 生成 1 篇资料稿 → 提交并推送 → 自动触发部署
+anime:sync 刷新快照 → generate-bangumi-post 生成 1 篇资料稿 → 提交并推送 → 显式触发 deploy.yml 部署
 ```
 
-随后（北京时间约 17:00）Claude Code 的「长文改写」定时任务把当天的资料稿改写成深度长文并合并上线，见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
+随后（北京时间约 20:47）Claude Code 的「长文改写」定时任务把当天的资料稿改写成深度长文并合并上线，见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
 
 在仓库 **Actions → Update Bangumi Data → Run workflow** 可随时手动触发；
 勾选 `clear_cache` 会先清空快照再重新抓取（数据异常时用）。

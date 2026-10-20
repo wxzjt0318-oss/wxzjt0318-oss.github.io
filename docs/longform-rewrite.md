@@ -2,7 +2,7 @@
 
 每日自动发文（[`docs/auto-posting.md`](./auto-posting.md)）只产出**资料稿**：结构与站内长文一致、只含 Bangumi / 萌娘百科 / 维基百科的事实，正文末尾带 `<!-- shirone:auto-draft -->`。本流程把资料稿改写成带个人语气的深度长文，并重写引言、分类、标签，最后合并上线。
 
-它由 Claude Code 的定时任务每天执行一次（北京时间约 17:00，在发文工作流之后），也可以手动让 Claude Code「按 docs/longform-rewrite.md 改写资料稿」。不调用付费 API。
+它由 Claude Code 的定时任务每天执行一次（北京时间约 20:47，给发文工作流的定时延迟留出余量），也可以手动让 Claude Code「按 docs/longform-rewrite.md 改写资料稿」。不调用付费 API。
 
 ## 一、操作步骤
 
