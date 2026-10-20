@@ -2,6 +2,7 @@
 import fs from "node:fs/promises";
 const OUT = "reports/extra-sources";
 await fs.mkdir(OUT, { recursive: true });
+const safe = (fn) => async (...a) => { try { return await fn(...a); } catch (e) { return { error: String(e.cause?.code || e.message) }; } };
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const anilistQuery = `query ($s: String) { Page(perPage: 5) { media(search: $s, type: ANIME) {
   id idMal isAdult format episodes duration startDate { year month day } season seasonYear source
@@ -11,19 +12,19 @@ const anilistQuery = `query ($s: String) { Page(perPage: 5) { media(search: $s, 
   characters(perPage: 25) { edges { role node { name { full native } description } voiceActors(language: JAPANESE) { name { full native } } } }
   relations { edges { relationType node { title { romaji native } format startDate { year } } } }
   externalLinks { site url } } } }`;
-async function anilist(s) {
+const anilist = safe(async function (s) {
 	const r = await fetch("https://graphql.anilist.co", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ query: anilistQuery, variables: { s } }) });
 	return r.ok ? (await r.json()).data?.Page?.media || [] : { error: r.status };
-}
-async function jikan(path) {
+});
+const jikan = safe(async function (path) {
 	const r = await fetch(`https://api.jikan.moe/v4/${path}`);
 	await wait(1200);
 	return r.ok ? (await r.json()).data : { error: r.status };
-}
-async function bangumi(path) {
+});
+const bangumi = safe(async function (path) {
 	const r = await fetch(`https://api.bgm.tv/v0/${path}`, { headers: { "User-Agent": "wxzjt0318-oss/blog-fetch" } });
 	return r.ok ? await r.json() : { error: r.status };
-}
+});
 const requests = JSON.parse(await fs.readFile("scripts/tmp/extra-requests.json", "utf8"));
 for (const [slug, { searches, bangumiId }] of Object.entries(requests)) {
 	const out = { anilist: {}, jikan: {}, bangumi: {} };

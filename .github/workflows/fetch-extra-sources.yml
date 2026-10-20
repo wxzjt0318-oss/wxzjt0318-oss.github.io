@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: 22
       - run: node scripts/tmp/fetch-extra-sources.mjs
+        env:
+          NODE_OPTIONS: --dns-result-order=ipv4first
       - name: Commit sources
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
