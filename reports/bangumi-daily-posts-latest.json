@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-20T13:14:55.741Z",
+  "generatedAt": "2026-10-21T11:57:02.312Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 350185,
+    "subject_id": 526789,
     "type": 2,
-    "ep_status": 1,
-    "updated_at": "2022-11-25",
+    "ep_status": 12,
+    "updated_at": "2026-04-11",
     "subject": {
-      "id": 350185,
-      "name": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
-      "name_cn": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
-      "date": "2022-11-25",
-      "eps": 1,
-      "short_summary": "利姆露·坦派斯特为拯救伙伴而进化成为了魔王。在位于他与伙伴们共同建立的魔物之国“魔国联邦(坦派斯特)”西方的“拉贾小亚国”，有著持有不可思议力量的女王，长久以来围绕著这个国家的阴谋将掀起涟漪。然而，“食人魔的幸存者”绯色突然出现在利姆路等人面前。利姆路的同伴红丸等人与这个对他们来说有如大哥般的存在重逢。这段过去一度断绝的“红莲之绊”，如今将成为引发新战斗的导火线…！？",
+      "id": 526789,
+      "name": "弱弱老师",
+      "name_cn": "弱弱老师",
+      "date": "2026-04-11",
+      "eps": 12,
+      "short_summary": "新任教师——鶸村在学生们眼中是一位只要心情不好就会诅咒他人的「咒恨老师」。然而，她其实是一位体力为0，声音也细弱无力，各项能力值都弱到不行的「弱弱老师」！某天，有位名叫阿比仓的学生偶然得知鶸村的秘密，为了让这位笨拙老师的努力得到回报，他决定协助她解开学生们的误会。虽然经常被卷入各种令他小鹿乱撞、过于刺激的麻烦事件中，但他仍然全力支持着最喜欢的鶸村老师！如此弱弱又可爱的老师所带来的爱情喜剧，即将开幕！ [简介原文] ⽣徒たちからは、機嫌を損ねたら呪われる「こわこわ先⽣」と 恐れられている新⽶教師の鶸村ひより先⽣。……しかし、本当は体⼒0、声もヒョロヒョロ、 あらゆるステータスが最弱なだけの「よわよわ先⽣」だった！鶸村先⽣の秘密を偶然知った担当クラスの阿⽐倉くんは、 不器⽤な先⽣の頑張りが報われるよう、 彼⼥に協⼒して⽣徒の誤解を解こうと決意。 ドキドキで刺激的なトラブルに巻き込まれながら、 ⼤好きな鶸村先⽣をサポートしていく！ よわよわで、かわいい先⽣との、ちょっぴり刺激的なラブコメディ、開幕! !",
       "tags": [
         {
-          "name": "剧场版"
+          "name": "2026年4月"
         },
         {
-          "name": "异世界"
+          "name": "卖肉"
         },
         {
-          "name": "轻小说改"
+          "name": "校园"
         },
         {
-          "name": "2022"
+          "name": "漫画改"
         },
         {
-          "name": "奇幻"
+          "name": "后宫"
         },
         {
-          "name": "战斗"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/41/be/350185_M4C4V.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ac/ec/526789_707JL.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
+      "title": "弱弱老师",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/41/be/350185_M4C4V.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
+      "title": "弱弱老师",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/41/be/350185_M4C4V.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ac/ec/526789_707JL.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "剧场版 关于我转生变成史莱姆这档事 红莲之绊篇",
+      "title": "弱弱老师",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-350185.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-526789.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
