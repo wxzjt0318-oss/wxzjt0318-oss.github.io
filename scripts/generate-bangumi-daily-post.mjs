@@ -134,6 +134,7 @@ async function readExistingPosts() {
 			tags: getArrayField("tags"),
 			body,
 			alias: getField("alias"),
+			published: getField("published"),
 			// 文件名对应的默认地址（index.md 取目录名），新 alias 不能与之重名
 			slug: path.basename(fullPath) === "index.md"
 				? path.basename(path.dirname(fullPath))
@@ -625,6 +626,15 @@ async function main() {
 
 	const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
 	const existingPosts = await readExistingPosts();
+	// 每天只发一篇：长文改写任务可能先手动触发本工作流，之后 GitHub 迟到的定时运行不再重复发文
+	const today = formatDate(now);
+	const postedToday = existingPosts.find(
+		(post) => /^bangumi-\d+\.md$/.test(path.basename(post.filePath)) && post.published === today,
+	);
+	if (postedToday && !getEnvBoolean("BANGUMI_POSTS_FORCE", false)) {
+		console.log(`ℹ 今天（${today}）已发布 ${path.basename(postedToday.filePath)}，跳过（BANGUMI_POSTS_FORCE=1 可强制再发一篇）。`);
+		return;
+	}
 	// 已判定为「与已有文章重复」的条目：跳过，避免每天重新抓取后再判重一次
 	const skipped = await readJsonIfExists(SKIPPED_FILE, {});
 	const selectionState = {

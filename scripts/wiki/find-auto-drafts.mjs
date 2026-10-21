@@ -25,16 +25,18 @@ export async function findAutoDrafts() {
 		const fm = raw.match(/^---\n([\s\S]*?)\n---/)?.[1] || "";
 		const title = field(fm, "title").replace(/^《|》$/g, "");
 		const original = (raw.match(/\*\*(?:原名|原作标题)\*\*\s*(?:\||：)\s*([^|\n]+)/) || [])[1]?.trim() || "";
-		// 声优表 / 角色小节里的前三个角色名
+		// 声优表 / 角色小节里的前三个角色名（只看「声优阵容」表，不把「导演」等职务当成角色）
+		const castTable = raw.match(/## 声优阵容[\s\S]*?(?=\n#|$)/)?.[0] || "";
 		const characters = [
-			...raw.matchAll(/^\| ([^|*\n]+?) \| [^|\n]+ \|$/gm),
+			...castTable.matchAll(/^\| ([^|*\n]+?) \| [^|\n]+ \|$/gm),
 			...raw.matchAll(/^###? ([^\n（(]+)[（(]CV/gm),
 		]
 			.map((m) => m[1].trim())
 			.filter((n) => n && !/角色|职务|项目|-{3}/.test(n))
 			.filter((n, i, a) => a.indexOf(n) === i)
 			.slice(0, 3);
-		drafts.push({ slug: name.slice(0, -3), title, original, characters, sourceLink: field(fm, "sourceLink") });
+		const alias = field(fm, "alias");
+		drafts.push({ slug: name.slice(0, -3), title, original, alias, characters, sourceLink: field(fm, "sourceLink") });
 	}
 	return drafts;
 }
@@ -45,8 +47,22 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 	console.log(`共 ${drafts.length} 篇待改写`);
 	if (process.argv.includes("--requests") && drafts.length) {
 		const base = (t) => t.replace(/\s*(第[一二三四五六七八九十\d]+[季期部]|第\d+部分|OVA|OAD|剧场版)\s*/g, " ").trim();
+		const baseJa = (t) => t.replace(/\s*(第?[0-9０-９一二三四五六七八九十]+期|第[0-9０-９]+シーズン|[0-9]+(st|nd|rd|th) Season|OVA|OAD|劇場版)\s*/gi, " ").trim();
+		// zh：中文标题与角色名（萌娘百科、中文维基）；ja：日文原名（日文维基优先，英文维基也用它搜索）；en：罗马字 / 英文标题
 		const requests = Object.fromEntries(
-			drafts.map((d) => [d.slug, [...new Set([base(d.title), d.title, d.original, ...d.characters].filter(Boolean))]]),
+			drafts.map((d) => [
+				d.slug,
+				{
+					zh: [...new Set([base(d.title), d.title, ...d.characters].filter(Boolean))],
+					ja: [...new Set([d.original, baseJa(d.original)].filter(Boolean))],
+					// 英文链接还原成罗马字 / 英文标题，供 Anime News Network、Kitsu 搜索
+					en: [
+						d.alias
+							.replace(/-(season-\d+|part-\d+|ova|oad|movie|\d{4}|\d+)$/g, "")
+							.replace(/-/g, " "),
+					].filter((t) => t.length >= 3),
+				},
+			]),
 		);
 		await fs.writeFile(path.join(__dirname, "source-requests.json"), `${JSON.stringify(requests, null, "\t")}\n`);
 		console.log("已写出 scripts/wiki/source-requests.json");
