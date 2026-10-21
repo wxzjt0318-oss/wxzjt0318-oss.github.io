@@ -1,19 +1,18 @@
 const UA = "wxzjt0318-oss-blog-wiki-fetcher/1.0 (https://github.com/wxzjt0318-oss; content curation)";
+const BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0 Safari/537.36";
 const t = "よわよわ先生";
-async function show(name, url, init = {}) {
+async function show(name, url, ua = UA) {
 	try {
-		const res = await fetch(url, { headers: { "user-agent": UA, "accept-language": "ja,en;q=0.8", ...(init.headers || {}) }, ...init });
+		const res = await fetch(url, { headers: { "user-agent": ua, "accept-language": "ja,en;q=0.8", accept: "text/html,application/json,application/xml;q=0.9,*/*;q=0.8" } });
 		const body = await res.text();
-		console.log(`\n===== ${name} ${res.status} ${res.headers.get("content-type")} len=${body.length} final=${res.url}`);
-		for (const m of ["id=\"article\"", "class=\"article", "<article", "__NEXT_DATA__", "<h1", "id=\"bbs", "<footer", "a-contents", "article-body", "dic-article", "itemprop=\"articleBody\""]) {
-			const i = body.indexOf(m);
-			if (i >= 0) console.log(`  [${m}] @${i}: ${body.slice(i, i + 220).replace(/\s+/g, " ")}`);
-		}
-		console.log("  HEAD:", body.slice(0, 400).replace(/\s+/g, " "));
+		console.log(`\n===== ${name} ${res.status} ${res.headers.get("content-type")} len=${body.length}`);
+		console.log("  HEAD:", body.slice(0, 700).replace(/\s+/g, " "));
 	} catch (e) { console.log(`\n===== ${name} ERROR ${e.message}`); }
 }
-await show("nicopedia", `https://dic.nicovideo.jp/a/${encodeURIComponent(t)}`);
-await show("pixiv", `https://dic.pixiv.net/a/${encodeURIComponent(t)}`);
-await show("jawiki", `https://ja.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=1&redirects=1&titles=${encodeURIComponent(t)}`);
-await show("anilist", "https://graphql.anilist.co", { method: "POST", headers: { "content-type": "application/json", accept: "application/json" }, body: JSON.stringify({ query: "query($s:String){Page(perPage:2){media(search:$s,type:ANIME){id title{native romaji english} episodes}}}", variables: { s: t } }) });
-await show("enwiki", `https://en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=${encodeURIComponent(t)}`);
+await show("nicopedia-browser", `https://dic.nicovideo.jp/a/${encodeURIComponent(t)}`, BROWSER);
+await show("pixiv-browser", `https://dic.pixiv.net/a/${encodeURIComponent(t)}`, BROWSER);
+await show("jikan", `https://api.jikan.moe/v4/anime?q=${encodeURIComponent("Yowayowa Sensei")}&limit=2`);
+await show("ann", `https://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=~${encodeURIComponent("Yowayowa Sensei")}`);
+await show("ann-search", `https://cdn.animenewsnetwork.com/encyclopedia/reports.xml?id=155&type=anime&search=${encodeURIComponent("Yowayowa")}`);
+await show("kitsu", `https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent("Yowayowa Sensei")}&page[limit]=1`);
+await show("mediaarts", `https://mediaarts-db.artmuseums.go.jp/api/search?fieldId=animation&keyword=${encodeURIComponent(t)}`);
