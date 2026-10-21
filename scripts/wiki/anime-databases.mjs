@@ -79,6 +79,20 @@ export async function fetchAnnEntries(title, limit = 3) {
 	});
 }
 
+/** Anime News Network 百科：按条目编号精确抓取（编号来自 Wikidata） */
+export async function fetchAnnEntryById(id) {
+	if (!id) return null;
+	const xml = await getText(`https://cdn.animenewsnetwork.com/encyclopedia/api.xml?anime=${encodeURIComponent(id)}`, "application/xml");
+	const entry = xml.match(/<anime\b[\s\S]*?<\/anime>/)?.[0];
+	if (!entry) return null;
+	const head = entry.match(/^<anime\b[^>]*>/)[0];
+	return {
+		title: decode(attr(head, "name")),
+		url: `https://www.animenewsnetwork.com/encyclopedia/anime.php?id=${attr(head, "id")}`,
+		text: annEntryToText(entry),
+	};
+}
+
 /** Kitsu：按标题搜索，返回最相关的 2 个条目 */
 export async function fetchKitsuEntries(title, limit = 2) {
 	const query = String(title || "").trim();

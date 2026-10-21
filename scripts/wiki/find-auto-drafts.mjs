@@ -55,6 +55,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 				{
 					zh: [...new Set([base(d.title), d.title, ...d.characters].filter(Boolean))],
 					ja: [...new Set([d.original, baseJa(d.original)].filter(Boolean))],
+					// Bangumi 条目编号：抓取完整 infobox，并在 Wikidata 里精确定位作品
+					bangumi: d.sourceLink.match(/subject\/(\d+)/)?.[1] || "",
 					// 英文链接还原成罗马字 / 英文标题，供 Anime News Network、Kitsu 搜索
 					en: [
 						d.alias
