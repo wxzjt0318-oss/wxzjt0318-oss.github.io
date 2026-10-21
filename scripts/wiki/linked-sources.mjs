@@ -206,7 +206,10 @@ export async function fetchMyAnimeList(malId) {
 	// 页面顶部的标签栏也叫 Alternative Titles，取侧栏里紧挨着 Synonyms / Japanese 的那一个
 	const sidebarAt = text.lastIndexOf("Alternative Titles", text.search(/\n(Synonyms|Japanese):/));
 	const info = sidebarAt >= 0 ? between(text.slice(sidebarAt), "", "Statistics", 4000) : "";
-	const background = between(text, "Background", "Related Entries", 3000);
+	// 「Background」同样先出现在标签栏里，正文那一节紧挨在「Related Entries」之前
+	const relatedAt = text.indexOf("Related Entries");
+	const backgroundAt = relatedAt > 0 ? text.lastIndexOf("Background", relatedAt) : -1;
+	const background = backgroundAt > 0 ? clip(text.slice(backgroundAt, relatedAt), 3000) : "";
 	let cast = "";
 	try {
 		const chars = htmlToText(await getText(`${url}/_/characters`, "text/html"));
@@ -215,7 +218,7 @@ export async function fetchMyAnimeList(malId) {
 	return {
 		title,
 		url,
-		text: clip([`简介：${synopsis}`, info, background.startsWith("Background") ? background : "", cast].filter(Boolean).join("\n\n")),
+		text: clip([`简介：${synopsis}`, info, background, cast].filter(Boolean).join("\n\n")),
 	};
 }
 
