@@ -187,7 +187,11 @@ export async function fetchAnimeHack(programId) {
 	const text = htmlToText(await getText(url, "text/html"));
 	const title = text.match(/^(.+?) : 作品情報/)?.[1]?.trim() || "";
 	const start = text.indexOf("作品情報", text.indexOf("新作・今期アニメ") + 1);
-	return { title, url, text: clip(text.slice(start > 0 ? start : 0).replace(/\n?(ログイン|新規登録|マイページ)\n?/g, "\n")) };
+	let body = text.slice(start > 0 ? start : 0);
+	body = body.slice(0, body.indexOf("新着イベント") > 0 ? body.indexOf("新着イベント") : undefined);
+	// 「関連作品」是站内推荐，与本作无关
+	body = body.replace(/関連作品[\s\S]*?(?=関連記事)/, "");
+	return { title, url, text: clip(body.replace(/もっと見る 閉じる|で見る PR/g, "")) };
 }
 
 // ── MyAnimeList ─────────────────────────────────────────────────────────────
@@ -199,7 +203,9 @@ export async function fetchMyAnimeList(malId) {
 	const title = decodeEntities(html.match(/<h1[^>]*class="title-name[^"]*"[^>]*>([\s\S]*?)<\/h1>/)?.[1] || "").replace(/<[^>]+>/g, "").trim();
 	const synopsis = htmlToText(html.match(/<p itemprop="description">([\s\S]*?)<\/p>/)?.[1] || "");
 	const text = htmlToText(html);
-	const info = between(text, "Alternative Titles", "Statistics", 4000);
+	// 页面顶部的标签栏也叫 Alternative Titles，取侧栏里紧挨着 Synonyms / Japanese 的那一个
+	const sidebarAt = text.lastIndexOf("Alternative Titles", text.search(/\n(Synonyms|Japanese):/));
+	const info = sidebarAt >= 0 ? between(text.slice(sidebarAt), "", "Statistics", 4000) : "";
 	const background = between(text, "Background", "Related Entries", 3000);
 	let cast = "";
 	try {
@@ -244,9 +250,13 @@ export async function fetchBahamut(id) {
 	if (!id) return null;
 	const url = `https://acg.gamer.com.tw/acgDetail.php?s=${e(id)}`;
 	const text = htmlToText(await getText(url, "text/html"));
-	const title = text.match(/^(.+?)[｜|] ?巴哈姆特/m)?.[1]?.trim() || "";
-	const start = text.indexOf("作品名稱");
-	return { title: toSimplified(title), url, text: toSimplified(clip(text.slice(start > 0 ? start : 0), 8000)) };
+	const title = text.match(/^【[^】]*】(.+?) - 巴哈姆特/m)?.[1]?.trim() || "";
+	// 正文从导航栏最后的「關閉」之后、「作品平台」所在的条目信息开始
+	const infoAt = text.indexOf("作品平台");
+	const start = infoAt > 0 ? text.lastIndexOf("關閉", infoAt) : -1;
+	const body = text.slice(start > 0 ? start + 2 : Math.max(infoAt, 0));
+	const end = body.search(/\n(相關作品|哈啦區|看更多相關)/);
+	return { title: toSimplified(title), url, text: toSimplified(clip(end > 0 ? body.slice(0, end) : body, 8000)) };
 }
 
 // ── Bangumi API ─────────────────────────────────────────────────────────────
@@ -274,7 +284,8 @@ export async function fetchBangumiSubject(id) {
 
 export function summarizeMediaArtsBooks(bindings) {
 	const byVolume = new Map();
-	for (const b of bindings) {
+	// 只保留有 ISBN 的单行本记录，排除同名的播出、商品等记录
+	for (const b of bindings.filter((x) => x.isbn?.value)) {
 		const vol = b.vol?.value || b.label?.value || "";
 		const row = {
 			vol,
@@ -310,7 +321,7 @@ export async function fetchMediaArtsBooks(title) {
 	return {
 		title: name,
 		url: `https://mediaarts-db.artmuseums.go.jp/search?query=${e(name)}`,
-		text: clip(`单行本（共 ${lines.length} 条）：\n${lines.join("\n")}`),
+		text: clip(`单行本（数据库收录 ${lines.length} 卷，可能不全）：\n${lines.join("\n")}`),
 	};
 }
 
@@ -347,7 +358,8 @@ export async function fetchFandom(englishTitle, limit = 6) {
 		const text = cleanWikitext(page?.parse?.wikitext?.["*"] || "");
 		if (text) pages.push(`## ${title}\n${text.slice(0, 3000)}`);
 	}
-	return { title: `${slug}.fandom.com`, url: `https://${slug}.fandom.com/`, text: clip(pages.join("\n\n"), 20000) };
+	const warning = "【注意】粉丝编写的维基，曾发现与官方资料不符的内容（如错误的制作公司和声优），只用于补充角色细节，事实以其他来源为准。";
+	return { title: `${slug}.fandom.com`, url: `https://${slug}.fandom.com/`, text: clip(`${warning}\n\n${pages.join("\n\n")}`, 20000) };
 }
 
 // ── 汇总 ────────────────────────────────────────────────────────────────────
@@ -365,7 +377,8 @@ export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
 	const sourceInfo = describeWikidataItem(source);
 	const ids = animeInfo?.ids || {};
 	const englishTitle = anime?.labels?.en?.value || en[0] || "";
-	const bookTitle = source?.labels?.ja?.value || ja[ja.length - 1] || "";
+	// 单行本只在有原作（漫画 / 小说）条目时查询，避免剧场版等标题匹配到播出记录
+	const bookTitle = source?.labels?.ja?.value || "";
 	const [syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom] = await Promise.all([
 		settle("しょぼいカレンダー", fetchSyoboi(ids.syoboi)),
 		settle("アニメハック", fetchAnimeHack(ids.animehack)),

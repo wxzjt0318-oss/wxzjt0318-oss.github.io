@@ -1,14 +1,27 @@
 {
 	"bangumi-526789": {
-		"zh": ["弱弱老师"],
-		"ja": ["よわよわ先生"],
-		"en": ["yowayowa sensei"],
+		"zh": [
+			"弱弱老师",
+			"鶸村日和"
+		],
+		"ja": [
+			"よわよわ先生"
+		],
+		"en": [
+			"yowayowa sensei"
+		],
 		"bangumi": "526789"
 	},
 	"bangumi-350185": {
-		"zh": ["剧场版 关于我转生变成史莱姆这档事 红莲之绊篇"],
-		"ja": ["劇場版 転生したらスライムだった件 紅蓮の絆編"],
-		"en": ["That Time I Got Reincarnated as a Slime the Movie: Scarlet Bond"],
+		"zh": [
+			"剧场版 关于我转生变成史莱姆这档事 红莲之绊篇"
+		],
+		"ja": [
+			"劇場版 転生したらスライムだった件 紅蓮の絆編"
+		],
+		"en": [
+			"That Time I Got Reincarnated as a Slime the Movie: Scarlet Bond"
+		],
 		"bangumi": "350185"
 	}
 }

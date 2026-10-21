@@ -70,15 +70,16 @@ describe("htmlToText", () => {
 });
 
 describe("summarizeMediaArtsBooks", () => {
-	it("keeps one row per volume, preferring rows with an ISBN", () => {
+	it("keeps one row per volume and drops records without an ISBN", () => {
 		const rows = summarizeMediaArtsBooks([
-			{ vol: { value: "2" }, date: { value: "2023-05" }, pub: { value: "講談社　∥　コウダンシャ" }, label: { value: "よわよわ先生 2" } },
+			{ vol: { value: "2" }, date: { value: "2023-05" }, pub: { value: "講談社　∥　コウダンシャ" }, isbn: { value: "9784065316009" }, label: { value: "よわよわ先生 2" } },
+			{ date: { value: "2023-12-03" }, pub: { value: "ＢＳアニマックス" }, label: { value: "放送記録" } },
 			{ vol: { value: "1" }, date: { value: "2023-03-16" }, pub: { value: "講談社" }, label: { value: "よわよわ先生 1" } },
 			{ vol: { value: "1" }, date: { value: "2023-03-16" }, pub: { value: "講談社" }, isbn: { value: "9784065309964" }, label: { value: "よわよわ先生 1" } },
 		]);
 		assert.deepEqual(rows, [
 			"よわよわ先生 1｜2023-03-16｜講談社｜ISBN 9784065309964",
-			"よわよわ先生 2｜2023-05｜講談社",
+			"よわよわ先生 2｜2023-05｜講談社｜ISBN 9784065316009",
 		]);
 	});
 });
