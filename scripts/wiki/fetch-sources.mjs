@@ -2,12 +2,14 @@
  * 撰写深度文章用的资料抓取：把指定条目的多个百科 / 动画数据库资料存成 JSON。
  * ─────────────────────────────────────────────────────────────────────────────
  * 读取 scripts/wiki/source-requests.json，每组可以是：
- *   { "zh": ["中文标题", "角色名", ...], "ja": ["日文原名"], "en": ["英文 / 罗马字标题"] }
+ *   { "zh": ["中文标题", "角色名", ...], "ja": ["日文原名"], "en": ["英文 / 罗马字标题"], "bangumi": "条目编号" }
  *   或旧格式 ["中文标题", "日文原名", ...]（含假名的查询自动归入 ja）
  * 每组输出 reports/wiki-sources/<组名>.json：
  *   { "<中文查询>": { moegirl, wikipedia },        // 萌娘百科、中文维基（已转简体）
  *     "<日文查询>": { jawiki, enwiki },           // 日文维基（优先）、英文维基（原文）
- *     "_databases": { ann: [...], kitsu: [...] } } // Anime News Network、Kitsu（结构化资料）
+ *     "_databases": { ann: [...], kitsu: [...] }, // Anime News Network、Kitsu（结构化资料）
+ *     "_linked": { wikidata, syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom } }
+ *       // 经 Wikidata 编号精确关联的各站资料，见 scripts/wiki/linked-sources.mjs
  * 每个来源都是 {title, url, text} 或 null（数据库为数组）。
  *
  * 需要外网，在 GitHub Actions「Fetch Wiki Sources」中运行。
@@ -17,11 +19,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { fetchMoegirlArticleForWork } from "../moegirl/scraper.mjs";
-import { fetchAnnEntries, fetchKitsuEntries } from "./anime-databases.mjs";
+import { fetchAnnEntries, fetchAnnEntryById, fetchKitsuEntries } from "./anime-databases.mjs";
 import {
 	fetchEnWikipediaArticleForWork,
 	fetchJaWikipediaArticleForWork,
 } from "./foreign-wikipedia.mjs";
+import { fetchLinkedSources } from "./linked-sources.mjs";
 import { fetchWikipediaArticleForWork } from "./wikipedia.mjs";
 import { toSimplified } from "./zh-text.mjs";
 
@@ -57,7 +60,7 @@ function normalizeGroup(entry) {
 	if (Array.isArray(entry)) {
 		return { zh: entry.filter((q) => !KANA.test(q)), ja: entry.filter((q) => KANA.test(q)), en: [] };
 	}
-	return { zh: entry?.zh || [], ja: entry?.ja || [], en: entry?.en || [] };
+	return { zh: entry?.zh || [], ja: entry?.ja || [], en: entry?.en || [], bangumi: String(entry?.bangumi || "") };
 }
 
 const settle = (promise) => promise.catch((error) => {
@@ -76,7 +79,7 @@ await fs.mkdir(OUT_DIR, { recursive: true });
 const groups = Object.entries(requests).filter((_, i) => i % SHARDS === SHARD);
 for (const [group, entry] of groups) {
 	if (await fs.stat(path.join(OUT_DIR, `${group}.json`)).catch(() => null)) continue;
-	const { zh, ja, en } = normalizeGroup(entry);
+	const { zh, ja, en, bangumi } = normalizeGroup(entry);
 	const out = {};
 	for (const query of zh) {
 		const [moegirl, wikipedia] = await Promise.all([
@@ -107,6 +110,16 @@ for (const [group, entry] of groups) {
 			if (!kitsu.some((k) => k.url === item.url)) kitsu.push(item);
 		}
 	}
+	const linked = await fetchLinkedSources({ ja, en: [...englishTitles], bangumiId: bangumi });
+	if (linked.annId && !ann.some((a) => a.url.endsWith(`id=${linked.annId}`))) {
+		const exact = await settle(fetchAnnEntryById(linked.annId));
+		if (exact) ann.unshift(exact);
+	}
+	const { annId: _annId, ...linkedSources } = linked;
+	out._linked = linkedSources;
+	console.log(
+		`${group} / 关联来源：${Object.entries(linkedSources).map(([k, v]) => `${k} ${v ? "✓" : "✗"}`).join("，")}`,
+	);
 	out._databases = { ann: ann.slice(0, 4), kitsu: kitsu.slice(0, 3) };
 	console.log(`${group} / 数据库（${[...englishTitles].join("、") || "无英文标题"}）：ANN ${ann.length} 条，Kitsu ${kitsu.length} 条`);
 	await fs.writeFile(path.join(OUT_DIR, `${group}.json`), `${JSON.stringify(out, null, 2)}\n`, "utf8");

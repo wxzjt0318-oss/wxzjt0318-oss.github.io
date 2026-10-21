@@ -20,7 +20,7 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
 
 2. **建分支并抓资料**：本沙箱访问不了萌娘百科和维基百科，资料由 GitHub Actions 抓取。
    - 在一个 `claude/` 开头的分支上工作（会话指定了分支就用指定的，否则用 `claude/longform-<日期>`），从最新 `main` 切出。
-   - 运行 `node scripts/wiki/find-auto-drafts.mjs --requests`，它会写出 `scripts/wiki/source-requests.json`，每篇一组 `{ zh, ja, en }`：`zh` 是中文标题与主要角色名，`ja` 是日文原名，`en` 是由文章英文链接还原的罗马字 / 英文标题。可以手动补充更准确的条目名（例如系列主条目的日文名、官方英文名）。
+   - 运行 `node scripts/wiki/find-auto-drafts.mjs --requests`，它会写出 `scripts/wiki/source-requests.json`，每篇一组 `{ zh, ja, en, bangumi }`：`zh` 是中文标题与主要角色名，`ja` 是日文原名，`en` 是由文章英文链接还原的罗马字 / 英文标题，`bangumi` 是 Bangumi 条目编号。可以手动补充更准确的条目名（例如系列主条目的日文名、官方英文名）。
    - 提交 `source-requests.json` 并推送。推送会触发「Fetch Wiki Sources」工作流（`.github/workflows/fetch-wiki-sources.yml`，4 个分片，约 2 分钟），它把结果提交回同一分支的 `reports/wiki-sources/<slug>.json`。
    - 等待：用 GitHub 工具查看该工作流运行完成（每个有资料的分片提交一个 `chore(sources)`，篇数少时不足 4 个），然后 `git pull`。不要用前台 `sleep`。
 
@@ -55,7 +55,7 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
 - `quote: ` 封面上方的引言：一句话——角色口吻的台词，或「设定 + 反转」句式，贴合作品主旨；
 - `category: ` 一个概括作品主题的短语（如「邪王真眼的中二恋爱」），不要用「XX作品介绍」；
 - `tags: ` JSON 数组，最多 7 个：2–3 个类型 + 原作类型（如「轻小说改」）+ 形式（OVA / 剧场版，TV 不写）+ 播出季（如「2026年7月」）+ 1–2 个作品主题词 + 系列名（同系列文章靠它聚在一起）；不写星期、电视台、制作公司；
-- `refs: ` 参考资料，`[名称](链接)` 用 ` | ` 分隔：Bangumi 条目必列，实际采用的萌娘百科 / 维基百科（中文、日文、英文）/ Anime News Network / Kitsu 页面也列上（用 json 里的 `url`）；留空则保留文章原有的参考资料。
+- `refs: ` 参考资料，`[名称](链接)` 用 ` | ` 分隔：Bangumi 条目必列，实际采用的其他来源页面（各百科、しょぼいカレンダー、アニメハック、MyAnimeList 等）也列上（用 json 里的 `url`）；留空则保留文章原有的参考资料。
 
 之后是正文 Markdown：开头一两段后单独一行 `{{COVER}}`（封面位置）。不要写 frontmatter、引言和参考资料小节。
 
@@ -74,10 +74,16 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
 - 全中文：作品原名、歌名可保留日文原文并附中文译名；人名用通行中文译名。
 - 事实只能来自 `reports/wiki-sources/<slug>.json` 与资料稿里的 Bangumi 数据：播出日期、话数、staff、声优、剧情、销量、奖项都不能凭空写。资料稿里的声优表可能有错配，以百科为准。不确定就不写。资料里常混有错配的无关条目，忽略它们。
 - 资料来源与优先级（JSON 结构见 `scripts/wiki/fetch-sources.mjs` 开头）：
-  1. **日文维基百科**（`<日文查询>.jawiki`）：日本动画、轻小说、漫画的作品概要、制作阵容、播出信息、主题曲通常最完整，事实优先以它为准；
-  2. **萌娘百科**、**中文维基百科**（`<中文查询>.moegirl` / `.wikipedia`）：中文译名（角色名、歌名、作品名）以它们为准；
-  3. **英文维基百科**（`.enwiki`）、**Anime News Network**（`_databases.ann`，结构化的 staff / 声优 / 分集标题）、**Kitsu**（`_databases.kitsu`，播出日期、话数、简介）：用于补充与交叉核对。
-  - 外文资料是原文，写稿时翻译成中文，不要整段照搬；不同来源说法冲突时以日文维基为准，仍拿不准就不写。
-  - ニコニコ大百科、pixiv 百科事典会拦截 GitHub Actions 的请求，AniList 接口已停用，暂未接入。
+  1. **日文资料（事实优先以它们为准）**：
+     - 日文维基百科（`<日文查询>.jawiki`）：作品概要、制作阵容、播出信息、主题曲；
+     - しょぼいカレンダー（`_linked.syoboi`）：日本播出数据库，staff、全部声优、各话日文标题、首播电视台；
+     - アニメハック（`_linked.animehack`）：映画.com 的动画资讯，staff、声优、主题曲、简介和相关新闻（动画化、开播的公布日期）；
+     - メディア芸術データベース（`_linked.mediaarts`）：日本文化厅数据库，原作单行本各卷的发售日、出版社、ISBN；
+  2. **中文资料（中文译名以它们为准）**：萌娘百科、中文维基（`<中文查询>.moegirl` / `.wikipedia`）、Bangumi（`_linked.bangumi`，完整制作人员表与官方中文简介）、巴哈姆特 ACG 资料库（`_linked.bahamut`，台湾地区资料，已转简体）；
+  3. **补充与交叉核对**：英文维基（`.enwiki`）、Anime News Network（`_databases.ann`）、MyAnimeList（`_linked.mal`，播出时段、制作 / 发行公司、海外代理、角色与声优）、LiveChart（`_linked.livechart`）、Kitsu（`_databases.kitsu`）；
+  4. **只用于补充角色细节**：Fandom 作品维基（`_linked.fandom`），粉丝编写，与上面的来源冲突时一律以上面为准。
+  - `_linked.wikidata` 记录了作品在各站的编号，上面的 `_linked.*` 都是按编号精确抓取的，比按标题搜索可靠；Wikidata 没有收录的作品，这些来源就是 null。
+  - 外文资料是原文，写稿时翻译成中文，不要整段照搬；不同来源说法冲突时以日文资料为准，仍拿不准就不写。
+  - 实测不可用、未接入：ニコニコ大百科、pixiv 百科事典、百度百科、哔哩哔哩、コミックナタリー、AniDB（拦截 GitHub Actions）；Annict、TMDB（需要密钥）；Jikan（连接超时）；AniList（接口停用）。
 - 站内链接只能用 `/posts/<alias>/`，`<alias>` 必须是某篇文章 frontmatter 的 `alias` 或 `src/content/posts/` 下的文件名（不含 `.md`）。资料稿的「系列作品」小节已列出站内同系列文章，可直接沿用。
 - 不改手写文章（没有资料稿标记的文章）。
