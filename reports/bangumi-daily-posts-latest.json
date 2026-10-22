@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-21T11:57:02.312Z",
+  "generatedAt": "2026-10-22T11:59:18.289Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 526789,
+    "subject_id": 135275,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2026-04-11",
+    "ep_status": 0,
+    "updated_at": "2016-01-13",
     "subject": {
-      "id": 526789,
-      "name": "弱弱老师",
-      "name_cn": "弱弱老师",
-      "date": "2026-04-11",
-      "eps": 12,
-      "short_summary": "新任教师——鶸村在学生们眼中是一位只要心情不好就会诅咒他人的「咒恨老师」。然而，她其实是一位体力为0，声音也细弱无力，各项能力值都弱到不行的「弱弱老师」！某天，有位名叫阿比仓的学生偶然得知鶸村的秘密，为了让这位笨拙老师的努力得到回报，他决定协助她解开学生们的误会。虽然经常被卷入各种令他小鹿乱撞、过于刺激的麻烦事件中，但他仍然全力支持着最喜欢的鶸村老师！如此弱弱又可爱的老师所带来的爱情喜剧，即将开幕！ [简介原文] ⽣徒たちからは、機嫌を損ねたら呪われる「こわこわ先⽣」と 恐れられている新⽶教師の鶸村ひより先⽣。……しかし、本当は体⼒0、声もヒョロヒョロ、 あらゆるステータスが最弱なだけの「よわよわ先⽣」だった！鶸村先⽣の秘密を偶然知った担当クラスの阿⽐倉くんは、 不器⽤な先⽣の頑張りが報われるよう、 彼⼥に協⼒して⽣徒の誤解を解こうと決意。 ドキドキで刺激的なトラブルに巻き込まれながら、 ⼤好きな鶸村先⽣をサポートしていく！ よわよわで、かわいい先⽣との、ちょっぴり刺激的なラブコメディ、開幕! !",
+      "id": 135275,
+      "name": "为美好的世界献上祝福！",
+      "name_cn": "为美好的世界献上祝福！",
+      "date": "2016-01-13",
+      "eps": 10,
+      "short_summary": "热爱游戏的家里蹲少年·佐藤和真的人生，因交通事故（!?）而轻易闭幕……本该是这样，但当他醒来之时，眼前有一位自称是女神的美少女。“喂，我有点好事要告诉你。要去异世界吗？只带一样你喜欢的东西没问题喔。”“那，我就带着你好了。”由此开始，在异世界转生的和真的魔王讨伐大冒险开始了……虽然是这么想的，但他却为了获得衣食住行而开始劳动！想要平稳度日的和真，却由于女神引起的各种问题，而终于被魔王军盯上了!?",
       "tags": [
         {
-          "name": "2026年4月"
+          "name": "搞笑"
         },
         {
-          "name": "卖肉"
+          "name": "异世界"
         },
         {
-          "name": "校园"
+          "name": "轻小说改"
         },
         {
-          "name": "漫画改"
+          "name": "2016年1月"
         },
         {
-          "name": "后宫"
+          "name": "为美好的世界献上祝福"
         },
         {
-          "name": "TV"
+          "name": "穿越"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/56/de/135275_G3liq.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/56/de/135275_G3liq.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/56/de/135275_G3liq.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ac/ec/526789_707JL.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/56/de/135275_G3liq.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "弱弱老师",
+      "title": "为美好的世界献上祝福！",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ac/ec/526789_707JL.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/56/de/135275_G3liq.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "弱弱老师",
+      "title": "为美好的世界献上祝福！",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ac/ec/526789_707JL.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/56/de/135275_G3liq.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "弱弱老师",
+      "title": "为美好的世界献上祝福！",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-526789.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-135275.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
