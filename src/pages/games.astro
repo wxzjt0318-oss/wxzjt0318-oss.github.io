@@ -1721,27 +1721,27 @@ function getStatusInfo(status: GameStatus) {
         <div class="filter-container">
           <button class="filter-tag active" data-status="all" aria-pressed="true">
             {i18n(I18nKey.gamesFilterAll)}
-            <span id="count-all" class="ml-1 bg-[var(--primary)] text-white text-xs rounded-full px-2 py-0.5">({gameList.length})</span>
+            <span id="count-all" class="ml-1 bg-[var(--primary)] text-[var(--on-primary)] text-xs rounded-full px-2 py-0.5">({gameList.length})</span>
           </button>
           <button class="filter-tag" data-status="playing" aria-pressed="false">
             {i18n(I18nKey.gamesStatusPlaying)}
-            <span id="count-playing" class="ml-1 bg-green-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "playing").length})</span>
+            <span id="count-playing" class="ml-1 bg-green-700 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "playing").length})</span>
           </button>
           <button class="filter-tag" data-status="planned" aria-pressed="false">
             {i18n(I18nKey.gamesStatusPlanned)}
-            <span id="count-planned" class="ml-1 bg-amber-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "planned").length})</span>
+            <span id="count-planned" class="ml-1 bg-amber-700 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "planned").length})</span>
           </button>
           <button class="filter-tag" data-status="completed" aria-pressed="false">
             {i18n(I18nKey.gamesStatusCompleted)}
-            <span id="count-completed" class="ml-1 bg-blue-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "completed").length})</span>
+            <span id="count-completed" class="ml-1 bg-blue-700 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "completed").length})</span>
           </button>
           <button class="filter-tag" data-status="onhold" aria-pressed="false">
             {i18n(I18nKey.gamesStatusOnHold)}
-            <span id="count-onhold" class="ml-1 bg-purple-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "onhold").length})</span>
+            <span id="count-onhold" class="ml-1 bg-purple-700 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "onhold").length})</span>
           </button>
           <button class="filter-tag" data-status="dropped" aria-pressed="false">
             {i18n(I18nKey.gamesStatusDropped)}
-            <span id="count-dropped" class="ml-1 bg-red-500 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "dropped").length})</span>
+            <span id="count-dropped" class="ml-1 bg-red-700 text-white text-xs rounded-full px-2 py-0.5">({gameList.filter((g) => g.status === "dropped").length})</span>
           </button>
         </div>
         <p id="games-result-count" class="games-tools__count" aria-hidden="true">{gameList.length} {i18n(I18nKey.gamesCounts)}</p>
@@ -1751,9 +1751,9 @@ function getStatusInfo(status: GameStatus) {
       {(!isValidUserId && (
         <div class="games-empty">
           <Icon icon="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
-          <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+          <h2 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
             {i18n(I18nKey.gamesNoResults)}
-          </h3>
+          </h2>
           <p class="text-black/60 dark:text-white/60">
             {i18n(I18nKey.gamesEmptyHint)}
           </p>
@@ -1838,9 +1838,9 @@ function getStatusInfo(status: GameStatus) {
           ) : (
             <div id="game-empty" class="games-empty">
               <Icon icon="material-symbols:tv-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
-              <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+              <h2 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
                 {i18n(I18nKey.gamesNoResults)}
-              </h3>
+              </h2>
               <p class="text-black/60 dark:text-white/60">
                 {i18n(I18nKey.gamesEmptyHint)}
               </p>
@@ -1848,9 +1848,9 @@ function getStatusInfo(status: GameStatus) {
           )}
           <div id="game-empty-filter" class="games-empty hidden">
             <Icon icon="material-symbols:search-off-outline-rounded" class="games-empty__icon" aria-hidden="true" />
-            <h3 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
+            <h2 class="text-xl font-medium text-black/80 dark:text-white/80 mb-2">
               {i18n(I18nKey.gamesNoResults)}
-            </h3>
+            </h2>
             <p class="text-black/60 dark:text-white/60">
               {i18n(I18nKey.gamesEmptyHint)}
             </p>

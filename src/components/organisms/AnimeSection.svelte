@@ -73,13 +73,16 @@ const statusCounts = $derived.by(() => {
 	return counts;
 });
 
-/** 状态计数徽章配色：与游戏页 filter-tag 的计数徽章同一套色板 */
+/**
+ * 状态计数徽章配色：与游戏页 filter-tag 的计数徽章同一套色板。
+ * 设计 token 没有五种可区分的状态色，这里保留各状态的色相；用 700 色阶是为了让白色小字达到 WCAG AA 4.5:1。
+ */
 const ANIME_STATUS_BADGE: Record<string, string> = {
-	watching: "bg-green-500",
-	planned: "bg-amber-500",
-	completed: "bg-blue-500",
-	onHold: "bg-purple-500",
-	dropped: "bg-red-500",
+	watching: "bg-green-700",
+	planned: "bg-amber-700",
+	completed: "bg-blue-700",
+	onHold: "bg-purple-700",
+	dropped: "bg-red-700",
 };
 
 /** 状态筛选按钮：只列数据中出现的状态，标签附条目数（按钮样式对齐游戏页 filter-tag） */
@@ -312,7 +315,7 @@ onMount(() => {
 						onclick={() => selectStatus("")}
 					>
 						{i18n(I18nKey.animeFilterAll)}
-						<span class="anime-filter-tag__count bg-[var(--primary)] text-white">
+						<span class="anime-filter-tag__count bg-[var(--primary)] text-[var(--on-primary)]">
 							({animes.length})
 						</span>
 					</button>
