@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-25T11:38:36.996Z",
+  "generatedAt": "2026-10-26T13:00:18.655Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 325585,
+    "subject_id": 362577,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2021-10-03",
+    "ep_status": 1,
+    "updated_at": "2022-11-11",
     "subject": {
-      "id": 325585,
-      "name": "无职转生～到了异世界就拿出真本事～ 第2部分",
-      "name_cn": "无职转生～到了异世界就拿出真本事～ 第2部分",
-      "date": "2021-10-03",
-      "eps": 12,
-      "short_summary": "「俺は、この異世界で本気だす！」 34歳・童貞・無職の引きこもりニート男。 両親の葬儀の日に家を追い出された瞬間、トラックに轢かれ命を落としてしまう。 目覚めると、なんと剣と魔法の異世界で赤ん坊に生まれ変わっていた！ ゴミクズのように生きてきた男は、少年・ルーデウスとして異世界で本気をだして生きていく事を誓う。 フィットア領転移事件で魔大陸に転移後、冒険者パーティ「デッドエンド」を結成し、 魔大陸最南端の港町・ウェンポートに到着したルーデウスたち。 ルーデウスは「魔界大帝キシリカ」と出会い新たな力を手に入れる。 魔力災害に巻き込まれた家族や仲間の行方はー。 「人生やり直し」ファンタジー、再始動！",
+      "id": 362577,
+      "name": "铃芽之旅",
+      "name_cn": "铃芽之旅",
+      "date": "2022-11-11",
+      "eps": 1,
+      "short_summary": "生活在日本九州田舍的17岁少女・铃芽遇见了为了寻找“门”而踏上旅途的青年。 追随着青年的脚步，铃芽来到了山上一片废墟之地，在这里静静伫立着一扇古老的门，仿佛是坍塌中存留的唯一遗迹。 铃芽仿佛被什么吸引了一般，将手伸向了那扇门…… 不久之后，日本各地的门开始一扇一扇地打开。 据说，开着的门必须关上，否则灾祸将会从门的那一边降临于现世。 星星，夕阳，拂晓，误入之境的天空，仿佛溶解了一切的时间。 在神秘之门的引导下，铃芽踏上了关门的旅途。",
       "tags": [
         {
-          "name": "异世界"
+          "name": "新海诚"
         },
         {
-          "name": "轻小说改"
+          "name": "剧场版"
+        },
+        {
+          "name": "原创"
+        },
+        {
+          "name": "2022"
         },
         {
           "name": "奇幻"
         },
         {
-          "name": "冒险"
-        },
-        {
-          "name": "2021年10月"
-        },
-        {
-          "name": "StudioBind"
+          "name": "恋爱"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/60/4d/325585_tfU01.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/60/4d/325585_tfU01.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/60/4d/325585_tfU01.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/60/4d/325585_tfU01.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/d9/03/362577_DZxBM.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职转生～到了异世界就拿出真本事～ 第2部分",
+      "title": "铃芽之旅",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/60/4d/325585_tfU01.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "无职转生～到了异世界就拿出真本事～ 第2部分",
+      "title": "铃芽之旅",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/60/4d/325585_tfU01.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d9/03/362577_DZxBM.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "无职转生～到了异世界就拿出真本事～ 第2部分",
+      "title": "铃芽之旅",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-325585.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-362577.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
