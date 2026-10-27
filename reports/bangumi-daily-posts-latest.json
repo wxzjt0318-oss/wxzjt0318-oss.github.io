@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-26T13:00:18.655Z",
+  "generatedAt": "2026-10-27T12:19:10.117Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 362577,
-    "type": 2,
-    "ep_status": 1,
-    "updated_at": "2022-11-11",
+    "subject_id": 621073,
+    "type": 3,
+    "ep_status": 3,
+    "updated_at": "2026-10-11",
     "subject": {
-      "id": 362577,
-      "name": "铃芽之旅",
-      "name_cn": "铃芽之旅",
-      "date": "2022-11-11",
-      "eps": 1,
-      "short_summary": "生活在日本九州田舍的17岁少女・铃芽遇见了为了寻找“门”而踏上旅途的青年。 追随着青年的脚步，铃芽来到了山上一片废墟之地，在这里静静伫立着一扇古老的门，仿佛是坍塌中存留的唯一遗迹。 铃芽仿佛被什么吸引了一般，将手伸向了那扇门…… 不久之后，日本各地的门开始一扇一扇地打开。 据说，开着的门必须关上，否则灾祸将会从门的那一边降临于现世。 星星，夕阳，拂晓，误入之境的天空，仿佛溶解了一切的时间。 在神秘之门的引导下，铃芽踏上了关门的旅途。",
+      "id": 621073,
+      "name": "和没有信徒的女神大人一起攻略异世界",
+      "name_cn": "和没有信徒的女神大人一起攻略异世界",
+      "date": "2026-10-11",
+      "eps": 12,
+      "short_summary": "游戏成瘾的高中生·高月诚人在集训回程中遭遇意外，与全班同学一同被传送到了异世界，但是只有诚人没获得外挂能力，只能当「最弱魔法师学徒」，想办法在异世界生存下去。这时出现在诚人面前的，是没有信徒的无名女神·诺雅。禁不起她拼命拉拢的攻势，诚人成为了她的第一位信徒。然而诺雅似乎有不为人知的秘密？ [简介原文] 生粋のゲーマーである高校生・高月マコトは、合宿帰りの事故でクラスメイトと共に異世界へ転移してしまう。 しかし、マコトにだけチート能力が与えられず、最弱の\"魔法使い見習い\"として異世界を生き抜くことに。 そんなマコトの前に、信者ゼロのマイナー女神・ノアが現れる。 必死の勧誘を受け、一人目の信者になるも、女神ノアには秘密があるようで……。 攻略難度は最上級。常識破りの方法で女神と最強に至る異世界攻略ファンタジー、開幕！",
       "tags": [
         {
-          "name": "新海诚"
+          "name": "2026年10月"
         },
         {
-          "name": "剧场版"
+          "name": "异世界"
         },
         {
-          "name": "原创"
+          "name": "轻小说改"
         },
         {
-          "name": "2022"
+          "name": "TV"
         },
         {
           "name": "奇幻"
         },
         {
-          "name": "恋爱"
+          "name": "2026"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/d9/03/362577_DZxBM.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "铃芽之旅",
+      "title": "和没有信徒的女神大人一起攻略异世界",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/d9/03/362577_DZxBM.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "铃芽之旅",
+      "title": "和没有信徒的女神大人一起攻略异世界",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/d9/03/362577_DZxBM.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "铃芽之旅",
+      "title": "和没有信徒的女神大人一起攻略异世界",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-362577.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-621073.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
