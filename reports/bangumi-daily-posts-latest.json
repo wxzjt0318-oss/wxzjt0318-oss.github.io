@@ -1,24 +1,24 @@
 {
-  "generatedAt": "2026-10-27T12:19:10.117Z",
+  "generatedAt": "2026-10-28T12:59:13.797Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 621073,
+    "subject_id": 634708,
     "type": 3,
-    "ep_status": 3,
-    "updated_at": "2026-10-11",
+    "ep_status": 1,
+    "updated_at": "2026-10-06",
     "subject": {
-      "id": 621073,
-      "name": "和没有信徒的女神大人一起攻略异世界",
-      "name_cn": "和没有信徒的女神大人一起攻略异世界",
-      "date": "2026-10-11",
+      "id": 634708,
+      "name": "冷淡的佐藤同学只对我撒娇",
+      "name_cn": "冷淡的佐藤同学只对我撒娇",
+      "date": "2026-10-06",
       "eps": 12,
-      "short_summary": "游戏成瘾的高中生·高月诚人在集训回程中遭遇意外，与全班同学一同被传送到了异世界，但是只有诚人没获得外挂能力，只能当「最弱魔法师学徒」，想办法在异世界生存下去。这时出现在诚人面前的，是没有信徒的无名女神·诺雅。禁不起她拼命拉拢的攻势，诚人成为了她的第一位信徒。然而诺雅似乎有不为人知的秘密？ [简介原文] 生粋のゲーマーである高校生・高月マコトは、合宿帰りの事故でクラスメイトと共に異世界へ転移してしまう。 しかし、マコトにだけチート能力が与えられず、最弱の\"魔法使い見習い\"として異世界を生き抜くことに。 そんなマコトの前に、信者ゼロのマイナー女神・ノアが現れる。 必死の勧誘を受け、一人目の信者になるも、女神ノアには秘密があるようで……。 攻略難度は最上級。常識破りの方法で女神と最強に至る異世界攻略ファンタジー、開幕！",
+      "short_summary": "班上的高岭之花・佐藤小春，没有人能够成功看到她的笑容，因此被称为「冷淡的佐藤同学」。然而某一天，同班的押尾飒太在老家经营的咖啡厅里，看到了佐藤同学的身影──她为了拍甜点的照片而努力奋战，甚至显得毫不设防！？实际上既内向又笨拙的佐藤，加上喜欢着佐藤的押尾，两个人的距离在甜点和相机等话题的影响下，正一步步地接近中。让人无比焦急，又让人无比微笑。这场世界上最甜蜜的双向单恋，相信一定也会让你融化── [简介原文] クラス中の高嶺の花、佐藤こはる。誰にも笑顔を見せない、通称“塩対応の佐藤さん”。 でもある日、同じクラスの押尾颯太が、実家が営むカフェで見た佐藤さんの姿は……スイーツの写真を撮るため奮闘する、隙だらけの姿で!? 本当は人見知りで不器用なだけの佐藤さんと、そんな佐藤さんのことが好きな押尾君。二人の距離は、スイーツとカメラをきっかけに、少しずつ縮まっていく。 もどかしくて、愛おしい。世界で一番甘い両片想いに、きっとあなたもとろけてしまう――。 不器用な二人が織りなす“甘くてしょっぱい”青春ラブコメディ！",
       "tags": [
         {
           "name": "2026年10月"
         },
         {
-          "name": "异世界"
+          "name": "恋爱"
         },
         {
           "name": "轻小说改"
@@ -27,45 +27,45 @@
           "name": "TV"
         },
         {
-          "name": "奇幻"
+          "name": "手塚PRODUCTION"
         },
         {
-          "name": "2026"
+          "name": "校园"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/39/84/634708_NnWAS.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "和没有信徒的女神大人一起攻略异世界",
+      "title": "冷淡的佐藤同学只对我撒娇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "和没有信徒的女神大人一起攻略异世界",
+      "title": "冷淡的佐藤同学只对我撒娇",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ec/f9/621073_oFcZ3.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/39/84/634708_NnWAS.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "和没有信徒的女神大人一起攻略异世界",
+      "title": "冷淡的佐藤同学只对我撒娇",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-621073.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-634708.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
