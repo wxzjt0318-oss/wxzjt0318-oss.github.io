@@ -311,6 +311,7 @@ export const ko: Translation = {
 	[Key.lastUpdatedNotice]: "마지막 업데이트: {date} ({days}일 전)",
 	[Key.lastUpdatedWarning]: "일부 내용이 오래되었을 수 있습니다",
 	[Key.license]: "라이선스",
+	[Key.reprintSource]: "출처",
 	[Key.continueReading]: "계속 읽기",
 	[Key.relatedReading]: "관련 글",
 	[Key.relatedReadingSubtitle]: "공통 태그와 카테고리를 바탕으로",

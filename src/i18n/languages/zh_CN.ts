@@ -303,6 +303,7 @@ export const zh_CN: Translation = {
 	[Key.lastUpdatedNotice]: "最后更新于 {date}，距今已过 {days} 天",
 	[Key.lastUpdatedWarning]: "部分内容可能已过时",
 	[Key.license]: "许可协议",
+	[Key.reprintSource]: "转载自",
 	[Key.continueReading]: "继续阅读",
 	[Key.relatedReading]: "沿着主题读",
 	[Key.relatedReadingSubtitle]: "基于共同的标签与分类",

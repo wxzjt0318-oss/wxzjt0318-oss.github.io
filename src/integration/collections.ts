@@ -29,6 +29,30 @@ export const postSchema: z.ZodType = z.object({
 	seriesOrder: z.number().int().optional(),
 	lang: z.string().optional().default(""),
 
+	/* Per-post license override (omitted fields fall back to the site licenseConfig; a string is the license name) */
+	license: z
+		.union([
+			z.string(),
+			z.object({
+				enable: z.boolean().optional(),
+				name: z.string().optional(),
+				url: z.string().optional(),
+				/** Author: string or { name, url } */
+				author: z
+					.union([
+						z.string(),
+						z.object({
+							name: z.string().optional(),
+							url: z.string().optional(),
+						}),
+					])
+					.optional(),
+				/** Reprint source URL; empty means original */
+				source: z.string().optional(),
+			}),
+		])
+		.optional(),
+
 	/* Post encryption */
 	encrypted: z.boolean().optional().default(false),
 	password: z

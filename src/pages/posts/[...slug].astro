@@ -28,6 +28,8 @@ import {
 	type PostForList,
 } from "@utils/content-utils";
 import { formatDateToYYYYMMDD } from "@utils/date-utils";
+import { licenseOverrideFromName } from "@utils/license-name";
+import { resolveLicenseConfig } from "@utils/license-utils";
 import { getMarkdownStylesheetAssets } from "@utils/markdown-assets";
 import { getSourceMarkdownSyntaxSnapshot } from "@utils/markdown-source-syntaxes.mjs";
 import {
@@ -193,6 +195,11 @@ const postCommentEnabled =
 	entry.data.comment !== false && Boolean(resolveCommentOptions(commentConfig));
 const lastUpdatedNotice = resolveLastUpdatedNoticeOptions(articleConfig);
 const shareOptions = resolveArticleShareOptions(articleConfig);
+const postLicense = resolveLicenseConfig(
+	licenseConfig,
+	entry.data.license ?? licenseOverrideFromName(entry.data.licenseName),
+	profileConfig.name,
+);
 const umamiEnabled = resolveUmamiOptions(umamiConfig) !== null;
 const authorAvatarUrl = shareOptions
 	? await resolveAsset(profileConfig.avatar ?? "")
@@ -344,7 +351,7 @@ const jsonLd = {
 				<SeriesCard context={series} class="mb-6 onload-animation" />
 			)}
 
-			{licenseConfig.enable && <License title={entry.data.title} slug={entry.id} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+			{postLicense.enable && <License title={entry.data.title} slug={entry.id} pubDate={entry.data.published} license={postLicense} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
 			{shareOptions && (
 				<ArticleShare

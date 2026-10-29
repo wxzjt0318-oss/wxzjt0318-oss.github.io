@@ -3,19 +3,24 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { formatDateToYYYYMMDD } from "@utils/date-utils";
+import { resolveLicenseConfig } from "@utils/license-utils";
 import { licenseConfig, profileConfig } from "@/config";
+import type { ResolvedLicenseConfig } from "@/types/config";
 
 interface Props {
 	title: string;
 	slug: string;
 	pubDate: Date;
+	/** 已解析的版权配置（含作者与转载来源）；缺省使用全站 licenseConfig。 */
+	license?: ResolvedLicenseConfig;
 	class?: string;
 }
 
 const { title, pubDate } = Astro.props;
 const className = Astro.props.class ?? "";
-const profileConf = profileConfig;
-const licenseConf = licenseConfig;
+const licenseConf =
+	Astro.props.license ??
+	resolveLicenseConfig(licenseConfig, null, profileConfig.name);
 // `Astro.url` in a static build does not inherit an integration-set `site`
 // (see Layout.astro); derive the absolute URL from `Astro.site` instead so
 // the shown post link is the real deployed URL, not localhost.
@@ -36,7 +41,11 @@ const postUrl = decodeURIComponent(
 	<div class="m3-license-card__meta">
 		<div class="m3-license-card__meta-item">
 			<div class="m3-license-card__meta-label">{i18n(I18nKey.author)}</div>
-			<div class="m3-license-card__meta-value">{profileConf.name}</div>
+			{licenseConf.author.url ? (
+				<a href={licenseConf.author.url} target="_blank" rel="noopener noreferrer" class="m3-license-card__meta-link">{licenseConf.author.name}</a>
+			) : (
+				<div class="m3-license-card__meta-value">{licenseConf.author.name}</div>
+			)}
 		</div>
 		<div class="m3-license-card__meta-item">
 			<div class="m3-license-card__meta-label">{i18n(I18nKey.publishedAt)}</div>
@@ -46,6 +55,12 @@ const postUrl = decodeURIComponent(
 			<div class="m3-license-card__meta-label">{i18n(I18nKey.license)}</div>
 			<a href={licenseConf.url} target="_blank" rel="noopener noreferrer" class="m3-license-card__meta-link">{licenseConf.name}</a>
 		</div>
+		{licenseConf.source && (
+			<div class="m3-license-card__meta-item">
+				<div class="m3-license-card__meta-label">{i18n(I18nKey.reprintSource)}</div>
+				<a href={licenseConf.source} target="_blank" rel="noopener noreferrer" class="m3-license-card__meta-link m3-license-card__source">{licenseConf.source}</a>
+			</div>
+		)}
 	</div>
 	<Icon icon="fa7-brands:creative-commons" class="m3-license-card__watermark" aria-hidden="true" />
 </div>
@@ -99,6 +114,9 @@ const postUrl = decodeURIComponent(
 		text-decoration: none
 		&:hover
 			text-decoration: underline
+
+	&__source
+		word-break: break-all
 
 	&__watermark
 		position: absolute

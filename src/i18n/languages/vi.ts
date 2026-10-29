@@ -314,6 +314,7 @@ export const vi: Translation = {
 	[Key.lastUpdatedNotice]: "Cập nhật lần cuối vào {date}, cách đây {days} ngày",
 	[Key.lastUpdatedWarning]: "Một số nội dung có thể đã lỗi thời",
 	[Key.license]: "Giấy phép bản quyền",
+	[Key.reprintSource]: "Nguồn",
 	[Key.continueReading]: "Đọc tiếp",
 	[Key.relatedReading]: "Bài viết liên quan",
 	[Key.relatedReadingSubtitle]: "Dựa trên thẻ và danh mục chung",

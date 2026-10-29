@@ -1,0 +1,14 @@
+{
+	"repo": "https://github.com/LyraVoid/Shirone.git",
+	"branch": "main",
+	"lastSynced": "dd1b7826af653a6db5429d5a9860ebfd9843bd46",
+	"pathMap": {
+		".github/workflows/ci.yml": ".github/workflows/CI.yml"
+	},
+	"keepOurs": [
+		"src/plugins/markdown/manifest.json"
+	],
+	"regenerate": [
+		"pnpm-lock.yaml"
+	]
+}

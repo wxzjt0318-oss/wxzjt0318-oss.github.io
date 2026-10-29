@@ -159,6 +159,33 @@ export type LicenseConfig = {
 	url: string;
 };
 
+/** 单篇文章 frontmatter 的版权覆写；省略字段回退到全站 licenseConfig。 */
+export type LicenseOverride = Partial<LicenseConfig> & {
+	/** 作者名，或带链接的作者对象；缺省回退到 profileConfig.name。 */
+	author?: string | LicenseAuthorInput;
+	/** 转载来源链接；留空表示原创。 */
+	source?: string;
+};
+
+/** 文章级版权覆写：对象写法，或用字符串简写许可证名称。 */
+export type LicenseOverrideInput = LicenseOverride | string;
+
+/** 文章版权卡片中的作者信息。 */
+export type LicenseAuthorInput = {
+	name?: string;
+	url?: string;
+};
+
+/** 已解析的文章版权信息：全站配置 + 文章级覆写 + 作者/转载来源。 */
+export type ResolvedLicenseConfig = LicenseConfig & {
+	author: {
+		name: string;
+		url: string;
+	};
+	/** 转载来源链接；空字符串表示原创。 */
+	source: string;
+};
+
 export type LIGHT_DARK_MODE =
 	| typeof LIGHT_MODE
 	| typeof DARK_MODE
