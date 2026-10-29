@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-28T12:59:13.797Z",
+  "generatedAt": "2026-10-29T12:58:10.106Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 634708,
-    "type": 3,
-    "ep_status": 1,
-    "updated_at": "2026-10-06",
+    "subject_id": 515856,
+    "type": 2,
+    "ep_status": 12,
+    "updated_at": "2026-04-12",
     "subject": {
-      "id": 634708,
-      "name": "冷淡的佐藤同学只对我撒娇",
-      "name_cn": "冷淡的佐藤同学只对我撒娇",
-      "date": "2026-10-06",
+      "id": 515856,
+      "name": "杖与剑的魔剑谭 第二季",
+      "name_cn": "杖与剑的魔剑谭 第二季",
+      "date": "2026-04-12",
       "eps": 12,
-      "short_summary": "班上的高岭之花・佐藤小春，没有人能够成功看到她的笑容，因此被称为「冷淡的佐藤同学」。然而某一天，同班的押尾飒太在老家经营的咖啡厅里，看到了佐藤同学的身影──她为了拍甜点的照片而努力奋战，甚至显得毫不设防！？实际上既内向又笨拙的佐藤，加上喜欢着佐藤的押尾，两个人的距离在甜点和相机等话题的影响下，正一步步地接近中。让人无比焦急，又让人无比微笑。这场世界上最甜蜜的双向单恋，相信一定也会让你融化── [简介原文] クラス中の高嶺の花、佐藤こはる。誰にも笑顔を見せない、通称“塩対応の佐藤さん”。 でもある日、同じクラスの押尾颯太が、実家が営むカフェで見た佐藤さんの姿は……スイーツの写真を撮るため奮闘する、隙だらけの姿で!? 本当は人見知りで不器用なだけの佐藤さんと、そんな佐藤さんのことが好きな押尾君。二人の距離は、スイーツとカメラをきっかけに、少しずつ縮まっていく。 もどかしくて、愛おしい。世界で一番甘い両片想いに、きっとあなたもとろけてしまう――。 不器用な二人が織りなす“甘くてしょっぱい”青春ラブコメディ！",
+      "short_summary": "为了成为独当一面的魔导士，少年威尔进入魔法学院学习。然而个性努力认真的他，即使想成为魔导士却有个致命性的弱点。那就是「他完全无法使用魔法」。同学跟老师都用冷漠的眼神看待他，尽管有的时候感到相当挫折，威尔还是坚强地向前迈进。即使无法使用魔杖，他还是持剑在这个魔法至上主义的世界中战斗到底。深信着只有自己具备的力量。也为了守护与最重要的人立下的约定── 吊车尾少年用剑挑战魔法。杖与剑交会的魔剑谭在此揭开序幕！ [简介原文] 一人前の魔導士をめざして魔法学院に入学した少年ウィル。努力家の彼には魔導師として致命的な弱点があった。それは、“魔法がまったく使えない”こと。同級生や教師から冷たい視線を浴び、時にはくじけそうになりながらも、強い気持ちで邁進していくウィル。杖は使えなくとも剣を執り、魔法至上主義の世界で戦い抜く。自分だけに与えられた力を信じて。そして、大切な人との約束を守るためにーー 落ちこぼれの少年が剣で魔法に挑む。杖と剣が交わる魔剣譚が今はじまる！",
       "tags": [
         {
-          "name": "2026年10月"
+          "name": "战斗"
         },
         {
-          "name": "恋爱"
+          "name": "奇幻"
         },
         {
-          "name": "轻小说改"
+          "name": "2026年4月"
+        },
+        {
+          "name": "漫画改"
         },
         {
           "name": "TV"
         },
         {
-          "name": "手塚PRODUCTION"
-        },
-        {
-          "name": "校园"
+          "name": "BNPictures"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/28/19/515856_RNj5p.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/28/19/515856_RNj5p.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/28/19/515856_RNj5p.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/39/84/634708_NnWAS.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/28/19/515856_RNj5p.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "冷淡的佐藤同学只对我撒娇",
+      "title": "杖与剑的魔剑谭 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/39/84/634708_NnWAS.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/28/19/515856_RNj5p.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "冷淡的佐藤同学只对我撒娇",
+      "title": "杖与剑的魔剑谭 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/39/84/634708_NnWAS.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/28/19/515856_RNj5p.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "冷淡的佐藤同学只对我撒娇",
+      "title": "杖与剑的魔剑谭 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-634708.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-515856.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
