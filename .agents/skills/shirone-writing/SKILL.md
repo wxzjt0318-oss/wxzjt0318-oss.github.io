@@ -25,6 +25,14 @@ seriesOrder: 3          # 可选，系列内顺序；缺省按发布日期
 pinned: false           # 置顶
 draft: false            # 草稿(不发布)
 comment: true           # 文章级评论开关(默认 true,继承全局)
+license:                # 可选，覆写全站版权声明；省略字段回退全站；也可写 license: CC BY 4.0
+  enable: true
+  name: CC BY 4.0
+  url: https://creativecommons.org/licenses/by/4.0/
+  author:               # 作者：字符串或 { name, url }
+    name: 某某
+    url: https://example.com/author
+  source: https://original.example.com/post  # 转载原文链接；留空=原创
 lang: ""                # 覆盖站点默认语言的渲染语言
 # 加密文章
 encrypted: false

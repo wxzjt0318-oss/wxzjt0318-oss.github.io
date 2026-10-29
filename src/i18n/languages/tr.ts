@@ -315,6 +315,7 @@ export const tr: Translation = {
 	[Key.lastUpdatedNotice]: "Son güncelleme: {date}, {days} gün önce",
 	[Key.lastUpdatedWarning]: "Bazı içerikler güncelliğini yitirmiş olabilir",
 	[Key.license]: "Lisans",
+	[Key.reprintSource]: "Kaynak",
 	[Key.continueReading]: "Okumaya devam et",
 	[Key.relatedReading]: "İlgili yazılar",
 	[Key.relatedReadingSubtitle]: "Ortak etiketlere ve kategorilere göre",

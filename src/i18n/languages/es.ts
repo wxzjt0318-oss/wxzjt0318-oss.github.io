@@ -315,6 +315,7 @@ export const es: Translation = {
 	[Key.lastUpdatedNotice]: "Última actualización el {date}, hace {days} días",
 	[Key.lastUpdatedWarning]: "Parte del contenido puede estar desactualizado",
 	[Key.license]: "Licencia",
+	[Key.reprintSource]: "Reimpreso de",
 	[Key.continueReading]: "Seguir leyendo",
 	[Key.relatedReading]: "Lecturas relacionadas",
 	[Key.relatedReadingSubtitle]: "Basadas en etiquetas y categorías compartidas",

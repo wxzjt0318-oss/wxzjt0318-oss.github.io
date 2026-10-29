@@ -27,6 +27,30 @@ const postsCollection = defineCollection({
 		seriesOrder: z.number().int().optional(),
 		lang: z.string().optional().default(""),
 
+		/* 单篇版权覆写（省略字段回退到全站 licenseConfig；字符串简写许可证名称） */
+		license: z
+			.union([
+				z.string(),
+				z.object({
+					enable: z.boolean().optional(),
+					name: z.string().optional(),
+					url: z.string().optional(),
+					/** 作者：字符串或 { name, url } */
+					author: z
+						.union([
+							z.string(),
+							z.object({
+								name: z.string().optional(),
+								url: z.string().optional(),
+							}),
+						])
+						.optional(),
+					/** 转载来源链接；留空表示原创 */
+					source: z.string().optional(),
+				}),
+			])
+			.optional(),
+
 		/* Post Encryption */
 		encrypted: z.boolean().optional().default(false),
 		password: z

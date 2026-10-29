@@ -313,6 +313,7 @@ export const en: Translation = {
 	[Key.lastUpdatedNotice]: "Last updated on {date}, {days} days ago",
 	[Key.lastUpdatedWarning]: "Some content may be outdated",
 	[Key.license]: "License",
+	[Key.reprintSource]: "Reprinted from",
 	[Key.continueReading]: "Continue reading",
 	[Key.relatedReading]: "Related reading",
 	[Key.relatedReadingSubtitle]: "Based on shared tags and categories",

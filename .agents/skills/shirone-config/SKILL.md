@@ -33,7 +33,7 @@ description: Configuring a Shirone blog site - site identity, theme colors, navi
 | `seriesConfig.ts` | 系列连载（`/series/` 索引与详情页、文章内系列卡位置 `cardPosition`、默认开启，关闭时入口与页面同步隐藏） |
 | `fabConfig.ts` | 右下角悬浮控制流 |
 | `footerConfig.ts` / `FooterConfig.html` | 可选页脚 HTML 注入(默认关闭) |
-| `licenseConfig.ts` / `expressiveCodeConfig.ts` | 文章版权声明与代码块主题 |
+| `licenseConfig.ts` / `expressiveCodeConfig.ts` | 文章版权声明（全站默认；单篇可用 frontmatter `license` 覆写）与代码块主题 |
 | `announcementConfig.ts` / `imageBloomConfig.ts` / `textureConfig.ts` | 公告、图片辉光与背景纹理的站点级行为 |
 
 ## 内容时间

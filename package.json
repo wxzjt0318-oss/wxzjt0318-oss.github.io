@@ -27,6 +27,8 @@
 		"dev": "node scripts/content/sync.mjs && astro dev",
 		"start": "node scripts/content/sync.mjs && astro dev",
 		"check": "astro check",
+		"upstream:check": "node scripts/upstream/sync.mjs",
+		"upstream:sync": "node scripts/upstream/sync.mjs --apply",
 		"content": "node scripts/content/cli.mjs",
 		"content:status": "node scripts/content/status.mjs",
 		"content:sync": "node scripts/content/sync.mjs",
