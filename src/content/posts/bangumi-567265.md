@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-13
 published: 2026-06-13
 pinned: false
-alias: "the-animation-567265"
+alias: "love-me-kakurenbo-the-animation"
 image: "https://lain.bgm.tv/pic/cover/l/46/38/567265_HR6fh.jpg"
 ---
 
@@ -128,7 +128,7 @@ Ryou 是 Hina 的男朋友。两段故事都由他的“计划”开始：先是
 
 ## 5.1 与《枫与铃》的联系
 
-[《爱我「枫与铃」THE ANIMATION》](/posts/the-animation-338672/)（2022年，3话）是“爱我”系列的第一部动画。三年半之后推出的《捉迷藏》，原作者、制作公司、监督、人物设计全部相同，并让枫以客串身份登场——两部作品因此被串成了同一个系列。
+[《爱我「枫与铃」THE ANIMATION》](/posts/love-me-kaede-and-suzu-the-animation/)（2022年，3话）是“爱我”系列的第一部动画。三年半之后推出的《捉迷藏》，原作者、制作公司、监督、人物设计全部相同，并让枫以客串身份登场——两部作品因此被串成了同一个系列。
 
 ## 5.2 两部作品对照
 

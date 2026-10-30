@@ -103,9 +103,35 @@ function identity(name, season) {
 	return base.length >= 3 ? { key: `${base}#${season}`, sub } : null;
 }
 
-/** 基础标题与季度相同，且副标题至少一方为空或两者相同，才算同一作品 */
+/** 两段文字最长公共子串的长度 */
+function longestCommonRun(a, b) {
+	let best = 0;
+	const prev = new Array(b.length + 1).fill(0);
+	for (let i = 1; i <= a.length; i += 1) {
+		let diag = 0;
+		for (let j = 1; j <= b.length; j += 1) {
+			const keep = prev[j];
+			prev[j] = a[i - 1] === b[j - 1] ? diag + 1 : 0;
+			if (prev[j] > best) best = prev[j];
+			diag = keep;
+		}
+	}
+	return best;
+}
+
+/**
+ * 副标题算「同一个」：任一方为空、两者相同，或两者都是长副标题且共享 6 字以上的片段。
+ * 最后一种是同一条轻小说长副标题的不同中译（「极致游戏玩家在废设定的异世界无双」与
+ * 「喜欢挑战特殊成就的玩家在废设定的异世界成为无双」）；特别篇的短副标题不会因此被合并。
+ */
+function sameSubtitle(a, b) {
+	if (!a || !b || a === b) return true;
+	return a.length >= 8 && b.length >= 8 && longestCommonRun(a, b) >= 6;
+}
+
+/** 基础标题与季度相同，且副标题算同一个，才算同一作品 */
 function sameWork(a, b) {
-	return a.key === b.key && (!a.sub || !b.sub || a.sub === b.sub);
+	return a.key === b.key && sameSubtitle(a.sub, b.sub);
 }
 
 /** 从已有文章原文提取身份：标题、原作标题、正文开头的「日语：…」、sourceLink 指向的百科条目 */

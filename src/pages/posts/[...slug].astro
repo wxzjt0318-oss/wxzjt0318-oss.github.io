@@ -115,15 +115,12 @@ export async function getStaticPaths() {
 					)
 				: { related: [], random: [] };
 
-		// 自动发文的文件名是 bangumi-<条目ID>，只是内部存储名：有英文 alias 时
-		// 只发布 alias 地址，不再额外生成一份数字地址的重复页面
+		// 文件名只是内部存储名：有 alias 时只发布 alias 这一个地址，
+		// 不再按文件名额外生成一份重复页面（旧的文件名地址由 public/posts/<旧地址>/ 跳转页接住）
 		const cleanAlias = (entry.data.alias ?? "")
 			.replace(/^\/+|\/+$/g, "")
 			.replace(/^posts\//, "");
-		const aliasOnly =
-			/^bangumi-\d+$/.test(defaultSlug) &&
-			cleanAlias.length > 0 &&
-			cleanAlias !== defaultSlug;
+		const aliasOnly = cleanAlias.length > 0 && cleanAlias !== defaultSlug;
 		if (!aliasOnly) {
 			paths.push({
 				params: { slug: defaultSlug },

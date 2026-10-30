@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-12
 published: 2026-07-12
 pinned: false
-alias: "the-animation-338672"
+alias: "love-me-kaede-and-suzu-the-animation"
 image: "https://lain.bgm.tv/pic/cover/l/02/69/338672_lRD6h.jpg"
 ---
 
@@ -141,7 +141,7 @@ Hayato 是学生会书记，也是枫的同班同学。他是三人里“最普�
 
 ## 5.1 同一位作者的另一个故事
 
-2025年9月，同样由きょくちょ原作、同一套班底制作的[《爱我「捉迷藏」THE ANIMATION》](/posts/the-animation-567265/)推出。它讲的是另一对校园恋人 Hina 与 Ryou 的故事，但枫也以配角身份客串登场——两部动画因此正式连在了一起。
+2025年9月，同样由きょくちょ原作、同一套班底制作的[《爱我「捉迷藏」THE ANIMATION》](/posts/love-me-kakurenbo-the-animation/)推出。它讲的是另一对校园恋人 Hina 与 Ryou 的故事，但枫也以配角身份客串登场——两部动画因此正式连在了一起。
 
 ## 5.2 两部作品对照
 

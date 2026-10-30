@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-26
 published: 2026-07-26
 pinned: false
-alias: "2nd-season-371546"
+alias: "classroom-of-the-elite-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg"
 ---
 
@@ -50,7 +50,7 @@ image: "https://lain.bgm.tv/pic/cover/l/c8/8a/371546_Df9ri.jpg"
 | 2026年4月1日 | 第四季“二年级生篇”开播，首周4话连播 |
 | 2026年6月24日 | 第四季完结当天，宣布第五季制作 |
 
-第二季与第三季几乎是同时官宣的，所以从一开始，这两季就像是一套“上下集”：第二季把一年级第二学期的几场大考讲完，第三季再接着把一年级篇收尾。想看后续的话，可以直接看我写的[《欢迎来到实力至上主义的教室》第三季解析](/posts/3rd-season/)。
+第二季与第三季几乎是同时官宣的，所以从一开始，这两季就像是一套“上下集”：第二季把一年级第二学期的几场大考讲完，第三季再接着把一年级篇收尾。想看后续的话，可以直接看我写的[《欢迎来到实力至上主义的教室》第三季解析](/posts/classroom-of-the-elite-season-3/)。
 
 ## 1.3 声优阵容
 
