@@ -116,7 +116,7 @@ export async function getStaticPaths() {
 				: { related: [], random: [] };
 
 		// 文件名只是内部存储名：有 alias 时只发布 alias 这一个地址，
-		// 不再按文件名额外生成一份重复页面（旧的文件名地址由 public/posts/<旧地址>/ 跳转页接住）
+		// 不再按文件名额外生成一份重复页面（旧地址不再保留跳转）
 		const cleanAlias = (entry.data.alias ?? "")
 			.replace(/^\/+|\/+$/g, "")
 			.replace(/^posts\//, "");
