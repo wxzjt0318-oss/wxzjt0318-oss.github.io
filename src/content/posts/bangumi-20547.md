@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-07-16
 published: 2026-07-16
 pinned: false
-alias: "working-20547"
+alias: "working-season-2"
 image: "https://lain.bgm.tv/pic/cover/l/59/2b/20547_Fqawr.jpg"
 ---
 
@@ -148,9 +148,9 @@ image: "https://lain.bgm.tv/pic/cover/l/59/2b/20547_Fqawr.jpg"
 
 # 七、观看顺序
 
-1. **第一季《WORKING!!》**（2010年4月，全13话）——见[《迷糊餐厅》](/posts/working-4255/)；
+1. **第一季《WORKING!!》**（2010年4月，全13话）——见[《迷糊餐厅》](/posts/working/)；
 2. **第二季《WORKING'!!》**（2011年10月，全13话）——本作；
-3. **第三季《WORKING!!!》**（2015年7月，全13话，另有一小时特别篇《LORD OF THE 小鸟游》）——见[《迷糊餐厅 第三季》](/posts/working-110648/)。
+3. **第三季《WORKING!!!》**（2015年7月，全13话，另有一小时特别篇《LORD OF THE 小鸟游》）——见[《迷糊餐厅 第三季》](/posts/working-season-3/)。
 
 另外还有一部以“猫组”为舞台的《WWW.WORKING!!》（2016年10月），与犬组共享世界观，但人物和剧情基本独立，可以作为番外来看。
 

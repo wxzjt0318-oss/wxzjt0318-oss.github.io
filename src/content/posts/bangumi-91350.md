@@ -10,7 +10,7 @@ draft: false
 pubDate: 2026-06-23
 published: 2026-06-23
 pinned: false
-alias: "ova-1"
+alias: "one-of-them-is-my-little-sister-ova"
 image: "https://lain.bgm.tv/pic/cover/l/64/40/91350_2cGsq.jpg"
 ---
 

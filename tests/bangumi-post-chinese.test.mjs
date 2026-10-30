@@ -418,6 +418,61 @@ describe("duplicate guard", () => {
 	});
 });
 
+describe("duplicate guard subtitle translations", () => {
+	it("matches two translations of the same long subtitle", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "hell-mode.md",
+				identities: postIdentities(
+					'---\ntitle: "地狱模式~极致游戏玩家在废设定的异世界无双~"\ntags: []\nsourceLink: ""\n---\n',
+				),
+			},
+		];
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
+					titleJp: "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～",
+				},
+				posts,
+			)?.file,
+			"hell-mode.md",
+		);
+		// 第二季仍是另一部作品
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn:
+						"地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～第二季",
+				},
+				posts,
+			),
+			null,
+		);
+	});
+
+	it("keeps specials with different short subtitles apart", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "a.md",
+				identities: postIdentities(
+					'---\ntitle: "《总之就是非常可爱 ～制服篇～》"\ntags: []\nsourceLink: ""\n---\n',
+				),
+			},
+		];
+		assert.equal(
+			findDuplicatePost({ titleCn: "总之就是非常可爱 ～女子高中生篇～" }, posts),
+			null,
+		);
+	});
+});
+
 describe("duplicate guard sequels", () => {
 	it("does not match a sequel through the shared series page", async () => {
 		const { findDuplicatePost, postIdentities } = await import(
