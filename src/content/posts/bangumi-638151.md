@@ -149,7 +149,7 @@ image: "https://lain.bgm.tv/pic/cover/l/fa/0b/638151_4cZdo.jpg"
 
 ## 5.1 观看顺序
 
-1. TV 第一季（2026年1月）：可以先看站内这篇[《地狱模式》第一季介绍](/posts/hell-mode-gamer-in-isekai/)了解设定
+1. TV 第一季（2026年1月）：可以先看站内这篇[《地狱模式》第一季长文](/posts/hell-mode-gamer-in-isekai/)了解设定
 2. **TV 第二季**（2026年7月，本作）
 3. TV 第三季“S级地下城攻略篇”（已决定制作）
 
