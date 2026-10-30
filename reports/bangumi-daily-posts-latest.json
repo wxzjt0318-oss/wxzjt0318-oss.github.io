@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-30T12:51:02.968Z",
+  "generatedAt": "2026-10-30T18:00:55.821Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 526979,
+    "subject_id": 174043,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2026-01-09",
+    "ep_status": 0,
+    "updated_at": "2017-01-11",
     "subject": {
-      "id": 526979,
-      "name": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
-      "name_cn": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
-      "date": "2026-01-09",
-      "eps": 12,
-      "short_summary": "「诚邀您进入永无止境的游戏？」35岁、单身且没有女友的上班族山田健一，一直寻找着能玩上十年以上的游戏。他最讨厌毫无挑战性的“废游戏”，因此偶然发现了一款没有标题的神秘网络游戏。正打算用最高难度的“地狱模式”开局游玩时，却突然被传送到了异世界，变成了一个农奴少年——亚莲！！亚莲凭借那独特而充满谜团的天赋“召唤士”，在极其艰难的异世界中，开始探索通往最强之路。然而，在这个世界里既没有攻略本，也没有网络讨论区，就连升级都难如登天的异世界生活，实际上比他想象中的更加真实，堪称真正的“地狱模式”！？ 那种软绵绵、毫无难度的异世界生活根本满足不了他！从一开始就是最强的主角早就过时了！？ 前废品玩家踏入超高难度异世界的冒险故事，现已正式开启！！ [简介原文] 「終わらないゲームにあなたを招待します。」 35歳独身彼女なしのサラリーマン・山田健一。 ヌルゲーを嫌い、10年以上やりこめるゲームを探していた彼は、 ある日、地球から姿を消した……。 偶然見つけた名前の無いネットゲームを 最高難易度「ヘルモード」でプレーしようとしていた健一は、 異世界の農奴の少年・アレンに転生してしまう！！ 唯一無二にして謎…",
+      "id": 174043,
+      "name": "为美好的世界献上祝福！ 第二季",
+      "name_cn": "为美好的世界献上祝福！ 第二季",
+      "date": "2017-01-11",
+      "eps": 10,
+      "short_summary": "由于意外事故而在异世界转生，热爱游戏的家里蹲·佐藤和真， 与“在如同RPG游戏一样的异世界，享受憧憬的冒险者生活！目标勇者！” 这样的梦想失之交臂，但也总算是有模有样地开始在异世界生活。 作为转生的特典被他带来同行的女神·阿库娅。每天只能击出一发魔法的大魔法师·惠惠。攻击总是打不中的十字骑士·达克妮丝。与虽然能力很高却残念到无可救药的3名队友一起，总算是习惯了每天做任务的生活。 ——就在这样的某一天。在为了从机动要塞毁灭者的威胁当中拯救阿克塞尔镇的和真一行人面前，来自王都的使者宣言道。“冒险者，佐藤和真。你现在被怀疑犯下颠覆国家罪！”……平凡的冒险者·和真所度过的异世界生活将迎来怎样的明天！？",
       "tags": [
+        {
+          "name": "搞笑"
+        },
         {
           "name": "异世界"
         },
         {
-          "name": "2026年1月"
+          "name": "轻小说改"
         },
         {
-          "name": "奇幻"
+          "name": "2017年1月"
         },
         {
-          "name": "战斗"
+          "name": "为美好的世界献上祝福！"
         },
         {
           "name": "TV"
-        },
-        {
-          "name": "横滨AnimationLABO"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/b9/52/526979_R83u1.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/b9/52/526979_R83u1.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b9/52/526979_R83u1.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/b9/52/526979_R83u1.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
+      "title": "为美好的世界献上祝福！ 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/b9/52/526979_R83u1.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
+      "title": "为美好的世界献上祝福！ 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/b9/52/526979_R83u1.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
+      "title": "为美好的世界献上祝福！ 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-526979.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-174043.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
