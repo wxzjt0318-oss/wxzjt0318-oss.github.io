@@ -1,6 +1,7 @@
 ---
 import PageHeader from "@components/atoms/display/PageHeader.astro";
 import AlbumGallery from "@components/organisms/AlbumGallery.svelte";
+import PhotoWall from "@components/organisms/PhotoWall.svelte";
 import ProtectedAlbum from "@components/organisms/ProtectedAlbum.svelte";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
@@ -8,6 +9,7 @@ import Icon from "@iconify/svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { findAlbum, scanAllAlbums } from "@utils/album-scanner";
 import { encryptProtectedContent } from "@utils/password-protection";
+import { toPhotoWallItem, wallAlbums } from "@utils/photo-wall";
 import { url } from "@utils/url-utils";
 import type { AlbumGroup } from "@/types/album";
 import type { ProtectedPayload } from "@/types/protectedContent";
@@ -28,6 +30,8 @@ const resolvedAlbum = album ?? findAlbum(Astro.params.id ?? "");
 if (!resolvedAlbum) return Astro.redirect(url("/404/"));
 
 const scope = `album:${resolvedAlbum.id}`;
+// 开启了照片墙的相册：相册页直接用照片墙展示（横竖筛选、列数切换、随机一张）
+const isPhotoWall = wallAlbums().some((wall) => wall.id === resolvedAlbum.id);
 let payload: ProtectedPayload | null = null;
 if (resolvedAlbum.password) {
 	payload = await encryptProtectedContent(
@@ -98,6 +102,12 @@ if (resolvedAlbum.password) {
 					layout={resolvedAlbum.layout}
 					columns={resolvedAlbum.columns}
 					client:only="svelte"
+				/>
+			) : isPhotoWall ? (
+				<PhotoWall
+					photos={resolvedAlbum.photos.map(toPhotoWallItem)}
+					randomHref={url(`/wall/${resolvedAlbum.id}/random/`)}
+					client:load
 				/>
 			) : (
 				<AlbumGallery
