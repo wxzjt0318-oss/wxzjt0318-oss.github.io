@@ -345,13 +345,19 @@ export function englishAlias({ detail, encyclopedia, titleCn }) {
 		encyclopedia?.englishTitle ||
 		infoboxAliases(detail).find((v) => /^[A-Za-z0-9][A-Za-z0-9 :;'’!?.,&\-–]+$/.test(v) && /\s/.test(v)) ||
 		"";
-	const base = slugifyEnglish(english);
+	let base = slugifyEnglish(english);
 	if (base.length < 3) return "";
 	const suffix = seasonKey(titleCn || "", [detail?.platform].filter(Boolean))
 		.split("+")
 		.map((k) => SEASON_SUFFIX[k])
 		.filter((k) => k && !base.includes(k))
 		.join("-");
+	// 英文 / 罗马字名本身已带季数（「…-o-2」「…-ii」）时，去掉它，避免「-2-season-2」这样重复
+	const season = suffix.match(/season-(\d+)/)?.[1];
+	if (season) {
+		const roman = { 2: "ii", 3: "iii", 4: "iv", 5: "v" }[season];
+		base = base.replace(new RegExp(`-(?:${season}${roman ? `|${roman}` : ""})$`), "");
+	}
 	return suffix ? `${base}-${suffix}` : base;
 }
 

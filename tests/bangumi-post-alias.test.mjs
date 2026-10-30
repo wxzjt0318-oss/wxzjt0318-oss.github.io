@@ -20,6 +20,25 @@ describe("englishAlias", () => {
 			"frieren-beyond-journeys-end",
 		);
 	});
+
+	it("does not repeat a season number the English title already carries", () => {
+		assert.equal(
+			englishAlias({
+				detail: {},
+				encyclopedia: { englishTitle: "Kono Subarashii Sekai ni Shukufuku o 2" },
+				titleCn: "为美好的世界献上祝福！ 第二季",
+			}),
+			"kono-subarashii-sekai-ni-shukufuku-o-season-2",
+		);
+		assert.equal(
+			englishAlias({
+				detail: {},
+				encyclopedia: { englishTitle: "Overlord II" },
+				titleCn: "OVERLORD 第二季",
+			}),
+			"overlord-season-2",
+		);
+	});
 });
 
 describe("uniqueEnglishAlias", () => {
