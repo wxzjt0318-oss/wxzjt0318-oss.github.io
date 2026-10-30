@@ -181,11 +181,6 @@ const defaultNavBarConfig: NavBarConfig = {
 				LinkPresets.Moments,
 				LinkPresets.Albums,
 				LinkPresets.Friends,
-				{
-					name: "Celia",
-					url: "/wall/celia/",
-					icon: "material-symbols:grid-view-rounded",
-				},
 			],
 		},
 		{

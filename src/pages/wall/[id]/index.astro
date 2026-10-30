@@ -1,44 +1,13 @@
 ---
-import PageHeader from "@components/atoms/display/PageHeader.astro";
-import PhotoWall from "@components/organisms/PhotoWall.svelte";
-import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { toPhotoWallItem, wallAlbums } from "@utils/photo-wall";
+/**
+ * 旧的独立照片墙页：照片墙已并入相册详情页，这里只跳转过去，保留以前分享出去的链接。
+ */
+import { wallAlbums } from "@utils/photo-wall";
 import { url } from "@utils/url-utils";
-import type { AlbumGroup } from "@/types/album";
 
 export function getStaticPaths() {
-	return wallAlbums().map((album) => ({
-		params: { id: album.id },
-		props: { album },
-	}));
+	return wallAlbums().map((album) => ({ params: { id: album.id } }));
 }
 
-const { album } = Astro.props as { album: AlbumGroup };
-const photos = album.photos.map(toPhotoWallItem);
+return Astro.redirect(url(`/albums/${Astro.params.id}/`), 301);
 ---
-
-<MainGridLayout
-	title={album.title}
-	description={album.description || album.title}
-	page="albums"
->
-	<section class="wall-page">
-		<PageHeader
-			title={album.title}
-			subtitle={album.description}
-			icon="material-symbols:photo-library-outline-rounded"
-		/>
-		<PhotoWall
-			photos={photos}
-			randomHref={url(`/wall/${album.id}/random/`)}
-			client:load
-		/>
-	</section>
-</MainGridLayout>
-
-<style lang="stylus">
-	.wall-page
-		display: flex
-		flex-direction: column
-		gap: var(--m3e-space-4, 1rem)
-</style>
