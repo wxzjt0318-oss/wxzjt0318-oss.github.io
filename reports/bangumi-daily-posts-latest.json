@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-10-30T18:00:55.821Z",
+  "generatedAt": "2026-10-31T12:40:13.499Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 174043,
+    "subject_id": 271151,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2017-01-11",
+    "updated_at": "2019-07-07",
     "subject": {
-      "id": 174043,
-      "name": "为美好的世界献上祝福！ 第二季",
-      "name_cn": "为美好的世界献上祝福！ 第二季",
-      "date": "2017-01-11",
-      "eps": 10,
-      "short_summary": "由于意外事故而在异世界转生，热爱游戏的家里蹲·佐藤和真， 与“在如同RPG游戏一样的异世界，享受憧憬的冒险者生活！目标勇者！” 这样的梦想失之交臂，但也总算是有模有样地开始在异世界生活。 作为转生的特典被他带来同行的女神·阿库娅。每天只能击出一发魔法的大魔法师·惠惠。攻击总是打不中的十字骑士·达克妮丝。与虽然能力很高却残念到无可救药的3名队友一起，总算是习惯了每天做任务的生活。 ——就在这样的某一天。在为了从机动要塞毁灭者的威胁当中拯救阿克塞尔镇的和真一行人面前，来自王都的使者宣言道。“冒险者，佐藤和真。你现在被怀疑犯下颠覆国家罪！”……平凡的冒险者·和真所度过的异世界生活将迎来怎样的明天！？",
+      "id": 271151,
+      "name": "擅长捉弄的高木同学 第二季",
+      "name_cn": "擅长捉弄的高木同学 第二季",
+      "date": "2019-07-07",
+      "eps": 12,
+      "short_summary": "某所初中学校，男生西片总是被邻座的女生高木同学捉弄。他为了对此反击而用尽计策，却总是被高木同学看透。 季节轮回，西片升入2年级，这一次他是否能够顺利反击高木同学呢……？",
       "tags": [
         {
-          "name": "搞笑"
+          "name": "恋爱"
         },
         {
-          "name": "异世界"
+          "name": "校园"
         },
         {
-          "name": "轻小说改"
+          "name": "狗粮"
         },
         {
-          "name": "2017年1月"
+          "name": "日常"
         },
         {
-          "name": "为美好的世界献上祝福！"
+          "name": "2019年7月"
         },
         {
-          "name": "TV"
+          "name": "漫画改"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/f5/c8/271151_UB2n6.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/f5/c8/271151_UB2n6.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/f5/c8/271151_UB2n6.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/f5/c8/271151_UB2n6.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "为美好的世界献上祝福！ 第二季",
+      "title": "擅长捉弄的高木同学 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/f5/c8/271151_UB2n6.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "为美好的世界献上祝福！ 第二季",
+      "title": "擅长捉弄的高木同学 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/53/e6/174043_Mt8Xb.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/f5/c8/271151_UB2n6.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "为美好的世界献上祝福！ 第二季",
+      "title": "擅长捉弄的高木同学 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-174043.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-271151.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
