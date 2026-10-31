@@ -73,7 +73,7 @@ OVA 发售于夏天，也带着浓浓的夏日气息。动画版以原作者的�
 
 1. TV 动画第一季（2018年1月，详见[《擅长捉弄的高木同学》](/posts/teasing-master-takagi-san/)）
 2. **OVA**（2018年7月）——本篇
-3. TV 动画第二季（2019年7月）
+3. TV 动画第二季（2019年7月，详见[《擅长捉弄的高木同学 第二季》](/posts/teasing-master-takagi-san-season-2/)）
 4. TV 动画第三季（2022年1月，详见[《擅长捉弄的高木同学 第三季》](/posts/teasing-master-takagi-san-season-3/)）
 5. 剧场版（2022年6月，详见[《擅长捉弄的高木同学 剧场版》](/posts/teasing-master-takagi-san-movie/)）
 
