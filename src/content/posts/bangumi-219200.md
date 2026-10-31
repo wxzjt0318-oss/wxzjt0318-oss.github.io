@@ -221,7 +221,7 @@ image: "https://lain.bgm.tv/pic/cover/l/09/16/219200_wFT9i.jpg"
 
 1. **第一季**（2018年1月，全12话）——本篇
 2. **OVA**（2018年7月，随单行本第9卷特装版附赠，详见[《擅长捉弄的高木同学 OVA》](/posts/teasing-master-takagi-san-ova/)）
-3. **第二季**（2019年7月，全12话）
+3. **第二季**（2019年7月，全12话，详见[《擅长捉弄的高木同学 第二季》](/posts/teasing-master-takagi-san-season-2/)）
 4. **第三季**（2022年1月，全12话，详见[《擅长捉弄的高木同学 第三季》](/posts/teasing-master-takagi-san-season-3/)）
 5. **剧场版**（2022年6月，系列动画的最终章，详见[《擅长捉弄的高木同学 剧场版》](/posts/teasing-master-takagi-san-movie/)）
 

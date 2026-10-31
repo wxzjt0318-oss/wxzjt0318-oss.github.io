@@ -106,7 +106,7 @@ TV 动画里，西片为了激励自己，规定"被捉弄几次就做几倍的�
 
 1. TV 动画第一季（详见[《擅长捉弄的高木同学》](/posts/teasing-master-takagi-san/)）
 2. OVA（详见[《擅长捉弄的高木同学 OVA》](/posts/teasing-master-takagi-san-ova/)）
-3. TV 动画第二季
+3. TV 动画第二季（详见[《擅长捉弄的高木同学 第二季》](/posts/teasing-master-takagi-san-season-2/)）
 4. TV 动画第三季（详见[《擅长捉弄的高木同学 第三季》](/posts/teasing-master-takagi-san-season-3/)）
 5. **剧场版**——本篇
 
