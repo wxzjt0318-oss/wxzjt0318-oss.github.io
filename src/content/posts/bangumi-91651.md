@@ -81,7 +81,7 @@ Lite 的传统要从第一季说起。2012年9月27日起，在第一季 TV 动�
 
 ## 3.1 系列观看顺序
 
-1. 短篇《中二病也要谈恋爱！Lite》（2012年9月）
+1. 短篇《[中二病也要谈恋爱！Lite](/posts/chuunibyou-demo-koi-ga-shitai-lite/)》（2012年9月）
 2. TV 动画第一季《[中二病也要谈恋爱！](/posts/love-chunibyo-and-other-delusions/)》（2012年10月）
 3. 剧场版《[小鸟游六花·改](/posts/chunibyo-rikka-version-movie/)》（2013年9月）
 4. **短篇《中二病也要谈恋爱！恋 Lite》**（2013年12月）——本篇

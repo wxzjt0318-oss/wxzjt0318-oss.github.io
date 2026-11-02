@@ -265,7 +265,7 @@ image: "https://lain.bgm.tv/pic/cover/l/3d/fd/29648_LOcOx.jpg"
 
 ## 7.1 观看顺序
 
-1. 短篇《中二病也要谈恋爱！Lite》（2012年9月起网络配信，6话）
+1. 短篇《[中二病也要谈恋爱！Lite](/posts/chuunibyou-demo-koi-ga-shitai-lite/)》（2012年9月起网络配信，6话）
 2. **TV 动画第一季《中二病也要谈恋爱！》**（2012年10月）——本篇
 3. 剧场版《[小鸟游六花·改 ～剧场版 中二病也要谈恋爱！～](/posts/chunibyo-rikka-version-movie/)》（2013年9月，第一季总集篇 + 新剧情）
 4. 短篇《[中二病也要谈恋爱！恋 Lite](/posts/love-chunibyo-heart-throb-lite/)》（2013年12月）
