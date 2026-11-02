@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-01T12:49:24.551Z",
+  "generatedAt": "2026-11-02T13:01:02.969Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 93545,
+    "subject_id": 50331,
     "type": 2,
-    "ep_status": 14,
-    "updated_at": "2014-10-06",
+    "ep_status": 0,
+    "updated_at": "2012-09-27",
     "subject": {
-      "id": 93545,
-      "name": "甘城光辉游乐园",
-      "name_cn": "甘城光辉游乐园",
-      "date": "2014-10-06",
-      "eps": 14,
-      "short_summary": "被谜之转校生——千斗五十铃强迫而接受游乐园约会的可儿江西也，不知何故被拉到的地方，却是一个充满了破旧游乐设施的日本第一的遗憾游乐园——甘城辉煌游乐园。这座游乐园建立于泡沫经济全盛期，近年假日来客人数不超过3000人，同时也是臭名远播的最糟约会地点代名词，现在最大的问题是，三个月内来客人数如不满25万人就得关闭。被引荐给了游乐园的管理者，“真正的”公主——拉媞珐的西也，不知为何突然被托付了重建这个陷入闭园危机的游乐园的重任。原来，这里不是游乐园？！",
+      "id": 50331,
+      "name": "中二病也要谈恋爱！Lite",
+      "name_cn": "中二病也要谈恋爱！Lite",
+      "date": "2012-09-27",
+      "eps": 6,
+      "short_summary": "",
       "tags": [
         {
           "name": "京阿尼"
         },
         {
-          "name": "轻小说改"
+          "name": "中二病也要谈恋爱"
         },
         {
-          "name": "搞笑"
+          "name": "泡面番"
         },
         {
-          "name": "2014年10月"
+          "name": "校园"
         },
         {
-          "name": "TV"
+          "name": "2012年10月"
         },
         {
-          "name": "武本康弘"
+          "name": "恋爱"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/69/e5/93545_zYRKK.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/69/e5/93545_zYRKK.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/69/e5/93545_zYRKK.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/69/e5/93545_zYRKK.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/8f/2c/50331_KWKjN.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "甘城光辉游乐园",
+      "title": "中二病也要谈恋爱！Lite",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/69/e5/93545_zYRKK.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "甘城光辉游乐园",
+      "title": "中二病也要谈恋爱！Lite",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/69/e5/93545_zYRKK.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/8f/2c/50331_KWKjN.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "甘城光辉游乐园",
+      "title": "中二病也要谈恋爱！Lite",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-93545.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-50331.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
