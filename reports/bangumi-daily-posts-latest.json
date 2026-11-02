@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-02T13:01:02.969Z",
+  "generatedAt": "2026-11-02T16:04:42.297Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 50331,
+    "subject_id": 505303,
     "type": 2,
     "ep_status": 0,
-    "updated_at": "2012-09-27",
+    "updated_at": "2025-07-08",
     "subject": {
-      "id": 50331,
-      "name": "中二病也要谈恋爱！Lite",
-      "name_cn": "中二病也要谈恋爱！Lite",
-      "date": "2012-09-27",
-      "eps": 6,
-      "short_summary": "",
+      "id": 505303,
+      "name": "杜鹃的婚约 第二季",
+      "name_cn": "杜鹃的婚约 第二季",
+      "date": "2025-07-08",
+      "eps": 12,
+      "short_summary": "海野凪と天野エリカ。同じ日に生まれた二人は、赤ちゃんの頃に取り違えられた子ども同士。定食屋の息子とホテル王の娘として育った二人は、育てと生みの両親たちのススメで、許嫁関係となることに。ひとつ屋根の下で同居を始めた二人の生活は、クラスメイトの瀬川ひろや兄を追って来た海野幸たちも巻き込んでいく。許嫁、想い人、血の繋がらない妹。凪を巡るちぐはぐな“四角関係”へ、今度は初恋の幼なじみがやって来る！？人生とラブが大交錯！「取り違え子」から始まる“五角関係”ラブコメディー！この夏に、運命はさらに大きく動き出す！",
       "tags": [
         {
-          "name": "京阿尼"
+          "name": "2025年7月"
         },
         {
-          "name": "中二病也要谈恋爱"
-        },
-        {
-          "name": "泡面番"
+          "name": "恋爱"
         },
         {
           "name": "校园"
         },
         {
-          "name": "2012年10月"
+          "name": "漫画改"
         },
         {
-          "name": "恋爱"
+          "name": "后宫"
+        },
+        {
+          "name": "党争"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/46/bc/505303_Za1G6.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/46/bc/505303_Za1G6.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/46/bc/505303_Za1G6.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/8f/2c/50331_KWKjN.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/46/bc/505303_Za1G6.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "中二病也要谈恋爱！Lite",
+      "title": "杜鹃的婚约 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/8f/2c/50331_KWKjN.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/46/bc/505303_Za1G6.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "中二病也要谈恋爱！Lite",
+      "title": "杜鹃的婚约 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/8f/2c/50331_KWKjN.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/46/bc/505303_Za1G6.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "中二病也要谈恋爱！Lite",
+      "title": "杜鹃的婚约 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-50331.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-505303.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
