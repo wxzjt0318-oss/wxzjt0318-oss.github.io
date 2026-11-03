@@ -223,7 +223,7 @@ image: "https://lain.bgm.tv/pic/cover/l/ff/e5/327606_Q11Sq.jpg"
 ## 7.1 观看顺序
 
 1. TV 动画第1期（2022年，全24话）
-2. TV 动画第2期（2025年7月起）
+2. TV 动画第2期（2025年7月起，全12话，详见[《杜鹃的婚约 第二季》](/posts/kakkou-no-iinazuke-season-2/)）
 
 想知道更多后续，可以去追原作漫画。
 
