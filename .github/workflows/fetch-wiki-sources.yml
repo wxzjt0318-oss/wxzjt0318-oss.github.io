@@ -34,7 +34,7 @@ jobs:
       - if: steps.req.outputs.exists == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 26.13.0
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
       - if: steps.req.outputs.exists == 'true'
