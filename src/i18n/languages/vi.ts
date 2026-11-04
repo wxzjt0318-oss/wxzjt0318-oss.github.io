@@ -386,4 +386,13 @@ export const vi: Translation = {
 	[Key.photoWallRandomLink]: "Liên kết ảnh ngẫu nhiên",
 	[Key.photoWallRedirecting]: "Đang chọn ảnh ngẫu nhiên…",
 	[Key.photoWallCount]: "{count} ảnh",
+	[Key.menu]: "Menu",
+	[Key.mainNavigation]: "Điều hướng chính",
+	[Key.navigationDrawer]: "Ngăn điều hướng",
+	[Key.breadcrumb]: "Đường dẫn điều hướng",
+	[Key.displaySettings]: "Cài đặt hiển thị",
+	[Key.searchPanel]: "Bảng tìm kiếm",
+	[Key.lightDarkMode]: "Chế độ sáng/tối",
+	[Key.resetToDefault]: "Đặt lại mặc định",
+	[Key.goToAboutPage]: "Đi đến trang giới thiệu",
 };

@@ -390,4 +390,13 @@ export const id: Translation = {
 	[Key.photoWallRandomLink]: "Tautan gambar acak",
 	[Key.photoWallRedirecting]: "Memilih gambar acak…",
 	[Key.photoWallCount]: "{count} foto",
+	[Key.menu]: "Menu",
+	[Key.mainNavigation]: "Navigasi utama",
+	[Key.navigationDrawer]: "Laci navigasi",
+	[Key.breadcrumb]: "Remah navigasi",
+	[Key.displaySettings]: "Pengaturan tampilan",
+	[Key.searchPanel]: "Panel pencarian",
+	[Key.lightDarkMode]: "Mode terang/gelap",
+	[Key.resetToDefault]: "Atur ulang ke bawaan",
+	[Key.goToAboutPage]: "Buka halaman Tentang",
 };

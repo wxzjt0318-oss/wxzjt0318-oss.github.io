@@ -388,4 +388,13 @@ export const tr: Translation = {
 	[Key.photoWallRandomLink]: "Rastgele görsel bağlantısı",
 	[Key.photoWallRedirecting]: "Rastgele bir görsel seçiliyor…",
 	[Key.photoWallCount]: "{count} fotoğraf",
+	[Key.menu]: "Menü",
+	[Key.mainNavigation]: "Ana gezinme",
+	[Key.navigationDrawer]: "Gezinme çekmecesi",
+	[Key.breadcrumb]: "Gezinme yolu",
+	[Key.displaySettings]: "Görünüm ayarları",
+	[Key.searchPanel]: "Arama paneli",
+	[Key.lightDarkMode]: "Açık/koyu mod",
+	[Key.resetToDefault]: "Varsayılana sıfırla",
+	[Key.goToAboutPage]: "Hakkında sayfasına git",
 };

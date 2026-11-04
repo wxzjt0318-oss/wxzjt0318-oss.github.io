@@ -371,4 +371,13 @@ export const th: Translation = {
 	[Key.photoWallRandomLink]: "ลิงก์รูปภาพสุ่ม",
 	[Key.photoWallRedirecting]: "กำลังสุ่มเลือกรูปภาพ…",
 	[Key.photoWallCount]: "{count} รูป",
+	[Key.menu]: "เมนู",
+	[Key.mainNavigation]: "การนำทางหลัก",
+	[Key.navigationDrawer]: "แผงนำทาง",
+	[Key.breadcrumb]: "เส้นทางนำทาง",
+	[Key.displaySettings]: "การตั้งค่าการแสดงผล",
+	[Key.searchPanel]: "แผงค้นหา",
+	[Key.lightDarkMode]: "โหมดสว่าง/มืด",
+	[Key.resetToDefault]: "รีเซ็ตเป็นค่าเริ่มต้น",
+	[Key.goToAboutPage]: "ไปยังหน้าเกี่ยวกับ",
 };

@@ -189,4 +189,13 @@ Mermaid is a powerful tool for creating various types of diagrams in Markdown do
 
 To use Mermaid, simply specify the mermaid language in a code block and describe the diagram using concise text syntax. Mermaid will automatically convert these descriptions into beautiful visual diagrams.
 
-Try using Mermaid diagrams in your next technical blog post or project documentation - they will make your content more professional and easier to understand!
+## Line Breaks in Labels
+
+HTML labels accept a line break, so a label can wrap without widening the diagram.
+
+```mermaid
+flowchart LR
+  A[First line<br>Second line] --> B[Plain label]
+```
+
+Each example uses a standard `mermaid` code fence. The server preserves readable source markup, and the browser enhances it into an SVG that follows the active theme. Diagrams render again when the theme changes or when Swup navigates to this article.

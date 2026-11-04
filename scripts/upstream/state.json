@@ -1,7 +1,7 @@
 {
 	"repo": "https://github.com/LyraVoid/Shirone.git",
 	"branch": "main",
-	"lastSynced": "6e14799d1b45ccaa0a54277797b59d76d68f080d",
+	"lastSynced": "5c6a4195c6f8e8346194b1eef28da126c8cdff18",
 	"pathMap": {
 		".github/workflows/ci.yml": ".github/workflows/CI.yml"
 	},

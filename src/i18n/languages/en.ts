@@ -385,4 +385,13 @@ export const en: Translation = {
 	[Key.photoWallRandomLink]: "Random image link",
 	[Key.photoWallRedirecting]: "Picking a random image…",
 	[Key.photoWallCount]: "{count} photos",
+	[Key.menu]: "Menu",
+	[Key.mainNavigation]: "Main navigation",
+	[Key.navigationDrawer]: "Navigation drawer",
+	[Key.breadcrumb]: "Breadcrumb",
+	[Key.displaySettings]: "Display Settings",
+	[Key.searchPanel]: "Search Panel",
+	[Key.lightDarkMode]: "Light/Dark Mode",
+	[Key.resetToDefault]: "Reset to Default",
+	[Key.goToAboutPage]: "Go to About Page",
 };
