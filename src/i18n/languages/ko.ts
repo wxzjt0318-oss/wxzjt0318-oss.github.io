@@ -383,4 +383,13 @@ export const ko: Translation = {
 	[Key.photoWallRandomLink]: "무작위 이미지 링크",
 	[Key.photoWallRedirecting]: "무작위 이미지를 고르는 중…",
 	[Key.photoWallCount]: "총 {count}장",
+	[Key.menu]: "메뉴",
+	[Key.mainNavigation]: "기본 탐색",
+	[Key.navigationDrawer]: "탐색 서랍",
+	[Key.breadcrumb]: "이동 경로",
+	[Key.displaySettings]: "화면 설정",
+	[Key.searchPanel]: "검색 패널",
+	[Key.lightDarkMode]: "라이트/다크 모드",
+	[Key.resetToDefault]: "기본값으로 재설정",
+	[Key.goToAboutPage]: "소개 페이지로 이동",
 };

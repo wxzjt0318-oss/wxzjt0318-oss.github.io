@@ -372,4 +372,13 @@ export const zh_CN: Translation = {
 	[Key.photoWallRandomLink]: "随机图入口",
 	[Key.photoWallRedirecting]: "正在随机挑选图片…",
 	[Key.photoWallCount]: "共 {count} 张",
+	[Key.menu]: "菜单",
+	[Key.mainNavigation]: "主导航",
+	[Key.navigationDrawer]: "导航抽屉",
+	[Key.breadcrumb]: "面包屑导航",
+	[Key.displaySettings]: "显示设置",
+	[Key.searchPanel]: "搜索面板",
+	[Key.lightDarkMode]: "浅色/深色模式",
+	[Key.resetToDefault]: "恢复默认",
+	[Key.goToAboutPage]: "前往关于页",
 };

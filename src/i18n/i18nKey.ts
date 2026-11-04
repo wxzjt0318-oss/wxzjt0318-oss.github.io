@@ -374,6 +374,15 @@ enum I18nKey {
 	photoWallRandomLink = "photoWallRandomLink",
 	photoWallRedirecting = "photoWallRedirecting",
 	photoWallCount = "photoWallCount",
+	menu = "menu",
+	mainNavigation = "mainNavigation",
+	navigationDrawer = "navigationDrawer",
+	breadcrumb = "breadcrumb",
+	displaySettings = "displaySettings",
+	searchPanel = "searchPanel",
+	lightDarkMode = "lightDarkMode",
+	resetToDefault = "resetToDefault",
+	goToAboutPage = "goToAboutPage",
 }
 
 export default I18nKey;

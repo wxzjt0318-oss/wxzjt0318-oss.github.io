@@ -387,4 +387,13 @@ export const es: Translation = {
 	[Key.photoWallRandomLink]: "Enlace de imagen aleatoria",
 	[Key.photoWallRedirecting]: "Eligiendo una imagen al azar…",
 	[Key.photoWallCount]: "{count} fotos",
+	[Key.menu]: "Menú",
+	[Key.mainNavigation]: "Navegación principal",
+	[Key.navigationDrawer]: "Panel de navegación",
+	[Key.breadcrumb]: "Ruta de navegación",
+	[Key.displaySettings]: "Ajustes de pantalla",
+	[Key.searchPanel]: "Panel de búsqueda",
+	[Key.lightDarkMode]: "Modo claro/oscuro",
+	[Key.resetToDefault]: "Restablecer valores predeterminados",
+	[Key.goToAboutPage]: "Ir a la página Acerca de",
 };

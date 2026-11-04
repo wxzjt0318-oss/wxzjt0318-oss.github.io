@@ -372,4 +372,13 @@ export const zh_TW: Translation = {
 	[Key.photoWallRandomLink]: "隨機圖入口",
 	[Key.photoWallRedirecting]: "正在隨機挑選圖片…",
 	[Key.photoWallCount]: "共 {count} 張",
+	[Key.menu]: "選單",
+	[Key.mainNavigation]: "主導覽",
+	[Key.navigationDrawer]: "導覽抽屜",
+	[Key.breadcrumb]: "麵包屑導覽",
+	[Key.displaySettings]: "顯示設定",
+	[Key.searchPanel]: "搜尋面板",
+	[Key.lightDarkMode]: "淺色/深色模式",
+	[Key.resetToDefault]: "恢復預設",
+	[Key.goToAboutPage]: "前往關於頁",
 };

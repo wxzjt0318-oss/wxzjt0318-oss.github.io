@@ -384,4 +384,13 @@ export const ja: Translation = {
 	[Key.photoWallRandomLink]: "ランダム画像リンク",
 	[Key.photoWallRedirecting]: "ランダムに画像を選んでいます…",
 	[Key.photoWallCount]: "全 {count} 枚",
+	[Key.menu]: "メニュー",
+	[Key.mainNavigation]: "メインナビゲーション",
+	[Key.navigationDrawer]: "ナビゲーションドロワー",
+	[Key.breadcrumb]: "パンくずリスト",
+	[Key.displaySettings]: "表示設定",
+	[Key.searchPanel]: "検索パネル",
+	[Key.lightDarkMode]: "ライト/ダークモード",
+	[Key.resetToDefault]: "既定に戻す",
+	[Key.goToAboutPage]: "About ページへ",
 };
