@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-04T12:50:08.545Z",
+  "generatedAt": "2026-11-05T12:51:12.324Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 506407,
+    "subject_id": 355803,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2025-04-02",
+    "ep_status": 12,
+    "updated_at": "2024-10-07",
     "subject": {
-      "id": 506407,
-      "name": "拜托请穿上，鹰峰同学",
-      "name_cn": "拜托请穿上，鹰峰同学",
-      "date": "2025-04-02",
+      "id": 355803,
+      "name": "精灵幻想记 第二季",
+      "name_cn": "精灵幻想记 第二季",
+      "date": "2024-10-07",
       "eps": 12,
-      "short_summary": "「私にパンツを履かせなさい」 生徒会長の鷹峰さんはスクールカーストのトップオブトップ、神！ 対して、友達も存在感も皆無の白田くんは、 ある日鷹峰さんの生おっぱいを見てしまったことで スクールライフが変わり始める…。 なんと鷹峰さんは \"未だ穢れ知らぬ乙女（エターナル・バージンロード）\" という能力でパンツを脱いで時をかける乙女だった。 ノーパンではいられない鷹峰さんのクローゼットとして 白田くんは鷹峰さんにモモ色おねだりをされ続けるハメに…。 そんなとき思わず言っちゃう、 「履いてください、鷹峰さん」!",
+      "short_summary": "前世与今生交错──异世界转生奇幻故事的新篇章开幕！！ 少年利欧小时候母亲遭人杀害，使他成了贫民区的孤儿。他在七岁的某一天，脑中觉醒了意外死去的日本大学生「天川春人」的记忆，并同时觉醒了「庞大的魔力」。在那之后，经历了种种相遇与离别的利欧，暗自发誓要在双亲的故乡向杀母仇人复仇。 在历经数年的旅程之后，利欧回到了修托莱地区，并救出了被迫进行政治联姻的恩师瑟莉亚。然而随后，像是被突然出现的光柱引导似地，他竟然与前世天川春人的初恋少女绫濑美春冲击性地重逢──。 [简介原文] 前世と現世が交錯する――異世界転生ファンタジー新章開幕!! 幼い頃に母を殺され、スラム街の孤児となった少年リオ。七歳のある日、彼の中で不慮の事故で死んだ日本の大学生《天川春人の記憶》が甦り、同時に《膨大な魔力》が覚醒した。それから様々な出会いと別れを経験したリオは、両親の故郷で母を殺した宿敵への復讐を胸に誓う。 数年の旅を経てシュトラール地方へと舞い戻ったリオは、望まぬ政略結婚を強いられていた恩師セリアを救出。だが、その直後、突如として出現した光の柱に導かれるようにして、彼は己が前世である天川春人の初恋の少女・綾瀬美春と衝…",
       "tags": [
         {
-          "name": "卖肉"
+          "name": "异世界"
         },
         {
-          "name": "2025年4月"
+          "name": "后宫"
         },
         {
-          "name": "校园"
+          "name": "2024年10月"
         },
         {
-          "name": "漫画改"
-        },
-        {
-          "name": "恋爱"
+          "name": "轻小说改"
         },
         {
           "name": "TV"
+        },
+        {
+          "name": "战斗"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/05/c1/506407_8l3G3.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/05/c1/506407_8l3G3.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/05/c1/506407_8l3G3.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/05/c1/506407_8l3G3.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/10/f0/355803_Xqf00.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "拜托请穿上，鹰峰同学",
+      "title": "精灵幻想记 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/05/c1/506407_8l3G3.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "拜托请穿上，鹰峰同学",
+      "title": "精灵幻想记 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/05/c1/506407_8l3G3.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/10/f0/355803_Xqf00.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "拜托请穿上，鹰峰同学",
+      "title": "精灵幻想记 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-506407.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-355803.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
