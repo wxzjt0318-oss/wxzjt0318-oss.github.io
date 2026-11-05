@@ -101,7 +101,7 @@
 		"mermaid": "^12.2.0",
 		"oddmisc": "^1.2.11",
 		"overlayscrollbars": "^2.17.0",
-		"pagefind": "^1.5.2",
+		"pagefind": "^1.6.0",
 		"pixi-live2d-display": "0.4.0",
 		"pixi.js": "6.5.10",
 		"qrcode": "^1.5.4",
@@ -131,7 +131,7 @@
 	"devDependencies": {
 		"@astrojs/ts-plugin": "^1.10.12",
 		"@axe-core/playwright": "^4.14.0",
-		"@biomejs/biome": "2.5.15",
+		"@biomejs/biome": "2.6.4",
 		"@lhci/cli": "0.15.1",
 		"@playwright/test": "^1.64.1",
 		"@rollup/plugin-yaml": "^5.0.1",
