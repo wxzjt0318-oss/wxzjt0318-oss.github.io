@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-05T12:51:12.324Z",
+  "generatedAt": "2026-11-06T12:50:09.655Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 355803,
+    "subject_id": 425910,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2024-10-07",
+    "updated_at": "2024-01-09",
     "subject": {
-      "id": 355803,
-      "name": "精灵幻想记 第二季",
-      "name_cn": "精灵幻想记 第二季",
-      "date": "2024-10-07",
+      "id": 425910,
+      "name": "反派大小姐等级99～我是隐藏BOSS但不是魔王～",
+      "name_cn": "反派大小姐等级99～我是隐藏BOSS但不是魔王～",
+      "date": "2024-01-09",
       "eps": 12,
-      "short_summary": "前世与今生交错──异世界转生奇幻故事的新篇章开幕！！ 少年利欧小时候母亲遭人杀害，使他成了贫民区的孤儿。他在七岁的某一天，脑中觉醒了意外死去的日本大学生「天川春人」的记忆，并同时觉醒了「庞大的魔力」。在那之后，经历了种种相遇与离别的利欧，暗自发誓要在双亲的故乡向杀母仇人复仇。 在历经数年的旅程之后，利欧回到了修托莱地区，并救出了被迫进行政治联姻的恩师瑟莉亚。然而随后，像是被突然出现的光柱引导似地，他竟然与前世天川春人的初恋少女绫濑美春冲击性地重逢──。 [简介原文] 前世と現世が交錯する――異世界転生ファンタジー新章開幕!! 幼い頃に母を殺され、スラム街の孤児となった少年リオ。七歳のある日、彼の中で不慮の事故で死んだ日本の大学生《天川春人の記憶》が甦り、同時に《膨大な魔力》が覚醒した。それから様々な出会いと別れを経験したリオは、両親の故郷で母を殺した宿敵への復讐を胸に誓う。 数年の旅を経てシュトラール地方へと舞い戻ったリオは、望まぬ政略結婚を強いられていた恩師セリアを救出。だが、その直後、突如として出現した光の柱に導かれるようにして、彼は己が前世である天川春人の初恋の少女・綾瀬美春と衝…",
+      "short_summary": "我转生成了RPG类型女性向游戏中的反派千金「尤蜜拉」。虽然尤蜜拉在故事主篇中不怎么样，不过却是在破关后会以隐藏头目身份再度登场，成为不逊于女主角（勇者）队伍最终能力的劲敌——也就是拥有非常强的能力！ 不小心燃起身为游戏玩家的斗志，努力锻炼之后，导致我的等级在进入学园就读时就已经达到了99级。本来还希望能够不跟游戏主线扯上关系，尽量避免引人注目，过着平稳的生活，没想到等级在刚入学时就曝了光，遭到女主角、攻略对象等人怀疑我是魔王……！？",
       "tags": [
         {
           "name": "异世界"
         },
         {
-          "name": "后宫"
+          "name": "凤傲天"
         },
         {
-          "name": "2024年10月"
+          "name": "2024年1月"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "TV"
+          "name": "恶役大小姐"
         },
         {
-          "name": "战斗"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/f0/16/425910_lB235.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/f0/16/425910_lB235.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/f0/16/425910_lB235.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/10/f0/355803_Xqf00.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/f0/16/425910_lB235.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "精灵幻想记 第二季",
+      "title": "反派大小姐等级99～我是隐藏BOSS但不是魔王～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/10/f0/355803_Xqf00.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/f0/16/425910_lB235.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "精灵幻想记 第二季",
+      "title": "反派大小姐等级99～我是隐藏BOSS但不是魔王～",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/10/f0/355803_Xqf00.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/f0/16/425910_lB235.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "精灵幻想记 第二季",
+      "title": "反派大小姐等级99～我是隐藏BOSS但不是魔王～",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-355803.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-425910.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
