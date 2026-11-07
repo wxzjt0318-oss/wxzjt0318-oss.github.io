@@ -168,7 +168,7 @@ image: "https://lain.bgm.tv/pic/cover/l/2e/d7/510728_P22GO.jpg"
 1. TV 第一季（2016）
 2. OVA [《Memory Snow》](/posts/re-zero-memory-snow/)（2018）与 OVA《冰结之绊》（2019）
 3. TV 第二季前半（2020）与[后半](/posts/re-2nd-season/)（2021）
-4. 第三季袭击篇（2024）
+4. 第三季[袭击篇](/posts/re-zero-season-3-attack/)（2024）
 5. **第三季反击篇（2025，本作）**
 6. [第四季丧失篇](/posts/re-zero-season-4-loss/)与[夺还篇](/posts/re-4th-season/)（2026）
 
