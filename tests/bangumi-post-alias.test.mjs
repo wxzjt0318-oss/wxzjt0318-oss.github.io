@@ -38,6 +38,14 @@ describe("englishAlias", () => {
 			}),
 			"overlord-season-2",
 		);
+		assert.equal(
+			englishAlias({
+				detail: {},
+				encyclopedia: { englishTitle: "Kanojo, Okarishimasu 3rd Season" },
+				titleCn: "租借女友 第三季",
+			}),
+			"kanojo-okarishimasu-season-3",
+		);
 	});
 });
 
