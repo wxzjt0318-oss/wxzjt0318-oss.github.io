@@ -125,7 +125,7 @@ image: "https://lain.bgm.tv/pic/cover/l/97/ba/533027_I1FHy.jpg"
 
 1. TV 动画第一季（2020年7月，详见[《租借女友》](/posts/rent-a-girlfriend/)）
 2. TV 动画第二季（2022年7月，详见[《租借女友 第二季》](/posts/rent-a-girlfriend-season-2/)）
-3. TV 动画第三季（2023年7月）
+3. TV 动画第三季（2023年7月，详见[《租借女友 第三季》](/posts/rent-a-girlfriend-season-3/)）
 4. TV 动画第四季（2025年7月）
 5. **TV 动画第五季**（2026年4月）——本篇
 6. TV 动画第六季（已宣布制作）

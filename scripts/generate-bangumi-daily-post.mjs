@@ -352,11 +352,15 @@ export function englishAlias({ detail, encyclopedia, titleCn }) {
 		.map((k) => SEASON_SUFFIX[k])
 		.filter((k) => k && !base.includes(k))
 		.join("-");
-	// 英文 / 罗马字名本身已带季数（「…-o-2」「…-ii」）时，去掉它，避免「-2-season-2」这样重复
+	// 英文 / 罗马字名本身已带季数（「…-o-2」「…-ii」「…-3rd-season」）时，去掉它，避免「-2-season-2」这样重复
 	const season = suffix.match(/season-(\d+)/)?.[1];
 	if (season) {
 		const roman = { 2: "ii", 3: "iii", 4: "iv", 5: "v" }[season];
-		base = base.replace(new RegExp(`-(?:${season}${roman ? `|${roman}` : ""})$`), "");
+		const ordinal = `${season}(?:st|nd|rd|th)-season`;
+		base = base.replace(
+			new RegExp(`-(?:${ordinal}|season-${season}|${season}${roman ? `|${roman}` : ""})$`),
+			"",
+		);
 	}
 	return suffix ? `${base}-${suffix}` : base;
 }
