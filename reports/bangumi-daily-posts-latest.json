@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-07T12:49:39.972Z",
+  "generatedAt": "2026-11-08T12:49:29.958Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 425998,
+    "subject_id": 401783,
     "type": 2,
-    "ep_status": 8,
-    "updated_at": "2024-10-02",
+    "ep_status": 0,
+    "updated_at": "2023-07-07",
     "subject": {
-      "id": 425998,
-      "name": "Re：从零开始的异世界生活 第三季 袭击篇",
-      "name_cn": "Re：从零开始的异世界生活 第三季 袭击篇",
-      "date": "2024-10-02",
-      "eps": 8,
-      "short_summary": "抵挡艾尔莎等人的猛攻，并在与大兔的战斗中和碧翠丝结下契约解放「圣域」之后，已经过了一年。 爱蜜莉雅阵营为了即将到来的王选团结一致，菜月昴每天都过得相当充实。这段平稳时光，却因使者送来的一封书信而告终。 那是王选候补者之一，安娜塔西亚寄给爱蜜莉雅的一封邀请函，招待她们前往鲁格尼卡五大都市之一──水门都市朴利斯提拉。 昴一行人接受邀请前往朴利斯提拉，等待着他们的是各种重逢。 有的是意外，有的是不经意，有的则是无可避免。台面下蠢蠢欲动的恶意与前所未有的危机逐渐浮现。 少年即将再次面对残酷的命运。 [简介原文] 襲い来るエルザたちの猛攻を退け、大兎との戦いでベアトリスとの契約を果たした「聖域」の解放から1年が過ぎた。 王選に臨むエミリア陣営は一致団結、充実した日々を送っていたナツキ・スバルだったが、平穏は使者によって届けられた一枚の書状によって終わりを告げる。 それは王選候補者の一人、アナスタシアがエミリアへ宛てたルグニカの五大都市に数えられる水門都市プリステラへの招待状だった。 招待を受け、プリステラへ向かうスバルたち一行を待っていたのは様々な再会。 一つは意外な、一つは意図せぬ、そして一つ…",
+      "id": 401783,
+      "name": "租借女友 第三季",
+      "name_cn": "租借女友 第三季",
+      "date": "2023-07-07",
+      "eps": 12,
+      "short_summary": "「週刊少年マガジン」で好評連載中、 宮島礼吏による世界累計1,000万部突破の大人気ラブコメの、TVアニメ第3期！ ダメダメ大学生・木ノ下和也は清楚可憐な“レンタル彼女（レンカノ）”・水原千鶴と出会い、 家族にも友人にも、千鶴が“彼女”だと嘘をついてしまう。 本当のことが言い出せないまま日々をすごす和也の周囲には、 謎アタックを仕掛けてくる、小悪魔的な元カノ・七海麻美、 やや強引なところがある、超積極的な彼女(仮)・更科瑠夏、 極度の人見知りだが、健気で頑張り屋の後輩レンカノ・桜沢 墨と、 超絶美少女な“彼女”がいっぱい！！ たくさんの季節を一緒にすごし、様々なイベントを乗り越えるなかで、 千鶴への想いを募らせていく和也は、 女優として活躍したいという千鶴を応援し続けることを誓う。 しかし、そんな折に千鶴の祖母・小百合の体調が悪化。 出演映画を小百合に見せるという千鶴の夢が危ぶまれる事態に。 「一緒に映画、作るんだよ！！」 和也はクラウドファンディングで千鶴主演の映画を作ることを決意して……。 動き始めた、映画制作。 隣に引っ越してきた八重森みにを新たに巻き込み、 たった一度の“レンタ…",
       "tags": [
         {
-          "name": "异世界"
+          "name": "恋爱"
         },
         {
-          "name": "奇幻"
+          "name": "2023年7月"
         },
         {
-          "name": "2024年10月"
+          "name": "漫画改"
         },
         {
-          "name": "轻小说改"
+          "name": "后宫"
         },
         {
-          "name": "WHITEFOX"
+          "name": "TV"
         },
         {
-          "name": "战斗"
+          "name": "2023"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/26/d6/425998_dnzr8.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/26/d6/425998_dnzr8.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/26/d6/425998_dnzr8.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/83/14/401783_x6496.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/83/14/401783_x6496.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/83/14/401783_x6496.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/26/d6/425998_dnzr8.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/83/14/401783_x6496.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第三季 袭击篇",
+      "title": "租借女友 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/26/d6/425998_dnzr8.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/83/14/401783_x6496.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "Re：从零开始的异世界生活 第三季 袭击篇",
+      "title": "租借女友 第三季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/26/d6/425998_dnzr8.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/83/14/401783_x6496.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "Re：从零开始的异世界生活 第三季 袭击篇",
+      "title": "租借女友 第三季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-425998.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-401783.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
