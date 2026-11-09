@@ -75,3 +75,4 @@ Claude Code 的定时任务每天执行一次本流程，也可以手动让 Clau
 - 2026-11-03：同步到 `25fb1a8`（主题 2.0.0：Node.js 最低 26.13.0、Astro 7.4.4，图片图注、裸冒号、侧栏空容器修复）。本站所有工作流（含部署、番剧更新、改写、抓取资料）一并改用 Node 26.13.0。
 - 2026-11-04：同步到 `6e14799`（无障碍与依赖安全加固、KaTeX 0.18.10 / Mermaid 12、Mermaid 兜底插件、日历复数文案）。`tests/ci-path-filter.test.mjs`、`tests/style-regression-specs.test.mjs` 中断言上游浏览器测试任务的两个用例按第二节删掉。
 - 2026-11-04：同步到 `5c6a419`（控件无障碍标签多语言化、Mermaid `<br>` 标签）。i18n 冲突为两边各自在末尾追加键，两边都保留。
+- 2026-11-09：同步到 `4e7306c`（npm 包模型修复、Windows 下包初始化测试、依赖小版本升级）。上游新增的 `shirones-pipeline-tests` 任务拉取第三方仓库 yCENzh/shirones 跑 npm 发布前流水线，只服务于主题发包，本站不发 npm 包，和浏览器测试任务一样不加回。
