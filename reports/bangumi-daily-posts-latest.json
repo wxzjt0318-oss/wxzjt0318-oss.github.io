@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-09T12:51:32.099Z",
+  "generatedAt": "2026-11-09T16:29:46.153Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 23686,
+    "subject_id": 405198,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2012-07-07",
+    "ep_status": 12,
+    "updated_at": "2023-07-01",
     "subject": {
-      "id": 23686,
-      "name": "刀剑神域",
-      "name_cn": "刀剑神域",
-      "date": "2012-07-07",
-      "eps": 25,
-      "short_summary": "2022年，人类实现了现实世界和假想空间的融合，电子制造商开发了名为《刀剑神域（Sword Art Online）》的在线电子游戏。SAO甫一面世便大受好评，限量一万份的名额在发售当天的短时间内便被抢购一空。通过联网，玩家可以身临其境进入充满想象力和异域风情的游戏世界——浮游城市艾恩葛朗特。玩家在这里可以生活、练武、升级、经商、探险，与真实世界别无二致，却拥有无上的乐趣。曾是少数封测玩家的桐人也是这一万名幸运者中的一员。最初的兴奋过后，玩家们却发现根本无法顺利登出游戏，更为恐怖的是，一旦玩家的HP归零，现实世界中他们的肉体也将死亡。他们被SAO的开发者茅场晶彦困在游戏中，顺利逃脱的方法似乎只有一个，那就是完成困难重重的攻略任务……",
+      "id": 405198,
+      "name": "公司的小小前辈",
+      "name_cn": "公司的小小前辈",
+      "date": "2023-07-01",
+      "eps": 12,
+      "short_summary": "キャラクター企業ではたらく、入社1年目の篠崎拓馬。 まだまだ慣れない仕事の日々。 それでも、彼のそばには「とんでもない癒やし」があった。 ──それは、入社 3 年目の“小さくてかわいい”先輩・片瀬詩織里。 後輩想いな詩織里は、何かと篠崎を気にかけてくれている。 仕事が順調にいけば褒めてくれる…。 緊張するプレゼン前には励ましてくれる…。 つらいデスクワークは肩もみで労ってくれる…。 自然と距離感近め、どこか天然な詩織里の振る舞いに、篠崎は毎日癒やされつつも意識しっぱなし。 はたして彼女いない歴＝年齢の篠崎は ただの先輩後輩から関係を変えられるのか……？ SNS で超人気、斎創先生のコミックが待望のアニメ化！ この”お砂糖系オフィスラブコメ”は、ずーっと見守りたくなる！",
       "tags": [
         {
-          "name": "刀剑神域"
+          "name": "恋爱"
         },
         {
-          "name": "轻小说改"
+          "name": "2023年7月"
         },
         {
-          "name": "SAO"
+          "name": "职场"
         },
         {
-          "name": "A-1Pictures"
+          "name": "漫画改"
         },
         {
-          "name": "后宫"
+          "name": "projectNo.9"
         },
         {
-          "name": "2012年7月"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/2e/c8/23686_e36x9.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/2e/c8/23686_e36x9.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2e/c8/23686_e36x9.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ac/22/405198_PoyZL.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ac/22/405198_PoyZL.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ac/22/405198_PoyZL.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2e/c8/23686_e36x9.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ac/22/405198_PoyZL.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "刀剑神域",
+      "title": "公司的小小前辈",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2e/c8/23686_e36x9.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ac/22/405198_PoyZL.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "刀剑神域",
+      "title": "公司的小小前辈",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2e/c8/23686_e36x9.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ac/22/405198_PoyZL.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "刀剑神域",
+      "title": "公司的小小前辈",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-23686.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-405198.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
