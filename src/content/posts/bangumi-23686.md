@@ -1,6 +1,6 @@
 ---
 title: "《刀剑神域》"
-description: "2022年，世界首款完全潜行式 VRMMORPG《刀剑神域》正式开服，一万名玩家登入浮游城艾恩葛朗特，却发现无法登出——在游戏里死去，现实中的自己也会死。川原砾原作、abec 插画，A-1 Pictures 制作、伊藤智彦监督，2012年7月7日开播，全25话。本文梳理原作从网络小说到全球3000万册的来历、动画制作与声优、艾恩葛朗特篇与妖精之舞篇的故事、主要角色，以及它在整个系列中的位置。"
+description: "2022年，世界首款完全潜行式 VRMMORPG《刀剑神域》正式开服，一万名玩家登入浮游城艾恩葛朗特，却发现无法登出——在游戏里死去，现实中的自己也会死。川原砾原作、abec 插画，A-1 Pictures 制作、伊藤智彦监督，2012年7月7日开播，全25话。本文梳理原作从网络小说到全球3000万册的来历、动画制作、声优与主题曲、艾恩葛朗特篇与妖精之舞篇的故事、主要角色，以及它在整个系列中的位置。"
 tags: ["奇幻", "战斗", "恋爱", "轻小说改", "2012年7月", "虚拟现实", "刀剑神域"]
 category: "无法登出的浮游城"
 licenseName: "CC BY-SA 4.0"
@@ -9,6 +9,7 @@ sourceLink: "https://bgm.tv/subject/23686"
 draft: false
 pubDate: 2026-11-09
 published: 2026-11-09
+updated: 2026-11-10
 pinned: false
 alias: "sword-art-online"
 image: "https://lain.bgm.tv/pic/cover/l/2e/c8/23686_e36x9.jpg"
@@ -98,6 +99,20 @@ image: "https://lain.bgm.tv/pic/cover/l/2e/c8/23686_e36x9.jpg"
 | 希兹克利夫 | 大川透 | 艾恩葛朗特篇登场 |
 | 奥伯龙 / 须乡伸之 | 子安武人 | 妖精之舞篇的反派 |
 | 尤金 | 三宅健太 | 妖精之舞篇登场 |
+
+## 2.3 主题曲
+
+| 类别 | 曲名 | 演唱 | 使用话数 | 单曲发售 |
+|------|------|------|------|------|
+| 片头曲 1 | crossing field | LiSA | 第2～14话 | 2012年8月8日 |
+| 片头曲 2 | INNOCENCE | 藍井エイル | 第15～24话 | 2012年11月21日 |
+| 片尾曲 1 | ユメセカイ（梦世界） | 户松遥 | 第2～14话 | 2012年7月25日 |
+| 片尾曲 2 | Overfly | 春奈るな | 第15～24话 | 2012年11月28日 |
+| 片尾曲 3 | crossing field | LiSA | 第25话 | — |
+
+两首片头曲正好对应两段故事：《crossing field》陪着艾恩葛朗特篇，《INNOCENCE》从妖精之舞篇开始接棒，而前面提到的片头演出也分别出自伊藤智彦和あおきえい之手。第一首片尾曲《ユメセカイ》由亚丝娜的声优户松遥演唱。到了最终话，片尾又换回了《crossing field》，算是给整季画了一个圆。
+
+配乐由梶浦由记负责，原声集分两卷，在2013年1月和4月发售。动画 BD/DVD 的部分卷还附带角色歌特典 CD：第1卷由户松遥以亚丝娜的身份演唱，之后各卷分别由早见沙织与日高里菜、高垣彩阳、伊藤加奈惠、竹达彩奈等人演唱，第9卷则是松冈祯丞、户松遥、竹达彩奈、伊藤加奈惠、日高里菜、高垣彩阳的合唱。
 
 ---
 
@@ -216,3 +231,5 @@ SAO 被攻略约两个月后，2025年1月。桐人——桐谷和人已经回�
 - [中文维基百科「刀剑神域」](https://zh.wikipedia.org/wiki/%E5%88%80%E5%8A%8D%E7%A5%9E%E5%9F%9F)
 - [英文维基百科「Sword Art Online」](https://en.wikipedia.org/wiki/Sword_Art_Online)
 - [Kitsu「Sword Art Online」](https://kitsu.app/anime/sword-art-online)
+- [MyAnimeList「Sword Art Online」](https://myanimelist.net/anime/11757)（主题曲与使用话数）
+- [Bangumi「crossing field」等关联音乐条目](https://bgm.tv/subject/41555)（单曲发售日与演唱者）
