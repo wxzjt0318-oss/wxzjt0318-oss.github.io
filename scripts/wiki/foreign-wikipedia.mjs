@@ -39,6 +39,11 @@ export function fetchJaWikipediaArticleForWork(titles, options = {}) {
 	return jaClient.fetchArticleForWork(titles, options);
 }
 
+/** 按准确标题抓取日文维基条目（不做变体与搜索兜底），找不到时返回 null */
+export function fetchJaWikipediaArticle(title) {
+	return jaClient.fetchArticle(title);
+}
+
 /** titles：日文原名或英文 / 罗马字标题；英文维基的搜索能按日文原名找到条目 */
 export function fetchEnWikipediaArticleForWork(titles, options = {}) {
 	return enClient.fetchArticleForWork(titles, options);
