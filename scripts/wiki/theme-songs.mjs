@@ -107,7 +107,7 @@ export async function fetchShikimori({ malId = "", en = [] } = {}) {
 	}
 	if (!id) return null;
 	const anime = await getJson(`${SHIKIMORI}/api/animes/${e(id)}`);
-	const videos = anime.videos || (await getJson(`${SHIKIMORI}/api/animes/${e(id)}/videos`).catch(() => []));
+	const videos = anime.videos?.length ? anime.videos : await getJson(`${SHIKIMORI}/api/animes/${e(id)}/videos`).catch(() => []);
 	return {
 		title: anime.name || `Shikimori ${id}`,
 		url: `${SHIKIMORI}/animes/${id}`,

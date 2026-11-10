@@ -4,7 +4,7 @@
 
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { pickWikidataItems } from "../scripts/wiki/linked-sources.mjs";
+import { parseMalThemeSongs, pickWikidataItems } from "../scripts/wiki/linked-sources.mjs";
 import {
 	describeMusicSubject,
 	describeShikimori,
@@ -89,5 +89,20 @@ describe("pickWikidataItems with adaptations", () => {
 			Q11: { id: "Q11", labels: { ja: { value: "TV" } }, claims: { P4086: claim("2"), P31: tvType } },
 		};
 		assert.equal(pickWikidataItems(entities, {}).anime.id, "Q11");
+	});
+});
+
+describe("parseMalThemeSongs", () => {
+	it("splits MAL theme-song rows into openings and endings", () => {
+		const html = `<div class="theme-songs js-theme-songs opnening"><table><tr>
+			<td width="84%"><span class="theme-song-index">1:</span> <span class="theme-song-title">&quot;crossing field&quot;</span> <span class="theme-song-artist">by LiSA</span> <span class="theme-song-episode">(eps 1-14)</span></td>
+			</tr></table></div>
+			<div class="theme-songs js-theme-songs ending"><table><tr>
+			<td width="84%"><span class="theme-song-title">&quot;Yume Sekai&quot;</span> <span class="theme-song-artist">by Haruka Tomatsu</span></td>
+			</tr></table></div>`;
+		const text = parseMalThemeSongs(html);
+		assert.match(text, /片头曲（OP）：\n {2}1: "crossing field" by LiSA \(eps 1-14\)/);
+		assert.match(text, /片尾曲（ED）：\n {2}"Yume Sekai" by Haruka Tomatsu/);
+		assert.equal(parseMalThemeSongs("<p>no themes</p>"), "");
 	});
 });

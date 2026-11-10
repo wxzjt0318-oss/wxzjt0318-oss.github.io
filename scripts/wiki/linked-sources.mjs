@@ -172,9 +172,10 @@ export async function findAdaptationIds(sourceItem) {
 
 export function describeWikidataItem(item) {
 	if (!item) return null;
+	// 只列外部数据库编号（字符串），关系属性（P31 / P144 / P4969）的值是条目对象
 	const ids = Object.entries(WIKIDATA_PROPS)
 		.map(([name, prop]) => [name, claimValue(item, prop)])
-		.filter(([, v]) => v != null);
+		.filter(([, v]) => typeof v === "string");
 	return {
 		title: item.labels?.ja?.value || item.labels?.en?.value || item.id,
 		url: `https://www.wikidata.org/wiki/${item.id}`,
@@ -247,6 +248,7 @@ export async function fetchMyAnimeList(malId) {
 	const relatedAt = text.indexOf("Related Entries");
 	const backgroundAt = relatedAt > 0 ? text.lastIndexOf("Background", relatedAt) : -1;
 	const background = backgroundAt > 0 ? clip(text.slice(backgroundAt, relatedAt), 3000) : "";
+	const themes = parseMalThemeSongs(html);
 	let cast = "";
 	try {
 		const chars = htmlToText(await getText(`${url}/_/characters`, "text/html"));
@@ -255,8 +257,28 @@ export async function fetchMyAnimeList(malId) {
 	return {
 		title,
 		url,
-		text: clip([`简介：${synopsis}`, info, background, cast].filter(Boolean).join("\n\n")),
+		text: clip([`简介：${synopsis}`, info, themes, background, cast].filter(Boolean).join("\n\n")),
 	};
+}
+
+/** MAL 页面底部的 Opening / Ending Theme 表：每行是「序号: "歌名" by 演唱 (使用话数)」 */
+export function parseMalThemeSongs(html) {
+	const src = String(html || "");
+	const endingAt = src.search(/class="[^"]*theme-songs[^"]*ending/);
+	const rows = [...src.matchAll(/<td[^>]*>((?:(?!<\/td>)[\s\S])*?theme-song-title[\s\S]*?)<\/td>/g)].map((m) => ({
+		at: m.index,
+		text: htmlToText(m[1]).replace(/\s+/g, " ").trim(),
+	}));
+	if (rows.length === 0) return "";
+	const isEnding = (r) => endingAt >= 0 && r.at > endingAt;
+	const list = (xs) => xs.map((r) => `  ${r.text}`);
+	const op = rows.filter((r) => !isEnding(r));
+	const ed = rows.filter(isEnding);
+	return [
+		"主题曲（MAL 用户整理，括号内为使用话数）：",
+		...(op.length ? ["片头曲（OP）：", ...list(op)] : []),
+		...(ed.length ? ["片尾曲（ED）：", ...list(ed)] : []),
+	].join("\n");
 }
 
 // ── LiveChart.me ────────────────────────────────────────────────────────────
