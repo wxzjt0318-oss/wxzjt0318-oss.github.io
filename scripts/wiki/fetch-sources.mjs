@@ -8,7 +8,9 @@
  *   { "<中文查询>": { moegirl, wikipedia },        // 萌娘百科、中文维基（已转简体）
  *     "<日文查询>": { jawiki, enwiki },           // 日文维基（优先）、英文维基（原文）
  *     "_databases": { ann: [...], kitsu: [...] }, // Anime News Network、Kitsu（结构化资料）
- *     "_linked": { wikidata, syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom } }
+ *     "<日文查询> (アニメ)": { jawiki },          // 日文维基的动画子条目（有的话），主题曲、各季 staff 多在这里
+ *     "_linked": { wikidata, syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom,
+ *                  bangumiMusic, shikimori } }   // 后两项为主题曲资料，见 scripts/wiki/theme-songs.mjs
  *       // 经 Wikidata 编号精确关联的各站资料，见 scripts/wiki/linked-sources.mjs
  * 每个来源都是 {title, url, text} 或 null（数据库为数组）。
  *
@@ -22,6 +24,7 @@ import { fetchMoegirlArticleForWork } from "../moegirl/scraper.mjs";
 import { fetchAnnEntries, fetchAnnEntryById, fetchKitsuEntries } from "./anime-databases.mjs";
 import {
 	fetchEnWikipediaArticleForWork,
+	fetchJaWikipediaArticle,
 	fetchJaWikipediaArticleForWork,
 } from "./foreign-wikipedia.mjs";
 import { fetchLinkedSources } from "./linked-sources.mjs";
@@ -98,6 +101,13 @@ for (const [group, entry] of groups) {
 		out[query] = { jawiki: packRaw(jawiki, MAX_TEXT_JA), enwiki: packRaw(enwiki) };
 		if (enwiki?.title) englishTitles.add(enwiki.title.replace(/\s*\([^)]*\)\s*$/, ""));
 		console.log(`${group} / ${query}: 日文维基 ${jawiki ? `✓ ${jawiki.title}` : "✗"}，英文维基 ${enwiki ? `✓ ${enwiki.title}` : "✗"}`);
+		// 长篇系列的动画资料（staff、主题曲、各季播出）常拆在「〇〇 (アニメ)」子条目里
+		const subTitle = `${(jawiki?.title || query).replace(/\s*\([^)]*\)\s*$/, "")} (アニメ)`;
+		if (subTitle !== jawiki?.title) {
+			const sub = await settle(fetchJaWikipediaArticle(subTitle));
+			if (sub && sub.title !== jawiki?.title) out[subTitle] = { jawiki: packRaw(sub, MAX_TEXT_JA) };
+			console.log(`${group} / ${subTitle}: 日文维基动画子条目 ${sub ? `✓ ${sub.title}` : "✗"}`);
+		}
 	}
 	// 动画数据库按英文 / 罗马字标题搜索（英文维基条目名、文章 alias）
 	const ann = [];

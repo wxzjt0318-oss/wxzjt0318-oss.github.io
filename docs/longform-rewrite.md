@@ -77,15 +77,16 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
 - 事实只能来自 `reports/wiki-sources/<slug>.json` 与资料稿里的 Bangumi 数据：播出日期、话数、staff、声优、剧情、销量、奖项都不能凭空写。资料稿里的声优表可能有错配，以百科为准。不确定就不写。资料里常混有错配的无关条目，忽略它们。
 - 资料来源与优先级（JSON 结构见 `scripts/wiki/fetch-sources.mjs` 开头）：
   1. **日文资料（事实优先以它们为准）**：
-     - 日文维基百科（`<日文查询>.jawiki`）：作品概要、制作阵容、播出信息、主题曲；
+     - 日文维基百科（`<日文查询>.jawiki`）：作品概要、制作阵容、播出信息；长篇系列的动画资料常拆在「〇〇 (アニメ)」子条目里，有的话另存为 `<日文查询> (アニメ).jawiki`。注意主题曲、各话列表在维基里是表格，纯文本里常常只剩空标题，主题曲以下面第 5 类来源为准；
      - しょぼいカレンダー（`_linked.syoboi`）：日本播出数据库，staff、全部声优、各话日文标题、首播电视台；
      - アニメハック（`_linked.animehack`）：映画.com 的动画资讯，staff、声优、主题曲、简介和相关新闻（动画化、开播的公布日期）；
      - メディア芸術データベース（`_linked.mediaarts`）：日本文化厅数据库，原作单行本各卷的发售日、出版社、ISBN；
   2. **中文资料（中文译名以它们为准）**：萌娘百科、中文维基（`<中文查询>.moegirl` / `.wikipedia`）、Bangumi（`_linked.bangumi`，完整制作人员表与官方中文简介）、巴哈姆特 ACG 资料库（`_linked.bahamut`，台湾地区资料，已转简体）；
   3. **补充与交叉核对**：英文维基（`.enwiki`）、Anime News Network（`_databases.ann`）、MyAnimeList（`_linked.mal`，播出时段、制作 / 发行公司、海外代理、角色与声优）、LiveChart（`_linked.livechart`）、Kitsu（`_databases.kitsu`）；
   4. **只用于补充角色细节**：Fandom 作品维基（`_linked.fandom`），粉丝编写，与上面的来源冲突时一律以上面为准。
-  - `_linked.wikidata` 记录了作品在各站的编号，上面的 `_linked.*` 都是按编号精确抓取的，比按标题搜索可靠；Wikidata 没有收录的作品，这些来源就是 null。
+  5. **主题曲**（写「主题曲」小节时用）：Bangumi 关联音乐条目（`_linked.bangumiMusic`，片头曲 / 片尾曲 / 插入歌 / 角色歌 / 原声集，含演唱者和单曲发售日，最可靠）、MyAnimeList 页面里的「主题曲」一段（`_linked.mal`，OP / ED 与使用话数）、Shikimori（`_linked.shikimori`，基本信息与 OP / ED 视频名，名称不规范，只用于核对）。ANN 的 Opening / Ending Theme 也可参考，但 ANN 是按标题搜索的，先确认条目是不是本作。
+  - `_linked.wikidata` 记录了作品在各站的编号，上面的 `_linked.*` 都是按编号精确抓取的，比按标题搜索可靠；Wikidata 没有收录的作品，这些来源就是 null。按标题只找到原作条目时，会顺着 Wikidata 的改编关系找名称或 Bangumi 编号对得上的动画条目；动画条目没记 MAL 编号时，用 Shikimori（与 MAL 编号相同）按英文名搜到的编号抓 MAL 页面。
   - 外文资料是原文，写稿时翻译成中文，不要整段照搬；不同来源说法冲突时以日文资料为准，仍拿不准就不写。
-  - 实测不可用、未接入：ニコニコ大百科、pixiv 百科事典、百度百科、哔哩哔哩、コミックナタリー、AniDB（拦截 GitHub Actions）；Annict、TMDB（需要密钥）；Jikan（连接超时）；AniList（接口停用）。
+  - 实测不可用、未接入：ニコニコ大百科、pixiv 百科事典、百度百科、哔哩哔哩、コミックナタリー、AniDB（拦截 GitHub Actions）；Annict、TMDB（需要密钥）；Jikan（连接超时）；AniList（接口停用）；VGMdb（Cloudflare 拦截）；MusicBrainz（经常 503）；アニソンジェネレーション（页面声明 noai，不抓取）。
 - 站内链接只能用 `/posts/<alias>/`，`<alias>` 必须是某篇文章 frontmatter 的 `alias` 或 `src/content/posts/` 下的文件名（不含 `.md`）。资料稿的「系列作品」小节已列出站内同系列文章，可直接沿用。
 - 不改手写文章（没有资料稿标记的文章）。
