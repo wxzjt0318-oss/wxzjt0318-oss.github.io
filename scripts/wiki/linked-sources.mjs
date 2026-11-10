@@ -11,13 +11,14 @@
  *   Bangumi API                   完整 infobox（含详细 staff）与官方中文简介
  *   メディア芸術データベース        原作单行本各卷的发售日、出版社、ISBN（来自日本国会图书馆）
  *   Fandom 作品维基               粉丝编写的英文角色资料，可信度较低，只用于补充角色细节
- *   主题曲（scripts/wiki/theme-songs.mjs）  Jikan OP / ED 列表、Bangumi 关联音乐条目、アニソンジェネレーション
- * 按标题只找到原作条目时，顺着 Wikidata 的改编关系（P4969 / P144）找动画条目。
+ *   主题曲（scripts/wiki/theme-songs.mjs）  Bangumi 关联音乐条目、Shikimori 的 OP / ED 列表（兼补 MAL 编号）
+ * 没有数据库编号的动画条目按类型（P31）或 Bangumi 编号认出；按标题只找到原作条目时，
+ * 顺着 Wikidata 的改编关系（P4969 / P144）找名称或 Bangumi 编号对得上的动画条目。
  *
  * 每个来源返回 {title, url, text} 或 null；任何一站失败都不影响其他来源。
  */
 
-import { fetchAnisonGeneration, fetchBangumiMusic, fetchJikanThemes } from "./theme-songs.mjs";
+import { fetchBangumiMusic, fetchShikimori } from "./theme-songs.mjs";
 import { toSimplified } from "./zh-text.mjs";
 
 const USER_AGENT =
@@ -42,6 +43,8 @@ export const WIKIDATA_PROPS = {
 };
 /** Wikidata「动画电视系列」，同一原作有多部改编时优先 TV 动画 */
 const ANIME_TV_SERIES = "Q63952888";
+/** 动画类条目：动画电视系列、动画电影、动画、OVA（有的动画条目没有任何数据库编号，只能按类型认） */
+const ANIME_TYPES = new Set([ANIME_TV_SERIES, "Q20650540", "Q1107", "Q220898"]);
 const ANIME_ID_PROPS = ["P11648", "P14825", "P4086", "P12489", "P1985", "P5646"];
 const SOURCE_ID_PROPS = ["P4087", "P1984", "P8731", "P11149"];
 
@@ -104,16 +107,21 @@ const claimValue = (entity, prop) => claimValues(entity, prop)[0] ?? null;
  * 动画条目带动画数据库编号，优先与 Bangumi 编号一致、其次日文名完全一致；
  * 原作条目带漫画 / 小说数据库编号。
  */
-export function pickWikidataItems(entities, { ja = [], bangumiId = "" } = {}) {
+export function pickWikidataItems(entities, { ja = [], bangumiId = "", minScore = 0 } = {}) {
 	const list = Object.values(entities || {}).filter((x) => x && !x.missing);
+	const bangumiMatches = (x) => bangumiId && claimValues(x, WIKIDATA_PROPS.bangumi).includes(String(bangumiId));
+	const isAnime = (x) =>
+		ANIME_ID_PROPS.some((p) => claimValue(x, p) != null) ||
+		claimValues(x, WIKIDATA_PROPS.instanceOf).some((v) => ANIME_TYPES.has(v?.id)) ||
+		(bangumiMatches(x) && !SOURCE_ID_PROPS.some((p) => claimValue(x, p) != null));
 	const jaSet = new Set(ja.map((t) => t.trim()).filter(Boolean));
 	const labelMatches = (x) => jaSet.has(x.labels?.ja?.value) || (x.aliases?.ja || []).some((a) => jaSet.has(a.value));
 	const score = (x) =>
-		(bangumiId && claimValues(x, WIKIDATA_PROPS.bangumi).includes(String(bangumiId)) ? 4 : 0) +
+		(bangumiMatches(x) ? 4 : 0) +
 		(labelMatches(x) ? 2 : 0) +
 		(claimValues(x, WIKIDATA_PROPS.instanceOf).some((v) => v?.id === ANIME_TV_SERIES) ? 1 : 0);
 	const anime = list
-		.filter((x) => ANIME_ID_PROPS.some((p) => claimValue(x, p) != null))
+		.filter((x) => isAnime(x) && score(x) >= minScore)
 		.sort((a, b) => score(b) - score(a))[0] || null;
 	const source = list
 		.filter((x) => x !== anime && SOURCE_ID_PROPS.some((p) => claimValue(x, p) != null))
@@ -147,7 +155,8 @@ export async function findWikidataItems({ ja = [], en = [], bangumiId = "" }) {
 	const adaptations = await findAdaptationIds(picked.source);
 	if (adaptations.length === 0) return picked;
 	const more = await getEntities(adaptations).catch(() => ({}));
-	const anime = pickWikidataItems(more, { ja, bangumiId }).anime;
+	// 改编作品很多（游戏、剧场版、外传），只接受名称或 Bangumi 编号对得上的
+	const anime = pickWikidataItems(more, { ja, bangumiId, minScore: 2 }).anime;
 	return { anime, source: picked.source };
 }
 
@@ -410,10 +419,10 @@ export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
 	const englishTitle = anime?.labels?.en?.value || en[0] || "";
 	// 单行本只在有原作（漫画 / 小说）条目时查询，避免剧场版等标题匹配到播出记录
 	const bookTitle = source?.labels?.ja?.value || "";
-	// 主题曲：Jikan 按 MAL 编号或标题搜索；没有 Wikidata 的 MAL 编号时，用搜索到的编号抓 MAL 页面
-	const jikan = await settle("Jikan", fetchJikanThemes({ malId: ids.mal, ja, en }));
-	const malId = ids.mal || jikan?.malId || "";
-	const [syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom, bangumiMusic, anison] = await Promise.all([
+	// Shikimori 与 MAL 共用编号：Wikidata 没记 MAL 编号时，用 Shikimori 按英文名搜到的编号抓 MAL 页面
+	const shikimori = await settle("Shikimori", fetchShikimori({ malId: ids.mal, en: [englishTitle, ...en] }));
+	const malId = ids.mal || shikimori?.malId || "";
+	const [syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom, bangumiMusic] = await Promise.all([
 		settle("しょぼいカレンダー", fetchSyoboi(ids.syoboi)),
 		settle("アニメハック", fetchAnimeHack(ids.animehack)),
 		settle("MyAnimeList", fetchMyAnimeList(malId)),
@@ -423,7 +432,6 @@ export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
 		settle("メディア芸術DB", fetchMediaArtsBooks(bookTitle)),
 		settle("Fandom", fetchFandom(englishTitle)),
 		settle("Bangumi 音乐", fetchBangumiMusic(bangumiId)),
-		settle("アニソンジェネレーション", fetchAnisonGeneration(ja)),
 	]);
 	const strip = (x) => x && { title: x.title, url: x.url, text: x.text };
 	return {
@@ -437,9 +445,8 @@ export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
 		bangumi,
 		mediaarts,
 		fandom,
-		themeSongs: jikan?.text ? strip(jikan) : null,
 		bangumiMusic,
-		anison,
+		shikimori: strip(shikimori),
 		annId: ids.ann || null,
 	};
 }

@@ -1,5 +1,5 @@
 /**
- * 主题曲资料解析：Bangumi 关联音乐条目、Jikan 搜索结果挑选与 OP / ED 格式化、アニソンジェネレーション搜索页。离线运行。
+ * 主题曲资料解析：Bangumi 关联音乐条目、Shikimori 搜索结果挑选与 OP / ED 列表、Wikidata 动画条目挑选。离线运行。
  */
 
 import assert from "node:assert/strict";
@@ -7,11 +7,9 @@ import { describe, it } from "node:test";
 import { pickWikidataItems } from "../scripts/wiki/linked-sources.mjs";
 import {
 	describeMusicSubject,
-	formatJikanThemes,
-	parseAnisonSearch,
-	pickAnisonProgram,
-	pickJikanAnime,
+	describeShikimori,
 	pickMusicRelations,
+	pickShikimoriAnime,
 } from "../scripts/wiki/theme-songs.mjs";
 
 describe("Bangumi music relations", () => {
@@ -41,49 +39,54 @@ describe("Bangumi music relations", () => {
 	});
 });
 
-describe("Jikan", () => {
+describe("Shikimori", () => {
 	const results = [
-		{ mal_id: 20021, title: "Sword Art Online: Extra Edition", title_japanese: "ソードアート・オンライン Extra Edition", type: "Special" },
-		{ mal_id: 11757, title: "Sword Art Online", title_english: "Sword Art Online", title_japanese: "ソードアート・オンライン", type: "TV" },
+		{ id: 20021, name: "Sword Art Online: Extra Edition", kind: "special" },
+		{ id: 11757, name: "Sword Art Online", kind: "tv" },
 	];
 
-	it("prefers the exact Japanese title", () => {
-		assert.equal(pickJikanAnime(results, { ja: ["ソードアート・オンライン"] }).mal_id, 11757);
+	it("picks the exact English name, preferring TV", () => {
+		assert.equal(pickShikimoriAnime(results, ["Sword Art Online"]).id, 11757);
+		assert.equal(pickShikimoriAnime(results, ["Another Title"]), null);
 	});
 
-	it("rejects results that match no title", () => {
-		assert.equal(pickJikanAnime(results, { ja: ["別の作品"] }), null);
-	});
-
-	it("formats openings and endings", () => {
-		const text = formatJikanThemes({ openings: ['1: "crossing field" by LiSA (eps 1-14)'], endings: ['1: "Yume Sekai" by Haruka Tomatsu'] });
-		assert.match(text, /片头曲（OP）：\n {2}1: "crossing field"/);
-		assert.match(text, /片尾曲（ED）：\n {2}1: "Yume Sekai"/);
-		assert.equal(formatJikanThemes({ openings: [], endings: [] }), "");
-	});
-});
-
-describe("アニソンジェネレーション", () => {
-	const html = `<a href="/data/program/111.html">ソードアート・オンライン オルタナティブ</a>
-		<a href="program/222.html"><b>ソードアート・オンライン</b></a>`;
-
-	it("parses program links and prefers the exact name", () => {
-		const list = parseAnisonSearch(html);
-		assert.deepEqual(list, [
-			{ id: "111", name: "ソードアート・オンライン オルタナティブ" },
-			{ id: "222", name: "ソードアート・オンライン" },
-		]);
-		assert.equal(pickAnisonProgram(list, "ソードアート・オンライン").id, "222");
-		assert.equal(pickAnisonProgram([], "x"), null);
+	it("lists opening and ending videos only", () => {
+		const text = describeShikimori(
+			{ name: "Sword Art Online", japanese: ["ソードアート・オンライン"], kind: "tv", episodes: 25, studios: [{ name: "A-1 Pictures" }] },
+			[{ kind: "op", name: "crossing field" }, { kind: "pv", name: "PV" }, { kind: "ed", name: "Yume Sekai" }],
+		);
+		assert.match(text, /日文名：ソードアート・オンライン/);
+		assert.match(text, /制作公司：A-1 Pictures/);
+		assert.match(text, /OP｜crossing field/);
+		assert.match(text, /ED｜Yume Sekai/);
+		assert.doesNotMatch(text, /PV/);
 	});
 });
 
 describe("pickWikidataItems with adaptations", () => {
 	const claim = (value) => [{ mainsnak: { datavalue: { value } } }];
+	const tvType = claim({ id: "Q63952888" });
+
+	it("accepts an anime item with no database IDs by its type and Bangumi ID", () => {
+		const entities = {
+			Q1: { id: "Q1", labels: { ja: { value: "ソードアート・オンライン" } }, claims: { P4087: claim("1") } },
+			Q2: { id: "Q2", labels: { ja: { value: "劇場版" } }, claims: { P4086: claim("2") } },
+			Q3: { id: "Q3", labels: { ja: { value: "ソードアート・オンライン" } }, claims: { P31: tvType, P5732: claim("23686") } },
+		};
+		const { anime, source } = pickWikidataItems(entities, { ja: ["ソードアート・オンライン"], bangumiId: "23686" });
+		assert.equal(anime.id, "Q3");
+		assert.equal(source.id, "Q1");
+	});
+
+	it("rejects adaptations whose name and Bangumi ID do not match when a minimum score is set", () => {
+		const entities = { Q2: { id: "Q2", labels: { ja: { value: "劇場版" } }, claims: { P4086: claim("2") } } };
+		assert.equal(pickWikidataItems(entities, { ja: ["ソードアート・オンライン"], minScore: 2 }).anime, null);
+	});
+
 	it("prefers the TV series among several adaptations", () => {
 		const entities = {
 			Q10: { id: "Q10", labels: { ja: { value: "劇場版" } }, claims: { P4086: claim("1") } },
-			Q11: { id: "Q11", labels: { ja: { value: "TV" } }, claims: { P4086: claim("2"), P31: claim({ id: "Q63952888" }) } },
+			Q11: { id: "Q11", labels: { ja: { value: "TV" } }, claims: { P4086: claim("2"), P31: tvType } },
 		};
 		assert.equal(pickWikidataItems(entities, {}).anime.id, "Q11");
 	});

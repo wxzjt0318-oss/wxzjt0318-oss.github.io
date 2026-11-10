@@ -1,23 +1,22 @@
 /**
  * 主题曲与音乐资料（长文改写的补充来源）
  * ─────────────────────────────────────────────────────────────────────────────
- * 百科条目常把主题曲放在单独的子条目里，按作品名搜索的数据库也常匹配不到动画条目，
- * 所以单独从三处抓取 OP / ED / 插入歌：
- *   Bangumi 关联条目      片头曲 / 片尾曲 / 插入歌 / 原声集等音乐条目，含演唱、作词、作曲、发售日
- *   Jikan（MyAnimeList）  各季的 OP / ED 列表（歌名、演唱、使用话数）；按标题搜索时顺带给出 MAL 编号
- *   アニソンジェネレーション  日本动画歌曲数据库，按作品列出全部主题曲、插入歌与演唱者
+ * 百科条目常把主题曲放在单独的子条目里（日文维基「〇〇 (アニメ)」由 fetch-sources.mjs 另行抓取），
+ * 按作品名搜索的数据库也常匹配不到动画条目，所以另从两处抓取：
+ *   Bangumi 关联条目   片头曲 / 片尾曲 / 插入歌 / 原声集等音乐条目，含演唱、作词、作曲、发售日（最可靠）
+ *   Shikimori          与 MAL 共用编号的动画数据库：基本信息与 OP / ED 视频列表；
+ *                      Wikidata 没记 MAL 编号时，用它按英文名搜到的编号去抓 MAL 页面
+ * 实测不可用：Jikan（Actions 上连接超时）、VGMdb（Cloudflare 拦截）、MusicBrainz（经常 503）；
+ * アニソンジェネレーション页面声明 noai，不抓取。
  *
  * 每个来源返回 {title, url, text} 或 null；任何一站失败都不影响其他来源。
  */
-
-import { decodeEntities, htmlToText } from "./linked-sources.mjs";
 
 const USER_AGENT =
 	"wxzjt0318-oss-blog-wiki-fetcher/1.0 (https://github.com/wxzjt0318-oss; content curation)";
 const MAX_TEXT = 12000;
 const e = encodeURIComponent;
 const clip = (text, max = MAX_TEXT) => String(text || "").trim().slice(0, max);
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function getText(url, accept = "*/*") {
 	const res = await fetch(url, {
@@ -70,91 +69,49 @@ export async function fetchBangumiMusic(bangumiId, limit = 14) {
 	};
 }
 
-// ── Jikan（MyAnimeList 非官方 API） ─────────────────────────────────────────
+// ── Shikimori ───────────────────────────────────────────────────────────────
 
-/** 在 Jikan 搜索结果里挑最可能的动画：日文名完全一致优先，其次 TV 动画 */
-export function pickJikanAnime(results, { ja = [], en = [] } = {}) {
-	const jaSet = new Set(ja.map((t) => t.trim()));
-	const enSet = new Set(en.map((t) => t.trim().toLowerCase()));
-	const score = (a) =>
-		(jaSet.has(a.title_japanese) ? 4 : 0) +
-		(enSet.has(String(a.title_english || "").toLowerCase()) || enSet.has(String(a.title || "").toLowerCase()) ? 2 : 0) +
-		(a.type === "TV" ? 1 : 0);
-	const best = [...(results || [])].sort((a, b) => score(b) - score(a))[0];
-	return best && score(best) >= 2 ? best : null;
+const SHIKIMORI = "https://shikimori.one";
+
+/** 在 Shikimori 搜索结果里挑英文 / 罗马字名完全一致的动画，TV 动画优先 */
+export function pickShikimoriAnime(results, en = []) {
+	const names = new Set(en.filter(Boolean).map((t) => t.trim().toLowerCase()));
+	const hits = (results || []).filter((a) => names.has(String(a.name || "").trim().toLowerCase()));
+	return hits.find((a) => a.kind === "tv") || hits[0] || null;
 }
 
-export function formatJikanThemes(themes) {
-	const openings = themes?.openings || [];
-	const endings = themes?.endings || [];
-	if (openings.length + endings.length === 0) return "";
+/** 条目详情 → 文本：日文 / 英文名、类型、话数、播出日期、制作公司，以及 OP / ED 视频列表 */
+export function describeShikimori(anime, videos = []) {
+	const list = (xs) => (xs || []).filter(Boolean).join("、");
+	const songs = (videos || []).filter((v) => v.kind === "op" || v.kind === "ed");
 	return [
-		"片头曲（OP）：",
-		...openings.map((s) => `  ${s}`),
-		"片尾曲（ED）：",
-		...endings.map((s) => `  ${s}`),
+		`名称：${anime.name || ""}`,
+		`日文名：${list(anime.japanese)}`,
+		`英文名：${list(anime.english)}`,
+		`类型：${anime.kind || ""}｜话数：${anime.episodes ?? ""}`,
+		`播出：${anime.aired_on || ""} — ${anime.released_on || ""}`,
+		`制作公司：${list((anime.studios || []).map((x) => x.name))}`,
+		...(songs.length
+			? ["主题曲视频（用户上传，名称可能不规范，只用于核对）：", ...songs.map((v) => `  ${v.kind.toUpperCase()}｜${v.name || ""}`)]
+			: []),
 	].join("\n");
 }
 
-/** malId 已知时直接取；否则按日文 / 英文标题搜索。返回值带 malId，供 MAL 页面抓取兜底 */
-export async function fetchJikanThemes({ malId = "", ja = [], en = [] } = {}) {
+/** malId 已知时直接取（Shikimori 与 MAL 编号相同）；否则按英文 / 罗马字名搜索。返回值带 malId */
+export async function fetchShikimori({ malId = "", en = [] } = {}) {
 	let id = malId ? String(malId) : "";
-	let title = "";
-	if (!id) {
-		for (const q of [...ja, ...en].filter(Boolean).slice(0, 3)) {
-			const s = await getJson(`https://api.jikan.moe/v4/anime?q=${e(q)}&limit=10`).catch(() => null);
-			const hit = pickJikanAnime(s?.data, { ja, en });
-			if (hit) {
-				id = String(hit.mal_id);
-				title = hit.title;
-				break;
-			}
-			await sleep(1000); // Jikan 限速：每秒 3 次
-		}
+	for (const q of [...new Set(en.filter(Boolean))].slice(0, 2)) {
+		if (id) break;
+		const hit = pickShikimoriAnime(await getJson(`${SHIKIMORI}/api/animes?search=${e(q)}&limit=10`), en);
+		if (hit) id = String(hit.id);
 	}
 	if (!id) return null;
-	const themes = (await getJson(`https://api.jikan.moe/v4/anime/${e(id)}/themes`))?.data;
-	const text = formatJikanThemes(themes);
+	const anime = await getJson(`${SHIKIMORI}/api/animes/${e(id)}`);
+	const videos = anime.videos || (await getJson(`${SHIKIMORI}/api/animes/${e(id)}/videos`).catch(() => []));
 	return {
-		title: title || `MyAnimeList ${id}`,
-		url: `https://myanimelist.net/anime/${id}`,
-		text: text ? clip(`来源：MyAnimeList 用户整理的主题曲列表，括号内为使用话数。\n${text}`) : "",
+		title: anime.name || `Shikimori ${id}`,
+		url: `${SHIKIMORI}/animes/${id}`,
+		text: clip(describeShikimori(anime, videos)),
 		malId: id,
 	};
-}
-
-// ── アニソンジェネレーション ────────────────────────────────────────────────
-
-const ANISON_BASE = "http://anison.info/data/";
-
-/** 搜索结果页里的作品链接：[{id, name}] */
-export function parseAnisonSearch(html) {
-	return [...String(html || "").matchAll(/href="(?:\/data\/|\.\.\/)?program\/(\d+)\.html"[^>]*>([\s\S]*?)<\/a>/g)].map((m) => ({
-		id: m[1],
-		name: decodeEntities(m[2].replace(/<[^>]+>/g, "")).trim(),
-	}));
-}
-
-/** 优先完全同名的作品，其次以查询词开头的，最后取第一条 */
-export function pickAnisonProgram(list, query) {
-	const q = String(query || "").trim();
-	return list.find((p) => p.name === q) || list.find((p) => p.name.startsWith(q)) || list[0] || null;
-}
-
-export async function fetchAnisonGeneration(jaTitles = []) {
-	for (const query of jaTitles.filter(Boolean).slice(0, 2)) {
-		const html = await getText(`${ANISON_BASE}n.php?q=${e(query)}&m=pro`, "text/html");
-		const program = pickAnisonProgram(parseAnisonSearch(html), query);
-		if (!program) continue;
-		const url = `${ANISON_BASE}program/${program.id}.html`;
-		const text = htmlToText(await getText(url, "text/html"));
-		// 页面开头是站点导航，正文从作品名第二次出现处开始；页尾版权信息之后截断
-		const first = text.indexOf(program.name);
-		const start = first >= 0 ? text.indexOf(program.name, first + 1) : -1;
-		let body = text.slice(start > 0 ? start : 0);
-		const end = body.search(/Copyright|アニメソングの総合情報サイト/);
-		if (end > 0) body = body.slice(0, end);
-		return { title: program.name, url, text: clip(body) };
-	}
-	return null;
 }

@@ -10,7 +10,7 @@
  *     "_databases": { ann: [...], kitsu: [...] }, // Anime News Network、Kitsu（结构化资料）
  *     "<日文查询> (アニメ)": { jawiki },          // 日文维基的动画子条目（有的话），主题曲、各季 staff 多在这里
  *     "_linked": { wikidata, syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom,
- *                  themeSongs, bangumiMusic, anison } }   // 后三项为主题曲资料，见 scripts/wiki/theme-songs.mjs
+ *                  bangumiMusic, shikimori } }   // 后两项为主题曲资料，见 scripts/wiki/theme-songs.mjs
  *       // 经 Wikidata 编号精确关联的各站资料，见 scripts/wiki/linked-sources.mjs
  * 每个来源都是 {title, url, text} 或 null（数据库为数组）。
  *
@@ -78,7 +78,6 @@ if (!rawRequests) {
 	process.exit(0);
 }
 const requests = JSON.parse(rawRequests);
-if (requests["probe-tmp"] && SHARD === 0) await import("./probe-tmp.mjs");
 await fs.mkdir(OUT_DIR, { recursive: true });
 const groups = Object.entries(requests).filter((_, i) => i % SHARDS === SHARD);
 for (const [group, entry] of groups) {
