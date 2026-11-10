@@ -78,6 +78,7 @@ if (!rawRequests) {
 	process.exit(0);
 }
 const requests = JSON.parse(rawRequests);
+if (requests["probe-tmp"] && SHARD === 0) await import("./probe-tmp.mjs");
 await fs.mkdir(OUT_DIR, { recursive: true });
 const groups = Object.entries(requests).filter((_, i) => i % SHARDS === SHARD);
 for (const [group, entry] of groups) {
