@@ -140,7 +140,7 @@ MindaRyn 后来还为第三季演唱了片尾曲《Miracle soup》，算是和�
 
 # 六、观看顺序与入坑建议
 
-1. TV 动画第一季（2018年10月）
+1. TV 动画第一季（2018年10月，详见[《关于我转生变成史莱姆这档事》](/posts/that-time-i-got-reincarnated-as-a-slime/)）
 2. TV 动画第二季第1部分（2021年1月，详见[《关于我转生变成史莱姆这档事 第二季》](/posts/that-time-i-got-reincarnated-as-a-slime-season-2/)）
 3. 特别篇《闲话：维鲁多拉日记2》（2021年6月29日，总集篇，可选）
 4. **TV 动画第二季第2部分**（2021年7月）——本篇

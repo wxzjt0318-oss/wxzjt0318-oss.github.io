@@ -90,7 +90,7 @@ image: "https://lain.bgm.tv/pic/cover/l/fc/78/421174_nlx3z.jpg"
 
 ## 4.1 观看顺序
 
-1. TV 动画第一季（2018年10月）
+1. TV 动画第一季（2018年10月，详见[《关于我转生变成史莱姆这档事》](/posts/that-time-i-got-reincarnated-as-a-slime/)）
 2. TV 动画第二季第1部分（2021年1月，详见[《关于我转生变成史莱姆这档事 第二季》](/posts/that-time-i-got-reincarnated-as-a-slime-season-2/)）
 3. TV 动画第二季第2部分（2021年7月，详见[《关于我转生变成史莱姆这档事 第二季 第2部分》](/posts/that-time-i-got-reincarnated-as-a-slime-season-2-part-2/)）
 4. 剧场版《红莲之绊篇》（2022年11月）
