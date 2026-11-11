@@ -121,7 +121,7 @@ image: "https://lain.bgm.tv/pic/cover/l/41/be/350185_M4C4V.jpg"
 
 剧情开头就交代了"利姆路已经进化为魔王"，所以建议**至少看完 TV 动画第二季**再进影院：
 
-1. TV 动画第一季（2018年10月）
+1. TV 动画第一季（2018年10月，详见[《关于我转生变成史莱姆这档事》](/posts/that-time-i-got-reincarnated-as-a-slime/)）
 2. [第二季](/posts/that-time-i-got-reincarnated-as-a-slime-season-2/)与[第二季 第2部分](/posts/that-time-i-got-reincarnated-as-a-slime-season-2-part-2/)（2021年）
 3. **剧场版《红莲之绊篇》（2022年11月）**
 4. [第三季](/posts/that-time-i-got-reincarnated-as-a-slime-season-3/)（2024年4月）
