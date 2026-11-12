@@ -18,11 +18,11 @@ export interface FriendItem {
 export const friendsData: FriendItem[] = [
 	{
 		id: 1,
-		title: "灵梦资源站",
-		imgurl: "https://www.lingmenggal.top/favicon.ico",
-		desc: "个人收集资源分享小站",
-		siteurl: "https://www.lingmenggal.top/",
-		tags: ["资源", "个人站"],
+		title: "Shirone",
+		imgurl: "https://shirone.mysqil.com/favicon/favicon-light-192.png",
+		desc: "本站使用的 Material 3 动漫博客主题",
+		siteurl: "https://shirone.mysqil.com/",
+		tags: ["主题", "博客"],
 	},
 	{
 		id: 2,

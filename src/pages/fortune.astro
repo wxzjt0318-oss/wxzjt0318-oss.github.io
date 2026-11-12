@@ -1,0 +1,41 @@
+---
+/**
+ * 命运：程序员老黄历与求签（仅供娱乐）。
+ * 内容由 FortuneBoard 按日期推算；这里只传构建当天的日期作为 SSR 初值。
+ */
+import Card from "@components/atoms/display/Card.svelte";
+import PageHeader from "@components/atoms/display/PageHeader.astro";
+import FortuneBoard from "@components/organisms/FortuneBoard.svelte";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { siteConfig } from "@/config";
+
+const title = i18n(I18nKey.fortune);
+const subtitle = i18n(I18nKey.fortuneSubtitle);
+
+// 构建当天在站点时区里的日期（YYYY-MM-DD）
+const initialDate = new Intl.DateTimeFormat("en-CA", {
+	timeZone: siteConfig.timeZone || "UTC",
+}).format(new Date());
+const locale = siteConfig.lang.replace("_", "-");
+---
+
+<MainGridLayout title={title} description={subtitle}>
+	<div class="fortune-page">
+		<Card color="var(--card-bg)" radius="l" class="fortune-page__card">
+			<PageHeader title={title} subtitle={subtitle} icon="material-symbols:temple-buddhist-outline-rounded" />
+			<FortuneBoard initialDate={initialDate} locale={locale} client:load />
+		</Card>
+	</div>
+</MainGridLayout>
+
+<style lang="stylus">
+	.fortune-page
+		width: 100%
+
+	.fortune-page :global(.fortune-page__card)
+		padding: 1.5rem
+		@media (min-width: 48rem)
+			padding: 2rem
+</style>
