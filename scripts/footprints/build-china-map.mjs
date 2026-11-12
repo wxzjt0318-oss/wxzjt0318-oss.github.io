@@ -6,8 +6,11 @@
  * 这里把 ECharts 的压缩坐标解码，按它的中国地图投影（经度 : 纬度 = 0.75 : 1）
  * 转成 SVG path，页面直接内联输出，运行时不需要任何地图库或网络请求。
  *
- *   npm pack echarts@4.9.0 && tar -xzf echarts-4.9.0.tgz package/map/json/china.json
- *   node scripts/footprints/build-china-map.mjs package/map/json/china.json
+ * 周边国家（日本、朝鲜、韩国、俄罗斯）取自同一个包的 map/json/world.json，
+ * 精度比省界低，画在中国地图下层；俄罗斯只露出画幅内的部分。
+ *
+ *   npm pack echarts@4.9.0 && tar -xzf echarts-4.9.0.tgz package/map/json
+ *   node scripts/footprints/build-china-map.mjs package/map/json/china.json package/map/json/world.json
  *
  * 地图数据很少变化，生成结果已提交到仓库；只有需要重新生成时才运行本脚本。
  */
@@ -26,9 +29,10 @@ const OUT = path.resolve(
 	"china-map.json",
 );
 const source = process.argv[2];
-if (!source) {
+const worldSource = process.argv[3];
+if (!source || !worldSource) {
 	console.error(
-		"用法: node scripts/footprints/build-china-map.mjs <echarts china.json 路径>",
+		"用法: node scripts/footprints/build-china-map.mjs <china.json 路径> <world.json 路径>",
 	);
 	process.exit(1);
 }
@@ -196,11 +200,43 @@ regions.push({
 	inset: true,
 });
 
-const all = regions.flatMap((r) => r.rings.flat());
-const minX = Math.min(...all.map((p) => p[0]));
-const maxX = Math.max(...all.map((p) => p[0]));
-const minY = Math.min(...all.map((p) => p[1]));
-const maxY = Math.max(...all.map((p) => p[1]));
+// 周边国家：world.json 是未压缩的 GeoJSON
+const FOREIGN = {
+	Japan: { id: "JPN", name: "日本", center: [138.3, 36.3] },
+	"Dem. Rep. Korea": { id: "PRK", name: "朝鲜", center: [126.9, 40.2] },
+	Korea: { id: "KOR", name: "韩国", center: [127.9, 36.4] },
+	Russia: { id: "RUS", name: "俄罗斯", center: [104, 56.5] },
+};
+// 画幅：西到新疆、东到北海道、北到能露出一条俄罗斯、南到南海诸岛示意框
+const BOUNDS = { minX: 73, maxX: 147, minY: 17.5, maxY: 60 };
+const world = JSON.parse(fs.readFileSync(worldSource, "utf8"));
+const inView = (ring) =>
+	ring.some(
+		([x, y]) =>
+			x >= BOUNDS.minX &&
+			x <= BOUNDS.maxX &&
+			y >= BOUNDS.minY &&
+			y <= BOUNDS.maxY,
+	);
+// 画幅外的点夹到画幅外一圈，路径不会带着半个西伯利亚的坐标
+const clamp = ([x, y]) => [
+	Math.min(Math.max(x, BOUNDS.minX - 2), BOUNDS.maxX + 2),
+	Math.min(Math.max(y, BOUNDS.minY - 2), BOUNDS.maxY + 2),
+];
+const foreign = world.features
+	.filter((feature) => FOREIGN[feature.properties.name])
+	.map((feature) => {
+		const { type, coordinates } = feature.geometry;
+		const rings = (type === "Polygon" ? [coordinates] : coordinates)
+			.flat()
+			.filter(inView)
+			.map((ring) => ring.map(clamp));
+		return { ...FOREIGN[feature.properties.name], rings, foreign: true };
+	});
+// 周边国家排在前面，先画、压在中国地图下面
+regions.unshift(...foreign);
+
+const { minX, maxX, minY, maxY } = BOUNDS;
 const project = ([lng, lat]) => [
 	Math.round((lng - minX) * SCALE + PAD),
 	Math.round(((maxY - lat) / ASPECT) * SCALE + PAD),
@@ -224,7 +260,7 @@ function ringToPath(ring) {
 }
 
 const output = {
-	source: "Apache ECharts 4.9.0 map/json/china.json (Apache-2.0)",
+	source: "Apache ECharts 4.9.0 map/json/china.json + world.json (Apache-2.0)",
 	width: Math.ceil((maxX - minX) * SCALE + PAD * 2),
 	height: Math.ceil(((maxY - minY) / ASPECT) * SCALE + PAD * 2),
 	regions: regions.map((region) => ({
@@ -232,6 +268,7 @@ const output = {
 		name: region.name,
 		center: project(region.center),
 		...(region.inset ? { inset: true } : {}),
+		...(region.foreign ? { foreign: true } : {}),
 		path: region.rings.map(ringToPath).join(""),
 	})),
 };

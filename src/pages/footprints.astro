@@ -17,11 +17,16 @@ const title = i18n(I18nKey.footprints);
 const subtitle = i18n(I18nKey.footprintsSubtitle);
 
 // 只统计地图上真实存在的省级行政区（不含南海诸岛示意框）
-const provinces = chinaMap.regions.filter((region) => !("inset" in region));
-const known = new Set(provinces.map((region) => region.name));
+const places = chinaMap.regions.filter((region) => !("inset" in region));
+const provinces = places.filter((region) => !("foreign" in region));
+const known = new Set(places.map((region) => region.name));
 const visited = footprintsData.visited.filter((name) => known.has(name));
+// 「已点亮 x / 34」只数省级行政区；去过的周边国家另算
+const litProvinces = visited.filter((name) =>
+	provinces.some((region) => region.name === name),
+);
 const litText = i18n(I18nKey.footprintsLit)
-	.replace("{count}", String(visited.length))
+	.replace("{count}", String(litProvinces.length))
 	.replace("{total}", String(provinces.length));
 ---
 
