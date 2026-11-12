@@ -1,6 +1,7 @@
 ---
 /**
  * 足迹地图：内联 SVG 的中国地图，去过的省级行政区点亮并标出名称。
+ * 周边的日本、朝鲜、韩国和俄罗斯（画幅内的部分）也画在图上，没去过时与未点亮的省份同样式。
  * 纯 SSR、零脚本、零外部请求；路径数据由 scripts/footprints/build-china-map.mjs 生成。
  * 省份名称来自地图数据（中文地名），aria-label 由调用方传入。
  */
@@ -27,6 +28,7 @@ const LABEL_OFFSET: Record<
 	天津: { dx: 18, dy: 8, anchor: "start" },
 	北京: { dx: 0, dy: -14, anchor: "middle" },
 	台湾: { dx: 22, dy: 6, anchor: "start" },
+	韩国: { dx: 0, dy: 34, anchor: "middle" },
 	广东: { dx: -14, dy: 6, anchor: "end" },
 	湖南: { dx: -14, dy: 8, anchor: "end" },
 	江西: { dx: 14, dy: 8, anchor: "start" },
