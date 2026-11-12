@@ -388,6 +388,32 @@ export const tr: Translation = {
 	[Key.photoWallRandomLink]: "Rastgele görsel bağlantısı",
 	[Key.photoWallRedirecting]: "Rastgele bir görsel seçiliyor…",
 	[Key.photoWallCount]: "{count} fotoğraf",
+
+	[Key.footprints]: "Ayak İzleri",
+	[Key.footprintsSubtitle]: "Haritada parlayan yerler gittiğim yerlerdir.",
+	[Key.footprintsMapLabel]: "Ziyaret edilen eyaletlerin parladığı Çin haritası",
+	[Key.footprintsLit]: "{count} / {total} parlıyor",
+	[Key.footprintsVisited]: "Gidilen yerler",
+	[Key.fortune]: "Kader",
+	[Key.fortuneSubtitle]:
+		"Programcı takvimi ve fal çubukları, sadece eğlence için.",
+	[Key.fortuneAlmanac]: "Programcı takvimi",
+	[Key.fortuneToday]: "Bugün {date}",
+	[Key.fortuneGood]: "Uygun",
+	[Key.fortuneBad]: "Uygun değil",
+	[Key.fortuneDirection]: "Masa yönü",
+	[Key.fortuneDirectionText]:
+		"Kod yazarken {direction} yönüne bakın, en az hata böyle çıkar.",
+	[Key.fortuneDrink]: "Günün içeceği",
+	[Key.fortuneGoddess]: "Tanrıça yakınlığı",
+	[Key.fortuneDraw]: "Programcı fal çubukları",
+	[Key.fortuneDrawHint]:
+		"Kodlamadan, test etmeden, düzeltmeden veya commit atmadan önce bir çubuk çekin. Konuyu seçin, içinizden geçirin ve Çek'e basın.",
+	[Key.fortuneDrawOnce]:
+		"Aynı konu için günde bir kez çekebilirsiniz. Yarın tekrar gelin.",
+	[Key.fortuneDrawPrompt]: "Sormak istediğiniz konuyu seçin",
+	[Key.fortuneDrawButton]: "Çek",
+	[Key.fortuneDrawTopic]: "Konu",
 	[Key.menu]: "Menü",
 	[Key.mainNavigation]: "Ana gezinme",
 	[Key.navigationDrawer]: "Gezinme çekmecesi",

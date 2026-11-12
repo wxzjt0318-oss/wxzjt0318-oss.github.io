@@ -386,6 +386,33 @@ export const vi: Translation = {
 	[Key.photoWallRandomLink]: "Liên kết ảnh ngẫu nhiên",
 	[Key.photoWallRedirecting]: "Đang chọn ảnh ngẫu nhiên…",
 	[Key.photoWallCount]: "{count} ảnh",
+
+	[Key.footprints]: "Dấu chân",
+	[Key.footprintsSubtitle]:
+		"Những nơi sáng lên trên bản đồ là nơi tôi đã từng đến.",
+	[Key.footprintsMapLabel]:
+		"Bản đồ Trung Quốc với các tỉnh đã đến được thắp sáng",
+	[Key.footprintsLit]: "Đã thắp sáng {count} / {total}",
+	[Key.footprintsVisited]: "Những nơi đã đến",
+	[Key.fortune]: "Vận mệnh",
+	[Key.fortuneSubtitle]:
+		"Lịch vạn sự của lập trình viên và xin xăm, chỉ để giải trí.",
+	[Key.fortuneAlmanac]: "Lịch lập trình viên",
+	[Key.fortuneToday]: "Hôm nay là {date}",
+	[Key.fortuneGood]: "Nên",
+	[Key.fortuneBad]: "Không nên",
+	[Key.fortuneDirection]: "Hướng bàn làm việc",
+	[Key.fortuneDirectionText]:
+		"Quay mặt về hướng {direction} khi viết code để ít bug nhất.",
+	[Key.fortuneDrink]: "Đồ uống hôm nay",
+	[Key.fortuneGoddess]: "Chỉ số thân thiết với nữ thần",
+	[Key.fortuneDraw]: "Xin xăm lập trình viên",
+	[Key.fortuneDrawHint]:
+		"Xin một quẻ trước khi viết code, kiểm thử, sửa lỗi hay commit. Chọn việc muốn hỏi, thầm khấn rồi bấm Xin.",
+	[Key.fortuneDrawOnce]: "Mỗi việc chỉ xin một lần mỗi ngày. Mai quay lại nhé.",
+	[Key.fortuneDrawPrompt]: "Hãy chọn việc muốn hỏi",
+	[Key.fortuneDrawButton]: "Xin",
+	[Key.fortuneDrawTopic]: "Việc muốn hỏi",
 	[Key.menu]: "Menu",
 	[Key.mainNavigation]: "Điều hướng chính",
 	[Key.navigationDrawer]: "Ngăn điều hướng",

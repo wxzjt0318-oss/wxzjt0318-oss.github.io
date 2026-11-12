@@ -1,0 +1,106 @@
+---
+/**
+ * 足迹：在中国地图上点亮去过的省级行政区。
+ * 数据在 src/data/footprints.ts，地图由 FootprintMap 内联输出（纯 SSR）。
+ */
+import Card from "@components/atoms/display/Card.svelte";
+import PageHeader from "@components/atoms/display/PageHeader.astro";
+import FootprintMap from "@components/organisms/FootprintMap.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import Icon from "@iconify/svelte";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import chinaMap from "@/data/china-map.json";
+import { footprintsData } from "@/data/footprints";
+
+const title = i18n(I18nKey.footprints);
+const subtitle = i18n(I18nKey.footprintsSubtitle);
+
+// 只统计地图上真实存在的省级行政区（不含南海诸岛示意框）
+const provinces = chinaMap.regions.filter((region) => !("inset" in region));
+const known = new Set(provinces.map((region) => region.name));
+const visited = footprintsData.visited.filter((name) => known.has(name));
+const litText = i18n(I18nKey.footprintsLit)
+	.replace("{count}", String(visited.length))
+	.replace("{total}", String(provinces.length));
+---
+
+<MainGridLayout title={title} description={subtitle}>
+	<div class="footprints">
+		<Card color="var(--card-bg)" radius="l" class="footprints__card">
+			<PageHeader title={title} subtitle={subtitle} icon="material-symbols:footprint-outline-rounded" />
+			<p class="footprints__stat">
+				<Icon icon="material-symbols:location-on-rounded" aria-hidden="true" />
+				<span>{litText}</span>
+			</p>
+			<FootprintMap visited={visited} label={i18n(I18nKey.footprintsMapLabel)} />
+		</Card>
+
+		<Card color="var(--card-bg)" radius="l" class="footprints__card">
+			<h2 class="footprints__heading">{i18n(I18nKey.footprintsVisited)}</h2>
+			<ul class="footprints__list">
+				{visited.map((name) => (
+					<li class="footprints__place">
+						<Icon icon="material-symbols:location-on-rounded" aria-hidden="true" />
+						<span>{name}</span>
+					</li>
+				))}
+			</ul>
+		</Card>
+	</div>
+</MainGridLayout>
+
+<style lang="stylus">
+	.footprints
+		display: flex
+		flex-direction: column
+		gap: 1rem
+		width: 100%
+
+	.footprints :global(.footprints__card)
+		padding: 1.5rem
+		@media (min-width: 48rem)
+			padding: 2rem
+
+	.footprints__stat
+		display: inline-flex
+		align-items: center
+		gap: 0.375rem
+		margin: 0 0 1rem
+		padding: 0.375rem 0.875rem
+		border-radius: var(--shape-corner-full)
+		background: var(--primary-container)
+		color: var(--on-primary-container)
+		font: var(--m3e-type-label-large)
+		> :global(svg)
+			width: 1.125rem
+			height: 1.125rem
+
+	.footprints__heading
+		margin: 0 0 1rem
+		color: var(--on-surface)
+		font: var(--m3e-type-title-large)
+
+	.footprints__list
+		display: flex
+		flex-wrap: wrap
+		gap: 0.5rem
+		margin: 0
+		padding: 0
+		list-style: none
+
+	.footprints__place
+		display: inline-flex
+		align-items: center
+		gap: 0.25rem
+		padding: 0.375rem 0.875rem
+		border: 1px solid var(--outline-variant)
+		border-radius: var(--shape-corner-s)
+		background: var(--surface-container-low)
+		color: var(--on-surface)
+		font: var(--m3e-type-label-large)
+		> :global(svg)
+			width: 1rem
+			height: 1rem
+			color: var(--primary)
+</style>

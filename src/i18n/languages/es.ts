@@ -387,6 +387,33 @@ export const es: Translation = {
 	[Key.photoWallRandomLink]: "Enlace de imagen aleatoria",
 	[Key.photoWallRedirecting]: "Eligiendo una imagen al azar…",
 	[Key.photoWallCount]: "{count} fotos",
+
+	[Key.footprints]: "Huellas",
+	[Key.footprintsSubtitle]:
+		"Los lugares iluminados en el mapa son los que he visitado.",
+	[Key.footprintsMapLabel]:
+		"Mapa de China con las provincias visitadas iluminadas",
+	[Key.footprintsLit]: "{count} / {total} iluminadas",
+	[Key.footprintsVisited]: "Lugares visitados",
+	[Key.fortune]: "Fortuna",
+	[Key.fortuneSubtitle]:
+		"Almanaque del programador y palillos de la suerte, solo por diversión.",
+	[Key.fortuneAlmanac]: "Almanaque del programador",
+	[Key.fortuneToday]: "Hoy es {date}",
+	[Key.fortuneGood]: "Propicio",
+	[Key.fortuneBad]: "No propicio",
+	[Key.fortuneDirection]: "Orientación del escritorio",
+	[Key.fortuneDirectionText]:
+		"Programa mirando al {direction} para tener menos errores.",
+	[Key.fortuneDrink]: "Bebida del día",
+	[Key.fortuneGoddess]: "Afinidad con la diosa",
+	[Key.fortuneDraw]: "Palillos de la suerte del programador",
+	[Key.fortuneDrawHint]:
+		"Saca un palillo antes de programar, probar, corregir o confirmar. Elige un tema, piénsalo y pulsa Sacar.",
+	[Key.fortuneDrawOnce]: "Un intento por tema al día. Vuelve mañana.",
+	[Key.fortuneDrawPrompt]: "Elige el tema de tu consulta",
+	[Key.fortuneDrawButton]: "Sacar",
+	[Key.fortuneDrawTopic]: "Tema",
 	[Key.menu]: "Menú",
 	[Key.mainNavigation]: "Navegación principal",
 	[Key.navigationDrawer]: "Panel de navegación",

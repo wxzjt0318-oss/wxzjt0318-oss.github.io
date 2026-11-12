@@ -385,6 +385,32 @@ export const en: Translation = {
 	[Key.photoWallRandomLink]: "Random image link",
 	[Key.photoWallRedirecting]: "Picking a random image…",
 	[Key.photoWallCount]: "{count} photos",
+
+	[Key.footprints]: "Footprints",
+	[Key.footprintsSubtitle]:
+		"The places lit up on the map are where I have been.",
+	[Key.footprintsMapLabel]: "Map of China with visited provinces lit up",
+	[Key.footprintsLit]: "{count} / {total} lit",
+	[Key.footprintsVisited]: "Places visited",
+	[Key.fortune]: "Fortune",
+	[Key.fortuneSubtitle]:
+		"A programmer's almanac and fortune sticks, just for fun.",
+	[Key.fortuneAlmanac]: "Programmer's almanac",
+	[Key.fortuneToday]: "Today is {date}",
+	[Key.fortuneGood]: "Good for",
+	[Key.fortuneBad]: "Bad for",
+	[Key.fortuneDirection]: "Desk direction",
+	[Key.fortuneDirectionText]:
+		"Face {direction} while coding for the fewest bugs.",
+	[Key.fortuneDrink]: "Drink of the day",
+	[Key.fortuneGoddess]: "Goddess affinity",
+	[Key.fortuneDraw]: "Programmer's fortune sticks",
+	[Key.fortuneDrawHint]:
+		"Draw a stick before coding, testing, fixing or committing. Pick a topic, hold it in mind, then press Draw.",
+	[Key.fortuneDrawOnce]: "One draw per topic per day. Come back tomorrow.",
+	[Key.fortuneDrawPrompt]: "Pick a topic to ask about",
+	[Key.fortuneDrawButton]: "Draw",
+	[Key.fortuneDrawTopic]: "Topic",
 	[Key.menu]: "Menu",
 	[Key.mainNavigation]: "Main navigation",
 	[Key.navigationDrawer]: "Navigation drawer",

@@ -1,0 +1,158 @@
+---
+/**
+ * 足迹地图：内联 SVG 的中国地图，去过的省级行政区点亮并标出名称。
+ * 纯 SSR、零脚本、零外部请求；路径数据由 scripts/footprints/build-china-map.mjs 生成。
+ * 省份名称来自地图数据（中文地名），aria-label 由调用方传入。
+ */
+import chinaMap from "@/data/china-map.json";
+
+interface Props {
+	/** 去过的省级行政区名称（与地图数据的 name 一致） */
+	visited: string[];
+	/** 地图的无障碍名称 */
+	label: string;
+}
+
+const { visited, label } = Astro.props;
+const visitedSet = new Set(visited);
+
+// 面积很小的地区把名称标在外侧，避免盖住相邻省份
+const LABEL_OFFSET: Record<
+	string,
+	{ dx: number; dy: number; anchor: "start" | "middle" | "end" }
+> = {
+	香港: { dx: 16, dy: 22, anchor: "start" },
+	澳门: { dx: -16, dy: 22, anchor: "end" },
+	上海: { dx: 18, dy: 6, anchor: "start" },
+	天津: { dx: 18, dy: 8, anchor: "start" },
+	北京: { dx: 0, dy: -14, anchor: "middle" },
+	台湾: { dx: 22, dy: 6, anchor: "start" },
+	广东: { dx: -14, dy: 6, anchor: "end" },
+	湖南: { dx: -14, dy: 8, anchor: "end" },
+	江西: { dx: 14, dy: 8, anchor: "start" },
+	江苏: { dx: 0, dy: -8, anchor: "middle" },
+};
+
+const regions = chinaMap.regions;
+const lit = regions.filter((region) => visitedSet.has(region.name));
+---
+
+<figure class="footprint-map">
+	<svg
+		class="footprint-map__svg"
+		viewBox={`0 0 ${chinaMap.width} ${chinaMap.height}`}
+		role="img"
+		aria-label={label}
+	>
+		<g class="footprint-map__regions">
+			{regions.map((region) => (
+				<path
+					d={region.path}
+					class:list={[
+						"footprint-map__region",
+						visitedSet.has(region.name) && "footprint-map__region--lit",
+						"inset" in region && "footprint-map__region--inset",
+					]}
+				>
+					<title>{region.name}</title>
+				</path>
+			))}
+		</g>
+		<g class="footprint-map__markers" aria-hidden="true">
+			{lit.map((region) => {
+				const offset = LABEL_OFFSET[region.name] ?? { dx: 0, dy: -12, anchor: "middle" };
+				return (
+					<g>
+						<circle class="footprint-map__pulse" cx={region.center[0]} cy={region.center[1]} r="9" />
+						<circle class="footprint-map__dot" cx={region.center[0]} cy={region.center[1]} r="5" />
+						<text
+							class="footprint-map__label"
+							x={region.center[0] + offset.dx}
+							y={region.center[1] + offset.dy}
+							text-anchor={offset.anchor}
+						>
+							{region.name}
+						</text>
+					</g>
+				);
+			})}
+		</g>
+	</svg>
+</figure>
+
+<style lang="stylus">
+.footprint-map
+	margin: 0
+	width: 100%
+
+.footprint-map__svg
+	display: block
+	width: 100%
+	height: auto
+
+.footprint-map__region
+	fill: var(--surface-container-highest)
+	stroke: var(--outline-variant)
+	stroke-width: 1.5
+	stroke-linejoin: round
+	vector-effect: non-scaling-stroke
+	transition: fill var(--m3e-duration-short) var(--m3e-easing-standard)
+	&:hover
+		fill: var(--surface-dim)
+
+.footprint-map__region--lit
+	fill: var(--primary)
+	stroke: var(--surface)
+	&:hover
+		fill: var(--primary)
+		filter: brightness(1.08)
+
+.footprint-map__region--inset
+	fill: var(--outline-variant)
+	stroke: none
+	&:hover
+		fill: var(--outline-variant)
+
+.footprint-map__dot
+	fill: var(--on-primary)
+	stroke: var(--primary)
+	stroke-width: 2.5
+
+.footprint-map__pulse
+	fill: var(--primary)
+	opacity: 0.35
+	transform-box: fill-box
+	transform-origin: center
+	animation: footprint-pulse 2.4s var(--m3e-easing-standard) infinite
+
+.footprint-map__label
+	fill: var(--on-surface)
+	stroke: var(--surface)
+	stroke-width: 5
+	stroke-linejoin: round
+	paint-order: stroke
+	font: var(--m3e-type-label-large)
+	/* 标签随 SVG 缩放：viewBox 宽 1252，在窄屏上仍需可读 */
+	font-size: 26px
+	font-weight: 700
+	@media (max-width: 47.99rem)
+		font-size: 34px
+		stroke-width: 7
+
+@keyframes footprint-pulse
+	0%
+		transform: scale(0.6)
+		opacity: 0.5
+	100%
+		transform: scale(2.4)
+		opacity: 0
+
+:global(html.motion-reduced) .footprint-map__pulse
+	animation: none
+
+@media (prefers-reduced-motion: reduce)
+	.footprint-map__pulse
+		animation: none
+	.footprint-map__region
+		transition: none
+</style>

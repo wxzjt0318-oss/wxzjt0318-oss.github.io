@@ -390,6 +390,33 @@ export const id: Translation = {
 	[Key.photoWallRandomLink]: "Tautan gambar acak",
 	[Key.photoWallRedirecting]: "Memilih gambar acak…",
 	[Key.photoWallCount]: "{count} foto",
+
+	[Key.footprints]: "Jejak",
+	[Key.footprintsSubtitle]:
+		"Tempat yang menyala di peta adalah tempat yang pernah saya kunjungi.",
+	[Key.footprintsMapLabel]:
+		"Peta Tiongkok dengan provinsi yang pernah dikunjungi menyala",
+	[Key.footprintsLit]: "{count} / {total} menyala",
+	[Key.footprintsVisited]: "Tempat yang dikunjungi",
+	[Key.fortune]: "Peruntungan",
+	[Key.fortuneSubtitle]:
+		"Almanak programmer dan ramalan batang, hanya untuk hiburan.",
+	[Key.fortuneAlmanac]: "Almanak programmer",
+	[Key.fortuneToday]: "Hari ini {date}",
+	[Key.fortuneGood]: "Baik untuk",
+	[Key.fortuneBad]: "Hindari",
+	[Key.fortuneDirection]: "Arah meja",
+	[Key.fortuneDirectionText]:
+		"Menghadap {direction} saat ngoding agar bug paling sedikit.",
+	[Key.fortuneDrink]: "Minuman hari ini",
+	[Key.fortuneGoddess]: "Kedekatan dengan dewi",
+	[Key.fortuneDraw]: "Ramalan batang programmer",
+	[Key.fortuneDrawHint]:
+		"Ambil satu batang sebelum ngoding, menguji, memperbaiki, atau commit. Pilih topik, niatkan dalam hati, lalu tekan Ambil.",
+	[Key.fortuneDrawOnce]: "Satu kali per topik per hari. Kembali besok.",
+	[Key.fortuneDrawPrompt]: "Pilih topik yang ingin ditanyakan",
+	[Key.fortuneDrawButton]: "Ambil",
+	[Key.fortuneDrawTopic]: "Topik",
 	[Key.menu]: "Menu",
 	[Key.mainNavigation]: "Navigasi utama",
 	[Key.navigationDrawer]: "Laci navigasi",

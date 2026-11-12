@@ -105,6 +105,16 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:photo-library-outline-rounded",
 		pageKey: "albums",
 	},
+	Footprints: {
+		name: i18n(I18nKey.footprints),
+		url: "/footprints/",
+		icon: "material-symbols:footprint-outline-rounded",
+	},
+	Fortune: {
+		name: i18n(I18nKey.fortune),
+		url: "/fortune/",
+		icon: "material-symbols:temple-buddhist-outline-rounded",
+	},
 	Categories: {
 		name: i18n(I18nKey.categories),
 		url: "/categories/",
@@ -181,6 +191,8 @@ const defaultNavBarConfig: NavBarConfig = {
 				LinkPresets.Moments,
 				LinkPresets.Albums,
 				LinkPresets.Friends,
+				LinkPresets.Footprints,
+				LinkPresets.Fortune,
 			],
 		},
 		{
