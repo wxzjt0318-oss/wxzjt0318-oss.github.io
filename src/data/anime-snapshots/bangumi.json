@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"provider": "bangumi",
-	"fetchedAt": "2026-11-11T14:29:03.173Z",
+	"fetchedAt": "2026-11-12T12:50:41.999Z",
 	"accountRef": "1180323",
 	"items": [
 		{
@@ -522,7 +522,7 @@
 		{
 			"title": "花织即使是转生也想打架",
 			"status": "watching",
-			"rating": 6.9,
+			"rating": 6.8,
 			"year": "2026",
 			"genres": [
 				"恋爱",
@@ -2170,7 +2170,7 @@
 				"2026年4月",
 				"漫画改",
 				"辣妹",
-				"TV"
+				"后宫"
 			],
 			"progress": {
 				"watched": 0,
@@ -2294,7 +2294,7 @@
 				"2023年4月",
 				"奇幻",
 				"漫改",
-				"漫画改"
+				"TV"
 			],
 			"progress": {
 				"watched": 0,
@@ -3760,8 +3760,8 @@
 				"轻小说改",
 				"TV",
 				"奇幻",
-				"SILVERLINK.",
-				"穿越"
+				"穿越",
+				"SILVERLINK."
 			],
 			"progress": {
 				"watched": 0,
