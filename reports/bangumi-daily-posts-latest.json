@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-12T12:51:04.874Z",
+  "generatedAt": "2026-11-13T14:40:05.849Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 404909,
+    "subject_id": 407133,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2025-07-02",
+    "ep_status": 12,
+    "updated_at": "2024-04-01",
     "subject": {
-      "id": 404909,
-      "name": "强者的新传说",
-      "name_cn": "强者的新传说",
-      "date": "2025-07-02",
+      "id": 407133,
+      "name": "转生为第七王子，随心所欲的魔法学习之路",
+      "name_cn": "转生为第七王子，随心所欲的魔法学习之路",
+      "date": "2024-04-01",
       "eps": 12,
-      "short_summary": "「…終わった…これでやっと…やっと」 魔族が仕掛けた大規模な戦争「大侵攻」によって、人族が滅亡寸前にまで追い込まれた世界。 戦乱の中で青年・カイルは、かけがえのない存在と故郷を失う。 復讐のため、魔法剣士として立ち上がった彼は、激戦の末に魔王討伐を果たすのだが… 勝利の代償はあまりにも大きく、瀕死の重傷を負った自身も力尽きようとしていた……。 その時…… 深紅の宝石が放つ光に包まれ、次に目覚めると、なんとそこは既に滅んだはずの故郷だった！ 4年もの時を遡り、失った家族、友人、恋人と再会を果たしたカイルは、二度と同じ悲劇を繰り返さぬよう、前世の記憶と経験を武器に2周目の人生に挑む！ 今、世界を救うための“ニューサーガ”が始まる！",
+      "short_summary": "魔法最重要的是“家世”“才能”“努力”。有一位热爱魔法，却缺乏血统和才能，最后死于非命的“凡人”魔法师。临死前期望“想要钻研学习更多魔法”的这个男人在转生后，成为了拥有强大魔法血统的沙鲁姆王国第七王子·罗伊德。 拥有过去的记忆，带着完美的血统及才能投胎转世的他，怀抱着前世没能实现的心愿，即将以超乎常人的魔力“随心所欲地学习魔法”，享受他的无双生活。",
       "tags": [
-        {
-          "name": "2025年7月"
-        },
-        {
-          "name": "奇幻"
-        },
-        {
-          "name": "战斗"
-        },
         {
           "name": "异世界"
         },
         {
-          "name": "轮回"
+          "name": "2024年4月"
         },
         {
-          "name": "TV"
+          "name": "轻小说改"
+        },
+        {
+          "name": "正太"
+        },
+        {
+          "name": "龙傲天"
+        },
+        {
+          "name": "奇幻"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ad/ac/404909_9HOfw.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ad/ac/404909_9HOfw.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ad/ac/404909_9HOfw.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ad/ac/404909_9HOfw.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2b/b7/407133_hGMQM.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "强者的新传说",
+      "title": "转生为第七王子，随心所欲的魔法学习之路",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ad/ac/404909_9HOfw.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "强者的新传说",
+      "title": "转生为第七王子，随心所欲的魔法学习之路",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ad/ac/404909_9HOfw.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2b/b7/407133_hGMQM.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "强者的新传说",
+      "title": "转生为第七王子，随心所欲的魔法学习之路",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-404909.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-407133.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
