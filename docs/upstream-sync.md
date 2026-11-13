@@ -76,3 +76,4 @@ Claude Code 的定时任务每天执行一次本流程，也可以手动让 Clau
 - 2026-11-04：同步到 `6e14799`（无障碍与依赖安全加固、KaTeX 0.18.10 / Mermaid 12、Mermaid 兜底插件、日历复数文案）。`tests/ci-path-filter.test.mjs`、`tests/style-regression-specs.test.mjs` 中断言上游浏览器测试任务的两个用例按第二节删掉。
 - 2026-11-04：同步到 `5c6a419`（控件无障碍标签多语言化、Mermaid `<br>` 标签）。i18n 冲突为两边各自在末尾追加键，两边都保留。
 - 2026-11-09：同步到 `4e7306c`（npm 包模型修复、Windows 下包初始化测试、依赖小版本升级）。上游新增的 `shirones-pipeline-tests` 任务拉取第三方仓库 yCENzh/shirones 跑 npm 发布前流水线，只服务于主题发包，本站不发 npm 包，和浏览器测试任务一样不加回。
+- 2026-11-13：同步到 `3b71694`（友链/番剧分页、Bangumi 封面模式、加密动态）。`AnimeSection.svelte` 保留本站带计数与彩色徽章的筛选按钮和按更新时间排序，翻页改用上游的页码分页（替换原「加载更多」）；`bangumi.mjs` 同时保留本站的主站 HTML 回退和上游的封面模式；`animeConfig.ts` 保留本站 UID 与启用状态，新增 `cover` 配置。
