@@ -1,11 +1,11 @@
 name: Fetch Wiki Sources
 
 # 抓取撰写深度文章所需的萌娘百科 / 维基百科全文（scripts/wiki/source-requests.json），
-# 结果写入 reports/wiki-sources/ 并提交回触发分支。只在 claude/** 与 cursor/** 分支修改请求清单时运行。
+# 结果写入 reports/wiki-sources/ 并提交回触发分支。只在 claude/** 分支修改请求清单时运行。
 # 用于每日长文改写流程，见 docs/longform-rewrite.md；请求清单与抓取结果都不进 main。
 on:
   push:
-    branches: ["claude/**", "cursor/**"]
+    branches: ["claude/**"]
     paths:
       - "scripts/wiki/source-requests.json"
 
