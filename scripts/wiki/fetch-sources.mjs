@@ -10,8 +10,9 @@
  *     "_databases": { ann: [...], kitsu: [...] }, // Anime News Network、Kitsu（结构化资料）
  *     "<日文查询> (アニメ)": { jawiki },          // 日文维基的动画子条目（有的话），主题曲、各季 staff 多在这里
  *     "_linked": { wikidata, syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom,
- *                  bangumiMusic, shikimori } }   // 后两项为主题曲资料，见 scripts/wiki/theme-songs.mjs
- *       // 经 Wikidata 编号精确关联的各站资料，见 scripts/wiki/linked-sources.mjs
+ *                  bangumiMusic, shikimori, anisearch, mangaupdates, vndb, biligame, ranobedb, ndl } }
+ *       // 前半经 Wikidata 编号精确关联，见 scripts/wiki/linked-sources.mjs
+ *       // 后六项为官方 API 书志来源，见 scripts/wiki/catalog-sources.mjs；各自可用 WIKI_SOURCE_<NAME>=0 关闭
  * 每个来源都是 {title, url, text} 或 null（数据库为数组）。
  *
  * 需要外网，在 GitHub Actions「Fetch Wiki Sources」中运行。
@@ -120,7 +121,8 @@ for (const [group, entry] of groups) {
 			if (!kitsu.some((k) => k.url === item.url)) kitsu.push(item);
 		}
 	}
-	const linked = await fetchLinkedSources({ ja, en: [...englishTitles], bangumiId: bangumi });
+	// zh[0] 是作品名；后面可能是角色名，不能拿去对书目，否则同名角色会错配
+	const linked = await fetchLinkedSources({ ja, en: [...englishTitles], zh: zh.slice(0, 1), bangumiId: bangumi });
 	if (linked.annId && !ann.some((a) => a.url.endsWith(`id=${linked.annId}`))) {
 		const exact = await settle(fetchAnnEntryById(linked.annId));
 		if (exact) ann.unshift(exact);
