@@ -16,6 +16,7 @@ import {
 	parseNdlRss,
 	pickBiliWiki,
 	rankByTitle,
+	searchOrder,
 	selectNdlBooks,
 	titleMatchScore,
 	volumeBias,
@@ -51,6 +52,15 @@ describe("titleMatchScore", () => {
 			0,
 		);
 		assert.equal(titleMatchScore(["Date A Live"], ["Date"]), 0);
+	});
+});
+
+describe("searchOrder", () => {
+	it("searches the series name before a season title that only adds V", () => {
+		assert.deepEqual(
+			searchOrder(["デート・ア・ライブV", "デート・ア・ライブ"]),
+			["デート・ア・ライブ", "デート・ア・ライブV"],
+		);
 	});
 });
 

@@ -81,6 +81,22 @@ export function isGameOrGameAdaptation({
 	return instanceIds.some((id) => GAME_INSTANCE_IDS.has(id));
 }
 
+const SEASON_TAIL =
+	/\s*(?:第?[0-9０-９一二三四五六七八九十]+期|第[0-9０-９一二三四五六七八九十]+シーズン|第[0-9一二三四五六七八九十]+季|[0-9]+(?:st|nd|rd|th)\s*season|season\s*\d+|[vｖ])\s*$/i;
+
+/** 季数标题先还原成系列名，再保留原查询。最多 3 条，避免把「〇〇V」当成另一个作品去搜。 */
+export function searchOrder(queries) {
+	const ordered = [];
+	for (const raw of queries || []) {
+		const query = String(raw || "").trim();
+		if (query.length < 2) continue;
+		const base = query.replace(SEASON_TAIL, "").trim();
+		if (base.length >= 2 && base !== query) ordered.push(base);
+		ordered.push(query);
+	}
+	return [...new Set(ordered)].slice(0, 3);
+}
+
 /** 卷号紧跟系列名的标题，优先于「系列名 + 外传词」。 */
 export function volumeBias(queries, title) {
 	const qs = (queries || []).map(normalizeTitle).filter((q) => q.length >= 6);
@@ -252,32 +268,47 @@ function muTitles(record) {
 }
 
 async function fetchMangaUpdates({ queries, slug, medium }) {
-	const payload = await requestJson(
-		"mangaupdates",
-		"https://api.mangaupdates.com/v1/series/search",
-		{
-			method: "POST",
-			body: JSON.stringify({ search: queries[0], stype: "title", perpage: 10 }),
-		},
-	);
-	const results = (payload?.results || []).map((row) => row.record || row);
-	const bySlug = slug
-		? results.find((row) => String(row.url || "").includes(`/series/${slug}`))
-		: null;
-	const ranked = rankByTitle(queries, results, (row) => [row.title]);
-	if (medium) {
-		ranked.sort((a, b) => {
-			const bonus = (row) =>
-				String(row.item.type || "").toLowerCase() ===
-				(medium === "novel" ? "novel" : "manga")
-					? 0.05
-					: 0;
-			return b.score + bonus(b) - (a.score + bonus(a)) || b.bias - a.bias;
-		});
+	let chosen = null;
+	let chosenBySlug = false;
+	let bestScore = 0;
+	for (const query of searchOrder(queries)) {
+		const payload = await requestJson(
+			"mangaupdates",
+			"https://api.mangaupdates.com/v1/series/search",
+			{
+				method: "POST",
+				body: JSON.stringify({ search: query, stype: "title", perpage: 10 }),
+			},
+		);
+		const results = (payload?.results || []).map((row) => row.record || row);
+		const bySlug = slug
+			? results.find((row) => String(row.url || "").includes(`/series/${slug}`))
+			: null;
+		if (bySlug?.series_id) {
+			chosen = bySlug;
+			chosenBySlug = true;
+			break;
+		}
+		const ranked = rankByTitle(queries, results, (row) => [row.title]);
+		if (medium) {
+			ranked.sort((a, b) => {
+				const bonus = (row) =>
+					String(row.item.type || "").toLowerCase() ===
+					(medium === "novel" ? "novel" : "manga")
+						? 0.05
+						: 0;
+				return b.score + bonus(b) - (a.score + bonus(a)) || b.bias - a.bias;
+			});
+		}
+		if (ranked[0] && ranked[0].score > bestScore) {
+			bestScore = ranked[0].score;
+			chosen = ranked[0].item;
+		}
+		if (bestScore >= 0.9) break;
 	}
-	const chosen = bySlug || ranked[0]?.item;
 	if (!chosen?.series_id) return null;
-	if (!bySlug && titleMatchScore(queries, muTitles(chosen)) < 0.85) return null;
+	if (!chosenBySlug && titleMatchScore(queries, muTitles(chosen)) < 0.85)
+		return null;
 	const series = await requestJson(
 		"mangaupdates",
 		`https://api.mangaupdates.com/v1/series/${e(chosen.series_id)}`,
@@ -342,22 +373,30 @@ async function fetchVndb({ queries, id }) {
 		});
 		return formatVndb(payload?.results, { byId: true });
 	}
-	if (!queries?.[0]) return null;
-	const payload = await requestJson("vndb", "https://api.vndb.org/kana/vn", {
-		method: "POST",
-		body: JSON.stringify({
-			filters: ["search", "=", queries[0]],
-			fields: VNDB_FIELDS,
-			results: 8,
-			sort: "searchrank",
-		}),
-	});
-	const ranked = rankByTitle(queries, payload?.results || [], (vn) => [
-		vn.title,
-		vn.alttitle,
-		...(vn.aliases || []),
-		...(vn.titles || []).flatMap((t) => [t.title, t.latin]),
-	]);
+	let ranked = [];
+	let bestScore = 0;
+	for (const query of searchOrder(queries)) {
+		const payload = await requestJson("vndb", "https://api.vndb.org/kana/vn", {
+			method: "POST",
+			body: JSON.stringify({
+				filters: ["search", "=", query],
+				fields: VNDB_FIELDS,
+				results: 8,
+				sort: "searchrank",
+			}),
+		});
+		const next = rankByTitle(queries, payload?.results || [], (vn) => [
+			vn.title,
+			vn.alttitle,
+			...(vn.aliases || []),
+			...(vn.titles || []).flatMap((t) => [t.title, t.latin]),
+		]);
+		if (next[0] && next[0].score > bestScore) {
+			bestScore = next[0].score;
+			ranked = next;
+		}
+		if (bestScore >= 0.9) break;
+	}
 	return formatVndb(ranked.map((row) => row.item));
 }
 
@@ -540,11 +579,15 @@ function ranobeTitles(book) {
 }
 
 async function fetchRanobe(queries) {
-	const payload = await requestJson(
-		"ranobedb",
-		`https://ranobedb.org/api/v0/books?limit=30&q=${e(queries[0])}`,
-	);
-	const ranked = rankByTitle(queries, payload?.books || [], ranobeTitles);
+	let ranked = [];
+	for (const query of searchOrder(queries)) {
+		const payload = await requestJson(
+			"ranobedb",
+			`https://ranobedb.org/api/v0/books?limit=30&q=${e(query)}`,
+		);
+		ranked = rankByTitle(queries, payload?.books || [], ranobeTitles);
+		if (ranked[0]?.score >= 0.9) break;
+	}
 	let fallback = null;
 	let fallbackScore = 0;
 	for (const row of ranked.slice(0, 3)) {
@@ -643,12 +686,17 @@ export function formatNdlBooks(items) {
 }
 
 async function fetchNdl(queries) {
-	const xml = await requestText(
-		"ndl",
-		`https://ndlsearch.ndl.go.jp/api/opensearch?dpid=iss-ndl-opac&mediatype=books&cnt=40&title=${e(queries[0])}`,
-		{ accept: "application/xml" },
-	);
-	return formatNdlBooks(selectNdlBooks(parseNdlRss(xml), queries));
+	const titles = [...searchOrder(queries), ...queries];
+	for (const query of searchOrder(queries)) {
+		const xml = await requestText(
+			"ndl",
+			`https://ndlsearch.ndl.go.jp/api/opensearch?dpid=iss-ndl-opac&mediatype=books&cnt=25&title=${e(query)}`,
+			{ accept: "application/xml", timeoutMs: 40_000 },
+		);
+		const books = selectNdlBooks(parseNdlRss(xml), titles);
+		if (books.length > 0) return formatNdlBooks(books);
+	}
+	return null;
 }
 
 // ── 汇总 ────────────────────────────────────────────────────────────────────
