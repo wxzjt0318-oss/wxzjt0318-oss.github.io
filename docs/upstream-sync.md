@@ -18,7 +18,7 @@ Claude Code 的定时任务每天执行一次本流程，也可以手动让 Clau
 
    输出「上游没有更新」就直接结束，什么都不用提交。
 
-2. **合并**：在一个 `claude/` 开头的分支上（会话指定了分支就用指定的，从最新 `main` 重新切出）运行
+2. **合并**：在一个 `claude/` 或 `cursor/` 开头的分支上（会话指定了分支就用指定的，从最新 `main` 重新切出）运行
 
    ```bash
    node scripts/upstream/sync.mjs --apply

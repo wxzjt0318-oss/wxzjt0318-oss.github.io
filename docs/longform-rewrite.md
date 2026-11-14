@@ -19,7 +19,7 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
    输出 `共 0 篇待改写` 就直接结束，什么都不用提交。
 
 2. **建分支并抓资料**：本沙箱访问不了萌娘百科和维基百科，资料由 GitHub Actions 抓取。
-   - 在一个 `claude/` 开头的分支上工作（会话指定了分支就用指定的，否则用 `claude/longform-<日期>`），从最新 `main` 切出。
+   - 在一个 `claude/` 或 `cursor/` 开头的分支上工作（会话指定了分支就用指定的；未指定时，Claude Code 用 `claude/longform-<日期>`，Cursor 用 `cursor/longform-<日期>`），从最新 `main` 切出。
    - 运行 `node scripts/wiki/find-auto-drafts.mjs --requests`，它会写出 `scripts/wiki/source-requests.json`，每篇一组 `{ zh, ja, en, bangumi }`：`zh` 是中文标题与主要角色名，`ja` 是日文原名，`en` 是由文章英文链接还原的罗马字 / 英文标题，`bangumi` 是 Bangumi 条目编号。可以手动补充更准确的条目名（例如系列主条目的日文名、官方英文名）。
    - 提交 `source-requests.json` 并推送。推送会触发「Fetch Wiki Sources」工作流（`.github/workflows/fetch-wiki-sources.yml`，4 个分片，约 2 分钟），它把结果提交回同一分支的 `reports/wiki-sources/<slug>.json`。
    - 等待：用 GitHub 工具查看该工作流运行完成（每个有资料的分片提交一个 `chore(sources)`，篇数少时不足 4 个），然后 `git pull`。不要用前台 `sleep`。
