@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-14T13:37:39.920Z",
+  "generatedAt": "2026-11-14T18:06:27.889Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 544104,
+    "subject_id": 389466,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2025-10-04",
+    "updated_at": "2024-04-10",
     "subject": {
-      "id": 544104,
-      "name": "不动声色的柏田与喜形于色的太田",
-      "name_cn": "不动声色的柏田与喜形于色的太田",
-      "date": "2025-10-04",
+      "id": 389466,
+      "name": "约会大作战 第五季",
+      "name_cn": "约会大作战 第五季",
+      "date": "2024-04-10",
       "eps": 12,
-      "short_summary": "何があっても顔に出ない 女子中学生・柏田さんと、 めちゃくちゃ顔に出てしまう同級生の太田君。 正反対の二人は、きっと両思い…？ 柏田さんと太田君と、クラスメイト たちのほのぼのラブコメ。",
+      "short_summary": "有着人类少女的样貌，却不同于人类的存在――精灵。 她们拥有强大的能力，从邻界现身时，因为会伴随名为『空间震』的灾难，她们甚至被称为人类的天敌。 面对精灵的威胁，人类能采取的手段，是以武力歼灭，或是―― 『与精灵约会，使其娇羞』！ 五河士道能通过让精灵娇羞并亲吻精灵来封印她们的灵力。 靠着这个特异能力持续拯救人类及精灵们的士道身边，有股巨大波涛即将袭击而来。 身为世界屈指可数的巨大企业且想获得精灵力量的DEM社，为了夺取士道的性命，将大举来袭。 于是，士道记忆深处里的神秘少女现出原形―― 各种想法错综复杂，史上最大的战争即将开始。 [简介原文] 人間の少女の姿をしながらも、人間とは異なる存在―― 精霊。 強大な能力をもち、隣界から顕現する際に〈空間震〉と呼ばれる災害を発生させる彼女たちは、人類の天敵とさえ呼ばれている。 そんな精霊の脅威に対して人類がとりうる手段は、武力をもって殲滅する、もしくは―― 『デートして、デレさせる』！ 五河士道は、精霊をデレされてキスをすることで、力を封印できる能力のもち主。 その力で人類を、そして精霊たちを救ってきた彼をめぐって、大きな波乱が迫ろうとしていた…",
       "tags": [
+        {
+          "name": "后宫"
+        },
+        {
+          "name": "轻小说改"
+        },
+        {
+          "name": "约会大作战"
+        },
         {
           "name": "恋爱"
         },
         {
-          "name": "校园"
+          "name": "2024年4月"
         },
         {
-          "name": "2025年10月"
-        },
-        {
-          "name": "漫画改"
-        },
-        {
-          "name": "STUDIOPOLON"
-        },
-        {
-          "name": "TV"
+          "name": "战斗"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/3e/62/544104_z9082.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/2f/86/389466_2K1dH.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "不动声色的柏田与喜形于色的太田",
+      "title": "约会大作战 第五季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "不动声色的柏田与喜形于色的太田",
+      "title": "约会大作战 第五季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3e/62/544104_z9082.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2f/86/389466_2K1dH.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "不动声色的柏田与喜形于色的太田",
+      "title": "约会大作战 第五季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-544104.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-389466.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
