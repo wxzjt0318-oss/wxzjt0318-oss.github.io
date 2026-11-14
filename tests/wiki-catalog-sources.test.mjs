@@ -56,10 +56,24 @@ describe("titleMatchScore", () => {
 });
 
 describe("searchOrder", () => {
-	it("searches the series name before a season title that only adds V", () => {
+	it("searches the series name before a season title and still keeps the English title", () => {
 		assert.deepEqual(
-			searchOrder(["デート・ア・ライブV", "デート・ア・ライブ"]),
-			["デート・ア・ライブ", "デート・ア・ライブV"],
+			searchOrder(["デート・ア・ライブV", "デート・ア・ライブ", "date a live"]),
+			["デート・ア・ライブ", "デート・ア・ライブV", "date a live"],
+		);
+	});
+
+	it("does not treat an English database title as the Japanese season name", () => {
+		assert.equal(
+			titleMatchScore(
+				["デート・ア・ライブV", "デート・ア・ライブ"],
+				["Date a Live"],
+			),
+			0,
+		);
+		assert.equal(
+			titleMatchScore(["デート・ア・ライブ", "date a live"], ["Date a Live"]),
+			1,
 		);
 	});
 });

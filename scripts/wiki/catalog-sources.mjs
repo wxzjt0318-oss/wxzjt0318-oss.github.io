@@ -731,34 +731,33 @@ export async function fetchCatalogSources({
 	];
 	const medium = workMedium(instanceIds);
 	const game = isGameOrGameAdaptation({ bangumiType, instanceIds });
-	const searchQueries = queries.slice(0, 2);
+	// 相关性校验要用全部标题（含英文）。网络请求由 searchOrder 限制为最多 3 次，
+	// 不能在这里先切掉英文，否则日文季名对不上 MangaUpdates 的英文条目。
 	const [anisearch, mangaupdates, vndb, biligame, ranobedb, ndl] =
 		await Promise.all([
 			enabled("anisearch")
 				? settle("aniSearch", () => fetchAniSearch(ids.anisearch))
 				: null,
-			enabled("mangaupdates") && searchQueries.length
+			enabled("mangaupdates") && queries.length
 				? settle("MangaUpdates", () =>
 						fetchMangaUpdates({
-							queries: searchQueries,
+							queries,
 							slug: ids.mangaupdates || "",
 							medium,
 						}),
 					)
 				: null,
-			enabled("vndb") && (ids.vndb || searchQueries.length)
-				? settle("VNDB", () =>
-						fetchVndb({ queries: searchQueries, id: ids.vndb || "" }),
-					)
+			enabled("vndb") && (ids.vndb || queries.length)
+				? settle("VNDB", () => fetchVndb({ queries, id: ids.vndb || "" }))
 				: null,
-			enabled("biligame") && game && searchQueries.length
-				? settle("bilibili 游戏 Wiki", () => fetchBiliGame(searchQueries))
+			enabled("biligame") && game && queries.length
+				? settle("bilibili 游戏 Wiki", () => fetchBiliGame(queries))
 				: null,
-			enabled("ranobedb") && searchQueries.length
-				? settle("RanobeDB", () => fetchRanobe(searchQueries))
+			enabled("ranobedb") && queries.length
+				? settle("RanobeDB", () => fetchRanobe(queries))
 				: null,
-			enabled("ndl") && searchQueries.length
-				? settle("NDL", () => fetchNdl(searchQueries))
+			enabled("ndl") && queries.length
+				? settle("NDL", () => fetchNdl(queries))
 				: null,
 		]);
 	return { anisearch, mangaupdates, vndb, biligame, ranobedb, ndl };

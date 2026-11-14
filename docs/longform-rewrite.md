@@ -85,7 +85,7 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
   3. **补充与交叉核对**：英文维基（`.enwiki`）、Anime News Network（`_databases.ann`）、MyAnimeList（`_linked.mal`，播出时段、制作 / 发行公司、海外代理、角色与声优）、LiveChart（`_linked.livechart`）、Kitsu（`_databases.kitsu`）；
   4. **只用于补充角色细节**：Fandom 作品维基（`_linked.fandom`），粉丝编写，与上面的来源冲突时一律以上面为准。
   5. **主题曲**（写「主题曲」小节时用）：Bangumi 关联音乐条目（`_linked.bangumiMusic`，片头曲 / 片尾曲 / 插入歌 / 角色歌 / 原声集，含演唱者和单曲发售日，最可靠）、MyAnimeList 页面里的「主题曲」一段（`_linked.mal`，OP / ED 与使用话数）、Shikimori（`_linked.shikimori`，基本信息与 OP / ED 视频名，名称不规范，只用于核对）。ANN 的 Opening / Ending Theme 也可参考，但 ANN 是按标题搜索的，先确认条目是不是本作。
-  6. **官方 API 书志**（`scripts/wiki/catalog-sources.mjs`，各自可用环境变量 `WIKI_SOURCE_<NAME>=0` 关闭，某一来源失败不影响其他来源）。有 Wikidata 编号时按编号抓，否则按作品标题搜索并做相关性校验，对不上就丢掉。带「第N季 / V」这类季数后缀的标题会先去掉后缀，再按系列名搜：
+  6. **官方 API 书志**（`scripts/wiki/catalog-sources.mjs`，各自可用环境变量 `WIKI_SOURCE_<NAME>=0` 关闭，某一来源失败不影响其他来源）。有 Wikidata 编号时按编号抓，否则按作品标题搜索并做相关性校验，对不上就丢掉。带「第N季 / V」这类季数后缀的标题会先去掉后缀，再按系列名搜；英文标题仍参加相关性校验，避免日文季名对不上英文数据库条目：
      - aniSearch（`_linked.anisearch`，Wikidata P12477）：作品详情、集数、角色与职员。公开 API 没有按标题检索的端点（全量标题表 24 小时只能拉一次），没有编号就是 null。无 token 时详情接口 10 秒 1 次。转载它自己写的简介时，正文里要带上条目链接；
      - MangaUpdates（`_linked.mangaupdates`，Wikidata P11149 是站内 slug，不是 API 的数字 id）：漫画 / 小说的作者、出版社、连载杂志、关联作品。slug 出现在搜索结果里时优先用它；
      - VNDB（`_linked.vndb`，Wikidata P3180，只走 `https://api.vndb.org/kana`，遵守 5 分钟 200 次）：视觉小说和游戏改编。标题搜索到的可能是外传游戏，先看返回的完整标题是不是本作；
