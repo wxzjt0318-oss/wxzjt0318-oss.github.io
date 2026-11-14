@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-13T14:40:05.849Z",
+  "generatedAt": "2026-11-14T13:37:39.920Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 407133,
+    "subject_id": 544104,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2024-04-01",
+    "updated_at": "2025-10-04",
     "subject": {
-      "id": 407133,
-      "name": "转生为第七王子，随心所欲的魔法学习之路",
-      "name_cn": "转生为第七王子，随心所欲的魔法学习之路",
-      "date": "2024-04-01",
+      "id": 544104,
+      "name": "不动声色的柏田与喜形于色的太田",
+      "name_cn": "不动声色的柏田与喜形于色的太田",
+      "date": "2025-10-04",
       "eps": 12,
-      "short_summary": "魔法最重要的是“家世”“才能”“努力”。有一位热爱魔法，却缺乏血统和才能，最后死于非命的“凡人”魔法师。临死前期望“想要钻研学习更多魔法”的这个男人在转生后，成为了拥有强大魔法血统的沙鲁姆王国第七王子·罗伊德。 拥有过去的记忆，带着完美的血统及才能投胎转世的他，怀抱着前世没能实现的心愿，即将以超乎常人的魔力“随心所欲地学习魔法”，享受他的无双生活。",
+      "short_summary": "何があっても顔に出ない 女子中学生・柏田さんと、 めちゃくちゃ顔に出てしまう同級生の太田君。 正反対の二人は、きっと両思い…？ 柏田さんと太田君と、クラスメイト たちのほのぼのラブコメ。",
       "tags": [
         {
-          "name": "异世界"
+          "name": "恋爱"
         },
         {
-          "name": "2024年4月"
+          "name": "校园"
         },
         {
-          "name": "轻小说改"
+          "name": "2025年10月"
         },
         {
-          "name": "正太"
+          "name": "漫画改"
         },
         {
-          "name": "龙傲天"
+          "name": "STUDIOPOLON"
         },
         {
-          "name": "奇幻"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2b/b7/407133_hGMQM.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/3e/62/544104_z9082.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "转生为第七王子，随心所欲的魔法学习之路",
+      "title": "不动声色的柏田与喜形于色的太田",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2b/b7/407133_hGMQM.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3e/62/544104_z9082.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "转生为第七王子，随心所欲的魔法学习之路",
+      "title": "不动声色的柏田与喜形于色的太田",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2b/b7/407133_hGMQM.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3e/62/544104_z9082.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "转生为第七王子，随心所欲的魔法学习之路",
+      "title": "不动声色的柏田与喜形于色的太田",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-407133.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-544104.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
