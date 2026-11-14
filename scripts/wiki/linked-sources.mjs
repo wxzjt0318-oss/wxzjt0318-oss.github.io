@@ -12,12 +12,14 @@
  *   メディア芸術データベース        原作单行本各卷的发售日、出版社、ISBN（来自日本国会图书馆）
  *   Fandom 作品维基               粉丝编写的英文角色资料，可信度较低，只用于补充角色细节
  *   主题曲（scripts/wiki/theme-songs.mjs）  Bangumi 关联音乐条目、Shikimori 的 OP / ED 列表（兼补 MAL 编号）
+ *   官方 API 书志（scripts/wiki/catalog-sources.mjs）  aniSearch、MangaUpdates、VNDB、bilibili 游戏 Wiki、RanobeDB、国会图书馆
  * 没有数据库编号的动画条目按类型（P31）或 Bangumi 编号认出；按标题只找到原作条目时，
  * 顺着 Wikidata 的改编关系（P4969 / P144）找名称或 Bangumi 编号对得上的动画条目。
  *
  * 每个来源返回 {title, url, text} 或 null；任何一站失败都不影响其他来源。
  */
 
+import { fetchCatalogSources } from "./catalog-sources.mjs";
 import { fetchBangumiMusic, fetchShikimori } from "./theme-songs.mjs";
 import { toSimplified } from "./zh-text.mjs";
 
@@ -37,6 +39,9 @@ export const WIKIDATA_PROPS = {
 	bangumi: "P5732",
 	malManga: "P4087",
 	annManga: "P1984",
+	anisearch: "P12477",
+	mangaupdates: "P11149",
+	vndb: "P3180",
 	basedOn: "P144",
 	derivative: "P4969",
 	instanceOf: "P31",
@@ -339,6 +344,7 @@ export async function fetchBangumiSubject(id) {
 		title: subject.name_cn || subject.name || "",
 		url: `https://bgm.tv/subject/${id}`,
 		text: clip([`简介：${subject.summary || ""}`, "", ...infobox, "", ...characters].join("\n")),
+		subjectType: subject.type,
 	};
 }
 
@@ -432,8 +438,14 @@ const settle = (name, promise) =>
 		return null;
 	});
 
-/** 一组请求的全部关联来源；ja / en 为候选标题，bangumiId 为 Bangumi 条目编号 */
-export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
+const externalId = (entity, prop) => {
+	const value = claimValue(entity, prop);
+	return typeof value === "string" || typeof value === "number" ? String(value) : "";
+};
+const instanceIds = (entity) => claimValues(entity, WIKIDATA_PROPS.instanceOf).map((v) => v?.id).filter(Boolean);
+
+/** 一组请求的全部关联来源；ja / en / zh 为作品标题，bangumiId 为 Bangumi 条目编号 */
+export async function fetchLinkedSources({ ja = [], en = [], zh = [], bangumiId = "" }) {
 	const { anime, source } = (await settle("Wikidata", findWikidataItems({ ja, en, bangumiId }))) || {};
 	const animeInfo = describeWikidataItem(anime);
 	const sourceInfo = describeWikidataItem(source);
@@ -444,16 +456,30 @@ export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
 	// Shikimori 与 MAL 共用编号：Wikidata 没记 MAL 编号时，用 Shikimori 按英文名搜到的编号抓 MAL 页面
 	const shikimori = await settle("Shikimori", fetchShikimori({ malId: ids.mal, en: [englishTitle, ...en] }));
 	const malId = ids.mal || shikimori?.malId || "";
-	const [syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom, bangumiMusic] = await Promise.all([
+	const bangumiTask = settle("Bangumi", fetchBangumiSubject(bangumiId));
+	const catalogTask = bangumiTask.then((row) => settle("书志 API", fetchCatalogSources({
+		ja,
+		en,
+		zh,
+		bangumiType: row?.subjectType,
+		instanceIds: [...instanceIds(anime), ...instanceIds(source)],
+		ids: {
+			anisearch: externalId(anime, WIKIDATA_PROPS.anisearch),
+			mangaupdates: externalId(source, WIKIDATA_PROPS.mangaupdates) || externalId(anime, WIKIDATA_PROPS.mangaupdates),
+			vndb: externalId(source, WIKIDATA_PROPS.vndb) || externalId(anime, WIKIDATA_PROPS.vndb),
+		},
+	})));
+	const [syoboi, animehack, mal, livechart, bahamut, bangumi, mediaarts, fandom, bangumiMusic, catalog] = await Promise.all([
 		settle("しょぼいカレンダー", fetchSyoboi(ids.syoboi)),
 		settle("アニメハック", fetchAnimeHack(ids.animehack)),
 		settle("MyAnimeList", fetchMyAnimeList(malId)),
 		settle("LiveChart", fetchLiveChart(ids.livechart)),
 		settle("巴哈姆特", fetchBahamut(ids.bahamut)),
-		settle("Bangumi", fetchBangumiSubject(bangumiId)),
+		bangumiTask,
 		settle("メディア芸術DB", fetchMediaArtsBooks(bookTitle)),
 		settle("Fandom", fetchFandom(englishTitle)),
 		settle("Bangumi 音乐", fetchBangumiMusic(bangumiId)),
+		catalogTask,
 	]);
 	const strip = (x) => x && { title: x.title, url: x.url, text: x.text };
 	return {
@@ -464,11 +490,18 @@ export async function fetchLinkedSources({ ja = [], en = [], bangumiId = "" }) {
 		mal,
 		livechart,
 		bahamut,
-		bangumi,
+		bangumi: strip(bangumi),
 		mediaarts,
 		fandom,
 		bangumiMusic,
 		shikimori: strip(shikimori),
+		anisearch: null,
+		mangaupdates: null,
+		vndb: null,
+		biligame: null,
+		ranobedb: null,
+		ndl: null,
+		...(catalog || {}),
 		annId: ids.ann || null,
 	};
 }

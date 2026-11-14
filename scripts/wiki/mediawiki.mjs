@@ -134,10 +134,17 @@ export function createMediaWikiClient({
 					continue;
 				}
 				if (!res.ok) {
-					throw new Error(`HTTP ${res.status} ${res.statusText}`);
+					const challenge = res.headers?.get?.("cf-mitigated") === "challenge";
+					const error = new Error(
+						`HTTP ${res.status}${challenge ? "（Cloudflare 挑战页，未绕过）" : ""} ${res.statusText || ""}`.trim(),
+					);
+					error.status = res.status;
+					throw error;
 				}
 				return await res.json();
 			} catch (error) {
+				// 4xx（含 Cloudflare 403）是对方拒绝，重试不会变成条目内容
+				if (error.status && error.status < 500) throw error;
 				if (attempt === retries - 1) throw error;
 				await new Promise((r) => setTimeout(r, 1000 * (attempt + 1)));
 			}

@@ -85,8 +85,16 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
   3. **补充与交叉核对**：英文维基（`.enwiki`）、Anime News Network（`_databases.ann`）、MyAnimeList（`_linked.mal`，播出时段、制作 / 发行公司、海外代理、角色与声优）、LiveChart（`_linked.livechart`）、Kitsu（`_databases.kitsu`）；
   4. **只用于补充角色细节**：Fandom 作品维基（`_linked.fandom`），粉丝编写，与上面的来源冲突时一律以上面为准。
   5. **主题曲**（写「主题曲」小节时用）：Bangumi 关联音乐条目（`_linked.bangumiMusic`，片头曲 / 片尾曲 / 插入歌 / 角色歌 / 原声集，含演唱者和单曲发售日，最可靠）、MyAnimeList 页面里的「主题曲」一段（`_linked.mal`，OP / ED 与使用话数）、Shikimori（`_linked.shikimori`，基本信息与 OP / ED 视频名，名称不规范，只用于核对）。ANN 的 Opening / Ending Theme 也可参考，但 ANN 是按标题搜索的，先确认条目是不是本作。
-  - `_linked.wikidata` 记录了作品在各站的编号，上面的 `_linked.*` 都是按编号精确抓取的，比按标题搜索可靠；Wikidata 没有收录的作品，这些来源就是 null。按标题只找到原作条目时，会顺着 Wikidata 的改编关系找名称或 Bangumi 编号对得上的动画条目；动画条目没记 MAL 编号时，用 Shikimori（与 MAL 编号相同）按英文名搜到的编号抓 MAL 页面。
+  6. **官方 API 书志**（`scripts/wiki/catalog-sources.mjs`，各自可用环境变量 `WIKI_SOURCE_<NAME>=0` 关闭，某一来源失败不影响其他来源）。有 Wikidata 编号时按编号抓，否则按作品标题搜索并做相关性校验，对不上就丢掉：
+     - aniSearch（`_linked.anisearch`，Wikidata P12477）：作品详情、集数、角色与职员。公开 API 没有按标题检索的端点（全量标题表 24 小时只能拉一次），没有编号就是 null。无 token 时详情接口 10 秒 1 次。转载它自己写的简介时，正文里要带上条目链接；
+     - MangaUpdates（`_linked.mangaupdates`，Wikidata P11149 是站内 slug，不是 API 的数字 id）：漫画 / 小说的作者、出版社、连载杂志、关联作品。slug 出现在搜索结果里时优先用它；
+     - VNDB（`_linked.vndb`，Wikidata P3180，只走 `https://api.vndb.org/kana`，遵守 5 分钟 200 次）：视觉小说和游戏改编。标题搜索到的可能是外传游戏，先看返回的完整标题是不是本作；
+     - 哔哩哔哩游戏 Wiki（`_linked.biligame`，`https://wiki.biligame.com/<子站>/api.php`）：只在 Bangumi 类型是游戏，或 Wikidata 条目 / 原作的类型是电子游戏（Q7889）、视觉小说（Q689445）时抓角色设定。子站从农场名册按作品名匹配，对不上不抓；
+     - RanobeDB（`_linked.ranobedb`，可选，非商业、ODbL）：轻小说系列、作者、出版社和卷目；
+     - 国立国会图书馆サーチ OpenSearch（`_linked.ndl`，可选，`dpid=iss-ndl-opac` 且 `mediatype=books`）：单行本书目（ISBN、出版者、发行日）。非营利引用，输出里写明来自 NDL サーチ。
+  - `_linked.wikidata` 记录了作品在各站的编号，按编号抓取的 `_linked.*` 比按标题搜索可靠；Wikidata 没有收录的作品，这些来源就是 null。按标题只找到原作条目时，会顺着 Wikidata 的改编关系找名称或 Bangumi 编号对得上的动画条目；动画条目没记 MAL 编号时，用 Shikimori（与 MAL 编号相同）按英文名搜到的编号抓 MAL 页面。
   - 外文资料是原文，写稿时翻译成中文，不要整段照搬；不同来源说法冲突时以日文资料为准，仍拿不准就不写。
-  - 实测不可用、未接入：ニコニコ大百科、pixiv 百科事典、百度百科、哔哩哔哩、コミックナタリー、AniDB（拦截 GitHub Actions）；Annict、TMDB（需要密钥）；Jikan（连接超时）；AniList（接口停用）；VGMdb（Cloudflare 拦截）；MusicBrainz（经常 503）；アニソンジェネレーション（页面声明 noai，不抓取）。
+  - 萌娘百科（2026-11-14 起的抓取）：GitHub Actions 运行 [43624948189](https://github.com/wxzjt0318-oss/wxzjt0318-oss.github.io/actions/runs/43624948189) 里，《约会大作战 第五季》（bangumi-389466）、《转生为第七王子》（bangumi-407133）、《不动声色的柏田与喜形于色的太田》（bangumi-544104）的每一条中文查询都在标题匹配之前收到 `HTTP 403`。同一 runner 上的中文维基百科是成功的。响应头是 `cf-mitigated: challenge`，正文是 Cloudflare 的 “Just a moment...” 挑战页，不是空的 API JSON，也不是标题变体或相关性校验把条目滤掉。用仓库里的联系方式 User-Agent 在 Actions 之外请求 `zh.moegirl.org.cn/api.php` 同样得到这个挑战页。这是对方边缘节点在拦截自动化客户端，不是我们的查询或解析写错。不实现挑战求解、指纹伪装、cookie / clearance、代理轮换或其他绕过。4xx 也不再重试。
+  - 实测不可用、未接入：ニコニコ大百科、pixiv 百科事典、百度百科、哔哩哔哩（站内，不是上面的游戏 Wiki API）、コミックナタリー、AniDB（拦截 GitHub Actions）；灰机 wiki、VGMdb、allcinema、マンガペディア（被拦截或明确禁止抓取，不写抓取器）；Annict、TMDB（需要密钥）；Jikan（连接超时）；AniList（接口停用）；MusicBrainz（经常 503）；アニソンジェネレーション（页面声明 noai，不抓取）。
 - 站内链接只能用 `/posts/<alias>/`，`<alias>` 必须是某篇文章 frontmatter 的 `alias` 或 `src/content/posts/` 下的文件名（不含 `.md`）。资料稿的「系列作品」小节已列出站内同系列文章，可直接沿用。
 - 不改手写文章（没有资料稿标记的文章）。
