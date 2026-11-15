@@ -30,6 +30,16 @@ export const tr: Translation = {
 	[Key.momentsBanner]: "Kısa notlar — hayat, iş ve küçük mutluluklar.",
 	[Key.momentsCount]: "an",
 	[Key.momentsCounts]: "an",
+	[Key.momentPasswordTitle]: "Korumalı an",
+	[Key.momentPasswordDescription]:
+		"Bu an şifrelenmiştir. İçeriğin kilidini açmak için parolayı girin.",
+	[Key.momentPasswordLabel]: "Parola",
+	[Key.momentPasswordShow]: "Parolayı göster",
+	[Key.momentPasswordHide]: "Parolayı gizle",
+	[Key.momentPasswordRequired]: "Bir parola girin",
+	[Key.momentPasswordInvalid]: "Yanlış parola",
+	[Key.momentPasswordUnlock]: "Anın kilidini aç",
+	[Key.momentPasswordUnlocking]: "Şifre çözülüyor…",
 	[Key.pinned]: "Sabitlenen",
 	[Key.loadMore]: "Daha fazla yükle",
 
@@ -308,6 +318,7 @@ export const tr: Translation = {
 	[Key.paginationJump]: "Sayfaya git",
 	[Key.paginationFirst]: "İlk",
 	[Key.paginationLast]: "Son",
+	[Key.paginationLabel]: "Sayfalandırma",
 	[Key.tagsViewAll]: "Tüm etiketleri gör",
 
 	[Key.author]: "Yazar",
