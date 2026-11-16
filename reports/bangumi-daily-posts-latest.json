@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-14T18:06:27.889Z",
+  "generatedAt": "2026-11-16T15:54:20.769Z",
   "reviewMode": false,
   "selectedAnime": {
-    "subject_id": 389466,
+    "subject_id": 472661,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2024-04-10",
+    "ep_status": 0,
+    "updated_at": "2025-01-10",
     "subject": {
-      "id": 389466,
-      "name": "约会大作战 第五季",
-      "name_cn": "约会大作战 第五季",
-      "date": "2024-04-10",
+      "id": 472661,
+      "name": "欢迎来到日本，精灵小姐。",
+      "name_cn": "欢迎来到日本，精灵小姐。",
+      "date": "2025-01-10",
       "eps": 12,
-      "short_summary": "有着人类少女的样貌，却不同于人类的存在――精灵。 她们拥有强大的能力，从邻界现身时，因为会伴随名为『空间震』的灾难，她们甚至被称为人类的天敌。 面对精灵的威胁，人类能采取的手段，是以武力歼灭，或是―― 『与精灵约会，使其娇羞』！ 五河士道能通过让精灵娇羞并亲吻精灵来封印她们的灵力。 靠着这个特异能力持续拯救人类及精灵们的士道身边，有股巨大波涛即将袭击而来。 身为世界屈指可数的巨大企业且想获得精灵力量的DEM社，为了夺取士道的性命，将大举来袭。 于是，士道记忆深处里的神秘少女现出原形―― 各种想法错综复杂，史上最大的战争即将开始。 [简介原文] 人間の少女の姿をしながらも、人間とは異なる存在―― 精霊。 強大な能力をもち、隣界から顕現する際に〈空間震〉と呼ばれる災害を発生させる彼女たちは、人類の天敵とさえ呼ばれている。 そんな精霊の脅威に対して人類がとりうる手段は、武力をもって殲滅する、もしくは―― 『デートして、デレさせる』！ 五河士道は、精霊をデレされてキスをすることで、力を封印できる能力のもち主。 その力で人類を、そして精霊たちを救ってきた彼をめぐって、大きな波乱が迫ろうとしていた…",
+      "short_summary": "精灵小姐迷上日本文化！？ 上班族北濑一广唯一的兴趣就是睡觉。 他从小就在不可思议的梦中世界进行刺激的冒险。 某次与在梦中结识的精灵一起冒险时，两人不幸被龙的吐息烧死。 冒险失败后，他一如往常，从位于东京的房内醒来，却赫然发现精灵少女正熟睡在身旁——",
       "tags": [
         {
-          "name": "后宫"
+          "name": "恋爱"
+        },
+        {
+          "name": "异世界"
+        },
+        {
+          "name": "2025年1月"
+        },
+        {
+          "name": "穿越"
         },
         {
           "name": "轻小说改"
         },
         {
-          "name": "约会大作战"
-        },
-        {
-          "name": "恋爱"
-        },
-        {
-          "name": "2024年4月"
-        },
-        {
-          "name": "战斗"
+          "name": "TV"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ca/22/472661_hjrMm.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ca/22/472661_hjrMm.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ca/22/472661_hjrMm.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/2f/86/389466_2K1dH.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ca/22/472661_hjrMm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 第五季",
+      "title": "欢迎来到日本，精灵小姐。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/2f/86/389466_2K1dH.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ca/22/472661_hjrMm.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "约会大作战 第五季",
+      "title": "欢迎来到日本，精灵小姐。",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/2f/86/389466_2K1dH.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ca/22/472661_hjrMm.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "约会大作战 第五季",
+      "title": "欢迎来到日本，精灵小姐。",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-389466.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-472661.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
