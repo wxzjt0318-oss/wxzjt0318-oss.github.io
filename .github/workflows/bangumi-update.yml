@@ -2,6 +2,9 @@ name: Update Bangumi Data
 
 on:
   # UTC 06:17 = 北京时间 14:17。避开整点：GitHub 定时任务在整点积压最严重，常被推迟数小时。
+  # 推到 main 的文章是 draft: true 的资料稿（正文带 <!-- shirone:auto-draft -->）。
+  # 生产构建不收录这类文章，所以这次部署只更新番剧快照，资料稿不会先上线。
+  # 长文改写去掉标记并把 draft 改回 false、合并进 main 之后，访客才看得到。
   # 提交后由下方「Trigger deploy」步骤显式触发 deploy.yml——用 GITHUB_TOKEN 推送的提交
   # 不会触发其他工作流的 on.push，过去只能靠 deploy.yml 的每日兜底重建碰运气。
   schedule:
@@ -59,12 +62,12 @@ jobs:
       - name: Sync anime snapshots
         run: pnpm anime:sync --provider bangumi
 
-      # 生成每日追番文章（平移自用户 fork，直接调用 Bangumi API）。
+      # 生成每日追番资料稿。脚本固定写 draft: true，并忽略 BANGUMI_POST_REVIEW_MODE。
+      # 不要用仓库变量把资料稿改回已发布：晚到的定时运行也不能先把资料稿部署上线。
       - name: Generate daily anime post
         run: pnpm generate-bangumi-post
         env:
           BANGUMI_POSTS_PER_RUN: 1
-          BANGUMI_POST_REVIEW_MODE: ${{ vars.BANGUMI_POST_REVIEW_MODE || 'false' }}
 
       - name: Commit changes
         id: commit

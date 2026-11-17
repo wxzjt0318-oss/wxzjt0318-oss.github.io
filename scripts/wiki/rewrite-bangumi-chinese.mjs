@@ -5,7 +5,8 @@
  *   1. 重新抓取 Bangumi 条目详情与角色（中文名 / 基础信息）；
  *   2. 萌娘百科优先、中文维基百科兜底，补作品介绍、剧情与角色中文简介；
  *   3. 用与每日发文相同的流程（composeArticle）重建整篇文章，全文简体中文；
- *   4. 保留 URL（alias）、发布日期、封面、草稿 / 置顶状态不变。
+ *   4. 保留 URL（alias）、发布日期、封面、置顶状态。
+ *      重建结果仍是资料稿，frontmatter 固定为 draft: true，不会把资料稿重新发布上线。
  *
  * Bangumi 详情抓取失败的文章原样跳过，绝不降级覆盖。
  * frontmatter 含 `chineseRewrite: false` 或 `moegirlRewrite: false` 的文章永久跳过。
@@ -167,7 +168,6 @@ async function main() {
 		try {
 			const result = await composeArticle(candidate, {
 				now: fm.published ? new Date(`${fm.published}T00:00:00`) : new Date(),
-				reviewMode: fm.draft,
 			});
 			if (!result.detail) {
 				console.warn(`⚠ ${file}：Bangumi 详情抓取失败，保留原文`);
@@ -179,7 +179,6 @@ async function main() {
 			payload.alias = fm.alias || payload.alias;
 			if (fm.image) payload.image = fm.image;
 			if (fm.published) payload.published = fm.published;
-			payload.draft = fm.draft;
 			payload.pinned = fm.pinned;
 
 			const markdown = applyGlossary(

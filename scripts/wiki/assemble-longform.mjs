@@ -1,5 +1,6 @@
 /**
  * 把长文稿件写回文章：替换 description / category / tags / 引言 / 正文，保留其余 frontmatter 与封面。
+ * 写回后去掉资料稿标记，并把 draft 改为 false。生产构建这时才收录这篇文章。
  * 见 docs/longform-rewrite.md。
  *
  *   node scripts/wiki/assemble-longform.mjs <稿件目录> <slug> [...slug]
@@ -42,6 +43,7 @@ export function assembleLongform(draftText, postText) {
 	set("description", JSON.stringify(head.description));
 	set("category", JSON.stringify(head.category));
 	set("tags", JSON.stringify(tags).replace(/","/g, '", "'));
+	set("draft", "false");
 	const refSection = refs.length
 		? `## 参考资料\n\n${refs.map((r) => `- ${r}`).join("\n")}`
 		: (postText.match(/## 参考资料[\s\S]*$/)?.[0] || "").trim();
