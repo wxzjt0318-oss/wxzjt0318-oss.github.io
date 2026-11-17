@@ -6,6 +6,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { buildAnimeArticleMarkdown } from "../scripts/bangumi-daily-posts.mjs";
+import { isPublishablePost } from "../src/utils/publishable-post.mjs";
 import {
 	measureJapaneseRatio,
 	resolveCharacterNameCn,
@@ -308,6 +309,7 @@ describe("article markdown", () => {
 				},
 			],
 			licenseName: "CC BY-NC-SA 3.0",
+			draft: false,
 		});
 		assert.match(markdown, /licenseName: "CC BY-NC-SA 3\.0"/);
 		assert.match(markdown, /## 参考资料/);
@@ -316,6 +318,11 @@ describe("article markdown", () => {
 		assert.match(markdown, /# 二、剧情简介\n\n平贺才人被召唤到异世界/);
 		assert.match(markdown, /由J\.C\.STAFF制作，2012-01-07开播，共12话。/);
 		assert.match(markdown, /<!-- shirone:auto-draft -->/);
+		assert.match(markdown, /^draft: true$/m);
+		assert.equal(
+			isPublishablePost({ draft: false, body: markdown }, true),
+			false,
+		);
 		assert.ok(measureJapaneseRatio(markdown) < 0.03);
 	});
 

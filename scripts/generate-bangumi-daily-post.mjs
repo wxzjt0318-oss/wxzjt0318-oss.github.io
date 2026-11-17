@@ -429,7 +429,8 @@ function buildArticlePayload(candidate, detail, imageSelection, options) {
 		published: formatDate(options.now),
 		alias,
 		image: imageSelection.selected?.url || DEFAULT_FALLBACK_IMAGE,
-		draft: options.reviewMode,
+		// 资料稿在长文改写完成前不能发布。reviewMode 不再打开发布开关。
+		draft: true,
 		meta,
 		staff: extractStaff(detail),
 		statusLabel,
@@ -525,7 +526,7 @@ export async function loadSnapshotCollections() {
  * 为一个收藏条目组装文章数据：抓 Bangumi 详情 / 角色 → 百科增强 → 中文化 → payload。
  * 每日发文与存量重写共用这一流程。
  */
-export async function composeArticle(candidate, { now = new Date(), reviewMode = false } = {}) {
+export async function composeArticle(candidate, { now = new Date() } = {}) {
 	console.log(`📡 Fetching Bangumi subject detail for ${candidate.subject_id}...`);
 	const detail = await fetchBangumiSubjectDetail(candidate.subject_id);
 	console.log(`📡 Fetching Bangumi characters for ${candidate.subject_id}...`);
@@ -580,7 +581,6 @@ export async function composeArticle(candidate, { now = new Date(), reviewMode =
 	const curatedTaxonomy = await readJsonIfExists(TAXONOMY_FILE, {});
 	const payload = buildArticlePayload(candidate, detail, imageSelection, {
 		now,
-		reviewMode,
 		characters,
 		titleCn,
 		titleJp,
@@ -624,7 +624,9 @@ async function recordSkipped(skipped, item, hit) {
 }
 
 async function main() {
-	const reviewMode = getEnvBoolean("BANGUMI_POST_REVIEW_MODE", false);
+	// 状态和报告记为 review：文章是资料稿，还没有对访客发布。
+	// BANGUMI_POST_REVIEW_MODE 已不再读取，避免仓库变量把它写回已发布。
+	const reviewMode = true;
 	const maxPerRun = getEnvNumber("BANGUMI_POSTS_PER_RUN", 1);
 	const now = new Date();
 
@@ -636,13 +638,14 @@ async function main() {
 
 	const generatedState = await readJsonIfExists(STATE_FILE, { generated: [] });
 	const existingPosts = await readExistingPosts();
-	// 每天只发一篇：长文改写任务可能先手动触发本工作流，之后 GitHub 迟到的定时运行不再重复发文
+	// 每天只发一篇：当天已有 bangumi-*.md（含尚未改写的草稿）就跳过。
+	// 定时任务推迟后再跑，也不会把同一天的资料稿再生成一篇。
 	const today = formatDate(now);
 	const postedToday = existingPosts.find(
 		(post) => /^bangumi-\d+\.md$/.test(path.basename(post.filePath)) && post.published === today,
 	);
 	if (postedToday && !getEnvBoolean("BANGUMI_POSTS_FORCE", false)) {
-		console.log(`ℹ 今天（${today}）已发布 ${path.basename(postedToday.filePath)}，跳过（BANGUMI_POSTS_FORCE=1 可强制再发一篇）。`);
+		console.log(`ℹ 今天（${today}）已有资料稿 ${path.basename(postedToday.filePath)}，跳过（BANGUMI_POSTS_FORCE=1 可强制再发一篇）。`);
 		return;
 	}
 	// 已判定为「与已有文章重复」的条目：跳过，避免每天重新抓取后再判重一次
@@ -673,7 +676,7 @@ async function main() {
 			continue;
 		}
 		console.log(`📝 Generating Bangumi daily post for subject ${item.subject_id}...`);
-		const result = await composeArticle(item, { now, reviewMode });
+		const result = await composeArticle(item, { now });
 		const hit = findDuplicatePost(
 			{
 				titleCn: result.titleCn,

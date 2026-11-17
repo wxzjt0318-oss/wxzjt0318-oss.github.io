@@ -1,4 +1,5 @@
 import { type CollectionEntry, getCollection } from "astro:content";
+import fs from "node:fs";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import {
@@ -17,6 +18,7 @@ import {
 } from "@utils/series-utils";
 import { getCategoryUrl, getPostUrl, url } from "@utils/url-utils";
 import type { ProtectedPayload } from "@/types/protectedContent";
+import { isPublishablePost } from "./publishable-post.mjs";
 
 /**
  * 加载系列实体目录（Astro 内容层会缓存集合加载，多次调用成本可忽略）。
@@ -35,11 +37,47 @@ export async function getSeriesCatalog(): Promise<Map<string, SeriesEntity>> {
 /** 已警告过的未知系列 slug：同一笔误在整次构建只提示一次 */
 const warnedUnknownSeries = new Set<string>();
 
+const postSourceCache = new Map<string, string>();
+
+/**
+ * 生产构建用来判断「这篇能不能给访客看」的原文。
+ * 优先读 filePath：资料稿标记是 HTML 注释，不能依赖已经被处理过的正文。
+ */
+function postSourceForPublishCheck(entry: {
+	body?: string;
+	filePath?: string;
+}): string {
+	if (entry.filePath) {
+		const cached = postSourceCache.get(entry.filePath);
+		if (cached !== undefined) return cached;
+		try {
+			const text = fs.readFileSync(entry.filePath, "utf8");
+			postSourceCache.set(entry.filePath, text);
+			return text;
+		} catch {
+			// 路径不可读时退回集合已加载的正文。
+		}
+	}
+	return typeof entry.body === "string" ? entry.body : "";
+}
+
+/** 开发服务器仍展示草稿；生产构建排除草稿和仍带资料稿标记的文章。 */
+function isPublicPost(entry: CollectionEntry<"posts">): boolean {
+	if (!import.meta.env.PROD) return true;
+	return isPublishablePost(
+		{
+			draft: entry.data.draft === true,
+			body: postSourceForPublishCheck(entry),
+		},
+		true,
+	);
+}
+
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts(): Promise<CollectionEntry<"posts">[]> {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = await getCollection("posts", (entry) =>
+		isPublicPost(entry),
+	);
 
 	for (const post of allBlogPosts) validatePublicationMetadata(post);
 	const sorted = allBlogPosts.sort(comparePublicationEntries);
@@ -118,9 +156,9 @@ export type Tag = {
 };
 
 export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = await getCollection<"posts">("posts", (entry) =>
+		isPublicPost(entry),
+	);
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
@@ -145,9 +183,9 @@ export type Category = {
 };
 
 export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const allBlogPosts = await getCollection<"posts">("posts", (entry) =>
+		isPublicPost(entry),
+	);
 	const seriesCatalog = await getSeriesCatalog();
 	const count: { [key: string]: number } = {};
 	allBlogPosts.forEach(

@@ -19,11 +19,11 @@
 
 ## 一、整体功能
 
-模块每天从 **Bangumi 追番快照** 中选出一部尚未写过文章的作品，自动抓取资料并生成一篇结构完整的作品介绍文章（`src/content/posts/bangumi-<subjectId>.md`），随后提交到仓库并触发部署。
+模块每天从 **Bangumi 追番快照** 中选出一部尚未写过文章的作品，自动抓取资料并生成一篇结构完整的作品介绍文章（`src/content/posts/bangumi-<subjectId>.md`），以草稿提交到仓库。同一次运行会触发部署以更新番剧快照；文章本身要等长文改写完成后才对访客可见。
 
 文章与站内长文同一骨架（`scripts/wiki/longform-layout.mjs`）：开篇导言 → 封面 → 一、作品基本信息（表格）→ 二、剧情简介 → 三、动画制作与声优（制作阵容表 + 声优表）→ 四、主要角色 → 五、系列作品（自动链接站内同系列文章）→ 总结 → 参考资料。只使用 Bangumi / 萌娘百科 / 维基百科给出的事实，日文段落一律不进正文，不写空泛的套话。
 
-这一版是**资料稿**：正文末尾带 `<!-- shirone:auto-draft -->` 标记。每天的「长文改写」定时任务会找到带标记的文章，改写成带个人语气的深度长文（引言、分类、标签一并重写），合并上线后标记随之移除。流程见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
+这一版是**资料稿**：正文末尾带 `<!-- shirone:auto-draft -->`，frontmatter 为 `draft: true`。它会进 `main`，但生产构建不收录草稿，也不收录仍带该标记的文章，所以不会以已发布形态出现在站点上。每天约 20:47（北京时间）的「长文改写」找到带标记的文章，改写成带个人语气的深度长文（引言、分类、标签一并重写），去掉标记并把 `draft` 改回 `false`。合并进 `main` 之后的部署，访客才看得到。流程与时刻表见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
 
 数据来源优先级：
 
@@ -70,9 +70,10 @@
 ### 存量文章批量重写
 
 `scripts/wiki/rewrite-bangumi-chinese.mjs` 用与每日发文相同的流程重建全部 `bangumi-*` 文章
-（保留 URL、发布日期、封面、草稿 / 置顶状态）。它需要访问外网，因此通过 GitHub Actions
+（保留 URL、发布日期、封面、置顶状态）。重建结果仍是资料稿，`draft` 固定为 `true`，
+不会把资料稿重新发布上线。它需要访问外网，因此通过 GitHub Actions
 「Rewrite Bangumi Posts in Chinese」手动运行，结果提交回所选分支；`only` 可限定条目 ID。
-重写会覆盖文章里的人工修改，运行前请确认。
+重写会覆盖文章里的人工修改，运行前请确认。已改写的长文（没有资料稿标记、也不是旧模板）会被跳过。
 
 引用了百科内容时，文末「参考资料」列出条目链接，`licenseName` 自动随来源调整：
 引用萌娘百科为 `CC BY-NC-SA 3.0`，仅引用维基百科为 `CC BY-SA 4.0`，否则保持 `CC BY 4.0`。
@@ -81,7 +82,7 @@
 
 - **选候选去重**：已存在于 state 记录或已有文章（按标题/别名比对）的作品不会重复发文；
 - **正文查重**：新文章与全部现有文章做加权相似度检测（标题 0.4 / 描述 0.3 / 正文 0.3，阈值 70），疑似重复时中止发文；可用 `BANGUMI_DAILY_POSTS_ALLOW_DUPLICATE=1` 强制放行；
-- **每天一篇**：当天（北京时间）已有 `bangumi-*.md` 文章时直接跳过，长文改写任务提前手动触发后，迟到的定时运行不会重复发文；`BANGUMI_POSTS_FORCE=1` 可强制再发一篇；
+- **每天一篇**：当天（北京时间）已有 `bangumi-*.md`（含尚未改写的草稿）时直接跳过。GitHub 定时推迟后再跑，不会再发一篇；`BANGUMI_POSTS_FORCE=1` 可强制再发一篇；
 - **只用英文链接**：文件名 `bangumi-<subjectId>.md` 只是内部存储名，网站只发布英文 alias 地址（`/posts/<alias>/`），不生成数字地址；找不到英文名的作品顺延到下一个候选；alias 与已有文章冲突时依次加播出年份、`-2`/`-3` 后缀，保证 URL 不互相覆盖；
 - **快照保护**：`anime:sync` 抓取为空时保留上一份有效快照（`keepLastValid`），不会因为 API 故障把数据清空。
 
@@ -91,16 +92,18 @@
 
 ### 1. 全自动（默认，无需操作）
 
-GitHub Actions 每天北京时间 14:17 运行 `bangumi-update.yml`（GitHub 的定时任务常会推迟，晚到几小时也正常）：
+GitHub Actions 每天北京时间 14:17 运行 `bangumi-update.yml`（cron `17 6 * * *` UTC。GitHub 的定时任务常会推迟，晚到几小时也正常）：
 
 ```text
-anime:sync 刷新快照 → generate-bangumi-post 生成 1 篇资料稿 → 提交并推送 → 显式触发 deploy.yml 部署
+anime:sync 刷新快照 → generate-bangumi-post 生成 1 篇资料稿（draft: true）→ 提交到 main → 显式触发 deploy.yml
 ```
 
-随后（北京时间约 20:47）Claude Code 的「长文改写」定时任务把当天的资料稿改写成深度长文并合并上线，见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
+这次部署会更新番剧快照。资料稿因为 `draft: true`，并且正文带 `<!-- shirone:auto-draft -->`，不会进入生产构建，也就不会出现在首页、文章页、归档、标签、RSS、sitemap 或 llms.txt。北京时间 16:00 的部署兜底（cron `0 8 * * *` UTC）同样是生产构建，也不会把资料稿带上线。
 
-在仓库 **Actions → Update Bangumi Data → Run workflow** 可随时手动触发；
-勾选 `clear_cache` 会先清空快照再重新抓取（数据异常时用）。
+随后（北京时间约 20:47）长文改写把仓库里所有仍带标记的资料稿改写成深度长文：去掉标记，`draft` 改回 `false`，合并进 `main` 之后的部署才对访客可见。发文若晚于 20:47，资料稿会稍后以草稿进入 `main`，下一轮改写再处理；中间不会出现「资料稿先上线、改写没接上」。改写任务不要调用 `workflow_dispatch` 去触发本工作流（云端代理没有 `actions:write`，会 403）。见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
+
+在仓库 **Actions → Update Bangumi Data → Run workflow** 可以由人手动触发；
+勾选 `clear_cache` 会先清空快照再重新抓取（数据异常时用）。云端改写代理不要走这条手动触发。
 
 ### 2. 本地手动发文
 
@@ -113,16 +116,15 @@ pnpm.cmd generate-bangumi-post
 ```
 
 ```bash
-# Windows 环境变量示例：一次发 3 篇、且先进入草稿审核
+# Windows 环境变量示例：一次发 3 篇（每篇都是 draft: true 的资料稿，不会直接上线）
 set BANGUMI_POSTS_PER_RUN=3
-set BANGUMI_POST_REVIEW_MODE=1
 pnpm.cmd generate-bangumi-post
 ```
 
 | 环境变量 | 默认 | 说明 |
 | --- | --- | --- |
 | `BANGUMI_POSTS_PER_RUN` | `1` | 单次运行发文数量上限 |
-| `BANGUMI_POST_REVIEW_MODE` | `false` | `1/true` 时新文章标记 `draft: true`，需人工改为 `false` 才会发布 |
+| `BANGUMI_POST_REVIEW_MODE` | （已忽略） | 过去 `false` 会把资料稿写成 `draft: false` 并随部署上线。生成器现在始终写 `draft: true`，此变量不再改变发布状态 |
 | `BANGUMI_POST_WIKI` | `true` | `0` 时关闭全部百科增强，纯用 Bangumi 简介 |
 | `BANGUMI_POST_MOEGIRL` | `true` | `0` 时只关闭萌娘百科（含角色简介） |
 | `BANGUMI_POST_WIKIPEDIA` | `true` | `0` 时只关闭维基百科兜底 |
@@ -236,7 +238,6 @@ node scripts/moegirl/rewrite-bangumi-posts.mjs --force
    也可以新建自主编辑文章（中文文件名），模块的去重机制会保护它不被覆盖。
 5. **重复文章处理原则**：同一作品同时存在自动发文与自主编辑文章时，**保留自主编辑版**，
    删除 `bangumi-<id>.md` 即可；后续模块不会为同一作品再次发文。
-6. **草稿审核流**：希望先发后审，设置 `BANGUMI_POST_REVIEW_MODE=1`，
-   审核时把文章 frontmatter 的 `draft: true` 改为 `false` 再提交。
+6. **发布闸门**：每日脚本生成的文章始终是 `draft: true` 的资料稿。站点上线只发生在长文改写去掉 `<!-- shirone:auto-draft -->`、把 `draft` 改回 `false`、并合并进 `main` 之后。见 [`docs/longform-rewrite.md`](./longform-rewrite.md)。
 7. **缓存清理**：`.cache/moegirl/` 与 `.cache/wikipedia/` 可随时整个删除；解析逻辑升级时工具会通过
    缓存版本号自动失效旧缓存，无需手动处理。

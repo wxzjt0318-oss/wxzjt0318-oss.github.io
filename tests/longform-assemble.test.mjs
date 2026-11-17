@@ -10,6 +10,7 @@ category: "奇幻作品介绍"
 licenseName: "CC BY 4.0"
 alias: "test"
 image: "https://example.org/c.jpg"
+draft: true
 ---
 
 > 旧引言
@@ -48,6 +49,7 @@ describe("assembleLongform", () => {
 		assert.match(markdown, /## 参考资料\n\n- \[Bangumi\]/);
 		assert.ok(!markdown.includes("旧正文"));
 		assert.ok(!markdown.includes("shirone:auto-draft"));
+		assert.match(markdown, /^draft: false$/m);
 	});
 
 	it("uses the given references and switches the license for Moegirl", () => {
