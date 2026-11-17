@@ -10,6 +10,7 @@ on:
   repository_dispatch:
     types: [deploy]
   # 每日兜底重建（北京时间 16:00），顺带以 --if-stale 刷新番剧快照。
+  # draft: true 或正文仍带 <!-- shirone:auto-draft --> 的文章不会进入这次生产构建。
   schedule:
     - cron: "0 8 * * *"
 

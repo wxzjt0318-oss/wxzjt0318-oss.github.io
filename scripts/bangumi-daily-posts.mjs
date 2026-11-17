@@ -737,7 +737,6 @@ export function buildAnimeArticleMarkdown(payload) {
 		published,
 		alias,
 		image,
-		draft = false,
 		meta = {},
 		staff = [],
 		characters = [],
@@ -767,8 +766,9 @@ export function buildAnimeArticleMarkdown(payload) {
 
 	const frontmatter = buildFrontmatter({
 		...filled,
-		draft,
 		...(manualEdits.frontmatter || {}),
+		// 本函数的正文一定带资料稿标记。调用方传入的 draft / manualEdits 不能把它写成已发布。
+		draft: true,
 	});
 
 	const cleanTitle = filled.title.replace(/^《|》$/g, "");

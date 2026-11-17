@@ -1,14 +1,22 @@
 # 长文改写流程（每日定时任务）
 
-每日自动发文（[`docs/auto-posting.md`](./auto-posting.md)）只产出**资料稿**：结构与站内长文一致、只含 Bangumi / 萌娘百科 / 维基百科的事实，正文末尾带 `<!-- shirone:auto-draft -->`。本流程把资料稿改写成带个人语气的深度长文，并重写引言、分类、标签，最后合并上线。
+每日自动发文（[`docs/auto-posting.md`](./auto-posting.md)）只产出**资料稿**：结构与站内长文一致、只含 Bangumi / 萌娘百科 / 维基百科的事实，正文末尾带 `<!-- shirone:auto-draft -->`，frontmatter 为 `draft: true`。本流程把资料稿改写成带个人语气的深度长文，并重写引言、分类、标签，去掉资料稿标记，把 `draft` 改回 `false`，最后合并上线。
 
-它由 Claude Code 的定时任务每天执行一次（北京时间约 20:47），也可以手动让 Claude Code「按 docs/longform-rewrite.md 改写资料稿」。不调用付费 API。
+它由定时任务每天执行一次（北京时间约 20:47；Claude Code 或 Cursor 云端代理都按本文执行）。也可以手动让代理「按 docs/longform-rewrite.md 改写资料稿」。不调用付费 API。
 
-GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写任务之后才运行，所以第 0 步会先确认当天的资料稿已经生成。发文脚本每天只发一篇（当天已有 `bangumi-*.md` 文章就跳过），手动触发后迟到的定时运行不会重复发文。
+## 时间与发布闸门
+
+| 时刻（北京时间） | 谁在跑 | 访客能看到什么 |
+| --- | --- | --- |
+| 14:17，cron `17 6 * * *` UTC。GitHub 定时经常推迟数小时，晚 4–7 小时也正常 | `.github/workflows/bangumi-update.yml` | 番剧快照和 **1 篇资料稿**推到 `main`。资料稿是 `draft: true`。随后触发的部署只更新快照。生产构建不收录 `draft: true`，也不收录正文仍带 `<!-- shirone:auto-draft -->` 的文章 |
+| 16:00，cron `0 8 * * *` UTC | `.github/workflows/deploy.yml` 兜底重建 | 再次生产构建。资料稿仍然不会出现在首页、文章页、归档、标签、RSS、sitemap 或 llms.txt |
+| 约 20:47 | 本长文改写任务 | 改写仓库里**所有**仍带资料稿标记的文章，不限 `published` 是不是今天。`scripts/wiki/assemble-longform.mjs` 去掉标记并把 `draft` 写成 `false`。PR squash 合并进 `main` 之后的部署，访客才看得到长文 |
+
+GitHub 发文可能晚于 20:47。遇到这种情况**不要**触发「Update Bangumi Data」（`bangumi-update.yml` 的 `workflow_dispatch`）。云端代理没有 `actions:write`，调用会 403；而且也不需要。晚到的资料稿仍以草稿进入 `main`，不会先上线。下一轮约 20:47 的改写会扫到它。发文脚本每天只留一篇（当天已有 `bangumi-*.md`，含草稿，就跳过），迟到的定时运行不会重复发文。
 
 ## 一、操作步骤
 
-0. **确认今天已发文**：在最新的 `main` 上查看 `src/content/posts/bangumi-*.md` 里有没有 `published:` 为今天（北京时间）的文章。没有的话，用 GitHub 工具对 `main` 手动触发「Update Bangumi Data」工作流（`bangumi-update.yml`，workflow_dispatch），等它运行完成（约 3 分钟，它会自动触发部署），再 `git pull`。工作流成功但仍没有新文章（没有候选作品）就继续下一步。
+0. **不要触发发文工作流**。在最新的 `main` 上直接找资料稿。今天的文章还没生成不是错误：只处理已经在仓库里的资料稿；一篇都没有就结束，什么都不用提交。
 
 1. **找资料稿**：在最新的 `main` 上运行
 
@@ -32,10 +40,11 @@ GitHub 的定时任务经常推迟 4–7 小时，发文工作流可能在改写
    node scripts/wiki/assemble-longform.mjs <临时目录> <slug> [...slug]
    ```
 
-   它打印每篇的中文字数与假名数（假名应接近 0）。写回后正文不再带资料稿标记。
+   它打印每篇的中文字数与假名数（假名应接近 0）。写回后正文不再带资料稿标记，frontmatter 的 `draft` 为 `false`。这两件事都发生之后，生产构建才会收录这篇文章。
 
 5. **检查**（全部通过才继续）：
    - `node scripts/wiki/find-auto-drafts.mjs` 不再列出刚改写的文章；
+   - 刚改写的文章 frontmatter 是 `draft: false`，正文没有 `<!-- shirone:auto-draft -->`；
    - 所有 `](/posts/<x>/)` 站内链接的 `<x>` 都是某篇文章的 `alias` 或文件名；
    - `npx astro check` 0 errors，`node --test "tests/**/*.test.mjs"` 全部通过。
 

@@ -2,11 +2,14 @@
  * 每日自动发文的正文版式：与站内长文同一骨架（基本信息表 → 剧情 → 制作与声优 → 角色 → 系列 → 总结 → 参考资料），
  * 只使用 Bangumi / 萌娘百科 / 维基百科给出的事实，不写空泛的套话。
  *
- * 文末带 AUTO_DRAFT_MARKER：表示这篇仍是脚本生成的资料稿，定时的长文改写任务（docs/longform-rewrite.md）
- * 会据此找到它并改写成带个人语气的深度长文，改写完成后标记随之移除。
+ * 文末带 AUTO_DRAFT_MARKER，生成器同时把 frontmatter 写成 draft: true。
+ * 定时的长文改写任务（docs/longform-rewrite.md）据此找到资料稿；
+ * 改写完成、去掉标记、并把 draft 改回 false 之后，生产构建才会收录这篇文章。
  */
 
-export const AUTO_DRAFT_MARKER = "<!-- shirone:auto-draft -->";
+import { AUTO_DRAFT_MARKER } from "../../src/utils/publishable-post.mjs";
+
+export { AUTO_DRAFT_MARKER };
 
 const ROLE_ORDER = ["导演", "监督", "副导演", "系列构成", "脚本", "原作", "人物设定", "角色设计", "总作画监督", "音乐", "音响监督", "动画制作", "制作"];
 
