@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-19T15:50:21.535Z",
+  "generatedAt": "2026-11-20T15:32:34.756Z",
   "reviewMode": true,
   "selectedAnime": {
-    "subject_id": 524195,
+    "subject_id": 525565,
     "type": 2,
     "ep_status": 12,
-    "updated_at": "2025-10-03",
+    "updated_at": "2026-01-11",
     "subject": {
-      "id": 524195,
-      "name": "差点在迷宫深处被信任的伙伴杀掉，但靠着天赐技能「无限扭蛋」获得等级9999的伙伴，我要向前队友和世界展开复仇&「给他们好看！」",
-      "name_cn": "差点在迷宫深处被信任的伙伴杀掉，但靠着天赐技能「无限扭蛋」获得等级9999的伙伴，我要向前队友和世界展开复仇&「给他们好看！」",
-      "date": "2025-10-03",
+      "id": 525565,
+      "name": "相反的你和我",
+      "name_cn": "相反的你和我",
+      "date": "2026-01-11",
       "eps": 12,
-      "short_summary": "女神在过去创造了九大种族。人族是其中最为弱小，总是被讥笑的存在。人族少年莱特幸运地加入由九大种族组成的队伍「种族集合」，度过了短暂的幸福时光。然而，那不过是转瞬即逝的幻想。 等待他的，是在世界上最大最凶险的迷宫「奈落」中遭到背叛。 在奈落深渊中幸存的莱特，这时才知道自己的天赐技能「无限扭蛋」真正的力量。 自绝望的深渊爬起，莱特筑起最强的王国。凭藉独一无二的天赐技能「无限扭蛋」，撼动世界的「复仇剧」即将揭幕！ [简介原文] かつて女神が創りし9つの種族。その中でもっとも弱く、嘲笑される存在──人種（ヒューマン）。人種（ヒューマン）の少年・ライトは幸運にも9つの種族で編成されたパーティー『種族の集い』に迎えられ、幸せなひと時を過ごしていた。しかし、それは儚い幻想だった。 彼を待っていたのは、世界最大最悪のダンジョン『奈落』での裏切り。 奈落の底で生き延びたライトは、そこで己の恩恵（ギフト）『無限ガチャ』の真の力を知る。 絶望の果てから這い上がり、ライトが築くのは最強の王国。唯一無二の恩恵（ギフト）『無限ガチャ』を手に、世界を揺るがす復讐劇が幕を開ける!!",
+      "short_summary": "总是充满活力却在意周围目光的女孩 — 铃木，以及沉静但能坚定表达自己意见的男孩 — 谷。 这是一个由两个性格截然不同的人、彼此尊重、慢慢加深理解，并与朋友们一起度过校园生活的爱情喜剧！ [简介原文] いつも元気いっぱいだけど周りの目を気にしてしまう女子・鈴木と、物静かだけど自分の意見をしっかり言える男子・谷。 正反対な二人が誤解や勘違いをしながらもお互いを尊重し、ゆっくりと理解を深めていく姿と、友人たちとの学校生活を描くラブコメディ。",
       "tags": [
         {
-          "name": "异世界"
+          "name": "恋爱"
         },
         {
-          "name": "2025年10月"
+          "name": "校园"
         },
         {
-          "name": "J.C.STAFF"
+          "name": "2026年1月"
         },
         {
-          "name": "轻小说改"
-        },
-        {
-          "name": "后宫"
+          "name": "漫画改"
         },
         {
           "name": "TV"
+        },
+        {
+          "name": "搞笑"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/41/c3/524195_PHt85.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/41/c3/524195_PHt85.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/41/c3/524195_PHt85.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/41/c3/524195_PHt85.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "差点在迷宫深处被信任的伙伴杀掉，但靠着天赐技能「无限扭蛋」获得等级9999的伙伴，我要向前队友和世界展开复仇&「给他们好看！」",
+      "title": "相反的你和我",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/41/c3/524195_PHt85.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "差点在迷宫深处被信任的伙伴杀掉，但靠着天赐技能「无限扭蛋」获得等级9999的伙伴，我要向前队友和世界展开复仇&「给他们好看！」",
+      "title": "相反的你和我",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/41/c3/524195_PHt85.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/71/50/525565_OxOv7.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "差点在迷宫深处被信任的伙伴杀掉，但靠着天赐技能「无限扭蛋」获得等级9999的伙伴，我要向前队友和世界展开复仇&「给他们好看！」",
+      "title": "相反的你和我",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-524195.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-525565.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
