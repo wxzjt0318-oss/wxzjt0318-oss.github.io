@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-20T15:32:34.756Z",
+  "generatedAt": "2026-11-21T14:43:43.432Z",
   "reviewMode": true,
   "selectedAnime": {
-    "subject_id": 525565,
+    "subject_id": 350235,
     "type": 2,
-    "ep_status": 12,
-    "updated_at": "2026-01-11",
+    "ep_status": 25,
+    "updated_at": "2024-01-08",
     "subject": {
-      "id": 525565,
-      "name": "相反的你和我",
-      "name_cn": "相反的你和我",
-      "date": "2026-01-11",
-      "eps": 12,
-      "short_summary": "总是充满活力却在意周围目光的女孩 — 铃木，以及沉静但能坚定表达自己意见的男孩 — 谷。 这是一个由两个性格截然不同的人、彼此尊重、慢慢加深理解，并与朋友们一起度过校园生活的爱情喜剧！ [简介原文] いつも元気いっぱいだけど周りの目を気にしてしまう女子・鈴木と、物静かだけど自分の意見をしっかり言える男子・谷。 正反対な二人が誤解や勘違いをしながらもお互いを尊重し、ゆっくりと理解を深めていく姿と、友人たちとの学校生活を描くラブコメディ。",
+      "id": 350235,
+      "name": "月光下的异世界之旅 第二幕",
+      "name_cn": "月光下的异世界之旅 第二幕",
+      "date": "2024-01-08",
+      "eps": 25,
+      "short_summary": "曾经因为父母的关系被召唤到异世界的男高中生深澄真，本应作为勇者与魔族战斗。 但是，他被作为召唤主的女神骂道“太丑了”，勇者的称号立即被剥夺。 他被扔到最边远的荒野。 被打上勇者失格烙印的真，在荒野中徘徊，与成为自己随从的上位龙种“蜃”巴，再加上“灾害的黑蜘蛛”澪，开始了异世界重建之旅。 途中，深澄一行反复遭遇各种各样的相遇和离别，打败了在异世界蔓延的恶徒们。 并且，还跨过了由于女神的反复无常而被卷进的魔族战争，他们的旅途在学园中立都市罗茨加德，和两名没见过的勇者一同继续！ 被神和人族抛弃的男人的异世界改造幻想剧第二幕，堂堂开幕！",
       "tags": [
         {
-          "name": "恋爱"
+          "name": "异世界"
         },
         {
-          "name": "校园"
+          "name": "2024年1月"
         },
         {
-          "name": "2026年1月"
+          "name": "后宫"
         },
         {
-          "name": "漫画改"
+          "name": "轻小说改"
         },
         {
           "name": "TV"
         },
         {
-          "name": "搞笑"
+          "name": "J.C.STAFF"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/3c/a5/350235_A0USf.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "相反的你和我",
+      "title": "月光下的异世界之旅 第二幕",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "相反的你和我",
+      "title": "月光下的异世界之旅 第二幕",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/71/50/525565_OxOv7.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3c/a5/350235_A0USf.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "相反的你和我",
+      "title": "月光下的异世界之旅 第二幕",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-525565.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-350235.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
