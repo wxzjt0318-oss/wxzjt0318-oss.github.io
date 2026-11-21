@@ -25,7 +25,7 @@ import {
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
 } from "./wiki/encyclopedia.mjs";
-import { baseTitle, findDuplicatePost, postIdentities, seasonKey } from "./wiki/duplicate-guard.mjs";
+import { baseTitle, findDuplicatePost, postIdentities, SAME_WORK_RELATIONS, seasonKey } from "./wiki/duplicate-guard.mjs";
 import { buildTaxonomy } from "./wiki/taxonomy.mjs";
 import { applyGlossary } from "./wiki/zh-glossary.mjs";
 import {
@@ -127,6 +127,7 @@ async function readExistingPosts() {
 			if (!fieldMatch) return [];
 			return fieldMatch[1].split(",").map(s => s.trim().replace(/^['\"]|['\"]$/g, "")).filter(Boolean);
 		};
+		const fileSubjectId = entry.name.match(/^bangumi-(\d+)\.md$/)?.[1];
 		posts.push({
 			filePath: fullPath,
 			title: getField("title"),
@@ -140,7 +141,9 @@ async function readExistingPosts() {
 				? path.basename(path.dirname(fullPath))
 				: path.basename(fullPath, ".md"),
 			sourceLink: getField("sourceLink"),
-			identities: postIdentities(raw),
+			identities: postIdentities(raw, {
+				subjectIds: fileSubjectId ? [fileSubjectId] : [],
+			}),
 		});
 	}
 	return posts;
@@ -220,6 +223,17 @@ async function fetchBangumiCharacters(subjectId) {
 		return await fetchJson(`${BANGUMI_API_BASE}/subjects/${subjectId}/characters`);
 	} catch (error) {
 		console.warn(`⚠ Failed to fetch Bangumi characters for ${subjectId}: ${error.message}`);
+		return [];
+	}
+}
+
+/** 关联条目：漫画 / 小说 / 动画改编。失败时当没有，标题查重仍然有效。 */
+async function fetchBangumiRelatedSubjects(subjectId) {
+	try {
+		const data = await fetchJson(`${BANGUMI_API_BASE}/subjects/${subjectId}/subjects`);
+		return Array.isArray(data) ? data : [];
+	} catch (error) {
+		console.warn(`⚠ Failed to fetch Bangumi related subjects for ${subjectId}: ${error.message}`);
 		return [];
 	}
 }
@@ -330,7 +344,7 @@ function slugifyEnglish(name) {
 }
 
 /** Bangumi infobox「别名」里的全部值 */
-function infoboxAliases(detail) {
+export function infoboxAliases(detail) {
 	const item = (Array.isArray(detail?.infobox) ? detail.infobox : []).find((e) => e?.key === "别名");
 	const values = Array.isArray(item?.value) ? item.value : [item?.value];
 	return values.map((v) => (typeof v === "string" ? v : v?.v || "")).filter(Boolean);
@@ -668,7 +682,11 @@ async function main() {
 	let composed = null;
 	for (const item of pool) {
 		const quickHit = findDuplicatePost(
-			{ titleCn: item.subject?.name_cn, titleJp: item.subject?.name },
+			{
+				titleCn: item.subject?.name_cn,
+				titleJp: item.subject?.name,
+				subjectIds: [item.subject_id],
+			},
 			existingPosts,
 		);
 		if (quickHit) {
@@ -677,11 +695,20 @@ async function main() {
 		}
 		console.log(`📝 Generating Bangumi daily post for subject ${item.subject_id}...`);
 		const result = await composeArticle(item, { now });
+		const related = (await fetchBangumiRelatedSubjects(item.subject_id)).filter((row) =>
+			SAME_WORK_RELATIONS.has(row?.relation),
+		);
 		const hit = findDuplicatePost(
 			{
 				titleCn: result.titleCn,
 				titleJp: result.titleJp,
 				encyclopediaTitles: (result.encyclopedia?.sources || []).map((ref) => ref.title),
+				aliases: [
+					...infoboxAliases(result.detail),
+					...related.flatMap((row) => [row.name, row.name_cn]),
+				],
+				subjectIds: [item.subject_id],
+				relatedSubjectIds: related.map((row) => row.id),
 				forms: [result.detail?.platform, ...(result.payload.tags || [])].filter(Boolean),
 			},
 			existingPosts,

@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { buildLongformBody } from "./wiki/longform-layout.mjs";
+import { findDuplicatePost } from "./wiki/duplicate-guard.mjs";
 
 const DEFAULT_MAX_PER_RUN = 1;
 const DEFAULT_FALLBACK_IMAGE = "/assets/anime/default.webp";
@@ -607,6 +608,19 @@ export function selectNextAnimeCandidate({ collections, generatedState, existing
 				.filter(Boolean)
 				.map((name) => normalizeText(name));
 			if (names.some((name) => existing.titles.has(name))) {
+				continue;
+			}
+			// 译名差字、英文 alias、关联漫画条目。快照里往往只有中文名，抓详情前先挡一层。
+			if (
+				findDuplicatePost(
+					{
+						titleCn: item.subject?.name_cn,
+						titleJp: item.subject?.name,
+						subjectIds: [subjectId],
+					},
+					existingPosts,
+				)
+			) {
 				continue;
 			}
 
