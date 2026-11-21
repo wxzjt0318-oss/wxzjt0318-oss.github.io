@@ -338,8 +338,17 @@ describe("article markdown", () => {
 			alias: "test-s2",
 			image: "https://example.org/c.jpg",
 			characters: [
-				{ name: "アレン", name_cn: "亚莲", cv: "某声优", description: "出身农奴的少年。" },
-				{ name: "クレナ", name_cn: "克蕾娜", description: "アレンの幼馴染みです。" },
+				{
+					name: "アレン",
+					name_cn: "亚莲",
+					cv: "某声优",
+					description: "出身农奴的少年。",
+				},
+				{
+					name: "クレナ",
+					name_cn: "克蕾娜",
+					description: "アレンの幼馴染みです。",
+				},
 			],
 			relatedPosts: [{ title: "《测试作品》", alias: "test" }],
 			licenseName: "CC BY 4.0",
@@ -442,7 +451,8 @@ describe("duplicate guard subtitle translations", () => {
 			findDuplicatePost(
 				{
 					titleCn: "地狱模式～喜欢挑战特殊成就的玩家在废设定的异世界成为无双～",
-					titleJp: "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～",
+					titleJp:
+						"ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～",
 				},
 				posts,
 			)?.file,
@@ -474,7 +484,10 @@ describe("duplicate guard subtitle translations", () => {
 			},
 		];
 		assert.equal(
-			findDuplicatePost({ titleCn: "总之就是非常可爱 ～女子高中生篇～" }, posts),
+			findDuplicatePost(
+				{ titleCn: "总之就是非常可爱 ～女子高中生篇～" },
+				posts,
+			),
 			null,
 		);
 	});
@@ -510,5 +523,181 @@ describe("duplicate guard sequels", () => {
 			),
 			null,
 		);
+	});
+});
+
+describe("duplicate guard title variants and related subjects", () => {
+	const polarPost = `---
+title: "《正相反的你与我》"
+tags: ["漫画", "青春恋爱"]
+alias: "you-and-i-are-polar-opposites"
+sourceLink: ""
+---
+
+《正相反的你与我》（日语：正反対な君と僕，英语：You and I Are Polar Opposites）是由阿贺泽红茶创作的青春恋爱漫画。
+`;
+
+	it("matches manga and anime when the Chinese title, Japanese name, English alias or subject id differ", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "you-and-i-are-polar-opposites.md",
+				identities: postIdentities(polarPost),
+			},
+		];
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "相反的你和我", titleJp: "相反的你和我" },
+				posts,
+			)?.file,
+			"you-and-i-are-polar-opposites.md",
+		);
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "另一部作品", titleJp: "正反対な君と僕" },
+				posts,
+			)?.file,
+			"you-and-i-are-polar-opposites.md",
+		);
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "另一部作品",
+					aliases: ["You and I Are Polar Opposites"],
+				},
+				posts,
+			)?.file,
+			"you-and-i-are-polar-opposites.md",
+		);
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "另一部作品",
+					aliases: ["正相反的你与我", "Seihantai na Kimi to Boku"],
+					subjectIds: [525565],
+					relatedSubjectIds: [380821],
+				},
+				posts,
+			)?.file,
+			"you-and-i-are-polar-opposites.md",
+		);
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "相反的你和我 第二季", titleJp: "正反対な君と僕 第2期" },
+				posts,
+			),
+			null,
+		);
+		assert.equal(
+			findDuplicatePost({ titleCn: "冰之城墙", titleJp: "氷の城壁" }, posts),
+			null,
+		);
+	});
+
+	it("matches a related manga subject only when the season is the same installment", async () => {
+		const { findDuplicatePost, postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "manga.md",
+				identities: postIdentities(
+					'---\ntitle: "《正相反的你与我》"\nsourceLink: "https://bgm.tv/subject/380821"\nalias: "you-and-i-are-polar-opposites"\ntags: []\n---\n',
+				),
+			},
+		];
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "一部看起来不同的标题",
+					subjectIds: [525565],
+					relatedSubjectIds: [380821],
+				},
+				posts,
+			)?.file,
+			"manga.md",
+		);
+		assert.equal(
+			findDuplicatePost(
+				{
+					titleCn: "一部看起来不同的标题 第二季",
+					subjectIds: [638497],
+					relatedSubjectIds: [380821],
+				},
+				posts,
+			),
+			null,
+		);
+		assert.equal(
+			findDuplicatePost(
+				{ titleCn: "一部看起来不同的标题", subjectIds: [525565] },
+				[
+					{
+						filePath: "anime.md",
+						identities: postIdentities(
+							'---\ntitle: "《相反的你和我》"\nsourceLink: "https://bgm.tv/subject/525565"\ntags: []\n---\n',
+							{ subjectIds: ["525565"] },
+						),
+					},
+				],
+			)?.file,
+			"anime.md",
+		);
+	});
+
+	it("does not select a subject whose normalized title is already covered", async () => {
+		const { selectNextAnimeCandidate } = await import(
+			"../scripts/bangumi-daily-posts.mjs"
+		);
+		const { postIdentities } = await import(
+			"../scripts/wiki/duplicate-guard.mjs"
+		);
+		const posts = [
+			{
+				filePath: "you-and-i-are-polar-opposites.md",
+				title: "《正相反的你与我》",
+				alias: "you-and-i-are-polar-opposites",
+				sourceLink: "",
+				identities: postIdentities(polarPost),
+			},
+		];
+		const selected = selectNextAnimeCandidate({
+			collections: [
+				{
+					subject_id: 525565,
+					type: 2,
+					subject: {
+						id: 525565,
+						name: "相反的你和我",
+						name_cn: "相反的你和我",
+					},
+				},
+				{
+					subject_id: 638497,
+					type: 2,
+					subject: {
+						id: 638497,
+						name: "相反的你和我 第二季",
+						name_cn: "相反的你和我 第二季",
+					},
+				},
+				{
+					subject_id: 999001,
+					type: 2,
+					subject: {
+						id: 999001,
+						name: "一部完全不同的作品",
+						name_cn: "一部完全不同的作品",
+					},
+				},
+			],
+			generatedState: { generated: [] },
+			existingPosts: posts,
+			maxPerRun: 5,
+		});
+		const ids = selected.map((item) => item.subject_id).sort((a, b) => a - b);
+		assert.deepEqual(ids, [638497, 999001]);
 	});
 });

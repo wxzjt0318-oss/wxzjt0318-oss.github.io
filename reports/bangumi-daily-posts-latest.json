@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-21T14:43:43.432Z",
+  "generatedAt": "2026-11-21T20:22:35.041Z",
   "reviewMode": true,
   "selectedAnime": {
-    "subject_id": 350235,
+    "subject_id": 567234,
     "type": 2,
-    "ep_status": 25,
-    "updated_at": "2024-01-08",
+    "ep_status": 12,
+    "updated_at": "2026-04-07",
     "subject": {
-      "id": 350235,
-      "name": "月光下的异世界之旅 第二幕",
-      "name_cn": "月光下的异世界之旅 第二幕",
-      "date": "2024-01-08",
-      "eps": 25,
-      "short_summary": "曾经因为父母的关系被召唤到异世界的男高中生深澄真，本应作为勇者与魔族战斗。 但是，他被作为召唤主的女神骂道“太丑了”，勇者的称号立即被剥夺。 他被扔到最边远的荒野。 被打上勇者失格烙印的真，在荒野中徘徊，与成为自己随从的上位龙种“蜃”巴，再加上“灾害的黑蜘蛛”澪，开始了异世界重建之旅。 途中，深澄一行反复遭遇各种各样的相遇和离别，打败了在异世界蔓延的恶徒们。 并且，还跨过了由于女神的反复无常而被卷进的魔族战争，他们的旅途在学园中立都市罗茨加德，和两名没见过的勇者一同继续！ 被神和人族抛弃的男人的异世界改造幻想剧第二幕，堂堂开幕！",
+      "id": 567234,
+      "name": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季",
+      "name_cn": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季",
+      "date": "2026-04-07",
+      "eps": 12,
+      "short_summary": "「要是……我成了最差劲的女王，记得杀了我喔。」 普莱朵·罗耶尔·艾比是一位八岁的公主。她察觉到自己前世是个出生在日本普通家庭，随处可见的平凡少女。而现在的她则是女性向游戏中作恶多端的最后头目女王…… 她转生到的是女性向游戏──《你与一线光芒》的世界。在游戏的故事中，普莱朵会成为最恶劣的女王，折磨国家与人民。她注意到自己是这种最后头目后，靠着沉迷游玩游戏的记忆，努力达成只有自己能办到的「避免悲剧」。 避免今后即将发生的悲剧、以所有登场角色都能幸福的世界为目标，为了国家与人民竭尽全力，一流反派公主避免成为最后头目的奇幻故事登场！ [简介原文] 「もし…私が最低な女王になったら、私を殺してね」 8歳の王女プライド・ロイヤル・アイビー。そんな彼女は気付く。前世は日本の一般的な家庭に生まれた、どこにでもいる普通の少女。そして今は乙女ゲームの極悪非道ラスボス女王なのだと…。 転生していたのは、乙女ゲーム「君と一筋の光を」の世界。ゲームのストーリーで、プライドは国と民を苦しめる最悪の女王となる。 そんなラスボスだと気付いた彼女は、ゲームをやりこんだ記憶を頼りに、自分にしかできない“悲劇の回避”を目指…",
       "tags": [
+        {
+          "name": "2026年4月"
+        },
         {
           "name": "异世界"
         },
         {
-          "name": "2024年1月"
-        },
-        {
-          "name": "后宫"
-        },
-        {
-          "name": "轻小说改"
+          "name": "乙女向"
         },
         {
           "name": "TV"
         },
         {
-          "name": "J.C.STAFF"
+          "name": "轻小说改"
+        },
+        {
+          "name": "日本"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ff/35/567234_c36h5.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ff/35/567234_c36h5.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ff/35/567234_c36h5.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/3c/a5/350235_A0USf.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/ff/35/567234_c36h5.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "月光下的异世界之旅 第二幕",
+      "title": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/3c/a5/350235_A0USf.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ff/35/567234_c36h5.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "月光下的异世界之旅 第二幕",
+      "title": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/3c/a5/350235_A0USf.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ff/35/567234_c36h5.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "月光下的异世界之旅 第二幕",
+      "title": "身为悲剧始作俑者的最强邪恶BOSS女王为民竭心尽力。 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-350235.md",
-  "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
+  "outputPath": "/agent/repos/wxzjt0318-oss.github.io/src/content/posts/bangumi-567234.md",
+  "statePath": "/agent/repos/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
