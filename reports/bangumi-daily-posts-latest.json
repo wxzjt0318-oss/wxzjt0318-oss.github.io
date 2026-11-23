@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-23T14:54:51.620Z",
+  "generatedAt": "2026-11-23T18:18:52.562Z",
   "reviewMode": true,
   "selectedAnime": {
-    "subject_id": 411428,
+    "subject_id": 317613,
     "type": 2,
-    "ep_status": 1,
-    "updated_at": "2023-12-22",
+    "ep_status": 0,
+    "updated_at": "2022-04-08",
     "subject": {
-      "id": 411428,
-      "name": "剧场版 间谍过家家 代号：白",
-      "name_cn": "剧场版 间谍过家家 代号：白",
-      "date": "2023-12-22",
-      "eps": 1,
-      "short_summary": "这是世界各国均于暗地里进行激烈情报战的时代。西国的情报局对东科“WISE”的干练特务“黄昏”在像往常一样作为劳埃德·福杰执行任务时，接到了变更进行中的任务“枭”的负责人的指示。然而被选为新负责人的，却是个无能的男人。与此同时，伊甸学园将开展据说优胜者能被授予“星”的烘焙实习。为了尽可能地展现任务“枭”的进展与向“WISE”交涉继续执行任务、为了进一步守护世界和平，劳埃德向阿尼亚·福杰提议制作担任审查员长的校长喜欢的“弗里吉斯地区”的传统点心“美乐美乐”。为了确认正宗的味道，福杰家决定前往弗里吉斯进行家庭旅行。另一方面，约尔在出发前不小心目击到了劳埃德与谜之女性交谈的整个过程，使得这场家庭旅行蒙上了一抹对临时关系的不安。 在家庭旅行的途中，阿尼亚在列车内发现了奇怪的手提箱，而其中不知为何装有巧克力。在阿尼亚感到不可思议之时，手提箱的主人回来了，吓了一跳的阿尼亚不小心误食了那颗巧克力。然而，那颗巧克力却隐藏着会动摇世界和平的重大秘密。而在旅行的目的地，意外事件也接二连三地发生。世界的命运，再次被托付给这临时一家人。",
+      "id": 317613,
+      "name": "辉夜大小姐想让我告白-超级浪漫-",
+      "name_cn": "辉夜大小姐想让我告白-超级浪漫-",
+      "date": "2022-04-08",
+      "eps": 13,
+      "short_summary": "秀知院学园是秀才云集的菁英学校，在学生会中担任学生会副会长·四宫辉夜遇见了学生会长·白银御行。 原以为这两个任谁都觉得很登对的天才应该很快就会在一起，但这两人却因为过高的自尊心导致他们终没能向对方告白。 “该用什么办法才能让对方向自己告白呢？”在这场恋爱头脑战中用尽各种智慧谋略、身经百战的两人，各自在心中下了某个决心。 在秀知院学园高中部的文化祭“奉心祭”的最终日到来前，两人的恋情将会出现巨大的进展。",
       "tags": [
         {
-          "name": "剧场版"
+          "name": "恋爱"
         },
         {
           "name": "搞笑"
         },
         {
-          "name": "WITSTUDIO"
+          "name": "校园"
         },
         {
-          "name": "2023"
+          "name": "A-1Pictures"
         },
         {
-          "name": "CloverWorks"
+          "name": "漫画改"
         },
         {
-          "name": "日常"
+          "name": "2022年4月"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/ec/82/411428_xwKKP.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/ec/82/411428_xwKKP.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/ec/82/411428_xwKKP.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/ec/82/411428_xwKKP.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/cf/9c/317613_bpGX4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 间谍过家家 代号：白",
+      "title": "辉夜大小姐想让我告白-超级浪漫-",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/ec/82/411428_xwKKP.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "剧场版 间谍过家家 代号：白",
+      "title": "辉夜大小姐想让我告白-超级浪漫-",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/ec/82/411428_xwKKP.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cf/9c/317613_bpGX4.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "剧场版 间谍过家家 代号：白",
+      "title": "辉夜大小姐想让我告白-超级浪漫-",
       "score": 80
     }
   ],
-  "outputPath": "/agent/repos/wxzjt0318-oss.github.io/src/content/posts/bangumi-411428.md",
-  "statePath": "/agent/repos/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-317613.md",
+  "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
