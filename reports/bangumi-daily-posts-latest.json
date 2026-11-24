@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-23T18:18:52.562Z",
+  "generatedAt": "2026-11-24T17:52:03.854Z",
   "reviewMode": true,
   "selectedAnime": {
-    "subject_id": 317613,
+    "subject_id": 24508,
     "type": 2,
-    "ep_status": 0,
-    "updated_at": "2022-04-08",
+    "ep_status": 12,
+    "updated_at": "2012-04-09",
     "subject": {
-      "id": 317613,
-      "name": "辉夜大小姐想让我告白-超级浪漫-",
-      "name_cn": "辉夜大小姐想让我告白-超级浪漫-",
-      "date": "2022-04-08",
-      "eps": 13,
-      "short_summary": "秀知院学园是秀才云集的菁英学校，在学生会中担任学生会副会长·四宫辉夜遇见了学生会长·白银御行。 原以为这两个任谁都觉得很登对的天才应该很快就会在一起，但这两人却因为过高的自尊心导致他们终没能向对方告白。 “该用什么办法才能让对方向自己告白呢？”在这场恋爱头脑战中用尽各种智慧谋略、身经百战的两人，各自在心中下了某个决心。 在秀知院学园高中部的文化祭“奉心祭”的最终日到来前，两人的恋情将会出现巨大的进展。",
+      "id": 24508,
+      "name": "潜行吧！奈亚子",
+      "name_cn": "潜行吧！奈亚子",
+      "date": "2012-04-09",
+      "eps": 12,
+      "short_summary": "高中生八坂真寻，在某日晚上忽然间被怪物所袭击，此时出现搭救他的，就是自称克鲁苏神话中旧日支配者之一的银发美少女奈亚拉托提普，即奈亚子。身为宇宙人的她是神话中可以自由变化外表的“无貌之神”，由于其它的宇宙人正准备攻击真寻，所以才会被派遣到地球来保护他。",
       "tags": [
-        {
-          "name": "恋爱"
-        },
         {
           "name": "搞笑"
         },
         {
-          "name": "校园"
+          "name": "潜行吧！奈亚子"
         },
         {
-          "name": "A-1Pictures"
+          "name": "2012年4月"
         },
         {
-          "name": "漫画改"
+          "name": "TV"
         },
         {
-          "name": "2022年4月"
+          "name": "SAN值"
+        },
+        {
+          "name": "轻小说改"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/cf/9c/317613_bpGX4.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/f8/c0/24508_GalOa.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "辉夜大小姐想让我告白-超级浪漫-",
+      "title": "潜行吧！奈亚子",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cf/9c/317613_bpGX4.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "辉夜大小姐想让我告白-超级浪漫-",
+      "title": "潜行吧！奈亚子",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cf/9c/317613_bpGX4.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/f8/c0/24508_GalOa.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "辉夜大小姐想让我告白-超级浪漫-",
+      "title": "潜行吧！奈亚子",
       "score": 80
     }
   ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-317613.md",
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-24508.md",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
