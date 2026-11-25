@@ -1,71 +1,8 @@
 {
-  "generatedAt": "2026-11-24T17:52:03.854Z",
+  "generatedAt": "2026-11-25T17:19:25.542Z",
   "reviewMode": true,
-  "selectedAnime": {
-    "subject_id": 24508,
-    "type": 2,
-    "ep_status": 12,
-    "updated_at": "2012-04-09",
-    "subject": {
-      "id": 24508,
-      "name": "潜行吧！奈亚子",
-      "name_cn": "潜行吧！奈亚子",
-      "date": "2012-04-09",
-      "eps": 12,
-      "short_summary": "高中生八坂真寻，在某日晚上忽然间被怪物所袭击，此时出现搭救他的，就是自称克鲁苏神话中旧日支配者之一的银发美少女奈亚拉托提普，即奈亚子。身为宇宙人的她是神话中可以自由变化外表的“无貌之神”，由于其它的宇宙人正准备攻击真寻，所以才会被派遣到地球来保护他。",
-      "tags": [
-        {
-          "name": "搞笑"
-        },
-        {
-          "name": "潜行吧！奈亚子"
-        },
-        {
-          "name": "2012年4月"
-        },
-        {
-          "name": "TV"
-        },
-        {
-          "name": "SAN值"
-        },
-        {
-          "name": "轻小说改"
-        }
-      ],
-      "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg"
-      }
-    }
-  },
-  "coverCandidates": [
-    {
-      "url": "https://lain.bgm.tv/pic/cover/l/f8/c0/24508_GalOa.jpg",
-      "source": "bangumi-large",
-      "width": 1200,
-      "height": 1700,
-      "title": "潜行吧！奈亚子",
-      "score": 100
-    },
-    {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/f8/c0/24508_GalOa.jpg",
-      "source": "bangumi-large",
-      "width": 1200,
-      "height": 1700,
-      "title": "潜行吧！奈亚子",
-      "score": 100
-    },
-    {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/f8/c0/24508_GalOa.jpg",
-      "source": "bangumi-common",
-      "width": 900,
-      "height": 1280,
-      "title": "潜行吧！奈亚子",
-      "score": 80
-    }
-  ],
-  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-24508.md",
+  "selectedAnime": null,
+  "coverCandidates": [],
+  "outputPath": "",
   "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
