@@ -6,7 +6,8 @@
  *   - fetchArticle(title)           按标题抓取（跟随重定向，过滤消歧页）
  *   - fetchArticleForWork(titles)   依次尝试多个候选标题 + 变体 + 搜索兜底
  *
- * 条目结构：{ site, title, pageUrl, intro, sections: [{ heading, text }], fullText, fetchedAt }
+ * 条目结构：{ site, title, pageUrl, intro, sections: [{ heading, text }], fullText, enwikiTitle, fetchedAt }
+ * enwikiTitle 是英文维基站际链接的页面名（没有则为空字符串），供英文链接兜底。
  * 磁盘缓存：<cacheDir>/<key>.json，默认 7 天 TTL。
  */
 
@@ -166,8 +167,10 @@ export function createMediaWikiClient({
 	async function fetchArticle(title) {
 		const data = await apiGet({
 			action: "query",
-			prop: "extracts|info|pageprops",
+			prop: "extracts|info|pageprops|langlinks",
 			ppprop: "disambiguation",
+			lllang: "en",
+			lllimit: "1",
 			explaintext: "1",
 			exsectionformat: "plain",
 			redirects: "1",
@@ -183,6 +186,7 @@ export function createMediaWikiClient({
 			return null;
 		}
 		const { intro, sections } = parseExtract(page.extract);
+		const enLink = (page.langlinks || []).find((item) => item?.lang === "en");
 		return {
 			site: name,
 			title: page.title,
@@ -190,6 +194,8 @@ export function createMediaWikiClient({
 			intro,
 			sections,
 			fullText: page.extract,
+			// format=json 的 langlinks 标题在 `*`；formatversion=2 在 title
+			enwikiTitle: enLink?.title || enLink?.["*"] || "",
 			fetchedAt: new Date().toISOString(),
 		};
 	}

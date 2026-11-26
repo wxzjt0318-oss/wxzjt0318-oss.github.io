@@ -27,7 +27,7 @@ const client = createMediaWikiClient({
 	userAgent:
 		"wxzjt0318-oss-blog-wiki-fetcher/1.0 (https://github.com/wxzjt0318-oss; content curation)",
 	cacheDir: path.join(ROOT_DIR, ".cache", "wikipedia"),
-	cacheVersion: 1,
+	cacheVersion: 2, // 条目增加 enwikiTitle（英文站际链接）
 	minIntervalMs: 500,
 	extraQueryParams: { variant: "zh-cn" },
 });

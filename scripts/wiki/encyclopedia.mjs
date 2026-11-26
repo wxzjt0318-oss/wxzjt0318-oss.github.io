@@ -54,11 +54,67 @@ export function stripDisambiguation(title) {
 		.trim();
 }
 
-/** 从百科导言的「（日语：…；英语：Xxx）」里取作品英文名，用作文章英文链接 */
+/** 各种横线折成连字符，波浪号折成空格，全角拉丁字母交给 NFKC */
+const UNICODE_DASH = /[\u2010-\u2015\u2212\uFE63\uFF0D]/g;
+const UNICODE_TILDE = /[\u301C\uFF5E~]/g;
+const LATIN_TITLE_RE = /^[A-Za-z0-9][A-Za-z0-9 :;'’!?.,&\-]+$/;
+/** 形式词本身不是作品英文名（「OVA」「2nd Season」） */
+const GENERIC_SLUG_RE =
+	/^(?:the-)?(?:\d+(?:st|nd|rd|th)-)?(?:season|part|movie|film|ova|oad|ona|anime|special|web|tv|sp)(?:-\d+)?$/;
+
+export function normalizeEnglishTitle(value) {
+	return String(value || "")
+		.normalize("NFKC")
+		.replace(UNICODE_DASH, "-")
+		.replace(UNICODE_TILDE, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
+/**
+ * 整段都是拉丁字母（英文名 / 罗马字）才返回规范化后的标题。
+ * 中文、纯数字、条目列表、OVA / Season 这类形式词都返回空字符串，避免编造链接。
+ */
+export function usableEnglishTitle(value) {
+	const name = normalizeEnglishTitle(value);
+	if (!name || name.length < 3 || !LATIN_TITLE_RE.test(name)) return "";
+	if (!/[A-Za-z]/.test(name)) return "";
+	if (/^lists?\s+of\b/i.test(name)) return "";
+	const slug = name
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/^-+|-+$/g, "");
+	if (slug.length < 3 || GENERIC_SLUG_RE.test(slug)) return "";
+	return name;
+}
+
+/**
+ * 从百科导言的「（日语：…；英语：Xxx）」里取作品英文名。
+ * explaintext 经常不带「英语：」标签（语言模板被展成纯英文，或英文名只写在信息框里），
+ * 这时返回空字符串，由 resolveEnglishTitle 改用条目标题或英文维基站际链接。
+ * 「英文名 / 英文名称」也认；Unicode 减号、破折号先折成连字符，避免被字符类丢掉。
+ */
 export function extractEnglishTitle(intro) {
-	const m = String(intro || "").match(/英[语文語]\s*[:：]\s*([A-Za-z0-9][^；;（）()，,、\n]*)/);
+	const text = String(intro || "").normalize("NFKC").replace(UNICODE_DASH, "-");
+	const m = text.match(
+		/英(?:文名称|文名稱|文名|語名|语名|語|语|文)\s*[:：]\s*([A-Za-z0-9][^；;（）()，,、\n]*)/,
+	);
 	const name = m?.[1]?.split("/")[0].trim() || "";
-	return /^[A-Za-z0-9 :;'’!?.,&\-–]+$/.test(name) && name.length >= 3 ? name : "";
+	return usableEnglishTitle(name);
+}
+
+/**
+ * 作品英文名：导言里的「英语：」优先；否则条目标题本身是拉丁文名（如 OVERLORD）；
+ * 再否则用该条目的英文维基站际链接（去掉末尾消歧括号）。都没有就不编造。
+ */
+export function resolveEnglishTitle(article) {
+	if (!article) return "";
+	return (
+		extractEnglishTitle(article.intro) ||
+		usableEnglishTitle(stripDisambiguation(article.title)) ||
+		usableEnglishTitle(stripDisambiguation(article.enwikiTitle)) ||
+		""
+	);
 }
 
 /** 条目是否确实在讲这部作品 */
@@ -127,7 +183,7 @@ export async function fetchWorkEncyclopedia(
 		if (!article) continue;
 
 		let contributed = false;
-		englishTitle ||= extractEnglishTitle(article.intro);
+		englishTitle ||= resolveEnglishTitle(article);
 		const articleIntro = cleanIntro(article);
 		if (!intro && articleIntro.length >= minLength) {
 			intro = articleIntro;

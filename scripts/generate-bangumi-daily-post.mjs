@@ -24,6 +24,7 @@ import {
 	fetchCharacterBio,
 	fetchWorkEncyclopedia,
 	truncateAtSentence,
+	usableEnglishTitle,
 } from "./wiki/encyclopedia.mjs";
 import { baseTitle, findDuplicatePost, postIdentities, SAME_WORK_RELATIONS, seasonKey } from "./wiki/duplicate-guard.mjs";
 import { buildTaxonomy } from "./wiki/taxonomy.mjs";
@@ -351,13 +352,14 @@ export function infoboxAliases(detail) {
 }
 
 /**
- * 文章英文链接：百科导言里的英文名 → Bangumi 别名里的英文名，再按季度 / OVA / 剧场版加后缀。
+ * 文章英文链接：百科解析出的英文名 → Bangumi「别名」里的英文 / 罗马字名
+ * （单词也算，波浪号与异常横线会先规范化），再按季度 / OVA / 剧场版加后缀。
  * 都没有时返回空字符串：调用方跳过该条目，不生成数字链接。
  */
 export function englishAlias({ detail, encyclopedia, titleCn }) {
 	const english =
-		encyclopedia?.englishTitle ||
-		infoboxAliases(detail).find((v) => /^[A-Za-z0-9][A-Za-z0-9 :;'’!?.,&\-–]+$/.test(v) && /\s/.test(v)) ||
+		usableEnglishTitle(encyclopedia?.englishTitle) ||
+		infoboxAliases(detail).map((value) => usableEnglishTitle(value)).find(Boolean) ||
 		"";
 	let base = slugifyEnglish(english);
 	if (base.length < 3) return "";
