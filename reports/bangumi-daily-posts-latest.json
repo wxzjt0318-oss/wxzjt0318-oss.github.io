@@ -1,71 +1,71 @@
 {
-  "generatedAt": "2026-11-26T12:53:16.539Z",
+  "generatedAt": "2026-11-26T16:59:26.609Z",
   "reviewMode": true,
   "selectedAnime": {
-    "subject_id": 112146,
+    "subject_id": 76325,
     "type": 2,
-    "ep_status": 13,
-    "updated_at": "2015-07-07",
+    "ep_status": 10,
+    "updated_at": "2014-04-11",
     "subject": {
-      "id": 112146,
-      "name": "OVERLORD",
-      "name_cn": "OVERLORD",
-      "date": "2015-07-07",
-      "eps": 13,
-      "short_summary": "作品主要讲述了某天，一款掀起大热潮的VRMMORPG「YGGDRASIL」原本会停止一切服务，但即使过了结束时间，玩家也不会退出游戏，NPC也有了各自的思想。现实世界中喜爱电玩的主人公铃木悟（真名）在等待系统强制登出时，与“安兹·乌尔·恭”公会的成员意外穿越到了异世界，并且自己还变成了拥有骷髅外表的最强魔法师——“飞鼠”。就这样，真正的奇幻传说正式拉开帷幕。",
+      "id": 76325,
+      "name": "约会大作战 第二季",
+      "name_cn": "约会大作战 第二季",
+      "date": "2014-04-11",
+      "eps": 10,
+      "short_summary": "空間震を伴い、世界を滅ぼす力を持った精霊。そして、その尋常ならざる精霊の力を封印する能力を持った五河士道。そんな士道の、平穏で健やかな休日の昼下がりを破る、突然の爆発音。それは、再び幕があける、精霊たちとの戦争の前奏曲で…。人気ライトノベルのアニメ化第二期。",
       "tags": [
+        {
+          "name": "后宫"
+        },
+        {
+          "name": "约会大作战"
+        },
         {
           "name": "轻小说改"
         },
         {
-          "name": "MADHouse"
+          "name": "2014年4月"
         },
         {
-          "name": "穿越"
+          "name": "TV"
         },
         {
-          "name": "异世界"
-        },
-        {
-          "name": "2015年7月"
-        },
-        {
-          "name": "网游"
+          "name": "战斗"
         }
       ],
       "images": {
-        "large": "https://lain.bgm.tv/r/800/pic/cover/l/cd/a9/112146_qr9m3.jpg",
-        "common": "https://lain.bgm.tv/r/800/pic/cover/l/cd/a9/112146_qr9m3.jpg",
-        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cd/a9/112146_qr9m3.jpg"
+        "large": "https://lain.bgm.tv/r/800/pic/cover/l/65/55/76325_8yJ4Y.jpg",
+        "common": "https://lain.bgm.tv/r/800/pic/cover/l/65/55/76325_8yJ4Y.jpg",
+        "medium": "https://lain.bgm.tv/r/800/pic/cover/l/65/55/76325_8yJ4Y.jpg"
       }
     }
   },
   "coverCandidates": [
     {
-      "url": "https://lain.bgm.tv/pic/cover/l/cd/a9/112146_qr9m3.jpg",
+      "url": "https://lain.bgm.tv/pic/cover/l/65/55/76325_8yJ4Y.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "OVERLORD",
+      "title": "约会大作战 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/800/pic/cover/l/cd/a9/112146_qr9m3.jpg",
+      "url": "https://lain.bgm.tv/r/800/pic/cover/l/65/55/76325_8yJ4Y.jpg",
       "source": "bangumi-large",
       "width": 1200,
       "height": 1700,
-      "title": "OVERLORD",
+      "title": "约会大作战 第二季",
       "score": 100
     },
     {
-      "url": "https://lain.bgm.tv/r/400/pic/cover/l/cd/a9/112146_qr9m3.jpg",
+      "url": "https://lain.bgm.tv/r/400/pic/cover/l/65/55/76325_8yJ4Y.jpg",
       "source": "bangumi-common",
       "width": 900,
       "height": 1280,
-      "title": "OVERLORD",
+      "title": "约会大作战 第二季",
       "score": 80
     }
   ],
-  "outputPath": "/agent/repos/wxzjt0318-oss.github.io/src/content/posts/bangumi-112146.md",
-  "statePath": "/agent/repos/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
+  "outputPath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/content/posts/bangumi-76325.md",
+  "statePath": "/home/runner/work/wxzjt0318-oss.github.io/wxzjt0318-oss.github.io/src/data/bangumi-posts-state.json"
 }
