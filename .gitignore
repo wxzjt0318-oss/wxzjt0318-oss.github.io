@@ -48,7 +48,7 @@ yarn.lock
 # generated font subsets
 src/assets/fonts/.subset/
 
-# generated local icon collection
+# left behind by versions that wrote the icon collection to disk
 src/generated/local-icon-collections.ts
 *.iml
 
