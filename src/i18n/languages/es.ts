@@ -252,6 +252,8 @@ export const es: Translation = {
 	[Key.calendarPrevMonth]: "Mes anterior",
 	[Key.calendarNextMonth]: "Mes siguiente",
 
+	[Key.markdownTableExpand]: "Ampliar tabla",
+	[Key.markdownTablePreview]: "Vista previa de la tabla",
 	[Key.mermaidControls]: "Controles del diagrama",
 	[Key.mermaidZoomIn]: "Acercar",
 	[Key.mermaidZoomOut]: "Alejar",
